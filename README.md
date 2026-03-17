@@ -24,6 +24,31 @@ package dependencies are specified in the `requirements.txt` file in its root
 directory. For any other dependencies, they are `pip install`ed in the notebooks
 themselves.
 
+## Populating Copyrighted Instrument Items
+
+The BFI item text in the admin session JSONs is `[REDACTED]` because the items
+are copyrighted. To run experiments, you need to obtain the BFI separately and
+populate the admin sessions using the hydration script.
+
+1. Obtain the Big Five Inventory (BFI) from Oliver P. John (see John, O. P.,
+   Donahue, E. M., & Kentle, R. L., 1991).
+2. Create a local items file at `data/bfi_items.json` mapping item IDs to their
+   text. See `scripts/bfi2_items.json.example` for the expected format.
+3. Run the hydration script to produce a usable admin session:
+
+```bash
+python scripts/hydrate_admin_session.py \
+    --admin_session admin_sessions/prod_run_01_external_rating.json \
+    --items data/bfi_items.json \
+    --output admin_sessions/local/prod_run_01_hydrated.json
+```
+
+The `data/` and `admin_sessions/local/` directories are gitignored to prevent
+copyrighted content from being committed.
+
+Note: The IPIP-NEO-300 items are already included in the admin sessions (they
+are public domain).
+
 ## Data
 
 All the test admininistration sessions - which are input for most of the
