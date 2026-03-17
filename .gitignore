@@ -26,3 +26,10 @@ MANIFEST
 results/
 .vscode/settings.json
 analysis/scored_results/
+
+# Local data (copyrighted instruments, raw results)
+data/
+# Populated admin sessions with actual item text
+admin_sessions/local/
+# Project-specific Claude Code instructions (WIP)
+CLAUDE.md

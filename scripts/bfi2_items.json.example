@@ -1,0 +1,55 @@
+{
+  "_comment": "BFI-2 items copyright 2015 by Oliver P. John and Christopher J. Soto. Obtain the BFI-2 from the Colby Personality Lab: http://www.colby.edu/psych/personality-lab/",
+  "_citation": "Soto, C. J., & John, O. P. (2017). The next Big Five Inventory (BFI-2). JPSP, 113, 117-143.",
+  "_stem": "I am someone who...",
+  "items": {
+    "bfi2_1": "[ITEM 1 TEXT]",
+    "bfi2_2": "[ITEM 2 TEXT]",
+    "bfi2_3": "[ITEM 3 TEXT]",
+    "...": "... populate all 60 items from the BFI-2 PDF"
+  },
+  "scales": {
+    "BFI2-EXT": {
+      "user_readable_name": "BFI-2 Extraversion",
+      "item_ids": ["bfi2_1", "bfi2_6", "bfi2_11", "bfi2_16", "bfi2_21", "bfi2_26", "bfi2_31", "bfi2_36", "bfi2_41", "bfi2_46", "bfi2_51", "bfi2_56"],
+      "reverse_keyed_item_ids": ["bfi2_11", "bfi2_16", "bfi2_26", "bfi2_31", "bfi2_36", "bfi2_51"]
+    },
+    "BFI2-AGR": {
+      "user_readable_name": "BFI-2 Agreeableness",
+      "item_ids": ["bfi2_2", "bfi2_7", "bfi2_12", "bfi2_17", "bfi2_22", "bfi2_27", "bfi2_32", "bfi2_37", "bfi2_42", "bfi2_47", "bfi2_52", "bfi2_57"],
+      "reverse_keyed_item_ids": ["bfi2_12", "bfi2_17", "bfi2_22", "bfi2_37", "bfi2_42", "bfi2_47"]
+    },
+    "BFI2-CON": {
+      "user_readable_name": "BFI-2 Conscientiousness",
+      "item_ids": ["bfi2_3", "bfi2_8", "bfi2_13", "bfi2_18", "bfi2_23", "bfi2_28", "bfi2_33", "bfi2_38", "bfi2_43", "bfi2_48", "bfi2_53", "bfi2_58"],
+      "reverse_keyed_item_ids": ["bfi2_3", "bfi2_8", "bfi2_23", "bfi2_28", "bfi2_48", "bfi2_58"]
+    },
+    "BFI2-NEU": {
+      "user_readable_name": "BFI-2 Negative Emotionality",
+      "item_ids": ["bfi2_4", "bfi2_9", "bfi2_14", "bfi2_19", "bfi2_24", "bfi2_29", "bfi2_34", "bfi2_39", "bfi2_44", "bfi2_49", "bfi2_54", "bfi2_59"],
+      "reverse_keyed_item_ids": ["bfi2_4", "bfi2_9", "bfi2_24", "bfi2_29", "bfi2_44", "bfi2_49"]
+    },
+    "BFI2-OPE": {
+      "user_readable_name": "BFI-2 Open-Mindedness",
+      "item_ids": ["bfi2_5", "bfi2_10", "bfi2_15", "bfi2_20", "bfi2_25", "bfi2_30", "bfi2_35", "bfi2_40", "bfi2_45", "bfi2_50", "bfi2_55", "bfi2_60"],
+      "reverse_keyed_item_ids": ["bfi2_5", "bfi2_25", "bfi2_30", "bfi2_45", "bfi2_50", "bfi2_55"]
+    }
+  },
+  "facets": {
+    "Sociability": {"item_ids": ["bfi2_1", "bfi2_16", "bfi2_31", "bfi2_46"], "reverse_keyed_item_ids": ["bfi2_16", "bfi2_31"]},
+    "Assertiveness": {"item_ids": ["bfi2_6", "bfi2_21", "bfi2_36", "bfi2_51"], "reverse_keyed_item_ids": ["bfi2_36", "bfi2_51"]},
+    "Energy Level": {"item_ids": ["bfi2_11", "bfi2_26", "bfi2_41", "bfi2_56"], "reverse_keyed_item_ids": ["bfi2_11", "bfi2_26"]},
+    "Compassion": {"item_ids": ["bfi2_2", "bfi2_17", "bfi2_32", "bfi2_47"], "reverse_keyed_item_ids": ["bfi2_17", "bfi2_47"]},
+    "Respectfulness": {"item_ids": ["bfi2_7", "bfi2_22", "bfi2_37", "bfi2_52"], "reverse_keyed_item_ids": ["bfi2_22", "bfi2_37"]},
+    "Trust": {"item_ids": ["bfi2_12", "bfi2_27", "bfi2_42", "bfi2_57"], "reverse_keyed_item_ids": ["bfi2_12", "bfi2_42"]},
+    "Organization": {"item_ids": ["bfi2_3", "bfi2_18", "bfi2_33", "bfi2_48"], "reverse_keyed_item_ids": ["bfi2_3", "bfi2_48"]},
+    "Productiveness": {"item_ids": ["bfi2_8", "bfi2_23", "bfi2_38", "bfi2_53"], "reverse_keyed_item_ids": ["bfi2_8", "bfi2_23"]},
+    "Responsibility": {"item_ids": ["bfi2_13", "bfi2_28", "bfi2_43", "bfi2_58"], "reverse_keyed_item_ids": ["bfi2_28", "bfi2_58"]},
+    "Anxiety": {"item_ids": ["bfi2_4", "bfi2_19", "bfi2_34", "bfi2_49"], "reverse_keyed_item_ids": ["bfi2_4", "bfi2_49"]},
+    "Depression": {"item_ids": ["bfi2_9", "bfi2_24", "bfi2_39", "bfi2_54"], "reverse_keyed_item_ids": ["bfi2_9", "bfi2_24"]},
+    "Emotional Volatility": {"item_ids": ["bfi2_14", "bfi2_29", "bfi2_44", "bfi2_59"], "reverse_keyed_item_ids": ["bfi2_29", "bfi2_44"]},
+    "Intellectual Curiosity": {"item_ids": ["bfi2_10", "bfi2_25", "bfi2_40", "bfi2_55"], "reverse_keyed_item_ids": ["bfi2_25", "bfi2_55"]},
+    "Aesthetic Sensitivity": {"item_ids": ["bfi2_5", "bfi2_20", "bfi2_35", "bfi2_50"], "reverse_keyed_item_ids": ["bfi2_5", "bfi2_50"]},
+    "Creative Imagination": {"item_ids": ["bfi2_15", "bfi2_30", "bfi2_45", "bfi2_60"], "reverse_keyed_item_ids": ["bfi2_30", "bfi2_45"]}
+  }
+}
