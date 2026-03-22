@@ -27,6 +27,12 @@ results/
 .vscode/settings.json
 analysis/scored_results/
 
+# Environment variables / secrets
+.env
+
+# Virtual environment
+venv/
+
 # Local data (copyrighted instruments, raw results)
 data/
 # Populated admin sessions with actual item text
