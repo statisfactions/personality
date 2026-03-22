@@ -15,6 +15,7 @@ Example usage:
 
 import argparse
 import json
+import math
 import os
 import subprocess
 import sys
@@ -84,13 +85,17 @@ def get_api_key():
 def curl_chat_completion(model, messages, api_key, timeout=120):
     """Call the Ollama OpenAI-compatible chat endpoint via curl.
 
-    Returns the assistant's response content string, or None on failure.
+    Returns (content_string, logprobs_list) or (None, None) on failure.
+    logprobs_list is the per-token logprobs array from the response, where
+    each entry has 'token', 'logprob', and 'top_logprobs'.
     """
     payload = {
         "model": model,
         "messages": messages,
         "temperature": 0,
         "stream": False,
+        "logprobs": True,
+        "top_logprobs": 20,
     }
     payload_json = json.dumps(payload, separators=(",", ":"))
 
@@ -105,24 +110,55 @@ def curl_chat_completion(model, messages, api_key, timeout=120):
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        return None
+        return None, None
 
     try:
         data = json.loads(result.stdout)
-        return data["choices"][0]["message"]["content"]
+        choice = data["choices"][0]
+        content = choice["message"]["content"]
+        logprobs = choice.get("logprobs", {}).get("content", [])
+        return content, logprobs
     except (json.JSONDecodeError, KeyError, IndexError):
-        return None
+        return None, None
 
 
 def query_with_retry(model, messages, api_key, max_retries=3, timeout=120):
     """Retry wrapper around curl_chat_completion."""
     for attempt in range(max_retries):
-        response = curl_chat_completion(model, messages, api_key, timeout)
-        if response is not None:
-            return response
+        content, logprobs = curl_chat_completion(
+            model, messages, api_key, timeout)
+        if content is not None:
+            return content, logprobs
         if attempt < max_retries - 1:
             time.sleep(2 ** attempt)
-    return None
+    return None, None
+
+
+def extract_option_logprobs(logprobs_list, continuations):
+    """Extract log-probabilities for each valid continuation from first token.
+
+    Since Likert options (e.g. "1"-"5") are single tokens, we look at the
+    first token's top_logprobs to find the probability of each option.
+
+    Returns (option_logprobs, valid_mass) where:
+        option_logprobs: dict mapping each continuation to its log-probability
+            (or None if the option wasn't in top_logprobs).
+        valid_mass: float, sum of probabilities for valid continuations
+            (0.0–1.0). Indicates how much of the model's distribution is on
+            valid Likert options vs. nonsense/non-compliant tokens.
+    """
+    if not logprobs_list:
+        return {c: None for c in continuations}, None
+
+    first_token = logprobs_list[0]
+    top = {entry["token"]: entry["logprob"]
+           for entry in first_token.get("top_logprobs", [])}
+
+    option_lps = {c: top.get(c, None) for c in continuations}
+    valid_mass = sum(
+        math.exp(lp) for lp in option_lps.values() if lp is not None)
+
+    return option_lps, valid_mass
 
 
 # --- Inference logic ---
@@ -133,7 +169,9 @@ def constrained_choice(prompt_text, continuations, model, api_key, timeout=120):
     Constructs a chat message with the survey prompt and a system instruction
     constraining the model to respond with one of the provided choices verbatim.
 
-    Returns the chosen continuation string, or None if parsing fails.
+    Returns (chosen_continuation, option_logprobs_dict) where
+    option_logprobs_dict maps each continuation to its log-probability.
+    Returns (None, {}) if the request fails entirely.
     """
     choices_str = "\n".join(f"- {c}" for c in continuations)
     system_msg = (
@@ -149,27 +187,35 @@ def constrained_choice(prompt_text, continuations, model, api_key, timeout=120):
         {"role": "user", "content": prompt_text},
     ]
 
-    raw = query_with_retry(model, messages, api_key, timeout=timeout)
+    raw, logprobs_list = query_with_retry(
+        model, messages, api_key, timeout=timeout)
+    if logprobs_list:
+        option_lps, valid_mass = extract_option_logprobs(
+            logprobs_list, continuations)
+    else:
+        option_lps = {c: None for c in continuations}
+        valid_mass = None
+
     if raw is None:
-        return None
+        return None, option_lps, valid_mass
 
     # Try exact match first
     stripped = raw.strip()
     if stripped in continuations:
-        return stripped
+        return stripped, option_lps, valid_mass
 
     # Fuzzy: check if any continuation is contained in the response
     stripped_lower = stripped.lower()
     for c in continuations:
         if c.lower() in stripped_lower:
-            return c
+            return c, option_lps, valid_mass
 
     # Last resort: check if response starts with a continuation
     for c in continuations:
         if stripped_lower.startswith(c.lower()):
-            return c
+            return c, option_lps, valid_mass
 
-    return None
+    return None, option_lps, valid_mass
 
 
 def administer_session_ollama(payload_df, model, api_key, timeout=120):
@@ -199,22 +245,28 @@ def administer_session_ollama(payload_df, model, api_key, timeout=120):
         print(f"Working on continuations [{', '.join(continuations)}]")
 
         model_answers = []
+        all_logprobs = []
+        all_valid_mass = []
         failed = 0
         for prompt in tqdm(grouped_df['prompt_text'], leave=True,
                            desc="Prompts"):
-            answer = constrained_choice(
+            answer, option_lps, valid_mass = constrained_choice(
                 prompt, continuations, model, api_key, timeout=timeout)
             if answer is None:
                 failed += 1
                 # Fall back to middle option
                 answer = continuations[len(continuations) // 2]
             model_answers.append(answer)
+            all_logprobs.append(option_lps)
+            all_valid_mass.append(valid_mass)
 
         if failed > 0:
             print(f"  Warning: {failed}/{len(grouped_df)} prompts failed to "
                   f"parse; used middle option as fallback.")
 
         grouped_df['model_output'] = model_answers
+        grouped_df['option_logprobs'] = all_logprobs
+        grouped_df['valid_prob_mass'] = all_valid_mass
         scored_dfs.append(grouped_df)
 
     return pd.concat(scored_dfs).sort_index()
