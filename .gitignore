@@ -26,6 +26,7 @@ MANIFEST
 results/
 .vscode/settings.json
 analysis/scored_results/
+.claude
 
 # Environment variables / secrets
 .env
@@ -41,4 +42,7 @@ admin_sessions/local/
 notes_background/
 # Project-specific Claude Code instructions (WIP)
 CLAUDE.md
+.claude/
+# Other local context
+local/
 mirt/

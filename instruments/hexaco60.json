@@ -1,0 +1,138 @@
+{
+  "instrument": "HEXACO-PI-R (60-item version)",
+  "citation": "Ashton, M. C., & Lee, K. (2009). The HEXACO-60: A short measure of the major dimensions of personality. Journal of Personality Assessment, 91(4), 340-345.",
+  "source_url": "https://hexaco.org/hexaco-inventory",
+  "license": "Free for non-profit academic research use",
+  "response_scale": "1 = strongly disagree, 2 = disagree, 3 = neutral (neither agree nor disagree), 4 = agree, 5 = strongly agree",
+  "scoring_notes": "For reverse-keyed items (R), recode responses: 5->1, 4->2, 3->3, 2->4, 1->5. Scale scores are computed as the mean of all (recoded where applicable) items belonging to that scale.",
+  "items": {
+    "hex1":  {"text": "I would be quite bored by a visit to an art gallery.", "scale": "O", "facet": "Aesthetic Appreciation", "reverse_keyed": true},
+    "hex2":  {"text": "I plan ahead and organize things, to avoid scrambling at the last minute.", "scale": "C", "facet": "Organization", "reverse_keyed": false},
+    "hex3":  {"text": "I rarely hold a grudge, even against people who have badly wronged me.", "scale": "A", "facet": "Forgiveness", "reverse_keyed": false},
+    "hex4":  {"text": "I feel reasonably satisfied with myself overall.", "scale": "X", "facet": "Social Self-Esteem", "reverse_keyed": false},
+    "hex5":  {"text": "I would feel afraid if I had to travel in bad weather conditions.", "scale": "E", "facet": "Fearfulness", "reverse_keyed": false},
+    "hex6":  {"text": "I wouldn't use flattery to get a raise or promotion at work, even if I thought it would succeed.", "scale": "H", "facet": "Sincerity", "reverse_keyed": false},
+    "hex7":  {"text": "I'm interested in learning about the history and politics of other countries.", "scale": "O", "facet": "Inquisitiveness", "reverse_keyed": false},
+    "hex8":  {"text": "I often push myself very hard when trying to achieve a goal.", "scale": "C", "facet": "Diligence", "reverse_keyed": false},
+    "hex9":  {"text": "People sometimes tell me that I am too critical of others.", "scale": "A", "facet": "Gentleness", "reverse_keyed": true},
+    "hex10": {"text": "I rarely express my opinions in group meetings.", "scale": "X", "facet": "Social Boldness", "reverse_keyed": true},
+    "hex11": {"text": "I sometimes can't help worrying about little things.", "scale": "E", "facet": "Anxiety", "reverse_keyed": false},
+    "hex12": {"text": "If I knew that I could never get caught, I would be willing to steal a million dollars.", "scale": "H", "facet": "Fairness", "reverse_keyed": true},
+    "hex13": {"text": "I would enjoy creating a work of art, such as a novel, a song, or a painting.", "scale": "O", "facet": "Creativity", "reverse_keyed": false},
+    "hex14": {"text": "When working on something, I don't pay much attention to small details.", "scale": "C", "facet": "Perfectionism", "reverse_keyed": true},
+    "hex15": {"text": "People sometimes tell me that I'm too stubborn.", "scale": "A", "facet": "Flexibility", "reverse_keyed": true},
+    "hex16": {"text": "I prefer jobs that involve active social interaction to those that involve working alone.", "scale": "X", "facet": "Sociability", "reverse_keyed": false},
+    "hex17": {"text": "When I suffer from a painful experience, I need someone to make me feel comfortable.", "scale": "E", "facet": "Dependence", "reverse_keyed": false},
+    "hex18": {"text": "Having a lot of money is not especially important to me.", "scale": "H", "facet": "Greed Avoidance", "reverse_keyed": false},
+    "hex19": {"text": "I think that paying attention to radical ideas is a waste of time.", "scale": "O", "facet": "Unconventionality", "reverse_keyed": true},
+    "hex20": {"text": "I make decisions based on the feeling of the moment rather than on careful thought.", "scale": "C", "facet": "Prudence", "reverse_keyed": true},
+    "hex21": {"text": "People think of me as someone who has a quick temper.", "scale": "A", "facet": "Patience", "reverse_keyed": true},
+    "hex22": {"text": "On most days, I feel cheerful and optimistic.", "scale": "X", "facet": "Liveliness", "reverse_keyed": false},
+    "hex23": {"text": "I feel like crying when I see other people crying.", "scale": "E", "facet": "Sentimentality", "reverse_keyed": false},
+    "hex24": {"text": "I think that I am entitled to more respect than the average person is.", "scale": "H", "facet": "Modesty", "reverse_keyed": true},
+    "hex25": {"text": "If I had the opportunity, I would like to attend a classical music concert.", "scale": "O", "facet": "Aesthetic Appreciation", "reverse_keyed": false},
+    "hex26": {"text": "When working, I sometimes have difficulties due to being disorganized.", "scale": "C", "facet": "Organization", "reverse_keyed": true},
+    "hex27": {"text": "My attitude toward people who have treated me badly is 'forgive and forget'.", "scale": "A", "facet": "Forgiveness", "reverse_keyed": false},
+    "hex28": {"text": "I feel that I am an unpopular person.", "scale": "X", "facet": "Social Self-Esteem", "reverse_keyed": true},
+    "hex29": {"text": "When it comes to physical danger, I am very fearful.", "scale": "E", "facet": "Fearfulness", "reverse_keyed": false},
+    "hex30": {"text": "If I want something from someone, I will laugh at that person's worst jokes.", "scale": "H", "facet": "Sincerity", "reverse_keyed": true},
+    "hex31": {"text": "I've never really enjoyed looking through an encyclopedia.", "scale": "O", "facet": "Inquisitiveness", "reverse_keyed": true},
+    "hex32": {"text": "I do only the minimum amount of work needed to get by.", "scale": "C", "facet": "Diligence", "reverse_keyed": true},
+    "hex33": {"text": "I tend to be lenient in judging other people.", "scale": "A", "facet": "Gentleness", "reverse_keyed": false},
+    "hex34": {"text": "In social situations, I'm usually the one who makes the first move.", "scale": "X", "facet": "Social Boldness", "reverse_keyed": false},
+    "hex35": {"text": "I worry a lot less than most people do.", "scale": "E", "facet": "Anxiety", "reverse_keyed": true},
+    "hex36": {"text": "I would never accept a bribe, even if it were very large.", "scale": "H", "facet": "Fairness", "reverse_keyed": false},
+    "hex37": {"text": "People have often told me that I have a good imagination.", "scale": "O", "facet": "Creativity", "reverse_keyed": false},
+    "hex38": {"text": "I always try to be accurate in my work, even at the expense of time.", "scale": "C", "facet": "Perfectionism", "reverse_keyed": false},
+    "hex39": {"text": "I am usually quite flexible in my opinions when people disagree with me.", "scale": "A", "facet": "Flexibility", "reverse_keyed": false},
+    "hex40": {"text": "The first thing that I always do in a new place is to make friends.", "scale": "X", "facet": "Sociability", "reverse_keyed": false},
+    "hex41": {"text": "I can handle difficult situations without needing emotional support from anyone else.", "scale": "E", "facet": "Dependence", "reverse_keyed": true},
+    "hex42": {"text": "I would get a lot of pleasure from owning expensive luxury goods.", "scale": "H", "facet": "Greed Avoidance", "reverse_keyed": true},
+    "hex43": {"text": "I like people who have unconventional views.", "scale": "O", "facet": "Unconventionality", "reverse_keyed": false},
+    "hex44": {"text": "I make a lot of mistakes because I don't think before I act.", "scale": "C", "facet": "Prudence", "reverse_keyed": true},
+    "hex45": {"text": "Most people tend to get angry more quickly than I do.", "scale": "A", "facet": "Patience", "reverse_keyed": false},
+    "hex46": {"text": "Most people are more upbeat and dynamic than I generally am.", "scale": "X", "facet": "Liveliness", "reverse_keyed": true},
+    "hex47": {"text": "I feel strong emotions when someone close to me is going away for a long time.", "scale": "E", "facet": "Sentimentality", "reverse_keyed": false},
+    "hex48": {"text": "I want people to know that I am an important person of high status.", "scale": "H", "facet": "Modesty", "reverse_keyed": true},
+    "hex49": {"text": "I don't think of myself as the artistic or creative type.", "scale": "O", "facet": "Creativity", "reverse_keyed": true},
+    "hex50": {"text": "People often call me a perfectionist.", "scale": "C", "facet": "Perfectionism", "reverse_keyed": false},
+    "hex51": {"text": "Even when people make a lot of mistakes, I rarely say anything negative.", "scale": "A", "facet": "Gentleness", "reverse_keyed": false},
+    "hex52": {"text": "I sometimes feel that I am a worthless person.", "scale": "X", "facet": "Social Self-Esteem", "reverse_keyed": true},
+    "hex53": {"text": "Even in an emergency I wouldn't feel like panicking.", "scale": "E", "facet": "Fearfulness", "reverse_keyed": true},
+    "hex54": {"text": "I wouldn't pretend to like someone just to get that person to do favors for me.", "scale": "H", "facet": "Sincerity", "reverse_keyed": false},
+    "hex55": {"text": "I find it boring to discuss philosophy.", "scale": "O", "facet": "Unconventionality", "reverse_keyed": true},
+    "hex56": {"text": "I prefer to do whatever comes to mind, rather than stick to a plan.", "scale": "C", "facet": "Prudence", "reverse_keyed": true},
+    "hex57": {"text": "When people tell me that I'm wrong, my first reaction is to argue with them.", "scale": "A", "facet": "Flexibility", "reverse_keyed": true},
+    "hex58": {"text": "When I'm in a group of people, I'm often the one who speaks on behalf of the group.", "scale": "X", "facet": "Social Boldness", "reverse_keyed": false},
+    "hex59": {"text": "I remain unemotional even in situations where most people get very sentimental.", "scale": "E", "facet": "Sentimentality", "reverse_keyed": true},
+    "hex60": {"text": "I'd be tempted to use counterfeit money, if I were sure I could get away with it.", "scale": "H", "facet": "Fairness", "reverse_keyed": true}
+  },
+  "scales": {
+    "H": {
+      "name": "Honesty-Humility",
+      "facets": {
+        "Sincerity":       {"item_ids": ["hex6", "hex30", "hex54"], "reverse_keyed_item_ids": ["hex30"]},
+        "Fairness":        {"item_ids": ["hex12", "hex36", "hex60"], "reverse_keyed_item_ids": ["hex12", "hex60"]},
+        "Greed Avoidance": {"item_ids": ["hex18", "hex42"],         "reverse_keyed_item_ids": ["hex42"]},
+        "Modesty":         {"item_ids": ["hex24", "hex48"],         "reverse_keyed_item_ids": ["hex24", "hex48"]}
+      },
+      "item_ids": ["hex6", "hex12", "hex18", "hex24", "hex30", "hex36", "hex42", "hex48", "hex54", "hex60"],
+      "reverse_keyed_item_ids": ["hex12", "hex24", "hex30", "hex42", "hex48", "hex60"]
+    },
+    "E": {
+      "name": "Emotionality",
+      "facets": {
+        "Fearfulness":    {"item_ids": ["hex5", "hex29", "hex53"],  "reverse_keyed_item_ids": ["hex53"]},
+        "Anxiety":        {"item_ids": ["hex11", "hex35"],          "reverse_keyed_item_ids": ["hex35"]},
+        "Dependence":     {"item_ids": ["hex17", "hex41"],          "reverse_keyed_item_ids": ["hex41"]},
+        "Sentimentality": {"item_ids": ["hex23", "hex47", "hex59"],"reverse_keyed_item_ids": ["hex59"]}
+      },
+      "item_ids": ["hex5", "hex11", "hex17", "hex23", "hex29", "hex35", "hex41", "hex47", "hex53", "hex59"],
+      "reverse_keyed_item_ids": ["hex35", "hex41", "hex53", "hex59"]
+    },
+    "X": {
+      "name": "Extraversion",
+      "facets": {
+        "Social Self-Esteem": {"item_ids": ["hex4", "hex28", "hex52"],  "reverse_keyed_item_ids": ["hex28", "hex52"]},
+        "Social Boldness":    {"item_ids": ["hex10", "hex34", "hex58"], "reverse_keyed_item_ids": ["hex10"]},
+        "Sociability":        {"item_ids": ["hex16", "hex40"],          "reverse_keyed_item_ids": []},
+        "Liveliness":         {"item_ids": ["hex22", "hex46"],          "reverse_keyed_item_ids": ["hex46"]}
+      },
+      "item_ids": ["hex4", "hex10", "hex16", "hex22", "hex28", "hex34", "hex40", "hex46", "hex52", "hex58"],
+      "reverse_keyed_item_ids": ["hex10", "hex28", "hex46", "hex52"]
+    },
+    "A": {
+      "name": "Agreeableness",
+      "facets": {
+        "Forgiveness":  {"item_ids": ["hex3", "hex27"],           "reverse_keyed_item_ids": []},
+        "Gentleness":   {"item_ids": ["hex9", "hex33", "hex51"], "reverse_keyed_item_ids": ["hex9"]},
+        "Flexibility":  {"item_ids": ["hex15", "hex39", "hex57"],"reverse_keyed_item_ids": ["hex15", "hex57"]},
+        "Patience":     {"item_ids": ["hex21", "hex45"],          "reverse_keyed_item_ids": ["hex21"]}
+      },
+      "item_ids": ["hex3", "hex9", "hex15", "hex21", "hex27", "hex33", "hex39", "hex45", "hex51", "hex57"],
+      "reverse_keyed_item_ids": ["hex9", "hex15", "hex21", "hex57"]
+    },
+    "C": {
+      "name": "Conscientiousness",
+      "facets": {
+        "Organization":  {"item_ids": ["hex2", "hex26"],           "reverse_keyed_item_ids": ["hex26"]},
+        "Diligence":     {"item_ids": ["hex8", "hex32"],           "reverse_keyed_item_ids": ["hex32"]},
+        "Perfectionism": {"item_ids": ["hex14", "hex38", "hex50"],"reverse_keyed_item_ids": ["hex14"]},
+        "Prudence":      {"item_ids": ["hex20", "hex44", "hex56"],"reverse_keyed_item_ids": ["hex20", "hex44", "hex56"]}
+      },
+      "item_ids": ["hex2", "hex8", "hex14", "hex20", "hex26", "hex32", "hex38", "hex44", "hex50", "hex56"],
+      "reverse_keyed_item_ids": ["hex14", "hex20", "hex26", "hex32", "hex44", "hex56"]
+    },
+    "O": {
+      "name": "Openness to Experience",
+      "facets": {
+        "Aesthetic Appreciation": {"item_ids": ["hex1", "hex25"],           "reverse_keyed_item_ids": ["hex1"]},
+        "Inquisitiveness":        {"item_ids": ["hex7", "hex31"],           "reverse_keyed_item_ids": ["hex31"]},
+        "Creativity":             {"item_ids": ["hex13", "hex37", "hex49"],"reverse_keyed_item_ids": ["hex49"]},
+        "Unconventionality":      {"item_ids": ["hex19", "hex43", "hex55"],"reverse_keyed_item_ids": ["hex19", "hex55"]}
+      },
+      "item_ids": ["hex1", "hex7", "hex13", "hex19", "hex25", "hex31", "hex37", "hex43", "hex49", "hex55"],
+      "reverse_keyed_item_ids": ["hex1", "hex19", "hex31", "hex49", "hex55"]
+    }
+  }
+}
