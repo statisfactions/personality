@@ -55,7 +55,6 @@ def load_model(model_name, device="mps"):
         model_name,
         dtype=torch.float16,
         device_map=device,
-        output_hidden_states=True,
     )
     model.eval()
     print(f"  Loaded on {device}, {sum(p.numel() for p in model.parameters())/1e9:.1f}B params")
@@ -70,7 +69,7 @@ def get_hidden_states(model, tokenizer, text, device="mps"):
     """
     inputs = tokenizer(text, return_tensors="pt").to(device)
     with torch.no_grad():
-        outputs = model(**inputs)
+        outputs = model(**inputs, output_hidden_states=True)
 
     # hidden_states is a tuple of (n_layers+1,) tensors, each (batch, seq_len, hidden_dim)
     # [0] is embeddings, [1:] are layer outputs
@@ -133,15 +132,18 @@ def extract_trait_direction(model, tokenizer, trait_data, device="mps", verbose=
         mean_diff = layer_diffs.mean(dim=0)
         centered = layer_diffs - mean_diff
 
-        # PCA via SVD
-        U, S, Vt = torch.linalg.svd(centered, full_matrices=False)
-
-        # PC1 direction
-        directions[layer] = Vt[0]
-
-        # Fraction of variance explained by PC1
-        total_var = (S ** 2).sum()
-        explained_variance[layer] = (S[0] ** 2) / total_var if total_var > 0 else 0
+        # PCA via SVD (use float64 for numerical stability)
+        try:
+            _, S, Vt = torch.linalg.svd(centered.double(), full_matrices=False)
+            directions[layer] = Vt[0].float()
+            total_var = (S ** 2).sum()
+            explained_variance[layer] = (S[0] ** 2) / total_var if total_var > 0 else 0
+        except torch._C._LinAlgError:
+            # SVD failed (ill-conditioned) — use mean diff as fallback direction
+            fallback = layer_diffs.mean(dim=0)
+            norm = fallback.norm()
+            directions[layer] = fallback / norm if norm > 0 else fallback
+            explained_variance[layer] = 0.0
 
     return directions, explained_variance, diffs.mean(dim=0)  # also return mean diff
 
