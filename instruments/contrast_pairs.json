@@ -106,6 +106,156 @@
           "situation": "You're asked your opinion about a popular new restaurant that you thought was overpriced and mediocre.",
           "high": "I would share my honest assessment without being needlessly harsh.",
           "low": "I would rave about it — saying you like popular things makes people like you."
+        },
+        {
+          "situation": "You're selling your car and the buyer doesn't ask about a known mechanical issue that's intermittent.",
+          "high": "I would disclose the issue upfront, even if it lowers the price.",
+          "low": "I would stay quiet — they didn't ask, and it's their job to get an inspection."
+        },
+        {
+          "situation": "A coworker confides that they're planning to leave the company. Your manager later asks if you know anything about that person's plans.",
+          "high": "I would tell my manager I'm not comfortable sharing someone else's private information.",
+          "low": "I would share what I know — it could earn me goodwill with management."
+        },
+        {
+          "situation": "You're on a dating app and your recent photos aren't as flattering as older ones.",
+          "high": "I would use current photos that accurately represent how I look now.",
+          "low": "I would use the best photos regardless of when they were taken — everyone does it."
+        },
+        {
+          "situation": "You accidentally damage a product in a store and nobody saw it happen.",
+          "high": "I would bring it to a staff member and offer to pay for it.",
+          "low": "I would put it back on the shelf and walk away — the store has insurance for that."
+        },
+        {
+          "situation": "You're splitting a restaurant bill with friends and you ordered the most expensive items.",
+          "high": "I would offer to pay more than an even split since I ordered more.",
+          "low": "I would suggest splitting evenly — it's simpler and saves me money."
+        },
+        {
+          "situation": "You realize the freelancer you hired undercharged you significantly for a project.",
+          "high": "I would let them know and pay them what the work is actually worth.",
+          "low": "I would pay the quoted price — a deal is a deal."
+        },
+        {
+          "situation": "Your child asks you about a personal failure from your past.",
+          "high": "I would tell them the truth, including the parts that don't make me look good.",
+          "low": "I would reshape the story so I come across as more admirable."
+        },
+        {
+          "situation": "You're at a community meeting and people are praising a project you were only marginally involved in.",
+          "high": "I would clarify my actual role and credit the people who did most of the work.",
+          "low": "I would accept the praise graciously — being associated with success is valuable."
+        },
+        {
+          "situation": "A friend asks to copy your answers on an online certification exam.",
+          "high": "I would decline — the certification should reflect their own knowledge.",
+          "low": "I would share the answers — it doesn't hurt me and they'll remember the favor."
+        },
+        {
+          "situation": "You find out a local charity you've been publicly supporting has some questionable spending practices.",
+          "high": "I would stop endorsing them and be honest about why if people ask.",
+          "low": "I would quietly distance myself but not say anything that might reflect badly on me for having supported them."
+        },
+        {
+          "situation": "You're negotiating the price of a used item from a private seller who clearly doesn't know what it's worth.",
+          "high": "I would offer a fair price based on actual market value.",
+          "low": "I would negotiate as low as possible — it's their job to know what they're selling."
+        },
+        {
+          "situation": "A classmate in a group project did almost no work, but the professor asks everyone to evaluate contributions equally.",
+          "high": "I would give an honest evaluation of everyone's contributions.",
+          "low": "I would rate everyone equally to avoid conflict and keep the social peace."
+        },
+        {
+          "situation": "You overhear two colleagues planning to take a shortcut on a safety procedure to save time.",
+          "high": "I would speak up about the safety concern even though it's not my department.",
+          "low": "I would stay out of it — it's not my problem and getting involved only makes enemies."
+        },
+        {
+          "situation": "An influencer offers to promote your small business in exchange for free products worth much more than reasonable.",
+          "high": "I would evaluate the offer on its actual merit and decline if the math doesn't work.",
+          "low": "I would do whatever it takes to get the social media exposure — that's how you grow."
+        },
+        {
+          "situation": "You're filing an insurance claim after a minor fender bender and the adjuster seems willing to approve a generous amount.",
+          "high": "I would claim only the actual damage and costs I incurred.",
+          "low": "I would maximize the claim — insurance companies overcharge everyone anyway."
+        },
+        {
+          "situation": "You meet someone at a conference who mistakes you for someone more senior with a similar name.",
+          "high": "I would correct the misunderstanding right away.",
+          "low": "I would let it play out — the better treatment and connections are worth it."
+        },
+        {
+          "situation": "Your landlord forgets to collect rent for a month.",
+          "high": "I would remind them and pay what I owe.",
+          "low": "I would wait and see if they notice — that's their responsibility to track."
+        },
+        {
+          "situation": "You discover a loophole in your company's expense reimbursement policy that would let you claim personal meals as business expenses.",
+          "high": "I would only submit legitimate business expenses.",
+          "low": "I would take advantage of the loophole — if the policy allows it, it's fair game."
+        },
+        {
+          "situation": "A family member brags about your accomplishments at a gathering, significantly overstating what you've actually achieved.",
+          "high": "I would gently correct the exaggeration because it makes me uncomfortable.",
+          "low": "I would let them talk — it impresses people and I didn't start it."
+        },
+        {
+          "situation": "You're renting out a room in your house and a prospective tenant mentions they're in a desperate situation.",
+          "high": "I would offer fair terms and not take advantage of their urgency.",
+          "low": "I would raise the price a bit since they clearly have fewer options."
+        },
+        {
+          "situation": "A friend asks you to write them a fake positive review for their new business online.",
+          "high": "I would offer to write one only after genuinely using their service.",
+          "low": "I would write the review — it's a small thing that helps them a lot, and nobody checks."
+        },
+        {
+          "situation": "You're on a committee selecting a vendor, and your cousin's company has submitted a bid that isn't the strongest.",
+          "high": "I would disclose the relationship and recuse myself from the decision, or evaluate impartially.",
+          "low": "I would advocate for my cousin's bid — family comes first, and they'll do fine work."
+        },
+        {
+          "situation": "You find a coupon code online that's clearly meant for first-time customers, but you're a returning one.",
+          "high": "I would skip it since it's not intended for me.",
+          "low": "I would use it — if their system accepts it, that's their problem."
+        },
+        {
+          "situation": "A headhunter contacts you about a job at a competitor and asks for inside information about your current company's strategy.",
+          "high": "I would decline to share confidential information even if it could help me get the new job.",
+          "low": "I would share enough to seem valuable — loyalty doesn't pay the bills."
+        },
+        {
+          "situation": "You're at a self-checkout and realize one of your items didn't scan.",
+          "high": "I would go back and scan it properly.",
+          "low": "I would keep going — the store makes enough profit already."
+        },
+        {
+          "situation": "Your team achieves a major win. You played a key role, but so did several others.",
+          "high": "I would emphasize the team effort and name specific contributors in any communication.",
+          "low": "I would make sure my individual contribution is front and center when discussing the win."
+        },
+        {
+          "situation": "A wealthy acquaintance invites you to an exclusive club where you'd need to exaggerate your net worth on the application.",
+          "high": "I would decline rather than misrepresent my finances.",
+          "low": "I would inflate the numbers — access to that network would pay for itself."
+        },
+        {
+          "situation": "You're ghostwriting a blog post for your company's CEO and they ask you to include a personal anecdote that never actually happened.",
+          "high": "I would push back and suggest using a real story instead.",
+          "low": "I would write it as asked — it's their name on it, and a good story is a good story."
+        },
+        {
+          "situation": "You notice a neighbor is running a small side business from their home, which technically violates the HOA rules.",
+          "high": "I would not report it, but I also wouldn't participate in concealing it or pretend I haven't noticed if directly asked.",
+          "low": "I would use the information as leverage to get concessions from the neighbor on other things."
+        },
+        {
+          "situation": "You're traveling abroad and a street vendor gives you change using the wrong exchange rate in your favor.",
+          "high": "I would point out the mistake and pay the correct amount.",
+          "low": "I would take the deal — navigating foreign currency is their expertise, not mine."
         }
       ]
     },
@@ -213,6 +363,156 @@
           "situation": "You're packing up your apartment to move to a new city for work.",
           "high": "I would feel a deep sadness about leaving and all the memories attached to this place.",
           "low": "I would focus on the logistics and look forward to the new opportunity."
+        },
+        {
+          "situation": "You're about to undergo a minor but unfamiliar medical procedure.",
+          "high": "I would feel genuinely frightened and need reassurance from the medical staff about every step.",
+          "low": "I would view it as routine and not feel particularly concerned."
+        },
+        {
+          "situation": "Your partner is traveling alone in a country you've heard has safety concerns.",
+          "high": "I would check in frequently and feel uneasy until they returned safely.",
+          "low": "I would trust them to handle themselves and not give it much thought."
+        },
+        {
+          "situation": "You're reading your child's handwritten letter to you on a holiday.",
+          "high": "I would be overwhelmed with emotion and probably save the letter forever.",
+          "low": "I would appreciate the gesture, thank them warmly, and move on with the day."
+        },
+        {
+          "situation": "A thunderstorm rolls in with heavy lightning while you're home alone.",
+          "high": "I would feel on edge and maybe call someone just to have company on the phone.",
+          "low": "I would enjoy the show from the window and not think much of it."
+        },
+        {
+          "situation": "You learn that a former teacher who deeply influenced you has passed away.",
+          "high": "I would be grief-stricken and spend time reflecting on how they shaped my life.",
+          "low": "I would acknowledge the loss but accept it as a natural part of life."
+        },
+        {
+          "situation": "Your company announces a round of layoffs, and you're not sure if your position is safe.",
+          "high": "I would lose sleep, feel sick to my stomach, and need to talk to someone about my fears.",
+          "low": "I would update my resume as a precaution and not let it affect my daily life."
+        },
+        {
+          "situation": "You're swimming in the ocean and feel something brush your leg underwater.",
+          "high": "I would panic and scramble to get back to shore as fast as possible.",
+          "low": "I would glance down, assume it's seaweed, and keep swimming."
+        },
+        {
+          "situation": "You're visiting the neighborhood where you grew up, and it's been heavily redeveloped.",
+          "high": "I would feel a pang of loss and sadness seeing familiar places transformed.",
+          "low": "I would note the changes with interest but not feel particularly affected."
+        },
+        {
+          "situation": "A close friend tells you they've been diagnosed with a serious illness.",
+          "high": "I would be emotionally shattered and might struggle to hold back tears in front of them.",
+          "low": "I would be concerned and immediately focus on practical ways to support them."
+        },
+        {
+          "situation": "You're watching a documentary about animals being mistreated.",
+          "high": "I would feel physically upset and might have to stop watching.",
+          "low": "I would find it informative and continue watching with detachment."
+        },
+        {
+          "situation": "You have to make a major financial decision and there are risks involved either way.",
+          "high": "I would agonize over the decision, run scenarios obsessively, and want input from people I trust.",
+          "low": "I would weigh the options rationally, make a choice, and not second-guess myself."
+        },
+        {
+          "situation": "You're attending a funeral for a distant acquaintance you barely knew.",
+          "high": "I would still find myself tearing up from the grief in the room.",
+          "low": "I would pay my respects quietly and remain composed throughout."
+        },
+        {
+          "situation": "You have to speak at a public hearing about a local issue that concerns you.",
+          "high": "I would feel my voice tremble and worry about being judged by the audience.",
+          "low": "I would state my position clearly and not feel particularly nervous about it."
+        },
+        {
+          "situation": "Your pet seems lethargic and isn't eating normally.",
+          "high": "I would feel intense worry and rush to the vet, imagining the worst possibilities.",
+          "low": "I would monitor for a day and take them to the vet if it didn't improve."
+        },
+        {
+          "situation": "You watch a video of a soldier reuniting with their family after a long deployment.",
+          "high": "I would feel a swell of emotion and get teary-eyed watching it.",
+          "low": "I would think it's a nice moment but it wouldn't stir strong feelings in me."
+        },
+        {
+          "situation": "You're alone in an unfamiliar city at night and your phone battery dies.",
+          "high": "I would feel a surge of vulnerability and anxiety about being stranded.",
+          "low": "I would find my way back using landmarks or asking someone for directions."
+        },
+        {
+          "situation": "Your adult child is going through a painful breakup.",
+          "high": "I would feel their heartbreak almost as strongly as if it were my own.",
+          "low": "I would offer steady support but keep my own emotions out of it."
+        },
+        {
+          "situation": "You smell a perfume or cologne that a deceased loved one used to wear.",
+          "high": "I would be flooded with memories and emotion, and might need a moment to compose myself.",
+          "low": "I would notice the association briefly and continue with my day."
+        },
+        {
+          "situation": "You receive negative feedback on a creative project you poured yourself into.",
+          "high": "I would feel deeply hurt and need time to recover emotionally before I could evaluate the feedback.",
+          "low": "I would separate the work from my personal feelings and assess the feedback objectively."
+        },
+        {
+          "situation": "You're hiking on a narrow trail with a steep cliff edge and loose gravel.",
+          "high": "I would feel dizzy with fear and cling to the rock face, possibly unable to continue.",
+          "low": "I would watch my footing carefully and enjoy the view without feeling particularly afraid."
+        },
+        {
+          "situation": "You're cleaning out the belongings of a relative who has recently died.",
+          "high": "I would find the process emotionally overwhelming and need to take frequent breaks.",
+          "low": "I would treat it as a necessary task and work through it methodically."
+        },
+        {
+          "situation": "A colleague you're close with unexpectedly gets fired.",
+          "high": "I would feel deeply unsettled and upset, and want to reach out to comfort them immediately.",
+          "low": "I would feel it's unfortunate but not let it affect my own work routine."
+        },
+        {
+          "situation": "You wake up from a vivid nightmare about something bad happening to your family.",
+          "high": "I would feel shaken for hours and might call or text family members to make sure they're okay.",
+          "low": "I would recognize it was a dream, shake it off, and start my day normally."
+        },
+        {
+          "situation": "You're booking a vacation that involves a small propeller plane to reach the destination.",
+          "high": "I would feel anxious about the flight and seriously consider changing plans to avoid it.",
+          "low": "I would book it without hesitation — small planes are a routine way to travel."
+        },
+        {
+          "situation": "Your favorite local bookstore that you've been going to for years announces it's closing.",
+          "high": "I would feel genuinely sad, almost like losing a part of my personal history.",
+          "low": "I would think it's too bad and start ordering from somewhere else."
+        },
+        {
+          "situation": "You're going through security at an airport and your bag gets flagged for additional screening.",
+          "high": "I would feel my heart race and get flustered even though I know I haven't done anything wrong.",
+          "low": "I would wait calmly while they check it, unbothered."
+        },
+        {
+          "situation": "You're offered a once-in-a-lifetime opportunity that requires moving far from your support network.",
+          "high": "I would be torn and deeply anxious about being so far from the people I depend on emotionally.",
+          "low": "I would evaluate the opportunity on its merits and feel confident I can manage on my own."
+        },
+        {
+          "situation": "You accidentally step on a snail while walking on a rainy evening.",
+          "high": "I would feel a surprising amount of guilt and sadness about it.",
+          "low": "I would notice it happened and keep walking without giving it much thought."
+        },
+        {
+          "situation": "A friend shares a voicemail their late parent left them years ago.",
+          "high": "I would feel deeply moved and might get emotional just hearing the tenderness in it.",
+          "low": "I would listen respectfully but not be particularly affected."
+        },
+        {
+          "situation": "You're about to take a certification exam that could significantly impact your career.",
+          "high": "I would feel nauseous with anxiety and have trouble concentrating in the days leading up to it.",
+          "low": "I would study well, walk in prepared, and feel calm about the outcome."
         }
       ]
     },
@@ -320,6 +620,156 @@
           "situation": "You receive an award at a company event and need to give an acceptance speech.",
           "high": "I would enjoy the spotlight and speak naturally and warmly to the crowd.",
           "low": "I would feel self-conscious and keep my remarks as brief as possible."
+        },
+        {
+          "situation": "You're waiting in a long line at the DMV.",
+          "high": "I would start chatting with the person next to me to pass the time.",
+          "low": "I would scroll through my phone and avoid eye contact."
+        },
+        {
+          "situation": "Your company organizes a team-building retreat with icebreaker activities.",
+          "high": "I would throw myself into the activities and enjoy getting to know people in different departments.",
+          "low": "I would participate minimally and look forward to free time in my room."
+        },
+        {
+          "situation": "A neighbor you've seen around but never met is doing yard work as you walk by.",
+          "high": "I would stop and introduce myself, maybe chat for a few minutes.",
+          "low": "I would give a polite wave and keep walking."
+        },
+        {
+          "situation": "You're planning how to celebrate your birthday.",
+          "high": "I would organize a big gathering with as many friends as possible.",
+          "low": "I would prefer a quiet dinner with one or two close friends, or just skip celebrating."
+        },
+        {
+          "situation": "You're at a conference and the session breaks for lunch in a large dining hall.",
+          "high": "I would find a table with people I haven't met and introduce myself.",
+          "low": "I would find a quiet spot to eat alone or check messages on my phone."
+        },
+        {
+          "situation": "A friend suggests you both join a recreational sports league.",
+          "high": "I would love the combination of activity and socializing with a regular group.",
+          "low": "I would prefer to exercise on my own schedule without the social obligation."
+        },
+        {
+          "situation": "You're in a new city for a weekend and your scheduled companion cancels.",
+          "high": "I would head out solo and talk to locals at bars and restaurants, making the most of it.",
+          "low": "I would adjust my plans to quieter activities like museums and reading at a cafe."
+        },
+        {
+          "situation": "Your office is switching from private offices to an open floor plan.",
+          "high": "I would welcome the change — more energy and easier to connect with people.",
+          "low": "I would dread the loss of privacy and quiet focus time."
+        },
+        {
+          "situation": "You're on a group tour in a foreign country.",
+          "high": "I would befriend other travelers and suggest the group go out together in the evening.",
+          "low": "I would politely participate in the tour but prefer to explore on my own afterward."
+        },
+        {
+          "situation": "A community board seat opens up in your neighborhood.",
+          "high": "I would consider running — it's a great way to meet people and have a voice.",
+          "low": "I would rather contribute behind the scenes without the public-facing role."
+        },
+        {
+          "situation": "You're stuck in an elevator with three strangers for fifteen minutes.",
+          "high": "I would break the ice and start a conversation to lighten the mood.",
+          "low": "I would stand quietly and wait for it to be fixed."
+        },
+        {
+          "situation": "A friend invites you to a trivia night at a crowded bar.",
+          "high": "I would love it — the energy, the competition, the social buzz are all appealing.",
+          "low": "I would find the noise and crowd draining, even if the trivia itself sounds fun."
+        },
+        {
+          "situation": "You finish a long week and your partner asks how you want to spend Sunday.",
+          "high": "I would suggest inviting friends over or going somewhere lively.",
+          "low": "I would ask for a quiet day at home with minimal social contact to recharge."
+        },
+        {
+          "situation": "You're moving to a new city where you don't know anyone.",
+          "high": "I would immediately look for social groups, clubs, or meetups to join.",
+          "low": "I would settle in gradually and be content on my own until connections form naturally."
+        },
+        {
+          "situation": "You notice a lively pickup basketball game happening at the park.",
+          "high": "I would walk over and ask if I can join the next game.",
+          "low": "I would watch for a bit from a distance but wouldn't approach."
+        },
+        {
+          "situation": "You're grocery shopping and run into a chatty acquaintance.",
+          "high": "I would happily stand and talk for ten or fifteen minutes.",
+          "low": "I would keep the exchange brief and polite so I can get on with my errands."
+        },
+        {
+          "situation": "Your company offers an optional after-work social hour every Thursday.",
+          "high": "I would attend regularly — it's a good way to unwind and connect with coworkers.",
+          "low": "I would skip most of them and head home to decompress."
+        },
+        {
+          "situation": "You're attending a workshop and the facilitator asks for a volunteer to demonstrate a technique.",
+          "high": "I would raise my hand — I don't mind being the center of attention.",
+          "low": "I would avoid eye contact and hope someone else volunteers."
+        },
+        {
+          "situation": "Your family is planning a reunion and asks for ideas on activities.",
+          "high": "I would suggest lively group activities — games, a talent show, a group outing.",
+          "low": "I would prefer low-key time where people can catch up in small groups at their own pace."
+        },
+        {
+          "situation": "You're taking an online course and the instructor encourages students to form study groups.",
+          "high": "I would immediately post in the forum to form a group — studying with others keeps me motivated.",
+          "low": "I would prefer to study independently at my own pace."
+        },
+        {
+          "situation": "A coworker asks if you want to share a ride to a work event an hour away.",
+          "high": "I would welcome the company and see it as bonus social time.",
+          "low": "I would prefer to drive alone so I can have quiet time and leave when I want."
+        },
+        {
+          "situation": "You're at a friend's barbecue and most of the guests are people you don't know.",
+          "high": "I would circulate naturally and enjoy meeting new people.",
+          "low": "I would stick with the few people I know and feel drained by the end."
+        },
+        {
+          "situation": "Your apartment building has a communal rooftop space.",
+          "high": "I would go up regularly, hoping to meet neighbors and enjoy the social atmosphere.",
+          "low": "I would go only when it's likely to be empty so I can enjoy it in peace."
+        },
+        {
+          "situation": "You're trying a new hobby and there's an option between group classes and self-paced online tutorials.",
+          "high": "I would choose the group class — learning is more fun with other people around.",
+          "low": "I would pick the online tutorials so I can learn at my own speed without social pressure."
+        },
+        {
+          "situation": "A friend suggests hosting a podcast together.",
+          "high": "I would be excited by the idea of putting myself out there and engaging with an audience.",
+          "low": "I would prefer contributing behind the scenes — research, editing — rather than being on-mic."
+        },
+        {
+          "situation": "You're at a hotel pool on vacation and the pool area is full of other vacationers.",
+          "high": "I would set up near a group and probably end up in conversation with them.",
+          "low": "I would find a quiet corner with my book and hope nobody tries to chat."
+        },
+        {
+          "situation": "Your phone rings from an unknown number.",
+          "high": "I would answer it without hesitation — it could be something interesting.",
+          "low": "I would let it go to voicemail and decide later whether to call back."
+        },
+        {
+          "situation": "You've been invited to moderate a panel discussion at a local event.",
+          "high": "I would be flattered and look forward to guiding the conversation in front of an audience.",
+          "low": "I would feel anxious about being in the spotlight and look for a way to decline gracefully."
+        },
+        {
+          "situation": "Your usual gym is closed for renovations and a friend suggests trying their CrossFit class.",
+          "high": "I would enjoy the group energy and camaraderie of working out with others.",
+          "low": "I would find another quiet gym where I can work out on my own."
+        },
+        {
+          "situation": "You win a raffle at a charity event and have to go up on stage to accept the prize.",
+          "high": "I would stride up happily and maybe crack a joke on the way.",
+          "low": "I would feel a flush of self-consciousness and try to get off stage as quickly as possible."
         }
       ]
     },
@@ -427,6 +877,156 @@
           "situation": "Someone in an online forum personally attacks your argument.",
           "high": "I would respond calmly to the substance and ignore the personal attacks.",
           "low": "I would respond in kind — if they want to fight, I can fight."
+        },
+        {
+          "situation": "Your sibling borrows your car and returns it with an empty gas tank and fast-food wrappers inside.",
+          "high": "I would clean it up and mention it casually next time without making it a confrontation.",
+          "low": "I would tell them exactly how disrespectful that is and refuse to lend it again."
+        },
+        {
+          "situation": "A new hire at your company is assigned to your project but is clearly struggling with the learning curve.",
+          "high": "I would slow down and patiently help them come up to speed, remembering when I was new.",
+          "low": "I would tell them bluntly what they need to improve and expect them to figure it out quickly."
+        },
+        {
+          "situation": "Your partner forgot your anniversary.",
+          "high": "I would gently bring it up and not hold it against them — people forget things.",
+          "low": "I would be cold and let them know how hurt I am until they make it right."
+        },
+        {
+          "situation": "A fellow parent at your kid's school keeps making snide comments about your parenting choices.",
+          "high": "I would assume they're dealing with their own insecurities and not take it personally.",
+          "low": "I would confront them and set a firm boundary about minding their own business."
+        },
+        {
+          "situation": "You're playing a board game and someone accuses you of bending the rules, even though you weren't.",
+          "high": "I would calmly explain my move and let it go — it's just a game.",
+          "low": "I would get irritated and insist they apologize for the false accusation."
+        },
+        {
+          "situation": "A coworker repeatedly takes the last cup of coffee without making a new pot.",
+          "high": "I would just make a fresh pot without commenting — it takes two minutes.",
+          "low": "I would make a pointed comment or put up a sign about basic office etiquette."
+        },
+        {
+          "situation": "Your in-laws give unsolicited advice about how you should raise your children.",
+          "high": "I would thank them for caring and consider whether any of the advice has merit.",
+          "low": "I would firmly tell them it's not their decision and establish clear boundaries."
+        },
+        {
+          "situation": "A group project partner proposes an approach you think is clearly inferior to yours.",
+          "high": "I would be willing to try their approach first and see how it goes.",
+          "low": "I would argue for my approach and insist we go with the better plan."
+        },
+        {
+          "situation": "You lend a friend money and they haven't mentioned repaying it after a month.",
+          "high": "I would not bring it up — if they're in a tight spot, pressuring them won't help.",
+          "low": "I would remind them directly that I expect to be repaid."
+        },
+        {
+          "situation": "A customer service representative is unhelpful and seems indifferent to your problem.",
+          "high": "I would stay polite and try a different approach — they're probably having a tough day.",
+          "low": "I would ask to speak to a supervisor and make sure my frustration is heard."
+        },
+        {
+          "situation": "Your neighbor starts a noisy home renovation project that runs from early morning to evening.",
+          "high": "I would tolerate it — renovations are temporary and everyone has the right to improve their home.",
+          "low": "I would go over and tell them their schedule is unacceptable and they need to limit hours."
+        },
+        {
+          "situation": "A family member repeatedly brings up an embarrassing story about you at gatherings.",
+          "high": "I would laugh along and not make it into a bigger thing than it is.",
+          "low": "I would pull them aside and tell them to stop or I'd start sharing their embarrassing stories."
+        },
+        {
+          "situation": "Someone you're managing makes the same mistake for the third time.",
+          "high": "I would sit down with them again and try to find a different way to explain the process.",
+          "low": "I would give them a stern warning that this pattern is unacceptable."
+        },
+        {
+          "situation": "Your ex-partner posts something negative about you on social media.",
+          "high": "I would ignore it and take the high road — responding would just escalate things.",
+          "low": "I would reply publicly setting the record straight, or post my own side of the story."
+        },
+        {
+          "situation": "A friend picks a movie to watch together that you find dull.",
+          "high": "I would watch it without complaint since it's their turn to choose.",
+          "low": "I would suggest we switch to something we'd both actually enjoy."
+        },
+        {
+          "situation": "Your teenage child talks back to you disrespectfully during an argument.",
+          "high": "I would take a breath, let the moment pass, and address it calmly when things cool down.",
+          "low": "I would respond firmly right then and make it clear that level of disrespect won't be tolerated."
+        },
+        {
+          "situation": "A colleague publicly disagrees with your decision in front of the whole team.",
+          "high": "I would hear them out and thank them for the different perspective.",
+          "low": "I would feel undermined and address their behavior afterward, making clear it was out of line."
+        },
+        {
+          "situation": "You're in a heated text exchange with a friend about a misunderstanding.",
+          "high": "I would pick up the phone to talk it out calmly rather than letting the conflict escalate.",
+          "low": "I would make my position crystal clear and expect them to acknowledge they were wrong."
+        },
+        {
+          "situation": "An Uber driver takes a longer route than necessary and the fare is higher.",
+          "high": "I would assume they may not have known the shorter route and not make a fuss.",
+          "low": "I would point it out, rate them poorly, and dispute the extra charge."
+        },
+        {
+          "situation": "Your spouse wants to spend the holidays with their family instead of yours this year.",
+          "high": "I would agree without resentment — we can see my family another time.",
+          "low": "I would argue that we need to alternate fairly and insist on my family this year."
+        },
+        {
+          "situation": "A friend gives you advice you didn't ask for about your health habits.",
+          "high": "I would thank them for caring, even if I don't plan to follow the advice.",
+          "low": "I would tell them I didn't ask and that they should worry about their own habits."
+        },
+        {
+          "situation": "A coworker from another team sends you a curt, almost rude email.",
+          "high": "I would respond warmly and assume the tone was unintentional — email can be misleading.",
+          "low": "I would match their tone and cc their manager to document the interaction."
+        },
+        {
+          "situation": "You're organizing a group vacation and one person keeps vetoing everyone else's suggestions.",
+          "high": "I would try to find a compromise that incorporates something everyone wants.",
+          "low": "I would tell them to either propose something better or go along with the majority."
+        },
+        {
+          "situation": "A stranger's child bumps into your table at a restaurant, spilling your water.",
+          "high": "I would smile at the parent and say it's no big deal — kids are kids.",
+          "low": "I would give the parent a look that makes it clear they should control their child."
+        },
+        {
+          "situation": "Your landlord raises your rent and you feel the increase is unfair but technically legal.",
+          "high": "I would accept it and decide calmly whether I can afford to stay or need to move.",
+          "low": "I would push back hard, cite comparable rents, and threaten to leave if they don't reconsider."
+        },
+        {
+          "situation": "You discover that a friend has been talking about you behind your back.",
+          "high": "I would give them a chance to explain before judging — maybe the story was exaggerated.",
+          "low": "I would confront them head-on and let them know I won't tolerate disloyalty."
+        },
+        {
+          "situation": "A coworker who always complains about their workload asks you for help on yet another task.",
+          "high": "I would help them without judgment — maybe they really are overwhelmed.",
+          "low": "I would tell them they need to manage their own time better before asking others."
+        },
+        {
+          "situation": "You're at a crowded bar and someone pushes past you without saying excuse me.",
+          "high": "I would let it go — it's loud and crowded and they probably didn't realize.",
+          "low": "I would turn and say something — basic manners shouldn't go out the window in a crowd."
+        },
+        {
+          "situation": "Your adult sibling still owes you money from something that happened years ago.",
+          "high": "I would have let it go long ago — it's not worth straining a family relationship.",
+          "low": "I would still bring it up periodically — a debt is a debt regardless of how long ago it was."
+        },
+        {
+          "situation": "During a group hike, one member is walking much slower than everyone else and holding up the group.",
+          "high": "I would happily adjust my pace and enjoy the slower walk.",
+          "low": "I would suggest the slower person catch up at their own pace while the rest of us continue."
         }
       ]
     },
@@ -534,6 +1134,156 @@
           "situation": "You're managing a group project and one member isn't pulling their weight.",
           "high": "I would address it directly with clear expectations and deadlines.",
           "low": "I would pick up their slack rather than deal with the confrontation."
+        },
+        {
+          "situation": "You have a dental appointment in three weeks.",
+          "high": "I would put it in my calendar immediately with a reminder the day before.",
+          "low": "I would try to remember it and probably have to reschedule when I forget."
+        },
+        {
+          "situation": "You're managing your personal finances at the end of the month.",
+          "high": "I would review every transaction, reconcile against my budget, and adjust for next month.",
+          "low": "I would glance at my bank balance and figure I'm fine as long as it's positive."
+        },
+        {
+          "situation": "You're starting a new exercise routine and a trainer gives you a detailed program.",
+          "high": "I would follow the program precisely, logging sets, reps, and weight each session.",
+          "low": "I would use it as a rough guide and do whatever feels right on any given day."
+        },
+        {
+          "situation": "You just finished reading a non-fiction book full of ideas you want to apply.",
+          "high": "I would take notes, create an action plan, and schedule time to implement the key takeaways.",
+          "low": "I would feel inspired for a day or two and then move on to the next thing."
+        },
+        {
+          "situation": "Your email inbox has over 200 unread messages.",
+          "high": "I would set aside time to sort through them, respond, archive, or delete each one.",
+          "low": "I would scan for anything urgent and let the rest pile up."
+        },
+        {
+          "situation": "You sign up for a 10K race that's two months away.",
+          "high": "I would find a training plan and follow it consistently, tracking my runs and times.",
+          "low": "I would run when I feel like it and figure I'll manage on race day."
+        },
+        {
+          "situation": "Your closet is full of clothes you haven't worn in over a year.",
+          "high": "I would go through everything methodically, donating what I don't need and organizing the rest.",
+          "low": "I would push things aside to make room and deal with it someday."
+        },
+        {
+          "situation": "You're asked to babysit a friend's child for the afternoon.",
+          "high": "I would plan activities, prepare snacks, and childproof anything necessary before they arrive.",
+          "low": "I would figure it out when they get here — kids are easy to entertain."
+        },
+        {
+          "situation": "You're working on a long-term creative project in your spare time.",
+          "high": "I would set regular work sessions and hold myself to deadlines, even if nobody else is waiting.",
+          "low": "I would work on it when inspiration strikes and not pressure myself with timelines."
+        },
+        {
+          "situation": "You have a prescription that needs to be refilled, but you still have a few days' supply left.",
+          "high": "I would call in the refill today so it's ready well before I run out.",
+          "low": "I would wait until I'm on the last pill and hope the pharmacy can fill it quickly."
+        },
+        {
+          "situation": "You're painting a room in your house.",
+          "high": "I would tape the edges carefully, lay drop cloths, and apply coats evenly and methodically.",
+          "low": "I would paint quickly and touch up any mistakes later — or not."
+        },
+        {
+          "situation": "Your phone's storage is almost full.",
+          "high": "I would go through my apps, photos, and files, deleting what I don't need and backing up the rest.",
+          "low": "I would delete a few random photos and deal with it again when it fills up."
+        },
+        {
+          "situation": "You promise your partner you'll handle the grocery shopping this week.",
+          "high": "I would make a detailed list organized by store section and stick to it.",
+          "low": "I would walk through the aisles grabbing what looks good and hope I don't forget anything important."
+        },
+        {
+          "situation": "You receive a jury duty summons for a month from now.",
+          "high": "I would immediately arrange my schedule, notify my employer, and prepare everything needed.",
+          "low": "I would set the letter aside and figure out the details closer to the date."
+        },
+        {
+          "situation": "You're hosting a dinner party for eight people next weekend.",
+          "high": "I would plan the menu days ahead, shop early, and time every dish so they're all ready at once.",
+          "low": "I would buy things the day of and improvise — the best meals come together spontaneously."
+        },
+        {
+          "situation": "You notice your car's oil change is overdue by 500 miles.",
+          "high": "I would schedule the service right away — I don't like letting maintenance slip.",
+          "low": "A few hundred extra miles won't hurt — I'll get to it when it's convenient."
+        },
+        {
+          "situation": "You start a new job and are given a large binder of policies and procedures to review.",
+          "high": "I would read through it thoroughly, highlight key points, and keep it accessible for reference.",
+          "low": "I would skim through the important-looking parts and learn the rest as situations come up."
+        },
+        {
+          "situation": "You're packing for a camping trip with friends.",
+          "high": "I would make a checklist, pack days ahead, and verify I have everything before leaving.",
+          "low": "I would toss essentials in a bag and borrow whatever I forgot from someone else."
+        },
+        {
+          "situation": "Your annual physical is coming up and the doctor asks you to fast beforehand for blood work.",
+          "high": "I would set an alarm to remind myself to stop eating at the right time and follow instructions exactly.",
+          "low": "I would probably forget and grab a coffee in the morning out of habit."
+        },
+        {
+          "situation": "You're helping plan a community fundraiser event.",
+          "high": "I would create a detailed timeline, assign responsibilities, and follow up with everyone before the event.",
+          "low": "I would help out where needed but let someone else worry about the logistics."
+        },
+        {
+          "situation": "You're trying to save money for a specific goal.",
+          "high": "I would set up automatic transfers, track spending in a spreadsheet, and review progress monthly.",
+          "low": "I would try to spend less and see how much is left at the end of the month."
+        },
+        {
+          "situation": "Your passport expires in eight months and you have an international trip in six.",
+          "high": "I would start the renewal process immediately to avoid any possible delays.",
+          "low": "Eight months is plenty of time — I'll handle it when it feels more urgent."
+        },
+        {
+          "situation": "You're given a new standing desk at work with adjustable settings.",
+          "high": "I would research the optimal ergonomic settings and set timers to alternate between sitting and standing.",
+          "low": "I would adjust it until it feels okay and leave it there."
+        },
+        {
+          "situation": "You're writing a cover letter for a job application.",
+          "high": "I would tailor it specifically to the job posting, proofread it several times, and have a friend review it.",
+          "low": "I would adapt my generic template slightly and send it off."
+        },
+        {
+          "situation": "Your garden needs seasonal maintenance before winter.",
+          "high": "I would research what needs to be done, make a checklist, and complete each task by a set date.",
+          "low": "I would do a quick cleanup when the weather starts turning and hope for the best."
+        },
+        {
+          "situation": "You receive a complex medical bill with multiple charges you don't fully understand.",
+          "high": "I would go line by line, compare it to my insurance explanation of benefits, and call about any discrepancies.",
+          "low": "I would pay it if the total looks roughly right and not bother with the details."
+        },
+        {
+          "situation": "You have a big presentation at work next week.",
+          "high": "I would rehearse it multiple times, prepare for likely questions, and test all the technology in advance.",
+          "low": "I would put together the slides and figure I know the material well enough to wing the delivery."
+        },
+        {
+          "situation": "Your lease is up in four months and you need to decide whether to renew.",
+          "high": "I would start researching options now, compare costs, and make a decision with plenty of time to spare.",
+          "low": "I would deal with it when the landlord brings it up."
+        },
+        {
+          "situation": "You commit to reading one book a month as a personal goal.",
+          "high": "I would track my progress, set daily page targets, and keep a log of what I've read.",
+          "low": "I would read when I feel like it and not worry about whether I hit the goal."
+        },
+        {
+          "situation": "A friend asks you to be their accountability partner for waking up early.",
+          "high": "I would take it seriously — setting alarms, checking in, and keeping records.",
+          "low": "I would try for a few days but probably stop once the novelty wears off."
         }
       ]
     },
@@ -641,6 +1391,156 @@
           "situation": "You're asked to describe your dream home.",
           "high": "I would imagine something unique — maybe a converted lighthouse or a treehouse with a library.",
           "low": "I would describe a well-built, comfortable house in a nice neighborhood."
+        },
+        {
+          "situation": "You're choosing a gift for a friend's birthday.",
+          "high": "I would look for something unexpected and original that reflects a shared experience or inside joke.",
+          "low": "I would get them something practical that I know they need, like a gift card."
+        },
+        {
+          "situation": "A local restaurant offers a tasting menu with unusual ingredient pairings like lavender lamb and chocolate chili.",
+          "high": "I would be intrigued and excited to try combinations I've never considered.",
+          "low": "I would order from the regular menu — I prefer food that makes sense."
+        },
+        {
+          "situation": "You're exploring a new city and come across a neighborhood with striking graffiti murals.",
+          "high": "I would wander through and appreciate the artistry and social commentary in each piece.",
+          "low": "I would see it as vandalism and move on to the more traditional sightseeing areas."
+        },
+        {
+          "situation": "A podcast episode discusses a controversial theory in evolutionary psychology.",
+          "high": "I would listen to the full episode and look up the research papers cited, regardless of whether I agree.",
+          "low": "I would skip it — I'm not interested in speculative theories that don't have practical applications."
+        },
+        {
+          "situation": "Your company asks employees to suggest ways to reimagine the office layout.",
+          "high": "I would propose a creative concept like themed collaboration zones or a library-style quiet area with plants and natural light.",
+          "low": "I would suggest a straightforward layout that's efficient and mirrors what other successful companies do."
+        },
+        {
+          "situation": "You're at a farmer's market and spot a fruit or vegetable you've never seen before.",
+          "high": "I would buy it and look forward to figuring out how to cook with it.",
+          "low": "I would stick to what I know and not waste money on something I might not like."
+        },
+        {
+          "situation": "A friend invites you to an open-mic poetry night.",
+          "high": "I would go and might even consider reading something — the raw expression of poetry appeals to me.",
+          "low": "I would pass — poetry isn't my thing and I'd rather spend my evening on something concrete."
+        },
+        {
+          "situation": "You're choosing an elective for a continuing education program.",
+          "high": "I would pick something outside my field entirely, like art history or anthropology, just to broaden my perspective.",
+          "low": "I would choose something directly relevant to my current work or career path."
+        },
+        {
+          "situation": "You stumble across a used bookstore with a section on obscure topics like ancient cartography and the history of color.",
+          "high": "I would lose track of time browsing and probably leave with a stack of books on subjects I knew nothing about.",
+          "low": "I would check if they have anything on my usual topics and leave if not."
+        },
+        {
+          "situation": "A friend invites you to a silent meditation retreat for a weekend.",
+          "high": "I would be drawn to the unusual experience and curious about what I might discover.",
+          "low": "I would find the idea strange and prefer a normal vacation with conversation and activities."
+        },
+        {
+          "situation": "You're remodeling your kitchen and the designer suggests an unconventional layout.",
+          "high": "I would be open to the unusual design if the reasoning behind it is interesting, even if nobody else has one like it.",
+          "low": "I would go with a standard layout that has good resale value and proven functionality."
+        },
+        {
+          "situation": "You have the evening free and discover a documentary about the history of mathematics.",
+          "high": "I would watch it — the hidden patterns and beauty of numbers appeal to me even if math wasn't my strength.",
+          "low": "I would find something more entertaining — I had enough math in school."
+        },
+        {
+          "situation": "A coworker recommends a foreign film with subtitles.",
+          "high": "I would watch it — different cultures tell stories in ways I find enriching.",
+          "low": "I would prefer something in my own language where I can relax and follow along easily."
+        },
+        {
+          "situation": "You're walking through your neighborhood and notice the play of light and shadow on a building facade.",
+          "high": "I would pause to appreciate the visual composition and maybe photograph it.",
+          "low": "I would keep walking — it's just a building."
+        },
+        {
+          "situation": "You're asked to help organize a theme for an office party.",
+          "high": "I would pitch an imaginative concept that goes beyond the usual themes, like a decades mashup or a fictional world immersion.",
+          "low": "I would suggest something simple and familiar that everyone will understand, like a sports theme or holiday party."
+        },
+        {
+          "situation": "You're browsing streaming services and notice a critically acclaimed film from a country whose cinema you know nothing about.",
+          "high": "I would put it on — discovering an entirely new film tradition sounds exciting.",
+          "low": "I would pick something from a director or franchise I already enjoy."
+        },
+        {
+          "situation": "A friend mentions they've started journaling using a creative method like visual mind maps and collage.",
+          "high": "I would be curious and might try adapting the method myself to see how it changes my thinking.",
+          "low": "I would think it sounds unnecessarily complicated — if I journaled, I'd just write normally."
+        },
+        {
+          "situation": "You're at a crossroads in your career and could either pursue a stable, well-defined path or an unconventional one in a new field.",
+          "high": "I would be drawn to the unconventional path — the novelty and uncertainty feel energizing.",
+          "low": "I would take the stable path — there's no need to reinvent the wheel when something reliable exists."
+        },
+        {
+          "situation": "Someone suggests you try writing with your non-dominant hand for a week as an experiment in neuroplasticity.",
+          "high": "I would find the idea fascinating and try it to see what happens.",
+          "low": "I would think it's a pointless exercise with no practical benefit."
+        },
+        {
+          "situation": "You're furnishing your first apartment and can choose between a mass-produced set and mismatched secondhand pieces with character.",
+          "high": "I would choose the eclectic pieces — each one has a story and the mix creates something unique.",
+          "low": "I would get the matching set — it looks clean, cohesive, and put-together."
+        },
+        {
+          "situation": "A local museum is hosting an exhibit on the science and art of fermentation across world cultures.",
+          "high": "I would attend and find the intersection of biology, culture, and craft fascinating.",
+          "low": "I would pass — that sounds too niche and I'd rather spend my time on mainstream entertainment."
+        },
+        {
+          "situation": "You're given the freedom to choose your own project at work for a week.",
+          "high": "I would use it to explore a creative idea that connects different areas in an unexpected way.",
+          "low": "I would work on something that directly improves my team's core metrics."
+        },
+        {
+          "situation": "Your friend group is debating whether to go to a familiar vacation spot or an unusual destination like a converted monastery or a houseboat village.",
+          "high": "I would advocate for the unusual option — familiar places will always be there.",
+          "low": "I would push for the familiar spot — why risk a bad experience when you know something works?"
+        },
+        {
+          "situation": "You learn that a hobby you enjoy, like cooking or woodworking, has deep roots in a philosophical tradition.",
+          "high": "I would read about it eagerly — seeing the deeper meaning behind everyday activities enriches them.",
+          "low": "I would think that's interesting trivia but it wouldn't change how I approach the hobby."
+        },
+        {
+          "situation": "A friend sends you a playlist of ambient electronic music and asks for your thoughts.",
+          "high": "I would listen attentively, appreciating the textures and soundscapes, even if it's not what I usually play.",
+          "low": "I would find it repetitive and boring — I prefer music with clear melodies and lyrics."
+        },
+        {
+          "situation": "You're designing a personal website and can choose a conventional template or build something entirely custom.",
+          "high": "I would enjoy the creative challenge of building something that reflects my personality in an unexpected way.",
+          "low": "I would pick a clean, professional template — the content matters more than the design."
+        },
+        {
+          "situation": "You're at a book club and someone suggests reading a genre nobody in the group has tried before, like magical realism or graphic novels.",
+          "high": "I would enthusiastically support the idea — stretching into new territory keeps things fresh.",
+          "low": "I would prefer sticking to genres we know we enjoy so the discussion stays productive."
+        },
+        {
+          "situation": "A travel guide mentions an off-the-beaten-path ritual performed by a local community that visitors can observe.",
+          "high": "I would make it a priority on my itinerary — understanding how other people find meaning is deeply rewarding.",
+          "low": "I would skip it in favor of the major tourist attractions that are popular for a reason."
+        },
+        {
+          "situation": "You find out there's a lucid dreaming workshop offered at a local wellness center.",
+          "high": "I would sign up out of sheer curiosity about the nature of consciousness and perception.",
+          "low": "I would see it as pseudoscientific and not worth my time or money."
+        },
+        {
+          "situation": "You're asked to contribute to a collaborative art project in your community, even though you don't consider yourself artistic.",
+          "high": "I would participate enthusiastically — the process of creating, not the result, is what matters.",
+          "low": "I would leave it to the people with actual artistic talent and contribute in a more practical way."
         }
       ]
     }
