@@ -47,13 +47,15 @@ SURVEY_TEMPLATE = (
 )
 
 
-def load_model(model_name, device="mps"):
+def load_model(model_name, device="mps", dtype="bfloat16"):
     """Load model and tokenizer, optimized for Apple Silicon."""
-    print(f"Loading {model_name}...")
+    print(f"Loading {model_name} (dtype={dtype})...")
+    dtype_map = {"float16": torch.float16, "bfloat16": torch.bfloat16, "float32": torch.float32}
+    torch_dtype = dtype_map.get(dtype, torch.bfloat16)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
-        dtype=torch.float16,
+        dtype=torch_dtype,
         device_map=device,
     )
     model.eval()
@@ -145,7 +147,7 @@ def extract_trait_direction(model, tokenizer, trait_data, device="mps", verbose=
             directions[layer] = fallback / norm if norm > 0 else fallback
             explained_variance[layer] = 0.0
 
-    return directions, explained_variance, diffs.mean(dim=0)  # also return mean diff
+    return directions, explained_variance, diffs.mean(dim=0), diffs  # also return raw diffs
 
 
 def project_survey_items(model, tokenizer, directions, mean_diffs, items, device="mps",
@@ -190,6 +192,8 @@ def main():
                         help="Comma-separated layer indices for projection (default: middle-to-end)")
     parser.add_argument("--device", type=str, default="mps",
                         help="Device (mps/cuda/cpu)")
+    parser.add_argument("--dtype", type=str, default="bfloat16",
+                        help="Model dtype (bfloat16/float16/float32)")
     parser.add_argument("--output-dir", type=str, default="results/repe")
     parser.add_argument("--skip-survey", action="store_true",
                         help="Skip survey item projection (just extract directions)")
@@ -204,7 +208,7 @@ def main():
         traits = {args.trait: traits[args.trait]}
 
     # Load model
-    model, tokenizer = load_model(args.model, args.device)
+    model, tokenizer = load_model(args.model, args.device, args.dtype)
 
     # Parse layers
     proj_layers = None
@@ -221,7 +225,7 @@ def main():
         t0 = time.time()
 
         # Extract direction
-        directions, explained_var, mean_diffs = extract_trait_direction(
+        directions, explained_var, mean_diffs, raw_diffs = extract_trait_direction(
             model, tokenizer, trait_data, args.device
         )
 
@@ -245,6 +249,7 @@ def main():
             "explained_variance": explained_var,
             "mean_diffs": mean_diffs,
             "n_pairs": len(trait_data["pairs"]),
+            "raw_diffs": raw_diffs,
         }, direction_file)
         print(f"  Saved directions to {direction_file}")
 
