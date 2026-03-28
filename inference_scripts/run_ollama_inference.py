@@ -290,6 +290,9 @@ def parse_args():
         '--job_id', type=str, default='0',
         help='Job ID for tracking')
     parser.add_argument(
+        '--measure', type=str, default=None,
+        help='Only administer items from this measure (e.g. BFI)')
+    parser.add_argument(
         '--sample', action='store_true', default=False,
         help='Only sample 1,000 rows of the payload (for testing)')
     parser.add_argument(
@@ -312,6 +315,10 @@ def main():
     payload_df = generate_payload_df(
         admin_session=admin_session, model_id=args.model_pointer)
     gen_payload = to_generative_payload(payload_df)
+
+    if args.measure:
+        gen_payload = gen_payload[gen_payload['measure_id'] == args.measure]
+        print(f"Filtered to measure '{args.measure}': {len(gen_payload)} prompts")
 
     if args.sample:
         print("Sampling only 1,000 prompts.")
