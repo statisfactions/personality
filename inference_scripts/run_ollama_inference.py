@@ -218,7 +218,8 @@ def constrained_choice(prompt_text, continuations, model, api_key, timeout=120):
     return None, option_lps, valid_mass
 
 
-def administer_session_ollama(payload_df, model, api_key, timeout=120):
+def administer_session_ollama(payload_df, model, api_key, timeout=120,
+                              checkpoint_path=None, checkpoint_every=500):
     """Send prompts to Ollama, grouped by response scale.
 
     Mirrors administer_session_via_outlines from run_gpt_inference.py.
@@ -228,12 +229,27 @@ def administer_session_ollama(payload_df, model, api_key, timeout=120):
         model: Ollama model name (e.g. 'llama2:7b-chat').
         api_key: Bearer token for the Ollama server.
         timeout: Curl timeout in seconds per request.
+        checkpoint_path: If set, save incremental results to this path
+            every checkpoint_every prompts. Also used to resume from a
+            previous partial run.
+        checkpoint_every: Save checkpoint every N prompts (default 500).
 
     Returns:
         DataFrame with 'model_output' column added.
     """
+    # Load checkpoint if resuming
+    completed_indices = set()
+    prior_results = []
+    if checkpoint_path and os.path.exists(checkpoint_path):
+        prior_df = pd.read_pickle(checkpoint_path)
+        completed_indices = set(prior_df.index)
+        prior_results.append(prior_df)
+        print(f"Resuming from checkpoint: {len(completed_indices)} prompts "
+              f"already completed")
+
     response_scales = list(payload_df['response_scale_id'].unique())
-    scored_dfs = []
+    scored_dfs = list(prior_results)
+    total_completed = len(completed_indices)
 
     for response_scale in tqdm(
             response_scales, leave=True,
@@ -241,15 +257,25 @@ def administer_session_ollama(payload_df, model, api_key, timeout=120):
         grouped_df = payload_df.loc[
             payload_df['response_scale_id'] == response_scale].copy()
 
+        # Skip rows already completed in checkpoint
+        if completed_indices:
+            remaining_mask = ~grouped_df.index.isin(completed_indices)
+            if not remaining_mask.any():
+                print(f"Scale {response_scale}: all prompts already completed")
+                continue
+            grouped_df = grouped_df[remaining_mask].copy()
+
         continuations = grouped_df['continuation_text'].iloc[0]
         print(f"Working on continuations [{', '.join(continuations)}]")
 
         model_answers = []
         all_logprobs = []
         all_valid_mass = []
+        batch_indices = []
         failed = 0
-        for prompt in tqdm(grouped_df['prompt_text'], leave=True,
-                           desc="Prompts"):
+        for idx, prompt in tqdm(zip(grouped_df.index, grouped_df['prompt_text']),
+                                total=len(grouped_df), leave=True,
+                                desc="Prompts"):
             answer, option_lps, valid_mass = constrained_choice(
                 prompt, continuations, model, api_key, timeout=timeout)
             if answer is None:
@@ -259,15 +285,37 @@ def administer_session_ollama(payload_df, model, api_key, timeout=120):
             model_answers.append(answer)
             all_logprobs.append(option_lps)
             all_valid_mass.append(valid_mass)
+            batch_indices.append(idx)
+            total_completed += 1
+
+            # Periodic checkpoint
+            if (checkpoint_path and checkpoint_every
+                    and total_completed % checkpoint_every == 0):
+                batch_df = grouped_df.loc[batch_indices].copy()
+                batch_df['model_output'] = model_answers
+                batch_df['option_logprobs'] = all_logprobs
+                batch_df['valid_prob_mass'] = all_valid_mass
+                scored_dfs.append(batch_df)
+                pd.concat(scored_dfs).sort_index().to_pickle(checkpoint_path)
+                print(f"\n  Checkpoint saved: {total_completed} prompts "
+                      f"completed → {checkpoint_path}")
+                # Reset batch accumulators (data is in scored_dfs now)
+                model_answers = []
+                all_logprobs = []
+                all_valid_mass = []
+                batch_indices = []
 
         if failed > 0:
             print(f"  Warning: {failed}/{len(grouped_df)} prompts failed to "
                   f"parse; used middle option as fallback.")
 
-        grouped_df['model_output'] = model_answers
-        grouped_df['option_logprobs'] = all_logprobs
-        grouped_df['valid_prob_mass'] = all_valid_mass
-        scored_dfs.append(grouped_df)
+        # Append any remaining rows from this scale
+        if batch_indices:
+            batch_df = grouped_df.loc[batch_indices].copy()
+            batch_df['model_output'] = model_answers
+            batch_df['option_logprobs'] = all_logprobs
+            batch_df['valid_prob_mass'] = all_valid_mass
+            scored_dfs.append(batch_df)
 
     return pd.concat(scored_dfs).sort_index()
 
@@ -298,6 +346,9 @@ def parse_args():
     parser.add_argument(
         '--timeout', type=int, default=120,
         help='Curl timeout in seconds per inference call')
+    parser.add_argument(
+        '--checkpoint_every', type=int, default=500,
+        help='Save incremental checkpoint every N prompts (default 500)')
     return parser.parse_args()
 
 
@@ -327,16 +378,19 @@ def main():
 
     print(f"Payload size: {len(gen_payload)}")
 
-    # Run inference
-    results = administer_session_ollama(
-        gen_payload, model=args.model_pointer,
-        api_key=api_key, timeout=args.timeout)
-
     # Save results
     if not os.path.exists('results'):
         os.makedirs('results')
 
     outfile = f"results/results_{args.job_name}_{MODEL_ID}_{args.job_id}.pkl"
+
+    # Run inference (checkpoint to the same output file)
+    results = administer_session_ollama(
+        gen_payload, model=args.model_pointer,
+        api_key=api_key, timeout=args.timeout,
+        checkpoint_path=outfile,
+        checkpoint_every=args.checkpoint_every)
+
     results.to_pickle(outfile)
     print(f"\nResults saved to {outfile}")
 
