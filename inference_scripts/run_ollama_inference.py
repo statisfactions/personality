@@ -280,8 +280,6 @@ def administer_session_ollama(payload_df, model, api_key, timeout=120,
                 prompt, continuations, model, api_key, timeout=timeout)
             if answer is None:
                 failed += 1
-                # Fall back to middle option
-                answer = continuations[len(continuations) // 2]
             model_answers.append(answer)
             all_logprobs.append(option_lps)
             all_valid_mass.append(valid_mass)

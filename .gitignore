@@ -37,5 +37,7 @@ venv/
 data/
 # Populated admin sessions with actual item text
 admin_sessions/local/
+# Background notes and design docs
+notes_background/
 # Project-specific Claude Code instructions (WIP)
 CLAUDE.md
