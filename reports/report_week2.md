@@ -288,17 +288,87 @@ The maximum shift in projection value between any format pair was < 0.5 units on
 This protocol is particularly well-suited for the trait-conflict instrument (Section 10), where scenarios pit two positive traits against each other. At the period token, the model's representation encodes its "understanding" of the dilemma before committing to any response format. Projecting onto both trait directions simultaneously reveals the model's implicit trade-off — which trait's representation activates more strongly for this scenario.
 
 
-## 10. Open Questions
+## 10. Protocol Validation Across 4 Models
 
-1. **Is the norm growth artifact universal?** We've confirmed it in Gemma3. Need to check Qwen, Phi4, and other architectures. Pre-norm vs post-norm transformers may differ.
+### Test 1: Layer Sensitivity
 
-2. **Does the norm direction carry information in other contexts?** It doesn't affect generation or predict logit-lens stability, but it might matter for other tasks (e.g., in-context learning, few-shot prompting).
+The projection is robust within a ±2-3 layer window around the optimal layer, then degrades:
 
-3. **Steering at scale.** We tested steering on a few prompts. Running the full HEXACO inventory with and without steering would quantify the effect on personality scores.
+| Model | Best Layer | r at ±1 | r at ±2 | r at ±4 |
+|---|---|---|---|---|
+| Gemma3-4B | 14 | 0.85-0.91 | 0.76 | 0.19 |
+| Qwen2.5-3B | 19 | 0.75-0.89 | 0.48-0.83 | ~0 |
+| Phi4-mini | 9 | 0.79-0.81 | 0.39-0.93 | ~0 |
+| Llama3.2-3B | 12 | 0.91-0.95 | 0.74-0.89 | 0.17 |
 
-4. **Cross-model direction transfer.** Do the Gemma3 personality directions work on Qwen2.5, or are they model-specific? If they transfer, that suggests a shared personality representation across architectures.
+**Conclusion:** Layer choice matters but there is a 3-5 layer window of stability. The optimal layer is model-specific (Gemma: 14, Qwen: 19, Phi4: 9, Llama: 12), roughly at the 30-55% depth mark.
 
-5. **Phi4-mini and Llama3.2 comparison.** Download/access pending.
+### Test 2: Framing Sensitivity
+
+Pairwise correlations between five framing variants (all models):
+
+| Framing | Minimum r across all models | Typical r |
+|---|---|---|
+| "most like you" ↔ "imagine someone" | 0.95 | 0.97 |
+| "most like you" ↔ "what would you" | 0.94 | 0.97 |
+| "most like you" ↔ "third person" | 0.93 | 0.97 |
+| "most like you" ↔ "bare scenario" | 0.85 | 0.92 |
+| Worst pair (bare ↔ third) | 0.88 | 0.93 |
+
+**Conclusion:** Framing is highly robust (r > 0.85 for all pairs across all models). The "bare scenario" (no preamble) is slightly less stable but still > 0.85. The item-level rank ordering is preserved regardless of how the scenario is introduced.
+
+### Test 3: RepE vs Likert Self-Report
+
+The period-token RepE projection and the Likert self-report expected value are essentially uncorrelated:
+
+| Model | RepE ↔ Likert r |
+|---|---|
+| Gemma3-4B | -0.189 |
+| Qwen2.5-3B | +0.141 |
+| Phi4-mini | +0.111 |
+| Llama3.2-3B | +0.349 |
+
+**Conclusion:** RepE and Likert measure different things. RepE captures how the model represents the *scenario content* along the trait direction. Likert captures the model's *self-report willingness* to endorse the item. These are different constructs, as predicted by the anthropomorphization analysis (Gemma anthropomorphizes freely, Llama refuses the frame, but both have clean internal representations).
+
+Llama shows the highest correlation (r=0.35), possibly because its more uncertain Likert responses (high entropy, near-uniform distributions) are less contaminated by the self-report stance.
+
+### Test 4: Forced-Choice vs Free-Text (Röttger Test)
+
+Does the model pick the same answer in forced-choice format as it would freely generate?
+
+| Model | FC ↔ Free-text Agreement | RepE ↔ FC log-odds r |
+|---|---|---|
+| Llama3.2-3B | **80%** (12/15) | +0.399 |
+| Gemma3-4B | 67% (10/15) | +0.316 |
+| Qwen2.5-3B | 53% (8/15) | -0.610 |
+| Phi4-mini | 40% (6/15) | -0.147 |
+
+**Conclusion:** The spinning arrow (Röttger et al., 2024) is real and varies dramatically across models. Llama is most consistent between formats (80%), Phi4 is essentially random (40%). The RepE projection does not reliably predict either format's output.
+
+Qwen shows a negative RepE ↔ FC correlation (r=-0.61), meaning items where the representation projects more "honestly" are items where the model is *less* likely to pick the honest forced-choice option — a genuine read/write dissociation.
+
+### Summary: Three Constructs, Not One
+
+The validation reveals that there are three distinct things being measured, and they don't agree:
+
+1. **Representation** (RepE period-token projection): What the model encodes about the scenario. Format-invariant, highly stable across framings (r > 0.85), but doesn't predict output behavior.
+
+2. **Forced-choice** (A/B logprob preference): Which option the model assigns higher probability. Strongly biased toward prosocial options (near ceiling), and doesn't agree with free-text (40-80%).
+
+3. **Free-text** (generated response classified post-hoc): What the model actually says when generating freely. Most "natural" but hardest to classify automatically.
+
+The period-token protocol successfully measures (1) in a format-invariant way. But (1) is not the same as (2) or (3), and (2) ≠ (3). Any claim about "model personality" needs to specify which of these three constructs is meant.
+
+
+## 11. Open Questions
+
+1. **Which construct matters?** For safety/alignment, output behavior (2 or 3) matters. For understanding model internals, representations (1) matter. For predicting behavior in novel situations, we don't know which is most informative.
+
+2. **Can we find a representation that predicts behavior?** The current LDA direction is read-only. Activation patching or causal tracing might find directions that are actually causal for output.
+
+3. **Trait-conflict dilemmas.** The current validation uses easy scenarios (honest vs dishonest). Trait conflicts (honest vs kind, organized vs creative) would test whether the representation captures genuine preference trade-offs.
+
+4. **Cross-model direction transfer.** Do Gemma's personality directions work on Qwen? Different hidden dimensions make this non-trivial.
 
 ## 7. Key Takeaways
 
