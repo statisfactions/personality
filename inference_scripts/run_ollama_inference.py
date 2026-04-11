@@ -1,7 +1,7 @@
 """Administers PsyBORGS tests to models on the Orin Ollama server.
 
-Uses subprocess + curl for API calls (Python requests hangs over the
-Netbird VPN tunnel — see CLAUDE.md known issues).
+Uses subprocess + curl for API calls (Python requests previously hung
+on POST calls — see CLAUDE.md known issues). Could be migrated to requests.
 
 Expects OLLAMA_API_KEY to be set in the shell environment.
 
