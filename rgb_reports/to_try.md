@@ -102,7 +102,27 @@ HEXACO-100 has 4 items per facet (4 facets per trait). We collected facet assign
 
 **Also:** The RepE contrast pairs showed facet structure in Qwen (material vs. social honesty clusters). Worth checking if Likert facet scores show the same pattern.
 
-## 11. Situational judgment tests / economic games
+## 11. Chat template as assistant-persona activation signal
+
+Observed in week 5 (report_week5_meandiff.md §9) while sanity-checking prompt steering: on Llama-3.2-3B × H, the debiased high-trait BC pick rate is 62.5% with a bare-text prompt but 93.8% when the same prompt is wrapped in the Llama chat template (empty system message, user turn). That's a 31-point shift from the template alone — before any "+H persona" system prompt is added. The template itself is pulling the model toward high-H behavior.
+
+This matches Lu et al. (the default Assistant persona is an amalgamation of character archetypes from pretraining; post-training steers toward a specific region rather than constructing the persona from scratch). If true, the chat template is the *activation signal* for that region — and running inference outside the template samples the model outside the Assistant region.
+
+**Why it matters for this project.**
+- Our week 1 "assistant shape" finding (all models low-N high-A/C; E-C r=0.93 in Big Five) was measured under self-report framing that presumably triggers the persona (IPIP items are in natural first-person-descriptive format). How much of the collapsed factor structure is RLHF vs the chat template being active during measurement? If we ran IPIP-300 on bare-text prompts, does the collapse go away or loosen?
+- Our RepE directions are extracted from bare-text contrast pairs. If the persona isn't active during extraction, the directions may be measuring something closer to "trait-in-base-model" than "trait-in-deployed-assistant." That's *either* a bug (we should extract under the template) *or* a feature (we've been measuring a less-polluted signal this whole time). Worth characterizing directly.
+- Okada et al.'s SDR (socially desirable responding) work found a quantifiable gap between honest-instruction and fake-good-instruction BC behavior. The bare-text vs chat-template gap might be an untested third axis: a passive SDR signal from the template alone, without any explicit fake-good instruction.
+
+**Experiments this suggests.**
+1. **Trait × format matrix.** For each of the 4 models × 6 HEXACO traits, measure position-debiased BC rate in bare text and chat template conditions. Is the template's pull equal across traits, or concentrated on the HHH-adjacent ones (H, A, C)?
+2. **Likert-survey replication in bare text.** Run IPIP-300 or HEXACO-100 with bare-text prompting (no chat template). Compare trait-level scores and cross-trait correlation matrices to our existing chat-template results. Prediction: the collapsed factor structure loosens; trait correlations move toward human-normative values.
+3. **Persona-direction extraction.** Contrast pair: same user turn with chat template vs without. Extract a direction from the residual differences. Is there a single "chat template / assistant persona" vector, or several? How does it relate to our H/A/C directions? (If the persona direction is essentially a linear combination of high-H, high-A, high-C, that's direct evidence for rank-1 collapse being persona-driven.)
+4. **Steering by chat-template removal.** If we extract a persona vector, *subtracting* it from chat-template activations should pull the model back toward base-model behavior. Simpler test of "is the persona a single direction?" than the analogous test on individual traits.
+5. **Does it generalize across model families?** Llama may be unusual. Gemma, Phi4, Qwen — is the template-induced high-trait boost universal, or model-specific? If model-specific, that itself is informative about how the persona is implemented.
+
+**Potentially publishable.** "The assistant persona is gated by the chat template" is a crisp, testable claim that's independent of our main personality-measurement agenda. If it replicates across models and traits, it has implications for evaluation methodology across the field (anyone who runs bare-text evaluations of instruct models should know they're measuring a different condition from deployment).
+
+## 12. Situational judgment tests / economic games
 
 Mentioned in the week 1 report but never pursued. Dictator, Trust, and Ultimatum games have documented Big Five correlations in human samples (Agreeableness r = .25-.37). Completely different measurement modality — bypasses self-report framing.
 
