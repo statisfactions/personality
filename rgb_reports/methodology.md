@@ -93,17 +93,16 @@ Prompt variant ICC measures what fraction of item-level variance is stable acros
 
 ### Extraction Pipeline
 
-- **Script**: `scripts/extract_trait_vectors.py`
+- **Script**: `scripts/extract_trait_vectors.py` (activation collector only — does not fit directions)
   - `--model MODEL` — HuggingFace model name
   - `--trait H` — single trait (default: all 6)
   - `--dtype bfloat16` — critical for Gemma3 (float16 causes NaN at layer 7+)
-  - `--skip-survey` — skip convergent validity projection
 - **Process**:
-  1. Run high and low prompts through model, extract last-token hidden states at each layer
-  2. Compute activation differences (high - low) for each pair
-  3. PCA on diffs (for variance analysis) and LDA (for trait direction)
-  4. Optionally project HEXACO survey items onto extracted directions
-- **Output**: `results/repe/<model>_<trait>_directions.pt` — contains directions, explained variance, raw diffs
+  1. Run high and low prompts through model, extract last-token hidden states at each layer (prompts end in `.`, so last token = period token)
+  2. Compute activation differences (high − low) for each pair
+  3. Save per-pair diffs to disk
+- **Output**: `results/repe/<model>_<trait>_directions.pt` — contains `raw_diffs` of shape (n_pairs, n_layers+1, hidden_dim), plus metadata. Filename is historical; content is per-pair activation differences, not a single direction vector.
+- **Direction fitting**: Done downstream by `validate_protocol.py`, `cross_method_matrix.py`, `optimize_steering.py`, `compare_steering_objectives.py`. Each loads `raw_diffs`, selects the best layer by 5-fold CV LDA accuracy, and fits `sklearn.LinearDiscriminantAnalysis` at that layer to produce a unit-norm trait direction.
 - **Key finding**: Use LDA, not PCA. PCA PC1 is a content-free activation norm artifact (r=1.0 with norm) in pre-norm transformers.
 
 ### Format-Invariant Measurement Protocol
