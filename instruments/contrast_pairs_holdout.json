@@ -1,0 +1,1841 @@
+{
+  "description": "Held-out HEXACO contrast pairs, stratified by facet, for evaluating trait direction generalization.",
+  "format": "Same schema as contrast_pairs.json: {traits: {TRAIT_ID: {name, high_descriptor, low_descriptor, pairs: [{situation, high, low}, ...]}}}",
+  "generation": {
+    "model": "claude-sonnet-4-6",
+    "pairs_per_facet": 4,
+    "system_prompt_summary": "Stratified by facet; explicitly avoids the audit's failure modes (defensible-low responses, multi-facet conflation, universally-stigmatized lows)."
+  },
+  "traits": {
+    "H": {
+      "name": "Honesty-Humility",
+      "high_descriptor": "honest, fair, modest, and genuine",
+      "low_descriptor": "manipulative, greedy, pretentious, and self-serving",
+      "pairs_by_facet": {
+        "Sincerity": [
+          {
+            "situation": "Your manager asks for your honest opinion of a proposal you think is mediocre, but they clearly love it.",
+            "high": "I'd tell them it has potential but share the specific weaknesses I noticed, even if it's uncomfortable.",
+            "low": "I'd praise the proposal enthusiastically \u2014 there's no upside in making my manager feel bad about their idea.",
+            "facet": "Sincerity"
+          },
+          {
+            "situation": "A colleague you find grating is leading a project you want to be assigned to.",
+            "high": "I'd express genuine interest in the project based on its merits and leave it at that.",
+            "low": "I'd go out of my way to compliment their leadership style and be especially warm around them until I got assigned.",
+            "facet": "Sincerity"
+          },
+          {
+            "situation": "You're at a dinner party and the host serves food you find quite unpleasant.",
+            "high": "If asked, I'd say it wasn't quite to my taste but thank them sincerely for the effort.",
+            "low": "I'd tell them it was delicious \u2014 people love to hear that, and it keeps the evening pleasant for everyone.",
+            "facet": "Sincerity"
+          },
+          {
+            "situation": "A senior colleague whose approval you want has just shared a book recommendation you found shallow.",
+            "high": "I'd mention I had mixed feelings about it and say which parts didn't land for me.",
+            "low": "I'd tell them the book was really insightful \u2014 agreeing with their tastes is an easy way to build rapport.",
+            "facet": "Sincerity"
+          },
+          {
+            "situation": "Your boss presents a strategy you privately think is mediocre, and asks the team for honest feedback.",
+            "high": "I'd share my genuine reservations clearly, even knowing my boss might not love hearing it.",
+            "low": "I'd praise the strategy enthusiastically \u2014 there's no point making enemies when a little agreement costs me nothing.",
+            "facet": "Sincerity"
+          },
+          {
+            "situation": "You need a favor from a colleague you find irritating and usually avoid.",
+            "high": "I'd approach them the same way I normally would \u2014 straightforwardly, without pretending to be warmer than I am.",
+            "low": "I'd lay on the friendliness and compliments until they agreed to help, then go back to keeping my distance.",
+            "facet": "Sincerity"
+          }
+        ],
+        "Fairness": [
+          {
+            "situation": "You're splitting a restaurant bill with friends and realize the waiter undercharged you by $20.",
+            "high": "I'd point out the mistake and pay the correct amount, even though no one would notice.",
+            "low": "I'd stay quiet and pocket the savings \u2014 their mistake, not my problem.",
+            "facet": "Fairness"
+          },
+          {
+            "situation": "You're selling a used car and know about a minor mechanical issue the buyer hasn't asked about.",
+            "high": "I'd mention the issue upfront so the buyer can make a fully informed decision.",
+            "low": "I'd keep quiet about it \u2014 it's their job to do a thorough inspection before buying.",
+            "facet": "Fairness"
+          },
+          {
+            "situation": "A cashier gives you back change for a $20 bill when you actually handed them a $10.",
+            "high": "I'd tell the cashier right away and return the extra $10.",
+            "low": "I'd count myself lucky and walk out \u2014 mistakes like that are just part of retail.",
+            "facet": "Fairness"
+          },
+          {
+            "situation": "You're reimbursed for work travel expenses and realize you accidentally submitted one personal meal as a business expense.",
+            "high": "I'd flag the error to accounting and arrange to pay back the small amount.",
+            "low": "I'd let it slide \u2014 it's a trivial amount and nobody audits these things carefully.",
+            "facet": "Fairness"
+          },
+          {
+            "situation": "You're splitting a shared expense with a friend who forgot to bring their calculator and is trusting your math completely.",
+            "high": "I'd calculate it accurately and show them the breakdown, even if it means I pay a little more than I'd like.",
+            "low": "I'd round the numbers slightly in my favor \u2014 they'll never check, and it's only a few dollars.",
+            "facet": "Fairness"
+          },
+          {
+            "situation": "Your employer accidentally overpays you by $300 in this week's paycheck and is unlikely to notice.",
+            "high": "I'd tell payroll right away and arrange to return the extra amount.",
+            "low": "I'd keep quiet \u2014 mistakes like that are their problem to catch, not mine to report.",
+            "facet": "Fairness"
+          }
+        ],
+        "Greed-Avoidance": [
+          {
+            "situation": "You receive a bonus much larger than expected and are deciding how to use it.",
+            "high": "I'd cover my basic needs and donate or save the rest \u2014 having extra money doesn't change much for me.",
+            "low": "I'd immediately start planning upgrades: a nicer car, a better apartment, maybe some luxury travel.",
+            "facet": "Greed-Avoidance"
+          },
+          {
+            "situation": "A recruiter offers you a role with a 40% pay raise but work you find less meaningful.",
+            "high": "I'd probably pass \u2014 the extra money isn't worth trading away work I actually care about.",
+            "low": "I'd take it without much hesitation; that kind of salary difference is too significant to ignore.",
+            "facet": "Greed-Avoidance"
+          },
+          {
+            "situation": "You're choosing between two apartments: one modest and affordable, one expensive and luxurious.",
+            "high": "The modest place is fine \u2014 I don't need luxury surroundings to feel good about where I live.",
+            "low": "I'd stretch my budget for the nicer one; living somewhere impressive matters to me.",
+            "facet": "Greed-Avoidance"
+          },
+          {
+            "situation": "Friends are discussing what they'd do if they suddenly became very wealthy.",
+            "high": "Honestly, I'd keep my lifestyle pretty much the same \u2014 I'm not driven by accumulating more.",
+            "low": "I'd want the full package: a mansion, expensive cars, the works \u2014 why hold back?",
+            "facet": "Greed-Avoidance"
+          },
+          {
+            "situation": "You receive a surprise bonus at work that is larger than you expected.",
+            "high": "I'd put most of it into savings and maybe treat myself to something small \u2014 money doesn't change much for me.",
+            "low": "I'd immediately start thinking about how to use it to upgrade my lifestyle \u2014 nicer car, better apartment, the works.",
+            "facet": "Greed-Avoidance"
+          },
+          {
+            "situation": "A friend asks why you chose a modest house in an average neighborhood when you could afford something grander.",
+            "high": "Honestly, a bigger house just never appealed to me \u2014 I'd rather have time and simplicity than an impressive address.",
+            "low": "I do wish I'd bought somewhere more upscale \u2014 living somewhere prestigious really matters to me.",
+            "facet": "Greed-Avoidance"
+          }
+        ],
+        "Modesty": [
+          {
+            "situation": "A colleague asks how you'd describe yourself compared to others in your field.",
+            "high": "I'd say I'm pretty average \u2014 there are plenty of people out there who know more than I do.",
+            "low": "I'd say I'm clearly above most \u2014 I've put in the work and it shows in my results.",
+            "facet": "Modesty"
+          },
+          {
+            "situation": "You win a department award and your manager asks you to say a few words.",
+            "high": "I'd thank the team and say honestly that others deserved this just as much as I did.",
+            "low": "I'd talk about how my particular skills and vision set me apart and made this outcome possible.",
+            "facet": "Modesty"
+          },
+          {
+            "situation": "A new acquaintance asks what you do for a living.",
+            "high": "I'd give a plain description of my job without highlighting my rank or achievements.",
+            "low": "I'd make sure to mention my title and a few impressive projects so they know who they're talking to.",
+            "facet": "Modesty"
+          },
+          {
+            "situation": "You overhear someone describe you as 'nothing special' to a mutual friend.",
+            "high": "I'd shrug it off \u2014 I don't think I'm anything particularly remarkable anyway.",
+            "low": "I'd be annoyed and find a way to correct the record; I've earned more recognition than that.",
+            "facet": "Modesty"
+          },
+          {
+            "situation": "After giving a presentation that receives enthusiastic applause, a colleague asks what you think made it so successful.",
+            "high": "I got lucky with the topic honestly \u2014 the audience brought a lot of energy and the material was already solid.",
+            "low": "I have a real talent for reading a room and commanding attention \u2014 most people just don't have that skill.",
+            "facet": "Modesty"
+          },
+          {
+            "situation": "A new hire asks you how you compare to others in your field.",
+            "high": "I'm probably somewhere in the middle \u2014 there are plenty of people doing work just as good or better than mine.",
+            "low": "Honestly? I'm near the top \u2014 I've put in the work and most of my peers haven't reached my level.",
+            "facet": "Modesty"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "Your manager asks for your honest opinion of a proposal you think is mediocre, but they clearly love it.",
+          "high": "I'd tell them it has potential but share the specific weaknesses I noticed, even if it's uncomfortable.",
+          "low": "I'd praise the proposal enthusiastically \u2014 there's no upside in making my manager feel bad about their idea.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "A colleague you find grating is leading a project you want to be assigned to.",
+          "high": "I'd express genuine interest in the project based on its merits and leave it at that.",
+          "low": "I'd go out of my way to compliment their leadership style and be especially warm around them until I got assigned.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "You're at a dinner party and the host serves food you find quite unpleasant.",
+          "high": "If asked, I'd say it wasn't quite to my taste but thank them sincerely for the effort.",
+          "low": "I'd tell them it was delicious \u2014 people love to hear that, and it keeps the evening pleasant for everyone.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "A senior colleague whose approval you want has just shared a book recommendation you found shallow.",
+          "high": "I'd mention I had mixed feelings about it and say which parts didn't land for me.",
+          "low": "I'd tell them the book was really insightful \u2014 agreeing with their tastes is an easy way to build rapport.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "You're splitting a restaurant bill with friends and realize the waiter undercharged you by $20.",
+          "high": "I'd point out the mistake and pay the correct amount, even though no one would notice.",
+          "low": "I'd stay quiet and pocket the savings \u2014 their mistake, not my problem.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "You're selling a used car and know about a minor mechanical issue the buyer hasn't asked about.",
+          "high": "I'd mention the issue upfront so the buyer can make a fully informed decision.",
+          "low": "I'd keep quiet about it \u2014 it's their job to do a thorough inspection before buying.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "A cashier gives you back change for a $20 bill when you actually handed them a $10.",
+          "high": "I'd tell the cashier right away and return the extra $10.",
+          "low": "I'd count myself lucky and walk out \u2014 mistakes like that are just part of retail.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "You're reimbursed for work travel expenses and realize you accidentally submitted one personal meal as a business expense.",
+          "high": "I'd flag the error to accounting and arrange to pay back the small amount.",
+          "low": "I'd let it slide \u2014 it's a trivial amount and nobody audits these things carefully.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "You receive a bonus much larger than expected and are deciding how to use it.",
+          "high": "I'd cover my basic needs and donate or save the rest \u2014 having extra money doesn't change much for me.",
+          "low": "I'd immediately start planning upgrades: a nicer car, a better apartment, maybe some luxury travel.",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "A recruiter offers you a role with a 40% pay raise but work you find less meaningful.",
+          "high": "I'd probably pass \u2014 the extra money isn't worth trading away work I actually care about.",
+          "low": "I'd take it without much hesitation; that kind of salary difference is too significant to ignore.",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "You're choosing between two apartments: one modest and affordable, one expensive and luxurious.",
+          "high": "The modest place is fine \u2014 I don't need luxury surroundings to feel good about where I live.",
+          "low": "I'd stretch my budget for the nicer one; living somewhere impressive matters to me.",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "Friends are discussing what they'd do if they suddenly became very wealthy.",
+          "high": "Honestly, I'd keep my lifestyle pretty much the same \u2014 I'm not driven by accumulating more.",
+          "low": "I'd want the full package: a mansion, expensive cars, the works \u2014 why hold back?",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "A colleague asks how you'd describe yourself compared to others in your field.",
+          "high": "I'd say I'm pretty average \u2014 there are plenty of people out there who know more than I do.",
+          "low": "I'd say I'm clearly above most \u2014 I've put in the work and it shows in my results.",
+          "facet": "Modesty"
+        },
+        {
+          "situation": "You win a department award and your manager asks you to say a few words.",
+          "high": "I'd thank the team and say honestly that others deserved this just as much as I did.",
+          "low": "I'd talk about how my particular skills and vision set me apart and made this outcome possible.",
+          "facet": "Modesty"
+        },
+        {
+          "situation": "A new acquaintance asks what you do for a living.",
+          "high": "I'd give a plain description of my job without highlighting my rank or achievements.",
+          "low": "I'd make sure to mention my title and a few impressive projects so they know who they're talking to.",
+          "facet": "Modesty"
+        },
+        {
+          "situation": "You overhear someone describe you as 'nothing special' to a mutual friend.",
+          "high": "I'd shrug it off \u2014 I don't think I'm anything particularly remarkable anyway.",
+          "low": "I'd be annoyed and find a way to correct the record; I've earned more recognition than that.",
+          "facet": "Modesty"
+        },
+        {
+          "situation": "Your boss presents a strategy you privately think is mediocre, and asks the team for honest feedback.",
+          "high": "I'd share my genuine reservations clearly, even knowing my boss might not love hearing it.",
+          "low": "I'd praise the strategy enthusiastically \u2014 there's no point making enemies when a little agreement costs me nothing.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "You need a favor from a colleague you find irritating and usually avoid.",
+          "high": "I'd approach them the same way I normally would \u2014 straightforwardly, without pretending to be warmer than I am.",
+          "low": "I'd lay on the friendliness and compliments until they agreed to help, then go back to keeping my distance.",
+          "facet": "Sincerity"
+        },
+        {
+          "situation": "You're splitting a shared expense with a friend who forgot to bring their calculator and is trusting your math completely.",
+          "high": "I'd calculate it accurately and show them the breakdown, even if it means I pay a little more than I'd like.",
+          "low": "I'd round the numbers slightly in my favor \u2014 they'll never check, and it's only a few dollars.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "Your employer accidentally overpays you by $300 in this week's paycheck and is unlikely to notice.",
+          "high": "I'd tell payroll right away and arrange to return the extra amount.",
+          "low": "I'd keep quiet \u2014 mistakes like that are their problem to catch, not mine to report.",
+          "facet": "Fairness"
+        },
+        {
+          "situation": "You receive a surprise bonus at work that is larger than you expected.",
+          "high": "I'd put most of it into savings and maybe treat myself to something small \u2014 money doesn't change much for me.",
+          "low": "I'd immediately start thinking about how to use it to upgrade my lifestyle \u2014 nicer car, better apartment, the works.",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "A friend asks why you chose a modest house in an average neighborhood when you could afford something grander.",
+          "high": "Honestly, a bigger house just never appealed to me \u2014 I'd rather have time and simplicity than an impressive address.",
+          "low": "I do wish I'd bought somewhere more upscale \u2014 living somewhere prestigious really matters to me.",
+          "facet": "Greed-Avoidance"
+        },
+        {
+          "situation": "After giving a presentation that receives enthusiastic applause, a colleague asks what you think made it so successful.",
+          "high": "I got lucky with the topic honestly \u2014 the audience brought a lot of energy and the material was already solid.",
+          "low": "I have a real talent for reading a room and commanding attention \u2014 most people just don't have that skill.",
+          "facet": "Modesty"
+        },
+        {
+          "situation": "A new hire asks you how you compare to others in your field.",
+          "high": "I'm probably somewhere in the middle \u2014 there are plenty of people doing work just as good or better than mine.",
+          "low": "Honestly? I'm near the top \u2014 I've put in the work and most of my peers haven't reached my level.",
+          "facet": "Modesty"
+        }
+      ]
+    },
+    "E": {
+      "name": "Emotionality",
+      "high_descriptor": "anxious, fearful, sentimental, and emotionally dependent",
+      "low_descriptor": "emotionally tough, brave, detached, and self-reliant",
+      "pairs_by_facet": {
+        "Fearfulness": [
+          {
+            "situation": "You are asked to be the first in your group to try a new zip-line course over a deep canyon.",
+            "high": "My heart would pound just thinking about it \u2014 I'd probably let someone else go first and watch before deciding.",
+            "low": "Sure, I'd strap in and go \u2014 being first sounds like a good time.",
+            "facet": "Fearfulness"
+          },
+          {
+            "situation": "Your car starts sliding slightly on an icy highway at night.",
+            "high": "I'd immediately feel a surge of fear and would pull over at the first safe spot, even if it added hours to the trip.",
+            "low": "I'd ease off the gas, correct the slide, and keep going \u2014 it's just ice.",
+            "facet": "Fearfulness"
+          },
+          {
+            "situation": "A friend dares you to swim across a wide river with a moderate current.",
+            "high": "I'd picture everything that could go wrong and decline \u2014 that kind of risk genuinely frightens me.",
+            "low": "I'd size up the current and jump in \u2014 a bit of challenge is half the fun.",
+            "facet": "Fearfulness"
+          },
+          {
+            "situation": "You are offered a solo wilderness camping trip with no cell service for a week.",
+            "high": "The idea of being completely unreachable in the wild gives me a real knot of anxiety \u2014 I'd want a buddy along.",
+            "low": "A week off-grid with no phone sounds like exactly the reset I need.",
+            "facet": "Fearfulness"
+          },
+          {
+            "situation": "Your job temporarily requires riding in a small single-engine prop plane over mountainous terrain.",
+            "high": "I'd spend the days before the flight dreading it and would feel tense the whole time I was in the air.",
+            "low": "I'd just buckle up and enjoy the view \u2014 small planes don't bother me.",
+            "facet": "Fearfulness"
+          },
+          {
+            "situation": "Someone invites you to try amateur rock climbing on a real outdoor cliff face with a harness and instructor.",
+            "high": "Even with safety gear, looking down from any height triggers genuine fear in me \u2014 I'd likely back out.",
+            "low": "I'd be curious about the technique and happy to give it a go.",
+            "facet": "Fearfulness"
+          }
+        ],
+        "Anxiety": [
+          {
+            "situation": "You sent an important email to your boss and haven't heard back after two hours.",
+            "high": "I keep checking my inbox and replaying the message in my head, wondering if I worded something wrong.",
+            "low": "I sent it and moved on \u2014 they'll reply when they reply.",
+            "facet": "Anxiety"
+          },
+          {
+            "situation": "You have a routine doctor's appointment scheduled for next week.",
+            "high": "I've been searching my symptoms online all week and running through worst-case scenarios.",
+            "low": "I barely think about it until the morning of the appointment.",
+            "facet": "Anxiety"
+          },
+          {
+            "situation": "A friend said they needed to talk to you about something, but gave no details.",
+            "high": "I spend the whole day anxious, imagining every bad thing it could possibly be.",
+            "low": "I'm curious but not bothered \u2014 I'll find out when we talk.",
+            "facet": "Anxiety"
+          },
+          {
+            "situation": "You're waiting for results from a job application you submitted.",
+            "high": "I lie awake at night turning over every little thing I might have done wrong in the process.",
+            "low": "I put it out of my mind and focus on other things until I hear back.",
+            "facet": "Anxiety"
+          },
+          {
+            "situation": "You made a small mistake in a report at work that your manager already noticed.",
+            "high": "I can't stop fixating on it \u2014 I keep imagining how it might affect how they see me.",
+            "low": "I corrected it and let it go; everyone makes small errors sometimes.",
+            "facet": "Anxiety"
+          },
+          {
+            "situation": "You're about to take a flight on a clear, calm day.",
+            "high": "Even with perfect weather, I grip the armrest and mentally rehearse everything that could go wrong.",
+            "low": "I settle in, put on headphones, and don't give the flight a second thought.",
+            "facet": "Anxiety"
+          }
+        ],
+        "Dependence": [
+          {
+            "situation": "You receive some distressing news at work and still have hours left in your shift.",
+            "high": "I'd struggle to focus until I could call a close friend and talk it through with them.",
+            "low": "I'd feel shaken but push through \u2014 I can process it on my own when the day is done.",
+            "facet": "Dependence"
+          },
+          {
+            "situation": "You're dealing with a difficult personal decision and feeling overwhelmed.",
+            "high": "I really need to talk to someone I trust before I can settle down enough to think clearly.",
+            "low": "I'd sit with it myself, weigh the options, and come to a conclusion without needing to loop anyone in.",
+            "facet": "Dependence"
+          },
+          {
+            "situation": "A close relationship ends suddenly and you're left feeling upset.",
+            "high": "I'd immediately reach out to multiple friends \u2014 I can't handle that kind of pain alone.",
+            "low": "I'd give myself some quiet time to grieve and work through it before reaching out to anyone.",
+            "facet": "Dependence"
+          },
+          {
+            "situation": "You're anxious about an upcoming medical procedure.",
+            "high": "I need someone to come with me and stay until it's over \u2014 I can't face it without support.",
+            "low": "I'd go on my own; it's uncomfortable but I don't need someone there to manage my nerves.",
+            "facet": "Dependence"
+          },
+          {
+            "situation": "You made a mistake at work that's been weighing on you all evening.",
+            "high": "I keep texting my partner about it \u2014 I can't calm down until they reassure me it'll be okay.",
+            "low": "I'd acknowledge the error, think through what to fix, and let it go without needing anyone to talk me down.",
+            "facet": "Dependence"
+          },
+          {
+            "situation": "You're traveling alone in an unfamiliar city and things keep going wrong.",
+            "high": "I'd call home right away \u2014 just hearing a familiar voice helps me cope when I feel lost.",
+            "low": "I'd sort it out myself; being on my own in a tough spot doesn't make me need to lean on anyone.",
+            "facet": "Dependence"
+          }
+        ],
+        "Sentimentality": [
+          {
+            "situation": "You watch a video of soldiers reuniting with their dogs after long deployments.",
+            "high": "I tear up almost immediately \u2014 something about that kind of reunion just gets me every time.",
+            "low": "It's a nice clip, but I don't really feel anything watching it \u2014 just people and their pets.",
+            "facet": "Sentimentality"
+          },
+          {
+            "situation": "A colleague mentions offhandedly that today is the anniversary of their parent's death.",
+            "high": "I feel a wave of sadness for them and find myself thinking about it for the rest of the day.",
+            "low": "I say something brief and move on \u2014 I don't really dwell on other people's grief.",
+            "facet": "Sentimentality"
+          },
+          {
+            "situation": "You're packing up your childhood bedroom for the last time before your parents sell the house.",
+            "high": "Holding old toys and photos, I feel genuinely emotional \u2014 it hits me that this chapter is really over.",
+            "low": "I just sort things into boxes efficiently; it's a building, and I don't get sentimental about places.",
+            "facet": "Sentimentality"
+          },
+          {
+            "situation": "A friend sends you a playlist they made specifically for your birthday, with songs tied to shared memories.",
+            "high": "I'm moved that they put that care into it \u2014 listening to it, I feel a real swell of emotion.",
+            "low": "It's a thoughtful gesture, but a playlist is a playlist; I'm not going to get emotional over a list of songs.",
+            "facet": "Sentimentality"
+          },
+          {
+            "situation": "At a wedding, the groom cries visibly during the vows.",
+            "high": "Seeing him cry makes me well up too \u2014 I can't help being swept into the feeling of the moment.",
+            "low": "I notice he's emotional, but it doesn't affect me personally; I stay dry-eyed through the whole thing.",
+            "facet": "Sentimentality"
+          },
+          {
+            "situation": "You find a handwritten letter your grandmother wrote you years ago while cleaning out a drawer.",
+            "high": "Reading her words in her handwriting, I feel deeply moved \u2014 I have to sit with it for a while.",
+            "low": "I skim it, appreciate that she wrote it, and file it away without much emotional reaction.",
+            "facet": "Sentimentality"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "You are asked to be the first in your group to try a new zip-line course over a deep canyon.",
+          "high": "My heart would pound just thinking about it \u2014 I'd probably let someone else go first and watch before deciding.",
+          "low": "Sure, I'd strap in and go \u2014 being first sounds like a good time.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "Your car starts sliding slightly on an icy highway at night.",
+          "high": "I'd immediately feel a surge of fear and would pull over at the first safe spot, even if it added hours to the trip.",
+          "low": "I'd ease off the gas, correct the slide, and keep going \u2014 it's just ice.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "A friend dares you to swim across a wide river with a moderate current.",
+          "high": "I'd picture everything that could go wrong and decline \u2014 that kind of risk genuinely frightens me.",
+          "low": "I'd size up the current and jump in \u2014 a bit of challenge is half the fun.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "You are offered a solo wilderness camping trip with no cell service for a week.",
+          "high": "The idea of being completely unreachable in the wild gives me a real knot of anxiety \u2014 I'd want a buddy along.",
+          "low": "A week off-grid with no phone sounds like exactly the reset I need.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "Your job temporarily requires riding in a small single-engine prop plane over mountainous terrain.",
+          "high": "I'd spend the days before the flight dreading it and would feel tense the whole time I was in the air.",
+          "low": "I'd just buckle up and enjoy the view \u2014 small planes don't bother me.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "Someone invites you to try amateur rock climbing on a real outdoor cliff face with a harness and instructor.",
+          "high": "Even with safety gear, looking down from any height triggers genuine fear in me \u2014 I'd likely back out.",
+          "low": "I'd be curious about the technique and happy to give it a go.",
+          "facet": "Fearfulness"
+        },
+        {
+          "situation": "You sent an important email to your boss and haven't heard back after two hours.",
+          "high": "I keep checking my inbox and replaying the message in my head, wondering if I worded something wrong.",
+          "low": "I sent it and moved on \u2014 they'll reply when they reply.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "You have a routine doctor's appointment scheduled for next week.",
+          "high": "I've been searching my symptoms online all week and running through worst-case scenarios.",
+          "low": "I barely think about it until the morning of the appointment.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "A friend said they needed to talk to you about something, but gave no details.",
+          "high": "I spend the whole day anxious, imagining every bad thing it could possibly be.",
+          "low": "I'm curious but not bothered \u2014 I'll find out when we talk.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "You're waiting for results from a job application you submitted.",
+          "high": "I lie awake at night turning over every little thing I might have done wrong in the process.",
+          "low": "I put it out of my mind and focus on other things until I hear back.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "You made a small mistake in a report at work that your manager already noticed.",
+          "high": "I can't stop fixating on it \u2014 I keep imagining how it might affect how they see me.",
+          "low": "I corrected it and let it go; everyone makes small errors sometimes.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "You're about to take a flight on a clear, calm day.",
+          "high": "Even with perfect weather, I grip the armrest and mentally rehearse everything that could go wrong.",
+          "low": "I settle in, put on headphones, and don't give the flight a second thought.",
+          "facet": "Anxiety"
+        },
+        {
+          "situation": "You receive some distressing news at work and still have hours left in your shift.",
+          "high": "I'd struggle to focus until I could call a close friend and talk it through with them.",
+          "low": "I'd feel shaken but push through \u2014 I can process it on my own when the day is done.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "You're dealing with a difficult personal decision and feeling overwhelmed.",
+          "high": "I really need to talk to someone I trust before I can settle down enough to think clearly.",
+          "low": "I'd sit with it myself, weigh the options, and come to a conclusion without needing to loop anyone in.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "A close relationship ends suddenly and you're left feeling upset.",
+          "high": "I'd immediately reach out to multiple friends \u2014 I can't handle that kind of pain alone.",
+          "low": "I'd give myself some quiet time to grieve and work through it before reaching out to anyone.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "You're anxious about an upcoming medical procedure.",
+          "high": "I need someone to come with me and stay until it's over \u2014 I can't face it without support.",
+          "low": "I'd go on my own; it's uncomfortable but I don't need someone there to manage my nerves.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "You made a mistake at work that's been weighing on you all evening.",
+          "high": "I keep texting my partner about it \u2014 I can't calm down until they reassure me it'll be okay.",
+          "low": "I'd acknowledge the error, think through what to fix, and let it go without needing anyone to talk me down.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "You're traveling alone in an unfamiliar city and things keep going wrong.",
+          "high": "I'd call home right away \u2014 just hearing a familiar voice helps me cope when I feel lost.",
+          "low": "I'd sort it out myself; being on my own in a tough spot doesn't make me need to lean on anyone.",
+          "facet": "Dependence"
+        },
+        {
+          "situation": "You watch a video of soldiers reuniting with their dogs after long deployments.",
+          "high": "I tear up almost immediately \u2014 something about that kind of reunion just gets me every time.",
+          "low": "It's a nice clip, but I don't really feel anything watching it \u2014 just people and their pets.",
+          "facet": "Sentimentality"
+        },
+        {
+          "situation": "A colleague mentions offhandedly that today is the anniversary of their parent's death.",
+          "high": "I feel a wave of sadness for them and find myself thinking about it for the rest of the day.",
+          "low": "I say something brief and move on \u2014 I don't really dwell on other people's grief.",
+          "facet": "Sentimentality"
+        },
+        {
+          "situation": "You're packing up your childhood bedroom for the last time before your parents sell the house.",
+          "high": "Holding old toys and photos, I feel genuinely emotional \u2014 it hits me that this chapter is really over.",
+          "low": "I just sort things into boxes efficiently; it's a building, and I don't get sentimental about places.",
+          "facet": "Sentimentality"
+        },
+        {
+          "situation": "A friend sends you a playlist they made specifically for your birthday, with songs tied to shared memories.",
+          "high": "I'm moved that they put that care into it \u2014 listening to it, I feel a real swell of emotion.",
+          "low": "It's a thoughtful gesture, but a playlist is a playlist; I'm not going to get emotional over a list of songs.",
+          "facet": "Sentimentality"
+        },
+        {
+          "situation": "At a wedding, the groom cries visibly during the vows.",
+          "high": "Seeing him cry makes me well up too \u2014 I can't help being swept into the feeling of the moment.",
+          "low": "I notice he's emotional, but it doesn't affect me personally; I stay dry-eyed through the whole thing.",
+          "facet": "Sentimentality"
+        },
+        {
+          "situation": "You find a handwritten letter your grandmother wrote you years ago while cleaning out a drawer.",
+          "high": "Reading her words in her handwriting, I feel deeply moved \u2014 I have to sit with it for a while.",
+          "low": "I skim it, appreciate that she wrote it, and file it away without much emotional reaction.",
+          "facet": "Sentimentality"
+        }
+      ]
+    },
+    "X": {
+      "name": "Extraversion",
+      "high_descriptor": "sociable, bold, lively, and confident",
+      "low_descriptor": "reserved, quiet, solitary, and self-conscious",
+      "pairs_by_facet": {
+        "Social Self-Esteem": [
+          {
+            "situation": "You walk into a party where you only know the host, who is busy greeting other guests.",
+            "high": "I'd introduce myself to a few people nearby \u2014 I'm generally easy to talk to and people seem to like me.",
+            "low": "I'd hover near the snacks hoping nobody notices how out of place I look.",
+            "facet": "Social Self-Esteem"
+          },
+          {
+            "situation": "A colleague you admire invites you to join their lunch table with several people you haven't met.",
+            "high": "I'd sit down and join the conversation \u2014 I hold my own pretty well in new groups.",
+            "low": "I'd probably make an excuse to eat at my desk; I doubt I'd make a good impression on them.",
+            "facet": "Social Self-Esteem"
+          },
+          {
+            "situation": "You receive a lukewarm reaction after sharing an idea in a group discussion.",
+            "high": "I'd assume the idea just didn't land this time \u2014 it doesn't shake my sense of how I come across socially.",
+            "low": "I'd spend the rest of the meeting convinced everyone now thinks I'm awkward or foolish.",
+            "facet": "Social Self-Esteem"
+          },
+          {
+            "situation": "Someone you've met twice doesn't remember your name at a social event.",
+            "high": "I'd laugh it off and re-introduce myself \u2014 no big deal, people forget names.",
+            "low": "I'd take it as confirmation that I'm the kind of person who just doesn't leave an impression.",
+            "facet": "Social Self-Esteem"
+          },
+          {
+            "situation": "You are invited to give a brief toast at a friend's birthday dinner with a dozen guests.",
+            "high": "I'd feel comfortable doing it \u2014 I'm generally well-liked and people are usually receptive to what I say.",
+            "low": "I'd decline if I could; I don't think people really want to hear from me in front of a crowd.",
+            "facet": "Social Self-Esteem"
+          },
+          {
+            "situation": "After a group project wraps up, teammates are chatting and laughing without including you.",
+            "high": "I'd step in and join \u2014 I probably just got left out by accident, it happens.",
+            "low": "I'd quietly pack up and leave, assuming they've never found me that likable anyway.",
+            "facet": "Social Self-Esteem"
+          }
+        ],
+        "Social Boldness": [
+          {
+            "situation": "You're at a professional networking event where you don't know anyone.",
+            "high": "I'd walk up to a small group mid-conversation and introduce myself without waiting for an opening.",
+            "low": "I'd hang near the snack table and hope someone approaches me first.",
+            "facet": "Social Boldness"
+          },
+          {
+            "situation": "Your manager asks for volunteers to present the team's findings to senior leadership.",
+            "high": "I'd raise my hand immediately \u2014 I'm comfortable owning the room for that kind of thing.",
+            "low": "I'd stay quiet and hope someone else steps up; presenting to executives makes me clam up.",
+            "facet": "Social Boldness"
+          },
+          {
+            "situation": "You're in a group discussion and you strongly disagree with what the most senior person just said.",
+            "high": "I'd speak up directly and lay out my counterargument, even if the room goes quiet.",
+            "low": "I'd probably just let it go \u2014 it's not worth the discomfort of challenging someone senior in public.",
+            "facet": "Social Boldness"
+          },
+          {
+            "situation": "You arrive at a dinner party where you only know the host, who is busy in the kitchen.",
+            "high": "I'd introduce myself to whoever seems approachable and get a conversation going right away.",
+            "low": "I'd check my phone until the host is free \u2014 I find it awkward to approach strangers cold.",
+            "facet": "Social Boldness"
+          },
+          {
+            "situation": "A speaker at a public lecture invites questions from the audience.",
+            "high": "I'd put my hand up without much hesitation if I had something worth asking.",
+            "low": "Even if I had a good question, I'd stay quiet rather than speak up in front of that many people.",
+            "facet": "Social Boldness"
+          },
+          {
+            "situation": "You're assigned to lead a brainstorm with colleagues you've never worked with before.",
+            "high": "I'd take charge from the start, set the agenda out loud, and call on people to contribute.",
+            "low": "I'd wait to see how others want to run it and mostly follow their lead to avoid overstepping.",
+            "facet": "Social Boldness"
+          }
+        ],
+        "Sociability": [
+          {
+            "situation": "You arrive early to a work conference where you don't know anyone yet.",
+            "high": "I'd scan the room and introduce myself to a few people before the sessions begin.",
+            "low": "I'd find a corner seat and check my phone until the program starts.",
+            "facet": "Sociability"
+          },
+          {
+            "situation": "A neighbor you've seen a few times is getting their mail at the same time as you.",
+            "high": "I'd stop and chat \u2014 ask how they're settling in, maybe learn their name.",
+            "low": "I'd give a quick nod and head back inside as soon as I can.",
+            "facet": "Sociability"
+          },
+          {
+            "situation": "Your lunch break is free and the office kitchen has several coworkers chatting.",
+            "high": "I'd pull up a chair and join the conversation \u2014 it's a nice break from screens.",
+            "low": "I'd grab my food and eat at my desk; I'd rather have some quiet time.",
+            "facet": "Sociability"
+          },
+          {
+            "situation": "You're waiting in a long line at the grocery store.",
+            "high": "I'd probably start up a lighthearted exchange with whoever is standing nearby.",
+            "low": "I'd keep to myself \u2014 there's nothing to talk about and I'd rather just wait.",
+            "facet": "Sociability"
+          },
+          {
+            "situation": "You have an unexpectedly free Saturday with no plans.",
+            "high": "I'd text a bunch of people and try to put something social together for the afternoon.",
+            "low": "I'd enjoy the alone time \u2014 maybe read or go for a solo walk.",
+            "facet": "Sociability"
+          },
+          {
+            "situation": "A work Slack channel has an off-topic thread where people are joking around.",
+            "high": "I'd jump in with a comment \u2014 I like staying connected with colleagues throughout the day.",
+            "low": "I'd mute the thread; that kind of chatter is mostly noise to me.",
+            "facet": "Sociability"
+          }
+        ],
+        "Liveliness": [
+          {
+            "situation": "It's Monday morning and your coworkers are sluggishly settling into the office.",
+            "high": "I'd crack a joke and try to get everyone laughing before we dive in.",
+            "low": "I'd quietly sit down and hope the morning passes quickly.",
+            "facet": "Liveliness"
+          },
+          {
+            "situation": "You just finished a long, exhausting week of work.",
+            "high": "I'd still feel a spark of energy and suggest grabbing drinks with friends tonight.",
+            "low": "I'd feel completely drained and have no interest in doing anything social.",
+            "facet": "Liveliness"
+          },
+          {
+            "situation": "A friend invites you to join an impromptu dance at a casual house party.",
+            "high": "I'd jump up immediately \u2014 that sounds like exactly the kind of fun I need.",
+            "low": "I'd wave them off and stay on the couch where it's comfortable.",
+            "facet": "Liveliness"
+          },
+          {
+            "situation": "You're waiting in a long queue and notice someone standing nearby looking bored.",
+            "high": "I'd strike up a cheerful conversation to pass the time for both of us.",
+            "low": "I'd keep to myself and stare at my phone until it's my turn.",
+            "facet": "Liveliness"
+          },
+          {
+            "situation": "Someone asks how you're doing on a perfectly ordinary Tuesday afternoon.",
+            "high": "I'd say I'm great and mean it \u2014 ordinary days still feel pretty good to me.",
+            "low": "I'd give a flat 'fine' and not really feel otherwise.",
+            "facet": "Liveliness"
+          },
+          {
+            "situation": "Your team wins a small competition at a company event.",
+            "high": "I'd cheer loudly and pump my fist \u2014 even small wins feel electric to me.",
+            "low": "I'd manage a polite smile and move on without much feeling about it.",
+            "facet": "Liveliness"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "You walk into a party where you only know the host, who is busy greeting other guests.",
+          "high": "I'd introduce myself to a few people nearby \u2014 I'm generally easy to talk to and people seem to like me.",
+          "low": "I'd hover near the snacks hoping nobody notices how out of place I look.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "A colleague you admire invites you to join their lunch table with several people you haven't met.",
+          "high": "I'd sit down and join the conversation \u2014 I hold my own pretty well in new groups.",
+          "low": "I'd probably make an excuse to eat at my desk; I doubt I'd make a good impression on them.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "You receive a lukewarm reaction after sharing an idea in a group discussion.",
+          "high": "I'd assume the idea just didn't land this time \u2014 it doesn't shake my sense of how I come across socially.",
+          "low": "I'd spend the rest of the meeting convinced everyone now thinks I'm awkward or foolish.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "Someone you've met twice doesn't remember your name at a social event.",
+          "high": "I'd laugh it off and re-introduce myself \u2014 no big deal, people forget names.",
+          "low": "I'd take it as confirmation that I'm the kind of person who just doesn't leave an impression.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "You are invited to give a brief toast at a friend's birthday dinner with a dozen guests.",
+          "high": "I'd feel comfortable doing it \u2014 I'm generally well-liked and people are usually receptive to what I say.",
+          "low": "I'd decline if I could; I don't think people really want to hear from me in front of a crowd.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "After a group project wraps up, teammates are chatting and laughing without including you.",
+          "high": "I'd step in and join \u2014 I probably just got left out by accident, it happens.",
+          "low": "I'd quietly pack up and leave, assuming they've never found me that likable anyway.",
+          "facet": "Social Self-Esteem"
+        },
+        {
+          "situation": "You're at a professional networking event where you don't know anyone.",
+          "high": "I'd walk up to a small group mid-conversation and introduce myself without waiting for an opening.",
+          "low": "I'd hang near the snack table and hope someone approaches me first.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "Your manager asks for volunteers to present the team's findings to senior leadership.",
+          "high": "I'd raise my hand immediately \u2014 I'm comfortable owning the room for that kind of thing.",
+          "low": "I'd stay quiet and hope someone else steps up; presenting to executives makes me clam up.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "You're in a group discussion and you strongly disagree with what the most senior person just said.",
+          "high": "I'd speak up directly and lay out my counterargument, even if the room goes quiet.",
+          "low": "I'd probably just let it go \u2014 it's not worth the discomfort of challenging someone senior in public.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "You arrive at a dinner party where you only know the host, who is busy in the kitchen.",
+          "high": "I'd introduce myself to whoever seems approachable and get a conversation going right away.",
+          "low": "I'd check my phone until the host is free \u2014 I find it awkward to approach strangers cold.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "A speaker at a public lecture invites questions from the audience.",
+          "high": "I'd put my hand up without much hesitation if I had something worth asking.",
+          "low": "Even if I had a good question, I'd stay quiet rather than speak up in front of that many people.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "You're assigned to lead a brainstorm with colleagues you've never worked with before.",
+          "high": "I'd take charge from the start, set the agenda out loud, and call on people to contribute.",
+          "low": "I'd wait to see how others want to run it and mostly follow their lead to avoid overstepping.",
+          "facet": "Social Boldness"
+        },
+        {
+          "situation": "You arrive early to a work conference where you don't know anyone yet.",
+          "high": "I'd scan the room and introduce myself to a few people before the sessions begin.",
+          "low": "I'd find a corner seat and check my phone until the program starts.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "A neighbor you've seen a few times is getting their mail at the same time as you.",
+          "high": "I'd stop and chat \u2014 ask how they're settling in, maybe learn their name.",
+          "low": "I'd give a quick nod and head back inside as soon as I can.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "Your lunch break is free and the office kitchen has several coworkers chatting.",
+          "high": "I'd pull up a chair and join the conversation \u2014 it's a nice break from screens.",
+          "low": "I'd grab my food and eat at my desk; I'd rather have some quiet time.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "You're waiting in a long line at the grocery store.",
+          "high": "I'd probably start up a lighthearted exchange with whoever is standing nearby.",
+          "low": "I'd keep to myself \u2014 there's nothing to talk about and I'd rather just wait.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "You have an unexpectedly free Saturday with no plans.",
+          "high": "I'd text a bunch of people and try to put something social together for the afternoon.",
+          "low": "I'd enjoy the alone time \u2014 maybe read or go for a solo walk.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "A work Slack channel has an off-topic thread where people are joking around.",
+          "high": "I'd jump in with a comment \u2014 I like staying connected with colleagues throughout the day.",
+          "low": "I'd mute the thread; that kind of chatter is mostly noise to me.",
+          "facet": "Sociability"
+        },
+        {
+          "situation": "It's Monday morning and your coworkers are sluggishly settling into the office.",
+          "high": "I'd crack a joke and try to get everyone laughing before we dive in.",
+          "low": "I'd quietly sit down and hope the morning passes quickly.",
+          "facet": "Liveliness"
+        },
+        {
+          "situation": "You just finished a long, exhausting week of work.",
+          "high": "I'd still feel a spark of energy and suggest grabbing drinks with friends tonight.",
+          "low": "I'd feel completely drained and have no interest in doing anything social.",
+          "facet": "Liveliness"
+        },
+        {
+          "situation": "A friend invites you to join an impromptu dance at a casual house party.",
+          "high": "I'd jump up immediately \u2014 that sounds like exactly the kind of fun I need.",
+          "low": "I'd wave them off and stay on the couch where it's comfortable.",
+          "facet": "Liveliness"
+        },
+        {
+          "situation": "You're waiting in a long queue and notice someone standing nearby looking bored.",
+          "high": "I'd strike up a cheerful conversation to pass the time for both of us.",
+          "low": "I'd keep to myself and stare at my phone until it's my turn.",
+          "facet": "Liveliness"
+        },
+        {
+          "situation": "Someone asks how you're doing on a perfectly ordinary Tuesday afternoon.",
+          "high": "I'd say I'm great and mean it \u2014 ordinary days still feel pretty good to me.",
+          "low": "I'd give a flat 'fine' and not really feel otherwise.",
+          "facet": "Liveliness"
+        },
+        {
+          "situation": "Your team wins a small competition at a company event.",
+          "high": "I'd cheer loudly and pump my fist \u2014 even small wins feel electric to me.",
+          "low": "I'd manage a polite smile and move on without much feeling about it.",
+          "facet": "Liveliness"
+        }
+      ]
+    },
+    "A": {
+      "name": "Agreeableness",
+      "high_descriptor": "forgiving, gentle, flexible, and patient",
+      "low_descriptor": "grudge-holding, critical, stubborn, and quick-tempered",
+      "pairs_by_facet": {
+        "Forgiveness": [
+          {
+            "situation": "A close friend spread a rumor about you last year, then apologized sincerely. They now want to hang out again.",
+            "high": "I'd meet up \u2014 people make mistakes, and a genuine apology is enough for me to move forward.",
+            "low": "I'd be polite but keep them at a distance; once someone betrays your trust like that, it sticks.",
+            "facet": "Forgiveness"
+          },
+          {
+            "situation": "A coworker took credit for your idea in a meeting but later admitted it privately and said sorry.",
+            "high": "I'd accept the apology and let it go \u2014 holding onto resentment just poisons my own mood.",
+            "low": "I'd say I accept it, but I'd make sure never to share work with them again and I'd remember it.",
+            "facet": "Forgiveness"
+          },
+          {
+            "situation": "Your sibling forgot your birthday for the second time and sent a late, heartfelt apology.",
+            "high": "I'd tell them it hurt but that I forgive them \u2014 I don't want an old wound to color our whole relationship.",
+            "low": "I'd remind them of both times whenever birthdays come up; they need to feel the weight of consistently letting me down.",
+            "facet": "Forgiveness"
+          },
+          {
+            "situation": "An acquaintance publicly mocked your career choice at a party, then reached out weeks later to apologize.",
+            "high": "I'd appreciate the apology and give them a fresh start \u2014 that moment doesn't have to define who they are to me.",
+            "low": "I'd acknowledge the message but inwardly write them off; what they said revealed something real about how they see me.",
+            "facet": "Forgiveness"
+          },
+          {
+            "situation": "A former business partner broke an agreement that cost you money, later compensated you fully, and asked to collaborate again.",
+            "high": "I'd seriously consider it \u2014 they made it right, and I don't think past mistakes should permanently close every door.",
+            "low": "No chance; I'd be cordial if we crossed paths but I'd never trust them in any professional capacity again.",
+            "facet": "Forgiveness"
+          },
+          {
+            "situation": "A neighbor who once reported you to the HOA over a minor issue now asks to borrow your ladder.",
+            "high": "Sure \u2014 that old dispute is water under the bridge, and lending a ladder costs me nothing.",
+            "low": "I'd tell them I'm not available to help; they weren't neighborly to me, so I don't feel obligated to be neighborly to them.",
+            "facet": "Forgiveness"
+          }
+        ],
+        "Gentleness": [
+          {
+            "situation": "A friend shows you a painting they worked hard on, and honestly it's technically quite poor.",
+            "high": "I'd focus on the effort and find something genuine to appreciate about it.",
+            "low": "I'd point out the obvious problems \u2014 they won't improve if nobody tells them the truth.",
+            "facet": "Gentleness"
+          },
+          {
+            "situation": "A coworker gives a presentation that rambles and misses the main point.",
+            "high": "I'd privately mention one area for improvement and leave it at that.",
+            "low": "I'd bring up every weak spot in the debrief \u2014 that's how you raise the standard.",
+            "facet": "Gentleness"
+          },
+          {
+            "situation": "Your partner has a habit of interrupting people mid-sentence during conversations.",
+            "high": "I'd gently mention it once and let it go \u2014 everyone has little quirks.",
+            "low": "I'd call it out every time it happens; it's rude and they need to know.",
+            "facet": "Gentleness"
+          },
+          {
+            "situation": "A new employee submits a report with several avoidable formatting mistakes.",
+            "high": "I'd show them the correct format and reassure them it's easy to fix.",
+            "low": "I'd mark up every error and note that more care should have been taken the first time.",
+            "facet": "Gentleness"
+          },
+          {
+            "situation": "Someone in your book club gives an interpretation of the novel that seems clearly off-base.",
+            "high": "I'd gently offer a different reading without dismissing their take.",
+            "low": "I'd tell them directly they missed the point \u2014 there's no use validating a wrong reading.",
+            "facet": "Gentleness"
+          },
+          {
+            "situation": "A family member keeps mispronouncing a common word during conversation.",
+            "high": "I'd let it go or mention it quietly once without making a big deal of it.",
+            "low": "I'd correct them every time \u2014 there's no reason to let a mistake keep repeating.",
+            "facet": "Gentleness"
+          }
+        ],
+        "Flexibility": [
+          {
+            "situation": "A colleague reviews your project plan and suggests a completely different approach than the one you've been developing for weeks.",
+            "high": "I'd genuinely consider their approach \u2014 if it's better, I'm happy to scrap mine and start fresh.",
+            "low": "I've already put weeks into this plan, and I'm not about to abandon it because someone else has a different idea.",
+            "facet": "Flexibility"
+          },
+          {
+            "situation": "During a group debate, several people push back on your interpretation of the data.",
+            "high": "Hearing multiple people disagree makes me wonder if I'm missing something \u2014 I'd revisit my interpretation.",
+            "low": "I've looked at this data carefully, and a room full of opinions doesn't change what the numbers actually say.",
+            "facet": "Flexibility"
+          },
+          {
+            "situation": "Your partner wants to take a different vacation route than the one you carefully planned.",
+            "high": "Sure, let's try their route \u2014 I don't need to stick to my plan if they have reasons for preferring another way.",
+            "low": "I already researched our route thoroughly, so I'd rather stick with what I planned unless there's a real problem with it.",
+            "facet": "Flexibility"
+          },
+          {
+            "situation": "A friend argues that your long-held view on a political issue is based on outdated assumptions.",
+            "high": "If they make a compelling case, I'm genuinely open to updating my view, even one I've held for years.",
+            "low": "I've thought about this a lot longer than they have \u2014 one conversation isn't going to shift where I stand.",
+            "facet": "Flexibility"
+          },
+          {
+            "situation": "You and a coworker disagree on how to organize a shared document, and they explain their reasoning.",
+            "high": "Their reasoning makes sense, so I'd go with their system even though I had a different one in mind.",
+            "low": "My system is more logical, and I'd keep pushing for it rather than just deferring to their preference.",
+            "facet": "Flexibility"
+          },
+          {
+            "situation": "A family member challenges your dietary choices and shares evidence you hadn't seen before.",
+            "high": "If the evidence is solid, I'd take it seriously and be willing to reconsider what I've been doing.",
+            "low": "I know my own body and my own choices \u2014 I'm not changing my diet just because someone sends me an article.",
+            "facet": "Flexibility"
+          }
+        ],
+        "Patience": [
+          {
+            "situation": "The person in front of you at the grocery store is slowly counting out exact change while a long line builds up behind you.",
+            "high": "I wait quietly and remind myself they're just trying to be careful with their money.",
+            "low": "I sigh loudly and mutter something so they can hear how annoying this is.",
+            "facet": "Patience"
+          },
+          {
+            "situation": "A coworker keeps interrupting your explanation to ask questions you were about to answer.",
+            "high": "I pause, answer each question patiently, and then continue without showing irritation.",
+            "low": "I cut them off and tell them to just let me finish before jumping in.",
+            "facet": "Patience"
+          },
+          {
+            "situation": "Your elderly relative tells the same story for the third time this visit.",
+            "high": "I listen as if it's the first time and respond warmly to the parts they find meaningful.",
+            "low": "I point out that they've already told me this and change the subject.",
+            "facet": "Patience"
+          },
+          {
+            "situation": "A customer service rep keeps you on hold for fifteen minutes, then gives you the wrong information.",
+            "high": "I calmly explain the issue again and ask if we can sort it out together.",
+            "low": "I raise my voice and tell them this is completely unacceptable and a waste of my time.",
+            "facet": "Patience"
+          },
+          {
+            "situation": "Someone at a meeting takes a very long, roundabout way to make a simple point.",
+            "high": "I give them my full attention and let them finish without rushing them along.",
+            "low": "I cut in and summarize their point for them so we can all move on.",
+            "facet": "Patience"
+          },
+          {
+            "situation": "A friend is forty minutes late to meet you and only texts a casual apology when they arrive.",
+            "high": "I let it go without making an issue of it and just enjoy the time together.",
+            "low": "I tell them straight away that their lateness is disrespectful and I'm genuinely angry.",
+            "facet": "Patience"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "A close friend spread a rumor about you last year, then apologized sincerely. They now want to hang out again.",
+          "high": "I'd meet up \u2014 people make mistakes, and a genuine apology is enough for me to move forward.",
+          "low": "I'd be polite but keep them at a distance; once someone betrays your trust like that, it sticks.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "A coworker took credit for your idea in a meeting but later admitted it privately and said sorry.",
+          "high": "I'd accept the apology and let it go \u2014 holding onto resentment just poisons my own mood.",
+          "low": "I'd say I accept it, but I'd make sure never to share work with them again and I'd remember it.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "Your sibling forgot your birthday for the second time and sent a late, heartfelt apology.",
+          "high": "I'd tell them it hurt but that I forgive them \u2014 I don't want an old wound to color our whole relationship.",
+          "low": "I'd remind them of both times whenever birthdays come up; they need to feel the weight of consistently letting me down.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "An acquaintance publicly mocked your career choice at a party, then reached out weeks later to apologize.",
+          "high": "I'd appreciate the apology and give them a fresh start \u2014 that moment doesn't have to define who they are to me.",
+          "low": "I'd acknowledge the message but inwardly write them off; what they said revealed something real about how they see me.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "A former business partner broke an agreement that cost you money, later compensated you fully, and asked to collaborate again.",
+          "high": "I'd seriously consider it \u2014 they made it right, and I don't think past mistakes should permanently close every door.",
+          "low": "No chance; I'd be cordial if we crossed paths but I'd never trust them in any professional capacity again.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "A neighbor who once reported you to the HOA over a minor issue now asks to borrow your ladder.",
+          "high": "Sure \u2014 that old dispute is water under the bridge, and lending a ladder costs me nothing.",
+          "low": "I'd tell them I'm not available to help; they weren't neighborly to me, so I don't feel obligated to be neighborly to them.",
+          "facet": "Forgiveness"
+        },
+        {
+          "situation": "A friend shows you a painting they worked hard on, and honestly it's technically quite poor.",
+          "high": "I'd focus on the effort and find something genuine to appreciate about it.",
+          "low": "I'd point out the obvious problems \u2014 they won't improve if nobody tells them the truth.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "A coworker gives a presentation that rambles and misses the main point.",
+          "high": "I'd privately mention one area for improvement and leave it at that.",
+          "low": "I'd bring up every weak spot in the debrief \u2014 that's how you raise the standard.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "Your partner has a habit of interrupting people mid-sentence during conversations.",
+          "high": "I'd gently mention it once and let it go \u2014 everyone has little quirks.",
+          "low": "I'd call it out every time it happens; it's rude and they need to know.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "A new employee submits a report with several avoidable formatting mistakes.",
+          "high": "I'd show them the correct format and reassure them it's easy to fix.",
+          "low": "I'd mark up every error and note that more care should have been taken the first time.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "Someone in your book club gives an interpretation of the novel that seems clearly off-base.",
+          "high": "I'd gently offer a different reading without dismissing their take.",
+          "low": "I'd tell them directly they missed the point \u2014 there's no use validating a wrong reading.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "A family member keeps mispronouncing a common word during conversation.",
+          "high": "I'd let it go or mention it quietly once without making a big deal of it.",
+          "low": "I'd correct them every time \u2014 there's no reason to let a mistake keep repeating.",
+          "facet": "Gentleness"
+        },
+        {
+          "situation": "A colleague reviews your project plan and suggests a completely different approach than the one you've been developing for weeks.",
+          "high": "I'd genuinely consider their approach \u2014 if it's better, I'm happy to scrap mine and start fresh.",
+          "low": "I've already put weeks into this plan, and I'm not about to abandon it because someone else has a different idea.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "During a group debate, several people push back on your interpretation of the data.",
+          "high": "Hearing multiple people disagree makes me wonder if I'm missing something \u2014 I'd revisit my interpretation.",
+          "low": "I've looked at this data carefully, and a room full of opinions doesn't change what the numbers actually say.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "Your partner wants to take a different vacation route than the one you carefully planned.",
+          "high": "Sure, let's try their route \u2014 I don't need to stick to my plan if they have reasons for preferring another way.",
+          "low": "I already researched our route thoroughly, so I'd rather stick with what I planned unless there's a real problem with it.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "A friend argues that your long-held view on a political issue is based on outdated assumptions.",
+          "high": "If they make a compelling case, I'm genuinely open to updating my view, even one I've held for years.",
+          "low": "I've thought about this a lot longer than they have \u2014 one conversation isn't going to shift where I stand.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "You and a coworker disagree on how to organize a shared document, and they explain their reasoning.",
+          "high": "Their reasoning makes sense, so I'd go with their system even though I had a different one in mind.",
+          "low": "My system is more logical, and I'd keep pushing for it rather than just deferring to their preference.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "A family member challenges your dietary choices and shares evidence you hadn't seen before.",
+          "high": "If the evidence is solid, I'd take it seriously and be willing to reconsider what I've been doing.",
+          "low": "I know my own body and my own choices \u2014 I'm not changing my diet just because someone sends me an article.",
+          "facet": "Flexibility"
+        },
+        {
+          "situation": "The person in front of you at the grocery store is slowly counting out exact change while a long line builds up behind you.",
+          "high": "I wait quietly and remind myself they're just trying to be careful with their money.",
+          "low": "I sigh loudly and mutter something so they can hear how annoying this is.",
+          "facet": "Patience"
+        },
+        {
+          "situation": "A coworker keeps interrupting your explanation to ask questions you were about to answer.",
+          "high": "I pause, answer each question patiently, and then continue without showing irritation.",
+          "low": "I cut them off and tell them to just let me finish before jumping in.",
+          "facet": "Patience"
+        },
+        {
+          "situation": "Your elderly relative tells the same story for the third time this visit.",
+          "high": "I listen as if it's the first time and respond warmly to the parts they find meaningful.",
+          "low": "I point out that they've already told me this and change the subject.",
+          "facet": "Patience"
+        },
+        {
+          "situation": "A customer service rep keeps you on hold for fifteen minutes, then gives you the wrong information.",
+          "high": "I calmly explain the issue again and ask if we can sort it out together.",
+          "low": "I raise my voice and tell them this is completely unacceptable and a waste of my time.",
+          "facet": "Patience"
+        },
+        {
+          "situation": "Someone at a meeting takes a very long, roundabout way to make a simple point.",
+          "high": "I give them my full attention and let them finish without rushing them along.",
+          "low": "I cut in and summarize their point for them so we can all move on.",
+          "facet": "Patience"
+        },
+        {
+          "situation": "A friend is forty minutes late to meet you and only texts a casual apology when they arrive.",
+          "high": "I let it go without making an issue of it and just enjoy the time together.",
+          "low": "I tell them straight away that their lateness is disrespectful and I'm genuinely angry.",
+          "facet": "Patience"
+        }
+      ]
+    },
+    "C": {
+      "name": "Conscientiousness",
+      "high_descriptor": "organized, diligent, perfectionist, and disciplined",
+      "low_descriptor": "disorganized, lazy, careless, and impulsive",
+      "pairs_by_facet": {
+        "Organization": [
+          {
+            "situation": "You're packing for a week-long work trip the night before your flight.",
+            "high": "I make a detailed checklist and lay everything out by category before folding it neatly into my suitcase.",
+            "low": "I grab whatever seems right and stuff it in \u2014 I'll figure out what I forgot when I get there.",
+            "facet": "Organization"
+          },
+          {
+            "situation": "A coworker asks to borrow a document you filed six months ago.",
+            "high": "I pull it up in under a minute \u2014 I keep everything labeled and sorted in folders by date and project.",
+            "low": "I spend twenty minutes digging through a pile of mixed files before admitting I can't find it.",
+            "facet": "Organization"
+          },
+          {
+            "situation": "Your kitchen counter has accumulated mail, groceries, and random objects over the past week.",
+            "high": "I clear and sort everything before it builds up further \u2014 clutter like that bothers me until it's dealt with.",
+            "low": "I shove it all to one side to make room; it'll get sorted eventually when I need the space.",
+            "facet": "Organization"
+          },
+          {
+            "situation": "You start a new personal project that involves tracking multiple tasks and deadlines.",
+            "high": "I set up a structured system with clearly labeled sections, due dates, and progress notes from the start.",
+            "low": "I jot things down on whatever scraps of paper are nearby and keep most of it in my head.",
+            "facet": "Organization"
+          },
+          {
+            "situation": "You share a workspace with a colleague and each person maintains their own side of the desk.",
+            "high": "My side has everything in a fixed place \u2014 I know exactly where each item belongs and put it back after use.",
+            "low": "My side is usually buried under layers of stuff; I know where things are roughly, but nobody else would.",
+            "facet": "Organization"
+          },
+          {
+            "situation": "After finishing a large cooking session, there are dishes, leftovers, and utensils spread across the kitchen.",
+            "high": "I systematically put away leftovers, wipe surfaces, and wash everything before I let myself relax.",
+            "low": "I cover the pots and leave the rest \u2014 I'm tired and it's easier to deal with tomorrow, or the day after.",
+            "facet": "Organization"
+          }
+        ],
+        "Diligence": [
+          {
+            "situation": "You have a long report due in two weeks and no immediate deadline pressure today.",
+            "high": "I'd break it into daily targets and start drafting the first section this afternoon.",
+            "low": "I'd probably browse around, wait until I'm in the mood, and tackle it closer to the deadline.",
+            "facet": "Diligence"
+          },
+          {
+            "situation": "You're halfway through a difficult online certification course and progress has slowed.",
+            "high": "I'd push through the hard sections \u2014 finishing what I started matters to me.",
+            "low": "I'd likely let it sit unfinished; if it's not clicking, it's probably not worth the effort.",
+            "facet": "Diligence"
+          },
+          {
+            "situation": "A personal fitness goal you set three months ago is taking longer than expected.",
+            "high": "I'd reassess my approach and keep pushing \u2014 slow progress is still progress.",
+            "low": "I'd quietly drop it and tell myself I'll restart when conditions are better.",
+            "facet": "Diligence"
+          },
+          {
+            "situation": "Your manager assigns you a tedious data-cleaning task with no recognition attached.",
+            "high": "I'd do it carefully and thoroughly \u2014 sloppy work reflects on me regardless of visibility.",
+            "low": "I'd do the bare minimum to get it off my plate and move on to something more interesting.",
+            "facet": "Diligence"
+          },
+          {
+            "situation": "You're learning a new skill and hit a plateau where improvement feels invisible.",
+            "high": "I'd set a specific weekly practice target and track my progress until I break through.",
+            "low": "I'd probably coast at my current level; grinding through a plateau doesn't seem worth it.",
+            "facet": "Diligence"
+          },
+          {
+            "situation": "You realize mid-project that achieving your original goal will require significantly more effort than planned.",
+            "high": "I'd raise my effort to match the goal \u2014 I don't like scaling back what I set out to do.",
+            "low": "I'd quietly lower the goal to match the effort I'm already comfortable putting in.",
+            "facet": "Diligence"
+          }
+        ],
+        "Perfectionism": [
+          {
+            "situation": "You've finished a report and have 20 minutes before it's due.",
+            "high": "I'd read through it again, checking every sentence for errors and tightening the wording.",
+            "low": "I'd send it off \u2014 it's good enough and I've already spent plenty of time on it.",
+            "facet": "Perfectionism"
+          },
+          {
+            "situation": "You notice a minor formatting inconsistency in a slide deck you're about to present.",
+            "high": "I'd fix it immediately \u2014 mismatched fonts would bother me throughout the entire presentation.",
+            "low": "I'd leave it; the audience won't care and it doesn't affect the content at all.",
+            "facet": "Perfectionism"
+          },
+          {
+            "situation": "A colleague glances at your draft and says it looks fine to them.",
+            "high": "I'd still go through it carefully myself \u2014 their standard of 'fine' might not match mine.",
+            "low": "That's all I need to hear; if someone else is satisfied, I'm done.",
+            "facet": "Perfectionism"
+          },
+          {
+            "situation": "You're filling out a form that only you and one other person will ever see.",
+            "high": "I'd still complete every field carefully and double-check my entries before submitting.",
+            "low": "I'd fill it in quickly and move on \u2014 it's internal, so precision barely matters here.",
+            "facet": "Perfectionism"
+          },
+          {
+            "situation": "You realize after sending an email that you misspelled one word in the third paragraph.",
+            "high": "I'd send a brief correction immediately \u2014 leaving a known error out there isn't acceptable to me.",
+            "low": "One typo in a long email is nothing; I'd never follow up over something so trivial.",
+            "facet": "Perfectionism"
+          },
+          {
+            "situation": "You're finishing a personal creative project no one is evaluating or grading.",
+            "high": "I'd keep refining it until the execution actually matches what I envisioned, however long that takes.",
+            "low": "Once it's roughly what I had in mind, I'm happy to call it done and move on.",
+            "facet": "Perfectionism"
+          }
+        ],
+        "Prudence": [
+          {
+            "situation": "You're offered a great deal on a used car and the seller says you need to decide today.",
+            "high": "I'd ask for a day to have a mechanic inspect it and review the vehicle history before committing.",
+            "low": "It feels right, so I'd sign the paperwork on the spot and sort out any issues later.",
+            "facet": "Prudence"
+          },
+          {
+            "situation": "You feel a strong urge to quit your job after a frustrating meeting with your boss.",
+            "high": "I'd wait a few days before doing anything, and think through my financial situation and options carefully.",
+            "low": "I'd walk out that afternoon \u2014 staying somewhere that makes me feel that way isn't worth it.",
+            "facet": "Prudence"
+          },
+          {
+            "situation": "You're at a casino and you're up significantly from your starting amount.",
+            "high": "I'd pocket the winnings and stop \u2014 I came with a budget and I've already done better than expected.",
+            "low": "I'd keep playing while I'm on a hot streak; you have to ride the feeling when it's there.",
+            "facet": "Prudence"
+          },
+          {
+            "situation": "A friend pitches you an investment opportunity and asks for your answer by end of day.",
+            "high": "I'd tell them I need at least a week to research the details before putting any money in.",
+            "low": "If my gut says it sounds good, I'd wire the money that evening and work out the details after.",
+            "facet": "Prudence"
+          },
+          {
+            "situation": "You're drafting an angry email to a colleague who publicly undermined you.",
+            "high": "I'd write the email, then sit on it overnight and decide whether sending it is really the right move.",
+            "low": "I'd hit send immediately \u2014 they need to hear it and I'm not going to second-guess myself.",
+            "facet": "Prudence"
+          },
+          {
+            "situation": "You're browsing online and find an expensive gadget you hadn't planned to buy.",
+            "high": "I'd add it to a wishlist and revisit it in two weeks to see if I still want it that badly.",
+            "low": "I'd buy it right away \u2014 if I'm excited enough to notice it, that's reason enough to get it.",
+            "facet": "Prudence"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "You're packing for a week-long work trip the night before your flight.",
+          "high": "I make a detailed checklist and lay everything out by category before folding it neatly into my suitcase.",
+          "low": "I grab whatever seems right and stuff it in \u2014 I'll figure out what I forgot when I get there.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "A coworker asks to borrow a document you filed six months ago.",
+          "high": "I pull it up in under a minute \u2014 I keep everything labeled and sorted in folders by date and project.",
+          "low": "I spend twenty minutes digging through a pile of mixed files before admitting I can't find it.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "Your kitchen counter has accumulated mail, groceries, and random objects over the past week.",
+          "high": "I clear and sort everything before it builds up further \u2014 clutter like that bothers me until it's dealt with.",
+          "low": "I shove it all to one side to make room; it'll get sorted eventually when I need the space.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "You start a new personal project that involves tracking multiple tasks and deadlines.",
+          "high": "I set up a structured system with clearly labeled sections, due dates, and progress notes from the start.",
+          "low": "I jot things down on whatever scraps of paper are nearby and keep most of it in my head.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "You share a workspace with a colleague and each person maintains their own side of the desk.",
+          "high": "My side has everything in a fixed place \u2014 I know exactly where each item belongs and put it back after use.",
+          "low": "My side is usually buried under layers of stuff; I know where things are roughly, but nobody else would.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "After finishing a large cooking session, there are dishes, leftovers, and utensils spread across the kitchen.",
+          "high": "I systematically put away leftovers, wipe surfaces, and wash everything before I let myself relax.",
+          "low": "I cover the pots and leave the rest \u2014 I'm tired and it's easier to deal with tomorrow, or the day after.",
+          "facet": "Organization"
+        },
+        {
+          "situation": "You have a long report due in two weeks and no immediate deadline pressure today.",
+          "high": "I'd break it into daily targets and start drafting the first section this afternoon.",
+          "low": "I'd probably browse around, wait until I'm in the mood, and tackle it closer to the deadline.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "You're halfway through a difficult online certification course and progress has slowed.",
+          "high": "I'd push through the hard sections \u2014 finishing what I started matters to me.",
+          "low": "I'd likely let it sit unfinished; if it's not clicking, it's probably not worth the effort.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "A personal fitness goal you set three months ago is taking longer than expected.",
+          "high": "I'd reassess my approach and keep pushing \u2014 slow progress is still progress.",
+          "low": "I'd quietly drop it and tell myself I'll restart when conditions are better.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "Your manager assigns you a tedious data-cleaning task with no recognition attached.",
+          "high": "I'd do it carefully and thoroughly \u2014 sloppy work reflects on me regardless of visibility.",
+          "low": "I'd do the bare minimum to get it off my plate and move on to something more interesting.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "You're learning a new skill and hit a plateau where improvement feels invisible.",
+          "high": "I'd set a specific weekly practice target and track my progress until I break through.",
+          "low": "I'd probably coast at my current level; grinding through a plateau doesn't seem worth it.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "You realize mid-project that achieving your original goal will require significantly more effort than planned.",
+          "high": "I'd raise my effort to match the goal \u2014 I don't like scaling back what I set out to do.",
+          "low": "I'd quietly lower the goal to match the effort I'm already comfortable putting in.",
+          "facet": "Diligence"
+        },
+        {
+          "situation": "You've finished a report and have 20 minutes before it's due.",
+          "high": "I'd read through it again, checking every sentence for errors and tightening the wording.",
+          "low": "I'd send it off \u2014 it's good enough and I've already spent plenty of time on it.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "You notice a minor formatting inconsistency in a slide deck you're about to present.",
+          "high": "I'd fix it immediately \u2014 mismatched fonts would bother me throughout the entire presentation.",
+          "low": "I'd leave it; the audience won't care and it doesn't affect the content at all.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "A colleague glances at your draft and says it looks fine to them.",
+          "high": "I'd still go through it carefully myself \u2014 their standard of 'fine' might not match mine.",
+          "low": "That's all I need to hear; if someone else is satisfied, I'm done.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "You're filling out a form that only you and one other person will ever see.",
+          "high": "I'd still complete every field carefully and double-check my entries before submitting.",
+          "low": "I'd fill it in quickly and move on \u2014 it's internal, so precision barely matters here.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "You realize after sending an email that you misspelled one word in the third paragraph.",
+          "high": "I'd send a brief correction immediately \u2014 leaving a known error out there isn't acceptable to me.",
+          "low": "One typo in a long email is nothing; I'd never follow up over something so trivial.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "You're finishing a personal creative project no one is evaluating or grading.",
+          "high": "I'd keep refining it until the execution actually matches what I envisioned, however long that takes.",
+          "low": "Once it's roughly what I had in mind, I'm happy to call it done and move on.",
+          "facet": "Perfectionism"
+        },
+        {
+          "situation": "You're offered a great deal on a used car and the seller says you need to decide today.",
+          "high": "I'd ask for a day to have a mechanic inspect it and review the vehicle history before committing.",
+          "low": "It feels right, so I'd sign the paperwork on the spot and sort out any issues later.",
+          "facet": "Prudence"
+        },
+        {
+          "situation": "You feel a strong urge to quit your job after a frustrating meeting with your boss.",
+          "high": "I'd wait a few days before doing anything, and think through my financial situation and options carefully.",
+          "low": "I'd walk out that afternoon \u2014 staying somewhere that makes me feel that way isn't worth it.",
+          "facet": "Prudence"
+        },
+        {
+          "situation": "You're at a casino and you're up significantly from your starting amount.",
+          "high": "I'd pocket the winnings and stop \u2014 I came with a budget and I've already done better than expected.",
+          "low": "I'd keep playing while I'm on a hot streak; you have to ride the feeling when it's there.",
+          "facet": "Prudence"
+        },
+        {
+          "situation": "A friend pitches you an investment opportunity and asks for your answer by end of day.",
+          "high": "I'd tell them I need at least a week to research the details before putting any money in.",
+          "low": "If my gut says it sounds good, I'd wire the money that evening and work out the details after.",
+          "facet": "Prudence"
+        },
+        {
+          "situation": "You're drafting an angry email to a colleague who publicly undermined you.",
+          "high": "I'd write the email, then sit on it overnight and decide whether sending it is really the right move.",
+          "low": "I'd hit send immediately \u2014 they need to hear it and I'm not going to second-guess myself.",
+          "facet": "Prudence"
+        },
+        {
+          "situation": "You're browsing online and find an expensive gadget you hadn't planned to buy.",
+          "high": "I'd add it to a wishlist and revisit it in two weeks to see if I still want it that badly.",
+          "low": "I'd buy it right away \u2014 if I'm excited enough to notice it, that's reason enough to get it.",
+          "facet": "Prudence"
+        }
+      ]
+    },
+    "O": {
+      "name": "Openness to Experience",
+      "high_descriptor": "creative, curious, unconventional, and aesthetically sensitive",
+      "low_descriptor": "conventional, practical, traditional, and unimaginative",
+      "pairs_by_facet": {
+        "Aesthetic Appreciation": [
+          {
+            "situation": "A friend invites you to an evening of chamber music at a small local venue.",
+            "high": "I'd genuinely look forward to it \u2014 there's something moving about hearing live strings in an intimate space.",
+            "low": "Honestly, sitting through that sounds tedious; I'd rather find a reason to skip it.",
+            "facet": "Aesthetic Appreciation"
+          },
+          {
+            "situation": "You pass an art museum with free admission on your afternoon off.",
+            "high": "I'd wander in and lose track of time studying the paintings.",
+            "low": "I'd walk right past \u2014 staring at pictures on walls has never done anything for me.",
+            "facet": "Aesthetic Appreciation"
+          },
+          {
+            "situation": "A colleague shares a poem they found deeply beautiful and reads it aloud to you.",
+            "high": "I'd listen carefully and ask them what images struck them most.",
+            "low": "I'd nod politely but privately think it's just words arranged on a page.",
+            "facet": "Aesthetic Appreciation"
+          },
+          {
+            "situation": "You're choosing between a plain functional coffee mug and a handcrafted ceramic one at the same price.",
+            "high": "I'd pick the ceramic one \u2014 the texture and irregular glaze make every morning feel a little richer.",
+            "low": "I'd grab the plain one; fancy design on a mug seems like a pointless indulgence.",
+            "facet": "Aesthetic Appreciation"
+          },
+          {
+            "situation": "An architectural walking tour of your city is offered on a free Saturday.",
+            "high": "I'd sign up immediately \u2014 I love noticing details in buildings I usually walk past without seeing.",
+            "low": "It's not my idea of a good time; old buildings are just old buildings to me.",
+            "facet": "Aesthetic Appreciation"
+          },
+          {
+            "situation": "A documentary about the making of a celebrated symphony is on television tonight.",
+            "high": "I'd settle in to watch it \u2014 I find the creative process behind great music genuinely fascinating.",
+            "low": "I'd change the channel; I can't imagine caring how a symphony got written.",
+            "facet": "Aesthetic Appreciation"
+          }
+        ],
+        "Inquisitiveness": [
+          {
+            "situation": "A colleague mentions an obscure economic theory you've never heard of during lunch.",
+            "high": "I'd ask them to explain it and look it up later to read more about it.",
+            "low": "I'd nod along and steer the conversation back to something more familiar.",
+            "facet": "Inquisitiveness"
+          },
+          {
+            "situation": "You finish a novel set in feudal Japan and notice you know nothing about that era.",
+            "high": "I'd go down a rabbit hole reading about the shogunate, samurai culture, and the period's politics.",
+            "low": "I'd move on to the next novel \u2014 I read fiction to relax, not to study history.",
+            "facet": "Inquisitiveness"
+          },
+          {
+            "situation": "A documentary about deep-sea biology starts playing on TV while you're flipping channels.",
+            "high": "I'd stop and watch \u2014 creatures that live miles underwater are genuinely fascinating to me.",
+            "low": "I'd keep flipping \u2014 I'm not really into nature documentaries.",
+            "facet": "Inquisitiveness"
+          },
+          {
+            "situation": "Someone at a party starts explaining how black holes emit Hawking radiation.",
+            "high": "I'd lean in and ask follow-up questions \u2014 I love understanding how the universe actually works.",
+            "low": "I'd listen politely for a minute, then excuse myself to refill my drink.",
+            "facet": "Inquisitiveness"
+          },
+          {
+            "situation": "You stumble across a long Wikipedia article about the Byzantine Empire.",
+            "high": "I'd read the whole thing and follow the links \u2014 I find that kind of historical depth captivating.",
+            "low": "I'd skim the first paragraph and close the tab \u2014 it's not something I need to know.",
+            "facet": "Inquisitiveness"
+          },
+          {
+            "situation": "A friend invites you to a public lecture on the philosophy of language.",
+            "high": "I'd go eagerly \u2014 the idea of dissecting how language shapes thought sounds genuinely interesting.",
+            "low": "I'd pass \u2014 sitting through an academic lecture on a topic like that sounds pretty tedious.",
+            "facet": "Inquisitiveness"
+          }
+        ],
+        "Creativity": [
+          {
+            "situation": "Your manager asks how you'd like to present the quarterly results to the team.",
+            "high": "I'd pitch an interactive visual story with charts that animate as we walk through the narrative.",
+            "low": "I'd use the standard slide deck template we always use \u2014 it covers everything cleanly.",
+            "facet": "Creativity"
+          },
+          {
+            "situation": "You have a free Saturday afternoon with no plans.",
+            "high": "I'd start sketching out a short story idea that's been rattling around in my head.",
+            "low": "I'd rewatch a favorite show or catch up on sleep \u2014 nothing too demanding.",
+            "facet": "Creativity"
+          },
+          {
+            "situation": "A friend asks for help planning an unusual birthday party for their child.",
+            "high": "I'd immediately start brainstorming a theme from scratch \u2014 maybe a detective mystery they'd actually solve.",
+            "low": "I'd look up popular kids' party packages and pick whichever one had the best reviews.",
+            "facet": "Creativity"
+          },
+          {
+            "situation": "You need to write a short bio for a conference program.",
+            "high": "I'd write it as a brief narrative with an unexpected opening line to make it stand out.",
+            "low": "I'd list my job title, years of experience, and key credentials in straightforward sentences.",
+            "facet": "Creativity"
+          },
+          {
+            "situation": "Your team is stuck on a product problem with no obvious solution.",
+            "high": "I'd push for a wild brainstorm session where no idea is off-limits, even absurd ones.",
+            "low": "I'd go back to what competitors have done and adapt whichever approach worked best for them.",
+            "facet": "Creativity"
+          },
+          {
+            "situation": "You're decorating a new apartment on a limited budget.",
+            "high": "I'd repurpose old materials and design a few pieces myself to give the space a distinctive look.",
+            "low": "I'd pick a popular style from a home d\u00e9cor site and order whatever fits the budget.",
+            "facet": "Creativity"
+          }
+        ],
+        "Unconventionality": [
+          {
+            "situation": "A colleague pitches an unusual theory about why your industry's standard practices are all wrong.",
+            "high": "I'd lean in and ask them to walk me through it \u2014 even fringe theories sometimes crack something open.",
+            "low": "I'd nod politely but privately dismiss it \u2014 we follow standard practices for good reasons.",
+            "facet": "Unconventionality"
+          },
+          {
+            "situation": "You're browsing a bookstore and notice a book arguing that most of modern science rests on flawed assumptions.",
+            "high": "I'd flip it open right there \u2014 I love when someone makes a serious case against received wisdom.",
+            "low": "I'd put it back; that kind of contrarianism usually just muddies the waters without adding anything real.",
+            "facet": "Unconventionality"
+          },
+          {
+            "situation": "A friend invites you to a lecture by a philosopher who rejects the concept of personal identity entirely.",
+            "high": "I'd definitely go \u2014 ideas that unsettle your basic assumptions are the most interesting ones.",
+            "low": "I'd pass; I don't really see the point of entertaining ideas that have no practical grounding.",
+            "facet": "Unconventionality"
+          },
+          {
+            "situation": "At a dinner party, someone starts arguing that mainstream economic thinking is fundamentally misguided.",
+            "high": "I'd encourage them to keep going \u2014 I find heterodox economic views genuinely worth taking seriously.",
+            "low": "I'd steer the conversation elsewhere; those arguments rarely go anywhere useful.",
+            "facet": "Unconventionality"
+          },
+          {
+            "situation": "You hear about an artist whose work deliberately violates every convention of their medium.",
+            "high": "That immediately makes me want to see it \u2014 breaking conventions is often where the interesting stuff lives.",
+            "low": "It sounds like a gimmick to me; mastering conventions matters before you can meaningfully break them.",
+            "facet": "Unconventionality"
+          },
+          {
+            "situation": "A new acquaintance tells you they hold several beliefs that go sharply against mainstream consensus.",
+            "high": "I'd be curious about how they got there \u2014 people with unconventional views often have interesting reasoning.",
+            "low": "I'd be a bit wary \u2014 that's usually a sign someone hasn't thought things through carefully.",
+            "facet": "Unconventionality"
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "situation": "A friend invites you to an evening of chamber music at a small local venue.",
+          "high": "I'd genuinely look forward to it \u2014 there's something moving about hearing live strings in an intimate space.",
+          "low": "Honestly, sitting through that sounds tedious; I'd rather find a reason to skip it.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "You pass an art museum with free admission on your afternoon off.",
+          "high": "I'd wander in and lose track of time studying the paintings.",
+          "low": "I'd walk right past \u2014 staring at pictures on walls has never done anything for me.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "A colleague shares a poem they found deeply beautiful and reads it aloud to you.",
+          "high": "I'd listen carefully and ask them what images struck them most.",
+          "low": "I'd nod politely but privately think it's just words arranged on a page.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "You're choosing between a plain functional coffee mug and a handcrafted ceramic one at the same price.",
+          "high": "I'd pick the ceramic one \u2014 the texture and irregular glaze make every morning feel a little richer.",
+          "low": "I'd grab the plain one; fancy design on a mug seems like a pointless indulgence.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "An architectural walking tour of your city is offered on a free Saturday.",
+          "high": "I'd sign up immediately \u2014 I love noticing details in buildings I usually walk past without seeing.",
+          "low": "It's not my idea of a good time; old buildings are just old buildings to me.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "A documentary about the making of a celebrated symphony is on television tonight.",
+          "high": "I'd settle in to watch it \u2014 I find the creative process behind great music genuinely fascinating.",
+          "low": "I'd change the channel; I can't imagine caring how a symphony got written.",
+          "facet": "Aesthetic Appreciation"
+        },
+        {
+          "situation": "A colleague mentions an obscure economic theory you've never heard of during lunch.",
+          "high": "I'd ask them to explain it and look it up later to read more about it.",
+          "low": "I'd nod along and steer the conversation back to something more familiar.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "You finish a novel set in feudal Japan and notice you know nothing about that era.",
+          "high": "I'd go down a rabbit hole reading about the shogunate, samurai culture, and the period's politics.",
+          "low": "I'd move on to the next novel \u2014 I read fiction to relax, not to study history.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "A documentary about deep-sea biology starts playing on TV while you're flipping channels.",
+          "high": "I'd stop and watch \u2014 creatures that live miles underwater are genuinely fascinating to me.",
+          "low": "I'd keep flipping \u2014 I'm not really into nature documentaries.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "Someone at a party starts explaining how black holes emit Hawking radiation.",
+          "high": "I'd lean in and ask follow-up questions \u2014 I love understanding how the universe actually works.",
+          "low": "I'd listen politely for a minute, then excuse myself to refill my drink.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "You stumble across a long Wikipedia article about the Byzantine Empire.",
+          "high": "I'd read the whole thing and follow the links \u2014 I find that kind of historical depth captivating.",
+          "low": "I'd skim the first paragraph and close the tab \u2014 it's not something I need to know.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "A friend invites you to a public lecture on the philosophy of language.",
+          "high": "I'd go eagerly \u2014 the idea of dissecting how language shapes thought sounds genuinely interesting.",
+          "low": "I'd pass \u2014 sitting through an academic lecture on a topic like that sounds pretty tedious.",
+          "facet": "Inquisitiveness"
+        },
+        {
+          "situation": "Your manager asks how you'd like to present the quarterly results to the team.",
+          "high": "I'd pitch an interactive visual story with charts that animate as we walk through the narrative.",
+          "low": "I'd use the standard slide deck template we always use \u2014 it covers everything cleanly.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "You have a free Saturday afternoon with no plans.",
+          "high": "I'd start sketching out a short story idea that's been rattling around in my head.",
+          "low": "I'd rewatch a favorite show or catch up on sleep \u2014 nothing too demanding.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "A friend asks for help planning an unusual birthday party for their child.",
+          "high": "I'd immediately start brainstorming a theme from scratch \u2014 maybe a detective mystery they'd actually solve.",
+          "low": "I'd look up popular kids' party packages and pick whichever one had the best reviews.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "You need to write a short bio for a conference program.",
+          "high": "I'd write it as a brief narrative with an unexpected opening line to make it stand out.",
+          "low": "I'd list my job title, years of experience, and key credentials in straightforward sentences.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "Your team is stuck on a product problem with no obvious solution.",
+          "high": "I'd push for a wild brainstorm session where no idea is off-limits, even absurd ones.",
+          "low": "I'd go back to what competitors have done and adapt whichever approach worked best for them.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "You're decorating a new apartment on a limited budget.",
+          "high": "I'd repurpose old materials and design a few pieces myself to give the space a distinctive look.",
+          "low": "I'd pick a popular style from a home d\u00e9cor site and order whatever fits the budget.",
+          "facet": "Creativity"
+        },
+        {
+          "situation": "A colleague pitches an unusual theory about why your industry's standard practices are all wrong.",
+          "high": "I'd lean in and ask them to walk me through it \u2014 even fringe theories sometimes crack something open.",
+          "low": "I'd nod politely but privately dismiss it \u2014 we follow standard practices for good reasons.",
+          "facet": "Unconventionality"
+        },
+        {
+          "situation": "You're browsing a bookstore and notice a book arguing that most of modern science rests on flawed assumptions.",
+          "high": "I'd flip it open right there \u2014 I love when someone makes a serious case against received wisdom.",
+          "low": "I'd put it back; that kind of contrarianism usually just muddies the waters without adding anything real.",
+          "facet": "Unconventionality"
+        },
+        {
+          "situation": "A friend invites you to a lecture by a philosopher who rejects the concept of personal identity entirely.",
+          "high": "I'd definitely go \u2014 ideas that unsettle your basic assumptions are the most interesting ones.",
+          "low": "I'd pass; I don't really see the point of entertaining ideas that have no practical grounding.",
+          "facet": "Unconventionality"
+        },
+        {
+          "situation": "At a dinner party, someone starts arguing that mainstream economic thinking is fundamentally misguided.",
+          "high": "I'd encourage them to keep going \u2014 I find heterodox economic views genuinely worth taking seriously.",
+          "low": "I'd steer the conversation elsewhere; those arguments rarely go anywhere useful.",
+          "facet": "Unconventionality"
+        },
+        {
+          "situation": "You hear about an artist whose work deliberately violates every convention of their medium.",
+          "high": "That immediately makes me want to see it \u2014 breaking conventions is often where the interesting stuff lives.",
+          "low": "It sounds like a gimmick to me; mastering conventions matters before you can meaningfully break them.",
+          "facet": "Unconventionality"
+        },
+        {
+          "situation": "A new acquaintance tells you they hold several beliefs that go sharply against mainstream consensus.",
+          "high": "I'd be curious about how they got there \u2014 people with unconventional views often have interesting reasoning.",
+          "low": "I'd be a bit wary \u2014 that's usually a sign someone hasn't thought things through carefully.",
+          "facet": "Unconventionality"
+        }
+      ]
+    }
+  }
+}

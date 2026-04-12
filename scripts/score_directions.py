@@ -98,8 +98,16 @@ def load_meandiff_direction(path, projection="projected", layer=None, layer_stra
 
     projection: "raw" (no PC removal) or "projected" (PCs removed)
     layer_strategy:
-      - "best-signal": layer with max per-pair mean signed projection onto the direction
+      - "best-snr": layer with max signal-to-noise ratio of per-pair signed
+        projections (mean / std). Norm-invariant — does not get fooled by
+        residual-stream norm growth across layers.
+      - "best-cv": layer with highest 5-fold CV LDA classification accuracy
+        on per-pair diffs. Fully norm-invariant, equivalent to LDA pipeline.
+      - "best-signal": [DEPRECATED — kept for back-compat] layer with max raw
+        mean signed projection. Picks high-norm layers because signal scales
+        with activation norm; not a meaningful signal quality measure.
       - "two-thirds": the two_thirds_layer recorded at extraction time
+        (Anthropic emotion paper convention).
       - explicit int: use that layer
     """
     data = torch.load(path, weights_only=False)
@@ -125,8 +133,35 @@ def load_meandiff_direction(path, projection="projected", layer=None, layer_stra
         layer = layer_strategy
     elif layer_strategy == "two-thirds":
         layer = data.get("two_thirds_layer", n_layers * 2 // 3)
+    elif layer_strategy == "best-snr":
+        # Norm-invariant: signal-to-noise ratio of per-pair signed projection
+        best_snr, best_layer = -float("inf"), 0
+        for l in range(n_layers):
+            d_unit = all_dirs[l] / (np.linalg.norm(all_dirs[l]) + 1e-12)
+            sig_per = diffs_all_layers[:, l, :] @ d_unit
+            snr = sig_per.mean() / (sig_per.std() + 1e-12)
+            if snr > best_snr:
+                best_snr, best_layer = snr, l
+        layer = best_layer
+    elif layer_strategy == "best-cv":
+        # 5-fold CV LDA accuracy on per-pair diffs (matches LDA-pipeline best-layer)
+        from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+        best_acc, best_layer = 0.0, 0
+        for l in range(n_layers):
+            d = diffs_all_layers[:, l, :]
+            if np.any(np.isnan(d)) or np.all(d == 0):
+                continue
+            X = np.vstack([d / 2, -d / 2])
+            y = np.array([1] * n_pairs + [0] * n_pairs)
+            try:
+                acc = cross_val_score(LinearDiscriminantAnalysis(), X, y, cv=5).mean()
+                if acc > best_acc:
+                    best_acc, best_layer = acc, l
+            except Exception:
+                pass
+        layer = best_layer
     elif layer_strategy == "best-signal":
-        # Choose layer where mean signed projection of diffs onto direction is largest
+        # DEPRECATED: kept for back-compat. Picks high-norm layers.
         best_sig, best_layer = -float("inf"), 0
         for l in range(n_layers):
             d_unit = all_dirs[l] / (np.linalg.norm(all_dirs[l]) + 1e-12)
