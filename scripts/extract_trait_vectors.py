@@ -129,12 +129,17 @@ def main():
     parser.add_argument("--dtype", type=str, default="bfloat16",
                         help="Model dtype (bfloat16/float16/float32)")
     parser.add_argument("--output-dir", type=str, default="results/repe")
+    parser.add_argument("--input-file", type=str, default=CONTRAST_PAIRS,
+                        help="Contrast-pairs JSON to extract from. Output filename is "
+                             "suffixed with the input file's stem when not the canonical "
+                             "training file.")
     args = parser.parse_args()
 
     # Load contrast pairs
-    with open(CONTRAST_PAIRS) as f:
+    with open(args.input_file) as f:
         contrast_data = json.load(f)
     traits = contrast_data["traits"]
+    input_stem = Path(args.input_file).stem
 
     if args.trait:
         traits = {args.trait: traits[args.trait]}
@@ -146,6 +151,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     safe_model = args.model.replace("/", "_")
+    stem_suffix = "" if input_stem == "contrast_pairs" else f"_{input_stem}"
 
     for trait_id, trait_data in traits.items():
         print(f"\n=== Extracting {trait_data['name']} ({trait_id}) ===")
@@ -159,7 +165,7 @@ def main():
         # Save raw diffs. Filename kept as "_directions.pt" for back-compat
         # with downstream loaders, but the content is per-pair activation
         # differences, not a single direction vector.
-        out_file = output_dir / f"{safe_model}_{trait_id}_directions.pt"
+        out_file = output_dir / f"{safe_model}_{trait_id}_directions{stem_suffix}.pt"
         torch.save({
             "trait": trait_id,
             "trait_name": trait_data["name"],

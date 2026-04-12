@@ -229,11 +229,19 @@ def main():
     parser.add_argument("--device", default="mps")
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--output-dir", default="results/repe/meandiff")
+    parser.add_argument("--input-file", default=str(CONTRAST_PAIRS),
+                        help="Contrast-pairs JSON to extract from. Output filename includes "
+                             "the input file's stem so results don't collide.")
+    parser.add_argument("--skip-neutral", action="store_true",
+                        help="Skip neutral-corpus extraction (e.g., when running on holdout, "
+                             "neutral activations from the training run can be reused via PC "
+                             "projection done downstream)")
     args = parser.parse_args()
 
     # Load inputs
-    with open(CONTRAST_PAIRS) as f:
+    with open(args.input_file) as f:
         cp = json.load(f)
+    input_stem = Path(args.input_file).stem  # e.g., "contrast_pairs" or "contrast_pairs_holdout"
     traits = cp["traits"]
     if args.trait:
         traits = {args.trait: traits[args.trait]}
@@ -249,11 +257,13 @@ def main():
 
     # Extract neutral activations once (shared across traits for this model)
     neutral_acts = None
-    if neutral_texts is not None:
+    if neutral_texts is not None and not args.skip_neutral:
         print(f"\nExtracting neutral corpus activations...")
         t0 = time.time()
         neutral_acts = extract_neutral_activations(model, tokenizer, neutral_texts, args.device)
         print(f"  Done in {time.time()-t0:.1f}s  shape={tuple(neutral_acts.shape)}")
+    elif args.skip_neutral:
+        print(f"\nSkipping neutral corpus (--skip-neutral). Per-pair PC projection will not be applied.")
 
     # Output setup
     outdir = Path(args.output_dir)
@@ -299,10 +309,14 @@ def main():
         n_layers_total = raw_direction.shape[0]
         two_thirds_layer = int(round(n_layers_total * 2 / 3))
 
+        # Suffix file with input stem when not running on the canonical training set
+        # so holdout extraction doesn't collide with training extraction.
+        stem_suffix = "" if input_stem == "contrast_pairs" else f"_{input_stem}"
         out_file = outdir / (
             f"{safe_model}_{trait_id}"
             f"_prefix-{args.prefix_mode}"
-            f"_neutral-{args.neutral_variant}.pt"
+            f"_neutral-{args.neutral_variant}"
+            f"{stem_suffix}.pt"
         )
         torch.save({
             "trait": trait_id,
