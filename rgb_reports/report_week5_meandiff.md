@@ -1,6 +1,6 @@
 # Week 5: Mean-Diff Replication, Holdout Evaluation, Position-Bias Confound
 
-**Status: in progress.** Phase A done (24-cell sweep on Llama × H, §10). Phase B (4 models × 6 traits) not yet run. Key reversal from the single-cell comparison (§6): across the Phase A grid, LDA beats MD-projected on holdout classification in most cells; the "MD wins by 2 pairs" was cell-specific. Two confounds we didn't anticipate reshape all prior steering/BC work: §8 (position bias) and §9 (chat-template vs bare-text).
+**Status: in progress.** Phase A (§10) and Phase B (§11) both complete. The method comparison reversed twice: §6 single cell said MD wins; §10 Phase A grid on Llama × H said LDA wins; §11 Phase B across all 4 models × 6 traits says MD wins overall BUT LDA wins H specifically, with a clean facet-level mechanism (MD fails on H/Modesty and H/Greed-Avoidance). Two confounds we didn't anticipate reshape all prior steering/BC work: §8 (position bias) and §9 (chat-template vs bare-text on Llama).
 
 ## Summary
 
@@ -14,7 +14,7 @@ We're testing whether their method, applied to *our* personality contrast pairs,
 
 3. **MPS was broken by the sandbox**, not by torch or macOS. Wasted hours on CPU before noticing. With sandbox off, MPS is fine and the full Phase A grid is feasible (extraction in ~50s vs CPU's ~30min).
 
-4. **Apples-to-apples classification on one cell** (LDA vs MD on identical training & holdout inputs, prefix=absent × neutral=scenario_setups × bare text): MD-projected 21/24, LDA 19/24. PC projection helps both training SNR (2.44 → 2.65) and holdout SNR (0.97 → 1.13). Both directions classify the trait but live in significantly different parts of activation space (cosine 0.37). ⚠️ **This result is cell-specific** — when expanded to the full Phase A grid (24 cells = 2 formats × 4 prefixes × 3 neutrals), LDA wins most cells on holdout (§10). See §10 for the grid-wide findings.
+4. **Method comparison, summarised across the whole journey:** §6 showed MD winning on one cell; §10's Phase A grid on Llama × H showed LDA winning; §11's Phase B grid (48 cells = 4 models × 6 traits × 2 formats) shows MD-projected winning 16, LDA 9, tied 23. **H is the exception** — LDA wins every one of the 8 H cells. Facet breakdown explains why: MD fails specifically on H/Modesty (48%) and H/Greed-Avoidance (54%), exactly the facets the scenario audit flagged. On other traits (E, X, A, C, O), MD-projected matches or beats LDA. The headline: **MD is a good uni-dimensional trait extractor; LDA is better when a trait has multiple facets pointing in different directions in activation space.** See §11 for full breakdown.
 
 5. **The "best signal" layer selector was norm-confounded**, same artifact as the PCA PC1 finding from week 2. Mean signed projection scales with activation norm across layers. Replaced with `best-snr` (norm-invariant) and `best-cv` strategies, which both pick layer ~12 (matching LDA's choice).
 
@@ -346,7 +346,79 @@ Run the Phase B grid (4 models × 6 traits) with:
 
 Phase B would produce 4 models × 6 traits × 3 methods = 72 rows per neutral variant × 3 neutrals = 216 rows of grid data, plus per-facet breakdowns. On MPS, ~30-45 min.
 
-## 11. What's done, what's next
+## 11. Phase B — 4 models × 6 traits — LDA wins H, MD wins almost everything else
+
+With Phase A's recommended configuration (generic prefix, scenario_setups neutral, both formats reported), swept 4 models × 6 traits × 2 formats × 3 methods = 144 rows. Driver: `scripts/phase_b_sweep.py`. Full table: `results/phase_b_sweep.csv`. Took 40 min on MPS.
+
+### 11.1 Method comparison (48 cells = 4 models × 6 traits × 2 formats)
+
+LDA vs MD-projected on holdout sign-correct:
+
+|  | LDA wins | MD wins | Tie |
+|---|---|---|---|
+| **Overall (48 cells)** | 9 | **16** | 23 |
+| Chat format (24 cells) | 4 | 9 | 11 |
+| Bare format (24 cells) | 5 | 7 | 12 |
+
+**Summary: MD-projected wins slightly more often overall.** This reverses Phase A's Llama × H conclusion — which turns out to have been a trait-specific finding, not a method-general one.
+
+### 11.2 H is LDA's trait, the rest are MD's
+
+Wins broken down by trait:
+
+| Trait | LDA wins | MD-projected wins | Tie |
+|---|---|---|---|
+| **H** | **8/8** | 0/8 | 0/8 |
+| E | 0 | 5 | 3 |
+| X | 0 | 2 | 6 |
+| A | 1 | 4 | 3 |
+| C | 0 | 5 | 3 |
+| O | 0 | 0 | 8 (all ceiling) |
+
+**LDA wins every single H cell across 4 models × 2 formats.** MD wins or ties everywhere else except one bare × Qwen × A cell. Phase A's "LDA wins" was H being unusually hard for MD, not a general method fact.
+
+### 11.3 The Modesty/Greed-Avoidance mechanism
+
+Per-facet breakdown on H, aggregated across 4 models × 2 formats (48 pairs per facet):
+
+| Method | Sincerity | Fairness | Greed-Avoidance | Modesty |
+|---|---|---|---|---|
+| LDA | 48/48 (100%) | 48/48 (100%) | 48/48 (100%) | 36/48 (75%) |
+| MD-raw | 48/48 (100%) | 48/48 (100%) | 28/48 (58%) | 18/48 (38%) |
+| MD-projected | 47/48 (98%) | 48/48 (100%) | 26/48 (54%) | 23/48 (48%) |
+
+MD's failure is specifically on Greed-Avoidance and Modesty — exactly the facets the scenario audit ([rgb_reports/scenario_audit.md](scenario_audit.md)) flagged as showing within-trait heterogeneity. LDA accommodates the four facets via its whitening; MD's mean-difference takes the majority-aligned Sincerity + Fairness signal and leaves the minority facets mis-pointed in activation space.
+
+This is the clearest direct evidence yet for the construct-heterogeneity concern the audit raised. The holdout was generated with audit-awareness (facet-stratified, with prompt guidance to avoid defensible-low responses), so the 24-pair holdout is a *fair* test of whether methods generalize across facets, not a replication of the training-set quirks. LDA passes; MD doesn't.
+
+Interpretation: **MD is a good uni-dimensional trait extractor, not a good multi-facet one.** When a trait is relatively cohesive in representation (E, X, A, C, O — at least on our items), MD's per-class mean captures it cleanly. When a trait splits into facets that point in meaningfully different directions, MD averages them into mush and then fails at the edges.
+
+### 11.4 Other patterns
+
+**O is ceiling everywhere.** All 8 cells tied at 24/24. Openness is easy to separate with any method we have. Probably because the "high O — curious/creative" vs "low O — conventional/pragmatic" split maps onto a robust, mostly-unidimensional axis in these models.
+
+**MD tends to pick deeper layers when best-SNR layer selection goes astray.** MD-raw picked the final layer (34) in 3 of 6 Gemma chat cells. This is the norm-growth artifact reappearing when PC projection doesn't provide enough signal — MD-raw has no norm-invariant selection mechanism, so when raw-direction SNR happens to peak at the final layer, that's what gets chosen. MD-projected mostly pulls back to middle-layer selections in those cases (layer 15-20), which is why projection makes a real difference for Gemma.
+
+**Chat vs bare is mostly a wash except on Llama.** Per-model format comparisons:
+- Llama: chat slightly favors MD-projected (Llama × E chat 24/24 vs bare 24/24 — tied on the numbers but MD cosine to LDA is lower under chat, suggesting more distinct read direction)
+- Gemma/Phi4/Qwen: chat and bare produce very similar method ranks within trait
+- Consistent with §9's finding that chat-template impact is Llama-specific
+
+**Cosines between LDA and MD directions stay in the 0.1-0.45 range** across all cells. The two methods produce meaningfully different vectors that happen to classify the same trait, not rescaled versions of each other.
+
+### 11.5 Implications for the project's recommendations
+
+1. **Choice of method is trait-dependent.** For H specifically (and plausibly any trait with strong facet structure), LDA generalizes better. For E, X, A, C, O (at least in our models and items), MD-projected is as good or better. A project that cares about H and a project that cares about personality broadly would pick different methods.
+
+2. **The facet-heterogeneity finding is methodologically important.** The scenario audit pointed at the problem on the training set; Phase B confirms it quantitatively on the held-out set. For anyone extracting trait directions from contrast pairs, MD's failure mode is now documented: **check your facet-level sign-correctness, not just trait-level.** Aggregate metrics may look healthy while a subfacet is being misclassified half the time.
+
+3. **The Phase A "LDA wins" message was right locally, wrong globally.** It correctly identified that LDA beats MD on H; it incorrectly generalized from H to the method question. This is a cautionary tale about generalizing from a single trait × model to "which method is better."
+
+4. **For Phase C or future work on steering**, MD-projected is probably the right residual-stream direction for E/X/A/C/O and LDA for H — if we bother with residual-stream steering at all given the §9 prompt-steering ceiling.
+
+5. **For HEXACO measurement generally**, this suggests collecting facet-stratified data is important for method comparisons (we did this in the holdout; we should do it for everything). Trait-level metrics hide a lot.
+
+## 12. What's done, what's next
 
 Done in week 5:
 - `scripts/audit_scenario_charge.py` — the audit harness (§1)
@@ -358,21 +430,24 @@ Done in week 5:
 - Single-cell apples-to-apples comparison (bare × absent × scenario_setups) — §6. MD-projected wins on that cell.
 - Wrong-sign residual-stream BC steering finding (§7) and position-bias finding (§8).
 - Prompt-steering baseline revealing chat-template confound (§9).
-- **Phase A sweep — 24 cells on Llama × H** (`scripts/phase_a_sweep.py`, `results/phase_a_sweep_*.csv`). Headline: LDA beats MD-projected on holdout in 6/8 format × prefix cells; the single-cell "MD wins" was not representative. MD-projected holds up best under bare × absent × scenario_setups (§10).
+- **Phase A sweep — 24 cells on Llama × H** (`scripts/phase_a_sweep.py`, `results/phase_a_sweep_*.csv`). Headline: LDA beats MD-projected on holdout in 6/8 format × prefix cells for Llama × H (§10).
+- **4-model prompt-steering ceiling** (`scripts/prompt_steering_ceiling.py`, `results/prompt_ceiling.csv`). Headline: chat-template bump is Llama-specific, not universal (§9.2).
+- **Phase B sweep — 4 models × 6 traits × 2 formats** (`scripts/phase_b_sweep.py`, `results/phase_b_sweep.{csv,json,txt}`). Headline: LDA wins H universally (8/8 cells); MD-projected wins or ties everywhere else (§11). Facet-level breakdown confirms MD's failure mode is Modesty + Greed-Avoidance (§11.3).
 
 Next priorities:
 
-1. **Phase B full sweep** on 4 models × 6 traits with the §10.8 settings (chat + generic + scenario_setups as primary; bare as diagnostic). With 144 holdout pairs across 24 facets, small per-cell effects should become real comparisons and facet-level breakdowns become feasible.
-2. **Position-specific steering test** as a separate experiment. Apply δ only at the final/answer token. Done at one defensible cell to characterize whether uniform steering is the source of §7's wrong-sign finding.
-3. **Position-bias re-audit** of `validate_protocol.py` Rottger numbers and `optimize_steering.py` baselines, combined with re-evaluation under chat template (§9). Prior steering effect sizes likely shrink.
-4. **Persona-direction extraction** (to_try.md §11 experiment #3). Contrast user-turn-in-template vs bare-user-turn activations; check whether the resulting direction is a linear combination of our high-trait directions. Can be done on Llama with existing tooling in <10 min.
-5. **Facet-stratified analysis** integrated into Phase B output. The holdout is already facet-tagged; the audit suggests H/Modesty and E/Fearfulness pull apart from other facets, and we should check whether this shows in Phase B under the instruct-model-correct configuration.
+1. **Position-specific steering test** as a separate experiment. Apply δ only at the final/answer token. Done at one defensible Phase B cell to characterize whether uniform steering is the source of §7's wrong-sign finding. Most informative cell: Llama × H (largest MD−LDA gap; most to learn about the recognition/execution relationship).
+2. **Persona-direction extraction** (to_try.md §11 experiment #3). Contrast user-turn-in-template vs bare-user-turn activations on Llama specifically (where the template bump is 31 points); check whether the resulting direction is a linear combination of our high-trait directions. Can be done with existing tooling in <10 min. Phase B's facet-stratified directions give us a clean reference set for the linear-combination test.
+3. **Position-bias re-audit** of `validate_protocol.py` Rottger numbers and `optimize_steering.py` baselines, combined with re-evaluation under chat template (§9). Prior Llama steering effect sizes likely shrink; other models approximately correct as reported.
+4. **H-specific follow-ups.** The Modesty/Greed-Avoidance failure mode is a concrete finding worth deepening: (a) do the Modesty scenarios even show the same signal in the model's Likert self-report, or is Modesty-as-scenario just harder to represent? (b) does the facet failure transfer to other multi-facet traits in HEXACO not included here (Altruism, which loads cross-trait)? (c) would a Modesty-specific LDA fit (trained only on Modesty pairs) recover Modesty cleanly, suggesting the issue is single-direction-inadequacy rather than Modesty being harder per se?
+5. **Report consolidation.** Week 5 is getting long. Probably worth spawning a cleaner "method choice for HEXACO trait extraction" writeup that captures just the headline findings: LDA vs MD on the facet-stratified comparison, chat template as Llama-specific, position bias. The rest (scenario audit, holdout construction, MPS-sandbox drama) can stay in the in-progress report or move to appendices.
 
 Open questions worth keeping in view:
 
 - **Why does the wrong-sign steering happen?** The most-likely explanation (uniform steering re-frames the whole context) is testable: position-specific steering should fix it. If it doesn't, something else is going on — possibly that the period-token recognition direction is *literally anti-aligned* with the answer-token execution direction.
 - **What's the true cosine between mean-diff and the optimized δ from week 4?** Backprop δ achieved 92% steering; mean-diff achieves -19%. Their cosines tell us whether mean-diff is closer to the execution subspace than LDA was (a quantitative version of the "MD has 2× larger magnitude effect" finding).
 - **Does the trait-state-behavior hierarchy bear out?** Anthropic's emotion vectors did steer at 5% norm. If we built scenarios that are explicitly emotional-state items (anger/calm/desperation), would *those* extracted directions steer like Anthropic's? That would isolate the construct-level explanation from the model-scale one.
+- **Is LDA's advantage on H a generalizable "use LDA when facets disagree" rule?** We haven't directly tested traits like Altruism (loads cross-trait) or constructed adversarial multi-facet traits. Phase B's result for H is consistent with the theoretical expectation but the n of strong-facet-structure traits in our data is 1.
 
 ## Bibliographic note
 
