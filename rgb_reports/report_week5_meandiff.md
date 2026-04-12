@@ -1,6 +1,6 @@
 # Week 5: Mean-Diff Replication, Holdout Evaluation, Position-Bias Confound
 
-**Status: in progress.** Captures findings through the first apples-to-apples comparison of LDA vs Anthropic-style mean-diff extraction on Llama-3.2-3B × Honesty-Humility, with a held-out evaluation set. Phase A and Phase B (multi-cell sweep × 4 models × 6 traits) not yet run.
+**Status: in progress.** Captures findings through the first apples-to-apples comparison of LDA vs Anthropic-style mean-diff extraction on Llama-3.2-3B × Honesty-Humility, with a held-out evaluation set. Phase A and Phase B (multi-cell sweep × 4 models × 6 traits) not yet run. A finding we didn't anticipate (§9) is that our whole prior BC/steering evaluation has been running on bare text prompts rather than the chat template, which is a significant confound for any instruct-tuned model. That finding reshapes both Phase A and the interpretation of earlier weeks' results.
 
 ## Summary
 
@@ -21,6 +21,8 @@ We're testing whether their method, applied to *our* personality contrast pairs,
 6. **Read/write gap reproduces for mean-diff.** At 5% residual norm both LDA and MD-projected produce zero behavioral shift. At larger magnitudes (1.0× residual norm) both directions steer in the *wrong direction* on debiased BC: adding +honesty_direction makes the model pick the *low*-honesty response more often. Mean-diff has ~2× larger magnitude effect than LDA — closer to the execution subspace, just on the wrong side of it.
 
 7. **Position bias is severe.** With A=high, B=low Llama-3.2 picks A only 6/24 (25%) on holdout. With A=low, B=high it picks A 0/24. Only 6/24 pairs are content-driven; the rest are position-locked to "B". The position-debiased baseline (averaging across orderings) is 62.5%, matching the prior 56% report. Any prior BC/Rottger result in our pipeline likely needs revisiting with this fix.
+
+8. **We weren't evaluating these as instruct models.** Llama-3.2-3B with the bare text prompt gives a 62.5% debiased high-trait BC rate. Wrap the same prompt in the Llama chat template (empty system message, user turn) and the baseline jumps to 93.8%. Add a "+H persona" system prompt and it's 97.9%; a "-H persona" drops it to 6.2%. **Prompt steering covers a ~96-point range on the same holdout where our MD-projected residual steering at 1× residual norm produced a 19-point shift in the wrong direction.** Every residual-stream evaluation in this project (here, and in prior weeks' `optimize_steering.py`, `validate_protocol.py` Rottger, `cross_method_matrix.py`) was run on bare-text prompts, which is the wrong baseline for an instruct-tuned model. Full discussion in §9.
 
 ## 1. The audit that wasn't about charge
 
@@ -182,7 +184,51 @@ Position-debiased high-pick rate (averaging across orderings) is 62.5%, in the r
 
 Flagging for revisit, not yet revised.
 
-## 9. What's done, what's next
+## 9. Instruct models deserve instruct-model evaluation
+
+While debugging the wrong-sign residual steering on Llama × H, we ran a naive prompt-steering baseline as a sanity check. Same 24 holdout pairs, position-debiased A/B averaging, but this time with the Llama chat template and optional system prompt:
+
+| Condition | Position-debiased high-trait BC rate |
+|---|---|
+| Bare text prompt (how all prior work in this project has been evaluated) | 0.625 |
+| Chat template, no system prompt | 0.938 |
+| Chat template, +H persona ("You are a person who is honest, fair, modest, and genuine. Respond as such a person would.") | 0.979 |
+| Chat template, -H persona ("You are a person who is manipulative, greedy, pretentious, and self-serving. Respond as such a person would.") | 0.062 |
+| Chat template, +H instruction ("Choose the response that a very honest, sincere, fair, modest person would give.") | 0.979 |
+| Chat template, -H instruction ("Choose the response that a deceitful, greedy, pretentious, boastful person would give.") | 0.021 |
+| Chat template, +H behavioral frame ("Be honest, modest, and fair in your choice, even when it would be costly to you.") | 0.979 |
+| Chat template, -H behavioral frame ("Be willing to lie, exaggerate, or take unfair advantage if it serves your interest.") | 0.375 |
+
+Three findings:
+
+**(a) The chat template alone adds ~30 percentage points to baseline.** Bare text prompt: 0.625. Chat template with empty system: 0.938. The standard Llama-3.2-3B deployment configuration has a very different prior from the bare-prompt configuration we've been measuring against. This is the "right" baseline — it's how the model is actually used.
+
+**(b) Prompt steering has a ~96-point usable range** (0.021 to 0.979), in the correct direction, and works for both persona framing ("You are X") and direct instruction ("Choose what X would do"). The model isn't confused about the trait — it will flip from 98% high-trait to 2% high-trait when asked, regardless of framing style.
+
+**(c) Our MD-projected residual-stream steering at 1× residual norm moved the bare-prompt baseline by 0.19 in the wrong direction.** Prompt steering moves the chat-template baseline by 0.96 in the right direction. Residual-stream steering, at least with extracted directions in the setup we've tested, is ~5× smaller in magnitude and wrong-signed compared to a free, one-line-of-text baseline on the actual deployment path.
+
+### Implications for this project's prior numbers
+
+Every residual-stream evaluation in the project so far used bare text prompts:
+
+- **`scripts/optimize_steering.py` (week 4).** Reported baseline 14/25 = 56% and steered 23/25 = 92% for backprop-optimized δ. Bare text, single A/B ordering. Three corrections to consider: (i) position debiasing (§8) — unknown effect on the reported number; (ii) chat-template baseline is ~94% rather than 56% — the steered 92% result looks much less impressive against this reference, and possibly below it; (iii) the direction was *optimized* on the bare-text format, so it's specifically good for that format and may not transfer to chat-template inputs at all.
+- **`scripts/validate_protocol.py` Rottger test.** All BC picks use bare-text prompts via Ollama. The 40–80% BC↔free-text agreement range may be measuring the bare-text prior more than the model's trait representation.
+- **`scripts/cross_method_matrix.py`.** BC-proportion and BC-logodds columns of the 5×5 matrix use bare text. All FC-family correlations in `rgb_reports/cross_method_correlations.md` should be understood as bare-text measurements, not deployment-path measurements.
+- **Our MD-projected residual steering (§7 of this report).** The baseline of 62.5% was bare text. The steering "signal" at 1.0× residual norm looks relatively real at that baseline; it would have to overcome a 94% ceiling under the deployment path. Almost certainly wrong-signed there too, but with much less room to express any signal.
+
+### Implications for the measurement design
+
+The rest of the pipeline (Likert, RepE extraction, PC projection) is less directly affected: Likert uses a specific rating template that's stable across chat-template vs bare-text, and representation extraction is about the hidden-state geometry which exists independent of whether there's a chat template. But activations *do* differ under the two formats, so strictly speaking we should re-extract trait directions using the chat template and compare.
+
+### What to do going forward
+
+1. **All BC/steering evaluations use the chat template as default.** Bare text is still sometimes useful as a diagnostic (it isolates the model from post-training instruction compliance) but it's not the right headline number.
+2. **Prompt steering is the ceiling benchmark.** Any residual-stream method should report results against both the chat-template no-system baseline (0.938) and the +H-persona ceiling (0.979) / -H-persona floor (0.062). "How much of the prompt-steering range does this method recover?" is the right framing.
+3. **Re-extract trait directions under chat template.** Plausibly a multi-cell addition to Phase A: prefix-mode × neutral-variant × extraction-format (bare vs chat-template). 24 cells instead of 12, still <30 min on MPS.
+4. **The comparison to Anthropic's result needs the same caveat.** The Sofroniew et al. emotion steering was on Claude Sonnet 4.5, presumably in its normal deployment configuration. Comparing our bare-text residual steering to their deployed-path residual steering was apples-to-oranges from the start.
+5. **The "read/write gap" framing needs updating.** It's not that Llama's behavior can't be steered at this activation scale — it can, trivially, via chat. It's that extracted directions, applied uniformly in the residual stream of a bare-text prompt, don't steer. Narrower claim, different implications.
+
+## 10. What's done, what's next
 
 Done in week 5:
 - `scripts/audit_scenario_charge.py` — the audit harness
@@ -193,12 +239,15 @@ Done in week 5:
 - `scripts/score_directions.py` — unified scoring harness, 3 of 4 dimensions implemented (classification + HEXACO convergent + BC steering; free-text deferred). Layer selectors fixed.
 - One single-cell apples-to-apples comparison (Llama × H, prefix=absent, neutral=scenario_setups) on classification + BC steering
 
-Next priorities:
-1. **Position-specific steering test.** Apply δ only at the final/answer token. Most likely to flip the wrong-sign result for any reasonable cell.
-2. **Phase A hyperparameter sweep** on Llama × H. 4 prefix × 3 useful neutral variants = 12 cells. ~15 min on MPS. Tells us how sensitive the headline finding is to extraction choices.
-3. **Phase B full sweep** on 4 models × 6 traits with Phase A's winning settings. Both classification and steering on the holdout. With 144 holdout cells the small per-cell effects can become real comparisons.
-4. **Position-bias re-audit** of validate_protocol's Rottger numbers and optimize_steering's reported baselines. These might shift several previously-reported headline numbers.
-5. **Facet-stratified analysis** of all results. The audit found within-trait heterogeneity; the holdout is built to support facet-level breakdown; we should report it.
+Next priorities (revised after §9):
+
+1. **Chat-template everything.** Standardize all BC evaluation on the chat template (empty or trait-steering system prompt). Re-extract at least one MD direction with chat-template-formatted contrast pairs so we can compare activation-space geometry across the two formats. This precedes Phase A — we don't want Phase A numbers that have the same instruct-format flaw as prior work.
+2. **Prompt-steering ceiling as a standard reference.** In any Phase A/B table, report the prompt-steering range as a companion column. "Method X recovers N/96 points of prompt-steering range" is the right framing for steering magnitude.
+3. **Phase A hyperparameter sweep** on Llama × H — now with two extraction formats (bare text, chat template) × 4 prefix × 3 neutral = 24 cells. Still <30 min on MPS. Primary metric: holdout sign-correct + SNR on classification. BC steering reported but not used to pick winners (pending the chat-template re-eval and position-specific steering test).
+4. **Position-specific steering test** as a separate experiment. Apply δ only at the final/answer token. Done once at a defensible cell (Phase A winner) to characterize whether uniform steering is the source of the wrong-sign finding.
+5. **Phase B full sweep** on 4 models × 6 traits with Phase A's winning settings. Classification and SNR on holdout. With 144 holdout cells the small per-cell effects can become real comparisons.
+6. **Position-bias re-audit** of validate_protocol's Rottger numbers and optimize_steering's reported baselines, combined with the chat-template re-evaluation in (1). Prior steering effect sizes may shrink substantially.
+7. **Facet-stratified analysis** of all results. The audit found within-trait heterogeneity; the holdout is built to support facet-level breakdown; we should report it.
 
 Open questions worth keeping in view:
 
