@@ -6,7 +6,7 @@ This project measures LLM personality using three complementary approaches:
 
 1. **Likert self-report surveys** — standard psychometric instruments administered via logprobs
 2. **Representation engineering (RepE)** — extracting trait direction vectors from hidden states
-3. **Forced-choice behavioral scenarios** — A/B preference via logprobs
+3. **Binary-choice behavioral scenarios** — A/B preference via logprobs (one scenario, two options on the same trait dimension; not "forced-choice" in the Thurstonian/multi-trait sense from the psychometrics literature)
 
 Each approach measures a different construct (see "Three Constructs" in `reports/report_week2.md`, Section 10).
 
@@ -114,7 +114,7 @@ Consider what a person most like you would do in the following situation: [Scena
                                                                                    ^ measure here
 ```
 
-Causal attention guarantees the period-token hidden state is identical regardless of what follows (r=1.000 across free-form vs forced-choice).
+Causal attention guarantees the period-token hidden state is identical regardless of what follows (r=1.000 across free-form vs binary-choice).
 
 ### Validation Script
 
@@ -127,7 +127,7 @@ Causal attention guarantees the period-token hidden state is identical regardles
   2. **Framing sensitivity** — robustness to preamble text (r > 0.85 all pairs)
   3. **Cross-model transfer** — do model A's directions work on model B?
   4. **RepE vs Likert** — period-token projection vs self-report EV correlation
-  5. **Röttger test** — forced-choice vs free-text agreement (40-80% depending on model)
+  5. **Röttger test** — binary-choice vs free-text agreement (40-80% depending on model)
 - **Output**: `results/validation_<model>.txt`
 
 ### Models Tested (HuggingFace)
@@ -141,19 +141,23 @@ Causal attention guarantees the period-token hidden state is identical regardles
 
 ---
 
-## 3. Forced-Choice Behavioral Scenarios
+## 3. Binary-Choice Behavioral Scenarios
 
-### Single-Trait Forced Choice
+Note on terminology: we use "binary choice" for our single-trait A/B scenarios to avoid conflicting with the psychometrics literature's "forced choice," which specifically means pitting items from *different* trait dimensions against each other (and requires Thurstonian IRT for non-ipsative scoring; see Brown & Maydeu-Olivares). The planned trait-conflict instrument below is true forced choice.
 
-- **Format**: Present scenario + two options (high vs low trait), measure A/B logprob preference
-- **Script**: Inline in validation pipeline; results in `results/forced_choice_6trait.json`
+### Single-Trait Binary Choice
+
+- **Format**: Present scenario + two options (high vs low on one trait), measure A/B logprob preference
+- **Script**: Inline in validation pipeline; results in `results/binary_choice_6trait.json`
 - **Limitation**: Near-ceiling for H, C, O (all models pick prosocial option 17-20/20). Real signal only on E (near chance), A and X (intermediate).
+- **Caveat**: Position bias matters. Scoring a pair in a single A/B ordering mixes content read with position preference; proper evaluation averages across both orderings. See `rgb_reports/report_week5_meandiff.md` §8.
 
 ### Trait-Conflict Forced Choice (planned)
 
-- **Format**: Scenarios where two positive traits conflict (e.g., honesty vs kindness)
+- **Format**: Scenarios where two positive traits conflict (e.g., honesty vs kindness) — this IS forced choice in the literature sense
 - **Instrument**: Not yet built. Design based on HEXACO pairwise combinations (15 trait pairs).
 - **Motivation**: ACL 2025 paper (Decoding LLM Personality: Forced-Choice vs. Likert) confirms forced-choice discriminates LLM personalities better. Validated trait-conflict instruments don't exist for HEXACO (for humans or LLMs).
+- **Scoring**: Will require Thurstonian IRT (Brown & Maydeu-Olivares) to recover normative scores from ipsative pair data.
 
 ---
 

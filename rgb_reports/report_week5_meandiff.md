@@ -18,9 +18,9 @@ We're testing whether their method, applied to *our* personality contrast pairs,
 
 5. **The "best signal" layer selector was norm-confounded**, same artifact as the PCA PC1 finding from week 2. Mean signed projection scales with activation norm across layers. Replaced with `best-snr` (norm-invariant) and `best-cv` strategies, which both pick layer ~12 (matching LDA's choice).
 
-6. **Read/write gap reproduces for mean-diff.** At 5% residual norm both LDA and MD-projected produce zero behavioral shift. At larger magnitudes (1.0× residual norm) both directions steer in the *wrong direction* on debiased FC: adding +honesty_direction makes the model pick the *low*-honesty response more often. Mean-diff has ~2× larger magnitude effect than LDA — closer to the execution subspace, just on the wrong side of it.
+6. **Read/write gap reproduces for mean-diff.** At 5% residual norm both LDA and MD-projected produce zero behavioral shift. At larger magnitudes (1.0× residual norm) both directions steer in the *wrong direction* on debiased BC: adding +honesty_direction makes the model pick the *low*-honesty response more often. Mean-diff has ~2× larger magnitude effect than LDA — closer to the execution subspace, just on the wrong side of it.
 
-7. **Position bias is severe.** With A=high, B=low Llama-3.2 picks A only 6/24 (25%) on holdout. With A=low, B=high it picks A 0/24. Only 6/24 pairs are content-driven; the rest are position-locked to "B". The position-debiased baseline (averaging across orderings) is 62.5%, matching the prior 56% report. Any prior FC/Rottger result in our pipeline likely needs revisiting with this fix.
+7. **Position bias is severe.** With A=high, B=low Llama-3.2 picks A only 6/24 (25%) on holdout. With A=low, B=high it picks A 0/24. Only 6/24 pairs are content-driven; the rest are position-locked to "B". The position-debiased baseline (averaging across orderings) is 62.5%, matching the prior 56% report. Any prior BC/Rottger result in our pipeline likely needs revisiting with this fix.
 
 ## 1. The audit that wasn't about charge
 
@@ -141,7 +141,7 @@ LDA's 88% training sign-correct (44/50) is much lower than its 100% CV classific
 
 ## 7. The headline test: steering. The headline answer: read/write gap with a sign flip.
 
-Position-debiased FC steering on Llama × H, 24 holdout pairs, both A/B orderings averaged:
+Position-debiased BC steering on Llama × H, 24 holdout pairs, both A/B orderings averaged:
 
 | Method | Scale (× residual norm) | +δ rate | -δ rate | Range (+δ - -δ) |
 |---|---|---|---|---|
@@ -176,8 +176,8 @@ Sanity-checking the steering baseline turned up a serious issue. With A=high, B=
 Position-debiased high-pick rate (averaging across orderings) is 62.5%, in the right ballpark for prior reports of Llama's ~56% baseline. The 25% number was an artifact, not a finding.
 
 **This affects prior work.**
-- `scripts/validate_protocol.py` Rottger test computes FC agreement using a single A/B ordering. The 80% Llama agreement may be inflated or deflated depending on whether trait alignment correlates with position bias.
-- `scripts/cross_method_matrix.py` similarly uses single-ordering FC.
+- `scripts/validate_protocol.py` Rottger test computes BC agreement using a single A/B ordering. The 80% Llama agreement may be inflated or deflated depending on whether trait alignment correlates with position bias.
+- `scripts/cross_method_matrix.py` similarly uses single-ordering BC.
 - `scripts/optimize_steering.py` reports baseline 14/25 = 56% and steered 23/25 = 92% for backprop δ. If single-ordered, the baseline could be off by 10-20 percentage points either way. The headline "92%" likely survives — the optimization is direct on logit shifts, not on position-debiased rates — but the claimed effect size could shift.
 
 Flagging for revisit, not yet revised.
@@ -190,8 +190,8 @@ Done in week 5:
 - `scripts/extract_meandiff_vectors.py` — mean-diff extraction
 - `scripts/generate_holdout_pairs.py` — facet-stratified holdout generation via Claude API
 - `instruments/contrast_pairs_holdout.json` — 144 holdout pairs
-- `scripts/score_directions.py` — unified scoring harness, 3 of 4 dimensions implemented (classification + HEXACO convergent + FC steering; free-text deferred). Layer selectors fixed.
-- One single-cell apples-to-apples comparison (Llama × H, prefix=absent, neutral=scenario_setups) on classification + FC steering
+- `scripts/score_directions.py` — unified scoring harness, 3 of 4 dimensions implemented (classification + HEXACO convergent + BC steering; free-text deferred). Layer selectors fixed.
+- One single-cell apples-to-apples comparison (Llama × H, prefix=absent, neutral=scenario_setups) on classification + BC steering
 
 Next priorities:
 1. **Position-specific steering test.** Apply δ only at the final/answer token. Most likely to flip the wrong-sign result for any reasonable cell.

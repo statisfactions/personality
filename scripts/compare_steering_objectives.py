@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Compare three steering vector training objectives:
 
-1. FC-logit:     Maximize logit(A) - logit(B) on a forced-choice prompt
+1. BC-logit:     Maximize logit(A) - logit(B) on a binary-choice prompt
 2. Free-text:    Maximize log-prob of first N tokens of high-trait response
 3. Persona:      Generate target with persona prompt, then steer vanilla toward it
 
-All produce a δ at the same layer. We compare cosines, FC effectiveness,
+All produce a δ at the same layer. We compare cosines, BC effectiveness,
 and free-text generation quality.
 
 Usage:
@@ -58,12 +58,12 @@ def make_hook(delta):
 
 
 # =============================================================================
-# Objective 1: FC logit difference
+# Objective 1: BC logit difference
 # =============================================================================
-def train_fc_logit(model, tokenizer, pairs, layer_module, hidden_size,
+def train_bc_logit(model, tokenizer, pairs, layer_module, hidden_size,
                    device, norm_constraint, n_steps=50, lr=0.05, batch_size=5):
-    """Maximize logit(A) - logit(B) on FC prompts."""
-    print("\n  === Objective 1: FC-logit ===")
+    """Maximize logit(A) - logit(B) on BC prompts."""
+    print("\n  === Objective 1: BC-logit ===")
 
     delta = torch.randn(hidden_size, device=device, dtype=torch.float32) * 0.01
     delta.requires_grad_(True)
@@ -280,18 +280,18 @@ def train_persona(model, tokenizer, pairs, layer_module, hidden_size,
 # Evaluation
 # =============================================================================
 def evaluate_all(model, tokenizer, deltas, layer_module, eval_pairs, device):
-    """Evaluate all deltas on FC accuracy and free-text generation."""
+    """Evaluate all deltas on BC accuracy and free-text generation."""
     names = list(deltas.keys())
 
-    # FC evaluation
+    # BC evaluation
     a_id = tokenizer.encode("A", add_special_tokens=False)[-1]
     b_id = tokenizer.encode("B", add_special_tokens=False)[-1]
 
     print(f"\n{'=' * 70}")
-    print(f"  FC EVALUATION on {len(eval_pairs)} held-out pairs")
+    print(f"  BC EVALUATION on {len(eval_pairs)} held-out pairs")
     print(f"{'=' * 70}")
 
-    fc_results = {}
+    bc_results = {}
     for name in ["baseline"] + names:
         d = deltas.get(name)
         handle = None
@@ -312,12 +312,12 @@ def evaluate_all(model, tokenizer, deltas, layer_module, eval_pairs, device):
 
         if handle:
             handle.remove()
-        fc_results[name if name != "baseline" else "baseline"] = n_high
+        bc_results[name if name != "baseline" else "baseline"] = n_high
         gc.collect()
         if device == "mps":
             torch.mps.empty_cache()
 
-    for name, n in fc_results.items():
+    for name, n in bc_results.items():
         print(f"  {name:20s}: {n}/{len(eval_pairs)} high-trait ({n/len(eval_pairs):.0%})")
 
     # Free-text generation (3 scenarios)
@@ -397,7 +397,7 @@ def main():
 
     # Train all three
     t0 = time.time()
-    delta_fc = train_fc_logit(model, tokenizer, train_pairs, layer_module,
+    delta_bc = train_bc_logit(model, tokenizer, train_pairs, layer_module,
                               hidden_size, args.device, norm_constraint,
                               n_steps=args.steps)
 
@@ -424,7 +424,7 @@ def main():
     print(f"\n  All three objectives trained in {elapsed:.0f}s")
 
     # Compare directions
-    deltas = {"fc-logit": delta_fc, "free-text": delta_ft, "persona": delta_persona}
+    deltas = {"bc-logit": delta_bc, "free-text": delta_ft, "persona": delta_persona}
 
     print(f"\n{'=' * 70}")
     print(f"  DIRECTION COMPARISON (cosine similarity)")

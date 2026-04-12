@@ -2,9 +2,9 @@
 
 ## 1. Trait-conflict dilemma instrument
 
-Build forced-choice scenarios where two positive HEXACO traits conflict (e.g., honesty vs kindness, conscientiousness vs openness). 15 trait pairs × ~5 scenarios each.
+Build forced-choice scenarios where two positive HEXACO traits conflict (e.g., honesty vs kindness, conscientiousness vs openness). 15 trait pairs × ~5 scenarios each. This IS forced choice in the literature's sense — trait-vs-trait — unlike our single-trait binary-choice (BC) tests.
 
-**Why:** Single-trait forced-choice hits ceiling (H/C/O all near 100% prosocial). RLHF prescribes the answer when only one trait is at stake. Trait conflicts force genuine trade-offs where models might actually differ.
+**Why:** Single-trait binary-choice hits ceiling (H/C/O all near 100% prosocial). RLHF prescribes the answer when only one trait is at stake. Trait conflicts force genuine trade-offs where models might actually differ.
 
 **Prior art:** Ultima IV character creation (virtues pitted against each other). ACL 2025 "Decoding LLM Personality" confirms forced-choice discriminates LLM personalities better than Likert. Nobody has built a validated trait-conflict instrument for HEXACO — for humans or LLMs. Thurstonian IRT (Brown & Maydeu-Olivares) provides the scoring framework for recovering normative scores from ipsative forced-choice data.
 
@@ -38,7 +38,7 @@ LDA directions classify with 100% accuracy but don't causally steer generation. 
 
 ## 4. Backprop-optimized steering vectors
 
-If LDA directions are read-only, we can *construct* a steerable direction via backprop: optimize a perturbation vector δ in the residual stream that maximizes some personality-relevant output (e.g., log-odds of the high-trait forced-choice option), subject to a norm constraint.
+If LDA directions are read-only, we can *construct* a steerable direction via backprop: optimize a perturbation vector δ in the residual stream that maximizes some personality-relevant output (e.g., log-odds of the high-trait binary-choice option), subject to a norm constraint.
 
 **Why:** This tests whether the read/write dissociation is fundamental (no linear perturbation at this scale can steer) or just a failure of the LDA direction specifically. If backprop finds a working vector, the question becomes why it differs from LDA. If it can't, that's a strong negative result — personality behavior isn't linearly steerable in these models at natural scales.
 
@@ -60,9 +60,9 @@ Use models with pre-built sparse autoencoders to see if personality-relevant fea
 
 Our week 2 switch from descriptive statements to scenarios must have precedent in human psychometrics. Situational Judgment Tests (SJTs) are the obvious analogue, but there may be more directly personality-focused work.
 
-**Why — and why this is urgent:** The 300 contrast-pair scenarios in `instruments/contrast_pairs.json` were written by Claude, not drawn from any validated instrument. Every scenario-based measure in the project (FC, RepE, Rottger) depends on these items. The FC ceiling effects could partly be a scenario quality problem (the "high" options may just sound nicer) rather than purely RLHF. And for the trait-conflict instrument, who writes the dilemmas is the entire measurement — the researcher degrees of freedom are maximal.
+**Why — and why this is urgent:** The 300 contrast-pair scenarios in `instruments/contrast_pairs.json` were written by Claude, not drawn from any validated instrument. Every scenario-based measure in the project (BC, RepE, Rottger) depends on these items. The BC ceiling effects could partly be a scenario quality problem (the "high" options may just sound nicer) rather than purely RLHF. And for the trait-conflict instrument, who writes the dilemmas is the entire measurement — the researcher degrees of freedom are maximal.
 
-The encouraging sign: Likert↔RepE convergence on E (r=0.99) and A (r=0.70) is genuine convergent validity between independently-authored item sets (hexaco.org items vs Claude-generated scenarios), different methods, same trait structure. But this doesn't validate the FC scenarios specifically — RepE uses the scenarios for direction extraction, and the Likert comparison is indirect.
+The encouraging sign: Likert↔RepE convergence on E (r=0.99) and A (r=0.70) is genuine convergent validity between independently-authored item sets (hexaco.org items vs Claude-generated scenarios), different methods, same trait structure. But this doesn't validate the BC scenarios specifically — RepE uses the scenarios for direction extraction, and the Likert comparison is indirect.
 
 **What we need:** Human-validated scenario-based personality items would (a) remove the "the AI wrote its own test" problem, (b) provide item-writing principles for the trait-conflict instrument, (c) give us a comparison point for scenario quality.
 
@@ -74,7 +74,7 @@ Current models are all small (3-8B). The findings might not generalize upward. T
 
 **Practical constraint:** Apple Silicon Mac with limited memory. Could try:
 - Quantized versions of larger models via Ollama (e.g., Llama 3.1 8B, Gemma 2 9B)
-- API-based models for logprob surveys (OpenAI, Anthropic) — no hidden-state access but Likert/FC still work
+- API-based models for logprob surveys (OpenAI, Anthropic) — no hidden-state access but Likert/BC still work
 - Cloud GPU for one-shot RepE extraction on larger models
 
 ## 8. Base model comparison
@@ -92,7 +92,7 @@ Llama's near-uniform distributions (entropy ~1.4) might not be "uncertainty" —
 **Things to try:**
 - Entropy profiles per item: which items do all models agree on vs. disagree?
 - Entropy × trait interaction: are some traits measured more confidently than others?
-- Entropy as a predictor: does low entropy on a Likert item predict higher FC/free-text consistency on the same scenario?
+- Entropy as a predictor: does low entropy on a Likert item predict higher BC/free-text consistency on the same scenario?
 
 ## 10. Facet-level analysis
 

@@ -6,8 +6,8 @@ Runs five validation tests:
 2. Framing sensitivity — does preamble text matter?
 3. Cross-model transfer — does model A's LDA direction work on model B?
 4. RepE vs Likert — period-token projections vs self-report EVs
-5. Forced-choice vs free-text (Röttger test) — do models choose the same
-   in forced-choice as they'd freely generate?
+5. Binary choice vs free-text (Röttger test) — do models choose the same
+   in binary-choice as they'd freely generate?
 
 Usage:
     .venv/bin/python scripts/validate_protocol.py --model google/gemma-3-4b-it
@@ -457,12 +457,12 @@ def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
 
 
 # =============================================================================
-# Test 5: Forced-choice vs free-text (Röttger test)
+# Test 5: Binary-choice vs free-text (Röttger test)
 # =============================================================================
 def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
                  short_name, device="mps"):
     print("\n" + "=" * 60)
-    print("  TEST 5: Forced-Choice vs Free-Text (Röttger Test)")
+    print("  TEST 5: Binary-Choice vs Free-Text (Röttger Test)")
     print("=" * 60)
 
     with open(CONTRAST_PAIRS) as f:
@@ -491,15 +491,15 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
         act, n_toks = get_activation(model, tokenizer, scenario_prompt, best_layer, device)
         repe_proj = np.dot(act, lda_d)
 
-        # Forced-choice via Ollama: which option does the model pick?
-        fc_prompt = (f"{p['situation']}\n\n"
+        # Binary-choice via Ollama: which option does the model pick?
+        bc_prompt = (f"{p['situation']}\n\n"
                      f"Which would you do?\n"
                      f"A) {p['high']}\nB) {p['low']}\n\n"
                      f"Respond with just the letter.")
 
         payload = json.dumps({
             "model": ollama_model,
-            "messages": [{"role": "user", "content": fc_prompt}],
+            "messages": [{"role": "user", "content": bc_prompt}],
             "stream": False,
             "options": {"num_predict": 5, "temperature": 0},
             "logprobs": True,
@@ -508,11 +508,11 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
         req = Request(f"{OLLAMA_URL}/api/chat", data=payload,
                       headers={"Content-Type": "application/json"})
         with urlopen(req, timeout=120) as resp:
-            fc_data = json.loads(resp.read())
+            bc_data = json.loads(resp.read())
 
-        fc_logprobs = fc_data.get("logprobs", [])
+        bc_logprobs = bc_data.get("logprobs", [])
         a_lp = b_lp = None
-        for entry in fc_logprobs:
+        for entry in bc_logprobs:
             for alt in entry.get("top_logprobs", []):
                 tok = alt["token"].strip().upper()
                 if tok == "A" and a_lp is None:
@@ -522,8 +522,8 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
             if a_lp is not None and b_lp is not None:
                 break
 
-        fc_diff = (a_lp - b_lp) if (a_lp is not None and b_lp is not None) else None
-        fc_choice = "HIGH" if (fc_diff and fc_diff > 0) else ("LOW" if fc_diff else "?")
+        bc_diff = (a_lp - b_lp) if (a_lp is not None and b_lp is not None) else None
+        bc_choice = "HIGH" if (bc_diff and bc_diff > 0) else ("LOW" if bc_diff else "?")
 
         # Free-text via Ollama
         free_prompt = f"{p['situation']}\n\nWhat would you do?"
@@ -540,33 +540,33 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
         results.append({
             "pair": i,
             "repe_proj": repe_proj,
-            "fc_diff": fc_diff,
-            "fc_choice": fc_choice,
+            "bc_diff": bc_diff,
+            "bc_choice": bc_choice,
             "free_proj": free_proj,
             "free_choice": free_choice,
-            "agree": fc_choice == free_choice if fc_choice != "?" else None,
+            "agree": bc_choice == free_choice if bc_choice != "?" else None,
             "free_text": free_response[:60],
         })
 
     # Report
-    print(f"\n  {'pair':>4s}  {'RepE':>6s}  {'FC':>5s}  {'FC_diff':>7s}  {'Free':>6s}  {'agree':>5s}  free text")
+    print(f"\n  {'pair':>4s}  {'RepE':>6s}  {'BC':>5s}  {'BC_diff':>7s}  {'Free':>6s}  {'agree':>5s}  free text")
     print(f"  {'-' * 75}")
     for r in results:
-        fc_str = f"{r['fc_diff']:+7.2f}" if r['fc_diff'] else "     ?"
+        bc_str = f"{r['bc_diff']:+7.2f}" if r['bc_diff'] else "     ?"
         agree_str = "YES" if r['agree'] else ("NO" if r['agree'] is False else "?")
-        print(f"  {r['pair']:4d}  {r['repe_proj']:6.1f}  {r['fc_choice']:>5s}  {fc_str}  "
+        print(f"  {r['pair']:4d}  {r['repe_proj']:6.1f}  {r['bc_choice']:>5s}  {bc_str}  "
               f"{r['free_choice']:>6s}  {agree_str:>5s}  {r['free_text']}")
 
     n_agree = sum(1 for r in results if r['agree'] is True)
     n_valid = sum(1 for r in results if r['agree'] is not None)
     print(f"\n  Agreement: {n_agree}/{n_valid} ({n_agree / n_valid:.0%})" if n_valid else "")
 
-    # Correlation between FC logodds and RepE projection
-    valid_fc = [(r['repe_proj'], r['fc_diff']) for r in results if r['fc_diff'] is not None]
-    if len(valid_fc) > 2:
-        reps, fcs = zip(*valid_fc)
+    # Correlation between BC logodds and RepE projection
+    valid_bc = [(r['repe_proj'], r['bc_diff']) for r in results if r['bc_diff'] is not None]
+    if len(valid_bc) > 2:
+        reps, fcs = zip(*valid_bc)
         r = np.corrcoef(reps, fcs)[0, 1]
-        print(f"  RepE projection ↔ FC log-odds: r={r:.3f}")
+        print(f"  RepE projection ↔ BC log-odds: r={r:.3f}")
 
 
 # =============================================================================

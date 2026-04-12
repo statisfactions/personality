@@ -4,10 +4,10 @@
 
 We tested whether the read/write dissociation (LDA classifies perfectly but doesn't steer) is fundamental or just a property of the LDA direction. By optimizing steering vectors via backpropagation, we found:
 
-1. **Steering works** — optimized δ at 5% of residual norm flips held-out FC scenarios from 56% → 92% high-trait
+1. **Steering works** — optimized δ at 5% of residual norm flips held-out BC scenarios from 56% → 92% high-trait
 2. **The steering direction is orthogonal to LDA** — cosine ≈ 0.00 across all experiments. The recognition and execution axes are genuinely different subspaces.
-3. **Different objectives find different orthogonal directions** — FC-logit, free-text, and persona objectives all produce mutually orthogonal δs
-4. **FC is much easier to steer than free text** — single-token decision has ~15× mechanical advantage over multi-token generation
+3. **Different objectives find different orthogonal directions** — BC-logit, free-text, and persona objectives all produce mutually orthogonal δs
+4. **BC is much easier to steer than free text** — single-token decision has ~15× mechanical advantage over multi-token generation
 5. **Upstream causal steering works** — perturbation at layer 10 shifts the LDA projection at layer 12 (25/25 held-out, mean shift +0.20), confirming the recognition axis is causally reachable
 
 ## 1. Setup
@@ -18,9 +18,9 @@ We tested whether the read/write dissociation (LDA classifies perfectly but does
 
 **Contrast pairs:** HEXACO Honesty-Humility, 50 scenarios split 25 train / 25 eval (or 30/20 in early runs).
 
-## 2. Norm-constrained FC steering
+## 2. Norm-constrained BC steering
 
-Objective: maximize logit("A") - logit("B") on FC prompts where A = high-trait option.
+Objective: maximize logit("A") - logit("B") on BC prompts where A = high-trait option.
 
 Residual norm at layer 12: ~10.0.
 
@@ -41,9 +41,9 @@ Baseline: 12-14/20 high-trait (56-60%).
 
 All at 5% residual norm, 50 optimization steps:
 
-| Objective | What it optimizes | Held-out FC | cosine(δ, LDA) |
+| Objective | What it optimizes | Held-out BC | cosine(δ, LDA) |
 |---|---|---|---|
-| **FC-logit** | logit(A) - logit(B) at "Answer:" position | 23/25 (92%) | +0.011 |
+| **BC-logit** | logit(A) - logit(B) at "Answer:" position | 23/25 (92%) | +0.011 |
 | **Free-text** | log-prob of first 15 tokens of high-trait response | 15/25 (60%) | +0.028 |
 | **Persona** | log-prob of persona-generated response tokens | 15/25 (60%) | +0.071 |
 
@@ -51,7 +51,7 @@ Baseline: 14/25 (56%).
 
 **Pairwise cosines between the three δs:** all < 0.05. They found three mutually orthogonal directions — each objective exploits a different subspace.
 
-Free-text and persona δs barely move FC. Evaluated on their own objective (log-prob shift of high vs low response tokens), the free-text δ produces a mean shift of +0.047 nats — real but tiny. The FC-logit δ's ~15× advantage comes from concentrating the perturbation's effect on a single decision token.
+Free-text and persona δs barely move BC. Evaluated on their own objective (log-prob shift of high vs low response tokens), the free-text δ produces a mean shift of +0.047 nats — real but tiny. The BC-logit δ's ~15× advantage comes from concentrating the perturbation's effect on a single decision token.
 
 **Steering all token positions vs output-only** made no difference for free-text. The weakness is fundamental to the multi-token objective, not caused by contaminating the scenario representation.
 
@@ -85,16 +85,16 @@ The emerging literature names this the "knowledge-action gap" (Basu et al. 2026)
 - **The directions are consistently orthogonal** — not just different, but maximally different. This holds across objectives, scales, and layer offsets
 - **Upstream perturbations can causally shift recognition** — the model's internal personality representation is not epiphenomenal; it's downstream of residual stream content at earlier layers
 
-### Why FC is easy and free-text is hard
+### Why BC is easy and free-text is hard
 
-Wolf et al. (2024) showed that steering benefit is linear in norm while helpfulness cost is quadratic. For FC, the benefit concentrates on one token (the A/B choice). For free text, the same linear benefit is diluted across N tokens. At 5% of residual norm, the per-token benefit in free text is ~N× smaller than for FC, putting it below the noise floor.
+Wolf et al. (2024) showed that steering benefit is linear in norm while helpfulness cost is quadratic. For BC, the benefit concentrates on one token (the A/B choice). For free text, the same linear benefit is diluted across N tokens. At 5% of residual norm, the per-token benefit in free text is ~N× smaller than for BC, putting it below the noise floor.
 
 ### The four orthogonal directions
 
 We found four functionally distinct directions, all near-orthogonal:
 
 1. **LDA (recognition):** classifies high vs low trait from contrast pair activations. Cosine ~0 with all others.
-2. **FC-logit δ (execution-FC):** steers FC choice. Cosine ~0 with LDA and with 3, 4.
+2. **BC-logit δ (execution-BC):** steers BC choice. Cosine ~0 with LDA and with 3, 4.
 3. **Free-text δ (execution-text):** weakly steers token probabilities. Cosine ~0 with all others.
 4. **Upstream δ (causal-recognition):** shifts recognition at layer 12 from layer 10. Cosine ~0 with all others.
 
@@ -102,16 +102,16 @@ In 3072 dimensions, finding 4 near-orthogonal directions is not surprising by ch
 
 ## 6. Open questions
 
-1. **Does shifting recognition shift execution?** We can move the LDA projection from upstream. Does this also change what the model writes? (Chain the upstream δ through to FC/free-text evaluation.)
+1. **Does shifting recognition shift execution?** We can move the LDA projection from upstream. Does this also change what the model writes? (Chain the upstream δ through to BC/free-text evaluation.)
 2. **Spherical steering:** The literature (2026) suggests rotating activations along geodesics instead of adding. Preserves norm, avoids off-manifold problems. Might help free-text steering.
 3. **Per-input adaptive steering (K-Steering):** Train a classifier, use its per-input gradient as the steering direction. May work better than a fixed δ across diverse scenarios.
 4. **Other models/traits:** All results are Llama 3.2 / H-H. Do the same patterns hold for Gemma, Phi4, Qwen? For other HEXACO traits?
-5. **Does the upstream δ compose?** If we apply δ_upstream at layer 10 AND δ_FC at layer 12, do they compound?
+5. **Does the upstream δ compose?** If we apply δ_upstream at layer 10 AND δ_BC at layer 12, do they compound?
 
 ## 7. Scripts
 
 - `scripts/optimize_steering.py` — single-objective optimization with norm constraints
-- `scripts/compare_steering_objectives.py` — three-objective comparison (FC, free-text, persona)
+- `scripts/compare_steering_objectives.py` — three-objective comparison (BC, free-text, persona)
 - Upstream steering: inline in this session, not yet refactored into a script
 
 ## 8. Key references from literature search

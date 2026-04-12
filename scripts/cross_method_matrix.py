@@ -5,10 +5,10 @@ Compares five measurement approaches across 4 models × 6 HEXACO traits:
   1. Likert-argmax:  HEXACO-100 declarative statements, argmax score (1-5)
   2. Likert-EV:      Same items, expected value over logprob distribution
   3. RepE-probe:     Scenario contrast pairs projected onto LDA direction (mean projection)
-  4. FC-binary:      Scenario forced-choice, proportion high-trait picks
-  5. FC-logodds:     Same scenarios, mean log-odds favoring high-trait
+  4. BC-proportion:  Scenario binary-choice, proportion high-trait picks
+  5. BC-logodds:     Same scenarios, mean log-odds favoring high-trait
 
-Optionally runs the Rottger test (FC vs free-text agreement) for all traits
+Optionally runs the Rottger test (BC vs free-text agreement) for all traits
 if --rottger is specified and Ollama + HuggingFace model are available.
 
 Usage:
@@ -72,13 +72,13 @@ def load_likert_scores():
     return scores
 
 
-def load_fc_scores():
-    """Load forced-choice scenario scores (proportion + mean log-odds)."""
+def load_bc_scores():
+    """Load binary-choice scenario scores (proportion + mean log-odds)."""
     try:
-        with open("results/forced_choice_6trait.json") as f:
-            fc_data = json.load(f)
+        with open("results/binary_choice_6trait.json") as f:
+            bc_data = json.load(f)
     except FileNotFoundError:
-        print("  WARNING: results/forced_choice_6trait.json not found")
+        print("  WARNING: results/binary_choice_6trait.json not found")
         return {}
 
     scores = {}
@@ -87,10 +87,10 @@ def load_fc_scores():
         scores[mname] = {}
         for t in TRAITS:
             key = f"{t}_{ollama_name}"
-            if key not in fc_data:
+            if key not in bc_data:
                 scores[mname][t] = {"proportion": None, "logodds": None}
                 continue
-            vals = fc_data[key]
+            vals = bc_data[key]
             n_high = sum(1 for v in vals if v > 0)
             scores[mname][t] = {
                 "proportion": n_high / len(vals) if vals else None,
@@ -172,7 +172,7 @@ def load_all_repe_scores(normalize=True):
     This removes cross-model activation scale differences (Gemma's residual
     stream norms are 10-100x larger) while preserving within-model profile shape.
     Note: makes scores ipsative (sum to 0 within model), same tradeoff as
-    forced-choice scoring.
+    binary-choice scoring.
     """
     raw_scores = {}
     for mname, minfo in MODELS.items():
@@ -201,7 +201,7 @@ def load_all_repe_scores(normalize=True):
 
 
 # =============================================================================
-# Rottger test (FC vs free-text) — needs live HF model + Ollama
+# Rottger test (BC vs free-text) — needs live HF model + Ollama
 # =============================================================================
 
 def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
@@ -234,12 +234,12 @@ def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
         if device == "mps":
             torch.mps.empty_cache()
 
-        # Forced-choice via Ollama
-        fc_prompt = (f"{p['situation']}\n\nWhich would you do?\n"
+        # Binary-choice via Ollama
+        bc_prompt = (f"{p['situation']}\n\nWhich would you do?\n"
                      f"A) {p['high']}\nB) {p['low']}\n\nRespond with just the letter.")
         payload = json.dumps({
             "model": ollama_model,
-            "messages": [{"role": "user", "content": fc_prompt}],
+            "messages": [{"role": "user", "content": bc_prompt}],
             "stream": False,
             "options": {"num_predict": 5, "temperature": 0},
             "logprobs": True, "top_logprobs": 10,
@@ -248,10 +248,10 @@ def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
         req = Request(f"{OLLAMA_URL}/api/chat", data=payload,
                       headers={"Content-Type": "application/json"})
         with urlopen(req, timeout=120) as resp:
-            fc_data = json.loads(resp.read())
+            bc_data = json.loads(resp.read())
 
         a_lp = b_lp = None
-        for entry in fc_data.get("logprobs", []):
+        for entry in bc_data.get("logprobs", []):
             for alt in entry.get("top_logprobs", []):
                 tok = alt["token"].strip().upper()
                 if tok == "A" and a_lp is None:
@@ -263,7 +263,7 @@ def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
 
         if a_lp is None or b_lp is None:
             continue
-        fc_choice = "HIGH" if a_lp > b_lp else "LOW"
+        bc_choice = "HIGH" if a_lp > b_lp else "LOW"
 
         # Free-text via Ollama, classified by RepE
         free_prompt = f"{p['situation']}\n\nWhat would you do?"
@@ -290,7 +290,7 @@ def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
 
         free_choice = "HIGH" if free_proj > repe_proj else "LOW"
 
-        if fc_choice == free_choice:
+        if bc_choice == free_choice:
             agree_count += 1
         valid_count += 1
 
@@ -301,7 +301,7 @@ def run_rottger_for_trait(model, tokenizer, lda_d, best_layer, ollama_model,
 # Correlation matrix computation
 # =============================================================================
 
-def compute_matrix(likert, fc, repe):
+def compute_matrix(likert, bc, repe):
     """Build and print the cross-method correlation matrix."""
     model_order = [m for m in MODELS if m in likert]
 
@@ -310,8 +310,8 @@ def compute_matrix(likert, fc, repe):
     for method_name, extractor in [
         ("Likert-argmax", lambda m, t: likert.get(m, {}).get(t, {}).get("argmax")),
         ("Likert-EV",     lambda m, t: likert.get(m, {}).get(t, {}).get("ev")),
-        ("FC-proportion", lambda m, t: fc.get(m, {}).get(t, {}).get("proportion")),
-        ("FC-logodds",    lambda m, t: fc.get(m, {}).get(t, {}).get("logodds")),
+        ("BC-proportion", lambda m, t: bc.get(m, {}).get(t, {}).get("proportion")),
+        ("BC-logodds",    lambda m, t: bc.get(m, {}).get(t, {}).get("logodds")),
         ("RepE-probe",    lambda m, t: repe.get(m, {}).get(t)),
     ]:
         vals = []
@@ -358,7 +358,7 @@ def compute_matrix(likert, fc, repe):
             idx_start = model_order.index(m) * len(TRAITS)
             m_vecs[name] = active[name][idx_start:idx_start + len(TRAITS)]
 
-        # Compact: just show Likert-EV vs FC-prop, FC-lo, RepE
+        # Compact: just show Likert-EV vs BC-prop, BC-lo, RepE
         cross_pairs = []
         for n1 in names:
             for n2 in names:
@@ -424,7 +424,7 @@ def main():
     parser.add_argument("--repe", action="store_true",
                         help="Compute RepE projections (needs HF model loaded)")
     parser.add_argument("--rottger", action="store_true",
-                        help="Run Rottger FC-vs-free-text test (needs Ollama + HF)")
+                        help="Run Rottger BC-vs-free-text test (needs Ollama + HF)")
     parser.add_argument("--model", type=str, default=None,
                         help="HF model for --repe/--rottger")
     parser.add_argument("--short-name", type=str, default=None,
@@ -434,17 +434,17 @@ def main():
 
     print("Loading existing data...")
     likert = load_likert_scores()
-    fc = load_fc_scores()
+    bc = load_bc_scores()
     repe = load_all_repe_scores()
 
     # Report what we have
     for mname in MODELS:
         repe_avail = sum(1 for t in TRAITS if repe.get(mname, {}).get(t) is not None)
         likert_avail = sum(1 for t in TRAITS if likert.get(mname, {}).get(t, {}).get("ev") is not None)
-        fc_avail = sum(1 for t in TRAITS if fc.get(mname, {}).get(t, {}).get("proportion") is not None)
-        print(f"  {mname:8s}: Likert={likert_avail}/6  FC={fc_avail}/6  RepE={repe_avail}/6")
+        bc_avail = sum(1 for t in TRAITS if bc.get(mname, {}).get(t, {}).get("proportion") is not None)
+        print(f"  {mname:8s}: Likert={likert_avail}/6  BC={bc_avail}/6  RepE={repe_avail}/6")
 
-    compute_matrix(likert, fc, repe)
+    compute_matrix(likert, bc, repe)
 
 
 if __name__ == "__main__":

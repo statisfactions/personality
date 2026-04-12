@@ -80,7 +80,7 @@ Denoised residual personality profiles:
 
 ---
 
-## 4. Forced-Choice Behavioral Scenarios (Single-Trait)
+## 4. Binary-Choice Behavioral Scenarios (Single-Trait)
 
 20 scenarios per trait, A=high-trait vs B=low-trait. Count of HIGH picks out of 20.
 
@@ -140,7 +140,7 @@ All framings correlate r > 0.85 across all models. Item-level rank ordering pres
 
 ### Three constructs that don't agree
 
-| Model | RepE ↔ Likert r | FC ↔ Free-text agree | RepE ↔ FC r |
+| Model | RepE ↔ Likert r | BC ↔ Free-text agree | RepE ↔ BC r |
 |---|---|---|---|
 | Gemma3-4B | -0.189 | 67% (10/15) | +0.316 |
 | Qwen2.5-3B | +0.141 | 53% (8/15) | -0.610 |
@@ -148,10 +148,10 @@ All framings correlate r > 0.85 across all models. Item-level rank ordering pres
 | Llama3.2-3B | +0.349 | 80% (12/15) | +0.399 |
 
 - **Representation** (RepE): format-invariant (r=1.0), doesn't predict behavior
-- **Forced-choice**: ceiling effects on easy traits, doesn't agree with free-text
+- **Binary-choice**: ceiling effects on easy traits, doesn't agree with free-text
 - **Free-text**: most natural but hardest to classify
 
-Qwen3 shows r=-0.61 between RepE and FC — items represented as "more honest" internally are *less* likely to get honest forced-choice picks (read/write dissociation).
+Qwen3 shows r=-0.61 between RepE and BC — items represented as "more honest" internally are *less* likely to get honest binary-choice picks (read/write dissociation).
 
 ---
 

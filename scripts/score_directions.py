@@ -10,7 +10,7 @@ Accepts direction files from either pipeline:
 Scoring dimensions:
   1. Held-out classification accuracy (per-pair signed projection sign)
   2. Convergent validity (sign of projection on matched HEXACO survey items)
-  3. FC steering shift at 5% residual norm (requires model)
+  3. BC steering shift at 5% residual norm (requires model)
   4. Free-text steering judged by an LLM (requires model + judge; optional)
 
 Dimensions 1 and 2 are activation-only (cheap). Dimensions 3 and 4 require
@@ -280,21 +280,21 @@ def score_hexaco_convergent(direction, layer, model, tokenizer, trait_id, device
 
 
 # =============================================================================
-# Scoring dimension 3: FC steering at 5% residual norm
+# Scoring dimension 3: BC steering at 5% residual norm
 # =============================================================================
 
-def score_fc_steering(direction, layer, model, tokenizer, trait_id, norm_frac=0.05,
+def score_bc_steering(direction, layer, model, tokenizer, trait_id, norm_frac=0.05,
                       n_scenarios=25, device="cpu"):
-    """Add α·direction to the residual at `layer` and measure FC shift.
+    """Add α·direction to the residual at `layer` and measure BC shift.
 
     α is chosen so that ||α·direction|| = norm_frac × typical ||residual at layer||
-    (estimated from the unsteered activations on the FC prompts).
+    (estimated from the unsteered activations on the BC prompts).
     """
     with open(CONTRAST_PAIRS) as f:
         cp = json.load(f)
     pairs = cp["traits"][trait_id]["pairs"][:n_scenarios]
 
-    FC_TEMPLATE = (
+    BC_TEMPLATE = (
         "Consider what a person most like you would do in the following situation: "
         "{situation}\n\nWhich would you do?\nA) {high}\nB) {low}\n\n"
         "Respond with just A or B.\nAnswer:"
@@ -318,7 +318,7 @@ def score_fc_steering(direction, layer, model, tokenizer, trait_id, norm_frac=0.
     b_id = tokenizer.encode("B", add_special_tokens=False)[-1]
 
     # Pre-compute typical residual norm at this layer on these prompts
-    prompts = [FC_TEMPLATE.format(situation=p["situation"], high=p["high"], low=p["low"])
+    prompts = [BC_TEMPLATE.format(situation=p["situation"], high=p["high"], low=p["low"])
                for p in pairs]
     norms = []
     with torch.no_grad():
@@ -335,7 +335,7 @@ def score_fc_steering(direction, layer, model, tokenizer, trait_id, norm_frac=0.
     delta = d_unit * alpha
 
     def eval_condition(dv):
-        """Run FC eval with or without steering. Returns frac of A-picks (A = high trait)."""
+        """Run BC eval with or without steering. Returns frac of A-picks (A = high trait)."""
         handle = None
         if dv is not None:
             def hook_fn(module, inputs, output):
@@ -394,7 +394,7 @@ def main():
     parser.add_argument("--run-hexaco", action="store_true",
                         help="Run HEXACO convergent validity (requires model)")
     parser.add_argument("--run-steering", action="store_true",
-                        help="Run FC steering (requires model)")
+                        help="Run BC steering (requires model)")
     parser.add_argument("--model-name", default=None,
                         help="Override HF model name for loading (default: from direction file)")
     parser.add_argument("--device", default="cpu")
@@ -459,11 +459,11 @@ def main():
                   f"signal ratio: {hex_res.get('signal_ratio'):+.2f}")
 
         if args.run_steering:
-            print(f"\nRunning FC steering...")
-            st = score_fc_steering(
+            print(f"\nRunning BC steering...")
+            st = score_bc_steering(
                 dd["direction"], dd["layer"], model, tokenizer, trait_id, device=args.device,
             )
-            results["fc_steering"] = st
+            results["bc_steering"] = st
             print(f"  baseline: {st['baseline_frac_high']:.2f}  steered: {st['steered_frac_high']:.2f}  "
                   f"shift: {st['shift']:+.2f}  (α={st['alpha']:.2f})")
 

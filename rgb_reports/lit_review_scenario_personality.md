@@ -4,6 +4,8 @@
 
 ---
 
+> **Terminology note.** Throughout this lit review, "forced-choice" is used in the psychometrics-literature sense: pitting items or responses representing **different trait dimensions** against each other (the Thurstonian-IRT tradition). Our existing single-trait A/B scenarios use "binary choice" (BC) in the rest of the project's reports and code. The planned trait-conflict instrument described here IS forced choice in the literature sense.
+
 ## Executive Summary
 
 There is substantial precedent for scenario-based personality measurement in human psychometrics, but the literature is fragmented across several traditions (SJTs, conditional reasoning, implicit tests, gamified assessment). The key finding for our project: **a validated HEXACO scenario-based instrument does exist** (Oostrom et al., 2019), directly contradicting the assumption that this is an open gap. However, **trait-vs-trait conflict dilemmas for HEXACO** -- the Ultima IV-style forced-choice approach we are building -- have no validated human precedent and remain a genuine gap.
@@ -39,7 +41,7 @@ SJTs are the most developed approach to scenario-based personality measurement. 
 - **Reliability:** Test-retest (2 weeks) r = .55-.74
 - **Validity:** Criterion-related validity comparable to self-report HEXACO but lower than other-reports
 - **Items:** NOT publicly available (proprietary)
-- **Relevance:** This is the closest human precedent to what we are building. However, it uses effectiveness ratings, not forced-choice between trait-expressing responses, and does not pit traits against each other
+- **Relevance:** This is the closest human precedent to what we are building. However, it uses effectiveness ratings, not binary-choice between trait-expressing responses, and does not pit traits against each other (i.e., it is neither our BC format nor true trait-vs-trait forced choice)
 
 ### 1.3 The Dependability SJT (Open-Source Model)
 
@@ -67,7 +69,7 @@ SJTs are the most developed approach to scenario-based personality measurement. 
 - **Critical finding for response instruction format:**
   - "What would you do?" (behavioral tendency) instructions: higher correlations with personality (r = .37 for Agreeableness, .34 for Conscientiousness)
   - "What is the best response?" (knowledge) instructions: higher correlations with cognitive ability
-- **Implication for our project:** Our forced-choice format ("which response aligns with your/the model's behavior") should load on personality rather than general knowledge
+- **Implication for our project:** Our binary-choice format ("which response aligns with your/the model's behavior") should load on personality rather than general knowledge
 
 ### 1.5 Construct-Driven SJT Development Guidelines
 

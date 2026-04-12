@@ -3,7 +3,7 @@
 
 Instead of extracting a direction from contrast pairs (RepE/LDA), this
 optimizes a perturbation vector δ added to the residual stream at a target
-layer to maximize log-odds of the high-trait forced-choice response.
+layer to maximize log-odds of the high-trait binary-choice response.
 
 This tests whether the read/write dissociation is fundamental (no linear
 perturbation at natural scale can steer) or just a property of the LDA
@@ -59,8 +59,8 @@ def get_layer_module(model, model_name, layer_idx):
     raise ValueError(f"Can't find layer {layer_idx} in {model_name}")
 
 
-def build_fc_prompt(scenario, high_response, low_response):
-    """Build a forced-choice prompt for a contrast pair."""
+def build_bc_prompt(scenario, high_response, low_response):
+    """Build a binary-choice prompt for a contrast pair."""
     return (
         f"Consider what a person most like you would do in the following situation: "
         f"{scenario}\n\n"
@@ -72,7 +72,7 @@ def build_fc_prompt(scenario, high_response, low_response):
     )
 
 
-def compute_fc_logodds(model, tokenizer, prompts, delta, layer_module, device):
+def compute_bc_logodds(model, tokenizer, prompts, delta, layer_module, device):
     """Compute mean log-odds(A) - log-odds(B) with delta added at target layer.
 
     Returns scalar tensor with gradient attached to delta.
@@ -141,7 +141,7 @@ def compute_fc_logodds(model, tokenizer, prompts, delta, layer_module, device):
 def optimize_delta(model, tokenizer, pairs, layer_module, hidden_size,
                    device="mps", n_steps=100, lr=0.1, batch_size=5,
                    norm_constraint=None):
-    """Optimize steering vector delta via gradient ascent on FC log-odds.
+    """Optimize steering vector delta via gradient ascent on BC log-odds.
 
     Args:
         pairs: list of (scenario, high_response, low_response)
@@ -159,8 +159,8 @@ def optimize_delta(model, tokenizer, pairs, layer_module, hidden_size,
 
     optimizer = torch.optim.Adam([delta], lr=lr)
 
-    # Build all FC prompts
-    all_prompts = [build_fc_prompt(s, h, l) for s, h, l in pairs]
+    # Build all BC prompts
+    all_prompts = [build_bc_prompt(s, h, l) for s, h, l in pairs]
 
     print(f"\n  Optimizing δ (dim={hidden_size}, lr={lr}, batch={batch_size}, "
           f"norm_constraint={norm_constraint})")
@@ -179,7 +179,7 @@ def optimize_delta(model, tokenizer, pairs, layer_module, hidden_size,
         batch_prompts = [all_prompts[i] for i in idx]
 
         # Forward + compute log-odds (gradient attached to delta)
-        mean_logodds = compute_fc_logodds(
+        mean_logodds = compute_bc_logodds(
             model, tokenizer, batch_prompts, delta, layer_module, device
         )
 
@@ -218,7 +218,7 @@ def optimize_delta(model, tokenizer, pairs, layer_module, hidden_size,
 
 def evaluate_delta(model, tokenizer, pairs, delta, layer_module, device="mps"):
     """Evaluate a delta on all pairs, reporting per-scenario results."""
-    all_prompts = [build_fc_prompt(s, h, l) for s, h, l in pairs]
+    all_prompts = [build_bc_prompt(s, h, l) for s, h, l in pairs]
 
     print(f"\n  Evaluating δ (|δ|={delta.norm().item():.3f}) on {len(pairs)} scenarios")
 

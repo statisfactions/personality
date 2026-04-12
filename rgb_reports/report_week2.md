@@ -234,7 +234,7 @@ This is a known challenge in the steering vector literature — the CARE paper (
 
 ### The Problem
 
-Röttger et al. (2024, "Political Compass or Spinning Arrow?") showed that LLM responses to opinion/value questions are highly sensitive to prompt format — option ordering, paraphrasing, and response structure all change the measured "personality." Our own data confirms this at the representation level: the projection of activations onto the H-H trait direction correlates at only r=0.27 between free-form and forced-choice response formats (measured at the decision token).
+Röttger et al. (2024, "Political Compass or Spinning Arrow?") showed that LLM responses to opinion/value questions are highly sensitive to prompt format — option ordering, paraphrasing, and response structure all change the measured "personality." Our own data confirms this at the representation level: the projection of activations onto the H-H trait direction correlates at only r=0.27 between free-form and binary-choice response formats (measured at the decision token).
 
 ### The Solution: Measure at the Scenario Period
 
@@ -245,15 +245,15 @@ Consider what a person most like you would do in the following situation:
 [Scenario text].
 ```
 
-The key insight: **causal attention means the period token's hidden state is identical regardless of what follows.** Whether the prompt continues with forced-choice options, a free-form question, or nothing at all, the model's representation at the period position cannot see the future and is therefore perfectly stable.
+The key insight: **causal attention means the period token's hidden state is identical regardless of what follows.** Whether the prompt continues with binary-choice options, a free-form question, or nothing at all, the model's representation at the period position cannot see the future and is therefore perfectly stable.
 
 We verified this empirically on Gemma3-4B across 15 H-H scenarios:
 
 | Comparison | Correlation |
 |---|---|
-| Period-only ↔ Period-in-forced-choice | r = **1.000** |
+| Period-only ↔ Period-in-binary-choice | r = **1.000** |
 | Period-only ↔ Period-in-free-form | r = **1.000** |
-| Forced-choice ↔ Free-form (at period) | r = **1.000** |
+| Binary-choice ↔ Free-form (at period) | r = **1.000** |
 
 The maximum shift in projection value between any format pair was < 0.5 units on a scale with range [-26, 54]. The representation is perfectly format-invariant.
 
@@ -266,7 +266,7 @@ The maximum shift in projection value between any format pair was < 0.5 units on
 
 3. **Project onto pre-extracted trait directions** (LDA directions from contrast pairs) to get a trait score for that scenario.
 
-4. **Optionally continue generation** in any format (forced-choice, free-form, Likert) for behavioral validation — this doesn't affect the measurement.
+4. **Optionally continue generation** in any format (binary-choice, free-form, Likert) for behavioral validation — this doesn't affect the measurement.
 
 ### Properties
 
@@ -332,11 +332,11 @@ The period-token RepE projection and the Likert self-report expected value are e
 
 Llama shows the highest correlation (r=0.35), possibly because its more uncertain Likert responses (high entropy, near-uniform distributions) are less contaminated by the self-report stance.
 
-### Test 4: Forced-Choice vs Free-Text (Röttger Test)
+### Test 4: Binary-Choice vs Free-Text (Röttger Test)
 
-Does the model pick the same answer in forced-choice format as it would freely generate?
+Does the model pick the same answer in binary-choice format as it would freely generate?
 
-| Model | FC ↔ Free-text Agreement | RepE ↔ FC log-odds r |
+| Model | BC ↔ Free-text Agreement | RepE ↔ BC log-odds r |
 |---|---|---|
 | Llama3.2-3B | **80%** (12/15) | +0.399 |
 | Gemma3-4B | 67% (10/15) | +0.316 |
@@ -345,7 +345,7 @@ Does the model pick the same answer in forced-choice format as it would freely g
 
 **Conclusion:** The spinning arrow (Röttger et al., 2024) is real and varies dramatically across models. Llama is most consistent between formats (80%), Phi4 is essentially random (40%). The RepE projection does not reliably predict either format's output.
 
-Qwen shows a negative RepE ↔ FC correlation (r=-0.61), meaning items where the representation projects more "honestly" are items where the model is *less* likely to pick the honest forced-choice option — a genuine read/write dissociation.
+Qwen shows a negative RepE ↔ BC correlation (r=-0.61), meaning items where the representation projects more "honestly" are items where the model is *less* likely to pick the honest binary-choice option — a genuine read/write dissociation.
 
 ### Summary: Three Constructs, Not One
 
@@ -353,7 +353,7 @@ The validation reveals that there are three distinct things being measured, and 
 
 1. **Representation** (RepE period-token projection): What the model encodes about the scenario. Format-invariant, highly stable across framings (r > 0.85), but doesn't predict output behavior.
 
-2. **Forced-choice** (A/B logprob preference): Which option the model assigns higher probability. Strongly biased toward prosocial options (near ceiling), and doesn't agree with free-text (40-80%).
+2. **Binary-choice** (A/B logprob preference): Which option the model assigns higher probability. Strongly biased toward prosocial options (near ceiling), and doesn't agree with free-text (40-80%).
 
 3. **Free-text** (generated response classified post-hoc): What the model actually says when generating freely. Most "natural" but hardest to classify automatically.
 
