@@ -1,6 +1,6 @@
 # Week 5: Mean-Diff Replication, Holdout Evaluation, Position-Bias Confound
 
-**Status: in progress.** Captures findings through the first apples-to-apples comparison of LDA vs Anthropic-style mean-diff extraction on Llama-3.2-3B × Honesty-Humility, with a held-out evaluation set. Phase A and Phase B (multi-cell sweep × 4 models × 6 traits) not yet run. A finding we didn't anticipate (§9) is that our whole prior BC/steering evaluation has been running on bare text prompts rather than the chat template, which is a significant confound for any instruct-tuned model. That finding reshapes both Phase A and the interpretation of earlier weeks' results.
+**Status: in progress.** Phase A done (24-cell sweep on Llama × H, §10). Phase B (4 models × 6 traits) not yet run. Key reversal from the single-cell comparison (§6): across the Phase A grid, LDA beats MD-projected on holdout classification in most cells; the "MD wins by 2 pairs" was cell-specific. Two confounds we didn't anticipate reshape all prior steering/BC work: §8 (position bias) and §9 (chat-template vs bare-text).
 
 ## Summary
 
@@ -14,7 +14,7 @@ We're testing whether their method, applied to *our* personality contrast pairs,
 
 3. **MPS was broken by the sandbox**, not by torch or macOS. Wasted hours on CPU before noticing. With sandbox off, MPS is fine and the full Phase A grid is feasible (extraction in ~50s vs CPU's ~30min).
 
-4. **Apples-to-apples classification** (LDA vs MD on identical training & holdout inputs): MD-projected wins by 2 sign-correct pairs on holdout (21/24 vs 19/24), with comparable SNR. PC projection helps both training (SNR 2.44 → 2.65) and holdout (SNR 0.97 → 1.13). Both directions classify the trait but live in significantly different parts of activation space (cosine 0.37).
+4. **Apples-to-apples classification on one cell** (LDA vs MD on identical training & holdout inputs, prefix=absent × neutral=scenario_setups × bare text): MD-projected 21/24, LDA 19/24. PC projection helps both training SNR (2.44 → 2.65) and holdout SNR (0.97 → 1.13). Both directions classify the trait but live in significantly different parts of activation space (cosine 0.37). ⚠️ **This result is cell-specific** — when expanded to the full Phase A grid (24 cells = 2 formats × 4 prefixes × 3 neutrals), LDA wins most cells on holdout (§10). See §10 for the grid-wide findings.
 
 5. **The "best signal" layer selector was norm-confounded**, same artifact as the PCA PC1 finding from week 2. Mean signed projection scales with activation norm across layers. Replaced with `best-snr` (norm-invariant) and `best-cv` strategies, which both pick layer ~12 (matching LDA's choice).
 
@@ -228,26 +228,111 @@ The rest of the pipeline (Likert, RepE extraction, PC projection) is less direct
 4. **The comparison to Anthropic's result needs the same caveat.** The Sofroniew et al. emotion steering was on Claude Sonnet 4.5, presumably in its normal deployment configuration. Comparing our bare-text residual steering to their deployed-path residual steering was apples-to-oranges from the start.
 5. **The "read/write gap" framing needs updating.** It's not that Llama's behavior can't be steered at this activation scale — it can, trivially, via chat. It's that extracted directions, applied uniformly in the residual stream of a bare-text prompt, don't steer. Narrower claim, different implications.
 
-## 10. What's done, what's next
+## 10. Phase A sweep results — LDA wins the grid
+
+Grid: 2 formats (bare, chat) × 4 prefixes (high, low, absent, generic) × 3 neutrals (scenario_setups, shaggy_dog, factual) = 24 extraction cells on Llama-3.2-3B × Honesty-Humility. Each cell produces one LDA direction + one MD-raw + one MD-projected direction (72 directions). Driver: `scripts/phase_a_sweep.py`. Full table: `results/phase_a_sweep_meta-llama_Llama-3.2-3B-Instruct_H.csv`.
+
+### 10.1 Holdout sign-correct (best method-agnostic result per cell, 24 pairs)
+
+| format | prefix | LDA | best MD-projected | Δ (MD − LDA) |
+|---|---|---|---|---|
+| bare | high | **24/24** | 22/24 (scenario/factual) | −2 |
+| bare | low | **23/24** | 22/24 (scenario) | −1 |
+| bare | absent | 19/24 | **21/24** (scenario) | **+2** |
+| bare | generic | **23/24** | 21/24 (scenario) | −2 |
+| chat | high | **21/24** | 20/24 (factual) | −1 |
+| chat | low | **24/24** | 21/24 (scenario) | −3 |
+| chat | absent | **20/24** | 18/24 (shaggy) | −2 |
+| chat | generic | **24/24** | 19/24 (shaggy/factual) | −5 |
+
+**LDA wins 6 of 8 format × prefix cells; MD wins 1; 1 tie.** The cell where MD won (bare × absent × scenario_setups, Δ = +2) is exactly the cell we inspected in §6. Every other prefix or format choice produced an LDA-favorable result. The §6 "MD-projected beats LDA by 2 pairs" finding does not generalize.
+
+### 10.2 Training vs holdout SNR
+
+| Method | Train SNR range | Holdout SNR range |
+|---|---|---|
+| LDA | 1.21 – 1.51 | 1.05 – 1.78 |
+| MD-raw | 2.46 – 2.60 | 0.75 – 1.14 |
+| MD-projected | 2.47 – 2.71 | 0.75 – 1.32 |
+
+Mean-diff has consistently ~2× LDA's training SNR and consistently ~1× or less LDA's holdout SNR. MD overfits to the training pairs; LDA's noisier per-pair signal generalizes better. The bias-variance intuition from earlier in this conversation had it reversed — LDA's whitening by the sample covariance is *not* dominantly introducing harmful variance here; it's producing a direction that tracks the true discriminant better than raw mean-diff does.
+
+### 10.3 Prefix has outsized effect on LDA
+
+Holding format = bare, neutral = scenario_setups, the LDA holdout sign-correct moves from:
+- `absent` (no descriptor): 19/24
+- `generic` ("Consider a person."): 23/24
+- `low` descriptor: 23/24
+- `high` descriptor: 24/24
+
+A 5-pair swing on holdout, from just changing the user prefix. Under chat format the same span is 20/24 to 24/24. This means **the LDA direction is substantially reading the descriptor prefix, not the response**. The "best" LDA results in cells like `bare × high × scenario_setups = 24/24` partially reflect that we've told the model "this is a person who is honest" before asking it to read the response. Without that prefix, LDA drops sharply. MD-projected is more robust to prefix absence (absent cell is its one win).
+
+This is a meaningful caveat for Phase B: if we report LDA performance in `prefix=high` cells as the method's holdout accuracy, we're measuring "LDA + descriptor cue" jointly. The trait-descriptor-absent cells are a cleaner measure of method ability, and in those cells both methods are comparable (MD 21/24, LDA 19/24 under bare; MD 18/24, LDA 20/24 under chat).
+
+### 10.4 PC projection consistently helps MD
+
+Across the 24 cells, MD-projected matches or beats MD-raw on holdout in 22/24 cells. Typical benefit: +2 to +4 sign-correct. The benefit varies by cell — most pronounced under bare text (MD-raw loses to MD-projected by 5+ pairs in some cells) and least pronounced under chat with `prefix=absent` or `prefix=generic` where PC projection picks k=1 and is essentially a no-op (§10.5).
+
+### 10.5 Chat-template concentrates activation variance
+
+Number of neutral PCs needed to explain 50% variance at MD-projected's best-SNR layer:
+
+| | bare | chat |
+|---|---|---|
+| scenario_setups (300 texts) | 25 | **1 or 7** |
+| shaggy_dog (50 texts) | 11 | 5–7 |
+| factual (50 texts) | 10 | 7–8 |
+
+Under chat template with scenario_setups as neutral, several cells have k=1 — a single direction accounts for 50% of neutral-text variance. This is the "chat template is an activation signal" hypothesis (to_try.md §11) showing up directly in the PC spectrum: the chat-template format concentrates variance along a small number of directions, plausibly the "Assistant persona" direction(s). Projecting those out sometimes leaves an MD direction nearly identical to MD-raw (k=1 projection is a single rank-1 subtraction), which is why MD-projected = MD-raw in those specific cells.
+
+This is worth running as its own experiment per to_try.md §11 recommendation #3 (persona-direction extraction from user-turn template-vs-bare contrast). The data here is suggestive but not conclusive — the single concentrated PC may or may not be the persona vector itself.
+
+### 10.6 Direction geometry
+
+Cosine(LDA, MD-projected) across cells: 0.14 to 0.50 (mean ≈ 0.33). Both are unit vectors pointing in broadly the same direction but substantively apart (~70° typical separation). They classify the same trait by different linear readouts.
+
+Cosine(MD-raw, MD-projected) ranges 0.22 to 1.00 depending on how much variance the neutral PCs captured. Under chat × absent with scenario_setups (k=1), cosine is near 1. Under bare × generic with scenario_setups (k=25), cosine is around 0.38.
+
+### 10.7 What the sweep does and doesn't tell us
+
+- **Tells us:** Across a reasonable hyperparameter grid on Llama × H, LDA is the better method for holdout classification. The single cell where MD-projected "won" was not representative.
+- **Doesn't tell us:** Whether this holds on other models or other traits. Phase B is the generalization test.
+- **Doesn't tell us:** Whether MD's higher training SNR and lower holdout SNR means "MD is mis-extracting the trait" vs "MD is extracting a different but valid feature." Need to inspect what each direction actually reads on specific pairs.
+- **Doesn't tell us:** Whether the prefix-dependence is an LDA-specific flaw or a more general artifact of our extraction protocol. MD-projected is more robust to prefix, suggesting the latter but not conclusively.
+- **Doesn't tell us:** Anything about steering. Phase A was classification-only per the revised target in §10 of the earlier plan. BC steering is still wrong-signed (§7) and prompt steering is the ceiling (§9); a separate position-specific steering test is the next steering experiment.
+
+### 10.8 Recommendation for Phase B
+
+Run the Phase B grid (4 models × 6 traits) with:
+- **format = chat** as the primary (instruct-model-correct) configuration, with bare as a diagnostic companion.
+- **prefix = generic** ("Consider a person.") as the primary. `absent` is cleaner conceptually but LDA underperforms there; `high`/`low` confound the measurement with the descriptor cue. `generic` is the compromise: it keeps the "Consider a person" framing without leaking the target direction.
+- **neutral = scenario_setups** as the primary (300 texts, most stable PCs, slightly wins in most cells). Report shaggy_dog and factual as robustness checks.
+- **Both LDA and MD-projected reported per cell.** MD-raw as a diagnostic.
+- **Facet-stratified holdout breakdown** for all 6 traits (not just H).
+
+Phase B would produce 4 models × 6 traits × 3 methods = 72 rows per neutral variant × 3 neutrals = 216 rows of grid data, plus per-facet breakdowns. On MPS, ~30-45 min.
+
+## 11. What's done, what's next
 
 Done in week 5:
-- `scripts/audit_scenario_charge.py` — the audit harness
-- `instruments/neutral_texts.json` — neutral corpora (3 of 4 variants populated)
-- `scripts/extract_meandiff_vectors.py` — mean-diff extraction
-- `scripts/generate_holdout_pairs.py` — facet-stratified holdout generation via Claude API
-- `instruments/contrast_pairs_holdout.json` — 144 holdout pairs
-- `scripts/score_directions.py` — unified scoring harness, 3 of 4 dimensions implemented (classification + HEXACO convergent + BC steering; free-text deferred). Layer selectors fixed.
-- One single-cell apples-to-apples comparison (Llama × H, prefix=absent, neutral=scenario_setups) on classification + BC steering
+- `scripts/audit_scenario_charge.py` — the audit harness (§1)
+- `instruments/neutral_texts.json` — neutral corpora (3 of 4 variants populated, §2)
+- `scripts/extract_meandiff_vectors.py` — mean-diff extraction with `--chat-template` and `--input-file` flags (§4, §9)
+- `scripts/generate_holdout_pairs.py` — facet-stratified holdout generation via Claude API (§2)
+- `instruments/contrast_pairs_holdout.json` — 144 holdout pairs (§2)
+- `scripts/score_directions.py` — unified scoring harness, 3 of 4 dimensions implemented (classification + HEXACO convergent + BC steering; free-text deferred). Layer selectors fixed (`best-snr`, `best-cv`).
+- Single-cell apples-to-apples comparison (bare × absent × scenario_setups) — §6. MD-projected wins on that cell.
+- Wrong-sign residual-stream BC steering finding (§7) and position-bias finding (§8).
+- Prompt-steering baseline revealing chat-template confound (§9).
+- **Phase A sweep — 24 cells on Llama × H** (`scripts/phase_a_sweep.py`, `results/phase_a_sweep_*.csv`). Headline: LDA beats MD-projected on holdout in 6/8 format × prefix cells; the single-cell "MD wins" was not representative. MD-projected holds up best under bare × absent × scenario_setups (§10).
 
-Next priorities (revised after §9):
+Next priorities:
 
-1. **Chat-template everything.** Standardize all BC evaluation on the chat template (empty or trait-steering system prompt). Re-extract at least one MD direction with chat-template-formatted contrast pairs so we can compare activation-space geometry across the two formats. This precedes Phase A — we don't want Phase A numbers that have the same instruct-format flaw as prior work.
-2. **Prompt-steering ceiling as a standard reference.** In any Phase A/B table, report the prompt-steering range as a companion column. "Method X recovers N/96 points of prompt-steering range" is the right framing for steering magnitude.
-3. **Phase A hyperparameter sweep** on Llama × H — now with two extraction formats (bare text, chat template) × 4 prefix × 3 neutral = 24 cells. Still <30 min on MPS. Primary metric: holdout sign-correct + SNR on classification. BC steering reported but not used to pick winners (pending the chat-template re-eval and position-specific steering test).
-4. **Position-specific steering test** as a separate experiment. Apply δ only at the final/answer token. Done once at a defensible cell (Phase A winner) to characterize whether uniform steering is the source of the wrong-sign finding.
-5. **Phase B full sweep** on 4 models × 6 traits with Phase A's winning settings. Classification and SNR on holdout. With 144 holdout cells the small per-cell effects can become real comparisons.
-6. **Position-bias re-audit** of validate_protocol's Rottger numbers and optimize_steering's reported baselines, combined with the chat-template re-evaluation in (1). Prior steering effect sizes may shrink substantially.
-7. **Facet-stratified analysis** of all results. The audit found within-trait heterogeneity; the holdout is built to support facet-level breakdown; we should report it.
+1. **Phase B full sweep** on 4 models × 6 traits with the §10.8 settings (chat + generic + scenario_setups as primary; bare as diagnostic). With 144 holdout pairs across 24 facets, small per-cell effects should become real comparisons and facet-level breakdowns become feasible.
+2. **Position-specific steering test** as a separate experiment. Apply δ only at the final/answer token. Done at one defensible cell to characterize whether uniform steering is the source of §7's wrong-sign finding.
+3. **Position-bias re-audit** of `validate_protocol.py` Rottger numbers and `optimize_steering.py` baselines, combined with re-evaluation under chat template (§9). Prior steering effect sizes likely shrink.
+4. **Persona-direction extraction** (to_try.md §11 experiment #3). Contrast user-turn-in-template vs bare-user-turn activations; check whether the resulting direction is a linear combination of our high-trait directions. Can be done on Llama with existing tooling in <10 min.
+5. **Facet-stratified analysis** integrated into Phase B output. The holdout is already facet-tagged; the audit suggests H/Modesty and E/Fearfulness pull apart from other facets, and we should check whether this shows in Phase B under the instruct-model-correct configuration.
 
 Open questions worth keeping in view:
 

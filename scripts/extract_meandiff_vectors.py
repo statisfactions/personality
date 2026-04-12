@@ -71,32 +71,59 @@ def load_model(model_name, device="mps", dtype="bfloat16"):
     return model, tokenizer
 
 
-def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None):
+def _tokenize(tokenizer, text, chat_template):
+    """Tokenize with or without chat-template wrapping.
+
+    When chat_template=True the text is wrapped as a user turn with empty
+    system message and no generation prompt, so hidden states reflect the
+    model reading the text as user input inside its deployed chat context.
+    """
+    if chat_template:
+        wrapped = tokenizer.apply_chat_template(
+            [{"role": "user", "content": text}],
+            tokenize=False, add_generation_prompt=False,
+        )
+        return tokenizer(wrapped, return_tensors="pt")
+    return tokenizer(text, return_tensors="pt")
+
+
+def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None, chat_template=False):
     """Run text through model; return hidden states averaged over response tokens.
 
-    If split_prefix is provided, the token span [len(split_prefix_tokens):end]
-    is used as the response. Otherwise, all tokens are averaged.
+    If split_prefix is provided, the response-token span is everything after
+    the tokens corresponding to split_prefix in the full tokenization.
+    Otherwise, all tokens are averaged (with position 0 skipped).
+
+    chat_template=True wraps the text as a user turn before tokenizing.
 
     Returns: tensor of shape (n_layers+1, hidden_dim), dtype float32 on CPU.
     """
-    inputs = tokenizer(text, return_tensors="pt").to(device)
+    inputs = _tokenize(tokenizer, text, chat_template).to(device)
     n_total = inputs["input_ids"].shape[1]
 
     if split_prefix is not None and split_prefix != "":
-        prefix_inputs = tokenizer(split_prefix, return_tensors="pt")
-        n_prefix = prefix_inputs["input_ids"].shape[1]
-        # Response tokens start after the prefix. Guard against edge cases.
-        start = min(n_prefix, n_total - 1)
+        prefix_inputs = _tokenize(tokenizer, split_prefix, chat_template)
+        if chat_template:
+            # Chat-template wrapping adds an end-of-user-message marker at the
+            # end of the truncated content. Find the point where the truncated
+            # and full tokenizations diverge — that's where the response starts.
+            p_ids = prefix_inputs["input_ids"][0].tolist()
+            f_ids = inputs["input_ids"][0].tolist()
+            diverge = min(len(p_ids), len(f_ids))
+            for i in range(diverge):
+                if p_ids[i] != f_ids[i]:
+                    diverge = i
+                    break
+            start = min(diverge, n_total - 1)
+        else:
+            n_prefix = prefix_inputs["input_ids"].shape[1]
+            start = min(n_prefix, n_total - 1)
     else:
-        # If no prefix (absent mode), average all tokens starting from position 1
-        # (position 0 is typically a BOS / role-start token that encodes nothing useful)
         start = 1 if n_total > 1 else 0
 
     with torch.no_grad():
         outputs = model(**inputs, output_hidden_states=True)
 
-    # hidden_states: tuple of (n_layers+1,) tensors, each (1, seq_len, hidden_dim)
-    # Average across response tokens [start:n_total] for each layer
     avg_states = torch.stack([
         hs[0, start:n_total, :].mean(dim=0) for hs in outputs.hidden_states
     ])  # (n_layers+1, hidden_dim)
@@ -104,7 +131,7 @@ def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None):
     return avg_states.cpu().float()
 
 
-def extract_trait_activations(model, tokenizer, trait_data, prefix_mode, device, verbose=True):
+def extract_trait_activations(model, tokenizer, trait_data, prefix_mode, device, verbose=True, chat_template=False):
     """For a single trait, run all contrast pairs through the model.
 
     Returns:
@@ -128,8 +155,10 @@ def extract_trait_activations(model, tokenizer, trait_data, prefix_mode, device,
         high_text = prefix + pair["situation"] + " " + pair["high"]
         low_text  = prefix + pair["situation"] + " " + pair["low"]
 
-        h = hidden_states_for_text(model, tokenizer, high_text, device, split_prefix=split)
-        l = hidden_states_for_text(model, tokenizer, low_text,  device, split_prefix=split)
+        h = hidden_states_for_text(model, tokenizer, high_text, device,
+                                   split_prefix=split, chat_template=chat_template)
+        l = hidden_states_for_text(model, tokenizer, low_text,  device,
+                                   split_prefix=split, chat_template=chat_template)
 
         high_acts.append(h)
         low_acts.append(l)
@@ -140,7 +169,7 @@ def extract_trait_activations(model, tokenizer, trait_data, prefix_mode, device,
     return torch.stack(high_acts), torch.stack(low_acts)
 
 
-def extract_neutral_activations(model, tokenizer, texts, device, verbose=True):
+def extract_neutral_activations(model, tokenizer, texts, device, verbose=True, chat_template=False):
     """Run neutral texts through model, return per-layer token-averaged activations.
 
     For neutral texts we have no 'response' — average all content tokens (skip BOS).
@@ -148,7 +177,8 @@ def extract_neutral_activations(model, tokenizer, texts, device, verbose=True):
     """
     acts = []
     for i, t in enumerate(texts):
-        a = hidden_states_for_text(model, tokenizer, t, device, split_prefix=None)
+        a = hidden_states_for_text(model, tokenizer, t, device,
+                                   split_prefix=None, chat_template=chat_template)
         acts.append(a)
         if verbose and (i + 1) % 20 == 0:
             print(f"    Neutral {i+1}/{len(texts)} done")
@@ -236,6 +266,11 @@ def main():
                         help="Skip neutral-corpus extraction (e.g., when running on holdout, "
                              "neutral activations from the training run can be reused via PC "
                              "projection done downstream)")
+    parser.add_argument("--chat-template", action="store_true",
+                        help="Wrap each input as a user turn in the model's chat template "
+                             "before extracting activations. Default is bare text. Instruct-"
+                             "tuned models deploy under a chat template, so this is the "
+                             "measurement-faithful setting.")
     args = parser.parse_args()
 
     # Load inputs
@@ -260,7 +295,8 @@ def main():
     if neutral_texts is not None and not args.skip_neutral:
         print(f"\nExtracting neutral corpus activations...")
         t0 = time.time()
-        neutral_acts = extract_neutral_activations(model, tokenizer, neutral_texts, args.device)
+        neutral_acts = extract_neutral_activations(model, tokenizer, neutral_texts, args.device,
+                                                   chat_template=args.chat_template)
         print(f"  Done in {time.time()-t0:.1f}s  shape={tuple(neutral_acts.shape)}")
     elif args.skip_neutral:
         print(f"\nSkipping neutral corpus (--skip-neutral). Per-pair PC projection will not be applied.")
@@ -276,6 +312,7 @@ def main():
 
         per_pair_high, per_pair_low = extract_trait_activations(
             model, tokenizer, trait_data, args.prefix_mode, args.device,
+            chat_template=args.chat_template,
         )
         print(f"  Extracted activations in {time.time()-t0:.1f}s  shape={tuple(per_pair_high.shape)}")
 
@@ -312,8 +349,10 @@ def main():
         # Suffix file with input stem when not running on the canonical training set
         # so holdout extraction doesn't collide with training extraction.
         stem_suffix = "" if input_stem == "contrast_pairs" else f"_{input_stem}"
+        format_tag = "chat" if args.chat_template else "bare"
         out_file = outdir / (
             f"{safe_model}_{trait_id}"
+            f"_fmt-{format_tag}"
             f"_prefix-{args.prefix_mode}"
             f"_neutral-{args.neutral_variant}"
             f"{stem_suffix}.pt"
@@ -323,6 +362,7 @@ def main():
             "trait_name": trait_data["name"],
             "model": args.model,
             "n_pairs": len(trait_data["pairs"]),
+            "format": format_tag,
             "prefix_mode": args.prefix_mode,
             "neutral_variant": args.neutral_variant,
             "raw_direction": torch.from_numpy(raw_direction),
