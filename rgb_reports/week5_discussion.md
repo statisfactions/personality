@@ -33,6 +33,75 @@ On 48 cells (4 models × 6 traits × 2 formats, classification on a 144-pair fac
 
 MD-projected is a better trait extractor everywhere **except Honesty-Humility**, where LDA beats it in all 8 cells. Why H?
 
+## Holdout sign-correct per model × trait × method
+
+Full breakdown. Each cell is holdout pairs with the same sign as the expected trait direction, out of 24. Model column shows per-model average (of 144 holdout pairs = 6 traits × 24). Total row shows per-trait total (of 96 = 4 models × 24).
+
+### Chat template format (primary)
+
+**LDA**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | **24** | 20 | 23 | 23 | 23 | 24 | 95.1% |
+| Gemma | 23 | 24 | 22 | 23 | 22 | 24 | 95.8% |
+| Phi4 | 22 | 24 | 24 | 24 | 23 | 24 | 97.9% |
+| Qwen | 22 | 20 | 24 | 22 | 23 | 24 | 93.8% |
+| **total** | 91/96 | 88/96 | 93/96 | 92/96 | 91/96 | 96/96 | 95.7% |
+
+**MD-raw**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | 17 | 24 | 23 | 24 | 22 | 24 | 93.1% |
+| Gemma | 19 | 24 | 24 | 24 | 23 | 24 | 95.8% |
+| Phi4 | 16 | 23 | 24 | 23 | 23 | 24 | 92.4% |
+| Qwen | 18 | 24 | 24 | 23 | 23 | 24 | 94.4% |
+| **total** | 70/96 | 95/96 | 95/96 | 94/96 | 91/96 | 96/96 | 93.9% |
+
+**MD-projected**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | 17 | 24 | 23 | 24 | 23 | 24 | 93.8% |
+| Gemma | 19 | 24 | 24 | 24 | 23 | 24 | 95.8% |
+| Phi4 | 19 | 24 | 24 | 24 | 24 | 24 | 96.5% |
+| Qwen | 19 | 24 | 24 | 23 | 24 | 24 | 95.8% |
+| **total** | 74/96 | 96/96 | 95/96 | 95/96 | 94/96 | 96/96 | 95.5% |
+
+### Bare-text format (diagnostic)
+
+**LDA**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | 23 | 21 | 23 | 21 | 23 | 24 | 93.8% |
+| Gemma | 23 | 23 | 24 | 24 | 22 | 24 | 97.2% |
+| Phi4 | 21 | 23 | 24 | 24 | 23 | 24 | 96.5% |
+| Qwen | 22 | 24 | 24 | 24 | 23 | 24 | 97.9% |
+| **total** | 89/96 | 91/96 | 95/96 | 93/96 | 91/96 | 96/96 | 96.4% |
+
+**MD-raw**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | 17 | 24 | 23 | 23 | 23 | 24 | 93.1% |
+| Gemma | 20 | 24 | 24 | 22 | 23 | 24 | 95.1% |
+| Phi4 | 16 | 24 | 24 | 24 | 23 | 24 | 93.8% |
+| Qwen | 19 | 24 | 24 | 23 | 23 | 24 | 95.1% |
+| **total** | 72/96 | 96/96 | 95/96 | 92/96 | 92/96 | 96/96 | 94.3% |
+
+**MD-projected**
+| Model | H | E | X | A | C | O | avg |
+|---|---|---|---|---|---|---|---|
+| Llama | 21 | 24 | 24 | 24 | 23 | 24 | 97.2% |
+| Gemma | 17 | 24 | 24 | 24 | 23 | 24 | 94.4% |
+| Phi4 | 17 | 24 | 24 | 24 | 24 | 24 | 95.1% |
+| Qwen | 15 | 24 | 24 | 23 | 23 | 24 | 92.4% |
+| **total** | 70/96 | 96/96 | 96/96 | 95/96 | 93/96 | 96/96 | 94.8% |
+
+**Scanning the tables:**
+- Every method hits at least 92% overall — all three are basically working.
+- O is ceiling (96/96 = 100%) for every method × format. Openness is trivial to separate.
+- The per-trait totals rank-order as: O > E ≈ X ≈ A > C > H, with H clearly lowest for MD-raw and MD-projected (70-74 of 96 for MD on H vs 88-93 for LDA on H).
+- Model-level averages are within 4 points across all 4 models (92-98%). Method matters more than model on this holdout.
+- LDA is remarkably flat across traits (89-96 per-trait totals). MD-projected has a bimodal shape (70-74 on H, 93-96 on everything else).
+
 ## Why H — the facet-level mechanism
 
 HEXACO Honesty-Humility has four facets: Sincerity, Fairness, Greed-Avoidance, Modesty. In the holdout, 6 pairs per facet per trait. Aggregated across 4 models × 2 formats (48 pairs per facet):
