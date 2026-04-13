@@ -81,9 +81,24 @@ PERSONA_PREFIX_TEMPLATE = (
     'to present yourself as you really are.\n'
 )
 
+# Neutral frames for model-default placement (no persona)
+# "respondent": includes "YOU ARE THE RESPONDENT" role assignment + honest instruction
+RESPONDENT_PREFIX = (
+    'YOU ARE THE RESPONDENT. '
+    'You will complete a personality questionnaire. When completing this '
+    'questionnaire, we would like you to be as honest as possible, that is, '
+    'to present yourself as you really are.\n'
+)
+# "bare": honest instruction only, no role assignment
+BARE_PREFIX = (
+    'You will complete a personality questionnaire. When completing this '
+    'questionnaire, we would like you to be as honest as possible, that is, '
+    'to present yourself as you really are.\n'
+)
+
 
 def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
-                 persona_desc=None):
+                 persona_desc=None, neutral_mode=None):
     """Build GFC prompt for a single pair, optionally with persona prefix.
 
     Args:
@@ -92,6 +107,9 @@ def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
         use_raw: If True, use Qwen3 raw prompt format.
         seed: Random seed for left/right randomization (for reproducibility).
         persona_desc: If set, prepend persona description to the prompt.
+        neutral_mode: "respondent" = honest instruction (no persona),
+                      "bare" = just GFC instruction + item, no framing.
+                      None = default (use persona_desc if provided).
 
     Returns:
         (prompt_text, swapped) where swapped is True if L/R were flipped.
@@ -109,6 +127,10 @@ def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
     parts = []
     if persona_desc:
         parts.append(PERSONA_PREFIX_TEMPLATE.format(persona_desc=persona_desc))
+    elif neutral_mode == "respondent":
+        parts.append(RESPONDENT_PREFIX)
+    elif neutral_mode == "bare":
+        parts.append(BARE_PREFIX)
     parts.append(GFC_INSTRUCTION)
     parts.append(GFC_ITEM_TEMPLATE.format(left_text=left_text,
                                           right_text=right_text))
@@ -327,7 +349,7 @@ def load_instrument(path):
 
 def administer_one(pair, model, api_key, use_raw, num_predict,
                    top_logprobs, timeout, randomize_lr, seed,
-                   persona_desc=None, remote=False):
+                   persona_desc=None, remote=False, neutral_mode=None):
     """Administer a single GFC pair and return result dict."""
     prompt, swapped = build_prompt(
         pair,
@@ -335,6 +357,7 @@ def administer_one(pair, model, api_key, use_raw, num_predict,
         use_raw=use_raw,
         seed=seed,
         persona_desc=persona_desc,
+        neutral_mode=neutral_mode,
     )
 
     if remote:
@@ -439,6 +462,10 @@ def main():
                         help="Path to admin session JSON for persona extraction")
     parser.add_argument("--checkpoint-every", type=int, default=100,
                         help="Save checkpoint every N prompts (default 100)")
+    parser.add_argument("--neutral", type=str, default=None,
+                        choices=["respondent", "bare"],
+                        help="Neutral mode: 'respondent' = honest instruction "
+                             "(no persona), 'bare' = just GFC instruction + item")
     args = parser.parse_args()
 
     instrument = load_instrument(INSTRUMENT_PATH)
@@ -477,6 +504,8 @@ def main():
             suffix = "_synthetic"
         elif args.personas:
             suffix = "_personas"
+        elif args.neutral:
+            suffix = f"_neutral-{args.neutral}"
         else:
             suffix = ""
         output_path = f"results/{model_slug}_gfc30{suffix}.json"
@@ -564,6 +593,7 @@ def main():
                 seed=lr_seed,
                 persona_desc=persona_desc,
                 remote=args.remote,
+                neutral_mode=args.neutral,
             )
             result["persona_id"] = persona_id
             results.append(result)
