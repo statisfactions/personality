@@ -46,6 +46,8 @@ HEXACO Honesty-Humility has four facets: Sincerity, Fairness, Greed-Avoidance, M
 
 **This is probably a general rule:** MD is a good uni-dimensional trait extractor; LDA is better when a trait has multiple facets pointing in distinct directions.
 
+**An open possibility (raised in discussion):** Greed-Avoidance may not be part of H in LLMs at all — it may be its own dimension. HEXACO places G-A under H based on human lexical factor analyses where G-A loads at ~.4-.6 on the H factor (notable but the weakest of the four). For an LLM, the RLHF signals for "don't be materialistic" and "don't lie" are plausibly separable, and our G-A contrast pairs are heavily consumer-preference framed (buy a Ferrari or don't) which may not share much representation with sincerity/modesty. Testable: extract an MD direction from G-A pairs only and another from Sincerity+Fairness+Modesty-only. Cosine near zero → G-A is a distinct dimension for LLMs. Low magnitude in same direction → it's H-aligned but weakly, as in humans. Incoherent G-A-only direction → our G-A pairs are bad rather than G-A being a different construct. Cheap to run; queued for after the session (see "what we still don't know").
+
 ## Two measurement confounds we didn't expect
 
 Both discovered in the course of testing residual-stream steering, both worth flagging as methodology notes.
@@ -105,6 +107,7 @@ Each stage was a defensible but premature conclusion given the data available. T
 ## What we still don't know
 
 - **Does LDA's advantage on H generalize to "use LDA whenever facet structure is strong"?** Only one multi-facet trait in our data showed the effect strongly. Need to test on e.g. HEXACO Altruism (loads cross-trait) or construct adversarial multi-facet scenarios.
+- **Is Greed-Avoidance actually part of H in LLMs, or its own dimension?** (Raised in discussion.) The MD failure pattern on G-A is consistent with G-A being a distinct dimension that we've been mis-grouping with H. Three-way distinguishable test: extract MD direction from G-A pairs only, MD direction from Sincerity+Fairness+Modesty-only, compute cosine. Near-zero cosine with coherent within-group classification → G-A is a separate dimension for LLMs (even if it's part of H for humans). Low-magnitude-but-aligned cosine → still H, weakly, as in humans. Incoherent G-A-only direction → the contrast pairs are bad, not the construct. Activations are already saved from Phase B; ~5 min of analysis.
 - **Does position-specific steering fix the wrong-sign residual steering finding?** This is a one-experiment answer.
 - **Is the assistant persona a single direction?** (to_try.md §11.) On Llama the chat-template-vs-bare gap is big enough to extract a clean "persona vector." If that vector is a linear combination of high-trait LDA/MD directions, we have direct evidence that the rank-1 collapse of Big Five space is persona-driven.
 - **Would Likert-format IPIP-300 under bare text prompting loosen the E-C r=0.93 collapse we found in week 1?** Haven't run it.
