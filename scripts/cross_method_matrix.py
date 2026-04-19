@@ -99,14 +99,15 @@ def load_bc_scores():
     return scores
 
 
-def load_repe_scores(trait, model_name):
-    """Load LDA direction and compute mean projection on contrast pairs.
+def load_repe_scores(trait, model_name, probe="lr"):
+    """Load direction from cached raw_diffs and compute mean projection.
 
-    Returns the mean signed projection of the contrast-pair diffs onto the
-    LDA direction at the best layer. This gives a "how strongly does this
-    model represent trait T" score comparable across models.
+    probe: "lr" (default, Week 6 methodology) or "lda" (legacy, Week 3).
+    Layer is always picked by LDA 5-fold CV accuracy — LR separates at
+    ~100% across most layers in n<<d so LR-CV doesn't discriminate well.
     """
     from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+    from sklearn.linear_model import LogisticRegression
 
     safe = model_name.replace("/", "_")
     fpath = f"results/repe/{safe}_{trait}_directions.pt"
@@ -120,19 +121,15 @@ def load_repe_scores(trait, model_name):
     if "raw_diffs" in data:
         diffs = data["raw_diffs"]  # (n_pairs, n_layers, hidden_dim)
     else:
-        # Older format: only has mean_diffs (n_layers, hidden_dim), no per-pair diffs.
-        # Can't do LDA without per-pair data. Use mean_diff norm as a rough score.
         mean_diffs = data["mean_diffs"].numpy()
-        # Use layer with highest explained variance as best
         ev = data["explained_variance"].numpy()
         best_layer = int(np.argmax(ev))
         mean_proj = float(np.linalg.norm(mean_diffs[best_layer]))
-        return {"mean_proj": mean_proj, "best_layer": best_layer, "lda_acc": None,
+        return {"mean_proj": mean_proj, "best_layer": best_layer, "cv_acc": None,
                 "note": "old format, mean_diff norm only"}
 
     n_pairs, n_layers, _ = diffs.shape
 
-    # Find best layer by LDA accuracy
     best_acc, best_layer = 0, 0
     for l in range(n_layers):
         d = diffs[:, l, :].numpy()
@@ -148,25 +145,24 @@ def load_repe_scores(trait, model_name):
         except Exception:
             pass
 
-    # Fit LDA at best layer
     d = diffs[:, best_layer, :].numpy()
     X = np.vstack([d / 2, -d / 2])
     y = np.array([1] * n_pairs + [0] * n_pairs)
-    lda = LinearDiscriminantAnalysis()
-    lda.fit(X, y)
-    lda_d = lda.coef_[0]
-    lda_d = lda_d / np.linalg.norm(lda_d)
+    if probe == "lda":
+        clf = LinearDiscriminantAnalysis().fit(X, y)
+    elif probe == "lr":
+        clf = LogisticRegression(C=1.0, max_iter=2000).fit(X, y)
+    else:
+        raise ValueError(f"Unknown probe: {probe}")
+    direction = clf.coef_[0] / np.linalg.norm(clf.coef_[0])
 
-    # Mean projection of the diffs onto LDA direction
-    # Positive = high-trait, negative = low-trait
-    projs = d @ lda_d  # (n_pairs,)
-    mean_proj = float(np.mean(projs))
-
-    return {"mean_proj": mean_proj, "best_layer": best_layer, "lda_acc": best_acc}
+    projs = d @ direction
+    return {"mean_proj": float(np.mean(projs)), "best_layer": best_layer,
+            "cv_acc": best_acc, "probe": probe}
 
 
-def load_all_repe_scores(normalize=True):
-    """Load RepE LDA projection scores for all available model×trait combos.
+def load_all_repe_scores(normalize=True, probe="lr"):
+    """Load RepE projection scores for all available model×trait combos.
 
     If normalize=True, z-score within each model across its 6 trait scores.
     This removes cross-model activation scale differences (Gemma's residual
@@ -178,7 +174,7 @@ def load_all_repe_scores(normalize=True):
     for mname, minfo in MODELS.items():
         raw_scores[mname] = {}
         for t in TRAITS:
-            result = load_repe_scores(t, minfo["hf"])
+            result = load_repe_scores(t, minfo["hf"], probe=probe)
             raw_scores[mname][t] = result["mean_proj"] if result else None
 
     if not normalize:
@@ -430,12 +426,14 @@ def main():
     parser.add_argument("--short-name", type=str, default=None,
                         help="Model short name (gemma3/llama/phi4/qwen)")
     parser.add_argument("--device", type=str, default="mps")
+    parser.add_argument("--probe", choices=["lr", "lda"], default="lr",
+                        help="Linear probe for RepE direction (default: lr; Week 6 methodology)")
     args = parser.parse_args()
 
-    print("Loading existing data...")
+    print(f"Loading existing data (RepE probe: {args.probe.upper()})...")
     likert = load_likert_scores()
     bc = load_bc_scores()
-    repe = load_all_repe_scores()
+    repe = load_all_repe_scores(probe=args.probe)
 
     # Report what we have
     for mname in MODELS:
