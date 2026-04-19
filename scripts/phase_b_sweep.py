@@ -42,6 +42,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score
 
 import extract_meandiff_vectors as mdx
@@ -57,6 +58,11 @@ MODELS = {
 TRAITS = ["H", "E", "X", "A", "C", "O"]
 TRAINING_FILE = Path("instruments/contrast_pairs.json")
 HOLDOUT_FILE = Path("instruments/contrast_pairs_holdout.json")
+CACHE_DIR = Path("results/phase_b_cache")
+
+
+def safe_name(s):
+    return s.replace("/", "_")
 
 
 def cv_best_layer(train_diffs, n_train):
@@ -133,12 +139,19 @@ def sweep_one_model(model_short, repo, traits_to_run, formats, device, dtype):
     with open(HOLDOUT_FILE) as f:
         hold = json.load(f)
 
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    model_tag = safe_name(repo)
+
     # Caches — keyed by (format, prefix) for pair activations, (format, variant) for neutral
     neutral_cache = {}  # (fmt,) -> neutral acts (one variant: scenario_setups)
 
     # Extract scenario_setups neutral activations once per format
     def get_neutral(fmt):
         if fmt not in neutral_cache:
+            neutral_cache_path = CACHE_DIR / f"{model_tag}_neutral_{fmt}.pt"
+            if neutral_cache_path.exists():
+                neutral_cache[fmt] = torch.load(neutral_cache_path, weights_only=False).numpy()
+                return neutral_cache[fmt]
             texts = mdx.load_neutral_texts("scenario_setups")
             print(f"\n  extract neutral ({fmt}, scenario_setups, {len(texts)} texts)...")
             t0 = time.time()
@@ -147,6 +160,7 @@ def sweep_one_model(model_short, repo, traits_to_run, formats, device, dtype):
                 chat_template=(fmt == "chat"), verbose=False,
             )
             print(f"    done in {time.time() - t0:.1f}s")
+            torch.save(acts, neutral_cache_path)
             neutral_cache[fmt] = acts.numpy()
         return neutral_cache[fmt]
 
@@ -163,23 +177,31 @@ def sweep_one_model(model_short, repo, traits_to_run, formats, device, dtype):
         hold_pairs = hold_td["pairs"]
 
         for fmt in formats:
-            # Training activations
-            print(f"  extract training ({fmt}, generic)...", end=" ", flush=True)
-            t0 = time.time()
-            ph_tr, pl_tr = mdx.extract_trait_activations(
-                model, tokenizer, train_td, "generic", device,
-                chat_template=(fmt == "chat"), verbose=False,
-            )
-            print(f"{time.time() - t0:.1f}s")
+            pair_cache_path = CACHE_DIR / f"{model_tag}_{trait}_{fmt}_pairs.pt"
+            if pair_cache_path.exists():
+                blob = torch.load(pair_cache_path, weights_only=False)
+                ph_tr, pl_tr = blob["ph_tr"], blob["pl_tr"]
+                ph_h, pl_h = blob["ph_h"], blob["pl_h"]
+                print(f"  loaded cached pairs ({fmt})")
+            else:
+                print(f"  extract training ({fmt}, generic)...", end=" ", flush=True)
+                t0 = time.time()
+                ph_tr, pl_tr = mdx.extract_trait_activations(
+                    model, tokenizer, train_td, "generic", device,
+                    chat_template=(fmt == "chat"), verbose=False,
+                )
+                print(f"{time.time() - t0:.1f}s")
 
-            # Holdout activations
-            print(f"  extract holdout  ({fmt}, generic)...", end=" ", flush=True)
-            t0 = time.time()
-            ph_h, pl_h = mdx.extract_trait_activations(
-                model, tokenizer, hold_td, "generic", device,
-                chat_template=(fmt == "chat"), verbose=False,
-            )
-            print(f"{time.time() - t0:.1f}s")
+                print(f"  extract holdout  ({fmt}, generic)...", end=" ", flush=True)
+                t0 = time.time()
+                ph_h, pl_h = mdx.extract_trait_activations(
+                    model, tokenizer, hold_td, "generic", device,
+                    chat_template=(fmt == "chat"), verbose=False,
+                )
+                print(f"{time.time() - t0:.1f}s")
+
+                torch.save({"ph_tr": ph_tr, "pl_tr": pl_tr, "ph_h": ph_h, "pl_h": pl_h,
+                            "hold_pairs": hold_pairs}, pair_cache_path)
 
             train_diffs = (ph_tr - pl_tr).numpy()
             hold_diffs = (ph_h - pl_h).numpy()
@@ -197,6 +219,12 @@ def sweep_one_model(model_short, repo, traits_to_run, formats, device, dtype):
 
             lda_scores = score_direction(lda_dir, lda_layer, train_diffs, hold_diffs, hold_pairs)
             lda_scores["cv_acc"] = float(lda_cv)
+
+            # Logistic regression at the same layer (same X, y)
+            lr = LogisticRegression(C=1.0, max_iter=2000)
+            lr.fit(X, y)
+            lr_dir = lr.coef_[0] / (np.linalg.norm(lr.coef_[0]) + 1e-12)
+            lr_scores = score_direction(lr_dir, lda_layer, train_diffs, hold_diffs, hold_pairs)
 
             # MD raw direction per layer
             mean_high = ph_tr.mean(dim=0).numpy()
@@ -234,12 +262,15 @@ def sweep_one_model(model_short, repo, traits_to_run, formats, device, dtype):
             base = dict(model=model_short, trait=trait, format=fmt, prefix="generic",
                         neutral="scenario_setups")
             rows.append({**base, "method": "LDA", **lda_scores, "cos_to_lda": None})
+            rows.append({**base, "method": "LR", **lr_scores,
+                         "cos_to_lda": float(np.dot(lda_dir, lr_dir))})
             rows.append({**base, "method": "MD-raw", **md_raw_scores,
                          "cos_to_lda": float(np.dot(lda_dir, md_raw_dir))})
             rows.append({**base, "method": "MD-projected", **md_proj_scores,
                          "cos_to_lda": float(np.dot(lda_dir, md_proj_dir))})
 
-            print(f"    LDA layer={lda_layer:>2}  hold={lda_scores['sign_correct_hold']}/{lda_scores['n_hold']}  snr_h={lda_scores['snr_hold']:+.2f}")
+            print(f"    LDA        layer={lda_layer:>2}  hold={lda_scores['sign_correct_hold']}/{lda_scores['n_hold']}  snr_h={lda_scores['snr_hold']:+.2f}")
+            print(f"    LR         layer={lda_layer:>2}  hold={lr_scores['sign_correct_hold']}/{lr_scores['n_hold']}  snr_h={lr_scores['snr_hold']:+.2f}  cos_lda={np.dot(lda_dir, lr_dir):+.3f}")
             print(f"    MD-raw     layer={md_raw_layer:>2}  hold={md_raw_scores['sign_correct_hold']}/{md_raw_scores['n_hold']}  snr_h={md_raw_scores['snr_hold']:+.2f}")
             print(f"    MD-projected layer={md_proj_layer:>2}  hold={md_proj_scores['sign_correct_hold']}/{md_proj_scores['n_hold']}  snr_h={md_proj_scores['snr_hold']:+.2f}  k_pcs={k_per_layer[md_proj_layer]}")
 

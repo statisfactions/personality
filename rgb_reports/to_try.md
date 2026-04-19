@@ -124,7 +124,15 @@ This matches Lu et al. (the default Assistant persona is an amalgamation of char
 
 **Potentially publishable.** "The assistant persona is gated by the chat template" is a crisp, testable claim that's independent of our main personality-measurement agenda. It's now known to be model-specific, which is still an interesting finding: "how much of each instruct-tuned model's trait behavior is template-gated vs weight-baked" is a measurement methodology point that matters for anyone doing evaluation across models. Llama on bare text ≠ Llama deployed; Qwen on bare text ≈ Qwen deployed. Both types of instruct-tuning exist and people doing comparisons should know which they're looking at.
 
-## 12. Situational judgment tests / economic games
+## 12. Rebuild Week 3 cross-method correlation matrix with LR probe
+
+The 5×5 matrix in `cross_method_correlations.md` used LDA as the RepE-probe axis. Week 6 analysis (this note) showed LDA's direction is ~74° rotated from LR / MD-projected at the same layer, driven by Σ⁻¹ noise in the n<<d regime. LR is the field-standard probe and also steers better in the one behaviorally discriminating cell (Gemma-E). Redo the matrix swapping LDA-RepE → LR-RepE to see whether the cross-method correlations shift materially, and document the methodological update.
+
+**Scope:** `scripts/cross_method_matrix.py` currently loads LDA-based `_directions.pt`. Either add LR fitting in that script (cached pair activations are in `results/phase_b_cache/`) or extract LR directions to `results/repe/<model>_<trait>_lr_directions.pt` and have `cross_method_matrix.py` load those.
+
+**Also:** Re-run the one-off sanity check on LR-C-stability (fit at C ∈ {0.1, 1, 10}, compute pairwise cosines) before declaring LR the durable default. Expected: directions stable within the n<<d regime, but worth verifying.
+
+## 13. Situational judgment tests / economic games
 
 Mentioned in the week 1 report but never pursued. Dictator, Trust, and Ultimatum games have documented Big Five correlations in human samples (Agreeableness r = .25-.37). Completely different measurement modality — bypasses self-report framing.
 
