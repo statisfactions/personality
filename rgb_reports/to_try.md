@@ -130,7 +130,19 @@ This matches Lu et al. (the default Assistant persona is an amalgamation of char
 
 **Headline result:** Seven of eight RepE-involving correlations drop in magnitude under LR (by 0.05–0.08). Overall Likert↔RepE collapses from r≈0.17 to r≈0.09 — the three-construct dissociation is stronger than Week 3 originally reported. One exception: X's BC-prop↔RepE *rises* from 0.17 to 0.40, suggesting LDA was rotating away from (not toward) the behaviorally-aligned axis for X. The Agreeableness consensus and Emotionality Likert↔RepE convergence both survive the swap.
 
-## 13. Situational judgment tests / economic games
+## 13. Refactor: shared `vector_from_activations` module
+
+Multiple scripts re-implement the same pattern: load cached pair activations, pick a layer, compute {LDA, LR, MD-raw, MD-projected} direction, normalize. Currently spread across `phase_b_sweep.py`, `probes_same_layer.py`, `compare_probe_steering.py`, `facet_cluster.py`, `facet_viz.py`, `within_trait_variance.py`, `lr_c_stability.py`, `cross_method_matrix.py`, `generate_training_pairs.py` (doesn't extract but loads the same caches).
+
+A small `scripts/vector_methods.py` module with clearly-commented functions — `lda_direction(diffs, layer)`, `lr_direction(diffs, layer, C=1.0)`, `md_raw(ph, pl, layer)`, `md_projected(ph, pl, neutral, layer, pc_var=0.5)`, `normalize`, `cv_best_layer` — would:
+
+1. Eliminate the ~5 copies of `cv_best_layer`, `unit`, and antipodal-trick boilerplate currently scattered
+2. Provide a canonical place to document the Week 6 findings inline (e.g., why LR uses antipodal `X = [d/2, -d/2]` rather than raw `[h; l]`; why LDA has the Σ⁻¹-noise pathology; why MD-projected's neutral-PC subtraction is the robust alternative)
+3. Make it harder to accidentally diverge method implementations across analyses
+
+Low risk, mechanical. Not urgent — nothing's broken — but would pay down some of the copy-paste debt accumulated during the Week 6 exploration and make future probe experiments (e.g., shrinkage LDA, elastic-net LR, mean-diff with different neutral sets) drop-in replacements.
+
+## 14. Situational judgment tests / economic games
 
 Mentioned in the week 1 report but never pursued. Dictator, Trust, and Ultimatum games have documented Big Five correlations in human samples (Agreeableness r = .25-.37). Completely different measurement modality — bypasses self-report framing.
 
