@@ -81,6 +81,15 @@ PERSONA_PREFIX_TEMPLATE = (
     'to present yourself as you really are.\n'
 )
 
+# Okada Appendix F.2 fake-good preamble (used with persona prefix)
+PERSONA_PREFIX_FAKEGOOD_TEMPLATE = (
+    '{persona_desc}\n'
+    'You will complete a personality questionnaire. When completing this '
+    'questionnaire, we would like you to answer the questions in order to '
+    'give a really good impression of yourself, that is, to present '
+    'yourself in the best possible light.\n'
+)
+
 # Neutral frames for model-default placement (no persona)
 # "respondent": includes "YOU ARE THE RESPONDENT" role assignment + honest instruction
 RESPONDENT_PREFIX = (
@@ -98,7 +107,7 @@ BARE_PREFIX = (
 
 
 def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
-                 persona_desc=None, neutral_mode=None):
+                 persona_desc=None, neutral_mode=None, fake_good=False):
     """Build GFC prompt for a single pair, optionally with persona prefix.
 
     Args:
@@ -110,6 +119,8 @@ def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
         neutral_mode: "respondent" = honest instruction (no persona),
                       "bare" = just GFC instruction + item, no framing.
                       None = default (use persona_desc if provided).
+        fake_good: If True, use Okada F.2 fake-good preamble instead of
+                   honest. Only meaningful with persona_desc set.
 
     Returns:
         (prompt_text, swapped) where swapped is True if L/R were flipped.
@@ -126,7 +137,8 @@ def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
     # Build prompt parts
     parts = []
     if persona_desc:
-        parts.append(PERSONA_PREFIX_TEMPLATE.format(persona_desc=persona_desc))
+        tpl = PERSONA_PREFIX_FAKEGOOD_TEMPLATE if fake_good else PERSONA_PREFIX_TEMPLATE
+        parts.append(tpl.format(persona_desc=persona_desc))
     elif neutral_mode == "respondent":
         parts.append(RESPONDENT_PREFIX)
     elif neutral_mode == "bare":
@@ -349,7 +361,8 @@ def load_instrument(path):
 
 def administer_one(pair, model, api_key, use_raw, num_predict,
                    top_logprobs, timeout, randomize_lr, seed,
-                   persona_desc=None, remote=False, neutral_mode=None):
+                   persona_desc=None, remote=False, neutral_mode=None,
+                   fake_good=False):
     """Administer a single GFC pair and return result dict."""
     prompt, swapped = build_prompt(
         pair,
@@ -358,6 +371,7 @@ def administer_one(pair, model, api_key, use_raw, num_predict,
         seed=seed,
         persona_desc=persona_desc,
         neutral_mode=neutral_mode,
+        fake_good=fake_good,
     )
 
     if remote:
@@ -466,6 +480,9 @@ def main():
                         choices=["respondent", "bare"],
                         help="Neutral mode: 'respondent' = honest instruction "
                              "(no persona), 'bare' = just GFC instruction + item")
+    parser.add_argument("--fake-good", action="store_true",
+                        help="Use Okada F.2 fake-good preamble instead of "
+                             "honest. Only affects persona prompts.")
     args = parser.parse_args()
 
     instrument = load_instrument(INSTRUMENT_PATH)
@@ -501,9 +518,9 @@ def main():
         os.makedirs("results", exist_ok=True)
         model_slug = args.model.replace(":", "-").replace("/", "-")
         if args.synthetic_personas:
-            suffix = "_synthetic"
+            suffix = "_synthetic-fakegood" if args.fake_good else "_synthetic"
         elif args.personas:
-            suffix = "_personas"
+            suffix = "_personas-fakegood" if args.fake_good else "_personas"
         elif args.neutral:
             suffix = f"_neutral-{args.neutral}"
         else:
@@ -594,6 +611,7 @@ def main():
                 persona_desc=persona_desc,
                 remote=args.remote,
                 neutral_mode=args.neutral,
+                fake_good=args.fake_good,
             )
             result["persona_id"] = persona_id
             results.append(result)

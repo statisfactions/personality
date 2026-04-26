@@ -30,6 +30,8 @@ analysis/scored_results/
 
 # Environment variables / secrets
 .env
+.env~
+*~
 
 # Virtual environment
 venv/
