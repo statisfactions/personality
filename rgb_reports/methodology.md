@@ -21,10 +21,11 @@ Each approach measures a different construct (see "Three Constructs" in `reports
 - **Source**: Public domain, items in `admin_sessions/prod_run_01_external_rating.json` (key: `measures.IPIP300`)
 - **Response scale**: 1-5 Likert (very inaccurate to very accurate)
 - **Scoring**: Reverse-keying per scale definition, mean across items
-- **Script**: `scripts/run_ollama_logprobs.py`
-  - `--model MODEL` — Ollama model name
+- **Script**: `scripts/run_ipip300.py` (was `run_ollama_logprobs.py` through week 6)
+  - `--model MODEL` — short name (Gemma/Llama/Phi4/Qwen/Gemma12/Llama8/Qwen7/...) or HF repo ID
   - `--variants` — run 4 prompt phrasings for ICC reliability analysis
   - `--items N` — limit to first N items for quick tests
+- **Backend**: HuggingFace Transformers via `scripts/hf_logprobs.py`. Replaces the Ollama `/api/generate` path used in weeks 1–6.
 - **Output**: `results/<model>_ipip300.json` (single variant), `results/<model>_variants.json` (with prompt variants)
 - **Measures collected**: argmax, expected value (EV), Shannon entropy, full probability distribution over {1,2,3,4,5}
 
@@ -36,8 +37,8 @@ Each approach measures a different construct (see "Three Constructs" in `reports
 - **Response scale**: 1-5 Likert (strongly disagree to strongly agree)
 - **Scoring**: Reverse-keying per `hexaco100.json` scale definitions, mean across items
 - **Script**: `scripts/run_hexaco.py`
-  - Same flags as `run_ollama_logprobs.py`
-  - Requires `PYTHONPATH=scripts` to import shared functions
+  - Same flags as `run_ipip300.py`
+  - Requires `PYTHONPATH=scripts` to import shared functions (`hf_logprobs`, `run_ipip300`)
 - **Output**: `results/<model>_hexaco100.json`, `results/<model>_hexaco100_variants.json`
 - **Measures collected**: Same as IPIP-300
 
@@ -67,7 +68,7 @@ Statement: "[item text]"
 Rating: 
 ```
 
-Three additional prompt variants change the framing (agreement scale, describes-me, terse). For Qwen3 (thinking model), a raw prompt with `/no_think` in the system message is used.
+Three additional prompt variants change the framing (agreement scale, describes-me, terse). All variants use **bare-text** prompts — no chat template is applied for the Likert scoring. See to_try.md §15 for a bookmark on whether that choice is load-bearing for the Likert↔BC cross-method correlations. Thinking-model handling (Qwen3 `/no_think`) was dropped in the HF port; none of the planned cohort is a thinking model.
 
 ### Reliability
 
@@ -119,7 +120,7 @@ Causal attention guarantees the period-token hidden state is identical regardles
 ### Validation Script
 
 - **Script**: `scripts/validate_protocol.py`
-  - `--model MODEL --short-name NAME` — HuggingFace model + Ollama name
+  - `--model MODEL` — HuggingFace model name; `--short-name NAME` optional display label
   - `--test layer,framing,likert,rottger,transfer` — select tests
   - `--all-models` — run on all 4 models
 - **Tests**:
@@ -179,7 +180,7 @@ Note on terminology: we use "binary choice" for our single-trait A/B scenarios t
 
 ## 5. Environment
 
-- **Local models (Ollama)**: gemma3:4b, gemma3:4b-it-qat, llama3.2:3b, phi4-mini, qwen3:8b, qwen2.5:7b
+- **Local inference**: HuggingFace Transformers (bf16, MPS). Ollama is no longer used by the survey/BC pipelines as of 2026-04-24 — remains available for the chat UX but not called by any script.
 - **HuggingFace models**: See table above. Requires `HF_TOKEN` authentication for gated models (Gemma, Llama).
 - **Python venv**: `.venv/` with torch, transformers, accelerate, scikit-learn, plotly, numpy
 - **Hardware**: Apple Silicon Mac with MPS backend. Models run in bfloat16.

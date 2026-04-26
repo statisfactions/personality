@@ -18,34 +18,25 @@ Usage:
 import argparse
 import json
 import gc
-import math
 import sys
 import time
 from pathlib import Path
-from urllib.request import urlopen, Request
-from urllib.error import URLError
 
 import torch
 import numpy as np
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+from hf_logprobs import likert_distribution, bc_logodds, free_text
+
 CONTRAST_PAIRS = "instruments/contrast_pairs.json"
 HEXACO_FILE = "instruments/hexaco100.json"
-OLLAMA_URL = "http://localhost:11434"
 
 MODELS = {
     "gemma3": "google/gemma-3-4b-it",
     "qwen2.5": "Qwen/Qwen2.5-3B-Instruct",
     "phi4": "microsoft/Phi-4-mini-instruct",
     "llama3.2": "meta-llama/Llama-3.2-3B-Instruct",
-}
-
-OLLAMA_MODELS = {
-    "gemma3": "gemma3:4b",
-    "qwen2.5": "qwen2.5:7b",
-    "phi4": "phi4-mini",
-    "llama3.2": "llama3.2:3b",
 }
 
 # Layer attribute paths differ by architecture
@@ -128,22 +119,8 @@ def get_activation_at_position(model, tokenizer, text, layer_idx, token_pos, dev
     return act
 
 
-def ollama_generate(ollama_model, prompt, raw=False):
-    payload = json.dumps({
-        "model": ollama_model,
-        "prompt": prompt,
-        "raw": raw,
-        "stream": False,
-        "options": {"num_predict": 60, "temperature": 0},
-    }).encode()
-    req = Request(f"{OLLAMA_URL}/api/generate", data=payload,
-                  headers={"Content-Type": "application/json"})
-    with urlopen(req, timeout=120) as resp:
-        return json.loads(resp.read()).get("response", "").strip()
-
-
-def ollama_likert(ollama_model, item_text, raw=False):
-    """Get Likert EV for an item via Ollama logprobs."""
+def hf_likert_ev(model, tokenizer, item_text, device):
+    """Likert EV for a HEXACO item via HF logprobs. Bare-text prompt (no chat template)."""
     prompt = (
         'Rate how accurately each statement describes you.\n'
         '1 = very inaccurate, 2 = moderately inaccurate, 3 = neither, '
@@ -151,42 +128,8 @@ def ollama_likert(ollama_model, item_text, raw=False):
         'Respond with only a number.\n\n'
         f'Statement: "{item_text}"\nRating: '
     )
-    payload = json.dumps({
-        "model": ollama_model,
-        "prompt": prompt,
-        "raw": raw,
-        "stream": False,
-        "options": {"num_predict": 1, "temperature": 0},
-        "logprobs": True,
-        "top_logprobs": 10,
-    }).encode()
-    req = Request(f"{OLLAMA_URL}/api/generate", data=payload,
-                  headers={"Content-Type": "application/json"})
-    with urlopen(req, timeout=60) as resp:
-        data = json.loads(resp.read())
-
-    logprobs_list = data.get("logprobs", [])
-    if not logprobs_list:
-        return None
-
-    top = logprobs_list[0].get("top_logprobs", [])
-    raw_lp = {}
-    for entry in top:
-        tok = entry.get("token", "").strip()
-        if tok in ("1", "2", "3", "4", "5"):
-            raw_lp[tok] = entry["logprob"]
-
-    if not raw_lp:
-        return None
-
-    max_lp = max(raw_lp.values())
-    exp_sum = sum(math.exp(lp - max_lp) for lp in raw_lp.values())
-    dist = {}
-    for tok in ("1", "2", "3", "4", "5"):
-        dist[tok] = math.exp(raw_lp[tok] - max_lp) / exp_sum if tok in raw_lp else 0.0
-
-    ev = sum(int(k) * v for k, v in dist.items())
-    return ev
+    dist, _, _ = likert_distribution(model, tokenizer, prompt, device)
+    return sum(int(k) * v for k, v in dist.items())
 
 
 # =============================================================================
@@ -387,8 +330,7 @@ def test_cross_model_transfer(device="mps"):
 # =============================================================================
 # Test 4: RepE vs Likert
 # =============================================================================
-def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
-                        short_name, device="mps"):
+def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer, device="mps"):
     print("\n" + "=" * 60)
     print("  TEST 4: RepE vs Likert Self-Report")
     print("=" * 60)
@@ -401,18 +343,6 @@ def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
 
     PREFIX = "Consider what a person most like you would do in the following situation: "
     SUFFIX = "."
-
-    ollama_model = OLLAMA_MODELS.get(short_name)
-    if not ollama_model:
-        print(f"  No Ollama model mapping for {short_name}. Skipping Likert comparison.")
-        return
-
-    # Check Ollama is reachable
-    try:
-        urlopen(f"{OLLAMA_URL}/api/tags", timeout=5)
-    except URLError:
-        print("  Ollama not reachable. Skipping Likert comparison.")
-        return
 
     repe_projs = []
     likert_evs = []
@@ -434,9 +364,9 @@ def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
             proj = -proj
         repe_projs.append(proj)
 
-        # Likert: get EV from Ollama
-        ev = ollama_likert(ollama_model, text)
-        if ev is not None and is_rev:
+        # Likert: bare-text prompt via HF logprobs
+        ev = hf_likert_ev(model, tokenizer, text, device)
+        if is_rev:
             ev = 6.0 - ev
         likert_evs.append(ev)
 
@@ -459,8 +389,7 @@ def test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
 # =============================================================================
 # Test 5: Binary-choice vs free-text (Röttger test)
 # =============================================================================
-def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
-                 short_name, device="mps"):
+def test_rottger(model, tokenizer, model_name, lda_d, best_layer, device="mps"):
     print("\n" + "=" * 60)
     print("  TEST 5: Binary-Choice vs Free-Text (Röttger Test)")
     print("=" * 60)
@@ -468,17 +397,6 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
     with open(CONTRAST_PAIRS) as f:
         cp = json.load(f)
     pairs = cp["traits"]["H"]["pairs"][:15]
-
-    ollama_model = OLLAMA_MODELS.get(short_name)
-    if not ollama_model:
-        print(f"  No Ollama model mapping for {short_name}. Skipping.")
-        return
-
-    try:
-        urlopen(f"{OLLAMA_URL}/api/tags", timeout=5)
-    except URLError:
-        print("  Ollama not reachable. Skipping.")
-        return
 
     PREFIX = "Consider what a person most like you would do in the following situation: "
 
@@ -491,43 +409,18 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
         act, n_toks = get_activation(model, tokenizer, scenario_prompt, best_layer, device)
         repe_proj = np.dot(act, lda_d)
 
-        # Binary-choice via Ollama: which option does the model pick?
+        # Binary-choice via HF (chat template, matches the old /api/chat call)
         bc_prompt = (f"{p['situation']}\n\n"
                      f"Which would you do?\n"
                      f"A) {p['high']}\nB) {p['low']}\n\n"
                      f"Respond with just the letter.")
+        bc_diff, _, _ = bc_logodds(model, tokenizer, bc_prompt, device)
+        bc_choice = "HIGH" if bc_diff > 0 else "LOW"
 
-        payload = json.dumps({
-            "model": ollama_model,
-            "messages": [{"role": "user", "content": bc_prompt}],
-            "stream": False,
-            "options": {"num_predict": 5, "temperature": 0},
-            "logprobs": True,
-            "top_logprobs": 10,
-        }).encode()
-        req = Request(f"{OLLAMA_URL}/api/chat", data=payload,
-                      headers={"Content-Type": "application/json"})
-        with urlopen(req, timeout=120) as resp:
-            bc_data = json.loads(resp.read())
-
-        bc_logprobs = bc_data.get("logprobs", [])
-        a_lp = b_lp = None
-        for entry in bc_logprobs:
-            for alt in entry.get("top_logprobs", []):
-                tok = alt["token"].strip().upper()
-                if tok == "A" and a_lp is None:
-                    a_lp = alt["logprob"]
-                elif tok == "B" and b_lp is None:
-                    b_lp = alt["logprob"]
-            if a_lp is not None and b_lp is not None:
-                break
-
-        bc_diff = (a_lp - b_lp) if (a_lp is not None and b_lp is not None) else None
-        bc_choice = "HIGH" if (bc_diff and bc_diff > 0) else ("LOW" if bc_diff else "?")
-
-        # Free-text via Ollama
+        # Free-text via HF (chat template)
         free_prompt = f"{p['situation']}\n\nWhat would you do?"
-        free_response = ollama_generate(ollama_model, free_prompt)
+        free_response = free_text(model, tokenizer, free_prompt, device,
+                                  max_new_tokens=60)
 
         # Classify free text: project the free response through HF model
         full_free = PREFIX + p["situation"] + ". " + free_response
@@ -544,7 +437,7 @@ def test_rottger(model, tokenizer, model_name, lda_d, best_layer,
             "bc_choice": bc_choice,
             "free_proj": free_proj,
             "free_choice": free_choice,
-            "agree": bc_choice == free_choice if bc_choice != "?" else None,
+            "agree": bc_choice == free_choice,
             "free_text": free_response[:60],
         })
 
@@ -577,7 +470,8 @@ def main():
     parser.add_argument("--model", type=str, default=None,
                         help="HuggingFace model name (e.g. google/gemma-3-4b-it)")
     parser.add_argument("--short-name", type=str, default=None,
-                        help="Short name for Ollama mapping (gemma3/qwen2.5/phi4/llama3.2)")
+                        help="Short label for display/results naming "
+                             "(gemma3/qwen2.5/phi4/llama3.2)")
     parser.add_argument("--test", type=str, default="all",
                         help="Which test: layer/framing/transfer/likert/rottger/all")
     parser.add_argument("--device", type=str, default="mps")
@@ -632,11 +526,10 @@ def main():
 
         if "likert" in tests:
             test_repe_vs_likert(model, tokenizer, model_name, lda_d, best_layer,
-                                short_name, args.device)
+                                args.device)
 
         if "rottger" in tests:
-            test_rottger(model, tokenizer, model_name, lda_d, best_layer,
-                         short_name, args.device)
+            test_rottger(model, tokenizer, model_name, lda_d, best_layer, args.device)
 
         # Free model memory before next
         del model, tokenizer

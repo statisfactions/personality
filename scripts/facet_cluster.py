@@ -25,10 +25,15 @@ import extract_meandiff_vectors as mdx
 
 
 MODELS = {
-    "Llama": "meta-llama/Llama-3.2-3B-Instruct",
-    "Gemma": "google/gemma-3-4b-it",
-    "Phi4":  "microsoft/Phi-4-mini-instruct",
-    "Qwen":  "Qwen/Qwen2.5-3B-Instruct",
+    # Small cohort (weeks 1–6).
+    "Llama":   "meta-llama/Llama-3.2-3B-Instruct",
+    "Gemma":   "google/gemma-3-4b-it",
+    "Phi4":    "microsoft/Phi-4-mini-instruct",
+    "Qwen":    "Qwen/Qwen2.5-3B-Instruct",
+    # Phase-1 larger cohort.
+    "Llama8":  "meta-llama/Llama-3.1-8B-Instruct",
+    "Gemma12": "google/gemma-3-12b-it",
+    "Qwen7":   "Qwen/Qwen2.5-7B-Instruct",
 }
 TRAITS = ["H", "E", "X", "A", "C", "O"]
 FORMAT = "chat"

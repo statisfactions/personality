@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Run HEXACO-100 personality inventory via HuggingFace with logprob collection.
+"""Run IPIP-300 personality inventory via HuggingFace with logprob collection.
+
+Collects the full probability distribution over Likert scale responses,
+not just the argmax. Scores Big Five scales from the admin session definition.
 
 Usage:
-    .venv/bin/python scripts/run_hexaco.py --model Gemma
-    .venv/bin/python scripts/run_hexaco.py --model google/gemma-3-4b-it
-    .venv/bin/python scripts/run_hexaco.py --model Gemma --items 10
-    .venv/bin/python scripts/run_hexaco.py --model Gemma --variants
+    .venv/bin/python scripts/run_ipip300.py --model Gemma
+    .venv/bin/python scripts/run_ipip300.py --model google/gemma-3-4b-it
+    .venv/bin/python scripts/run_ipip300.py --model Gemma --items 10  # quick test
+    .venv/bin/python scripts/run_ipip300.py --model Gemma --variants  # 4 prompt phrasings
 """
 
 import argparse
@@ -14,21 +17,46 @@ import math
 import time
 from pathlib import Path
 
-# Local imports; scripts/ is expected on PYTHONPATH.
+# Local import; scripts/ is expected on PYTHONPATH.
 from hf_logprobs import MODELS, resolve, load_model, likert_distribution
-from run_ipip300 import (
-    LIKERT_TOKENS, MAX_ENTROPY, PROMPT_VARIANTS, compute_icc,
-)
 
 
-HEXACO_FILE = "instruments/hexaco100.json"
+ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+LIKERT_TOKENS = ("1", "2", "3", "4", "5")
+MAX_ENTROPY = math.log(len(LIKERT_TOKENS))  # ln(5) ≈ 1.609
 
 
-def load_hexaco(path):
-    with open(path) as f:
-        data = json.load(f)
-    items = {k: v["text"] for k, v in data["items"].items()}
-    return items, data["scales"]
+PROMPT_VARIANTS = [
+    # V0: Original
+    ('Rate how accurately each statement describes you.\n'
+     '1 = very inaccurate, 2 = moderately inaccurate, 3 = neither, '
+     '4 = moderately accurate, 5 = very accurate\n'
+     'Respond with only a number.\n\n'
+     'Statement: "{item_text}"\nRating: '),
+    # V1: Agreement framing
+    ('Indicate how much you agree with the following statement.\n'
+     '1 = strongly disagree, 2 = disagree, 3 = neutral, '
+     '4 = agree, 5 = strongly agree\n'
+     'Respond with only a number.\n\n'
+     'Statement: "{item_text}"\nRating: '),
+    # V2: Describes-me framing
+    ('How well does this statement describe you?\n'
+     '1 = not at all, 2 = a little, 3 = somewhat, '
+     '4 = quite well, 5 = very well\n'
+     'Respond with only a number.\n\n'
+     '"{item_text}"\nScore: '),
+    # V3: Terse framing
+    ('Self-assessment (1=strongly disagree, 5=strongly agree). '
+     'Number only.\n\n'
+     '"{item_text}"\n'),
+]
+
+
+def load_ipip300(session_path):
+    with open(session_path) as f:
+        session = json.load(f)
+    ipip = session["measures"]["IPIP300"]
+    return ipip["items"], ipip["scales"]
 
 
 def score_scales(item_results, scales):
@@ -57,7 +85,7 @@ def score_scales(item_results, scales):
             if h is not None:
                 entropy_values.append(h)
         scale_scores[scale_id] = {
-            "name": scale_def["name"],
+            "name": scale_def["user_readable_name"],
             "n_items": len(item_ids),
             "n_scored": len(argmax_values),
             "argmax_mean": sum(argmax_values) / len(argmax_values) if argmax_values else None,
@@ -67,22 +95,43 @@ def score_scales(item_results, scales):
     return scale_scores
 
 
+def compute_icc(per_item_evs, k):
+    """ICC(2,1) over n items × k variants. per_item_evs is a list of length-k lists."""
+    rows = [r for r in per_item_evs if len(r) == k and all(x is not None for x in r)]
+    n = len(rows)
+    if n < 2:
+        return None, 0, 0, 0
+    grand = sum(sum(r) for r in rows) / (n * k)
+    item_means = [sum(r) / k for r in rows]
+    ms_between = k * sum((m - grand) ** 2 for m in item_means) / (n - 1)
+    ms_within = sum(
+        sum((x - item_means[i]) ** 2 for x in r)
+        for i, r in enumerate(rows)
+    ) / (n * (k - 1)) if n * (k - 1) > 0 else 0
+    denom = ms_between + (k - 1) * ms_within
+    icc = (ms_between - ms_within) / denom if denom > 0 else 0
+    return icc, n, ms_between, ms_within
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Run HEXACO-100 via HuggingFace logprobs")
+    parser = argparse.ArgumentParser(description="Run IPIP-300 via HuggingFace logprobs")
     parser.add_argument("--model", required=True,
                         help="Short name (Gemma/Llama/Phi4/Qwen/...) or HF repo ID")
-    parser.add_argument("--items", type=int, default=0)
-    parser.add_argument("--output", type=str, default=None)
-    parser.add_argument("--variants", action="store_true")
+    parser.add_argument("--items", type=int, default=0,
+                        help="Limit to first N items (0 = all 300)")
+    parser.add_argument("--output", type=str, default=None,
+                        help="Output JSON path (default: results/<model>_ipip300.json)")
+    parser.add_argument("--variants", action="store_true",
+                        help="Run all prompt variants and compute reliability")
     args = parser.parse_args()
 
-    items, scales = load_hexaco(HEXACO_FILE)
+    items, scales = load_ipip300(ADMIN_SESSION)
     item_list = list(items.items())
     if args.items > 0:
         item_list = item_list[:args.items]
 
     print(f"Model: {args.model}  (HF: {resolve(args.model)})")
-    print(f"HEXACO-100 items: {len(item_list)} / {len(items)}")
+    print(f"Items: {len(item_list)} / {len(items)}")
     print()
 
     model, tok, device = load_model(args.model)
@@ -91,7 +140,8 @@ def main():
 
     if args.variants:
         templates = [(f"v{i}", t) for i, t in enumerate(PROMPT_VARIANTS)]
-        print(f"Running {len(templates)} prompt variants per item")
+        print(f"Running {len(templates)} prompt variants per item "
+              f"({len(item_list) * len(templates)} total forward passes)")
         print()
     else:
         templates = [("v0", PROMPT_VARIANTS[0])]
@@ -162,13 +212,14 @@ def main():
                               if iid in scale_item_ids]
                 s_icc, s_n, s_msb, s_msw = compute_icc(scale_rows, k)
                 if s_icc is not None:
-                    print(f"    {scale_def['name']:35s}: ICC={s_icc:.3f} "
+                    print(f"    {scale_def['user_readable_name']:35s}: ICC={s_icc:.3f} "
                           f"(MS_b={s_msb:.3f}, MS_w={s_msw:.3f}, n={s_n})")
 
     scale_scores = score_scales(item_results, scales)
-    print("\n=== HEXACO Scale Scores ===")
-    print(f"{'Scale':<25s} {'Argmax':>8s} {'EV':>8s} {'Entropy':>8s}")
-    print("-" * 55)
+    print("\n=== Big Five Scale Scores ===")
+    print(f"{'Scale':<25s} {'Argmax':>8s} {'EV':>8s} {'Entropy':>8s}  "
+          f"(1-5, H: 0=certain {MAX_ENTROPY:.2f}=uniform)")
+    print("-" * 70)
     for scores in scale_scores.values():
         am = f"{scores['argmax_mean']:.2f}" if scores['argmax_mean'] else "N/A"
         ev = f"{scores['ev_mean']:.2f}" if scores['ev_mean'] else "N/A"
@@ -181,12 +232,11 @@ def main():
         safe_model = args.model.replace(":", "_").replace("/", "_")
         output_dir = Path("results")
         output_dir.mkdir(exist_ok=True)
-        output_path = output_dir / f"{safe_model}_hexaco100.json"
+        output_path = output_dir / f"{safe_model}_ipip300.json"
 
     output = {
         "model": args.model,
         "hf_repo": resolve(args.model),
-        "instrument": "HEXACO-100",
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "n_items": len(item_list),
         "n_variants": len(templates),

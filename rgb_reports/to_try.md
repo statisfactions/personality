@@ -16,9 +16,7 @@ Load model A's LDA trait directions, project model B's activations onto them. Do
 
 **Why:** If trait directions transfer, there may be a shared geometry of personality across architectures. If they don't, each model's "personality space" is idiosyncratic. Either result is interesting.
 
-**Status:** Implemented in `validate_protocol.py --test transfer` but not yet run to completion (memory constraints — need to load 2 models simultaneously).
-
-**Workaround ideas:** Extract and save directions, then load one model at a time and project onto saved directions. Or use smaller batch sizes.
+**Status:** Implemented in `validate_protocol.py --test transfer` but not yet run. The original workaround notes here assumed a 16 GB memory ceiling that no longer applies on the M5 Max machine — 2 small (3-4B) models fit simultaneously in bf16 with room to spare, so the direct path (load both, project on the fly) is viable. The save-directions-and-reload approach is still useful for cross-architecture comparisons involving 12B+ pairs if those come into scope.
 
 ## 3. Read/write dissociation investigation
 
@@ -44,15 +42,20 @@ If LDA directions are read-only, we can *construct* a steerable direction via ba
 
 **Practical:** Requires gradients through the model, so HuggingFace only (not Ollama). Memory may be tight — could use gradient checkpointing or optimize at a single layer.
 
-## 5. SAE-based trait decomposition (shelved — revisit after Gemma pilot)
+## 5. SAE-based trait decomposition (next after larger-model baseline)
 
-Use models with pre-built sparse autoencoders to see if personality-relevant features show up as interpretable SAE directions, rather than the LDA directions we've been extracting manually.
+Use models with pre-built sparse autoencoders to see if personality-relevant features show up as interpretable SAE directions, rather than the LR/MD directions we've been extracting manually.
 
-**Why:** SAEs decompose activations into monosemantic features. If personality traits correspond to identifiable SAE features, that's a cleaner story than "there's an LDA direction in the residual stream." Also, people will ask about this — SAEs are the current interpretability fashion.
+**Why:** SAEs decompose activations into monosemantic features. If personality traits correspond to identifiable SAE features, that's a cleaner story than "there's an LR direction in the residual stream." Also, people will ask about this — SAEs are the current interpretability fashion. And the week 6 finding that contrast-pair methods read the *expression axis* but not the *disposition center* motivates SAE decomposition of the center specifically: if there's a "high-H disposition" feature in the SAE dictionary, that's a clean interpretability result whether or not it's the same thing as the LR contrast direction.
 
-**SAE coverage (researched 2026-04-04):** GemmaScope 2 has gold-standard SAEs for Gemma 3 4B (all layers, all hooks, PT+IT, SAE Lens native). andyrdt has SAEs for Llama 3.1 8B Instruct and Qwen 2.5 7B Instruct. No SAEs exist for Phi4 or Llama 3.2 3B. GPT-OSS 20B (OpenAI's open MoE model, 3.6B active params) has andyrdt SAEs too.
+**SAE coverage (updated 2026-04-24):**
+- **GemmaScope 2** (DeepMind, https://deepmind.google/blog/gemma-scope-2-...): covers **all Gemma 3 sizes 270M–27B**, all layers, plus transcoders / skip-transcoders / cross-layer transcoders. Published on HuggingFace, Neuronpedia demo. Was previously thought to cover only 4B — confirmed to cover 4B, 12B, 27B, and smaller PT+IT variants.
+- **andyrdt**: Llama 3.1 8B Instruct; Qwen 2.5 7B Instruct; GPT-OSS 20B (OpenAI's open MoE model, 3.6B active params).
+- **No SAEs**: Phi-4 family, Llama 3.2 3B. These drop out of any SAE-based comparison cohort.
 
-**Blocker:** The models with SAE coverage (7-20B) don't fit in bf16 on 16 GB Apple Silicon, and SAE features trained on bf16 weights almost certainly won't transfer to quantized models. Gemma 3 4B is the only model that fits AND has SAEs. Worth doing a Gemma-only SAE pilot first to see if personality-relevant features even show up before solving the hardware problem for cross-architecture comparison.
+**Hardware:** 16 GB memory blocker is gone — M5 Max / 128 GB handles 7–8B (Llama/Qwen), 12B/27B (Gemma), and 20B (GPT-OSS) in bf16. No quantization needed, so SAE features trained on bf16 weights apply directly.
+
+**Phasing:** Per feedback_conservative (one variable at a time), first replicate week-6 contrast-pair and week-3 cross-method results on a larger-model cohort (Gemma 3 12B + Llama 3.1 8B + Qwen 2.5 7B) as a baseline. Then bring SAEs in. Starting with GemmaScope 2 on Gemma 3 12B is the highest-coverage / lowest-friction entry point.
 
 **Related:** Jiralerspong & Bricken (2026), "Cross-Architecture Model Diffing with Crosscoders" (arXiv 2602.11729). They use crosscoders (SAE variant that learns shared + model-specific features across architectures) to do unsupervised discovery of behavioral differences between models — found CCP-alignment features in Qwen, American-exceptionalism in Llama, copyright-refusal in GPT-OSS. More focused on specific ideological/policy behaviors than broad personality traits, but the cross-model diffing approach is exactly what our cross-model transfer test (item 2) is trying to do with LDA directions. Crosscoders might find shared personality features that LDA misses.
 
@@ -70,12 +73,13 @@ The encouraging sign: Likert↔RepE convergence on E (r=0.99) and A (r=0.70) is 
 
 ## 7. Bigger / better models
 
-Current models are all small (3-8B). The findings might not generalize upward. The assistant-shape collapse might be weaker or stronger in larger models. The read/write gap might close with scale.
+Findings so far are at 3–4B. The assistant-shape collapse, the contrast-vs-disposition split, and the read/write gap might shift with scale.
 
-**Practical constraint:** Apple Silicon Mac with limited memory. Could try:
-- Quantized versions of larger models via Ollama (e.g., Llama 3.1 8B, Gemma 2 9B)
-- API-based models for logprob surveys (OpenAI, Anthropic) — no hidden-state access but Likert/BC still work
-- Cloud GPU for one-shot RepE extraction on larger models
+**Status as of 2026-04-24:** Machine is now M5 Max / 128 GB — the "limited memory" constraint that shelved this is gone. Local bf16 is viable up through Gemma 3 27B and GPT-OSS 20B. The agreed Phase-1 cohort is the matched-scale upgrade: **Gemma 3 12B + Llama 3.1 8B + Qwen 2.5 7B**, all of which have SAE coverage (see §5). Gemma 3 27B is a no-cost scale anchor on top of that if wanted. Keep the original 3–4B cohort around for small-vs-large comparisons; Phi-4-mini stays as a no-SAE control through Phase 1.
+
+**Still-useful alternatives** (for models beyond local reach, or for comparison across proprietary APIs):
+- API-based models for logprob surveys (OpenAI, Anthropic) — no hidden-state access but Likert/BC still work.
+- Cloud GPU for one-shot RepE extraction on models above the local ceiling (e.g., Llama 3.1 70B).
 
 ## 8. Base model comparison
 
@@ -147,3 +151,53 @@ Low risk, mechanical. Not urgent — nothing's broken — but would pay down som
 Mentioned in the week 1 report but never pursued. Dictator, Trust, and Ultimatum games have documented Big Five correlations in human samples (Agreeableness r = .25-.37). Completely different measurement modality — bypasses self-report framing.
 
 **Advantage:** No Likert scale, no personality vocabulary, no "I am an AI" refusal trigger. Pure behavioral preference over resource allocation.
+
+## 15. Bare-text vs chat-template Likert (corrected framing)
+
+**Original framing (now reversed).** During the Ollama → HF port on 2026-04-24 I assumed the old `/api/generate` path was bare-text, set the new HF helper to bare-text, and bookmarked "what if we ran with chat template" here. Wrong direction. Re-reading `ollama_generate(..., raw=False)`: the default `raw=False` causes Ollama to apply the model's chat template server-side. So weeks 1–6 Likert numbers were chat-template numbers all along — except for Qwen3, which used `raw=True` with explicit `<|im_start|>...<|no_think|>...<|im_end|>` wrapping (still chat-template, just hand-written).
+
+The first run on Qwen 2.5 7B (bare-text via the HF helper, before the fix) accidentally became the bare-text-Likert ablation:
+- Median variant EV spread across 300 items: 1.88 (vs 1.00 in old qwen3_8b chat-template data).
+- Variant v3 (terse, ends in "\n") collapsed to EV ≈ 1.2 across nearly every item — model saturating on "1".
+- ICC(2,1) = -0.054 overall (vs +0.54 in old qwen3_8b). Negative ICC = format moves answers more than items do.
+
+So bare-text Likert is genuinely degenerate, at least on the v3 prompt and at least on Qwen 2.5 7B. The chat template was doing real work in the prior pipeline.
+
+**Bookmark, redirected.** The interesting direction is no longer "what if we *added* chat template" (it was always there); it's "did the chat template *interaction with v3* hide a format-fragility we should attend to" — i.e., is the v3 collapse a property of the bare prompt or a property of weak alignment that the chat template was masking? Useful experiment for understanding what the chat template actually contributes to robustness (vs what it adds in trait expression, which §11 already tackles for BC).
+
+**Status (post-fix).** `hf_logprobs.likert_distribution(use_chat_template=True)` is now the default — restoring weeks 1–6 parity. The v3 result is preserved on disk in the first Qwen 2.5 7B run; numbers go forward with chat template on. Bare-text remains accessible via `use_chat_template=False` if we want to instrument the §11 + this question with one knob.
+
+## 16. Cross-domain stimulus test of the high-bandwidth-preservation finding
+
+W7 §8.4–§8.5 found that subtle similarity structure in personality-relevant texts (contrast pairs, HEXACO Likert items, Goldberg adjective markers) is preserved through transformer forward passes with cross-architecture cosine-matrix fidelity r=0.93–0.99 within stimulus type. Open question: is this a property of *transformer architectures* (true regardless of domain), or specifically of *personality-related concepts* (which post-training shapes carefully)?
+
+**Test:** Replicate the §8.5 single-stimulus protocol (one short phrase per concept, mean(high-pole) − mean(low-pole) at ~2/3-depth, neutral-PC-projected, chat-template-wrapped) on three contrast-domain item sets that don't touch personality. Compute cross-model cosine-matrix correlation; compare to the 0.93–0.99 range from personality stimuli.
+
+**Suggested domains** (rgb 2026-04-24):
+
+- **Emotions** — directly comparable to Sofroniew et al. (2026); 30+ emotion concepts with valence/arousal-paired antonyms (joyful/morose, energetic/sluggish, etc.). The Anthropic emotion-vector list is one source.
+- **Shorebirds** — taxonomic biological knowledge with internal phylogenetic structure. ~30 species/genera with paired close-relative vs distant-relative comparisons. Tests whether biological taxonomy recovers cleanly.
+- **Forms of transportation** — functional/practical categories with orthogonal sub-categorization (land/water/air, motorized/manual, public/private). Tests whether functional categories pack more orthogonally than psychological ones.
+
+**Predictions:**
+- **Emotions** likely densely entangled (similar to personality). Direct comparison to Sofroniew's emotion-vector geometry possible.
+- **Shorebirds** mid: within-clade entangled, across-clade more orthogonal. Phylogenetic structure should show.
+- **Transportation** more orthogonal: functional categories with distinct feature profiles. If we still see cross-architecture r=0.95+, that's evidence for "transformers preserve subtle structure regardless of domain." If transportation cross-architecture r drops to 0.7, that's evidence personality stimuli are special.
+
+**Theoretical interpretation (rgb 2026-04-24):** Dense cosine entanglement on personality concepts (E↔O = +0.69, A↔O = +0.64 on Goldberg markers) is in tension with strict superposition predictions of quasi-orthogonal features at the representation-extraction layer. It's consistent with the model treating these concepts as *associatively related* — useful for correlation-based inferences (the assistant being conscientious tends to also be agreeable; both are "good qualities"), bad for precise symbolic reasoning (cannot deconfound E from O without an explicit disentangling operation). Cross-domain comparison directly tests whether this associative-density is concept-class specific (personality is a "valence cluster," other domains aren't) or a general property of how transformers represent semantically-rich concept categories.
+
+**Connection to Phase 2 SAE work:** SAEs find sparse feature directions that are themselves quasi-orthogonal by construction. Our finding doesn't refute that SAE features exist at lower layers — it refutes that *trait-direction-style* representations at ~2/3-depth are quasi-orthogonal in the way superposition predicts. SAE-decomposed features may show much cleaner separation; the trait directions we extract are linear projections that aggregate across many SAE features, which lossy-compresses orthogonality.
+
+**Status:** Not started. Single-domain run takes ~3 min on cached cohort once stimulus list is built. Stimulus-list assembly is the main cost (~1 hour per domain to write paired items).
+
+## 17. Cleanup: unify small-cohort Qwen + switch RepE to chat-template + refresh cross-method matrix
+
+Three interlocking cleanup items flagged 2026-04-24, mostly waiting on the small-cohort precache to land. None is a research direction; they're confound-cleanup before the W7 numbers solidify.
+
+**(a) Unify the small-cohort Qwen.** Across the W7 cross-method matrix the "qwen" small-cohort entry currently mixes models: Likert is from qwen3-8B (W1 Ollama runs), RepE is from Qwen 2.5 3B (legacy `results/repe/Qwen_Qwen2.5-3B-Instruct_*_directions.pt`), BC is from qwen3-8B (W1 Ollama). Cross-family confound carried since W3. Once Qwen 2.5 3B is precached: re-run `run_hexaco.py` and `run_ipip300.py` on Qwen 2.5 3B (HF, chat-template, --variants), and `score_bc.py` for it. Update `cross_method_matrix.py` MODELS["qwen"]["likert"] and bc_key. The resulting "qwen" entry is then consistent within Qwen 2.5 3B across all three measures.
+
+**(b) Switch RepE to chat-template throughout the cross-method matrix.** Currently legacy `results/repe/<tag>_<trait>_directions.pt` files are bare-text per W3 protocol (this was deliberate to match the small-cohort original). With Likert and BC both running through chat-template now (W7 §1.3 fix), the matrix mixes formats: chat-Likert + chat-BC + bare-RepE. The W7 §6.2 BC↔RepE sign flip in the larger cohort might be a partial format artifact. Larger-cohort fix is one script call away — `phase_b_cache/<tag>_<trait>_chat_pairs.pt` is already there, just re-run `repe_legacy_from_cache.py --format chat` to overwrite (or use a different output path to compare). Small cohort needs the cache regenerated with chat format once models are precached: re-run `phase_b_sweep.py --models Llama Gemma Phi4 Qwen --formats chat` (it'll lazily regenerate neutral + pair caches and emit method-comparison numbers in chat format alongside).
+
+**(c) Refresh the cross-method matrix with (a) and (b) applied.** Re-run `cross_method_matrix.py --probe lr` after both fixes. Compare to the W7 §6.2 numbers. The interesting question: does the BC↔RepE sign flip on Llama 8B / Qwen 7B (−0.73, −0.80) shrink to small-cohort levels (≈ +0.3) when RepE is also chat-template? That would say "format mismatch was driving the flip." Or does the flip persist? — that would say "scale really has changed the read-write relationship." Either resolution is a finding worth reporting in W8.
+
+**Status:** waiting on `bash b0eblvqzb` (small-cohort precache, ~hours). Larger-cohort chat-template RepE check (subset of (b) + partial (c)) could be done immediately, but more useful to bundle with (a) and (b)-small for a single clean comparison.

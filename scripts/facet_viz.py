@@ -26,10 +26,15 @@ import extract_meandiff_vectors as mdx
 
 
 MODELS = {
-    "Llama": "meta-llama/Llama-3.2-3B-Instruct",
-    "Gemma": "google/gemma-3-4b-it",
-    "Phi4":  "microsoft/Phi-4-mini-instruct",
-    "Qwen":  "Qwen/Qwen2.5-3B-Instruct",
+    # Small cohort (weeks 1–6).
+    "Llama":   "meta-llama/Llama-3.2-3B-Instruct",
+    "Gemma":   "google/gemma-3-4b-it",
+    "Phi4":    "microsoft/Phi-4-mini-instruct",
+    "Qwen":    "Qwen/Qwen2.5-3B-Instruct",
+    # Phase-1 larger cohort.
+    "Llama8":  "meta-llama/Llama-3.1-8B-Instruct",
+    "Gemma12": "google/gemma-3-12b-it",
+    "Qwen7":   "Qwen/Qwen2.5-7B-Instruct",
 }
 TRAITS = ["H", "E", "X", "A", "C", "O"]
 TRAIT_COLORS = {
@@ -124,12 +129,16 @@ def main():
         with open(HOLDOUT_FILE) as f:
             pair_source = json.load(f)
 
-    fig = make_subplots(rows=2, cols=2, subplot_titles=list(MODELS.keys()),
+    import math
+    n_models = len(MODELS)
+    n_cols = 2
+    n_rows = math.ceil(n_models / n_cols)
+    fig = make_subplots(rows=n_rows, cols=n_cols, subplot_titles=list(MODELS.keys()),
                         horizontal_spacing=0.08, vertical_spacing=0.12)
 
     pca_summary = []
     for i, (short, repo) in enumerate(MODELS.items()):
-        row, col = i // 2 + 1, i % 2 + 1
+        row, col = i // n_cols + 1, i % n_cols + 1
         tag = safe(repo)
         facets, parents, D, L = extract_facet_dirs(tag, pair_source, method=method, use_stratified=use_stratified)
 
@@ -174,7 +183,7 @@ def main():
             text="HEXACO facet directions (MDS on cosine distance, 2/3-depth layer, chat format)",
             x=0.5,
         ),
-        height=900, width=1200,
+        height=450 * n_rows, width=1200,
         hovermode="closest",
         legend=dict(title="HEXACO trait", orientation="h", y=-0.05, x=0.5, xanchor="center"),
     )
@@ -188,16 +197,30 @@ def main():
     print(f"Wrote {out}")
 
     # Cosine heatmap per model + averaged view, ordered by trait then facet
+    hm_rows = math.ceil((n_models + 1) / n_cols)  # +1 for mean panel
+    last_idx = n_models  # zero-based index where the mean panel goes
+    last_row, last_col = last_idx // n_cols + 1, last_idx % n_cols + 1
+    # Build specs grid; mark trailing cells (after the mean panel) as None
+    total_cells = hm_rows * n_cols
+    specs = []
+    for r in range(hm_rows):
+        row_specs = []
+        for c in range(n_cols):
+            cell = r * n_cols + c
+            row_specs.append(None if cell > n_models else {})
+        specs.append(row_specs)
+
     hm = make_subplots(
-        rows=3, cols=2,
+        rows=hm_rows, cols=n_cols,
         subplot_titles=list(MODELS.keys()) + ["Mean across models"],
-        specs=[[{}, {}], [{}, {}], [{}, None]],
+        specs=specs,
         horizontal_spacing=0.12, vertical_spacing=0.10,
     )
     cos_sum = None
     canonical_labels = None
+    cos_per_model = {}
     for i, (short, repo) in enumerate(MODELS.items()):
-        row, col = i // 2 + 1, i % 2 + 1
+        row, col = i // n_cols + 1, i % n_cols + 1
         tag = safe(repo)
         facets, parents, D, _ = extract_facet_dirs(tag, pair_source, method=method, use_stratified=use_stratified)
         order = sorted(range(len(facets)), key=lambda j: (TRAITS.index(parents[j]), facets[j]))
@@ -206,6 +229,7 @@ def main():
             canonical_labels = labels
         cos = (D[order] @ D[order].T)
         cos_sum = cos if cos_sum is None else cos_sum + cos
+        cos_per_model[short] = cos
         # Mask diagonal (trivially 1) so colorscale isn't dominated by self-similarity
         cos_display = cos.copy()
         np.fill_diagonal(cos_display, np.nan)
@@ -221,7 +245,7 @@ def main():
         hm.update_xaxes(tickangle=-60, tickfont=dict(size=8), row=row, col=col)
         hm.update_yaxes(tickfont=dict(size=8), autorange="reversed", row=row, col=col)
 
-    # Mean across models (bottom, full width)
+    # Mean across models, plotted in the trailing slot
     cos_mean = cos_sum / len(MODELS)
     cos_mean_display = cos_mean.copy()
     np.fill_diagonal(cos_mean_display, np.nan)
@@ -231,21 +255,38 @@ def main():
             colorscale="RdBu_r", zmin=-0.4, zmax=0.4, showscale=False,
             hovertemplate="<b>%{x}</b><br><b>%{y}</b><br>mean cos=%{z:+.3f}<extra></extra>",
         ),
-        row=3, col=1,
+        row=last_row, col=last_col,
     )
-    hm.update_xaxes(tickangle=-60, tickfont=dict(size=9), row=3, col=1)
-    hm.update_yaxes(tickfont=dict(size=9), autorange="reversed", row=3, col=1)
+    hm.update_xaxes(tickangle=-60, tickfont=dict(size=9), row=last_row, col=last_col)
+    hm.update_yaxes(tickfont=dict(size=9), autorange="reversed", row=last_row, col=last_col)
 
     hm.update_layout(
         title=dict(
             text=f"HEXACO facet cosine similarity — method={method} (rows/cols ordered H→O)",
             x=0.5,
         ),
-        height=1800, width=1400,
+        height=600 * hm_rows, width=1400,
     )
     hm_out = Path(f"results/facet_cosine_heatmap{suffix_}.html")
     hm.write_html(str(hm_out))
     print(f"Wrote {hm_out}")
+
+    # Cross-model cosine-matrix similarity: how alike are the 24x24 matrices?
+    # Vectorize the upper triangle (excluding diagonal) and compute pairwise Pearson r.
+    print("\n=== Pairwise correlation between cosine matrices (upper-tri off-diagonal) ===")
+    iu = np.triu_indices(len(canonical_labels), k=1)
+    vecs = {short: cos_per_model[short][iu] for short in MODELS}
+    names = list(MODELS.keys())
+    print(f"{'':>10s} " + " ".join(f"{n:>8s}" for n in names))
+    for a in names:
+        row_vals = []
+        for b in names:
+            if a == b:
+                row_vals.append("    1.000")
+            else:
+                r = float(np.corrcoef(vecs[a], vecs[b])[0, 1])
+                row_vals.append(f"{r:+8.3f}")
+        print(f"{a:>10s} " + " ".join(row_vals))
 
     print(f"\nPCA cumulative variance:")
     print(f"{'model':>6s}  {'layer':>5s}  {'PC1':>5s}  {'PC2':>5s}  {'PC3':>5s}")
