@@ -8,7 +8,9 @@ Papers roughly ordered by how directly they shaped what we've done.
 
 ## Distributional measurement
 
-**vgel (2024), "Small Models Can Introspect Too."** LessWrong post. Demonstrated that logit distributions carry real signal about internal model state that argmax erases — injected activation patterns are detectable via logit shifts even when the selected token doesn't change. Inspired our core method: treat the full softmax over {1,2,3,4,5} as the measurement, not the argmax. The "argmax is the mask, the distribution is the signal" framing comes from here.
+**vgel (2025), "Small Models Can Introspect Too."** LessWrong post (Dec 2025), https://www.lesswrong.com/posts/zD4McY4NwAsWkcmCH/small-models-can-introspect-too. Demonstrated that logit distributions carry real signal about internal model state that argmax erases — injected activation patterns are detectable via logit shifts even when the selected token doesn't change. Inspired our core method: treat the full softmax over {1,2,3,4,5} as the measurement, not the argmax. The "argmax is the mask, the distribution is the signal" framing comes from here.
+
+**Macar, Yang, Wang, Wallich, Ameisen & Lindsey (2026), "Mechanisms of Introspective Awareness."** arXiv:2603.21396. Headline finding: introspection arises at DPO — absent from base and SFT models, emerging only with preference-tuning. Methodological note: uses LDA for some of their probing, parallel to our W6 shift away from PCA (norm artifact) toward LDA / mean-difference. Implications for our track: if introspective capability is a DPO-stage emergent, our W1 distributional-logprob measurements probably show qualitatively different signal on base / SFT vs DPO checkpoints — testable by adding base-model checkpoints to the cohort (`to_try.md` §8). Also relevant to the §11.5.4 #4 persona-instrument matrix once base-model checkpoints are in scope.
 
 ## HEXACO over Big Five
 
