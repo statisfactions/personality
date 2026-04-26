@@ -508,7 +508,7 @@ Phase 1 was measurement-methodology-heavy: HF port, format mismatch resolution, 
 1. ~~**X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).~~ **Done (2026-04-26) — see §11.5.6.**
 2. ~~**IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.~~ **Done (2026-04-26) — see §11.5.7.**
 3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general. **Partial (2026-04-26): emotions done — see §11.5.8. Shorebirds and transportation deferred (bipolar fit awkward; emotions alone is sufficient to answer the central hypothesis).**
-4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track.
+4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track. **Partial (2026-04-26): rgb's twist on #4 — *representation back-mapping* — done on Qwen7 with the marker-content confound flagged. See §11.5.9. Full persona × instrument response track still queued.**
 5. **Sofroniew-style story-based extraction** for the disposition-center direction. More design work (concept selection, story authoring); high methodological novelty.
 6. **SAE work on Gemma 12B** (Phase 2 §8.3). Largest scope; depends on GemmaScope 2 / Neuronpedia tooling.
 
@@ -648,6 +648,53 @@ A positive-valence cluster (Joy / Love / Hope / Trust / Pride) cohabits in cosin
 **Status:** #3 partial (emotions done, cleanly answers central hypothesis). Shorebirds/transportation domains in `to_try.md` §16 are now lower priority — emotion result already establishes the cross-architecture preservation is not personality-specific. They could still be useful as a third anchor (especially transportation, which is functional rather than valence-laden), but not load-bearing.
 
 Data: `results/emotion_markers_as_stimuli.json` (8×8 matrices) and `results/emotion_markers_as_stimuli_heatmap.html`.
+
+### 11.5.9 Persona representation back-mapping — result (2026-04-26, partial #4)
+
+rgb proposed a sharper version of #4: rather than measure persona-induced *responses* on instruments (the Serapio-Garcia framing), measure whether the model's *internal representation* under a persona linearly reconstructs the sampled trait profile. If yes, we have a direct activation-space test of persona uptake without any instrument intermediary.
+
+Ran on Qwen 2.5 7B with `scripts/persona_repr_mapping.py`. 50 personas sampled (seed 42) from statisfactions's 400-persona MVN-sampled set (`instruments/synthetic_personas.json`). Big Five direction extraction matches `markers_as_stimuli.py`: per-trait mean(high-pole adjectives) − mean(low-pole adjectives) over Goldberg's 52 markers, neutral-PC-projected, unit-normed, at ~2/3-depth layer. For each persona, the description is wrapped as a chat-template user turn, last-token activation extracted at the same layer, neutral-baseline subtracted, projected onto each of 5 trait directions.
+
+**Per-trait diagonal (sampled z ↔ projection):**
+
+| Trait | r       |
+|-------|---------|
+| A     | +0.694  |
+| C     | +0.791  |
+| E     | +0.682  |
+| N     | +0.768  |
+| O     | +0.742  |
+| **Mean** | **+0.735** |
+
+**Full 5×5 cross-correlation matrix (sampled z rows → projection cols):**
+
+|     | A      | C      | E      | N      | O      |
+|-----|--------|--------|--------|--------|--------|
+| A   | **+0.694** | +0.660 | +0.489 | −0.631 | +0.541 |
+| C   | +0.674 | **+0.791** | +0.597 | −0.644 | +0.580 |
+| E   | +0.479 | +0.474 | **+0.682** | −0.345 | +0.607 |
+| N   | −0.548 | −0.500 | −0.432 | **+0.768** | −0.414 |
+| O   | +0.620 | +0.559 | +0.738 | −0.463 | **+0.742** |
+
+Mean diagonal +0.735, mean off-diagonal +0.152, diagonal–off-diagonal gap +0.583. Reconstruction works.
+
+**How much of the off-diagonal is the input MVN correlation?** Synthetic personas were sampled with realistic Big Five intercorrelations (van der Linden correlation matrix). So sampled-A and sampled-C are themselves correlated +0.43 in the population, +0.37 in this N=50 subsample. Decomposition:
+
+- Mean |off-diagonal| measured: **0.55**
+- Mean |off-diagonal| from input z-z correlation alone: **0.33**
+- Mean |residual| (excess cross-trait projection coupling): **0.22**
+
+So roughly **60% of the off-diagonal is the input correlation structure** propagating linearly; **40% is excess cross-trait coupling**, indicating the marker directions aren't fully orthogonal at this layer. The largest residual cells (sampled-A → projected-E, +0.35; sampled-O → projected-A, +0.37) align with the W7 §8.5 markers heatmap and §11.5.7 IPIP-facet findings: dense entanglement, especially in the "positive-valence cluster" (A/C/E/O all activate together; N opposes).
+
+**N is the valence antagonist.** Same pattern across §11.5.7 (Big Five facets) and §11.5.8 (emotion axes). Sampled-N persona predicts negative projection on every other trait, +0.43 to +0.65 in magnitude. The general factor of personality / negative-valence pole is recoverable from these activation projections too.
+
+**The marker-content confound.** Each persona description is generated from the Goldberg markers themselves — a high-E persona's description literally contains "extraverted, talkative, bold, ..." Those are the same adjectives that defined our E direction. So this test is partly tautological: it verifies that the model's representation of a Goldberg-marker-rich prompt is linearly recoverable via Goldberg-marker-derived directions. Useful as a *baseline* (the geometry is dense enough for linear additive trait composition; reconstruction r ≈ 0.74 even with noise from single-pass activations and direction-extraction imperfection), but it doesn't strongly support "the model assumed the persona internally."
+
+**The harder test, queued:** wrap the persona description as a system prompt, add a neutral user question (e.g., "What's a typical Saturday like for you?"), and read the activation at the last token of the *response position* — i.e., the activation right before the model would generate its first response token. This measures "having absorbed the persona, what does the model represent before producing behavior" without marker-content leakage at the readout point. Reconstruction r values there are the real test of persona *internalization* vs *transcription*. Time-budget for this session didn't allow it; it's a clean follow-up that should run in 30–40 minutes on the same cohort.
+
+**Status:** §11.5.4 #4 partial. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is rgb's twist, complementary not redundant.
+
+Data: `results/persona_repr_mapping_Qwen7.json` (full 50-persona projections + cross-correlation matrix + per-persona z's).
 
 ---
 
