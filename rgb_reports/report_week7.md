@@ -505,7 +505,7 @@ Also queued and unstarted: **§9.1 IPIP-NEO-300 facet-level rescoring**. That's 
 
 Phase 1 was measurement-methodology-heavy: HF port, format mismatch resolution, stimulus-swap tests, qwen unification. The actual *what does the model represent / how does this change with scale* questions got addressed mostly through the side door. The most productive moves now, in roughly increasing scope/effort:
 
-1. **X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).
+1. ~~**X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).~~ **Done (2026-04-26) — see §11.5.6.**
 2. **IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.
 3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general.
 4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track.
@@ -522,6 +522,37 @@ After §11 cleanup, the W7 report's strongest defensible findings are no longer 
 - **Methodology lesson** (§11): bare-text-RepE vs chat-template-Likert/BC format mismatch can fake a "scale-driven flip" finding. Worth flagging because anyone replicating Week 3 / Week 6 numbers needs to use matched format throughout.
 
 The X represent-vs-enact gap (§11.5.1) is the cleanest *new* result of the cleanup and should be the third thing emphasized. The Qwen scale flip is best framed as an open puzzle worth pursuing, not as a settled finding.
+
+### 11.5.6 X per-facet decomposition — result (2026-04-26)
+
+Ran §11.5.4 #1 (`scripts/x_facet_decomposition.py`). For each of 7 models, derived the X RepE direction the same way `cross_method_matrix.py` does (LR at LDA-CV best layer over the 50 training pairs at chat-template), then projected the **24 X holdout pairs onto that same direction broken out by facet** (6 pairs per facet). Per-facet RepE z is in the matrix's frame (each facet's raw mean projection minus the model's 6-trait mean over std). Per-facet Likert is the mean reverse-key-corrected argmax over the 4 X items in that facet. Sanity check recovers the matrix's trait-level Likert-argmax↔RepE-z = **−0.788** and Likert-EV↔RepE-z = **−0.626** exactly.
+
+**Per-facet Pearson r across 7 models (Likert-argmax ↔ RepE-z):**
+
+| Facet                 | r       |
+|-----------------------|---------|
+| Social Boldness       | **−0.658** |
+| Liveliness            | −0.457  |
+| Sociability           | −0.403  |
+| Social Self-Esteem    | −0.183  |
+
+Trait-level: −0.788. Mean of 4 facet rs: −0.425. Range across facets: 0.475.
+
+**Reads:**
+
+1. **The represent-vs-enact gap is broad-based, not driven by one facet.** Three of four X facets are clearly negative (−0.40 to −0.66), so the §11.5.1 prediction of "approximately uniform across facets" is half-right. Boldness contributes most but Liveliness and Sociability are similar in size; this isn't a Boldness-only artifact.
+
+2. **Trait-level amplifies the per-facet mean (−0.79 vs −0.43).** Aggregating 4 facets onto the same X direction is partly noise reduction (24 pair-diffs vs 6, and 16 Likert items vs 4) and partly that the four facet-level disagreements pull in the same direction. Which is the §11.5.1 claim, just numerically explicit.
+
+3. **Social Self-Esteem is the across-model outlier (r = −0.18) but the most striking *within-model* case of the gap.** Likert-argmax for Self-Esteem is uniformly the highest of the 4 X facets across all 7 models (3.25–4.00 on a 1–5 scale; every model self-attributes high social self-esteem). RepE-z for Self-Esteem is at or near the *lowest* of the 4 X facets in 5 of 7 models (Phi4 −2.14, Llama8 −2.56, Gemma −0.90, Gemma12 −0.66, Qwen −0.77). So *within* each model, Self-Esteem is high-Likert/low-RepE — the represent-vs-enact gap in pure form. The across-model correlation is weak because Likert is bunched (range 0.75) while RepE-z varies widely (range ~3); not enough Likert variance for a cross-model signal to land. This is consistent with the gap, not against it.
+
+4. **Boldness as the cross-model anchor (r = −0.66).** Has both wide Likert variance (2.25–3.25, range 1.0) and wide RepE-z variance, so the within-model anti-pattern shows up as a strong across-model correlation. Models that *claim* high Boldness on Likert sit *low* on the X RepE axis at the Boldness facet. Which is what we'd predict if the assistant baseline is positioned away from the Boldness pole of the X concept axis.
+
+**Bottom line.** The X represent-vs-enact gap (§11.5.1) survives at facet resolution, with two qualifications: it is broad-based (3/4 facets clearly negative across models) but heterogeneous (Self-Esteem near-zero across-model, despite being the strongest within-model case of the gap). The most natural framing is that the gap is at the *concept* level (X-axis is a coherent concept the model represents but doesn't enact), and the per-facet decomposition is mostly a function of which facet has enough Likert variance to surface the across-model coupling. None of the four facets push the trait-level number, none of them break it.
+
+This adds confidence to §11.5.1 as a paper-shaped finding without changing its scope. Next-step lean (cheap items still on the queue): §11.5.4 #2 (IPIP-NEO-300 facet rescoring, free analysis on existing data), then #3 (cross-domain stimulus test from `to_try.md` §16).
+
+Data: `results/x_facet_decomposition.json` and the printed table in the script's stdout.
 
 ---
 
