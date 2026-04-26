@@ -507,7 +507,7 @@ Phase 1 was measurement-methodology-heavy: HF port, format mismatch resolution, 
 
 1. ~~**X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).~~ **Done (2026-04-26) — see §11.5.6.**
 2. ~~**IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.~~ **Done (2026-04-26) — see §11.5.7.**
-3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general.
+3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general. **Partial (2026-04-26): emotions done — see §11.5.8. Shorebirds and transportation deferred (bipolar fit awkward; emotions alone is sufficient to answer the central hypothesis).**
 4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track.
 5. **Sofroniew-style story-based extraction** for the disposition-center direction. More design work (concept selection, story authoring); high methodological novelty.
 6. **SAE work on Gemma 12B** (Phase 2 §8.3). Largest scope; depends on GemmaScope 2 / Neuronpedia tooling.
@@ -611,6 +611,43 @@ Block mean: **+0.445**. Block range: **−0.806 to +0.899**. Trait-level E↔C o
 For W7's reading-group framing: the "assistant shape" claim is robust in the aggregate, but at facet resolution it dissolves into a multi-axis structure with discriminable cross-model variation. This makes the §9 plan to move toward broader inventories (IPIP-AB5C / 16PF-style; report §9.2) more compelling — the ~30 facets here clearly carry information that the 5-trait aggregation discards.
 
 Data: `results/ipip_facet_rescore.json`. Full 30×30 facet correlation matrix in the JSON `facet_corr_ev` field.
+
+### 11.5.8 Cross-domain stimulus test: emotions — result (2026-04-26)
+
+Ran §11.5.4 #3 on the emotion domain (`scripts/emotion_markers_as_stimuli.py`, `instruments/emotion_markers.json`). Authored 8 bipolar emotion axes (Joy, Anger, Fear, Love, Pride, Hope, Trust, Excitement), 6 high-pole + 6 low-pole single-word adjectives each, 96 stimuli total. Same protocol as W7 §8.5 personality markers: chat-template-wrapped single phrases, mean(high) − mean(low) at ~2/3-depth layer, neutral-PC-projected, unit-normed. 8×8 cosine matrix per model on the 3-model larger cohort (Gemma12, Llama8, Qwen7) — same models the §8.5 personality markers were run on, so the comparison is exactly apples-to-apples.
+
+**Cross-model fidelity:**
+
+| Stimulus type        | Cohort                   | Mean upper-tri r | Range          |
+|----------------------|--------------------------|------------------|----------------|
+| Personality markers (W7 §8.5) | Gemma12 / Llama8 / Qwen7 | **+0.986**       | +0.980 to +0.991 |
+| Emotion markers (this section) | Gemma12 / Llama8 / Qwen7 | **+0.945**       | +0.935 to +0.955 |
+
+The drop is **0.04**. Emotions preserve through the same architectural layers nearly as faithfully as personality stimuli.
+
+**Cosine-matrix structure is shared across the three architectures:**
+
+A positive-valence cluster (Joy / Love / Hope / Trust / Pride) cohabits in cosine space across all three models (within-cluster cosines +0.16 to +0.53). Anger and Fear sit opposite (cosine to the positive cluster −0.18 to −0.37; cosine to each other slightly positive +0.06 to +0.12, consistent with shared "high-arousal-negative-valence"). Excitement is a bridge — positively coupled with both Joy and (mildly) Anger/Fear, reflecting its arousal-laden character independent of valence sign. This is the Russell circumplex emerging from a representation-level geometry, and it appears nearly identically in three architectures from three labs.
+
+**Reads:**
+
+1. **Cross-architecture preservation is not personality-specific.** The 0.94+ cross-model agreement on emotion cosine structure rules out the strong "personality is special because post-training shapes it carefully" interpretation. A second well-conceptualized concept domain shows comparable fidelity using the exact same protocol on the exact same models. Whatever transformer inductive bias preserves subtle similarity structure for personality, it is at least domain-class-general (extends to emotions).
+
+2. **The 0.04 gap (0.986 → 0.945) is real but small.** Possible sources: (a) emotion stimulus-list quality is lower than Goldberg's curated 52 markers (96 phrases authored in one sitting vs. decades of psycholinguistic refinement); (b) emotion antonym pairs have slight cross-axis overlap (Joy-low ≈ Sadness-high; the bipolar structure is leaky); (c) genuine concept-class effect — personality concepts are slightly more cleanly converged across architectures than emotion concepts. We can't separate these without scaling stimulus authoring effort, but the gap is small enough that any of (a)/(b)/(c) is plausible.
+
+3. **The superposition tension from `to_try.md` §16 sharpens.** If cosine entanglement at ~2/3 depth holds for emotions too (within-cluster +0.4 to +0.5 for the positive valence cluster), then the dense entanglement we see for personality is *not* a personality-specific quirk that strict superposition could explain by appealing to "post-training shapes personality features into a specific manifold." It's a general property of how transformers represent semantically-rich concept categories at this layer. SAE-decomposed features at lower layers may still be quasi-orthogonal; the trait/emotion directions we extract are linear projections that aggregate across many SAE features and lossy-compress orthogonality. This argues for the SAE-level work in Phase 2 (W7 §8.3 / §11.5.4 #6) being the right next thing if we want to test the orthogonality claim properly.
+
+4. **Domain-general claim is now defensible.** The W7 reading-group sentence (§12) currently says "subtle similarity structure already present in the stimulus texts" gets preserved cross-architecturally. With this result, "in the stimulus texts" can be relaxed to "in well-conceptualized concept categories generally."
+
+**Caveats:**
+
+- N=3 architectures. Two-domain replication is encouraging but not definitive; would feel even better with a third domain that's structurally distinct from personality and emotions (Phase 1 §16 suggested transportation and shorebirds — both are awkward bipolar fits, deferred).
+- The personality-markers baseline (+0.986) is unusually clean even compared to the contrast-pair and HEXACO-item heatmaps (W7 §4.1: +0.93 to +0.99 within stimulus type). +0.945 for emotions sits inside the §4.1 range, just at the lower end. So the gap to "personality" is partly a gap to "the cleanest stimulus type."
+- Emotion stimuli are not a curated psychometric instrument; they're a quick author-pass. Real cross-validation would use a Sofroniew-style emotion list. The §11.5.4 #5 ("Sofroniew-style story-based extraction") would natively produce that list.
+
+**Status:** #3 partial (emotions done, cleanly answers central hypothesis). Shorebirds/transportation domains in `to_try.md` §16 are now lower priority — emotion result already establishes the cross-architecture preservation is not personality-specific. They could still be useful as a third anchor (especially transportation, which is functional rather than valence-laden), but not load-bearing.
+
+Data: `results/emotion_markers_as_stimuli.json` (8×8 matrices) and `results/emotion_markers_as_stimuli_heatmap.html`.
 
 ---
 

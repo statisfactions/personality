@@ -1,0 +1,39 @@
+{
+  "instrument": "Cross-domain stimulus test: 8 bipolar emotion axes",
+  "context": "W7 §11.5.4 #3 / to_try §16. Mirrors Goldberg Big Five markers structure (high-pole + low-pole adjectives per axis). Direction = mean(high) - mean(low). Tests whether transformer cross-architecture preservation of subtle similarity structure (r=0.98 on personality markers) generalizes to a non-personality but bipolar-natural domain.",
+  "axes_format": "single-word adjective stimuli; one pole per emotion axis is the antonym of the other",
+  "axes": {
+    "JOY": {
+      "high": ["joyful", "elated", "cheerful", "happy", "delighted", "ecstatic"],
+      "low":  ["sad", "sorrowful", "melancholic", "gloomy", "despondent", "miserable"]
+    },
+    "ANGER": {
+      "high": ["furious", "irate", "enraged", "livid", "wrathful", "incensed"],
+      "low":  ["serene", "placid", "tranquil", "calm", "peaceful", "composed"]
+    },
+    "FEAR": {
+      "high": ["terrified", "frightened", "scared", "fearful", "panicked", "anxious"],
+      "low":  ["brave", "fearless", "courageous", "intrepid", "undaunted", "valiant"]
+    },
+    "LOVE": {
+      "high": ["loving", "affectionate", "tender", "devoted", "adoring", "warm"],
+      "low":  ["hateful", "hostile", "contemptuous", "scornful", "loathing", "vindictive"]
+    },
+    "PRIDE": {
+      "high": ["proud", "dignified", "triumphant", "gratified", "accomplished", "confident"],
+      "low":  ["ashamed", "humiliated", "mortified", "embarrassed", "disgraced", "abashed"]
+    },
+    "HOPE": {
+      "high": ["hopeful", "optimistic", "expectant", "encouraged", "buoyant", "sanguine"],
+      "low":  ["despairing", "pessimistic", "hopeless", "defeated", "dejected", "demoralized"]
+    },
+    "TRUST": {
+      "high": ["trusting", "confident", "assured", "faithful", "secure", "certain"],
+      "low":  ["suspicious", "distrustful", "wary", "doubtful", "skeptical", "paranoid"]
+    },
+    "EXCITEMENT": {
+      "high": ["excited", "thrilled", "exhilarated", "eager", "pumped", "enthusiastic"],
+      "low":  ["bored", "listless", "indifferent", "apathetic", "lethargic", "blase"]
+    }
+  }
+}
