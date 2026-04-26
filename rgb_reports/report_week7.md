@@ -506,7 +506,7 @@ Also queued and unstarted: **§9.1 IPIP-NEO-300 facet-level rescoring**. That's 
 Phase 1 was measurement-methodology-heavy: HF port, format mismatch resolution, stimulus-swap tests, qwen unification. The actual *what does the model represent / how does this change with scale* questions got addressed mostly through the side door. The most productive moves now, in roughly increasing scope/effort:
 
 1. ~~**X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).~~ **Done (2026-04-26) — see §11.5.6.**
-2. **IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.
+2. ~~**IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.~~ **Done (2026-04-26) — see §11.5.7.**
 3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general.
 4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track.
 5. **Sofroniew-style story-based extraction** for the disposition-center direction. More design work (concept selection, story authoring); high methodological novelty.
@@ -553,6 +553,64 @@ Trait-level: −0.788. Mean of 4 facet rs: −0.425. Range across facets: 0.475.
 This adds confidence to §11.5.1 as a paper-shaped finding without changing its scope. Next-step lean (cheap items still on the queue): §11.5.4 #2 (IPIP-NEO-300 facet rescoring, free analysis on existing data), then #3 (cross-domain stimulus test from `to_try.md` §16).
 
 Data: `results/x_facet_decomposition.json` and the printed table in the script's stdout.
+
+### 11.5.7 IPIP-NEO-300 facet rescoring — result (2026-04-26)
+
+Ran §11.5.4 #2 (`scripts/ipip_facet_rescore.py`). Re-aggregated the existing 7-model IPIP-300 Likert results at the 30-facet granularity (Goldberg/Johnson 1999 facet key — items at stride 6 within each trait scale, 10 items per facet, verified by inspection of the first three items per facet). Output table in `results/ipip_facet_rescore.json`.
+
+Five questions answered.
+
+**1. Does the W1 trait-level E↔C collapse hold up?** Yes, exactly. Cross-7-model trait-level E↔C r = **+0.939** (W1 reported +0.93 on 4 models, so the larger cohort actually tightens it slightly). Other trait-level: C↔N −0.701, E↔N −0.666, O↔A +0.879, O↔C +0.657, A↔E +0.324. The "assistant shape" axis (E/C high, N low) is the dominant cross-model contrast at trait level.
+
+**2. Does the rank-1 collapse dissolve at facet resolution?** Partially. PC1 explained variance:
+
+| Granularity | EV    | argmax |
+|-------------|-------|--------|
+| Trait (5 features)   | 0.694 | 0.649  |
+| Facet (30 features)  | 0.621 | 0.518  |
+| Δ (facet − trait)   | −0.07 | −0.13  |
+
+The dominant axis loses ~7 pp (EV) to ~13 pp (argmax) of explanatory power at facet level. Real but modest — the assistant-shape axis exists at facet resolution too. PC1 is more dominant in EV than in argmax, which makes sense: argmax is a coarser quantization that injects noise into individual facet scores, fragmenting the dominant axis.
+
+**3. Is within-trait coherence real at facet level?** Yes, but partial. Across the 7-model cohort:
+
+- Within-trait facet pairs (n=75): mean r = **+0.567**, median +0.668
+- Across-trait facet pairs (n=360): mean r = **+0.114**, median +0.187
+- Difference: +0.453
+
+So trait membership matters — facets within the same trait correlate four to five times more strongly across models than facets across traits. But +0.567 is far from 1.0; facets within a trait are *not* fungible. The trait label is meaningful but loose.
+
+**4. Does the trait-level E↔C +0.94 hold per facet?** No — the trait-level r masks substantial heterogeneity. The 6×6 E-facet × C-facet block spans:
+
+| E facet | best C-facet partner | worst C-facet partner |
+|---|---|---|
+| Friendliness | +0.868 (Achievement-Striving) | +0.320 (Orderliness) |
+| Gregariousness | +0.899 (Self-Efficacy) | +0.440 (Dutifulness) |
+| Assertiveness | +0.835 (Self-Efficacy) | +0.054 (Orderliness) |
+| Activity Level | +0.860 (Self-Efficacy) | +0.253 (Dutifulness) |
+| **Excitement-Seeking** | +0.096 (Orderliness) | **−0.806 (Dutifulness)** |
+| Cheerfulness | +0.797 (Achievement-Striving) | +0.068 (Cautiousness) |
+
+Block mean: **+0.445**. Block range: **−0.806 to +0.899**. Trait-level E↔C of +0.94 is the average over a 36-pair distribution that includes negative values. The "rank-1 collapse" is half-illusion: it's an aggregation effect across facets that don't all pull together.
+
+**5. Where does the trait-level number come from?** Mostly from a few cleanly-aligned facet pairs (Gregariousness × Self-Efficacy = +0.90, Activity Level × Self-Efficacy = +0.86, Friendliness × Achievement-Striving = +0.87). These are the "assistant-shape" facets — friendly, energetic, self-efficacious. Excitement-Seeking opposes the rest of E and (heavily) opposes Dutifulness. So the assistant axis is closer to a "constructive sociability + reliability" cluster, not all of E and all of C uniformly.
+
+**Substantive findings beyond the headline**:
+
+- **Excitement-Seeking is the rebel inside E.** Anti-correlated with Assertiveness (−0.50), Friendliness (−0.40), Gregariousness (−0.28), Activity Level (−0.20), Cheerfulness (−0.27) within the trait, and negatively correlated with most C facets. Models that score high on the rest of E score low on Excitement-Seeking — this is the "responsible socialite" assistant shape rather than "outgoing thrill-seeker" extraversion.
+- **N:Anxiety ↔ N:Depression r = +0.068** across this cohort — essentially independent. The trait-level Neuroticism is really two distinct things (anxious-fearful vs depressed-self-loathing) that don't move together across models.
+- **C:Orderliness barely correlates with other C facets** (+0.04 with Dutifulness, +0.04 with Cautiousness, +0.46 with Self-Discipline as the highest within C). Orderliness is more about "I tidy up" than about the broader self-regulation axis.
+- **Massive cross-trait couplings** that classical FFM places in different traits but that move together at the model level:
+  - **N:Vulnerability ↔ C:Self-Discipline = −0.973** (self-regulation continuum)
+  - O:Adventurousness ↔ A:Sympathy = +0.964
+  - O:Artistic Interests ↔ C:Dutifulness = +0.946
+  - O:Liberalism ↔ A:Altruism = +0.928
+
+**Net read.** The W1 "rank-1 assistant-shape collapse" is not exactly rank-1. It is closer to **rank-3 or rank-4** with one dominant dimension that reflects a clustered subset of facets (constructive sociability + reliability + low-vulnerability) and meaningful secondary axes that the trait-level aggregation obscures. The most "assistant-loaded" facets across our cohort are: Friendliness, Gregariousness, Cheerfulness, Activity Level (E side); Self-Efficacy, Achievement-Striving, Dutifulness (C side); and inverse-Vulnerability, inverse-Anxiety, inverse-Depression (N side). Facets that *don't* load on this axis: Excitement-Seeking, Orderliness, several O facets. Modesty and Cooperation under A are also mid-loaders.
+
+For W7's reading-group framing: the "assistant shape" claim is robust in the aggregate, but at facet resolution it dissolves into a multi-axis structure with discriminable cross-model variation. This makes the §9 plan to move toward broader inventories (IPIP-AB5C / 16PF-style; report §9.2) more compelling — the ~30 facets here clearly carry information that the 5-trait aggregation discards.
+
+Data: `results/ipip_facet_rescore.json`. Full 30×30 facet correlation matrix in the JSON `facet_corr_ev` field.
 
 ---
 
