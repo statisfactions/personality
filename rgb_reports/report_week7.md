@@ -739,6 +739,28 @@ This decisively addresses the confound. The representation-back-mapping result i
 - **Cohort mean (+0.730)** is roughly stable around our Qwen7 baseline (+0.743). The "model internalizes personas at r ≈ 0.74" claim generalizes — it's a property of post-training-shaped instruction models broadly, not a Qwen quirk.
 - **Scale ≠ persona recovery monotonically.** Small-cohort mean +0.700, large-cohort mean +0.771. Gemma 4B beats Gemma 12B; Llama 3B beats Qwen 3B; Llama 8B beats Qwen 7B. Architecture and post-training recipe matter more than parameter count for this particular capability.
 
+**Cross-model agreement on persona projections** (`scripts/persona_repr_cross_model.py`). Different question from the diagonal r above: do different *models* agree on which personas project most strongly on each trait? For each trait, compute Pearson r between model A's projection vector (across 50 personas) and model B's projection vector. Mean over all 21 model pairs:
+
+| Trait | Mean cross-model r | Range            |
+|-------|---------------------|------------------|
+| A     | +0.500              | −0.248 to +0.898 |
+| C     | +0.819              | +0.586 to +0.924 |
+| E     | +0.807              | +0.526 to +0.956 |
+| N     | +0.681              | +0.174 to +0.936 |
+| O     | +0.804              | +0.431 to +0.926 |
+| Mean  | +0.722              |                  |
+
+Sanity ratio (cross-model r ÷ mean rep~z r per trait): 0.83 (A) to 1.07 (O). Cross-model agreement on trait-A is *bottlenecked* by per-model accuracy on A, but the other four traits saturate the upper bound — models agree on projections about as well as they each track the sampled z.
+
+**Phi4 is the structural outlier.** Per-pair breakdown:
+- On **A**: Phi4 ↔ every other model ranges **−0.025 to −0.248** (mean ≈ −0.13). Llama ↔ Phi4 is r=−0.248. Phi4 represents the A axis in a geometry roughly *orthogonal-to-opposite* to the other 6 models.
+- On **N**: Phi4 ↔ others is +0.17 to +0.66 (mean ≈ +0.46), well below the other-pair mean of +0.78 on N.
+- On C, E, O: Phi4 is more in line (mean pairwise r with others +0.78 to +0.92).
+
+Combined with the per-trait diagonal weakness on Phi4 (A: +0.122, N: +0.333), the picture sharpens: Phi4 isn't just "rigid"; it has a *different coding axis* for Agreeableness and Neuroticism than the rest of the cohort. The rigid-persona / Rottger-gap / persona-recovery-failure / cross-model-disagreement findings on Phi4 all stem from this same root: Phi4's A-and-N representations don't live on the same dimensions as the other 6 models. Worth flagging into Phase 2: when we do SAE work on Gemma 12B, we'd predict Phi4 to fail cross-architecture transfer specifically on A/N directions; would be a clean experimental test.
+
+**Excluding Phi4, cohort agreement is much higher.** The mean A cross-model r for the other 6-model subset (15 pairs) is approximately +0.7 (eyeballed from the matrix). The +0.500 cohort mean is bottle-necked entirely by Phi4 disagreement. So among "well-conditioned" instruction models, persona-projection geometry is highly conserved across architectures — a Big-Five concept-class extension of the W7 §8.4–§8.5 cross-architecture preservation finding.
+
 **Status:** §11.5.4 #4 partial. The representation back-mapping is now solidly answered for the rgb twist. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is complementary, not redundant — and it suggests an interesting pre-registration for that next track: **if the model internalizes personas to r ≈ 0.74 representationally, we'd predict instrument responses under those personas to recover sampled z's at *higher* r (since instruments are designed to measure exactly the trait dimension), and the gap between representational r and behavioral r is itself a measurement-validity diagnostic.**
 
 Data: `results/persona_repr_mapping_Qwen7.json` (description mode), `results/persona_repr_mapping_Qwen7_response-position.json` (response-position mode).
