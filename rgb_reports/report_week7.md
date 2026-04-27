@@ -709,7 +709,35 @@ Diagonal/off-diagonal gap: +0.583 (description) → **+0.608 (response-position)
 
 This decisively addresses the confound. The representation-back-mapping result is real — it's not just measuring marker content of the prompt; it's measuring what the model represents as it's about to produce behavior under the persona.
 
-**Caveat that remains.** This is one model (Qwen7), one neutral question, one system-prompt format. Sensitivity to prompt phrasing, model architecture, and persona-induction style would each be worth testing. But the qualitative result — "internal representation reconstructs sampled trait composition at r ≈ 0.74 mean" — is robust enough across both modes to be the headline.
+**Caveat that remains.** This is one neutral question, one system-prompt format. Sensitivity to prompt phrasing and persona-induction style would each be worth testing. But the qualitative result — "internal representation reconstructs sampled trait composition at r ≈ 0.74 mean" — is robust on Qwen7 across both modes.
+
+**Multi-model extension (2026-04-26):** ran response-position mode on the full 7-model cohort. Per-trait diagonal r:
+
+| Model         | A      | C      | E      | N      | O      | Mean      | Off-diag |
+|---------------|--------|--------|--------|--------|--------|-----------|----------|
+| Gemma 4B      | +0.807 | +0.815 | +0.875 | +0.822 | +0.870 | **+0.838** | +0.116   |
+| Gemma 12B     | +0.683 | +0.852 | +0.856 | +0.789 | +0.798 | +0.795     | **+0.038** |
+| Llama 8B      | +0.661 | +0.758 | +0.933 | +0.774 | +0.745 | +0.774     | +0.095   |
+| Llama 3B      | +0.564 | +0.833 | +0.904 | +0.711 | +0.745 | +0.751     | +0.105   |
+| Qwen 7B       | +0.684 | +0.761 | +0.806 | +0.665 | +0.800 | +0.743     | +0.135   |
+| Qwen 3B       | +0.695 | +0.764 | +0.579 | +0.658 | +0.670 | +0.673     | +0.114   |
+| **Phi4-mini** | +0.122 | +0.782 | +0.801 | +0.333 | +0.650 | **+0.538** | +0.130   |
+| **Cohort mean** | +0.602 | +0.795 | +0.822 | +0.679 | +0.754 | +0.730 | +0.105 |
+
+**Headline per-trait observations:**
+
+- **E is the most reliably recovered trait** (range +0.58 to +0.93, cohort mean +0.82). The model representing high vs low Extraversion is strongly axis-aligned across all 7 architectures — consistent with E being heavily covered in pretraining (energetic / quiet language is everywhere).
+- **A is the most variable** (range +0.12 to +0.81, cohort mean +0.60). Phi4 essentially fails to recover Agreeableness (+0.12); the rest of the cohort is +0.56 to +0.81.
+- **C is consistently strong** across all 7 models (range +0.76 to +0.85, cohort mean +0.80) — also the trait that survived the W7 §11.5.7 IPIP rank-1 collapse most cleanly.
+- **N is variable** (range +0.33 to +0.82, cohort mean +0.68). Phi4 is again the weak point; the rest are +0.66 to +0.82.
+
+**Headline per-model observations:**
+
+- **Gemma 4B is the single best persona-recoverer** (+0.838) — beating the 12B variant. Scale doesn't monotonically help. The 4B model is small enough to be cleanly persona-conditioned without other overlay structure dominating; at 12B perhaps the assistant-shape baseline is more entrenched and harder to override.
+- **Phi4-mini is the outlier weak link** (+0.538), failing especially on A (+0.12) and N (+0.33). Consistent with Phi4's prior characterization (W7 §0 / earlier reports): highest ICC (most self-consistent), biggest Rottger gap (40%) — i.e. it has a strongly coded internal persona that resists external conditioning. The persona-recovery failure is the representational signature of the same phenomenon.
+- **Gemma 12B has the cleanest off-diagonal structure** (+0.038, vs cohort mean +0.105). Its trait directions are most orthogonal at this layer — half-cohort scale models (3B–4B) entangle more, but Gemma 12B has separated them. Worth noting for Phase 2 SAE work.
+- **Cohort mean (+0.730)** is roughly stable around our Qwen7 baseline (+0.743). The "model internalizes personas at r ≈ 0.74" claim generalizes — it's a property of post-training-shaped instruction models broadly, not a Qwen quirk.
+- **Scale ≠ persona recovery monotonically.** Small-cohort mean +0.700, large-cohort mean +0.771. Gemma 4B beats Gemma 12B; Llama 3B beats Qwen 3B; Llama 8B beats Qwen 7B. Architecture and post-training recipe matter more than parameter count for this particular capability.
 
 **Status:** §11.5.4 #4 partial. The representation back-mapping is now solidly answered for the rgb twist. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is complementary, not redundant — and it suggests an interesting pre-registration for that next track: **if the model internalizes personas to r ≈ 0.74 representationally, we'd predict instrument responses under those personas to recover sampled z's at *higher* r (since instruments are designed to measure exactly the trait dimension), and the gap between representational r and behavioral r is itself a measurement-validity diagnostic.**
 
