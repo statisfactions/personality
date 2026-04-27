@@ -1,0 +1,109 @@
+Loading required package: Rcpp
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Response matrix: 400 respondents x 30 blocks
+Complete respondents: 400 
+
+TIRT data created: 12000 x 11 
+
+Fitting TIRT Stan model (cumulative family, Gemma3 12B, 400 respondents)...
+Using 2 chains x 1000 iter (500 warmup)
+
+
+SAMPLING FOR MODEL 'thurstonian_irt_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'thurstonian_irt_model' NOW (CHAIN 2).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.02556 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 255.6 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.025523 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 255.23 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 1035.75 seconds (Warm-up)
+Chain 2:                707.977 seconds (Sampling)
+Chain 2:                1743.73 seconds (Total)
+Chain 2: 
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 1048.59 seconds (Warm-up)
+Chain 1:                708.596 seconds (Sampling)
+Chain 1:                1757.18 seconds (Total)
+Chain 1: 
+Warning messages:
+1: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+2: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+3: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+
+=== Stan TIRT Fit Complete ===
+
+Fit saved to results/gemma3_gfc30_synthetic_tirt_fit.rds
+
+Score dimensions: 2000 x 6 
+Score columns: id, trait, estimate, se, lower_ci, upper_ci 
+
+Error in `mutate()`:
+ℹ In argument: `persona_id = persona_ids`.
+Caused by error:
+! `persona_id` must be size 2000 or 1, not 400.
+Backtrace:
+     ▆
+  1. ├─... %>% left_join(ground_truth, by = "persona_id")
+  2. ├─dplyr::left_join(., ground_truth, by = "persona_id")
+  3. ├─dplyr::mutate(., persona_id = persona_ids)
+  4. ├─dplyr:::mutate.data.frame(., persona_id = persona_ids)
+  5. │ └─dplyr:::mutate_cols(.data, dplyr_quosures(...), by)
+  6. │   ├─base::withCallingHandlers(...)
+  7. │   └─dplyr:::mutate_col(dots[[i]], data, mask, new_columns)
+  8. │     └─mask$eval_all_mutate(quo)
+  9. │       └─dplyr (local) eval()
+ 10. ├─dplyr:::dplyr_internal_error(...)
+ 11. │ └─rlang::abort(class = c(class, "dplyr:::internal_error"), dplyr_error_data = data)
+ 12. │   └─rlang:::signal_abort(cnd, .file)
+ 13. │     └─base::signalCondition(cnd)
+ 14. └─dplyr (local) `<fn>`(`<dpl:::__>`)
+ 15.   └─rlang::abort(message, class = error_class, parent = parent, call = error_call)
+Execution halted

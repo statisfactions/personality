@@ -1,0 +1,1213 @@
+---
+title: "BFI Model Comparison: Llama-2 7B vs Llama-3.2 3B (with Neutral Baseline)"
+author: "Ethan Brown"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 6
+)
+library(mirt, lib.loc = "/home/ethanbrown/R/library")
+library(tidyverse)
+```
+
+## Overview
+
+This analysis compares two models on the BFI personality instrument:
+
+- **Llama-2 7B Chat** (Q4 quantized, 3.8 GB) — existing full run (55,000 prompts)
+- **Llama-3.2 3B** — new run with persona preambles + neutral (no-persona) baseline (partial: ~36K of 56,100 prompts)
+
+**Note**: Llama-3.2 results are preliminary — the inference run is still in progress.
+Incomplete SPIDs (missing items) are dropped; neutral preambles are partially available.
+
+Key questions:
+
+1. Does Llama-3.2 show more response variability (less ceiling effect, more use of categories 2/4)?
+2. Does **soft-evidence IRT** work with a model that has more entropy in its logprob distributions?
+3. Where does the model's "resting state" (neutral, no-persona) fall on the trait scales defined by the persona-variation IRT fit?
+
+
+## 1. Data Loading
+
+```{r load_data}
+df_llama2 <- read_csv("results_bfi-full_llama2-7b-chat_0.csv", show_col_types = FALSE) %>%
+  mutate(model = "Llama-2 7B",
+         response = as.integer(logprob_argmax),
+         is_neutral = FALSE)
+
+df_llama3 <- read_csv("results_bfi-neutral_llama3.2-3b_0.csv", show_col_types = FALSE) %>%
+  mutate(model = "Llama-3.2 3B",
+         response = as.integer(logprob_argmax),
+         is_neutral = item_preamble_id %>% str_starts("d0-"))
+
+# Drop incomplete SPIDs (< 44 items) from partial run
+spid_completeness <- df_llama3 %>% count(spid) %>% filter(n == 44)
+n_dropped <- n_distinct(df_llama3$spid) - nrow(spid_completeness)
+df_llama3 <- df_llama3 %>% semi_join(spid_completeness, by = "spid")
+cat(sprintf("Llama-3.2: kept %d complete SPIDs, dropped %d incomplete\n",
+            nrow(spid_completeness), n_dropped))
+cat(sprintf("  Persona SPIDs: %d, Neutral SPIDs: %d\n",
+            n_distinct(df_llama3 %>% filter(!is_neutral) %>% pull(spid)),
+            n_distinct(df_llama3 %>% filter(is_neutral) %>% pull(spid))))
+```
+
+```{r scale_defs}
+bfi_scales <- list(
+  `BFI-EXT` = list(
+    items = c("bf1","bf6","bf11","bf16","bf21","bf26","bf31","bf36"),
+    reverse = c("bf6","bf21","bf31")
+  ),
+  `BFI-AGR` = list(
+    items = c("bf2","bf7","bf12","bf17","bf22","bf27","bf32","bf37","bf42"),
+    reverse = c("bf2","bf12","bf27","bf37")
+  ),
+  `BFI-CON` = list(
+    items = c("bf3","bf8","bf13","bf18","bf23","bf28","bf33","bf38","bf43"),
+    reverse = c("bf8","bf18","bf23","bf43")
+  ),
+  `BFI-NEU` = list(
+    items = c("bf4","bf9","bf14","bf19","bf24","bf29","bf34","bf39"),
+    reverse = c("bf9","bf24","bf34")
+  ),
+  `BFI-OPE` = list(
+    items = c("bf5","bf10","bf15","bf20","bf25","bf30","bf35","bf40","bf41","bf44"),
+    reverse = c("bf35","bf41")
+  )
+)
+```
+
+
+## 2. Response Distribution Comparison
+
+### Category usage
+
+```{r response_dist, fig.height=5}
+bind_rows(
+  df_llama2 %>% filter(!is_neutral) %>% select(model, response),
+  df_llama3 %>% filter(!is_neutral) %>% select(model, response)
+) %>%
+  count(model, response) %>%
+  group_by(model) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup() %>%
+  ggplot(aes(x = factor(response), y = pct, fill = model)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = sprintf("%.1f%%", pct * 100)),
+            position = position_dodge(width = 0.9), vjust = -0.3, size = 3) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "Logprob Argmax Response Distribution (Persona Prompts Only)",
+       subtitle = "Does Llama-3.2 use categories 2 and 4?",
+       x = "Response Category", y = "Proportion", fill = NULL) +
+  theme_minimal()
+```
+
+### Neutral vs persona within Llama-3.2
+
+```{r neutral_vs_persona_dist, fig.height=5}
+df_llama3 %>%
+  mutate(condition = ifelse(is_neutral, "Neutral (no persona)", "Persona")) %>%
+  count(condition, response) %>%
+  group_by(condition) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup() %>%
+  ggplot(aes(x = factor(response), y = pct, fill = condition)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = sprintf("%.1f%%", pct * 100)),
+            position = position_dodge(width = 0.9), vjust = -0.3, size = 3) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Neutral (no persona)" = "darkgreen",
+                                "Persona" = "coral")) +
+  labs(title = "Llama-3.2 3B: Neutral vs Persona Response Distribution",
+       x = "Response Category", y = "Proportion", fill = NULL) +
+  theme_minimal()
+```
+
+
+### Mean logprob distribution shape
+
+The colleague found Llama-3.2 has near-uniform entropy (~1.4/1.61). Let's check whether
+this holds with the BFI framing and persona prompts.
+
+```{r mean_dist_shape, fig.height=5}
+compute_mean_probs <- function(df, label) {
+  lp_cols <- df %>% select(logprob_1:logprob_5) %>% as.matrix()
+  lp_floor <- min(lp_cols, na.rm = TRUE)
+  lp_cols[is.na(lp_cols)] <- lp_floor
+  probs <- exp(lp_cols)
+  probs <- probs / rowSums(probs)
+  tibble(
+    category = 1:5,
+    mean_prob = colMeans(probs),
+    sd_prob = apply(probs, 2, sd),
+    label = label
+  )
+}
+
+bind_rows(
+  compute_mean_probs(df_llama2, "Llama-2 7B (persona)"),
+  compute_mean_probs(df_llama3 %>% filter(!is_neutral), "Llama-3.2 3B (persona)"),
+  compute_mean_probs(df_llama3 %>% filter(is_neutral), "Llama-3.2 3B (neutral)")
+) %>%
+  ggplot(aes(x = factor(category), y = mean_prob, fill = label)) +
+  geom_col(position = "dodge") +
+  geom_errorbar(aes(ymin = pmax(mean_prob - sd_prob, 0),
+                    ymax = pmin(mean_prob + sd_prob, 1)),
+                position = position_dodge(width = 0.9), width = 0.3) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Mean Probability Distribution Over Likert Categories",
+       subtitle = "Llama-2 shows extreme ceiling; does Llama-3.2 spread mass more evenly?",
+       x = "Response Category", y = "Mean Probability", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+### Per-item entropy comparison
+
+```{r entropy_comparison, fig.height=5}
+item_entropy <- function(df, label) {
+  lp_cols <- df %>% select(logprob_1:logprob_5) %>% as.matrix()
+  lp_floor <- min(lp_cols, na.rm = TRUE)
+  lp_cols[is.na(lp_cols)] <- lp_floor
+  probs <- exp(lp_cols)
+  probs <- probs / rowSums(probs)
+  # Shannon entropy per row
+  H <- -rowSums(probs * log(probs + 1e-30))
+  tibble(entropy = H, normed_entropy = H / log(5), label = label)
+}
+
+entropy_df <- bind_rows(
+  item_entropy(df_llama2, "Llama-2 7B"),
+  item_entropy(df_llama3 %>% filter(!is_neutral), "Llama-3.2 3B (persona)"),
+  item_entropy(df_llama3 %>% filter(is_neutral), "Llama-3.2 3B (neutral)")
+)
+
+entropy_df %>%
+  ggplot(aes(x = normed_entropy, fill = label)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") +
+  geom_vline(data = entropy_df %>% group_by(label) %>%
+               summarise(mean_H = mean(normed_entropy)),
+             aes(xintercept = mean_H, color = label), linetype = "dashed", linewidth = 1) +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(title = "Normalized Entropy of Logprob Distributions",
+       subtitle = "0 = all mass on one category, 1 = uniform. Llama-3.2 should be higher.",
+       x = "Normalized Entropy", y = "Count", fill = NULL, color = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+entropy_df %>%
+  group_by(label) %>%
+  summarise(
+    mean_entropy = mean(normed_entropy),
+    sd_entropy = sd(normed_entropy),
+    median_entropy = median(normed_entropy)
+  ) %>%
+  knitr::kable(digits = 3, caption = "Entropy summary statistics")
+```
+
+
+### Valid probability mass
+
+```{r valid_mass, fig.height=4}
+bind_rows(
+  df_llama2 %>% mutate(label = "Llama-2 7B") %>% select(label, valid_prob_mass),
+  df_llama3 %>% filter(!is_neutral) %>%
+    mutate(label = "Llama-3.2 3B (persona)") %>% select(label, valid_prob_mass),
+  df_llama3 %>% filter(is_neutral) %>%
+    mutate(label = "Llama-3.2 3B (neutral)") %>% select(label, valid_prob_mass)
+) %>%
+  ggplot(aes(x = valid_prob_mass, fill = label)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") +
+  labs(title = "Valid Probability Mass (Proportion on Likert Options)",
+       x = "Valid Probability Mass", y = "Count", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+## 3. IRT Model Fitting: Llama-3.2 (Persona Data)
+
+We fit the same 4 models per trait as the Llama-2 analysis, using only the persona
+(non-neutral) data from Llama-3.2. The neutral data is held out for trait-placement later.
+
+```{r prep_llama3_data}
+df_l3_persona <- df_llama3 %>% filter(!is_neutral)
+df_l3_neutral <- df_llama3 %>% filter(is_neutral)
+
+# Person-by-item matrix for persona data
+resp_wide_l3 <- df_l3_persona %>%
+  select(spid, item_id, response) %>%
+  pivot_wider(names_from = item_id, values_from = response) %>%
+  arrange(spid)
+
+spid_ids_l3 <- resp_wide_l3$spid
+N_l3 <- nrow(resp_wide_l3)
+all_items <- sort(unique(df_l3_persona$item_id))
+J <- length(all_items)
+K_raw <- 5L
+
+cat(sprintf("Llama-3.2 persona data: %d SPIDs x %d items\n", N_l3, J))
+cat(sprintf("Response categories observed: %s\n",
+            paste(sort(unique(df_l3_persona$response)), collapse = ", ")))
+```
+
+### Soft-evidence array (Llama-3.2)
+
+With Llama-3.2's higher entropy, we may be able to keep all 5 categories rather than
+collapsing to 3. We construct both versions.
+
+```{r soft_array_l3}
+lp_l3 <- df_l3_persona %>%
+  select(spid, item_id, logprob_1, logprob_2, logprob_3, logprob_4, logprob_5) %>%
+  arrange(spid, item_id)
+
+lp_mat_l3 <- lp_l3 %>% select(starts_with("logprob_")) %>% as.matrix()
+lp_floor_l3 <- min(lp_mat_l3, na.rm = TRUE)
+n_na_l3 <- sum(is.na(lp_mat_l3))
+lp_mat_l3[is.na(lp_mat_l3)] <- lp_floor_l3
+
+prob_mat_l3 <- exp(lp_mat_l3)
+prob_mat_l3 <- prob_mat_l3 / rowSums(prob_mat_l3)
+
+# Full 5-category array: N x J x 5
+pi_array_5_l3 <- array(prob_mat_l3, dim = c(J, N_l3, K_raw))
+pi_array_5_l3 <- aperm(pi_array_5_l3, c(2, 1, 3))
+
+# Also compute 3-category collapse for direct comparison with Llama-2
+pi_array_3_l3 <- array(0, dim = c(N_l3, J, 3L))
+pi_array_3_l3[, , 1] <- pi_array_5_l3[, , 1] + pi_array_5_l3[, , 2]
+pi_array_3_l3[, , 2] <- pi_array_5_l3[, , 3]
+pi_array_3_l3[, , 3] <- pi_array_5_l3[, , 4] + pi_array_5_l3[, , 5]
+
+cat(sprintf("5-category mean probs: %s\n",
+            paste(sprintf("%.3f", colMeans(matrix(prob_mat_l3, ncol = 5))), collapse = ", ")))
+cat(sprintf("3-category mean probs: low=%.3f, mid=%.3f, high=%.3f\n",
+            mean(pi_array_3_l3[,,1]), mean(pi_array_3_l3[,,2]), mean(pi_array_3_l3[,,3])))
+cat(sprintf("Imputed %d NA logprobs with floor %.2f\n", n_na_l3, lp_floor_l3))
+```
+
+```{r soft_variation_l3, fig.height=6}
+# Between-person variation in soft evidence — the key diagnostic
+# If this shows more spread than Llama-2, soft IRT should work better
+cat_var_l3 <- tibble(
+  p_low = as.vector(pi_array_3_l3[,,1]),
+  p_mid = as.vector(pi_array_3_l3[,,2]),
+  p_high = as.vector(pi_array_3_l3[,,3])
+) %>%
+  pivot_longer(everything(), names_to = "category", values_to = "probability") %>%
+  mutate(category = fct_relevel(category, "p_low", "p_mid", "p_high"),
+         model = "Llama-3.2 3B")
+
+# Load Llama-2 soft evidence for comparison
+lp_l2 <- df_llama2 %>%
+  select(spid, item_id, logprob_1:logprob_5) %>%
+  arrange(spid, item_id)
+lp_mat_l2 <- lp_l2 %>% select(starts_with("logprob_")) %>% as.matrix()
+lp_floor_l2 <- min(lp_mat_l2, na.rm = TRUE)
+lp_mat_l2[is.na(lp_mat_l2)] <- lp_floor_l2
+prob_mat_l2 <- exp(lp_mat_l2)
+prob_mat_l2 <- prob_mat_l2 / rowSums(prob_mat_l2)
+
+N_l2 <- nrow(df_llama2 %>% distinct(spid))
+pi_array_3_l2 <- array(0, dim = c(N_l2, J, 3L))
+pi5_l2 <- array(prob_mat_l2, dim = c(J, N_l2, K_raw))
+pi5_l2 <- aperm(pi5_l2, c(2, 1, 3))
+pi_array_3_l2[, , 1] <- pi5_l2[, , 1] + pi5_l2[, , 2]
+pi_array_3_l2[, , 2] <- pi5_l2[, , 3]
+pi_array_3_l2[, , 3] <- pi5_l2[, , 4] + pi5_l2[, , 5]
+
+cat_var_l2 <- tibble(
+  p_low = as.vector(pi_array_3_l2[,,1]),
+  p_mid = as.vector(pi_array_3_l2[,,2]),
+  p_high = as.vector(pi_array_3_l2[,,3])
+) %>%
+  pivot_longer(everything(), names_to = "category", values_to = "probability") %>%
+  mutate(category = fct_relevel(category, "p_low", "p_mid", "p_high"),
+         model = "Llama-2 7B")
+
+bind_rows(cat_var_l2, cat_var_l3) %>%
+  ggplot(aes(x = probability, fill = model)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") +
+  facet_wrap(~category, scales = "free_y") +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "Between-Person Variation in Soft-Evidence Probabilities (3-category)",
+       subtitle = "More spread = more signal for soft-evidence IRT",
+       x = "Probability", y = "Count", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+### Helper functions
+
+```{r helpers}
+build_softmat_from_model <- function(mod, pi_sub, items) {
+  K_vec <- extract.mirt(mod, "K")
+  itemloc <- extract.mirt(mod, "itemloc")
+  ncols <- sum(K_vec)
+  J_sub <- length(items)
+  N_local <- dim(pi_sub)[1]
+  K_avail <- dim(pi_sub)[3]
+  softmat <- matrix(0, nrow = N_local, ncol = ncols)
+
+  for (jj in 1:J_sub) {
+    cols <- itemloc[jj]:(itemloc[jj + 1] - 1)
+    Kj <- K_vec[jj]
+    if (Kj == K_avail) {
+      softmat[, cols] <- pi_sub[, jj, ]
+    } else if (Kj < K_avail) {
+      # Collapse categories to match observed K
+      # Map K_avail categories into Kj bins
+      # For K_avail=5, Kj=3: low=(1+2), mid=(3), high=(4+5)
+      # For K_avail=5, Kj=2: low=(1+2+3), high=(4+5)
+      if (K_avail == 5 && Kj == 3) {
+        softmat[, cols[1]] <- pi_sub[, jj, 1] + pi_sub[, jj, 2]
+        softmat[, cols[2]] <- pi_sub[, jj, 3]
+        softmat[, cols[3]] <- pi_sub[, jj, 4] + pi_sub[, jj, 5]
+      } else if (K_avail == 5 && Kj == 2) {
+        softmat[, cols[1]] <- pi_sub[, jj, 1] + pi_sub[, jj, 2] + pi_sub[, jj, 3]
+        softmat[, cols[2]] <- pi_sub[, jj, 4] + pi_sub[, jj, 5]
+      } else if (K_avail == 3 && Kj == 2) {
+        softmat[, cols[1]] <- pi_sub[, jj, 1] + pi_sub[, jj, 2]
+        softmat[, cols[2]] <- pi_sub[, jj, 3]
+      } else {
+        # Generic fallback: spread evenly
+        warning(sprintf("Unhandled K collapse: K_avail=%d -> Kj=%d for item %d", K_avail, Kj, jj))
+        softmat[, cols] <- pi_sub[, jj, 1:Kj]
+      }
+    }
+  }
+  softmat
+}
+
+# Build soft-evidence array for neutral data from the same logprob structure
+build_neutral_softmat <- function(df_neutral, items, item_order, mod, reverse_items) {
+  K_vec <- extract.mirt(mod, "K")
+  itemloc <- extract.mirt(mod, "itemloc")
+  ncols <- sum(K_vec)
+  K_avail <- max(K_vec)
+
+  # There are multiple neutral SPIDs (5 framings x 5 postambles = 25 per item)
+  # We score each separately, then can average or report all
+  neutral_spids <- sort(unique(df_neutral$spid))
+  N_neut <- length(neutral_spids)
+
+  softmat_list <- list()
+  dat_list <- list()
+
+  for (s in neutral_spids) {
+    s_data <- df_neutral %>%
+      filter(spid == s) %>%
+      arrange(item_id)
+
+    # Build logprob matrix for this SPID's items
+    lp <- s_data %>%
+      select(item_id, logprob_1:logprob_5)
+
+    # Reorder to match items
+    lp <- lp %>% filter(item_id %in% items) %>%
+      mutate(item_id = factor(item_id, levels = items)) %>%
+      arrange(item_id)
+
+    if (nrow(lp) != length(items)) next
+
+    lp_vals <- lp %>% select(logprob_1:logprob_5) %>% as.matrix()
+    lp_floor <- min(lp_vals, na.rm = TRUE)
+    lp_vals[is.na(lp_vals)] <- lp_floor
+    probs <- exp(lp_vals)
+    probs <- probs / rowSums(probs)
+
+    # Reverse-key
+    for (ri in reverse_items) {
+      ri_idx <- which(items == ri)
+      probs[ri_idx, ] <- probs[ri_idx, 5:1]
+    }
+
+    # Build response vector (top-1)
+    resp <- as.integer(lp$item_id %>% {
+      s_data %>% filter(item_id %in% items) %>%
+        mutate(item_id = factor(item_id, levels = items)) %>%
+        arrange(item_id) %>% pull(logprob_argmax) %>% as.integer()
+    })
+    for (ri in reverse_items) {
+      ri_idx <- which(items == ri)
+      resp[ri_idx] <- 6L - resp[ri_idx]
+    }
+
+    # Build 1-row softmat
+    softmat_row <- matrix(0, nrow = 1, ncol = ncols)
+    J_sub <- length(items)
+    for (jj in 1:J_sub) {
+      cols <- itemloc[jj]:(itemloc[jj + 1] - 1)
+      Kj <- K_vec[jj]
+      if (Kj == 5) {
+        softmat_row[1, cols] <- probs[jj, ]
+      } else if (Kj == 3) {
+        softmat_row[1, cols[1]] <- probs[jj, 1] + probs[jj, 2]
+        softmat_row[1, cols[2]] <- probs[jj, 3]
+        softmat_row[1, cols[3]] <- probs[jj, 4] + probs[jj, 5]
+      } else if (Kj == 2) {
+        softmat_row[1, cols[1]] <- probs[jj, 1] + probs[jj, 2] + probs[jj, 3]
+        softmat_row[1, cols[2]] <- probs[jj, 4] + probs[jj, 5]
+      }
+    }
+    softmat_list[[s]] <- softmat_row
+    dat_list[[s]] <- resp
+  }
+
+  list(
+    softmat = do.call(rbind, softmat_list),
+    dat = do.call(rbind, dat_list) %>% as.data.frame() %>% setNames(items),
+    spids = names(softmat_list)
+  )
+}
+```
+
+
+### Model fitting loop
+
+```{r fit_l3, results='hide'}
+results_l3 <- list()
+
+# Determine which soft-evidence array to use based on observed categories
+# If Llama-3.2 uses all 5 categories, we can keep the full array
+obs_cats_l3 <- sort(unique(df_l3_persona$response))
+use_5cat <- length(obs_cats_l3) == 5
+cat(sprintf("Observed categories: %s → using %d-category soft evidence\n",
+            paste(obs_cats_l3, collapse = ","), ifelse(use_5cat, 5, 3)))
+
+for (scale_id in names(bfi_scales)) {
+  items <- bfi_scales[[scale_id]]$items
+  rev_items <- bfi_scales[[scale_id]]$reverse
+  J_sub <- length(items)
+  item_idx <- match(items, all_items)
+
+  # Top-1 response matrix
+  dat_top1 <- resp_wide_l3 %>% select(all_of(items)) %>% as.data.frame()
+  for (ri in rev_items) dat_top1[[ri]] <- 6L - dat_top1[[ri]]
+
+  # Soft-evidence sub-array (reverse-keyed) — use 5-cat if all observed
+  if (use_5cat) {
+    pi_sub <- pi_array_5_l3[, item_idx, , drop = FALSE]
+  } else {
+    pi_sub <- pi_array_3_l3[, item_idx, , drop = FALSE]
+  }
+  for (ri in rev_items) {
+    ri_idx <- which(items == ri)
+    K_sub <- dim(pi_sub)[3]
+    pi_sub[, ri_idx, ] <- pi_sub[, ri_idx, K_sub:1]
+  }
+
+  cat(sprintf("\n=== %s (%d items) ===\n", scale_id, J_sub))
+
+  # 1. GRM top-1
+  mod_grm_top1 <- tryCatch(
+    mirt(dat_top1, 1, itemtype = "graded", verbose = FALSE, TOL = 1e-4),
+    error = function(e) { cat(sprintf("  GRM top-1 failed: %s\n", e$message)); NULL }
+  )
+
+  # Build softmat from GRM's K structure
+  softmat_grm <- if (!is.null(mod_grm_top1)) {
+    build_softmat_from_model(mod_grm_top1, pi_sub, items)
+  }
+
+  # 2. GRM soft
+  mod_grm_soft <- if (!is.null(softmat_grm)) {
+    tryCatch(
+      mirt(dat_top1, 1, itemtype = "graded", verbose = FALSE, TOL = 1e-4,
+           technical = list(softevidence = softmat_grm)),
+      error = function(e) { cat(sprintf("  GRM soft failed: %s\n", e$message)); NULL }
+    )
+  }
+
+  # 3. NRM top-1
+  mod_nrm_top1 <- tryCatch(
+    mirt(dat_top1, 1, itemtype = "nominal", verbose = FALSE, TOL = 1e-4),
+    error = function(e) { cat(sprintf("  NRM top-1 failed: %s\n", e$message)); NULL }
+  )
+
+  # Build softmat for NRM
+  softmat_nrm <- if (!is.null(mod_nrm_top1)) {
+    build_softmat_from_model(mod_nrm_top1, pi_sub, items)
+  }
+
+  # 4. NRM soft
+  mod_nrm_soft <- if (!is.null(softmat_nrm)) {
+    tryCatch(
+      mirt(dat_top1, 1, itemtype = "nominal", verbose = FALSE, TOL = 1e-4,
+           technical = list(softevidence = softmat_nrm)),
+      error = function(e) { cat(sprintf("  NRM soft failed: %s\n", e$message)); NULL }
+    )
+  }
+
+  results_l3[[scale_id]] <- list(
+    grm_top1 = mod_grm_top1, grm_soft = mod_grm_soft,
+    nrm_top1 = mod_nrm_top1, nrm_soft = mod_nrm_soft,
+    items = items, reverse = rev_items,
+    dat_top1 = dat_top1, softmat_grm = softmat_grm, pi_sub = pi_sub
+  )
+}
+```
+
+
+## 4. Results: Top-1 IRT Comparison
+
+### Fit statistics
+
+```{r top1_comparison}
+# Load Llama-2 results
+results_l2 <- readRDS("fit_irt_bfi_full_results.rds")
+
+top1_both <- names(bfi_scales) %>%
+  map_dfr(function(s) {
+    r2 <- results_l2[[s]]
+    r3 <- results_l3[[s]]
+    tibble(
+      Scale = s,
+      # Llama-2
+      L2_GRM_AIC = if (!is.null(r2$grm_top1)) r2$grm_top1@Fit$AIC else NA_real_,
+      L2_NRM_AIC = if (!is.null(r2$nrm_top1)) r2$nrm_top1@Fit$AIC else NA_real_,
+      L2_preferred = ifelse(L2_GRM_AIC < L2_NRM_AIC, "GRM", "NRM"),
+      # Llama-3.2
+      L3_GRM_AIC = if (!is.null(r3$grm_top1)) r3$grm_top1@Fit$AIC else NA_real_,
+      L3_NRM_AIC = if (!is.null(r3$nrm_top1)) r3$nrm_top1@Fit$AIC else NA_real_,
+      L3_preferred = ifelse(L3_GRM_AIC < L3_NRM_AIC, "GRM", "NRM")
+    )
+  })
+
+top1_both %>%
+  knitr::kable(digits = 1,
+               caption = "Top-1 AIC: Llama-2 7B vs Llama-3.2 3B")
+```
+
+
+### GRM discrimination comparison
+
+```{r discrim_comparison, fig.height=7}
+get_grm_params <- function(results, model_label) {
+  names(results) %>%
+    map_dfr(function(s) {
+      r <- results[[s]]
+      if (is.null(r$grm_top1)) return(NULL)
+      coefs <- coef(r$grm_top1, simplify = TRUE)$items
+      as_tibble(coefs, rownames = "item") %>%
+        mutate(Scale = s, Model = model_label, .before = 1)
+    })
+}
+
+bind_rows(
+  get_grm_params(results_l2, "Llama-2 7B"),
+  get_grm_params(results_l3, "Llama-3.2 3B")
+) %>%
+  ggplot(aes(x = reorder(item, a1), y = a1, fill = Model)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  facet_wrap(~Scale, scales = "free_y") +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "GRM Discrimination (a1): Llama-2 vs Llama-3.2",
+       subtitle = "Extreme a1 values suggest near-deterministic responses; moderate values are healthier",
+       x = NULL, y = "Discrimination (a1)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+## 5. Soft-Evidence IRT: Does It Work for Llama-3.2?
+
+This is the key question. Llama-2's soft evidence collapsed (a1 → 0) because of
+homogeneous distributions. If Llama-3.2 has more entropy, the soft-evidence approach
+should recover meaningful discrimination.
+
+```{r soft_comparison}
+soft_both <- names(bfi_scales) %>%
+  map_dfr(function(s) {
+    r2 <- results_l2[[s]]
+    r3 <- results_l3[[s]]
+
+    # Llama-2 soft GRM a1 range
+    l2_soft_a1 <- if (!is.null(r2$grm_soft)) {
+      range(coef(r2$grm_soft, simplify = TRUE)$items[, "a1"])
+    } else c(NA, NA)
+
+    # Llama-3.2 soft GRM a1 range
+    l3_soft_a1 <- if (!is.null(r3$grm_soft)) {
+      range(coef(r3$grm_soft, simplify = TRUE)$items[, "a1"])
+    } else c(NA, NA)
+
+    tibble(
+      Scale = s,
+      L2_soft_a1_range = sprintf("[%.2f, %.2f]", l2_soft_a1[1], l2_soft_a1[2]),
+      L3_soft_a1_range = sprintf("[%.2f, %.2f]", l3_soft_a1[1], l3_soft_a1[2]),
+      L2_degenerate = all(abs(l2_soft_a1) < 0.1),
+      L3_degenerate = all(abs(l3_soft_a1) < 0.1)
+    )
+  })
+
+soft_both %>%
+  knitr::kable(caption = "Soft-evidence GRM discrimination ranges: does a1 stay alive?")
+```
+
+```{r soft_params_detail, fig.height=7}
+get_soft_params <- function(results, model_label) {
+  names(results) %>%
+    map_dfr(function(s) {
+      r <- results[[s]]
+      if (is.null(r$grm_soft)) return(NULL)
+      coefs <- coef(r$grm_soft, simplify = TRUE)$items
+      as_tibble(coefs, rownames = "item") %>%
+        mutate(Scale = s, Model = model_label, .before = 1)
+    })
+}
+
+soft_params_both <- bind_rows(
+  get_soft_params(results_l2, "Llama-2 7B (soft)"),
+  get_soft_params(results_l3, "Llama-3.2 3B (soft)")
+)
+
+if (nrow(soft_params_both) > 0) {
+  soft_params_both %>%
+    ggplot(aes(x = reorder(item, a1), y = a1, fill = Model)) +
+    geom_col(position = "dodge") +
+    coord_flip() +
+    facet_wrap(~Scale, scales = "free_y") +
+    labs(title = "Soft-Evidence GRM Discrimination: Llama-2 vs Llama-3.2",
+         subtitle = "Llama-2 a1 = 0 everywhere. Does Llama-3.2 recover signal?",
+         x = NULL, y = "Discrimination (a1)") +
+    theme_minimal() +
+    theme(legend.position = "bottom")
+}
+```
+
+### Top-1 vs soft-evidence correlation (Llama-3.2)
+
+```{r top1_vs_soft_l3}
+top_soft_cor_l3 <- names(results_l3) %>%
+  map_dfr(function(s) {
+    r <- results_l3[[s]]
+    if (is.null(r$grm_top1) || is.null(r$grm_soft)) return(NULL)
+    a1_top <- coef(r$grm_top1, simplify = TRUE)$items[, "a1"]
+    a1_soft <- coef(r$grm_soft, simplify = TRUE)$items[, "a1"]
+    tibble(
+      Scale = s,
+      cor_a1 = cor(a1_top, a1_soft),
+      mean_abs_diff = mean(abs(a1_top - a1_soft))
+    )
+  })
+
+top_soft_cor_l3 %>%
+  knitr::kable(digits = 3,
+               caption = "Llama-3.2: correlation between top-1 and soft-evidence a1 parameters")
+```
+
+
+## 6. Expected Value IRT: Using Logprobs as Continuous Scores
+
+Soft-evidence IRT collapses because the *distributional shape* is an item property,
+not a person property — personas shift the mode but not the shape. An alternative:
+compute the **expected value** E[X] = Σ_k k·π_k as a continuous item score. This
+captures the gradual probability shift across personas (e.g., P("5") rising from
+0.55 to 0.75 before it becomes the argmax) and provides finer between-person
+resolution than the discrete top-1 response.
+
+We treat EV scores as continuous indicators and fit a unidimensional factor model
+per trait using `mirt(..., itemtype = 'graded')` on the discretized EV, as well
+as a standard CFA via the `sem` function approach. We compare discrimination
+parameters to the top-1 GRM.
+
+### Computing expected values
+
+```{r ev_scores}
+# Compute EV for each person x item from logprob distributions
+compute_ev <- function(df) {
+  lp_cols <- df %>% select(logprob_1:logprob_5) %>% as.matrix()
+  lp_floor <- min(lp_cols, na.rm = TRUE)
+  lp_cols[is.na(lp_cols)] <- lp_floor
+  probs <- exp(lp_cols)
+  probs <- probs / rowSums(probs)
+  rowSums(probs * matrix(1:5, nrow = nrow(probs), ncol = 5, byrow = TRUE))
+}
+
+df_l3_persona <- df_l3_persona %>%
+  mutate(ev_response = compute_ev(df_l3_persona))
+df_l3_neutral <- df_l3_neutral %>%
+  mutate(ev_response = compute_ev(df_l3_neutral))
+
+# Also compute for Llama-2
+df_llama2 <- df_llama2 %>%
+  mutate(ev_response = compute_ev(df_llama2))
+```
+
+```{r ev_vs_argmax, fig.height=5}
+# EV vs argmax comparison
+bind_rows(
+  df_llama2 %>% select(model, response, ev_response),
+  df_l3_persona %>% mutate(model = "Llama-3.2 3B") %>% select(model, response, ev_response)
+) %>%
+  ggplot(aes(x = factor(response), y = ev_response, fill = model)) +
+  geom_violin(alpha = 0.6, scale = "width") +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "Expected Value vs Argmax Response",
+       subtitle = "EV adds continuous variation within each argmax category",
+       x = "Argmax Response", y = "Expected Value", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r ev_between_person_var, fig.height=5}
+# The key diagnostic: how much between-person EV variation exists per item?
+ev_var <- bind_rows(
+  df_llama2 %>%
+    group_by(item_id) %>%
+    summarise(ev_sd = sd(ev_response), ev_mean = mean(ev_response)) %>%
+    mutate(model = "Llama-2 7B"),
+  df_l3_persona %>%
+    group_by(item_id) %>%
+    summarise(ev_sd = sd(ev_response), ev_mean = mean(ev_response)) %>%
+    mutate(model = "Llama-3.2 3B")
+)
+
+ev_var %>%
+  ggplot(aes(x = ev_sd, fill = model)) +
+  geom_histogram(bins = 20, alpha = 0.6, position = "identity") +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "Between-Person SD of Expected Value per Item",
+       subtitle = "More spread = more information for factor analysis. Compare to top-1 SD.",
+       x = "SD(EV) across SPIDs", y = "Number of items", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+### EV-based person-by-item matrix
+
+```{r ev_matrices}
+# Build EV response matrices (continuous)
+ev_wide_l3 <- df_l3_persona %>%
+  select(spid, item_id, ev_response) %>%
+  pivot_wider(names_from = item_id, values_from = ev_response) %>%
+  arrange(spid)
+
+ev_wide_l2 <- df_llama2 %>%
+  select(spid, item_id, ev_response) %>%
+  pivot_wider(names_from = item_id, values_from = ev_response) %>%
+  arrange(spid)
+```
+
+
+### Factor analysis on EV scores
+
+Since EV scores are continuous, we use CFA with the Big Five structure.
+This is the `lavaan`-style approach but implemented via correlation-based
+factor analysis in base R for simplicity.
+
+```{r ev_fa, fig.height=8}
+# Per-trait factor analysis on EV scores
+ev_results <- list()
+
+for (scale_id in names(bfi_scales)) {
+  items <- bfi_scales[[scale_id]]$items
+  rev_items <- bfi_scales[[scale_id]]$reverse
+
+  # Llama-3.2 EV matrix
+  ev_l3 <- ev_wide_l3 %>% select(all_of(items)) %>% as.data.frame()
+  for (ri in rev_items) ev_l3[[ri]] <- 6 - ev_l3[[ri]]
+
+  # Llama-2 EV matrix
+  ev_l2 <- ev_wide_l2 %>% select(all_of(items)) %>% as.data.frame()
+  for (ri in rev_items) ev_l2[[ri]] <- 6 - ev_l2[[ri]]
+
+  # Single-factor extraction via principal axis
+  fa_l3 <- tryCatch({
+    pc <- prcomp(ev_l3, scale. = TRUE)
+    loadings <- cor(ev_l3, pc$x[, 1])
+    scores <- pc$x[, 1]
+    var_explained <- pc$sdev[1]^2 / sum(pc$sdev^2)
+    list(loadings = loadings[,1], scores = scores, var_explained = var_explained)
+  }, error = function(e) NULL)
+
+  fa_l2 <- tryCatch({
+    pc <- prcomp(ev_l2, scale. = TRUE)
+    loadings <- cor(ev_l2, pc$x[, 1])
+    scores <- pc$x[, 1]
+    var_explained <- pc$sdev[1]^2 / sum(pc$sdev^2)
+    list(loadings = loadings[,1], scores = scores, var_explained = var_explained)
+  }, error = function(e) NULL)
+
+  # Neutral EV scores — filter for SPIDs that have all items in this scale
+  ev_neutral <- df_l3_neutral %>%
+    filter(item_id %in% items) %>%
+    group_by(spid) %>%
+    filter(n() == length(items)) %>%
+    ungroup() %>%
+    select(spid, item_id, ev_response) %>%
+    pivot_wider(names_from = item_id, values_from = ev_response)
+
+  neutral_scores <- NULL
+  if (!is.null(fa_l3) && nrow(ev_neutral) > 0) {
+    ev_neut_mat <- ev_neutral %>% select(all_of(items)) %>% as.data.frame()
+    for (ri in rev_items) ev_neut_mat[[ri]] <- 6 - ev_neut_mat[[ri]]
+    # Project onto the persona PC1 using predict
+    pc_l3 <- prcomp(ev_l3, scale. = TRUE)
+    neutral_scores <- predict(pc_l3, newdata = ev_neut_mat)[, 1]
+  }
+
+  ev_results[[scale_id]] <- list(
+    fa_l3 = fa_l3, fa_l2 = fa_l2,
+    neutral_scores = neutral_scores,
+    neutral_spids = if (nrow(ev_neutral) > 0) ev_neutral$spid else character(0)
+  )
+}
+```
+
+### EV factor loadings comparison
+
+```{r ev_loadings, fig.height=7}
+loading_df <- names(ev_results) %>%
+  map_dfr(function(s) {
+    r <- ev_results[[s]]
+    items <- bfi_scales[[s]]$items
+    bind_rows(
+      if (!is.null(r$fa_l2)) tibble(Scale = s, item = items,
+        loading = r$fa_l2$loadings, Model = "Llama-2 7B (EV)"),
+      if (!is.null(r$fa_l3)) tibble(Scale = s, item = items,
+        loading = r$fa_l3$loadings, Model = "Llama-3.2 3B (EV)")
+    )
+  })
+
+# Add top-1 GRM discrimination for comparison (normalized to loading scale)
+grm_loading_df <- bind_rows(
+  get_grm_params(results_l2, "Llama-2 7B (top-1)"),
+  get_grm_params(results_l3, "Llama-3.2 3B (top-1)")
+) %>%
+  select(Scale, item, a1, Model) %>%
+  # Normalize a1 to approx loading scale: loading ≈ a1 / sqrt(1 + a1^2)
+  mutate(loading = a1 / sqrt(1 + a1^2))
+
+all_loadings <- bind_rows(loading_df, grm_loading_df)
+
+all_loadings %>%
+  ggplot(aes(x = reorder(item, loading), y = loading, fill = Model)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  facet_wrap(~Scale, scales = "free_y") +
+  labs(title = "Factor Loadings: EV-Based PCA vs Top-1 GRM (Normalized)",
+       subtitle = "EV loadings use continuous distributional info; GRM uses discrete argmax",
+       x = NULL, y = "Loading / Normalized Discrimination") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+### Variance explained
+
+```{r ev_variance}
+var_df <- names(ev_results) %>%
+  map_dfr(function(s) {
+    r <- ev_results[[s]]
+    bind_rows(
+      if (!is.null(r$fa_l2)) tibble(Scale = s, Model = "Llama-2 7B",
+        var_explained = r$fa_l2$var_explained),
+      if (!is.null(r$fa_l3)) tibble(Scale = s, Model = "Llama-3.2 3B",
+        var_explained = r$fa_l3$var_explained)
+    )
+  })
+
+var_df %>%
+  ggplot(aes(x = Scale, y = var_explained, fill = Model)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = sprintf("%.1f%%", var_explained * 100)),
+            position = position_dodge(width = 0.9), vjust = -0.3, size = 3) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  scale_fill_manual(values = c("Llama-2 7B" = "steelblue", "Llama-3.2 3B" = "coral")) +
+  labs(title = "Variance Explained by First Principal Component (EV Scores)",
+       subtitle = "Higher = stronger unidimensional trait structure",
+       x = NULL, y = "Variance Explained", fill = NULL) +
+  theme_minimal()
+```
+
+
+### EV loading correlation: top-1 vs EV, and across models
+
+```{r ev_correlation}
+cor_df <- names(ev_results) %>%
+  map_dfr(function(s) {
+    r <- ev_results[[s]]
+    r3_grm <- results_l3[[s]]
+
+    cors <- list()
+
+    # EV vs top-1 within Llama-3.2
+    if (!is.null(r$fa_l3) && !is.null(r3_grm$grm_top1)) {
+      a1_top1 <- coef(r3_grm$grm_top1, simplify = TRUE)$items[, "a1"]
+      a1_norm <- a1_top1 / sqrt(1 + a1_top1^2)
+      cors$`L3: EV vs top-1` <- cor(r$fa_l3$loadings, a1_norm)
+    }
+
+    # EV across models
+    if (!is.null(r$fa_l2) && !is.null(r$fa_l3)) {
+      cors$`EV: L2 vs L3` <- cor(r$fa_l2$loadings, r$fa_l3$loadings)
+    }
+
+    if (length(cors) > 0) {
+      tibble(Scale = s, comparison = names(cors), correlation = unlist(cors))
+    }
+  })
+
+cor_df %>%
+  pivot_wider(names_from = comparison, values_from = correlation) %>%
+  knitr::kable(digits = 3,
+               caption = "Loading correlations: EV vs top-1 within model, and EV across models")
+```
+
+
+### Neutral placement on EV factor scores
+
+```{r ev_neutral_placement, fig.height=8}
+ev_placement_df <- names(ev_results) %>%
+  map_dfr(function(s) {
+    r <- ev_results[[s]]
+    if (is.null(r$fa_l3)) return(NULL)
+
+    persona <- tibble(Scale = s, score = r$fa_l3$scores, type = "Persona SPIDs")
+
+    neutral <- if (!is.null(r$neutral_scores) && length(r$neutral_scores) > 0) {
+      tibble(Scale = s, score = r$neutral_scores, type = "Neutral (no persona)")
+    }
+
+    bind_rows(persona, neutral)
+  })
+
+if (nrow(ev_placement_df) > 0 &&
+    any(ev_placement_df$type == "Neutral (no persona)")) {
+
+  ev_neutral_summary <- ev_placement_df %>%
+    group_by(Scale, type) %>%
+    summarise(mean_score = mean(score), sd_score = sd(score), .groups = "drop")
+
+  ev_neutral_summary %>%
+    knitr::kable(digits = 3,
+                 caption = "EV-based factor scores: Neutral vs Persona")
+
+  # Percentile
+  ev_pctl <- names(ev_results) %>%
+    map_dfr(function(s) {
+      r <- ev_results[[s]]
+      if (is.null(r$fa_l3) || is.null(r$neutral_scores) ||
+          length(r$neutral_scores) == 0) return(NULL)
+      persona_scores <- r$fa_l3$scores
+      neut_mean <- mean(r$neutral_scores)
+      tibble(
+        Scale = s,
+        neutral_mean = neut_mean,
+        percentile = mean(persona_scores <= neut_mean) * 100
+      )
+    })
+
+  ev_pctl %>%
+    knitr::kable(digits = 2,
+                 caption = "Neutral as percentile of persona distribution (EV-based)")
+
+  ev_placement_df %>%
+    ggplot(aes(x = score, fill = type)) +
+    geom_density(alpha = 0.5) +
+    geom_vline(data = ev_neutral_summary %>% filter(type == "Neutral (no persona)"),
+               aes(xintercept = mean_score), color = "darkgreen",
+               linetype = "dashed", linewidth = 1) +
+    facet_wrap(~Scale, scales = "free_y", ncol = 1) +
+    scale_fill_manual(values = c("Persona SPIDs" = "coral",
+                                  "Neutral (no persona)" = "darkgreen")) +
+    labs(title = "Neutral Placement on EV-Based Factor Scores",
+         subtitle = "EV uses continuous logprob info. Compare to top-1 IRT placement above.",
+         x = "PC1 Score (trait level)", y = "Density", fill = NULL) +
+    theme_minimal() +
+    theme(legend.position = "bottom")
+}
+```
+
+
+## 7. Placing Neutral (No-Persona) Responses on the Trait Scale (Top-1 IRT)
+
+Using the IRT models fitted on persona data, we compute factor scores for the neutral
+(no-persona) SPIDs. This locates the model's "resting state" on each Big Five dimension
+as defined by the persona-induced variation.
+
+We use the **best-fitting top-1 model** (GRM or NRM per scale) and compute both:
+
+- **Top-1 factor scores**: Using the argmax response
+- **Soft-evidence factor scores**: Using the full logprob distribution (if soft model is viable)
+
+```{r neutral_placement}
+neutral_placement <- list()
+
+for (scale_id in names(bfi_scales)) {
+  items <- bfi_scales[[scale_id]]$items
+  rev_items <- bfi_scales[[scale_id]]$reverse
+  r3 <- results_l3[[scale_id]]
+
+  # Use GRM top-1 as reference model (always works)
+  ref_mod <- r3$grm_top1
+  if (is.null(ref_mod)) next
+
+  # Build neutral response data
+  neut_data <- build_neutral_softmat(df_l3_neutral, items, all_items,
+                                      ref_mod, rev_items)
+  if (is.null(neut_data$dat) || nrow(neut_data$dat) == 0) next
+
+  # Top-1 factor scores for neutral
+  neut_fs_top1 <- tryCatch(
+    fscores(ref_mod, response.pattern = neut_data$dat, method = "EAP"),
+    error = function(e) NULL
+  )
+
+  # Factor scores for all persona SPIDs (for comparison)
+  persona_fs <- tryCatch(
+    fscores(ref_mod, method = "EAP"),
+    error = function(e) NULL
+  )
+
+  # Soft-evidence factor scores for neutral (if soft model is viable)
+  soft_mod <- r3$grm_soft
+  neut_fs_soft <- NULL
+  if (!is.null(soft_mod)) {
+    neut_fs_soft <- tryCatch(
+      fscores(soft_mod, response.pattern = neut_data$dat, method = "EAP"),
+      error = function(e) NULL
+    )
+  }
+
+  neutral_placement[[scale_id]] <- list(
+    neut_fs_top1 = neut_fs_top1,
+    neut_fs_soft = neut_fs_soft,
+    persona_fs = persona_fs,
+    neut_spids = neut_data$spids,
+    neut_dat = neut_data$dat
+  )
+}
+```
+
+```{r neutral_plot, fig.height=8}
+placement_df <- names(neutral_placement) %>%
+  map_dfr(function(s) {
+    np <- neutral_placement[[s]]
+    if (is.null(np$persona_fs) || is.null(np$neut_fs_top1)) return(NULL)
+
+    persona_thetas <- tibble(
+      Scale = s,
+      theta = np$persona_fs[, "F1"],
+      type = "Persona SPIDs"
+    )
+
+    neutral_thetas <- tibble(
+      Scale = s,
+      theta = np$neut_fs_top1[, "F1"],
+      type = "Neutral (no persona)"
+    )
+
+    bind_rows(persona_thetas, neutral_thetas)
+  })
+
+if (nrow(placement_df) > 0) {
+  # Summary statistics
+  neutral_summary <- placement_df %>%
+    group_by(Scale, type) %>%
+    summarise(
+      mean_theta = mean(theta),
+      sd_theta = sd(theta),
+      median_theta = median(theta),
+      .groups = "drop"
+    )
+
+  neutral_summary %>%
+    knitr::kable(digits = 3,
+                 caption = "Factor score summary: Neutral vs Persona SPIDs")
+
+  # Density plot
+  placement_df %>%
+    ggplot(aes(x = theta, fill = type)) +
+    geom_density(alpha = 0.5) +
+    geom_vline(data = neutral_summary %>% filter(type == "Neutral (no persona)"),
+               aes(xintercept = mean_theta), color = "darkgreen",
+               linetype = "dashed", linewidth = 1) +
+    facet_wrap(~Scale, scales = "free_y", ncol = 1) +
+    scale_fill_manual(values = c("Persona SPIDs" = "coral",
+                                  "Neutral (no persona)" = "darkgreen")) +
+    labs(title = "Where Does the Model's 'Resting State' Fall on Each Trait?",
+         subtitle = "Dashed green line = mean neutral theta. Persona distribution provides the scale.",
+         x = expression(theta ~ "(trait level)"), y = "Density", fill = NULL) +
+    theme_minimal() +
+    theme(legend.position = "bottom")
+}
+```
+
+### Neutral theta as percentile of persona distribution
+
+```{r neutral_percentile}
+if (nrow(placement_df) > 0) {
+  percentile_df <- names(neutral_placement) %>%
+    map_dfr(function(s) {
+      np <- neutral_placement[[s]]
+      if (is.null(np$persona_fs) || is.null(np$neut_fs_top1)) return(NULL)
+      persona_thetas <- np$persona_fs[, "F1"]
+      neut_mean <- mean(np$neut_fs_top1[, "F1"])
+      tibble(
+        Scale = s,
+        neutral_mean_theta = neut_mean,
+        percentile = mean(persona_thetas <= neut_mean) * 100,
+        persona_mean = mean(persona_thetas),
+        persona_sd = sd(persona_thetas)
+      )
+    })
+
+  percentile_df %>%
+    knitr::kable(digits = 2,
+                 caption = "Neutral (resting state) as percentile of persona distribution")
+}
+```
+
+
+## 8. Summary
+
+```{r save_results, include=FALSE}
+saveRDS(list(
+  results_l3 = results_l3,
+  neutral_placement = neutral_placement,
+  ev_results = ev_results,
+  obs_cats_l3 = obs_cats_l3
+), "compare_llama2_llama3_results.rds")
+```
+
+### Key findings
+
+```{r findings_table}
+tribble(
+  ~Question, ~Finding,
+  "Does Llama-3.2 use more response categories?",
+    sprintf("Observed categories: {%s}", paste(obs_cats_l3, collapse = ", ")),
+  "More entropy in logprobs?",
+    "See entropy comparison above",
+  "Soft-evidence IRT viable?",
+    ifelse(any(!soft_both$L3_degenerate),
+           "PARTIAL — discrimination recovered for some scales (OPE), degenerate for others",
+           "NO — still degenerate (a1 ≈ 0). Distributional shape is item-level, not person-level."),
+  "EV-based factor analysis",
+    "Captures continuous between-person variation from logprobs without soft-evidence assumptions",
+  "Neutral resting state location",
+    "See percentile tables above (both top-1 IRT and EV-based)"
+) %>%
+  knitr::kable(caption = "Summary of key questions")
+```
+
+```{r session_info, echo=FALSE}
+cat("Session info:\n")
+cat(sprintf("  mirt version: %s\n", packageVersion("mirt")))
+cat(sprintf("  R version: %s\n", R.version.string))
+```

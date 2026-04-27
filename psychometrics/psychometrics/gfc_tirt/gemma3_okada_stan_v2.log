@@ -1,0 +1,203 @@
+Stan model: results/tirt_okada.stan
+Responses:  results/gemma3-12b_gfc30_synthetic.json
+Output:     results/gemma3_okada_stan_fit.rds
+Personas:   50  Chains: 4  Iter: 4000
+Complete respondents: 50 / 50
+
+Stan data sanity:
+  N=50 P=30 J=60 D=5 K=7
+  trait counts: A=12 C=12 E=12 N=12 O=12
+  keying counts (L items): +=15 -=15
+  response category usage:
+y_mat
+  1   2   3   4   5   6   7 
+217 161   2 614 116  30 360 
+
+Compiling Stan model...
+Sampling: 4 chains x 4000 iter (2000 warmup)
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.002247 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 22.47 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.002379 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 23.79 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 3: 
+Chain 3: Gradient evaluation took 0.002241 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 22.41 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 2: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 4: 
+Chain 4: Gradient evaluation took 0.002293 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 22.93 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 3: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 4: Iteration:    1 / 4000 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 4000 [  5%]  (Warmup)
+Chain 2: Iteration:  200 / 4000 [  5%]  (Warmup)
+Chain 3: Iteration:  200 / 4000 [  5%]  (Warmup)
+Chain 4: Iteration:  200 / 4000 [  5%]  (Warmup)
+Chain 1: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 2: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 3: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 4: Iteration:  400 / 4000 [ 10%]  (Warmup)
+Chain 1: Iteration:  600 / 4000 [ 15%]  (Warmup)
+Chain 2: Iteration:  600 / 4000 [ 15%]  (Warmup)
+Chain 3: Iteration:  600 / 4000 [ 15%]  (Warmup)
+Chain 4: Iteration:  600 / 4000 [ 15%]  (Warmup)
+Chain 1: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 2: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 3: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 4: Iteration:  800 / 4000 [ 20%]  (Warmup)
+Chain 1: Iteration: 1000 / 4000 [ 25%]  (Warmup)
+Chain 2: Iteration: 1000 / 4000 [ 25%]  (Warmup)
+Chain 3: Iteration: 1000 / 4000 [ 25%]  (Warmup)
+Chain 4: Iteration: 1000 / 4000 [ 25%]  (Warmup)
+Chain 1: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 2: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 4: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 3: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+Chain 1: Iteration: 1400 / 4000 [ 35%]  (Warmup)
+Chain 2: Iteration: 1400 / 4000 [ 35%]  (Warmup)
+Chain 3: Iteration: 1400 / 4000 [ 35%]  (Warmup)
+Chain 4: Iteration: 1400 / 4000 [ 35%]  (Warmup)
+Chain 1: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 2: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 3: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 4: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+Chain 1: Iteration: 1800 / 4000 [ 45%]  (Warmup)
+Chain 2: Iteration: 1800 / 4000 [ 45%]  (Warmup)
+Chain 3: Iteration: 1800 / 4000 [ 45%]  (Warmup)
+Chain 4: Iteration: 1800 / 4000 [ 45%]  (Warmup)
+Chain 1: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 1: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 2: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 2: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 3: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 3: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 4: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+Chain 4: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+Chain 1: Iteration: 2200 / 4000 [ 55%]  (Sampling)
+Chain 2: Iteration: 2200 / 4000 [ 55%]  (Sampling)
+Chain 3: Iteration: 2200 / 4000 [ 55%]  (Sampling)
+Chain 1: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 4: Iteration: 2200 / 4000 [ 55%]  (Sampling)
+Chain 2: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 3: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 1: Iteration: 2600 / 4000 [ 65%]  (Sampling)
+Chain 2: Iteration: 2600 / 4000 [ 65%]  (Sampling)
+Chain 3: Iteration: 2600 / 4000 [ 65%]  (Sampling)
+Chain 1: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 4: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+Chain 2: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 3: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 1: Iteration: 3000 / 4000 [ 75%]  (Sampling)
+Chain 2: Iteration: 3000 / 4000 [ 75%]  (Sampling)
+Chain 3: Iteration: 3000 / 4000 [ 75%]  (Sampling)
+Chain 1: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 4: Iteration: 2600 / 4000 [ 65%]  (Sampling)
+Chain 2: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 3: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 1: Iteration: 3400 / 4000 [ 85%]  (Sampling)
+Chain 2: Iteration: 3400 / 4000 [ 85%]  (Sampling)
+Chain 3: Iteration: 3400 / 4000 [ 85%]  (Sampling)
+Chain 1: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 4: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+Chain 2: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 1: Iteration: 3800 / 4000 [ 95%]  (Sampling)
+Chain 3: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 2: Iteration: 3800 / 4000 [ 95%]  (Sampling)
+Chain 1: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 172.777 seconds (Warm-up)
+Chain 1:                147.806 seconds (Sampling)
+Chain 1:                320.583 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 3800 / 4000 [ 95%]  (Sampling)
+Chain 4: Iteration: 3000 / 4000 [ 75%]  (Sampling)
+Chain 2: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 182.346 seconds (Warm-up)
+Chain 2:                153.145 seconds (Sampling)
+Chain 2:                335.491 seconds (Total)
+Chain 2: 
+Chain 3: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 182.536 seconds (Warm-up)
+Chain 3:                155.143 seconds (Sampling)
+Chain 3:                337.679 seconds (Total)
+Chain 3: 
+Chain 4: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+Chain 4: Iteration: 3400 / 4000 [ 85%]  (Sampling)
+Chain 4: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+Chain 4: Iteration: 3800 / 4000 [ 95%]  (Sampling)
+Chain 4: Iteration: 4000 / 4000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 183.105 seconds (Warm-up)
+Chain 4:                282.488 seconds (Sampling)
+Chain 4:                465.593 seconds (Total)
+Chain 4: 
+Warning messages:
+1: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+2: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+3: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+
+Ground-truth recovery (Pearson r):
+  A: +0.689
+  C: -0.350
+  E: -0.567
+  N: -0.630
+  O: -0.592
+
+Estimated trait correlations (posterior mean Omega):
+     A     C     E     N     O
+A 1.00  0.35  0.03  0.00  0.20
+C 0.35  1.00  0.66 -0.66  0.55
+E 0.03  0.66  1.00 -0.74  0.77
+N 0.00 -0.66 -0.74  1.00 -0.67
+O 0.20  0.55  0.77 -0.67  1.00
+
+Ground-truth correlations on this 50-respondent subset:
+      A     C     E     N     O
+A  1.00  0.36  0.36 -0.42  0.31
+C  0.36  1.00  0.17 -0.36  0.25
+E  0.36  0.17  1.00 -0.39  0.40
+N -0.42 -0.36 -0.39  1.00 -0.19
+O  0.31  0.25  0.40 -0.19  1.00
+
+a_pos summary (head):
+          mean    sd  n_eff  Rhat
+a_pos[1] 1.278 0.770  3.064 1.649
+a_pos[2] 1.663 0.825  4.068 1.376
+a_pos[3] 1.556 0.605 21.713 1.061
+a_pos[4] 1.197 0.542  5.692 1.233
+a_pos[5] 1.254 0.791  2.867 1.760
+a_pos[6] 1.298 0.615  4.447 1.331
+
+Saved: results/gemma3_okada_stan_fit.rds
+
+Convergence: 283 params with Rhat>1.05, 317 with n_eff<100

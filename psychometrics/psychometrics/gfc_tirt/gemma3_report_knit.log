@@ -1,0 +1,49 @@
+
+
+processing file: gemma3_gfc_tirt_report.Rmd
+1/41                      
+2/41 [setup]              
+3/41                      
+4/41 [load-fit]           
+5/41                      
+6/41 [extract-scores]     
+7/41                      
+8/41 [recovery-table]     
+9/41                      
+10/41 [scatter-recovery]   
+11/41                      
+12/41 [scatter-simple]     
+13/41                      
+14/41 [trait-cors]         
+15/41                      
+16/41 [cor-heatmaps]       
+17/41                      
+18/41 [response-dist]      
+19/41                      
+20/41 [response-by-trait]  
+21/41                      
+22/41 [entropy-by-persona] 
+23/41                      
+24/41 [neutral-simple]     
+25/41                      
+26/41 [neutral-tirt]       
+27/41                      
+28/41 [persona-terciles]   
+29/41                      
+30/41 [placement-plot-tirt]
+31/41                      
+32/41 [density-placement]  
+33/41                      
+34/41 [neutral-percentile] 
+35/41                      
+36/41 [item-comparison]    
+37/41                      
+38/41 [item-diff]          
+39/41                      
+40/41 [summary-table]      
+41/41                      
+output file: gemma3_gfc_tirt_report.knit.md
+
+/usr/bin/pandoc +RTS -K512m -RTS gemma3_gfc_tirt_report.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output gemma3_gfc_tirt_report.html --lua-filter /usr/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /usr/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=flatly --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpOiWhag/rmarkdown-str5f1ed47308757.html --variable code_folding=hide --variable code_menu=1 
+
+Output created: gemma3_gfc_tirt_report.html

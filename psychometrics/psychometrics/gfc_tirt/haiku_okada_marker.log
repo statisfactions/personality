@@ -1,0 +1,137 @@
+Stan model: results/tirt_okada_marker.stan
+Responses:  results/claude-haiku-4-5-20251001_gfc30_synthetic.json
+Output:     results/haiku_okada_marker_fit.rds
+Markers (statement indices):
+  A: stmt 1  block 1 L  "Accept people as they are."
+  C: stmt 4  block 2 R  "Carry out my plans."
+  E: stmt 6  block 3 R  "Talk to a lot of different people at parties."
+  N: stmt 12  block 6 R  "Dislike myself."
+  O: stmt 2  block 1 R  "Enjoy hearing new ideas."
+Complete respondents: 50
+
+Compiling marker model...
+Sampling: 4 x 1500
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.003002 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 30.02 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.002959 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 29.59 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 3: 
+Chain 3: Gradient evaluation took 0.002819 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 28.19 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.002815 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 28.15 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 2: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 3: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 4: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 3: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 2: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 4: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 1: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 3: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 4: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 2: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 1: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 3: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 4: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 2: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 1: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 3: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 4: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 2: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 1: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 3: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 4: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 2: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 1: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 3: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 4: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 2: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 1: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 1: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 55.126 seconds (Warm-up)
+Chain 1:                54.668 seconds (Sampling)
+Chain 1:                109.794 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 4: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 2: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 3: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 63.645 seconds (Warm-up)
+Chain 3:                57.825 seconds (Sampling)
+Chain 3:                121.47 seconds (Total)
+Chain 3: 
+Chain 4: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 64.102 seconds (Warm-up)
+Chain 4:                57.556 seconds (Sampling)
+Chain 4:                121.658 seconds (Total)
+Chain 4: 
+Chain 2: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 65.611 seconds (Warm-up)
+Chain 2:                57.643 seconds (Sampling)
+Chain 2:                123.254 seconds (Total)
+Chain 2: 
+Warning messages:
+1: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+2: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+3: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+
+Ground-truth recovery (Pearson r):
+  A: -0.636
+  C: -0.576
+  E: +0.680
+  N: +0.770
+  O: +0.375
+
+Estimated Omega (posterior mean):
+      A     C     E     N     O
+A  1.00  0.31 -0.24  0.01 -0.06
+C  0.31  1.00 -0.10  0.18 -0.48
+E -0.24 -0.10  1.00  0.02  0.10
+N  0.01  0.18  0.02  1.00 -0.21
+O -0.06 -0.48  0.10 -0.21  1.00
+
+Loading sign summary by trait (mean across items):
+  A: marker(+)=0.90 | other +keyed mean=0.48 (n=6) | -keyed mean=-0.87 (n=5)
+  C: marker(+)=1.01 | other +keyed mean=0.89 (n=6) | -keyed mean=-0.53 (n=5)
+  E: marker(+)=0.98 | other +keyed mean=0.32 (n=4) | -keyed mean=-0.44 (n=7)
+  N: marker(+)=0.91 | other +keyed mean=1.05 (n=6) | -keyed mean=-0.41 (n=5)
+  O: marker(+)=1.76 | other +keyed mean=1.19 (n=7) | -keyed mean=-0.06 (n=4)
+
+Saved: results/haiku_okada_marker_fit.rds
+
+Convergence: 217 Rhat>1.05, 241 n_eff<100

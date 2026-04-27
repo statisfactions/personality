@@ -1,0 +1,219 @@
+  loaded Haiku 4.5/honest: 50 rows × 30 blocks (claude-haiku-4-5-20251001_gfc30_synthetic.json)
+  loaded Haiku 4.5/fakegood: 50 rows × 30 blocks (claude-haiku-4-5-20251001_gfc30_synthetic-fakegood.json)
+  loaded Haiku 4.5/bare: 1 rows × 30 blocks (claude-haiku-4-5-20251001_gfc30_neutral-bare.json)
+  loaded Haiku 4.5/respondent: 1 rows × 30 blocks (claude-haiku-4-5-20251001_gfc30_neutral-respondent.json)
+  loaded Gemma3-4B/honest: 50 rows × 30 blocks (gemma3-4b_gfc30_synthetic.json)
+  loaded Gemma3-4B/fakegood: 50 rows × 30 blocks (gemma3-4b_gfc30_synthetic-fakegood.json)
+  loaded Gemma3-4B/bare: 1 rows × 30 blocks (gemma3-4b_gfc30_neutral-bare.json)
+  loaded Gemma3-4B/respondent: 1 rows × 30 blocks (gemma3-4b_gfc30_neutral-respondent.json)
+  loaded Qwen2.5-3B/honest: 50 rows × 30 blocks (qwen2.5-3b_gfc30_synthetic.json)
+  loaded Qwen2.5-3B/fakegood: 50 rows × 30 blocks (qwen2.5-3b_gfc30_synthetic-fakegood.json)
+  loaded Qwen2.5-3B/bare: 1 rows × 30 blocks (qwen2.5-3b_gfc30_neutral-bare.json)
+  loaded Qwen2.5-3B/respondent: 1 rows × 30 blocks (qwen2.5-3b_gfc30_neutral-respondent.json)
+  loaded Phi4-mini/honest: 400 rows × 30 blocks (phi4-mini_gfc30_synthetic.json)
+  loaded Phi4-mini/fakegood: 50 rows × 30 blocks (phi4-mini_gfc30_synthetic-fakegood.json)
+  loaded Phi4-mini/bare: 1 rows × 30 blocks (phi4-mini-latest_gfc30_neutral-bare.json)
+  loaded Phi4-mini/respondent: 1 rows × 30 blocks (phi4-mini-latest_gfc30_neutral-respondent.json)
+  loaded Llama3.2-3B/honest: 50 rows × 30 blocks (llama3.2-3b_gfc30_synthetic.json)
+  loaded Llama3.2-3B/fakegood: 50 rows × 30 blocks (llama3.2-3b_gfc30_synthetic-fakegood.json)
+  loaded Llama3.2-3B/bare: 1 rows × 30 blocks (llama3.2-3b_gfc30_neutral-bare.json)
+  loaded Llama3.2-3B/respondent: 1 rows × 30 blocks (llama3.2-3b_gfc30_neutral-respondent.json)
+
+Pooled response matrix: N=510 rows × P=30 blocks
+
+Rows by (model, condition):
+# A tibble: 20 × 3
+   model       condition      n
+   <chr>       <chr>      <int>
+ 1 Gemma3-4B   bare           1
+ 2 Gemma3-4B   fakegood      50
+ 3 Gemma3-4B   honest        50
+ 4 Gemma3-4B   respondent     1
+ 5 Haiku 4.5   bare           1
+ 6 Haiku 4.5   fakegood      50
+ 7 Haiku 4.5   honest        50
+ 8 Haiku 4.5   respondent     1
+ 9 Llama3.2-3B bare           1
+10 Llama3.2-3B fakegood      50
+11 Llama3.2-3B honest        50
+12 Llama3.2-3B respondent     1
+13 Phi4-mini   bare           1
+14 Phi4-mini   fakegood      50
+15 Phi4-mini   honest        50
+16 Phi4-mini   respondent     1
+17 Qwen2.5-3B  bare           1
+18 Qwen2.5-3B  fakegood      50
+19 Qwen2.5-3B  honest        50
+20 Qwen2.5-3B  respondent     1
+
+Compiling Stan model...
+Sampling: 4 chains × 1500 iter (500 warmup), N=510
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.018986 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 189.86 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.019437 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 194.37 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 3: 
+Chain 3: Gradient evaluation took 0.0196 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 196 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.019335 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 193.35 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 1: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 2: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 3: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 4: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 2: Iteration:  100 / 1500 [  6%]  (Warmup)
+Chain 3: Iteration:  100 / 1500 [  6%]  (Warmup)
+Chain 1: Iteration:  100 / 1500 [  6%]  (Warmup)
+Chain 4: Iteration:  100 / 1500 [  6%]  (Warmup)
+Chain 2: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 3: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 4: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 1: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 2: Iteration:  300 / 1500 [ 20%]  (Warmup)
+Chain 3: Iteration:  300 / 1500 [ 20%]  (Warmup)
+Chain 1: Iteration:  300 / 1500 [ 20%]  (Warmup)
+Chain 4: Iteration:  300 / 1500 [ 20%]  (Warmup)
+Chain 2: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 1: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 4: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 3: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 2: Iteration:  500 / 1500 [ 33%]  (Warmup)
+Chain 2: Iteration:  501 / 1500 [ 33%]  (Sampling)
+Chain 3: Iteration:  500 / 1500 [ 33%]  (Warmup)
+Chain 3: Iteration:  501 / 1500 [ 33%]  (Sampling)
+Chain 4: Iteration:  500 / 1500 [ 33%]  (Warmup)
+Chain 4: Iteration:  501 / 1500 [ 33%]  (Sampling)
+Chain 1: Iteration:  500 / 1500 [ 33%]  (Warmup)
+Chain 1: Iteration:  501 / 1500 [ 33%]  (Sampling)
+Chain 1: Iteration:  600 / 1500 [ 40%]  (Sampling)
+Chain 3: Iteration:  600 / 1500 [ 40%]  (Sampling)
+Chain 2: Iteration:  600 / 1500 [ 40%]  (Sampling)
+Chain 4: Iteration:  600 / 1500 [ 40%]  (Sampling)
+Chain 1: Iteration:  700 / 1500 [ 46%]  (Sampling)
+Chain 3: Iteration:  700 / 1500 [ 46%]  (Sampling)
+Chain 1: Iteration:  800 / 1500 [ 53%]  (Sampling)
+Chain 2: Iteration:  700 / 1500 [ 46%]  (Sampling)
+Chain 4: Iteration:  700 / 1500 [ 46%]  (Sampling)
+Chain 1: Iteration:  900 / 1500 [ 60%]  (Sampling)
+Chain 3: Iteration:  800 / 1500 [ 53%]  (Sampling)
+Chain 1: Iteration: 1000 / 1500 [ 66%]  (Sampling)
+Chain 2: Iteration:  800 / 1500 [ 53%]  (Sampling)
+Chain 4: Iteration:  800 / 1500 [ 53%]  (Sampling)
+Chain 1: Iteration: 1100 / 1500 [ 73%]  (Sampling)
+Chain 3: Iteration:  900 / 1500 [ 60%]  (Sampling)
+Chain 1: Iteration: 1200 / 1500 [ 80%]  (Sampling)
+Chain 2: Iteration:  900 / 1500 [ 60%]  (Sampling)
+Chain 4: Iteration:  900 / 1500 [ 60%]  (Sampling)
+Chain 1: Iteration: 1300 / 1500 [ 86%]  (Sampling)
+Chain 3: Iteration: 1000 / 1500 [ 66%]  (Sampling)
+Chain 1: Iteration: 1400 / 1500 [ 93%]  (Sampling)
+Chain 2: Iteration: 1000 / 1500 [ 66%]  (Sampling)
+Chain 4: Iteration: 1000 / 1500 [ 66%]  (Sampling)
+Chain 3: Iteration: 1100 / 1500 [ 73%]  (Sampling)
+Chain 1: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 396.75 seconds (Warm-up)
+Chain 1:                353.903 seconds (Sampling)
+Chain 1:                750.653 seconds (Total)
+Chain 1: 
+Chain 2: Iteration: 1100 / 1500 [ 73%]  (Sampling)
+Chain 3: Iteration: 1200 / 1500 [ 80%]  (Sampling)
+Chain 4: Iteration: 1100 / 1500 [ 73%]  (Sampling)
+Chain 3: Iteration: 1300 / 1500 [ 86%]  (Sampling)
+Chain 2: Iteration: 1200 / 1500 [ 80%]  (Sampling)
+Chain 4: Iteration: 1200 / 1500 [ 80%]  (Sampling)
+Chain 3: Iteration: 1400 / 1500 [ 93%]  (Sampling)
+Chain 2: Iteration: 1300 / 1500 [ 86%]  (Sampling)
+Chain 4: Iteration: 1300 / 1500 [ 86%]  (Sampling)
+Chain 3: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 383.285 seconds (Warm-up)
+Chain 3:                609.318 seconds (Sampling)
+Chain 3:                992.603 seconds (Total)
+Chain 3: 
+Chain 2: Iteration: 1400 / 1500 [ 93%]  (Sampling)
+Chain 4: Iteration: 1400 / 1500 [ 93%]  (Sampling)
+Chain 2: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 377.036 seconds (Warm-up)
+Chain 2:                703.112 seconds (Sampling)
+Chain 2:                1080.15 seconds (Total)
+Chain 2: 
+Chain 4: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 389.455 seconds (Warm-up)
+Chain 4:                694.362 seconds (Sampling)
+Chain 4:                1083.82 seconds (Total)
+Chain 4: 
+
+=== Per-(model, condition) recovery vs ground truth (Pearson r) ===
+# A tibble: 10 × 8
+   model       condition       A       C       E        N         O n_personas
+   <chr>       <chr>       <dbl>   <dbl>   <dbl>    <dbl>     <dbl>      <int>
+ 1 Gemma3-4B   fakegood  -0.147  -0.292   0.741  -0.442    0.0948           50
+ 2 Gemma3-4B   honest    -0.0330  0.192   0.431  -0.274   -0.275            50
+ 3 Haiku 4.5   fakegood  -0.224  -0.0488 -0.491   0.699   -0.000680         50
+ 4 Haiku 4.5   honest    -0.341  -0.0484 -0.174   0.622    0.319            50
+ 5 Llama3.2-3B fakegood  -0.150   0.0852 -0.0328  0.0397   0.109            50
+ 6 Llama3.2-3B honest     0.110   0.193   0.206   0.0929   0.336            50
+ 7 Phi4-mini   fakegood  -0.293  -0.301   0.237  -0.0680   0.567            50
+ 8 Phi4-mini   honest    -0.471  -0.301   0.197   0.00833  0.524            50
+ 9 Qwen2.5-3B  fakegood   0.0643  0.0463 -0.141   0.0484   0.346            50
+10 Qwen2.5-3B  honest     0.299  -0.0617  0.0795  0.321    0.152            50
+
+=== Summary by (model, condition) ===
+# A tibble: 10 × 5
+   model       condition n_personas mean_signed_r mean_abs_r
+   <chr>       <chr>          <int>         <dbl>      <dbl>
+ 1 Gemma3-4B   fakegood          50      -0.00897     0.343 
+ 2 Gemma3-4B   honest            50       0.00810     0.241 
+ 3 Haiku 4.5   fakegood          50      -0.0133      0.293 
+ 4 Haiku 4.5   honest            50       0.0755      0.301 
+ 5 Llama3.2-3B fakegood          50       0.0102      0.0833
+ 6 Llama3.2-3B honest            50       0.188       0.188 
+ 7 Phi4-mini   fakegood          50       0.0284      0.293 
+ 8 Phi4-mini   honest            50      -0.00863     0.300 
+ 9 Qwen2.5-3B  fakegood          50       0.0727      0.129 
+10 Qwen2.5-3B  honest            50       0.158       0.183 
+
+=== Neutral placement (model-default θ̂ on persona-fitted scale) ===
+# A tibble: 10 × 7
+   model       condition    A_hat   C_hat  E_hat   N_hat   O_hat
+   <chr>       <chr>        <dbl>   <dbl>  <dbl>   <dbl>   <dbl>
+ 1 Haiku 4.5   bare       -0.0604  0.260   0.405 -0.301  -0.147 
+ 2 Haiku 4.5   respondent -0.0751  0.222   0.407 -0.221  -0.101 
+ 3 Gemma3-4B   bare        1.13    1.59   -0.954 -1.47   -0.193 
+ 4 Gemma3-4B   respondent -0.670  -0.271   0.311 -1.40   -0.205 
+ 5 Qwen2.5-3B  bare        1.66    0.378  -0.580  0.0682 -0.144 
+ 6 Qwen2.5-3B  respondent  1.57    1.34   -0.180 -0.174  -1.17  
+ 7 Phi4-mini   bare       -0.797   0.123  -0.170  0.268   0.369 
+ 8 Phi4-mini   respondent -0.811  -0.582   0.204 -0.131  -0.0723
+ 9 Llama3.2-3B bare        0.137   0.0862  0.366 -0.107  -0.239 
+10 Llama3.2-3B respondent  0.129   0.0308  0.166 -0.0707 -0.256 
+
+Saved: results/pooled_tirt_fit.rds
+
+Convergence: 0 Rhat>1.05, 0 n_eff<100 (out of 2791 params)
