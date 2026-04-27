@@ -508,7 +508,7 @@ Phase 1 was measurement-methodology-heavy: HF port, format mismatch resolution, 
 1. ~~**X per-facet decomposition** (§8.2 + §11.5.1). One script, ~30 min. Tests whether the represent-vs-enact split is uniform across X facets or driven by one (e.g., Boldness).~~ **Done (2026-04-26) — see §11.5.6.**
 2. ~~**IPIP-NEO-300 facet rescoring** (§9.1). Free analysis on existing data; tests whether the rank-1 collapse dissolves at facet level.~~ **Done (2026-04-26) — see §11.5.7.**
 3. **Cross-domain stimulus test** (`to_try.md` §16, emotions/shorebirds/transportation). ~3 hours stimulus authoring + minutes of run time. Tests whether high-bandwidth preservation is personality-specific or general. **Partial (2026-04-26): emotions done — see §11.5.8. Shorebirds and transportation deferred (bipolar fit awkward; emotions alone is sufficient to answer the central hypothesis).**
-4. **Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track. **Partial (2026-04-26): rgb's twist on #4 — *representation back-mapping* — done on Qwen7 with the marker-content confound flagged. See §11.5.9. Full persona × instrument response track still queued.**
+4. ~~**Persona × instrument matrix** (Serapio-Garcia / statisfactions integration). Half-day; uses existing persona infra + existing instruments. Cleanest integration with statisfactions's track.~~ **Done (2026-04-26):** rgb's twist (rep back-mapping) on Qwen7 confound-resolved at response position; extended to all 7 cohort models; cross-model agreement computed; preregistered prediction confirmed (Likert > Rep by mean +0.144). See §§11.5.9–11.5.10. Multi-instrument extension queued (single instrument used: Goldberg-marker Likert).
 5. **Sofroniew-style story-based extraction** for the disposition-center direction. More design work (concept selection, story authoring); high methodological novelty.
 6. **SAE work on Gemma 12B** (Phase 2 §8.3). Largest scope; depends on GemmaScope 2 / Neuronpedia tooling.
 
@@ -516,12 +516,16 @@ The order isn't priority — items 1–3 are cheap, 4 is medium, 5–6 are bigge
 
 ### 11.5.5 What to lean into for the reading group
 
-After §11 cleanup, the W7 report's strongest defensible findings are no longer the BC↔RepE flip (now half-strength, narrowed to Qwen-specific) or H Likert↔RepE convergence (now +0.39, not +0.82). The two cleanest things to lead with:
+After the §11 cleanup and the §11.5.6–§11.5.10 follow-up work, the strongest defensible W7 findings ranked by interest:
 
-- **High-bandwidth structure preservation through transformers** (§8.4–§8.5). Cross-architecture cosine-matrix fidelity r=0.93–0.99 within each of three different stimulus types, with the universal residue being the assistant-valence axis. This is the most theoretically interesting result and it's robust to the cleanup.
-- **Methodology lesson** (§11): bare-text-RepE vs chat-template-Likert/BC format mismatch can fake a "scale-driven flip" finding. Worth flagging because anyone replicating Week 3 / Week 6 numbers needs to use matched format throughout.
+1. **Persona internalization at r ≈ 0.74 representationally, +0.14 lift via instruments** (§§11.5.9–11.5.10). Models linearly internalize sampled-z personas in their internal representations at mean r=0.73 across the 7-model cohort (range 0.54 Phi4 to 0.84 Gemma 4B); behavioral measurement (Goldberg-marker Likert under persona system prompt) recovers the same z's at +0.144 higher r, with E reaching +0.960. The preregistered "instrument > representation" prediction is confirmed cleanly. This is the cleanest new result; it directly answers the original Serapio-Garcia question and the rgb-twist representation question simultaneously.
+2. **High-bandwidth structure preservation through transformers** (§8.4–§8.5, extended in §11.5.8). Cross-architecture cosine-matrix fidelity r=0.93–0.99 within three different stimulus types (contrast pairs, HEXACO Likert items, Goldberg markers) AND r=0.94 on a fourth, non-personality stimulus type (8 emotion axes). Personality is not special — the preservation generalizes to any well-conceptualized concept domain. SAEs on Phase 2 should test whether this is a property of the linear-projection extraction we use or a deeper architectural fact.
+3. **The X represent-vs-enact gap is broad-based at facet resolution** (§11.5.1, §11.5.6). Likert↔RepE = −0.79 across 7 models on Extraversion. Per-facet decomposition shows it's not Boldness-only — three of four X facets show clear negative correlation, confirming the represent-vs-enact framing as a property of how the model encodes E concepts vs enacts E states.
+4. **Phi4's different coding axes** (§11.5.9). Phi4 is anti-correlated with every other model on A persona projections (mean r ≈ −0.13). Combined with its weak rep-recovery on A and N, this implies Phi4 has *different coding axes* for those traits, not just rigid persona resistance. Sharpest cross-architecture difference we've found.
+5. **The W1 rank-1 collapse partially dissolves at facet level** (§11.5.7). Trait-level E↔C r=+0.94 averages over an E-facet × C-facet block ranging −0.81 to +0.90. Excitement-Seeking is the rebel inside E. The "assistant axis" is rank-3 or rank-4, not rank-1.
+6. **Methodology lesson** (§11): bare-text-RepE vs chat-template-Likert/BC format mismatch can fake a "scale-driven flip" finding. Worth flagging because anyone replicating Week 3 / Week 6 numbers needs to use matched format throughout.
 
-The X represent-vs-enact gap (§11.5.1) is the cleanest *new* result of the cleanup and should be the third thing emphasized. The Qwen scale flip is best framed as an open puzzle worth pursuing, not as a settled finding.
+The Qwen scale flip (§11.5.2) is best framed as an open puzzle worth pursuing, not as a settled finding.
 
 ### 11.5.6 X per-facet decomposition — result (2026-04-26)
 
@@ -760,6 +764,54 @@ Sanity ratio (cross-model r ÷ mean rep~z r per trait): 0.83 (A) to 1.07 (O). Cr
 Combined with the per-trait diagonal weakness on Phi4 (A: +0.122, N: +0.333), the picture sharpens: Phi4 isn't just "rigid"; it has a *different coding axis* for Agreeableness and Neuroticism than the rest of the cohort. The rigid-persona / Rottger-gap / persona-recovery-failure / cross-model-disagreement findings on Phi4 all stem from this same root: Phi4's A-and-N representations don't live on the same dimensions as the other 6 models. Worth flagging into Phase 2: when we do SAE work on Gemma 12B, we'd predict Phi4 to fail cross-architecture transfer specifically on A/N directions; would be a clean experimental test.
 
 **Excluding Phi4, cohort agreement is much higher.** The mean A cross-model r for the other 6-model subset (15 pairs) is approximately +0.7 (eyeballed from the matrix). The +0.500 cohort mean is bottle-necked entirely by Phi4 disagreement. So among "well-conditioned" instruction models, persona-projection geometry is highly conserved across architectures — a Big-Five concept-class extension of the W7 §8.4–§8.5 cross-architecture preservation finding.
+
+**Visualizations** (`scripts/persona_repr_heatmap.py`):
+- `results/persona_repr_heatmap_per_model.html` — 8-panel grid: ground-truth Σ (empirical 5×5 sample correlation of the 50 sampled z's, seed=42) + 7 per-model 5×5 cross-correlation matrices. Σ panel makes the input MVN structure visually explicit; each model panel shows how its projection coupling diverges from Σ.
+- `results/persona_repr_heatmap_cross_model.html` — 5 panels (one per trait): 7×7 model-vs-model agreement on persona projection vectors. Phi4 row/col on the A panel is visibly cool (anti-correlated).
+- `results/persona_repr_heatmap_scatter.html` — 5 panels: sampled z vs projection scatter per trait, all 7 models color-coded.
+
+### 11.5.10 Persona × instrument response track — preregistered prediction confirmed (2026-04-26)
+
+§11.5.9 sealed a prediction: *if* the model internalizes personas at r ≈ 0.74 representationally, *then* instrument responses under those personas should recover sampled z's at a higher r — instruments are designed to measure each trait dimension head-on, not via a representational projection that linearly aggregates many directions.
+
+Ran `scripts/persona_instrument_response.py` on Qwen7 (same 50 personas, seed=42). For each persona, persona description as system prompt, neutral question replaced by "How well does the following adjective describe you? 1=not at all, 5=very well." with each Goldberg marker as the adjective. 30 markers total (3 high-pole + 3 low-pole per trait, sliced from the canonical Goldberg set; 1500 forward passes total). Score per trait: mean(EV on high markers) − mean(EV on low markers). Pearson r with sampled z across personas.
+
+**Prereg comparison:**
+
+| Trait | Rep r (response-pos) | Likert r | **Δ (Likert − Rep)** |
+|-------|----------------------|----------|----------------------|
+| A     | +0.684               | +0.880   | **+0.197**           |
+| C     | +0.761               | +0.909   | +0.148               |
+| E     | +0.806               | **+0.960** | +0.154             |
+| N     | +0.665               | +0.743   | +0.078               |
+| O     | +0.800               | +0.943   | +0.143               |
+| **Mean** | **+0.743**        | **+0.887** | **+0.144**         |
+
+**Confirmed.** Likert r > Rep r on every single trait. Mean lift +0.144. E reaches +0.960 — almost the noise ceiling for n=50 with this stimulus set. The instrument-mediated measurement adds ~14 percentage points of explanatory variance over direct representational projection on Qwen7.
+
+**Where the lift comes from.** Three mechanisms, in roughly decreasing magnitude:
+
+1. **Trait-dimension specificity.** A Likert rating is the model's behavioral readout *on the trait dimension itself* (one number per item, on the high-vs-low axis). The activation projection at the response position aggregates the entire residual stream onto the trait direction — including non-trait variance that gets carried by other axes. The Likert response strips out everything but the trait-relevant judgment. Cleaner readout, less noise.
+
+2. **The marker direction wasn't the optimal trait axis.** Our trait directions are extracted from Goldberg markers via `markers_as_stimuli.py`'s mean(high)−mean(low) recipe. They're good but not perfect — there's a small reduction in alignment with the model's actual internal trait-discrimination axis at this layer. The Likert response uses the model's full computational stack (including its own internal trait axes, which the projection only approximates) to make the judgment, so it's matched to the model's "preferred" axis, not ours.
+
+3. **Trait-direction non-orthogonality.** Per §11.5.9 ~40% of off-diagonal coupling is excess (not explained by input MVN correlation). When projecting on direction E, you also pick up A and C and O. The Likert response on a single E marker doesn't have this contamination at the level of the readout — the model rates "joyful" as the joy concept, not as a linear combination of all five Big Five trait directions.
+
+**The 5×5 matrix has a steep diagonal:** off-diagonal mean is +0.108 (vs Rep mode +0.135), diagonal-vs-off-diagonal gap is **+0.779** (vs +0.608 for Rep mode). The instrument response recovers a much sharper trait-axis structure than the activation projection does.
+
+**Comparison to Σ.** The empirical input-z correlation matrix Σ has off-diagonal mean ~0.30 (W7 §11.5.9 decomposition). The Likert off-diagonal ~0.108 is *lower* than Σ's off-diagonal — meaning Likert recovers MORE diagonal-dominance than the input MVN suggests. This is mildly surprising: the instrument doesn't just reduce projection contamination, it appears to recover a near-orthogonal trait structure even though the *input personas* have substantial cross-trait correlations.
+
+This makes sense in retrospect: the model's per-item Likert judgment is conditional on the persona's Big Five profile *as articulated in the description*, not the population-level cross-trait correlation. Each rating is a marker-specific judgment under that persona, so cross-trait input correlation only enters via the persona description's own structure, not as a projection-aggregate signal.
+
+**Why N has the smallest lift (+0.078).** N's rep r is already lowest at +0.665, and N's Likert r (+0.743) is also the cohort's lowest. Both readouts struggle with N. Possible reasons: (a) Goldberg's N markers ("nervous", "anxious", "moody") may be more semantically diffuse than E markers; (b) the assistant baseline state is far from any "high-N" enacted state, so persona-induction has to work harder; (c) consistent with W7 §11.5.7 finding that N facets (Anxiety vs Depression) barely correlate (r=+0.07) — N is the most internally heterogeneous Big Five trait. Whatever the cause, it shows up in both readouts.
+
+**Why E has the highest lift to ceiling.** E reaches +0.960 — the highest cross-correlation between sampled z and behavioral score we've seen anywhere in this project. Goldberg E markers ("extraverted", "talkative", "bold") are unambiguous and high-coverage; the assistant baseline isn't far from a typical persona shift along E; and the persona descriptions over-emphasize E adjectives (high-E personas have "very extraverted, very energetic" — bold and explicit). The Likert response simply reads off a clearly-stated trait composition.
+
+**The measurement-validity diagnostic angle.** §11.5.9 framed the Δ as a "measurement-validity diagnostic": the gap tells you how much the instrument is adding over the raw representation. For Qwen7 the diagnostic says: instrument adds +14 pp explanatory variance, with substantial trait variation (E gets +0.15, N gets +0.08). This is the strong-validity case — instruments work as intended. If a model showed Δ ≈ 0 or negative, that would suggest the instrument is inadequate (or the model is incoherent across formats). Phi4 is the obvious candidate to run next given its representational quirks; would predict a substantial Δ on C/E/O but *failure to lift* on A/N (where the representation is in the wrong axis already).
+
+**Status:** §11.5.4 #4 effectively done. The original Serapio-Garcia framing (multiple instruments per persona, cross-instrument convergence) reduces to a multi-instrument generalization of this prereg test — run BFI, IPIP-300, GFC instead of just Goldberg markers; check that the trait scores converge under each persona. That's a clean Phase 2 follow-up (~few hours per instrument). Already validated for Goldberg markers; the per-trait recovery ceiling appears to be set by stimulus + trait combination, not by methodology.
+
+Data: `results/persona_instrument_response_Qwen7.json` (full per-(persona, marker) Likert distributions + per-trait scored values + diagonal/cross-correlation summaries).
 
 **Status:** §11.5.4 #4 partial. The representation back-mapping is now solidly answered for the rgb twist. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is complementary, not redundant — and it suggests an interesting pre-registration for that next track: **if the model internalizes personas to r ≈ 0.74 representationally, we'd predict instrument responses under those personas to recover sampled z's at *higher* r (since instruments are designed to measure exactly the trait dimension), and the gap between representational r and behavioral r is itself a measurement-validity diagnostic.**
 

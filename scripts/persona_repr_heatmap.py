@@ -38,45 +38,71 @@ def load(model):
         return json.load(f)
 
 
+def compute_sampled_z_sigma(n=50, seed=42):
+    """Empirical 5x5 correlation matrix of the 50 sampled z's used in the
+    persona_repr_mapping runs (matched seed). The off-diagonals here are the
+    input MVN correlation structure that the per-model 5x5 cross-correlation
+    matrices are partly inheriting; visual baseline."""
+    with open("instruments/synthetic_personas.json") as f:
+        d = json.load(f)
+    rng = np.random.default_rng(seed)
+    idxs = rng.choice(len(d["personas"]), size=n, replace=False)
+    selected = [d["personas"][int(i)] for i in idxs]
+    Z = np.array([[p["z_scores"][t] for t in TRAITS] for p in selected])
+    return np.corrcoef(Z.T)
+
+
 def main():
     data = {m: load(m) for m in MODELS}
     data = {m: d for m, d in data.items() if d is not None}
     models_present = list(data.keys())
     print(f"Loaded {len(models_present)} models: {models_present}")
 
-    # ----- Figure 1: per-model 5x5 cross-correlation heatmap -----
-    n_cols = min(len(models_present), 4)
-    n_rows = math.ceil(len(models_present) / n_cols)
+    sigma = compute_sampled_z_sigma()
+
+    # ----- Figure 1: ground-truth Σ + per-model 5x5 cross-correlation heatmap -----
+    # Σ as first panel, then per-model panels
+    panels = [("Σ (sampled z)", sigma, True)] + [
+        (m, np.array(data[m]["cross_correlation"]), False) for m in models_present
+    ]
+    n_cols = min(len(panels), 4)
+    n_rows = math.ceil(len(panels) / n_cols)
+
+    titles = []
+    for i, (label, _, is_sigma) in enumerate(panels):
+        if is_sigma:
+            titles.append(f"<b>{label}</b><br><sub>empirical sample corr (N=50)</sub>")
+        else:
+            m = label
+            diag_mean = np.mean([data[m]['diagonal_correlations'][t] for t in TRAITS])
+            titles.append(f"{m}<br><sub>diag mean = {diag_mean:+.3f}</sub>")
 
     fig1 = make_subplots(
         rows=n_rows, cols=n_cols,
-        subplot_titles=[
-            f"{m}<br>"
-            f"<sub>diag mean = {np.mean([data[m]['diagonal_correlations'][t] for t in TRAITS]):+.3f}</sub>"
-            for m in models_present
-        ],
+        subplot_titles=titles,
         horizontal_spacing=0.07, vertical_spacing=0.18,
     )
 
-    for i, m in enumerate(models_present):
+    for i, (label, mat, is_sigma) in enumerate(panels):
         row, col = i // n_cols + 1, i % n_cols + 1
-        cross = np.array(data[m]["cross_correlation"])
+        # For Σ: rows and cols are both sampled z. For models: rows=z, cols=projection.
+        x_label = "sampled z" if is_sigma else "projection"
         fig1.add_trace(
             go.Heatmap(
-                z=cross,
+                z=mat,
                 x=TRAITS, y=TRAITS,
                 colorscale="RdBu_r",
                 zmin=-1, zmax=1,
                 showscale=(i == 0),
                 colorbar=dict(title="Pearson r", thickness=12, len=0.6, x=1.0)
                     if i == 0 else None,
-                text=[[f"{v:+.2f}" for v in r] for r in cross],
+                text=[[f"{v:+.2f}" for v in r] for r in mat],
                 texttemplate="%{text}",
                 textfont=dict(size=11),
                 hovertemplate=(
-                    "<b>sampled z[%{y}]</b><br>"
-                    "<b>projection[%{x}]</b><br>"
-                    "r = %{z:+.3f}<extra></extra>"
+                    f"<b>%{{y}}</b><br>"
+                    f"<b>{x_label}[%{{x}}]</b><br>"
+                    f"r = %{{z:+.3f}}<extra></extra>"
                 ),
             ),
             row=row, col=col,
@@ -84,7 +110,7 @@ def main():
         fig1.update_yaxes(autorange="reversed", row=row, col=col,
                           title_text="sampled z" if col == 1 else "")
         fig1.update_xaxes(row=row, col=col,
-                          title_text="projection" if row == n_rows else "")
+                          title_text=x_label if row == n_rows else "")
 
     fig1.update_layout(
         title=dict(

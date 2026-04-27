@@ -91,6 +91,8 @@ def main():
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--n", type=int, default=DEFAULT_N)
     parser.add_argument("--seed", type=int, default=SEED)
+    parser.add_argument("--markers-per-pole", type=int, default=0,
+                        help="If >0, use only first K markers per (trait, pole). Reduces compute.")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
@@ -106,21 +108,29 @@ def main():
     repo = ALL_MODELS[args.model]
     print(f"Model: {args.model} ({repo})")
 
-    n_markers_total = sum(len(MARKERS[t]["high"]) + len(MARKERS[t]["low"]) for t in TRAITS)
-    print(f"Markers: {n_markers_total} total ({n_markers_total // 5} avg per trait)")
+    # Optionally slice markers
+    if args.markers_per_pole > 0:
+        markers_used = {
+            t: {pole: MARKERS[t][pole][:args.markers_per_pole] for pole in ("high", "low")}
+            for t in TRAITS
+        }
+    else:
+        markers_used = MARKERS
+    n_markers_total = sum(len(markers_used[t]["high"]) + len(markers_used[t]["low"]) for t in TRAITS)
+    print(f"Markers: {n_markers_total} total ({n_markers_total // 5} avg per trait)", flush=True)
 
     model, tok, device = load_model(args.model)
 
     # Persona × marker grid
     persona_data = []
     n_calls_total = len(selected) * n_markers_total
-    print(f"\nRunning {n_calls_total} forward passes...")
+    print(f"\nRunning {n_calls_total} forward passes...", flush=True)
     call_idx = 0
     for pi, p in enumerate(selected):
         per_marker_evs = {}  # (trait, pole, marker) -> EV
         for trait in TRAITS:
             for pole in ("high", "low"):
-                for marker in MARKERS[trait][pole]:
+                for marker in markers_used[trait][pole]:
                     _, ev = likert_with_persona(
                         model, tok, device, p["description"], marker,
                     )
@@ -129,18 +139,18 @@ def main():
         # Score per trait: mean(high EV) − mean(low EV) → "trait-strength" score
         scored = {}
         for trait in TRAITS:
-            high_evs = [per_marker_evs[(trait, "high", m)] for m in MARKERS[trait]["high"]]
-            low_evs = [per_marker_evs[(trait, "low", m)] for m in MARKERS[trait]["low"]]
+            high_evs = [per_marker_evs[(trait, "high", m)] for m in markers_used[trait]["high"]]
+            low_evs = [per_marker_evs[(trait, "low", m)] for m in markers_used[trait]["low"]]
             scored[trait] = float(np.mean(high_evs) - np.mean(low_evs))
         persona_data.append({
             "persona_id": p["persona_id"],
             "z_scores": p["z_scores"],
             "stanines": p["stanines"],
             "scored_trait": scored,
-            "high_means": {t: float(np.mean([per_marker_evs[(t, "high", m)] for m in MARKERS[t]["high"]])) for t in TRAITS},
-            "low_means": {t: float(np.mean([per_marker_evs[(t, "low", m)] for m in MARKERS[t]["low"]])) for t in TRAITS},
+            "high_means": {t: float(np.mean([per_marker_evs[(t, "high", m)] for m in markers_used[t]["high"]])) for t in TRAITS},
+            "low_means": {t: float(np.mean([per_marker_evs[(t, "low", m)] for m in markers_used[t]["low"]])) for t in TRAITS},
         })
-        print(f"  persona {pi + 1}/{len(selected)} done ({call_idx}/{n_calls_total} forward passes)")
+        print(f"  persona {pi + 1}/{len(selected)} done ({call_idx}/{n_calls_total} forward passes)", flush=True)
 
     del model, tok
     gc.collect()
