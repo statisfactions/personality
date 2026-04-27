@@ -23,7 +23,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 .DS_Store
-results/
 .vscode/settings.json
 analysis/scored_results/
 .claude
@@ -35,6 +34,16 @@ analysis/scored_results/
 
 # Virtual environment
 venv/
+
+# Large psychometric artifacts — archived in big5_results repo
+# (see psychometrics/RAW_ARTIFACTS.md)
+psychometrics/**/*_fit.rds
+psychometrics/**/*_results.rds
+psychometrics/**/tirt_okada*.rds
+psychometrics/**/results_bfi-*.pkl
+psychometrics/**/results_bfi-*.csv
+psychometrics/gfc_tirt/per_model_pooled/*.rds
+psychometrics/gfc_tirt/per_model_pooled/all_recovery.rds
 
 # Local data (copyrighted instruments, raw results)
 data/
