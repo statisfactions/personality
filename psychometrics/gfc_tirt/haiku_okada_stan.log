@@ -1,0 +1,141 @@
+Stan model: results/tirt_okada.stan
+Responses:  results/claude-haiku-4-5-20251001_gfc30_synthetic.json
+Output:     results/haiku_okada_stan_fit.rds
+Personas:   50  Chains: 4  Iter: 1500
+Complete respondents: 50 / 50
+
+Stan data sanity:
+  N=50 P=30 J=60 D=5 K=7
+  trait counts: A=12 C=12 E=12 N=12 O=12
+  keying counts (L items): +=15 -=15
+  response category usage:
+y_mat
+  1   2   3   4   5   6   7 
+383  91 158 301 348 182  37 
+
+Compiling Stan model...
+Sampling: 4 chains x 1500 iter (750 warmup)
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.002219 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 22.19 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.002383 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 23.83 seconds.Chain 
+1Chain : 2Iteration:    1 / 1500 [  0%]  (Warmup): Adjust your expectations accordingly!
+
+Chain 2: 
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 2: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 3: 
+Chain 3: Gradient evaluation took 0.002288 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 22.88 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.002154 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 21.54 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 3: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 4: Iteration:    1 / 1500 [  0%]  (Warmup)
+Chain 2: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 1: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 4: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 3: Iteration:  200 / 1500 [ 13%]  (Warmup)
+Chain 2: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 4: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 1: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 3: Iteration:  400 / 1500 [ 26%]  (Warmup)
+Chain 4: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 2: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 1: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 3: Iteration:  600 / 1500 [ 40%]  (Warmup)
+Chain 4: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 2: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 1: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 3: Iteration:  751 / 1500 [ 50%]  (Sampling)
+Chain 4: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 2: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 1: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 3: Iteration:  950 / 1500 [ 63%]  (Sampling)
+Chain 4: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 2: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 1: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 3: Iteration: 1150 / 1500 [ 76%]  (Sampling)
+Chain 4: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 2: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 1: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 4: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 55.382 seconds (Warm-up)
+Chain 4:                49.996 seconds (Sampling)
+Chain 4:                105.378 seconds (Total)
+Chain 4: 
+Chain 3: Iteration: 1350 / 1500 [ 90%]  (Sampling)
+Chain 2: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 56.651 seconds (Warm-up)
+Chain 2:                57.262 seconds (Sampling)
+Chain 2:                113.913 seconds (Total)
+Chain 2: 
+Chain 1: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 60.188 seconds (Warm-up)
+Chain 1:                55.811 seconds (Sampling)
+Chain 1:                115.999 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 1500 / 1500 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 60.238 seconds (Warm-up)
+Chain 3:                57.572 seconds (Sampling)
+Chain 3:                117.81 seconds (Total)
+Chain 3: 
+
+Ground-truth recovery (Pearson r):
+  A: -0.641
+  C: -0.648
+  E: +0.638
+  N: +0.704
+  O: +0.516
+
+Estimated trait correlations (posterior mean Omega):
+      A     C     E     N     O
+A  1.00  0.80  0.04  0.62 -0.34
+C  0.80  1.00  0.15  0.49 -0.37
+E  0.04  0.15  1.00 -0.56  0.57
+N  0.62  0.49 -0.56  1.00 -0.71
+O -0.34 -0.37  0.57 -0.71  1.00
+
+Ground-truth correlations on this 50-respondent subset:
+      A     C     E     N     O
+A  1.00  0.36  0.36 -0.42  0.31
+C  0.36  1.00  0.17 -0.36  0.25
+E  0.36  0.17  1.00 -0.39  0.40
+N -0.42 -0.36 -0.39  1.00 -0.19
+O  0.31  0.25  0.40 -0.19  1.00
+
+a_pos summary (head):
+          mean    sd    n_eff  Rhat
+a_pos[1] 0.800 0.294 4128.120 1.000
+a_pos[2] 1.334 0.498 2524.665 1.000
+a_pos[3] 0.708 0.291 4012.681 1.000
+a_pos[4] 1.471 0.550 2004.545 1.001
+a_pos[5] 0.864 0.311 2605.375 0.999
+a_pos[6] 0.989 0.415 1473.679 1.000
+
+Saved: results/haiku_okada_stan_fit.rds
+
+Convergence: 0 params with Rhat>1.05, 0 with n_eff<100

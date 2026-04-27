@@ -1,0 +1,663 @@
+---
+title: "Phi4-mini GFC-30 TIRT Analysis"
+subtitle: "Persona recovery, trait structure, and neutral model placement"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 10, fig.height = 6)
+library(thurstonianIRT)
+library(tidyverse)
+library(jsonlite)
+
+traits <- c("A", "C", "E", "N", "O")
+trait_labels <- c(A = "Agreeableness", C = "Conscientiousness",
+                  E = "Extraversion", N = "Neuroticism", O = "Openness")
+```
+
+# Introduction
+
+This report analyzes Phi4-mini's responses to the Okada et al. (2026) GFC-30
+(Graded Forced-Choice Big Five) instrument, administered under 400 synthetic
+personas with known ground-truth trait profiles. Phi4-mini is a smaller
+reasoning-capable model from Microsoft; its higher response entropy
+(mean ~1.58 nats vs Gemma3's ~0.67) suggests it spreads probability more evenly
+across the 7-point GFC scale, which could yield better TIRT identification.
+
+We fit a Thurstonian IRT (TIRT) model using `thurstonianIRT` (Stan backend,
+cumulative family, **4 chains** x 1000 iterations) --- an upgrade from the
+Gemma3 2-chain run that showed signs of insufficient posterior mixing.
+
+The analysis mirrors the Gemma3 report: ground-truth recovery, trait correlation
+structure, response distributions, and neutral model placement under two prompt
+conditions.
+
+# 1. TIRT Fit Summary
+
+```{r load-fit}
+fit <- readRDS("phi4_gfc30_synthetic_tirt_fit.rds")
+
+# Load instrument metadata + build blocks
+inst <- fromJSON("../instruments/okada_gfc30.json")
+pairs <- inst$pairs
+
+block_df <- tibble(
+  block = rep(seq_len(nrow(pairs)), each = 2),
+  item = character(nrow(pairs) * 2),
+  trait = character(nrow(pairs) * 2),
+  sign = numeric(nrow(pairs) * 2)
+)
+for (i in seq_len(nrow(pairs))) {
+  left_name <- paste0(pairs$left$trait[i],
+                       ifelse(pairs$left$keying[i] == "+", "p", "n"), i)
+  right_name <- paste0(pairs$right$trait[i],
+                        ifelse(pairs$right$keying[i] == "+", "p", "n"), i)
+  idx <- (i - 1) * 2
+  block_df$item[idx + 1] <- left_name
+  block_df$trait[idx + 1] <- pairs$left$trait[i]
+  block_df$sign[idx + 1] <- ifelse(pairs$left$keying[i] == "+", 1, -1)
+  block_df$item[idx + 2] <- right_name
+  block_df$trait[idx + 2] <- pairs$right$trait[i]
+  block_df$sign[idx + 2] <- ifelse(pairs$right$keying[i] == "+", 1, -1)
+}
+blocks <- set_blocks_from_df(block_df)
+
+# Load ground truth
+personas_json <- fromJSON("../instruments/synthetic_personas.json")
+ground_truth <- tibble(
+  persona_id = personas_json$personas$persona_id,
+  A_true = personas_json$personas$z_scores$A,
+  C_true = personas_json$personas$z_scores$C,
+  E_true = personas_json$personas$z_scores$E,
+  N_true = personas_json$personas$z_scores$N,
+  O_true = personas_json$personas$z_scores$O
+)
+
+# Wide CSV for persona ID ordering
+wide <- read_csv("phi4-mini_gfc30_synthetic_wide.csv", show_col_types = FALSE)
+complete_mask <- complete.cases(wide[, -1])
+persona_ids <- wide$persona_id[complete_mask]
+n_complete <- sum(complete_mask)
+
+cat(sprintf("Complete respondents: %d / %d\n", n_complete, nrow(wide)))
+```
+
+```{r extract-scores}
+scores_long <- as_tibble(predict(fit))
+
+scores_wide <- scores_long %>%
+  pivot_wider(names_from = trait,
+              values_from = c(estimate, se, lower_ci, upper_ci),
+              names_glue = "{trait}_{.value}") %>%
+  mutate(persona_id = persona_ids) %>%
+  left_join(ground_truth, by = "persona_id")
+```
+
+# 2. Ground-Truth Recovery
+
+We compare two scoring approaches against the known trait z-scores used to
+generate each persona:
+
+- **TIRT**: Latent trait estimates from the Thurstonian IRT Stan model (4 chains,
+  cumulative family). This is the principled approach that accounts for the
+  forced-choice ipsativity.
+- **Simple scoring**: Mean endorsement per trait, computed by subtracting the
+  midpoint (4) and signing by keying direction. Mechanically ipsative (trait
+  scores sum to zero within respondent) but provides a fast baseline.
+
+## Recovery Correlations
+
+```{r recovery-table}
+raw <- fromJSON("phi4-mini_gfc30_synthetic.json", flatten = TRUE)
+all_results <- as_tibble(raw$results)
+
+trait_evidence <- all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  mutate(
+    resp_val = coalesce(as.numeric(response_ev), as.numeric(response_argmax)),
+    pref = resp_val - 4,
+    right_endorsement = pref * ifelse(right_keying == "+", 1, -1),
+    left_endorsement = -pref * ifelse(left_keying == "+", 1, -1)
+  )
+
+simple_scores <- bind_rows(
+  trait_evidence %>% select(persona_id, trait = right_trait,
+                            endorsement = right_endorsement),
+  trait_evidence %>% select(persona_id, trait = left_trait,
+                            endorsement = left_endorsement)
+) %>%
+  group_by(persona_id, trait) %>%
+  summarise(score = mean(endorsement, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = trait, values_from = score) %>%
+  left_join(ground_truth, by = "persona_id")
+
+recovery <- tibble(trait = traits) %>%
+  rowwise() %>%
+  mutate(
+    tirt_r = cor(scores_wide[[paste0(trait, "_estimate")]],
+                 scores_wide[[paste0(trait, "_true")]],
+                 use = "complete.obs"),
+    simple_r = cor(simple_scores[[trait]],
+                   simple_scores[[paste0(trait, "_true")]],
+                   use = "complete.obs"),
+    trait_name = trait_labels[trait]
+  ) %>%
+  ungroup()
+
+knitr::kable(recovery %>% select(Trait = trait_name, TIRT = tirt_r,
+                                  Simple = simple_r),
+             digits = 3, caption = "Ground-truth recovery (Pearson r)")
+```
+
+## Scatterplots: TIRT Scores vs Ground Truth
+
+```{r scatter-recovery, fig.height=8}
+scatter_data <- scores_wide %>%
+  pivot_longer(cols = matches("^[ACENO]_(estimate|true)$"),
+               names_to = c("trait", ".value"),
+               names_pattern = "^(.)_(.+)$")
+
+ggplot(scatter_data, aes(x = true, y = estimate)) +
+  geom_point(alpha = 0.3, size = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = "steelblue") +
+  geom_text(data = recovery, aes(label = sprintf("r = %.2f", tirt_r),
+                                  x = -Inf, y = Inf),
+            hjust = -0.1, vjust = 1.3, size = 4, inherit.aes = FALSE) +
+  facet_wrap(~ trait, scales = "free", labeller = labeller(
+    trait = trait_labels)) +
+  labs(x = "Ground-truth z-score", y = "TIRT estimate",
+       title = "TIRT Score Recovery: Phi4-mini on GFC-30 (400 synthetic personas)") +
+  theme_minimal()
+```
+
+## Simple Scoring Recovery
+
+```{r scatter-simple, fig.height=8}
+simple_long <- simple_scores %>%
+  pivot_longer(cols = all_of(traits), names_to = "trait",
+               values_to = "simple_est") %>%
+  left_join(
+    ground_truth %>%
+      pivot_longer(-persona_id, names_to = "trait", values_to = "true",
+                   names_pattern = "(.)_true"),
+    by = c("persona_id", "trait")
+  )
+
+ggplot(simple_long, aes(x = true, y = simple_est)) +
+  geom_point(alpha = 0.3, size = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = "coral") +
+  geom_text(data = recovery, aes(label = sprintf("r = %.2f", simple_r),
+                                  x = -Inf, y = Inf),
+            hjust = -0.1, vjust = 1.3, size = 4, inherit.aes = FALSE) +
+  facet_wrap(~ trait, scales = "free", labeller = labeller(
+    trait = trait_labels)) +
+  labs(x = "Ground-truth z-score", y = "Simple score (mean endorsement)",
+       title = "Simple Scoring Recovery: Phi4-mini on GFC-30") +
+  theme_minimal()
+```
+
+## Cross-Model Comparison
+
+How does Phi4-mini compare to Gemma3 12B on the same instrument and personas?
+
+```{r cross-model, fig.height=5}
+# Load Gemma3 recovery from its saved fit
+gemma3_fit <- readRDS("gemma3_gfc30_synthetic_tirt_fit.rds")
+gemma3_scores <- as_tibble(predict(gemma3_fit))
+gemma3_wide_csv <- read_csv("gemma3-12b_gfc30_synthetic_wide.csv",
+                             show_col_types = FALSE)
+gemma3_mask <- complete.cases(gemma3_wide_csv[, -1])
+gemma3_ids <- gemma3_wide_csv$persona_id[gemma3_mask]
+
+gemma3_scores_wide <- gemma3_scores %>%
+  pivot_wider(names_from = trait,
+              values_from = c(estimate, se, lower_ci, upper_ci),
+              names_glue = "{trait}_{.value}") %>%
+  mutate(persona_id = gemma3_ids) %>%
+  left_join(ground_truth, by = "persona_id")
+
+gemma3_recovery <- tibble(trait = traits) %>%
+  rowwise() %>%
+  mutate(
+    r = cor(gemma3_scores_wide[[paste0(trait, "_estimate")]],
+            gemma3_scores_wide[[paste0(trait, "_true")]],
+            use = "complete.obs"),
+    model = "Gemma3 12B"
+  ) %>%
+  ungroup()
+
+phi4_recovery <- recovery %>%
+  select(trait, r = tirt_r) %>%
+  mutate(model = "Phi4-mini")
+
+cross_model <- bind_rows(gemma3_recovery, phi4_recovery)
+
+ggplot(cross_model, aes(x = trait, y = r, fill = model)) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_fill_manual(values = c("Gemma3 12B" = "steelblue",
+                                "Phi4-mini" = "coral")) +
+  scale_x_discrete(labels = trait_labels) +
+  labs(x = NULL, y = "Recovery r (TIRT vs ground truth)",
+       title = "TIRT Ground-Truth Recovery: Phi4-mini vs Gemma3 12B",
+       subtitle = "Same 400 synthetic personas, same GFC-30 instrument",
+       fill = "Model") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+# 3. Estimated Trait Correlations
+
+```{r trait-cors}
+tirt_cor <- scores_wide %>%
+  select(all_of(paste0(traits, "_estimate"))) %>%
+  cor(use = "complete.obs")
+colnames(tirt_cor) <- traits
+rownames(tirt_cor) <- traits
+
+gt_cor <- ground_truth %>%
+  select(all_of(paste0(traits, "_true"))) %>%
+  cor()
+colnames(gt_cor) <- traits
+rownames(gt_cor) <- traits
+
+simple_cor <- simple_scores %>%
+  select(all_of(traits)) %>%
+  cor(use = "complete.obs")
+```
+
+```{r cor-heatmaps, fig.height=5, fig.width=14}
+make_cor_long <- function(mat, label) {
+  as.data.frame(as.table(mat)) %>%
+    rename(Var1 = 1, Var2 = 2, value = 3) %>%
+    mutate(source = label)
+}
+
+cor_all <- bind_rows(
+  make_cor_long(gt_cor, "Ground Truth"),
+  make_cor_long(tirt_cor, "TIRT"),
+  make_cor_long(simple_cor, "Simple")
+) %>%
+  mutate(source = factor(source, levels = c("Ground Truth", "TIRT", "Simple")))
+
+ggplot(cor_all, aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  geom_text(aes(label = sprintf("%.2f", value)), size = 3) +
+  scale_fill_gradient2(low = "steelblue", mid = "white", high = "firebrick",
+                       midpoint = 0, limits = c(-1, 1)) +
+  facet_wrap(~ source) +
+  labs(title = "Trait Correlations: Ground Truth vs TIRT vs Simple Scoring (Phi4-mini)",
+       x = NULL, y = NULL, fill = "r") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0))
+```
+
+With 4 chains (vs Gemma3's 2), we expect better posterior exploration and
+potentially more realistic inter-trait correlations. If TIRT still produces
+implausibly high correlations, the issue is more likely data-driven (insufficient
+between-person variation in GFC responses) than sampling-driven.
+
+# 4. Response Distribution
+
+```{r response-dist, fig.height=5}
+all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  mutate(response = as.integer(response_argmax)) %>%
+  count(response) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ggplot(aes(x = factor(response), y = pct)) +
+  geom_col(fill = "coral", alpha = 0.8) +
+  geom_text(aes(label = sprintf("%.1f%%", pct)), vjust = -0.3, size = 3) +
+  labs(x = "Response (1=strongly left, 7=strongly right)",
+       y = "Percent",
+       title = "GFC-30 Response Distribution: Phi4-mini (all 12,000 prompts)") +
+  theme_minimal()
+```
+
+```{r response-by-trait, fig.height=6}
+all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  mutate(response = as.integer(response_argmax)) %>%
+  count(left_trait, right_trait, response) %>%
+  group_by(left_trait, right_trait) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ungroup() %>%
+  mutate(pair = paste0(left_trait, "-", right_trait)) %>%
+  ggplot(aes(x = factor(response), y = pct)) +
+  geom_col(fill = "coral", alpha = 0.7) +
+  facet_wrap(~ pair, scales = "free_y") +
+  labs(x = "Response", y = "Percent",
+       title = "Response Distribution by Trait Pair (Phi4-mini)",
+       subtitle = "Lower = prefers left trait; higher = prefers right trait") +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 8))
+```
+
+Phi4-mini's higher entropy means we expect a flatter distribution compared to
+Gemma3's peaked responses. More spread across the scale should provide richer
+signal for TIRT estimation.
+
+```{r entropy-by-persona, fig.height=5}
+persona_entropy <- all_results %>%
+  filter(!is.na(response_entropy)) %>%
+  group_by(persona_id) %>%
+  summarise(mean_entropy = mean(response_entropy, na.rm = TRUE),
+            mean_ev = mean(as.numeric(response_ev), na.rm = TRUE),
+            .groups = "drop")
+
+ggplot(persona_entropy, aes(x = mean_entropy)) +
+  geom_histogram(bins = 40, fill = "coral", alpha = 0.7) +
+  geom_vline(xintercept = mean(persona_entropy$mean_entropy),
+             color = "firebrick", linetype = "dashed") +
+  labs(x = "Mean entropy (nats) across 30 items",
+       y = "Count (personas)",
+       title = "Response Certainty Across Personas (Phi4-mini)",
+       subtitle = sprintf("Mean = %.3f, max possible = %.3f (ln 7)",
+                           mean(persona_entropy$mean_entropy), log(7))) +
+  theme_minimal()
+```
+
+# 5. Neutral Model Placement
+
+We administered GFC-30 to Phi4-mini without any persona, under two conditions:
+
+- **Respondent**: "YOU ARE THE RESPONDENT" + honest instruction
+- **Bare**: Honest instruction only, no role assignment
+
+These 30-item response patterns are scored against the persona-fitted TIRT model
+using `predict(fit, newdata=...)`, which applies posterior median item parameters
+to estimate latent trait scores for the new respondent.
+
+## Simple Scoring
+
+```{r neutral-simple}
+score_neutral_simple <- function(json_path, label) {
+  raw <- fromJSON(json_path, flatten = TRUE)
+  results <- as_tibble(raw$results)
+
+  results %>%
+    filter(!is.na(response_argmax)) %>%
+    mutate(
+      resp_val = coalesce(as.numeric(response_ev), as.numeric(response_argmax)),
+      pref = resp_val - 4,
+      right_endorsement = pref * ifelse(right_keying == "+", 1, -1),
+      left_endorsement = -pref * ifelse(left_keying == "+", 1, -1)
+    ) %>%
+    {bind_rows(
+      select(., trait = right_trait, endorsement = right_endorsement),
+      select(., trait = left_trait, endorsement = left_endorsement)
+    )} %>%
+    group_by(trait) %>%
+    summarise(score = mean(endorsement, na.rm = TRUE), .groups = "drop") %>%
+    mutate(mode = label)
+}
+
+neutral_simple_respondent <- score_neutral_simple(
+  "phi4-mini-latest_gfc30_neutral-respondent.json", "respondent")
+neutral_simple_bare <- score_neutral_simple(
+  "phi4-mini-latest_gfc30_neutral-bare.json", "bare")
+neutral_simple <- bind_rows(neutral_simple_respondent, neutral_simple_bare)
+
+knitr::kable(neutral_simple %>% pivot_wider(names_from = mode,
+                                             values_from = score),
+             digits = 3,
+             caption = "Phi4-mini neutral simple scores by prompt mode")
+```
+
+## TIRT Scoring (Post-Hoc)
+
+```{r neutral-tirt}
+build_neutral_pairwise <- function(json_path) {
+  raw <- fromJSON(json_path, flatten = TRUE)
+  results <- as_tibble(raw$results)
+
+  pw <- data.frame(person = 1L)
+  for (i in seq_len(nrow(pairs))) {
+    left_name <- paste0(pairs$left$trait[i],
+                         ifelse(pairs$left$keying[i] == "+", "p", "n"), i)
+    right_name <- paste0(pairs$right$trait[i],
+                          ifelse(pairs$right$keying[i] == "+", "p", "n"), i)
+    col_name <- paste0(left_name, right_name)
+    block_result <- results %>% filter(block == i)
+    pw[[col_name]] <- as.integer(block_result$response_argmax[1])
+  }
+  pw
+}
+
+pw_respondent <- build_neutral_pairwise("phi4-mini-latest_gfc30_neutral-respondent.json")
+pw_bare <- build_neutral_pairwise("phi4-mini-latest_gfc30_neutral-bare.json")
+pw_neutral <- bind_rows(pw_respondent, pw_bare)
+pw_neutral$person <- 1:2
+
+tirt_neutral <- make_TIRT_data(
+  data = pw_neutral,
+  blocks = blocks,
+  direction = "larger",
+  format = "pairwise",
+  family = "cumulative",
+  range = c(1, 7)
+)
+
+neutral_tirt_scores <- as_tibble(predict(fit, newdata = tirt_neutral))
+
+neutral_tirt_wide <- neutral_tirt_scores %>%
+  mutate(mode = rep(c("respondent", "bare"), each = length(traits))) %>%
+  select(mode, trait, estimate, se)
+
+knitr::kable(neutral_tirt_wide %>%
+               pivot_wider(names_from = mode,
+                           values_from = c(estimate, se),
+                           names_glue = "{mode}_{.value}"),
+             digits = 3,
+             caption = "Phi4-mini neutral TIRT scores (post-hoc, posterior median item params)")
+```
+
+## Neutral Placement vs Persona Distribution
+
+```{r persona-terciles}
+persona_tirt <- scores_long %>%
+  mutate(persona_id = rep(persona_ids, each = length(traits)))
+
+gt_long <- ground_truth %>%
+  pivot_longer(-persona_id, names_to = "trait", values_to = "z_true",
+               names_pattern = "(.)_true") %>%
+  group_by(trait) %>%
+  mutate(tercile = case_when(
+    z_true <= quantile(z_true, 1/3) ~ "Low",
+    z_true >= quantile(z_true, 2/3) ~ "High",
+    TRUE ~ "Medium"
+  )) %>%
+  ungroup()
+
+persona_scored <- persona_tirt %>%
+  left_join(gt_long, by = c("persona_id", "trait"))
+```
+
+```{r placement-plot-tirt, fig.height=7, fig.width=10}
+neutral_plot_data <- neutral_tirt_wide %>%
+  select(mode, trait, estimate)
+
+ggplot() +
+  geom_violin(data = persona_scored %>%
+                mutate(tercile = factor(tercile,
+                                        levels = c("Low", "Medium", "High"))),
+              aes(x = tercile, y = estimate, fill = tercile),
+              alpha = 0.5, scale = "width") +
+  geom_boxplot(data = persona_scored %>%
+                 mutate(tercile = factor(tercile,
+                                          levels = c("Low", "Medium", "High"))),
+               aes(x = tercile, y = estimate),
+               width = 0.15, outlier.size = 0.5) +
+  geom_hline(data = neutral_plot_data,
+             aes(yintercept = estimate, linetype = mode, color = mode),
+             linewidth = 1) +
+  scale_fill_manual(values = c(Low = "#4575b4", Medium = "#ffffbf",
+                                High = "#d73027"),
+                    name = "Persona\ntercile") +
+  scale_color_manual(values = c(respondent = "black", bare = "darkgreen"),
+                     name = "Neutral\nmode") +
+  scale_linetype_manual(values = c(respondent = "solid", bare = "dashed"),
+                        name = "Neutral\nmode") +
+  facet_wrap(~ trait, scales = "free_y", labeller = labeller(
+    trait = trait_labels)) +
+  labs(y = "TIRT trait estimate",
+       x = "Ground-truth tercile",
+       title = "Phi4-mini: Neutral TIRT Placement vs Persona Distributions",
+       subtitle = "Lines = model default (respondent/bare); violins = persona TIRT scores by ground-truth tercile") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+### Density overlay
+
+```{r density-placement, fig.height=8}
+ggplot(persona_tirt, aes(x = estimate)) +
+  geom_density(fill = "grey70", alpha = 0.5) +
+  geom_vline(data = neutral_plot_data %>% filter(mode == "respondent"),
+             aes(xintercept = estimate), color = "black",
+             linetype = "solid", linewidth = 1) +
+  geom_vline(data = neutral_plot_data %>% filter(mode == "bare"),
+             aes(xintercept = estimate), color = "darkgreen",
+             linetype = "dashed", linewidth = 1) +
+  facet_wrap(~ trait, scales = "free", ncol = 1, labeller = labeller(
+    trait = trait_labels)) +
+  labs(x = "TIRT trait estimate",
+       y = "Density",
+       title = "Neutral Placement on Persona TIRT Score Distributions (Phi4-mini)",
+       subtitle = "Black solid = respondent frame; green dashed = bare frame") +
+  theme_minimal()
+```
+
+### Neutral as percentile of persona distribution
+
+```{r neutral-percentile}
+percentile_df <- neutral_plot_data %>%
+  group_by(mode) %>%
+  group_modify(~ {
+    .x %>%
+      rowwise() %>%
+      mutate(
+        percentile = mean(
+          persona_tirt$estimate[persona_tirt$trait == trait] <= estimate
+        ) * 100
+      ) %>%
+      ungroup()
+  })
+
+knitr::kable(percentile_df %>%
+               select(mode, trait, estimate, percentile) %>%
+               pivot_wider(names_from = mode,
+                           values_from = c(estimate, percentile),
+                           names_glue = "{mode}_{.value}"),
+             digits = 2,
+             caption = "Neutral placement as percentile of persona TIRT distribution")
+```
+
+## Per-Item Comparison: Respondent vs Bare
+
+```{r item-comparison, fig.height=5}
+resp_items <- fromJSON("phi4-mini-latest_gfc30_neutral-respondent.json",
+                       flatten = TRUE)$results %>%
+  as_tibble() %>%
+  mutate(mode = "respondent",
+         ev = as.numeric(response_ev),
+         block = as.integer(block))
+
+bare_items <- fromJSON("phi4-mini-latest_gfc30_neutral-bare.json",
+                       flatten = TRUE)$results %>%
+  as_tibble() %>%
+  mutate(mode = "bare",
+         ev = as.numeric(response_ev),
+         block = as.integer(block))
+
+item_compare <- bind_rows(resp_items, bare_items) %>%
+  select(block, left_trait, right_trait, mode, ev) %>%
+  pivot_wider(names_from = mode, values_from = ev)
+
+ggplot(item_compare, aes(x = respondent, y = bare)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey50") +
+  geom_text(aes(label = block), nudge_y = 0.1, size = 2.5) +
+  labs(x = "EV (respondent frame)", y = "EV (bare frame)",
+       title = "Per-Item EV: Respondent vs Bare Neutral (Phi4-mini)",
+       subtitle = "Points on diagonal = identical responses") +
+  coord_equal(xlim = c(1, 7), ylim = c(1, 7)) +
+  theme_minimal()
+
+cat(sprintf("Correlation between modes: r = %.3f\n",
+            cor(item_compare$respondent, item_compare$bare, use = "complete.obs")))
+cat(sprintf("Mean absolute difference: %.3f\n",
+            mean(abs(item_compare$respondent - item_compare$bare), na.rm = TRUE)))
+```
+
+```{r item-diff, fig.height=5}
+item_compare %>%
+  mutate(diff = bare - respondent,
+         pair_label = paste0("B", block, ": ", left_trait, "-", right_trait)) %>%
+  ggplot(aes(x = reorder(pair_label, diff), y = diff)) +
+  geom_col(aes(fill = diff > 0), alpha = 0.7, show.legend = FALSE) +
+  scale_fill_manual(values = c("TRUE" = "darkgreen", "FALSE" = "black")) +
+  coord_flip() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = NULL, y = "EV difference (bare - respondent)",
+       title = "Item-Level Differences Between Neutral Modes (Phi4-mini)",
+       subtitle = "Positive = bare gives higher EV (more toward right statement)") +
+  theme_minimal()
+```
+
+# 6. Summary
+
+```{r summary-table}
+cat("=== Phi4-mini GFC-30 TIRT Summary ===\n\n")
+cat(sprintf("Personas: %d complete / %d total\n", n_complete, nrow(wide)))
+cat(sprintf("Prompts: %d\n", nrow(all_results)))
+cat(sprintf("Valid responses: %d (%.1f%%)\n",
+            sum(!is.na(all_results$response_argmax)),
+            100 * mean(!is.na(all_results$response_argmax))))
+cat(sprintf("Mean entropy: %.3f / %.3f (ln 7)\n",
+            mean(all_results$response_entropy, na.rm = TRUE), log(7)))
+
+cat("\nGround-truth recovery (Pearson r):\n")
+for (i in seq_along(traits)) {
+  cat(sprintf("  %s: TIRT=%.3f, Simple=%.3f\n",
+              trait_labels[traits[i]],
+              recovery$tirt_r[i], recovery$simple_r[i]))
+}
+
+cat("\nNeutral TIRT placement:\n")
+for (m in c("respondent", "bare")) {
+  scores_m <- neutral_tirt_wide %>% filter(mode == m)
+  cat(sprintf("  %s: %s\n", m,
+              paste(scores_m %>%
+                      mutate(s = sprintf("%s=%.2f (SE=%.2f)", trait, estimate, se)) %>%
+                      pull(s), collapse = ", ")))
+}
+```
+
+## Key Findings
+
+1. **Phi4-mini's higher entropy** (mean ~1.58 nats vs Gemma3's ~0.67) reflects
+   a fundamentally different response process --- probability is spread more
+   evenly across the 7-point scale.
+
+2. **TIRT with 4 chains** should show improved posterior mixing compared to
+   Gemma3's 2-chain run. The cross-model recovery comparison reveals whether
+   the model's response entropy translates to better trait identification.
+
+3. **Neutral placement** reveals Phi4-mini's default personality profile on the
+   same latent scale as the synthetic personas. Differences between respondent
+   and bare framing indicate sensitivity to role-assignment instructions.
+
+## Next Steps
+
+- **Multi-model joint TIRT**: Pool Gemma3 + Phi4 data for better dimensional
+  identification.
+- **Custom Stan TIRT** with LKJ prior on correlations.
+- **Measurement invariance** testing across models.

@@ -1,0 +1,123 @@
+Stan model: results/tirt_okada_indep.stan
+Responses:  results/claude-haiku-4-5-20251001_gfc30_synthetic.json
+Output:     results/haiku_okada_indep_fit.rds
+Complete respondents: 50
+
+Compiling indep-prior model...
+Sampling: 4 x 700 (233 warmup)
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.002942 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 29.42 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.002881 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 28.81 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: Iteration:   1 / 700 [  0%]  (Warmup)
+Chain 3: 
+Chain 3: Gradient evaluation took 0.002871 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 28.71 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.002728 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 27.28 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 2: Iteration:   1 / 700 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 700 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 700 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 700 [ 14%]  (Warmup)
+Chain 1: Iteration: 100 / 700 [ 14%]  (Warmup)
+Chain 4: Iteration: 100 / 700 [ 14%]  (Warmup)
+Chain 3: Iteration: 100 / 700 [ 14%]  (Warmup)
+Chain 2: Iteration: 200 / 700 [ 28%]  (Warmup)
+Chain 1: Iteration: 200 / 700 [ 28%]  (Warmup)
+Chain 4: Iteration: 200 / 700 [ 28%]  (Warmup)
+Chain 3: Iteration: 200 / 700 [ 28%]  (Warmup)
+Chain 2: Iteration: 234 / 700 [ 33%]  (Sampling)
+Chain 1: Iteration: 234 / 700 [ 33%]  (Sampling)
+Chain 3: Iteration: 234 / 700 [ 33%]  (Sampling)
+Chain 4: Iteration: 234 / 700 [ 33%]  (Sampling)
+Chain 4: Iteration: 333 / 700 [ 47%]  (Sampling)
+Chain 2: Iteration: 333 / 700 [ 47%]  (Sampling)
+Chain 1: Iteration: 333 / 700 [ 47%]  (Sampling)
+Chain 3: Iteration: 333 / 700 [ 47%]  (Sampling)
+Chain 4: Iteration: 433 / 700 [ 61%]  (Sampling)
+Chain 2: Iteration: 433 / 700 [ 61%]  (Sampling)
+Chain 1: Iteration: 433 / 700 [ 61%]  (Sampling)
+Chain 3: Iteration: 433 / 700 [ 61%]  (Sampling)
+Chain 4: Iteration: 533 / 700 [ 76%]  (Sampling)
+Chain 2: Iteration: 533 / 700 [ 76%]  (Sampling)
+Chain 1: Iteration: 533 / 700 [ 76%]  (Sampling)
+Chain 3: Iteration: 533 / 700 [ 76%]  (Sampling)
+Chain 4: Iteration: 633 / 700 [ 90%]  (Sampling)
+Chain 4: Iteration: 700 / 700 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 19.27 seconds (Warm-up)
+Chain 4:                27.891 seconds (Sampling)
+Chain 4:                47.161 seconds (Total)
+Chain 4: 
+Chain 2: Iteration: 633 / 700 [ 90%]  (Sampling)
+Chain 1: Iteration: 633 / 700 [ 90%]  (Sampling)
+Chain 3: Iteration: 633 / 700 [ 90%]  (Sampling)
+Chain 2: Iteration: 700 / 700 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 18.718 seconds (Warm-up)
+Chain 2:                33.95 seconds (Sampling)
+Chain 2:                52.668 seconds (Total)
+Chain 2: 
+Chain 1: Iteration: 700 / 700 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 19.134 seconds (Warm-up)
+Chain 1:                34.551 seconds (Sampling)
+Chain 1:                53.685 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 700 / 700 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 19.27 seconds (Warm-up)
+Chain 3:                34.746 seconds (Sampling)
+Chain 3:                54.016 seconds (Total)
+Chain 3: 
+
+Ground-truth recovery (Pearson r):
+  A: -0.660
+  C: -0.583
+  E: +0.444
+  N: +0.737
+  O: +0.492
+
+Sample correlation of theta_mean (NOT estimated by model):
+      A     C     E     N     O
+A  1.00  0.62 -0.57  0.76 -0.57
+C  0.62  1.00 -0.59  0.68 -0.73
+E -0.57 -0.59  1.00 -0.34  0.20
+N  0.76  0.68 -0.34  1.00 -0.50
+O -0.57 -0.73  0.20 -0.50  1.00
+
+a_pos summary (head):
+          mean    sd    n_eff  Rhat
+a_pos[1] 0.509 0.299 1111.296 1.001
+a_pos[2] 0.651 0.335  964.209 1.003
+a_pos[3] 0.214 0.186 1958.566 1.000
+a_pos[4] 0.513 0.314 1711.242 1.000
+a_pos[5] 0.509 0.306 1566.144 0.999
+a_pos[6] 0.492 0.331  903.631 1.002
+
+Saved: results/haiku_okada_indep_fit.rds
+
+Convergence: 0 Rhat>1.05, 0 n_eff<100

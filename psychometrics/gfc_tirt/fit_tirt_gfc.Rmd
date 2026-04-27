@@ -1,0 +1,389 @@
+---
+title: "GFC-30 Big Five Scoring: Gemma2 9B"
+author: "Ethan Brown"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 6
+)
+library(tidyverse)
+library(lavaan)
+
+MODEL_FILE <- "gemma2-9b_gfc30_personas.json"
+```
+
+## Overview
+
+This notebook scores **graded forced-choice (GFC)** Big Five responses from
+LLM personas, following the Okada et al. (2026) instrument design
+(arXiv:2602.17262).
+
+Two scoring approaches:
+
+1. **Simple scoring** — mean trait endorsement from raw GFC responses. Each pair
+   contributes evidence for/against two traits based on the response direction
+   and keying.
+2. **Thurstonian IRT (CFA)** — latent trait estimation via lavaan SEM on
+   utility differences. Requires sufficient between-respondent variation and
+   ≥5-factor structure.
+
+## 1. Load GFC Results
+
+```{r load-data}
+raw <- jsonlite::fromJSON(MODEL_FILE, flatten = TRUE)
+model_name <- raw$model
+
+all_results <- raw$results %>%
+  as_tibble() %>%
+  mutate(model = model_name)
+
+cat("Model:", model_name, "\n")
+cat("Total pair-responses:", nrow(all_results), "\n")
+cat("Unique personas:", n_distinct(all_results$persona_id), "\n")
+cat("Valid responses:", sum(!is.na(all_results$response_argmax)), "\n")
+```
+
+## 2. Response Distribution
+
+```{r response-dist}
+all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  count(response_argmax) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ggplot(aes(x = response_argmax, y = n)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = sprintf("%.1f%%", pct)), vjust = -0.3) +
+  labs(title = paste("GFC Response Distribution —", model_name),
+       x = "Response (1=LEFT much more, 4=neutral, 7=RIGHT much more)",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r entropy-summary}
+all_results %>%
+  filter(!is.na(response_entropy)) %>%
+  summarise(
+    n = n(),
+    mean_ev = mean(response_ev, na.rm = TRUE),
+    sd_ev = sd(response_ev, na.rm = TRUE),
+    mean_entropy = mean(response_entropy, na.rm = TRUE),
+    sd_entropy = sd(response_entropy, na.rm = TRUE)
+  ) %>%
+  knitr::kable(digits = 3, caption = "GFC response summary")
+```
+
+```{r between-persona-variation}
+# Between-persona variation by block
+block_var <- all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  group_by(block) %>%
+  summarise(
+    mean = mean(as.numeric(response_argmax)),
+    sd = sd(as.numeric(response_argmax)),
+    n_cats = n_distinct(response_argmax),
+    .groups = "drop"
+  )
+
+cat("Per-block variance summary:\n")
+cat("  Mean SD:", round(mean(block_var$sd), 3), "\n")
+cat("  Range SD:", round(min(block_var$sd), 3), "-", round(max(block_var$sd), 3), "\n")
+cat("  Low-variance blocks (SD < 0.5):\n")
+block_var %>% filter(sd < 0.5) %>%
+  mutate(across(c(mean, sd), ~round(., 3))) %>%
+  print()
+```
+
+## 3. Prepare Data
+
+```{r prep-data}
+instrument <- jsonlite::fromJSON("../instruments/okada_gfc30.json")
+pairs <- instrument$pairs
+
+pair_meta <- tibble(
+  block = pairs$block,
+  left_trait = pairs$left$trait,
+  left_keying = pairs$left$keying,
+  left_text = pairs$left$text,
+  right_trait = pairs$right$trait,
+  right_keying = pairs$right$keying,
+  right_text = pairs$right$text,
+  delta_sd = pairs$delta_sd
+)
+
+# Wide response matrix
+response_wide <- all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  select(persona_id, block, response_argmax) %>%
+  pivot_wider(names_from = block, names_prefix = "b",
+              values_from = response_argmax)
+
+complete_mask <- complete.cases(response_wide[, -1])
+cat("Complete respondents:", sum(complete_mask), "out of", nrow(response_wide), "\n")
+```
+
+## 4. Dimensionality Analysis
+
+Before attempting TIRT (which assumes 5-factor structure), check whether the
+data actually supports 5 factors.
+
+```{r dimensionality}
+resp <- response_wide[complete_mask, -1] %>%
+  mutate(across(everything(), as.numeric))
+
+# Eigenvalues of correlation matrix
+R <- cor(resp)
+eigs <- eigen(R)$values
+
+# Parallel analysis
+set.seed(42)
+n_sim <- 100
+n <- nrow(resp); p <- ncol(resp)
+random_eigs <- matrix(0, n_sim, p)
+for (s in 1:n_sim) {
+  random_eigs[s,] <- eigen(cor(matrix(rnorm(n * p), n, p)))$values
+}
+mean_random <- colMeans(random_eigs)
+n_factors <- sum(eigs > mean_random)
+
+tibble(
+  component = 1:10,
+  eigenvalue = eigs[1:10],
+  random_95 = mean_random[1:10],
+  retain = eigs[1:10] > mean_random[1:10]
+) %>%
+  ggplot(aes(x = component)) +
+  geom_line(aes(y = eigenvalue, color = "Actual")) +
+  geom_point(aes(y = eigenvalue, color = "Actual")) +
+  geom_line(aes(y = random_95, color = "Random (mean)"), linetype = "dashed") +
+  geom_point(aes(y = random_95, color = "Random (mean)")) +
+  scale_x_continuous(breaks = 1:10) +
+  labs(title = paste("Parallel Analysis —", model_name),
+       subtitle = paste(n_factors, "factors retained"),
+       x = "Component", y = "Eigenvalue", color = NULL) +
+  theme_minimal()
+
+cat("Factors retained by parallel analysis:", n_factors, "\n")
+cat("Variance explained by first 5 factors:",
+    round(sum(eigs[1:5]) / sum(eigs) * 100, 1), "%\n")
+```
+
+**Interpretation:** With `r n_factors` factors retained, the 5-factor TIRT CFA
+model may be overparameterized for this data. This is likely because 50 personas
+from a single LLM do not generate enough multidimensional trait variation —
+between-persona differences are dominated by 1–3 dimensions rather than 5
+independent Big Five factors.
+
+## 5. Simple Scoring
+
+For each GFC pair, the response direction and magnitude indicate relative trait
+preference. We convert each response to per-trait endorsement evidence:
+
+- Response > 4: endorses RIGHT trait, dis-endorses LEFT trait
+- Response < 4: endorses LEFT trait, dis-endorses RIGHT trait
+- Response = 4: neutral
+
+Keying is applied: negatively-keyed items reverse the trait direction.
+
+```{r simple-scoring}
+trait_evidence <- all_results %>%
+  filter(!is.na(response_argmax)) %>%
+  mutate(
+    resp_val = coalesce(as.numeric(response_ev), as.numeric(response_argmax)),
+    pref = resp_val - 4,
+    right_endorsement = pref * ifelse(right_keying == "+", 1, -1),
+    left_endorsement = -pref * ifelse(left_keying == "+", 1, -1)
+  )
+
+trait_scores_simple <- bind_rows(
+  trait_evidence %>%
+    select(persona_id, trait = right_trait, endorsement = right_endorsement),
+  trait_evidence %>%
+    select(persona_id, trait = left_trait, endorsement = left_endorsement)
+) %>%
+  group_by(persona_id, trait) %>%
+  summarise(score = mean(endorsement, na.rm = TRUE), .groups = "drop")
+
+simple_wide <- trait_scores_simple %>%
+  pivot_wider(names_from = trait, values_from = score)
+```
+
+```{r simple-summary}
+traits <- c("A", "C", "E", "N", "O")
+trait_labels <- c(A = "Agreeableness", C = "Conscientiousness",
+                  E = "Extraversion", N = "Neuroticism", O = "Openness")
+
+cat("Simple trait score summary:\n")
+for (t in traits) {
+  cat(sprintf("  %s (%s): mean=%.3f  sd=%.3f  range=[%.3f, %.3f]\n",
+              t, trait_labels[t],
+              mean(simple_wide[[t]]), sd(simple_wide[[t]]),
+              min(simple_wide[[t]]), max(simple_wide[[t]])))
+}
+```
+
+```{r simple-profiles, fig.height=8}
+# Mean profile
+mean_profile <- trait_scores_simple %>%
+  group_by(trait) %>%
+  summarise(mean = mean(score), se = sd(score) / sqrt(n()), .groups = "drop")
+
+# Individual profiles + mean
+ggplot() +
+  geom_line(data = trait_scores_simple,
+            aes(x = trait, y = score, group = persona_id),
+            alpha = 0.15, color = "grey50") +
+  geom_point(data = trait_scores_simple,
+             aes(x = trait, y = score, group = persona_id),
+             alpha = 0.15, color = "grey50") +
+  geom_line(data = mean_profile,
+            aes(x = trait, y = mean, group = 1),
+            color = "red", linewidth = 1.5) +
+  geom_pointrange(data = mean_profile,
+                  aes(x = trait, y = mean,
+                      ymin = mean - 2*se, ymax = mean + 2*se),
+                  color = "red", size = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = paste("GFC Big Five Profiles —", model_name),
+       subtitle = paste(n_distinct(trait_scores_simple$persona_id),
+                        "personas (grey) with mean profile (red, ±2 SE)"),
+       x = "Trait", y = "Mean endorsement (>0 = high trait)") +
+  theme_minimal(base_size = 14)
+```
+
+```{r simple-boxplot}
+trait_scores_simple %>%
+  mutate(trait_label = trait_labels[trait]) %>%
+  ggplot(aes(x = trait, y = score, fill = trait)) +
+  geom_boxplot(alpha = 0.6) +
+  geom_jitter(width = 0.15, alpha = 0.5, size = 1.5) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = paste("GFC Trait Score Distributions —", model_name),
+       x = "Trait", y = "Mean endorsement") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none")
+```
+
+```{r simple-correlations}
+cat("Trait score correlations (simple scoring):\n")
+print(round(cor(simple_wide[, traits]), 3))
+```
+
+## 6. TIRT CFA (Exploratory)
+
+Attempting the full 5-factor Thurstonian IRT CFA as a confirmatory check.
+With the parallel analysis showing `r n_factors` factors, this is expected to
+have identification issues.
+
+```{r tirt-cfa, warning=TRUE}
+# Build column names matching TIRT convention
+pairwise_data <- data.frame(person = seq_len(nrow(response_wide)))
+item_names <- list()
+for (i in seq_len(nrow(pairs))) {
+  left_name <- paste0(pairs$left$trait[i],
+                       ifelse(pairs$left$keying[i] == "+", "p", "n"), i)
+  right_name <- paste0(pairs$right$trait[i],
+                        ifelse(pairs$right$keying[i] == "+", "p", "n"), i)
+  col_name <- paste0(left_name, right_name)
+  pairwise_data[[col_name]] <- as.numeric(response_wide[[paste0("b", i)]])
+  item_names[[i]] <- list(left = left_name, right = right_name, col = col_name)
+}
+
+pw_complete <- pairwise_data[complete_mask, ]
+pw_complete$person <- seq_len(nrow(pw_complete))
+
+inv_sqrt2 <- 1 / sqrt(2)
+loadings <- character()
+for (i in seq_len(nrow(pairs))) {
+  col_name <- item_names[[i]]$col
+  lt <- pairs$left$trait[i]; rt <- pairs$right$trait[i]
+  ls <- ifelse(pairs$left$keying[i] == "+", 1, -1)
+  rs <- ifelse(pairs$right$keying[i] == "+", 1, -1)
+  loadings <- c(loadings,
+                paste0(rt, " =~ ", round(rs * inv_sqrt2, 4), "*", col_name))
+  loadings <- c(loadings,
+                paste0(lt, " =~ ", round(-ls * inv_sqrt2, 4), "*", col_name))
+}
+
+model_syntax <- paste(c(
+  loadings,
+  paste0(traits, " ~~ 1*", traits),
+  paste0(traits, " ~ 0*1"),
+  {cor_lines <- character()
+   for (i in 1:4) for (j in (i+1):5)
+     cor_lines <- c(cor_lines, paste0(traits[i], " ~~ ", traits[j]))
+   cor_lines}
+), collapse = "\n")
+
+# Try continuous ML (ordinal WLSMV fails with sparse categories)
+fit_ml <- tryCatch({
+  sem(model_syntax, data = pw_complete[, -1], std.lv = TRUE, estimator = "ML")
+}, error = function(e) NULL)
+
+if (!is.null(fit_ml) && lavInspect(fit_ml, "converged")) {
+  cat("ML fit converged\n")
+  cov_lv <- lavInspect(fit_ml, "cov.lv")
+  eig_lv <- eigen(cov_lv)$values
+
+  cat("\nLatent covariance matrix eigenvalues:", round(eig_lv, 4), "\n")
+  cat("Positive definite:", all(eig_lv > 0), "\n")
+
+  if (any(eig_lv <= 0)) {
+    cat("\nWARNING: Latent covariance matrix is NOT positive definite.\n")
+    cat("This Heywood case indicates the 5-factor structure is not supported.\n")
+    cat("Off-diagonal correlations:\n")
+    dimnames(cov_lv) <- list(traits, traits)
+    print(round(cov2cor(cov_lv), 3))
+  }
+
+  fitmeas <- fitmeasures(fit_ml, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+  cat("\nFit indices:\n")
+  print(round(fitmeas, 3))
+} else {
+  cat("TIRT CFA did not converge. See dimensionality analysis above.\n")
+}
+```
+
+**Note on TIRT CFA limitations with single-model data:** The TIRT CFA with
+fixed loadings (±1/√2) assumes 5 independent trait dimensions and equal item
+discrimination. With 50 personas from a single LLM, between-persona variation
+is insufficiently multidimensional (parallel analysis retains `r n_factors`
+factors). The resulting latent covariance matrix has near-unit or super-unit
+off-diagonal elements and negative eigenvalues, indicating a Heywood case.
+
+Options for improving the CFA:
+
+1. **Multi-model data**: Pool personas across models to increase dimensional
+   variation (different models may vary on different trait dimensions).
+2. **Free discrimination parameters**: Okada's Stan model freely estimates
+   $a_j^+$ per statement rather than fixing all loadings equal.
+3. **Bayesian regularization**: Stan with informative priors on correlations
+   (e.g., LKJ prior) prevents Heywood cases.
+
+## 7. Comparison: GFC vs Likert "Assistant Shape"
+
+```{r assistant-shape}
+# The "assistant shape" from Likert: high A, high C, high O, low N
+# Does GFC show the same pattern?
+
+cat("GFC mean profile (simple scoring):\n")
+mean_profile %>%
+  mutate(
+    direction = ifelse(mean > 0, "above neutral", "below neutral"),
+    assistant_shape = c("HIGH", "HIGH", "varies", "LOW", "HIGH")
+  ) %>%
+  knitr::kable(digits = 3,
+               caption = "GFC profile vs expected 'assistant shape'")
+```
+
+```{r session-info}
+sessionInfo()
+```

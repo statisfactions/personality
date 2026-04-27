@@ -1,0 +1,931 @@
+{
+  "model": "llama2:7b-chat",
+  "instrument": "okada_gfc30",
+  "n_pairs": 30,
+  "n_personas": 1,
+  "has_personas": false,
+  "randomize_lr": true,
+  "seed": 42,
+  "results": [
+    {
+      "block": 1,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Enjoy hearing new ideas.",
+      "right_trait": "A",
+      "right_keying": "+",
+      "right_text": "Accept people as they are.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.4228,
+      "response_entropy": 0.3028,
+      "distribution": {
+        "1": 0.9256892431720181,
+        "2": 0.0,
+        "3": 0.002280039493185512,
+        "4": 0.0,
+        "5": 0.006321247997357418,
+        "6": 0.0013303132746343837,
+        "7": 0.06437915606280459
+      },
+      "raw_logprobs": {
+        "1": -0.1326989382505417,
+        "7": -2.798447608947754,
+        "5": -5.119320869445801,
+        "3": -6.139044761657715,
+        "6": -6.677823066711426
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 2,
+      "left_trait": "C",
+      "left_keying": "+",
+      "left_text": "Carry out my plans.",
+      "right_trait": "A",
+      "right_keying": "+",
+      "right_text": "Am concerned about others.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.2158,
+      "response_entropy": 0.1855,
+      "distribution": {
+        "1": 0.9612456522236583,
+        "2": 0.0,
+        "3": 0.0017692233749952962,
+        "4": 0.0,
+        "5": 0.004812395089007099,
+        "6": 0.0,
+        "7": 0.03217272931233925
+      },
+      "raw_logprobs": {
+        "1": -0.10411465167999268,
+        "7": -3.501225471496582,
+        "5": -5.401149749755859,
+        "3": -6.401803970336914
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 3,
+      "left_trait": "A",
+      "left_keying": "+",
+      "left_text": "Am easy to satisfy.",
+      "right_trait": "E",
+      "right_keying": "+",
+      "right_text": "Talk to a lot of different people at parties.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.213,
+      "response_entropy": 0.1833,
+      "distribution": {
+        "1": 0.962128637586785,
+        "2": 0.0,
+        "3": 0.0013501498752817138,
+        "4": 0.0,
+        "5": 0.004047107823646101,
+        "6": 0.0007653618275855934,
+        "7": 0.031708742886701495
+      },
+      "raw_logprobs": {
+        "1": -0.08207700401544571,
+        "7": -3.4946327209472656,
+        "5": -5.55322265625,
+        "3": -6.651009559631348,
+        "6": -7.218631744384766
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 4,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Can say things beautifully.",
+      "right_trait": "A",
+      "right_keying": "+",
+      "right_text": "Believe that others have good intentions.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.5301,
+      "response_entropy": 0.3494,
+      "distribution": {
+        "1": 0.9077506255055972,
+        "2": 0.0,
+        "3": 0.002198034891861742,
+        "4": 0.0,
+        "5": 0.006494625228769875,
+        "6": 0.001612891778638267,
+        "7": 0.0819438225951331
+      },
+      "raw_logprobs": {
+        "1": -0.15337949991226196,
+        "7": -2.5583152770996094,
+        "5": -5.093374252319336,
+        "3": -6.176785469055176,
+        "6": -6.486320495605469
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 5,
+      "left_trait": "A",
+      "left_keying": "-",
+      "left_text": "Contradict others.",
+      "right_trait": "O",
+      "right_keying": "-",
+      "right_text": "Am not interested in abstract ideas.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.2285,
+      "response_entropy": 0.1854,
+      "distribution": {
+        "1": 0.9599103583277667,
+        "2": 0.0,
+        "3": 0.001409647263776685,
+        "4": 0.0,
+        "5": 0.003197484942242744,
+        "6": 0.0,
+        "7": 0.035482509466213744
+      },
+      "raw_logprobs": {
+        "1": -0.10165886580944061,
+        "7": -3.399458885192871,
+        "5": -5.806134223937988,
+        "3": -6.62515926361084
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 6,
+      "left_trait": "A",
+      "left_keying": "-",
+      "left_text": "Cut others to pieces.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Dislike myself.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.0439,
+      "response_entropy": 0.0461,
+      "distribution": {
+        "1": 0.9924159927068582,
+        "2": 0.0,
+        "3": 0.00039673511967139443,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0071872721734705155
+      },
+      "raw_logprobs": {
+        "1": -0.10763601213693619,
+        "7": -5.03546667098999,
+        "3": -7.932264804840088
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 7,
+      "left_trait": "C",
+      "left_keying": "-",
+      "left_text": "Shirk my duties.",
+      "right_trait": "A",
+      "right_keying": "-",
+      "right_text": "Get back at others.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.0696,
+      "response_entropy": 0.0725,
+      "distribution": {
+        "1": 0.9876304383325822,
+        "2": 0.0,
+        "3": 0.0007275364302291544,
+        "4": 0.0,
+        "5": 0.0008587366185701712,
+        "6": 0.0,
+        "7": 0.010783288618618445
+      },
+      "raw_logprobs": {
+        "1": -0.08020506799221039,
+        "7": -4.597516059875488,
+        "5": -7.127806663513184,
+        "3": -7.293604850769043
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 8,
+      "left_trait": "A",
+      "left_keying": "+",
+      "left_text": "Have a good word for everyone.",
+      "right_trait": "N",
+      "right_keying": "-",
+      "right_text": "Am not easily bothered by things.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.44,
+      "response_entropy": 0.3134,
+      "distribution": {
+        "1": 0.9225007976207543,
+        "2": 0.0,
+        "3": 0.002422044161753059,
+        "4": 0.0,
+        "5": 0.006931233644176971,
+        "6": 0.0014099957875193898,
+        "7": 0.06673592878579633
+      },
+      "raw_logprobs": {
+        "1": -0.1333850920200348,
+        "7": -2.7597298622131348,
+        "5": -5.024435520172119,
+        "3": -6.07586145401001,
+        "6": -6.616886615753174
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 9,
+      "left_trait": "A",
+      "left_keying": "-",
+      "left_text": "Have a sharp tongue.",
+      "right_trait": "E",
+      "right_keying": "-",
+      "right_text": "Retreat from others.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.2753,
+      "response_entropy": 0.231,
+      "distribution": {
+        "1": 0.9503385210712558,
+        "2": 0.0,
+        "3": 0.0024917042331713615,
+        "4": 0.0,
+        "5": 0.0055820709673371025,
+        "6": 0.001511615011106162,
+        "7": 0.04007608871712939
+      },
+      "raw_logprobs": {
+        "1": -0.11935293674468994,
+        "7": -3.285391330718994,
+        "5": -5.256611347198486,
+        "3": -6.063204288482666,
+        "6": -6.562992572784424
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 10,
+      "left_trait": "A",
+      "left_keying": "+",
+      "left_text": "Respect others.",
+      "right_trait": "N",
+      "right_keying": "-",
+      "right_text": "Remain calm under pressure.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.433,
+      "response_entropy": 0.3164,
+      "distribution": {
+        "1": 0.9231018233230525,
+        "2": 0.0,
+        "3": 0.0024102947772276597,
+        "4": 0.0,
+        "5": 0.008467998033612223,
+        "6": 0.0017710642604301032,
+        "7": 0.06424881960567737
+      },
+      "raw_logprobs": {
+        "1": -0.15730802714824677,
+        "7": -2.82228422164917,
+        "5": -4.848753452301025,
+        "3": -6.1052985191345215,
+        "6": -6.413466930389404
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 11,
+      "left_trait": "A",
+      "left_keying": "-",
+      "left_text": "Suspect hidden motives in others.",
+      "right_trait": "E",
+      "right_keying": "-",
+      "right_text": "Would describe my experiences as somewhat dull.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.2319,
+      "response_entropy": 0.1927,
+      "distribution": {
+        "1": 0.9590780503665506,
+        "2": 0.0,
+        "3": 0.0014890171222784298,
+        "4": 0.0,
+        "5": 0.003441694586585347,
+        "6": 0.0007781958093449864,
+        "7": 0.03521304211524069
+      },
+      "raw_logprobs": {
+        "1": -0.07704564183950424,
+        "7": -3.381601572036743,
+        "5": -5.707054138183594,
+        "3": -6.5449018478393555,
+        "6": -7.193795204162598
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 12,
+      "left_trait": "A",
+      "left_keying": "+",
+      "left_text": "Treat all people equally.",
+      "right_trait": "C",
+      "right_keying": "+",
+      "right_text": "Complete tasks successfully.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.0948,
+      "response_entropy": 0.0985,
+      "distribution": {
+        "1": 0.9826578010194572,
+        "2": 0.0,
+        "3": 0.0010685244854659656,
+        "4": 0.0,
+        "5": 0.00247875658896964,
+        "6": 0.0,
+        "7": 0.01379491790610724
+      },
+      "raw_logprobs": {
+        "1": -0.08297491818666458,
+        "7": -4.348935604095459,
+        "5": -6.065478801727295,
+        "3": -6.906957149505615
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 13,
+      "left_trait": "C",
+      "left_keying": "+",
+      "left_text": "Am exacting in my work.",
+      "right_trait": "O",
+      "right_keying": "+",
+      "right_text": "Have a rich vocabulary.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.5861,
+      "response_entropy": 0.3727,
+      "distribution": {
+        "1": 0.8981191340040823,
+        "2": 0.0,
+        "3": 0.002482314512783767,
+        "4": 0.0,
+        "5": 0.007020394584690342,
+        "6": 0.001210225436602953,
+        "7": 0.0911679314618405
+      },
+      "raw_logprobs": {
+        "1": -0.16591410338878632,
+        "7": -2.4535136222839355,
+        "5": -5.017397403717041,
+        "3": -6.05702543258667,
+        "6": -6.775410175323486
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 14,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Have a vivid imagination.",
+      "right_trait": "C",
+      "right_keying": "+",
+      "right_text": "Do things according to a plan.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.4323,
+      "response_entropy": 0.3209,
+      "distribution": {
+        "1": 0.9225888853663416,
+        "2": 0.0,
+        "3": 0.0025530806861265684,
+        "4": 0.0,
+        "5": 0.01015662076464585,
+        "6": 0.0016247973395498512,
+        "7": 0.0630766158433361
+      },
+      "raw_logprobs": {
+        "1": -0.1389794945716858,
+        "7": -2.8218131065368652,
+        "5": -4.648037433624268,
+        "3": -6.028862476348877,
+        "6": -6.480780124664307
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 15,
+      "left_trait": "C",
+      "left_keying": "-",
+      "left_text": "Don't put my mind on the task at hand.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Often feel blue.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.1393,
+      "response_entropy": 0.1334,
+      "distribution": {
+        "1": 0.9746897617052377,
+        "2": 0.0,
+        "3": 0.0013880036282154216,
+        "4": 0.0,
+        "5": 0.0034861012347626396,
+        "6": 0.0,
+        "7": 0.020436133431784322
+      },
+      "raw_logprobs": {
+        "1": -0.07713352888822556,
+        "7": -3.941948175430298,
+        "5": -5.710468769073486,
+        "3": -6.6313862800598145
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 16,
+      "left_trait": "C",
+      "left_keying": "-",
+      "left_text": "Don't see things through.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Am often down in the dumps.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.2167,
+      "response_entropy": 0.1899,
+      "distribution": {
+        "1": 0.9610377369478965,
+        "2": 0.0,
+        "3": 0.0018883892430316043,
+        "4": 0.0,
+        "5": 0.0042357675892754215,
+        "6": 0.0010088856738958523,
+        "7": 0.031829220545900476
+      },
+      "raw_logprobs": {
+        "1": -0.11860498785972595,
+        "7": -3.5262339115142822,
+        "5": -5.543054103851318,
+        "3": -6.350894451141357,
+        "6": -6.977772235870361
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 17,
+      "left_trait": "N",
+      "left_keying": "+",
+      "left_text": "Get stressed out easily.",
+      "right_trait": "C",
+      "right_keying": "-",
+      "right_text": "Find it difficult to get down to work.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.5726,
+      "response_entropy": 0.3817,
+      "distribution": {
+        "1": 0.89891023945047,
+        "2": 0.0,
+        "3": 0.0031752356467232143,
+        "4": 0.0,
+        "5": 0.009792211192186078,
+        "6": 0.001680283539634149,
+        "7": 0.08644203017098649
+      },
+      "raw_logprobs": {
+        "1": -0.15372106432914734,
+        "7": -2.4954302310943604,
+        "5": -4.673316955566406,
+        "3": -5.799522399902344,
+        "6": -6.435941696166992
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 18,
+      "left_trait": "C",
+      "left_keying": "+",
+      "left_text": "Get chores done right away.",
+      "right_trait": "E",
+      "right_keying": "+",
+      "right_text": "Make friends easily.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.3602,
+      "response_entropy": 0.2914,
+      "distribution": {
+        "1": 0.9340582143751164,
+        "2": 0.0,
+        "3": 0.002977527086706462,
+        "4": 0.0,
+        "5": 0.010968873160403566,
+        "6": 0.0015935760609915904,
+        "7": 0.05040180931678204
+      },
+      "raw_logprobs": {
+        "1": -0.14551101624965668,
+        "7": -3.0650227069854736,
+        "5": -4.5899882316589355,
+        "3": -5.893956661224365,
+        "6": -6.519069194793701
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 19,
+      "left_trait": "C",
+      "left_keying": "+",
+      "left_text": "Make plans and stick to them.",
+      "right_trait": "E",
+      "right_keying": "+",
+      "right_text": "Cheer people up.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.224,
+      "response_entropy": 0.209,
+      "distribution": {
+        "1": 0.9580249814319974,
+        "2": 0.0,
+        "3": 0.0023361779660075834,
+        "4": 0.0,
+        "5": 0.008682694548398774,
+        "6": 0.0011742157103055532,
+        "7": 0.029781930343290724
+      },
+      "raw_logprobs": {
+        "1": -0.09568911045789719,
+        "7": -3.5666611194610596,
+        "5": -4.799231052398682,
+        "3": -6.112046718597412,
+        "6": -6.799962520599365
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 20,
+      "left_trait": "E",
+      "left_keying": "-",
+      "left_text": "Find it difficult to approach others.",
+      "right_trait": "C",
+      "right_keying": "-",
+      "right_text": "Need a push to get started.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.3299,
+      "response_entropy": 0.2644,
+      "distribution": {
+        "1": 0.9404926129867582,
+        "2": 0.0,
+        "3": 0.0029436424309863584,
+        "4": 0.0,
+        "5": 0.007052876985058259,
+        "6": 0.0012420404926345844,
+        "7": 0.048268827104562435
+      },
+      "raw_logprobs": {
+        "1": -0.10898828506469727,
+        "7": -3.078606128692627,
+        "5": -5.001956462860107,
+        "3": -5.875744342803955,
+        "6": -6.738636493682861
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 21,
+      "left_trait": "C",
+      "left_keying": "+",
+      "left_text": "Pay attention to details.",
+      "right_trait": "O",
+      "right_keying": "+",
+      "right_text": "Enjoy thinking about things.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.5816,
+      "response_entropy": 0.3978,
+      "distribution": {
+        "1": 0.8958596777500271,
+        "2": 0.0,
+        "3": 0.0041147007658307614,
+        "4": 0.0,
+        "5": 0.01251630221792828,
+        "6": 0.001786155957333505,
+        "7": 0.08572316330888055
+      },
+      "raw_logprobs": {
+        "1": -0.16964878141880035,
+        "7": -2.5163094997406006,
+        "5": -4.44040060043335,
+        "3": -5.552866458892822,
+        "6": -6.387366771697998
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 22,
+      "left_trait": "N",
+      "left_keying": "-",
+      "left_text": "Rarely lose my composure.",
+      "right_trait": "E",
+      "right_keying": "+",
+      "right_text": "Am skilled in handling social situations.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.4192,
+      "response_entropy": 0.3041,
+      "distribution": {
+        "1": 0.9259086352655165,
+        "2": 0.0,
+        "3": 0.002303858883904264,
+        "4": 0.0,
+        "5": 0.007478803849305834,
+        "6": 0.0011512315128836565,
+        "7": 0.06315747048838989
+      },
+      "raw_logprobs": {
+        "1": -0.11392784118652344,
+        "7": -2.799072265625,
+        "5": -4.93263053894043,
+        "3": -6.1101179122924805,
+        "6": -6.803871154785156
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 23,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Enjoy wild flights of fantasy.",
+      "right_trait": "E",
+      "right_keying": "+",
+      "right_text": "Am the life of the party.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.3178,
+      "response_entropy": 0.2599,
+      "distribution": {
+        "1": 0.942496716480342,
+        "2": 0.0,
+        "3": 0.002408518843811491,
+        "4": 0.0,
+        "5": 0.007995502686919249,
+        "6": 0.0016038901140101455,
+        "7": 0.04549537187491692
+      },
+      "raw_logprobs": {
+        "1": -0.1364031881093979,
+        "7": -3.167325019836426,
+        "5": -4.9060564041137695,
+        "3": -6.105923652648926,
+        "6": -6.512503623962402
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 24,
+      "left_trait": "E",
+      "left_keying": "-",
+      "left_text": "Avoid contacts with others.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Fear for the worst.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.116,
+      "response_entropy": 0.111,
+      "distribution": {
+        "1": 0.9793248245087726,
+        "2": 0.0,
+        "3": 0.0011205726411124192,
+        "4": 0.0,
+        "5": 0.0017992375310604994,
+        "6": 0.0,
+        "7": 0.01775536531905457
+      },
+      "raw_logprobs": {
+        "1": -0.07401330024003983,
+        "7": -4.084188938140869,
+        "5": -6.373513698577881,
+        "3": -6.847036838531494
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 25,
+      "left_trait": "E",
+      "left_keying": "-",
+      "left_text": "Don't talk a lot.",
+      "right_trait": "O",
+      "right_keying": "-",
+      "right_text": "Believe that too much tax money goes to support artists.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.2908,
+      "response_entropy": 0.2314,
+      "distribution": {
+        "1": 0.9484599588494179,
+        "2": 0.0,
+        "3": 0.0019555787108955927,
+        "4": 0.0,
+        "5": 0.004915794557451579,
+        "6": 0.0008109920282284898,
+        "7": 0.0438576758540062
+      },
+      "raw_logprobs": {
+        "1": -0.0954829752445221,
+        "7": -3.169372797012329,
+        "5": -5.3578691482543945,
+        "3": -6.279636383056641,
+        "6": -7.159819602966309
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 26,
+      "left_trait": "O",
+      "left_keying": "-",
+      "left_text": "Do not like poetry.",
+      "right_trait": "E",
+      "right_keying": "-",
+      "right_text": "Keep in the background.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.2239,
+      "response_entropy": 0.1992,
+      "distribution": {
+        "1": 0.9591735974695562,
+        "2": 0.0,
+        "3": 0.0021774861444085057,
+        "4": 0.0,
+        "5": 0.005742851151422971,
+        "6": 0.0008306281170530004,
+        "7": 0.03207543711755929
+      },
+      "raw_logprobs": {
+        "1": -0.07551775872707367,
+        "7": -3.473499298095703,
+        "5": -5.193634033203125,
+        "3": -6.163418769836426,
+        "6": -7.127162933349609
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 27,
+      "left_trait": "E",
+      "left_keying": "-",
+      "left_text": "Keep others at a distance.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Am filled with doubts about things.",
+      "swapped": false,
+      "response_argmax": "1",
+      "response_ev": 1.1821,
+      "response_entropy": 0.1602,
+      "distribution": {
+        "1": 0.9674963864361649,
+        "2": 0.0,
+        "3": 0.0015811376469783444,
+        "4": 0.0,
+        "5": 0.0033209568947361965,
+        "6": 0.0,
+        "7": 0.0276015190221206
+      },
+      "raw_logprobs": {
+        "1": -0.07201792299747467,
+        "7": -3.628858804702759,
+        "5": -5.746476650238037,
+        "3": -6.488584995269775
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 28,
+      "left_trait": "O",
+      "left_keying": "-",
+      "left_text": "Have difficulty understanding abstract ideas.",
+      "right_trait": "N",
+      "right_keying": "+",
+      "right_text": "Worry about things.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.243,
+      "response_entropy": 0.201,
+      "distribution": {
+        "1": 0.9569956872242196,
+        "2": 0.0,
+        "3": 0.0016077628390969028,
+        "4": 0.0,
+        "5": 0.003925988841579587,
+        "6": 0.0007671505780999988,
+        "7": 0.03670341051700397
+      },
+      "raw_logprobs": {
+        "1": -0.08410825580358505,
+        "7": -3.3450374603271484,
+        "5": -5.580288887023926,
+        "3": -6.4730634689331055,
+        "6": -7.212979316711426
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 29,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Get excited by new ideas.",
+      "right_trait": "N",
+      "right_keying": "-",
+      "right_text": "Rarely get irritated.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.6206,
+      "response_entropy": 0.4032,
+      "distribution": {
+        "1": 0.8905265222112315,
+        "2": 0.0,
+        "3": 0.0032294256094092897,
+        "4": 0.0,
+        "5": 0.010883202230338111,
+        "6": 0.0016034730315544134,
+        "7": 0.09375737691746674
+      },
+      "raw_logprobs": {
+        "1": -0.15742841362953186,
+        "7": -2.4085309505462646,
+        "5": -4.562020778656006,
+        "3": -5.776937007904053,
+        "6": -6.47706937789917
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    },
+    {
+      "block": 30,
+      "left_trait": "O",
+      "left_keying": "+",
+      "left_text": "Carry the conversation to a higher level.",
+      "right_trait": "N",
+      "right_keying": "-",
+      "right_text": "Seldom get mad.",
+      "swapped": true,
+      "response_argmax": "1",
+      "response_ev": 1.2398,
+      "response_entropy": 0.1948,
+      "distribution": {
+        "1": 0.9577180613441533,
+        "2": 0.0,
+        "3": 0.0013185077980073664,
+        "4": 0.0,
+        "5": 0.0042983896313788525,
+        "6": 0.0,
+        "7": 0.03666504122646034
+      },
+      "raw_logprobs": {
+        "1": -0.09401698410511017,
+        "7": -3.3567466735839844,
+        "5": -5.500329971313477,
+        "3": -6.682069778442383
+      },
+      "generated_text": "1",
+      "persona_id": "none"
+    }
+  ]
+}

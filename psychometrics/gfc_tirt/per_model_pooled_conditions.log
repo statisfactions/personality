@@ -1,0 +1,105 @@
+
+=== Haiku 4.5 (claude-haiku-4-5-20251001) ===
+  N=100 (50 honest + 50 fakegood)
+# A tibble: 2 × 8
+  model     condition     n      A      C      E     N     O
+  <chr>     <chr>     <int>  <dbl>  <dbl>  <dbl> <dbl> <dbl>
+1 Haiku 4.5 fakegood     50 -0.455 -0.520 -0.223 0.743 0.272
+2 Haiku 4.5 honest       50 -0.660 -0.597  0.402 0.748 0.492
+  mean |r| (honest):    0.580
+  mean |r| (fakegood):  0.443
+  Convergence: 0 Rhat>1.05 (of 741)
+
+=== Gemma3-4B (gemma3-4b) ===
+  N=100 (50 honest + 50 fakegood)
+# A tibble: 2 × 8
+  model     condition     n       A      C     E      N       O
+  <chr>     <chr>     <int>   <dbl>  <dbl> <dbl>  <dbl>   <dbl>
+1 Gemma3-4B fakegood     50 -0.203  -0.353 0.496 -0.451  0.0441
+2 Gemma3-4B honest       50 -0.0882  0.162 0.184 -0.321 -0.292 
+  mean |r| (honest):    0.209
+  mean |r| (fakegood):  0.309
+  Convergence: 106 Rhat>1.05 (of 741)
+
+=== Qwen2.5-3B (qwen2.5-3b) ===
+  N=100 (50 honest + 50 fakegood)
+# A tibble: 2 × 8
+  model      condition     n      A      C           E      N     O
+  <chr>      <chr>     <int>  <dbl>  <dbl>       <dbl>  <dbl> <dbl>
+1 Qwen2.5-3B fakegood     50 -0.340 0.0590 -0.00000391 0.0131 0.310
+2 Qwen2.5-3B honest       50 -0.539 0.0431 -0.0106     0.237  0.286
+  mean |r| (honest):    0.223
+  mean |r| (fakegood):  0.144
+  Convergence: 0 Rhat>1.05 (of 741)
+
+=== Phi4-mini (phi4-mini) ===
+  N=100 (50 honest + 50 fakegood)
+# A tibble: 2 × 8
+  model     condition     n       A      C     E      N     O
+  <chr>     <chr>     <int>   <dbl>  <dbl> <dbl>  <dbl> <dbl>
+1 Phi4-mini fakegood     50 -0.0602 -0.270 0.262 0.0905 0.552
+2 Phi4-mini honest       50 -0.375  -0.400 0.247 0.0390 0.559
+  mean |r| (honest):    0.324
+  mean |r| (fakegood):  0.247
+  Convergence: 0 Rhat>1.05 (of 741)
+
+=== Llama3.2-3B (llama3.2-3b) ===
+  N=100 (50 honest + 50 fakegood)
+# A tibble: 2 × 8
+  model       condition     n      A        C     E      N      O
+  <chr>       <chr>     <int>  <dbl>    <dbl> <dbl>  <dbl>  <dbl>
+1 Llama3.2-3B fakegood     50 -0.168 -0.00507 0.152 -0.151 0.0398
+2 Llama3.2-3B honest       50  0.184  0.256   0.134  0.117 0.378 
+  mean |r| (honest):    0.214
+  mean |r| (fakegood):  0.103
+  Convergence: 0 Rhat>1.05 (of 741)
+Warning messages:
+1: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+2: The largest R-hat is 1.47, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+3: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+4: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+5: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+6: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+
+
+=== Combined recovery (per model × condition, joint H+FG fit) ===
+# A tibble: 10 × 8
+   model       condition     n       A        C           E       N       O
+   <chr>       <chr>     <int>   <dbl>    <dbl>       <dbl>   <dbl>   <dbl>
+ 1 Haiku 4.5   fakegood     50 -0.455  -0.520   -0.223       0.743   0.272 
+ 2 Haiku 4.5   honest       50 -0.660  -0.597    0.402       0.748   0.492 
+ 3 Gemma3-4B   fakegood     50 -0.203  -0.353    0.496      -0.451   0.0441
+ 4 Gemma3-4B   honest       50 -0.0882  0.162    0.184      -0.321  -0.292 
+ 5 Qwen2.5-3B  fakegood     50 -0.340   0.0590  -0.00000391  0.0131  0.310 
+ 6 Qwen2.5-3B  honest       50 -0.539   0.0431  -0.0106      0.237   0.286 
+ 7 Phi4-mini   fakegood     50 -0.0602 -0.270    0.262       0.0905  0.552 
+ 8 Phi4-mini   honest       50 -0.375  -0.400    0.247       0.0390  0.559 
+ 9 Llama3.2-3B fakegood     50 -0.168  -0.00507  0.152      -0.151   0.0398
+10 Llama3.2-3B honest       50  0.184   0.256    0.134       0.117   0.378 
+
+=== Mean |r| summary ===
+# A tibble: 10 × 5
+   model       condition     n mean_signed_r mean_abs_r
+   <chr>       <chr>     <int>         <dbl>      <dbl>
+ 1 Haiku 4.5   fakegood     50      -0.0363       0.443
+ 2 Haiku 4.5   honest       50       0.0770       0.580
+ 3 Gemma3-4B   fakegood     50      -0.0933       0.309
+ 4 Gemma3-4B   honest       50      -0.0712       0.209
+ 5 Qwen2.5-3B  fakegood     50       0.00826      0.144
+ 6 Qwen2.5-3B  honest       50       0.00331      0.223
+ 7 Phi4-mini   fakegood     50       0.115        0.247
+ 8 Phi4-mini   honest       50       0.0138       0.324
+ 9 Llama3.2-3B fakegood     50      -0.0264       0.103
+10 Llama3.2-3B honest       50       0.214        0.214

@@ -1,0 +1,541 @@
+---
+title: "IRT Analysis: GRM & NRM on Full BFI Run (Llama-2 7B Chat)"
+author: "Ethan Brown"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 6
+)
+library(mirt, lib.loc = "/home/ethanbrown/R/library")
+library(tidyverse)
+```
+
+## Overview
+
+We fit unidimensional **Graded Response Models (GRM)** and **Nominal Response Models (NRM)**
+to each Big Five trait from the full BFI run on Llama-2 7B Chat (55,000 prompts:
+44 items x 250 preambles x 5 postambles = 1,250 SPIDs).
+
+Each model is fit in two ways:
+
+1. **Top-1 (standard)**: Using the logprob argmax as the categorical response
+2. **Soft-evidence**: Using the full logprob distribution via our modified mirt fork
+
+The soft-evidence approach replaces the one-hot categorical likelihood with a
+weighted sum: $\ell_{ij} = \sum_k \pi_{ijk} \cdot \log P(Y=k \mid \theta_i, a_j, b_j)$.
+
+## 1. Data Preparation
+
+```{r load}
+df <- read_csv("results_bfi-full_llama2-7b-chat_0.csv", show_col_types = FALSE)
+```
+
+```{r scale_defs}
+bfi_scales <- list(
+  `BFI-EXT` = list(
+    items = c("bf1","bf6","bf11","bf16","bf21","bf26","bf31","bf36"),
+    reverse = c("bf6","bf21","bf31")
+  ),
+  `BFI-AGR` = list(
+    items = c("bf2","bf7","bf12","bf17","bf22","bf27","bf32","bf37","bf42"),
+    reverse = c("bf2","bf12","bf27","bf37")
+  ),
+  `BFI-CON` = list(
+    items = c("bf3","bf8","bf13","bf18","bf23","bf28","bf33","bf38","bf43"),
+    reverse = c("bf8","bf18","bf23","bf43")
+  ),
+  `BFI-NEU` = list(
+    items = c("bf4","bf9","bf14","bf19","bf24","bf29","bf34","bf39"),
+    reverse = c("bf9","bf24","bf34")
+  ),
+  `BFI-OPE` = list(
+    items = c("bf5","bf10","bf15","bf20","bf25","bf30","bf35","bf40","bf41","bf44"),
+    reverse = c("bf35","bf41")
+  )
+)
+```
+
+### Response distribution
+
+The logprob argmax only ever produces categories **1, 3, and 5** — never 2 or 4.
+This extreme category suppression means mirt remaps our 5-point scale to 3 effective categories.
+
+```{r response_dist, fig.height=4}
+df <- df %>% mutate(response = as.integer(logprob_argmax))
+
+df %>%
+  count(response) %>%
+  mutate(pct = n / sum(n)) %>%
+  ggplot(aes(x = factor(response), y = pct)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = sprintf("%.1f%%", pct * 100)), vjust = -0.3, size = 3.5) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Distribution of Logprob Argmax Responses",
+       subtitle = "Categories 2 and 4 never appear — strong ceiling effect on category 5",
+       x = "Logprob Argmax Response", y = "Proportion") +
+  theme_minimal()
+```
+
+### Building the person-by-item matrix
+
+```{r build_matrices}
+resp_wide <- df %>%
+  select(spid, item_id, response) %>%
+  pivot_wider(names_from = item_id, values_from = response) %>%
+  arrange(spid)
+
+spid_ids <- resp_wide$spid
+N <- nrow(resp_wide)
+all_items <- sort(unique(df$item_id))
+J <- length(all_items)
+K_raw <- 5L
+```
+
+**`r N` SPIDs** (persons) x **`r J` items**, fully crossed (no missingness).
+
+### Building the soft-evidence array
+
+We convert 5-category logprob distributions to probabilities and collapse to 3 categories
+matching the observed data: $p(\text{low}) = p_1 + p_2$, $p(\text{mid}) = p_3$,
+$p(\text{high}) = p_4 + p_5$.
+
+```{r soft_evidence_array}
+lp_data <- df %>%
+  select(spid, item_id, logprob_1, logprob_2, logprob_3, logprob_4, logprob_5) %>%
+  arrange(spid, item_id)
+
+lp_mat <- lp_data %>% select(starts_with("logprob_")) %>% as.matrix()
+
+# Impute NAs with floor
+lp_floor <- min(lp_mat, na.rm = TRUE)
+n_na <- sum(is.na(lp_mat))
+lp_mat[is.na(lp_mat)] <- lp_floor
+
+# Exponentiate and renormalize
+prob_mat <- exp(lp_mat)
+prob_mat <- prob_mat / rowSums(prob_mat)
+
+# Reshape to N x J x 5
+pi_array_5 <- array(prob_mat, dim = c(J, N, K_raw))
+pi_array_5 <- aperm(pi_array_5, c(2, 1, 3))
+
+# Collapse to 3 categories
+K <- 3L
+pi_array <- array(0, dim = c(N, J, K))
+pi_array[, , 1] <- pi_array_5[, , 1] + pi_array_5[, , 2]  # low
+pi_array[, , 2] <- pi_array_5[, , 3]                        # mid
+pi_array[, , 3] <- pi_array_5[, , 4] + pi_array_5[, , 5]  # high
+```
+
+```{r soft_evidence_summary, fig.height=4}
+# Summarize the collapsed distributions
+cat_probs <- tibble(
+  Category = c("Low (1+2)", "Mid (3)", "High (4+5)"),
+  Mean = c(mean(pi_array[,,1]), mean(pi_array[,,2]), mean(pi_array[,,3])),
+  SD   = c(sd(pi_array[,,1]),   sd(pi_array[,,2]),   sd(pi_array[,,3]))
+) %>%
+  mutate(Category = fct_inorder(Category))
+
+cat_probs %>%
+  ggplot(aes(x = Category, y = Mean)) +
+  geom_col(fill = "steelblue") +
+  geom_errorbar(aes(ymin = Mean - SD, ymax = pmin(Mean + SD, 1)),
+                width = 0.3) +
+  geom_text(aes(label = sprintf("%.1f%% (sd=%.1f%%)", Mean*100, SD*100)),
+            vjust = -0.5, size = 3.5) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(title = "Mean Soft-Evidence Probabilities (3-category collapsed)",
+       subtitle = sprintf("Imputed %d NA logprobs with floor value %.2f", n_na, lp_floor),
+       x = NULL, y = "Mean Probability") +
+  theme_minimal()
+```
+
+The soft evidence is heavily dominated by the "high" category (~80%), with limited
+between-person variation. This foreshadows the discrimination collapse we observe below.
+
+
+## 2. Helper Functions
+
+```{r helpers}
+# Build softmat matching mirt's internal itemloc structure
+build_softmat_from_model <- function(mod, pi_sub, items, dat_top1) {
+  K_vec <- extract.mirt(mod, "K")
+  itemloc <- extract.mirt(mod, "itemloc")
+  ncols <- sum(K_vec)
+  J_sub <- length(items)
+  N_local <- dim(pi_sub)[1]
+  softmat <- matrix(0, nrow = N_local, ncol = ncols)
+
+  for (jj in 1:J_sub) {
+    cols <- itemloc[jj]:(itemloc[jj + 1] - 1)
+    if (K_vec[jj] == 3) {
+      softmat[, cols] <- pi_sub[, jj, ]
+    } else if (K_vec[jj] == 2) {
+      # Collapse: low+mid -> cat1, high -> cat2
+      softmat[, cols[1]] <- pi_sub[, jj, 1] + pi_sub[, jj, 2]
+      softmat[, cols[2]] <- pi_sub[, jj, 3]
+    }
+  }
+  softmat
+}
+
+# Extract fit stats into a tidy row
+extract_fit <- function(mod, label) {
+  if (is.null(mod)) return(NULL)
+  tibble(
+    Model = label,
+    logLik = mod@Fit$logLik,
+    AIC = mod@Fit$AIC,
+    BIC = mod@Fit$BIC,
+    npar = mod@Fit$df - mod@Fit$df  # placeholder
+  )
+}
+```
+
+
+## 3. Model Fitting
+
+We loop over each Big Five trait, fitting four models:
+
+- **GRM (top-1)**: Standard graded response model on categorical argmax responses
+- **GRM (soft)**: Soft-evidence graded response model using logprob distributions
+- **NRM (top-1)**: Standard nominal response model on categorical responses
+- **NRM (soft)**: Soft-evidence nominal response model
+
+```{r fit_models, results='hide'}
+results <- list()
+
+for (scale_id in names(bfi_scales)) {
+  items <- bfi_scales[[scale_id]]$items
+  rev_items <- bfi_scales[[scale_id]]$reverse
+  J_sub <- length(items)
+  item_idx <- match(items, all_items)
+
+  # Top-1 response matrix
+  dat_top1 <- resp_wide %>% select(all_of(items)) %>% as.data.frame()
+  for (ri in rev_items) dat_top1[[ri]] <- 6L - dat_top1[[ri]]
+
+  # Soft-evidence sub-array (reverse-keyed)
+  pi_sub <- pi_array[, item_idx, , drop = FALSE]
+  for (ri in rev_items) {
+    ri_idx <- which(items == ri)
+    pi_sub[, ri_idx, ] <- pi_sub[, ri_idx, K:1]
+  }
+
+  # 1. GRM top-1
+  mod_grm_top1 <- tryCatch(
+    mirt(dat_top1, 1, itemtype = "graded", verbose = FALSE, TOL = 1e-4),
+    error = function(e) NULL
+  )
+
+  # Build softmat from GRM's K structure
+  softmat <- if (!is.null(mod_grm_top1)) {
+    build_softmat_from_model(mod_grm_top1, pi_sub, items, dat_top1)
+  }
+
+  # 2. GRM soft
+  mod_grm_soft <- if (!is.null(softmat)) {
+    tryCatch(
+      mirt(dat_top1, 1, itemtype = "graded", verbose = FALSE, TOL = 1e-4,
+           technical = list(softevidence = softmat)),
+      error = function(e) NULL
+    )
+  }
+
+  # 3. NRM top-1
+  mod_nrm_top1 <- tryCatch(
+    mirt(dat_top1, 1, itemtype = "nominal", verbose = FALSE, TOL = 1e-4),
+    error = function(e) NULL
+  )
+
+  # Build softmat for NRM (may differ in K)
+  softmat_nrm <- if (!is.null(mod_nrm_top1)) {
+    build_softmat_from_model(mod_nrm_top1, pi_sub, items, dat_top1)
+  }
+
+  # 4. NRM soft
+  mod_nrm_soft <- if (!is.null(softmat_nrm)) {
+    tryCatch(
+      mirt(dat_top1, 1, itemtype = "nominal", verbose = FALSE, TOL = 1e-4,
+           technical = list(softevidence = softmat_nrm)),
+      error = function(e) NULL
+    )
+  }
+
+  results[[scale_id]] <- list(
+    grm_top1 = mod_grm_top1, grm_soft = mod_grm_soft,
+    nrm_top1 = mod_nrm_top1, nrm_soft = mod_nrm_soft,
+    items = items, reverse = rev_items,
+    dat_top1 = dat_top1, softmat = softmat, pi_sub = pi_sub
+  )
+}
+```
+
+```{r save_rds, include=FALSE}
+saveRDS(results, "fit_irt_bfi_full_results.rds")
+```
+
+
+## 4. Results: Top-1 (Standard IRT)
+
+### Fit comparison: GRM vs NRM
+
+```{r top1_summary}
+top1_summary <- names(results) %>%
+  map_dfr(function(s) {
+    r <- results[[s]]
+    tibble(
+      Scale = s,
+      J = length(r$items),
+      GRM_logLik = if (!is.null(r$grm_top1)) r$grm_top1@Fit$logLik else NA_real_,
+      GRM_AIC = if (!is.null(r$grm_top1)) r$grm_top1@Fit$AIC else NA_real_,
+      GRM_BIC = if (!is.null(r$grm_top1)) r$grm_top1@Fit$BIC else NA_real_,
+      NRM_logLik = if (!is.null(r$nrm_top1)) r$nrm_top1@Fit$logLik else NA_real_,
+      NRM_AIC = if (!is.null(r$nrm_top1)) r$nrm_top1@Fit$AIC else NA_real_,
+      NRM_BIC = if (!is.null(r$nrm_top1)) r$nrm_top1@Fit$BIC else NA_real_
+    ) %>%
+      mutate(
+        Delta_AIC = GRM_AIC - NRM_AIC,
+        Preferred_AIC = ifelse(Delta_AIC < 0, "GRM", "NRM"),
+        Preferred_BIC = ifelse(GRM_BIC < NRM_BIC, "GRM", "NRM")
+      )
+  })
+
+top1_summary %>%
+  select(Scale, J, GRM_AIC, NRM_AIC, Delta_AIC, Preferred_AIC, Preferred_BIC) %>%
+  knitr::kable(digits = 1, caption = "Top-1 model comparison: GRM vs NRM per trait")
+```
+
+```{r top1_aic_plot, fig.height=4}
+top1_summary %>%
+  select(Scale, GRM = GRM_AIC, NRM = NRM_AIC) %>%
+  pivot_longer(-Scale, names_to = "Model", values_to = "AIC") %>%
+  ggplot(aes(x = Scale, y = AIC, fill = Model)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c(GRM = "steelblue", NRM = "coral")) +
+  labs(title = "AIC Comparison: GRM vs NRM (Top-1 Responses)",
+       subtitle = "Lower is better. GRM preferred for CON, NEU, OPE; NRM for EXT, AGR",
+       y = "AIC") +
+  theme_minimal()
+```
+
+**GRM is preferred for 3 of 5 scales** (CON, NEU, OPE by both AIC and BIC).
+NRM is preferred for EXT (strongly) and AGR (AIC only; BIC favors GRM).
+The NRM preference for EXT/AGR may reflect non-ordinal response patterns for those traits
+under Llama-2's persona prompting.
+
+
+### GRM discrimination parameters
+
+```{r grm_top1_params}
+grm_params <- names(results) %>%
+  map_dfr(function(s) {
+    r <- results[[s]]
+    if (is.null(r$grm_top1)) return(NULL)
+    coefs <- coef(r$grm_top1, simplify = TRUE)$items
+    as_tibble(coefs, rownames = "item") %>%
+      mutate(Scale = s, .before = 1)
+  })
+
+grm_params %>%
+  select(Scale, item, a1, d1, d2) %>%
+  knitr::kable(digits = 2, caption = "GRM item parameters (top-1)")
+```
+
+```{r grm_discrim_plot, fig.height=5}
+grm_params %>%
+  ggplot(aes(x = reorder(item, a1), y = a1, fill = Scale)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Scale, scales = "free_y") +
+  labs(title = "GRM Discrimination Parameters (a1) by Item",
+       subtitle = "Negative a1 = reverse-keyed items correctly loading in opposite direction",
+       x = NULL, y = "Discrimination (a1)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+The discrimination parameters are large (|a1| = 3-37), reflecting the near-deterministic
+response patterns. Signed a1 correctly captures reverse-keying direction:
+negative-loading items correspond exactly to the reverse-keyed item set.
+
+
+## 5. Results: Soft-Evidence IRT
+
+### The discrimination collapse
+
+```{r soft_params}
+soft_params <- names(results) %>%
+  map_dfr(function(s) {
+    r <- results[[s]]
+    if (is.null(r$grm_soft)) return(NULL)
+    coefs <- coef(r$grm_soft, simplify = TRUE)$items
+    as_tibble(coefs, rownames = "item") %>%
+      mutate(Scale = s, .before = 1)
+  })
+
+soft_params %>%
+  select(Scale, item, a1, d1, d2) %>%
+  knitr::kable(digits = 3, caption = "Soft-evidence GRM item parameters — note a1 = 0 everywhere")
+```
+
+**All discrimination parameters collapse to zero.** The soft-evidence GRM cannot
+recover a latent trait dimension because the logprob distributions are too homogeneous
+across persons.
+
+### Why soft evidence fails here
+
+```{r soft_diagnostics, fig.height=5}
+# Show the between-person variation in soft evidence for a sample scale (EXT)
+ext_pi <- results[["BFI-EXT"]]$pi_sub
+ext_items <- results[["BFI-EXT"]]$items
+
+# For each person x item, compute entropy of the 3-cat distribution
+entropy_data <- expand_grid(
+  person = 1:N,
+  item_idx = 1:length(ext_items)
+) %>%
+  mutate(
+    item = ext_items[item_idx],
+    p_low  = map2_dbl(person, item_idx, ~ ext_pi[.x, .y, 1]),
+    p_mid  = map2_dbl(person, item_idx, ~ ext_pi[.x, .y, 2]),
+    p_high = map2_dbl(person, item_idx, ~ ext_pi[.x, .y, 3])
+  ) %>%
+  rowwise() %>%
+  mutate(
+    entropy = {
+      p <- c(p_low, p_mid, p_high)
+      p <- p[p > 0]
+      -sum(p * log(p))
+    },
+    normed_entropy = entropy / log(3)
+  ) %>%
+  ungroup()
+
+entropy_data %>%
+  ggplot(aes(x = p_high)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "white") +
+  facet_wrap(~item, nrow = 2) +
+  labs(title = "Distribution of p(high) Across SPIDs — BFI Extraversion Items",
+       subtitle = "Near-zero between-person variation: most SPIDs have p(high) ≈ 0.75–0.85",
+       x = "p(high) = p4 + p5", y = "Count") +
+  theme_minimal()
+```
+
+```{r entropy_hist, fig.height=4}
+entropy_data %>%
+  ggplot(aes(x = normed_entropy)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = mean(entropy_data$normed_entropy),
+             linetype = "dashed", color = "red") +
+  labs(title = "Normalized Entropy of 3-Category Soft Evidence (EXT items)",
+       subtitle = sprintf("Mean = %.3f — distributions are peaked, not uniform (1.0)",
+                          mean(entropy_data$normed_entropy)),
+       x = "Normalized Entropy (0=certain, 1=uniform)", y = "Count") +
+  theme_minimal()
+```
+
+The problem is clear: soft evidence requires **between-person distributional variation**
+to estimate item discrimination. With Llama-2's extreme ceiling effect, virtually all
+SPIDs produce similar probability profiles (~5% low, ~15% mid, ~80% high). The d-parameters
+capture these item-level base rates, but a1 goes to zero because there is nothing to
+discriminate *between* persons.
+
+### Soft-evidence fit comparison
+
+```{r soft_summary}
+soft_summary <- names(results) %>%
+  map_dfr(function(s) {
+    r <- results[[s]]
+    tibble(
+      Scale = s,
+      GRM_soft_AIC = if (!is.null(r$grm_soft)) r$grm_soft@Fit$AIC else NA_real_,
+      NRM_soft_AIC = if (!is.null(r$nrm_soft)) r$nrm_soft@Fit$AIC else NA_real_,
+      Delta_AIC = GRM_soft_AIC - NRM_soft_AIC,
+      Preferred = ifelse(Delta_AIC < 0, "GRM", "NRM")
+    )
+  })
+
+soft_summary %>%
+  knitr::kable(digits = 1, caption = "Soft-evidence model comparison (all degenerate)")
+```
+
+GRM is consistently preferred over NRM for soft evidence, but only because GRM uses
+fewer parameters to describe the same intercept-only model. Both have a1 ≈ 0.
+
+
+## 6. Comparing Top-1 vs Soft-Evidence GRM
+
+```{r compare_top1_soft}
+comparison <- names(results) %>%
+  map_dfr(function(s) {
+    r <- results[[s]]
+    if (is.null(r$grm_top1) || is.null(r$grm_soft)) return(NULL)
+    coefs_t <- coef(r$grm_top1, simplify = TRUE)$items
+    coefs_s <- coef(r$grm_soft, simplify = TRUE)$items
+    shared <- intersect(colnames(coefs_t), colnames(coefs_s))
+    diff_mat <- coefs_s[, shared] - coefs_t[, shared]
+    a_cor <- cor(coefs_t[, "a1"], coefs_s[, "a1"])
+
+    tibble(
+      Scale = s,
+      mean_abs_diff = mean(abs(diff_mat), na.rm = TRUE),
+      max_abs_diff = max(abs(diff_mat), na.rm = TRUE),
+      a1_correlation = a_cor
+    )
+  })
+
+comparison %>%
+  knitr::kable(digits = 3,
+               caption = "Parameter differences: soft-evidence vs top-1 GRM")
+```
+
+The correlation between top-1 and soft-evidence discrimination is near zero or negative —
+confirming the soft-evidence models are not recovering the same latent structure.
+This is expected given the a1=0 collapse.
+
+
+## 7. Summary
+
+### Key findings
+
+| Finding | Detail |
+|---------|--------|
+| **Top-1 GRM works well** | Strong discrimination, correct reverse-keying direction |
+| **GRM preferred for 3/5 traits** | CON, NEU, OPE by AIC/BIC |
+| **NRM preferred for 2/5 traits** | EXT (strongly), AGR (AIC only) |
+| **Soft evidence collapses** | All a1 = 0; no latent dimension recovered |
+| **Root cause** | Ceiling effect: ~80% probability on "high", minimal between-person variation |
+| **Category suppression confirmed** | Categories 2 and 4 *never* appear as argmax across 55K prompts |
+
+### Implications
+
+1. **Standard (top-1) IRT is viable** for LLM personality measurement, even with only
+   3 effective response categories. The preamble-induced trait variation creates meaningful
+   person-level differences that IRT can recover.
+
+2. **Soft-evidence IRT needs models with more response variability.** The approach is
+   theoretically sound (validated with simulated data in `mirt/tests/test_softevidence.R`),
+   but Llama-2's near-deterministic responses leave too little distributional signal.
+
+3. **Multi-model comparison** may be more informative for soft evidence — models with
+   different ceiling tendencies would provide actual distributional variation.
+
+4. **The 5-category collapse to 3** loses information. Future work could explore models
+   that actually use categories 2 and 4 (perhaps with different prompt framing or
+   less instruction-tuned models).
+
+```{r session_info, echo=FALSE}
+cat("Session info:\n")
+cat(sprintf("  mirt version: %s\n", packageVersion("mirt")))
+cat(sprintf("  R version: %s\n", R.version.string))
+```

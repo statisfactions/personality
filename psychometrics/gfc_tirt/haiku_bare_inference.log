@@ -1,0 +1,13 @@
+Model:    claude-haiku-4-5-20251001
+Pairs:    30
+Personas: 1 (mode: bare)
+Total:    30 prompts (2 workers)
+To run:   30 new prompts
+
+  [25/30] 25 new (0.1/s)
+  [30/30] 30 new (0.1/s)
+
+Done: 30 new prompts in 326s (0.1/s)
+Results: results/claude-haiku-4-5-20251001_gfc30_neutral-bare.json
+Valid: 30/30
+Response distribution: {'1': 3, '3': 8, '4': 2, '5': 17}

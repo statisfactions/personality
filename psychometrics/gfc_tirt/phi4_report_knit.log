@@ -1,0 +1,51 @@
+
+
+processing file: phi4_gfc_tirt_report.Rmd
+1/43                      
+2/43 [setup]              
+3/43                      
+4/43 [load-fit]           
+5/43                      
+6/43 [extract-scores]     
+7/43                      
+8/43 [recovery-table]     
+9/43                      
+10/43 [scatter-recovery]   
+11/43                      
+12/43 [scatter-simple]     
+13/43                      
+14/43 [cross-model]        
+15/43                      
+16/43 [trait-cors]         
+17/43                      
+18/43 [cor-heatmaps]       
+19/43                      
+20/43 [response-dist]      
+21/43                      
+22/43 [response-by-trait]  
+23/43                      
+24/43 [entropy-by-persona] 
+25/43                      
+26/43 [neutral-simple]     
+27/43                      
+28/43 [neutral-tirt]       
+29/43                      
+30/43 [persona-terciles]   
+31/43                      
+32/43 [placement-plot-tirt]
+33/43                      
+34/43 [density-placement]  
+35/43                      
+36/43 [neutral-percentile] 
+37/43                      
+38/43 [item-comparison]    
+39/43                      
+40/43 [item-diff]          
+41/43                      
+42/43 [summary-table]      
+43/43                      
+output file: phi4_gfc_tirt_report.knit.md
+
+/usr/bin/pandoc +RTS -K512m -RTS phi4_gfc_tirt_report.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output phi4_gfc_tirt_report.html --lua-filter /usr/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /usr/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=flatly --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpV0xgoh/rmarkdown-str5fc5b47d5f085.html --variable code_folding=hide --variable code_menu=1 
+
+Output created: phi4_gfc_tirt_report.html
