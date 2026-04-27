@@ -44,6 +44,8 @@ DEFAULT_MODEL = "Qwen7"
 DEFAULT_N = 50
 SEED = 42
 
+NEUTRAL_QUESTION = "Briefly describe a typical Saturday for you."
+
 
 def safe(s): return s.replace("/", "_")
 def unit(v): return v / (np.linalg.norm(v) + 1e-12)
@@ -74,17 +76,44 @@ def extract_marker_directions(model, tok, device, common_layer, neutral_layer):
 
 
 def extract_persona_projections(model, tok, device, personas, directions,
-                                common_layer, neutral_baseline):
-    """For each persona, chat-template the description, get last-token
-    activation at common_layer, subtract neutral baseline, project on each
-    trait direction. Returns list of dicts."""
+                                common_layer, neutral_baseline, mode="description"):
+    """For each persona, project activation onto each trait direction.
+
+    mode="description" (baseline): persona description as user turn, last-
+        token activation. Has the marker-content confound (description
+        contains the same Goldberg adjectives that defined the directions).
+
+    mode="response-position": persona as system, NEUTRAL_QUESTION as user,
+        chat-template with assistant generation prefix appended. Activation
+        at last token = "what the model represents right before generating
+        a response." Tests internalization rather than marker transcription.
+    """
     out = []
     for i, p in enumerate(personas):
-        a = mdx.hidden_states_for_text(
-            model, tok, p["description"], device,
-            split_prefix=None, chat_template=True,
-        )
-        act = a[common_layer].float().numpy()
+        if mode == "description":
+            a = mdx.hidden_states_for_text(
+                model, tok, p["description"], device,
+                split_prefix=None, chat_template=True,
+            )
+            act = a[common_layer].float().numpy()
+        elif mode == "response-position":
+            messages = [
+                {"role": "system", "content": p["description"]},
+                {"role": "user", "content": NEUTRAL_QUESTION},
+            ]
+            text = tok.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True,
+            )
+            inputs = tok(text, return_tensors="pt").to(device)
+            with torch.no_grad():
+                outputs = model(**inputs, output_hidden_states=True)
+            act = outputs.hidden_states[common_layer][0, -1, :].float().cpu().numpy()
+            del outputs
+            if device == "mps":
+                torch.mps.empty_cache()
+        else:
+            raise ValueError(f"unknown mode: {mode}")
+
         act_centered = act - neutral_baseline
         projs = {t: float(np.dot(act_centered, directions[t])) for t in TRAITS}
         out.append({
@@ -103,6 +132,8 @@ def main():
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--n", type=int, default=DEFAULT_N)
     parser.add_argument("--seed", type=int, default=SEED)
+    parser.add_argument("--mode", default="description",
+                        choices=["description", "response-position"])
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
@@ -141,9 +172,10 @@ def main():
         model, tok, device, common_layer, neutral_layer_t,
     )
 
-    print("\n--- Extracting persona activations ---")
+    print(f"\n--- Extracting persona activations (mode={args.mode}) ---")
     persona_data = extract_persona_projections(
         model, tok, device, selected, directions, common_layer, neutral_baseline,
+        mode=args.mode,
     )
 
     del model, tok
@@ -191,6 +223,7 @@ def main():
     payload = {
         "model": args.model,
         "hf_repo": repo,
+        "mode": args.mode,
         "n_personas": len(persona_data),
         "seed": args.seed,
         "common_layer": common_layer,
@@ -200,7 +233,8 @@ def main():
         "cross_correlation": cross.tolist(),
         "persona_data": persona_data,
     }
-    out_path = Path(f"results/persona_repr_mapping_{args.model}.json")
+    suffix = "" if args.mode == "description" else f"_{args.mode}"
+    out_path = Path(f"results/persona_repr_mapping_{args.model}{suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2)

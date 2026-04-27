@@ -690,11 +690,30 @@ So roughly **60% of the off-diagonal is the input correlation structure** propag
 
 **The marker-content confound.** Each persona description is generated from the Goldberg markers themselves — a high-E persona's description literally contains "extraverted, talkative, bold, ..." Those are the same adjectives that defined our E direction. So this test is partly tautological: it verifies that the model's representation of a Goldberg-marker-rich prompt is linearly recoverable via Goldberg-marker-derived directions. Useful as a *baseline* (the geometry is dense enough for linear additive trait composition; reconstruction r ≈ 0.74 even with noise from single-pass activations and direction-extraction imperfection), but it doesn't strongly support "the model assumed the persona internally."
 
-**The harder test, queued:** wrap the persona description as a system prompt, add a neutral user question (e.g., "What's a typical Saturday like for you?"), and read the activation at the last token of the *response position* — i.e., the activation right before the model would generate its first response token. This measures "having absorbed the persona, what does the model represent before producing behavior" without marker-content leakage at the readout point. Reconstruction r values there are the real test of persona *internalization* vs *transcription*. Time-budget for this session didn't allow it; it's a clean follow-up that should run in 30–40 minutes on the same cohort.
+**The harder test — done.** Re-ran with `--mode response-position`: persona as system prompt, neutral question as user turn ("Briefly describe a typical Saturday for you."), chat-template applied with the assistant generation prefix appended; activation read at the last token (i.e., the position right before the model would generate its first response token). No marker words at readout.
 
-**Status:** §11.5.4 #4 partial. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is rgb's twist, complementary not redundant.
+**Comparison (Qwen7, N=50, same seed):**
 
-Data: `results/persona_repr_mapping_Qwen7.json` (full 50-persona projections + cross-correlation matrix + per-persona z's).
+| Trait | Description (baseline) | Response-position |
+|-------|----------------------|-------------------|
+| A     | +0.694               | +0.684            |
+| C     | +0.791               | +0.761            |
+| E     | +0.682               | **+0.806**        |
+| N     | +0.768               | +0.665            |
+| O     | +0.742               | **+0.800**        |
+| **Mean** | **+0.735**         | **+0.743**        |
+
+Diagonal/off-diagonal gap: +0.583 (description) → **+0.608 (response-position)**. Off-diagonal mean: +0.152 → +0.135 (slightly *cleaner* with the confound removed).
+
+**The marker-content confound was overstated.** Removing marker words at the readout point doesn't degrade reconstruction; if anything it sharpens it. E and O reconstruction *improves* (+0.68 → +0.81 and +0.74 → +0.80). Only N degrades (+0.77 → +0.66) — the model's response-position representation of N is less clear than its description-mode reading of N-marker words, plausibly because high-N in our descriptions is encoded by adjective-clusters that load directly onto the N direction in description mode but get mediated through more diffuse activations at response position. C also softens slightly. Net story: **the model internalizes the persona to roughly the same degree it transcribes it**, with the trait-level differences mostly redistributing rather than collapsing.
+
+This decisively addresses the confound. The representation-back-mapping result is real — it's not just measuring marker content of the prompt; it's measuring what the model represents as it's about to produce behavior under the persona.
+
+**Caveat that remains.** This is one model (Qwen7), one neutral question, one system-prompt format. Sensitivity to prompt phrasing, model architecture, and persona-induction style would each be worth testing. But the qualitative result — "internal representation reconstructs sampled trait composition at r ≈ 0.74 mean" — is robust enough across both modes to be the headline.
+
+**Status:** §11.5.4 #4 partial. The representation back-mapping is now solidly answered for the rgb twist. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is complementary, not redundant — and it suggests an interesting pre-registration for that next track: **if the model internalizes personas to r ≈ 0.74 representationally, we'd predict instrument responses under those personas to recover sampled z's at *higher* r (since instruments are designed to measure exactly the trait dimension), and the gap between representational r and behavioral r is itself a measurement-validity diagnostic.**
+
+Data: `results/persona_repr_mapping_Qwen7.json` (description mode), `results/persona_repr_mapping_Qwen7_response-position.json` (response-position mode).
 
 ---
 
