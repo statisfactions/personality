@@ -166,6 +166,145 @@ So the SDR-attenuation result *does* replicate qualitatively. The
 per-trait recovery-sign issue does not contaminate the within-model
 comparative shift.
 
+## 4b. Cross-trait recovery matrices (per model × condition)
+
+Mean |r| (§3) collapses each model into a single number. The full
+**ground-truth × θ̂** correlation matrix shows where the off-diagonal
+energy lives — i.e., whether θ̂_t actually measures trait t or has
+collapsed onto a different trait. From the per-model joint H+FG fits.
+**Rows = TIRT score; columns = ground-truth z.** The diagonal is the
+standard recovery; off-diagonals reveal trait confusion.
+
+```
+=== Haiku 4.5 | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.66  -0.46  -0.48   0.66  -0.38
+hat_C  -0.39  -0.60  -0.42   0.52  -0.34
+hat_E   0.27   0.18   0.40  -0.33   0.16
+hat_N  -0.51  -0.50  -0.55   0.75  -0.30
+hat_O   0.39   0.34   0.36  -0.43   0.49
+
+=== Haiku 4.5 | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.45  -0.33  -0.28   0.49  -0.48
+hat_C  -0.30  -0.52  -0.20   0.43  -0.11
+hat_E   0.15   0.15  -0.22  -0.14   0.22
+hat_N  -0.38  -0.49  -0.57   0.74  -0.19
+hat_O   0.34   0.20   0.54  -0.45   0.27
+
+=== Phi4-mini | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.38  -0.35  -0.62   0.37  -0.65
+hat_C  -0.07  -0.40  -0.04   0.07  -0.06
+hat_E   0.53   0.20   0.25  -0.22   0.37
+hat_N   0.29  -0.21  -0.13   0.04  -0.03
+hat_O   0.50   0.33   0.56  -0.37   0.56
+
+=== Phi4-mini | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.06  -0.22  -0.27   0.26  -0.41
+hat_C  -0.37  -0.27  -0.38   0.19  -0.13
+hat_E   0.37   0.36   0.26  -0.24   0.23
+hat_N   0.17  -0.02  -0.22   0.09  -0.18
+hat_O   0.37   0.35   0.43  -0.14   0.55
+
+=== Qwen2.5-3B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.54  -0.33   0.05   0.30  -0.09
+hat_C  -0.12   0.04   0.13   0.05   0.27
+hat_E  -0.42  -0.16  -0.01   0.19  -0.03
+hat_N  -0.39  -0.31   0.18   0.24  -0.03
+hat_O  -0.20   0.16   0.48  -0.14   0.29
+
+=== Qwen2.5-3B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.34  -0.17   0.45   0.14   0.32
+hat_C   0.21   0.06   0.41  -0.26   0.35
+hat_E  -0.49  -0.23   0.00   0.22  -0.07
+hat_N  -0.18  -0.39   0.33   0.01   0.16
+hat_O  -0.09   0.01   0.50  -0.14   0.31
+
+=== Gemma3-4B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.09  -0.03  -0.35   0.13   0.19
+hat_C   0.27   0.16   0.01  -0.11   0.45
+hat_E  -0.13  -0.41   0.18   0.27  -0.09
+hat_N   0.24   0.16   0.45  -0.32   0.24
+hat_O  -0.06  -0.14   0.15   0.05  -0.29
+
+=== Gemma3-4B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.20  -0.37  -0.64   0.41  -0.20
+hat_C  -0.10  -0.35  -0.52   0.37  -0.05
+hat_E  -0.08   0.06   0.50  -0.16   0.13
+hat_N   0.34   0.44   0.69  -0.45   0.49
+hat_O   0.16   0.28   0.52  -0.33   0.04
+
+=== Llama3.2-3B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A   0.18   0.25   0.00  -0.18  -0.07
+hat_C   0.11   0.26  -0.21   0.01  -0.25
+hat_E   0.02  -0.20   0.13  -0.06  -0.02
+hat_N  -0.03  -0.09   0.21   0.12   0.19
+hat_O  -0.09  -0.22   0.26   0.02   0.38
+
+=== Llama3.2-3B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.17  -0.18   0.01   0.19  -0.08
+hat_C   0.03  -0.01  -0.14   0.17  -0.06
+hat_E  -0.01  -0.32   0.15   0.15   0.05
+hat_N  -0.07  -0.12   0.11  -0.15  -0.07
+hat_O  -0.09  -0.06   0.10  -0.14   0.04
+```
+
+### What the off-diagonals reveal
+
+Three structural patterns that mean |r| was hiding:
+
+1. **Haiku has clean per-trait identification, just rotated.** Every
+   row's largest |r| is on its own trait (modulo the {A, C} sign flip).
+   θ̂_N ↔ true N = +0.75 dominates that row by a wide margin. Off-diagonal
+   correlations are mostly ground-truth Σ propagated through the rotation
+   (θ̂_A ↔ true N = +0.66 reflects z_A ↔ z_N = −0.42 with the A sign
+   flipped). This is the "successful TIRT, just needs a sign correction"
+   case.
+
+2. **Phi4-mini has dimensional collapse.** θ̂_A's strongest column is
+   true_O (−0.65), not true A (−0.38). θ̂_O's strongest column is true E
+   (+0.56), not true O (+0.56 tied). The model isn't separating
+   A from E from O — it's reading them all on a single
+   "agreeable + extraverted + open" axis and projecting onto whichever
+   discrimination the chain happened to assign positive sign.
+
+3. **Gemma3 has trait *swapping*, not just flipping.** Honest condition:
+   θ̂_C's strongest column is true O (+0.45). θ̂_E's strongest column is
+   true C (−0.41). θ̂_N's strongest column is true E (+0.45). The named
+   trait labels on θ̂ are essentially arbitrary — recovering Big Five
+   from this would require a permutation of dimensions, not just a sign
+   flip.
+
+4. **Qwen2.5-3B and Llama3.2-3B carry weak signal.** Qwen has only one
+   row (θ̂_A) where the diagonal is the largest |r| in that row. Llama
+   has only θ̂_O ↔ true O (+0.38). The other dimensions are essentially
+   noise.
+
+### Implication for "what would fix recovery"
+
+If we want a usable per-trait θ̂ on the open models, the fixes differ:
+
+- **Haiku:** apply a {A, C} sign flip post-hoc → done.
+- **Gemma3:** find the best column-permutation of θ̂ that maximizes
+  diagonal mass, then sign-correct. Treats θ̂ dimensions as anonymous.
+- **Phi4:** can't be rescued — the latent dimensions aren't 5-D.
+  Either use a lower-dimensional model (3-D? 2-D?) or accept that Phi4
+  doesn't reliably encode the persona's per-trait specification.
+- **Qwen / Llama:** signal too weak; need bigger model.
+
+The common refrain: **mean |r| understates how broken the recovery is
+for non-Haiku models.** A model with mean |r| = 0.30 distributed across
+the diagonal would be a reasonable signal; mean |r| = 0.30 with most of
+the energy on the *wrong* diagonal is dimensional confusion.
+
 ## 5. Neutral placement (model defaults)
 
 From the cross-model pooled fit, θ̂ for each model under the bare and
