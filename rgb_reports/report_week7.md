@@ -801,7 +801,23 @@ Ran `scripts/persona_instrument_response.py` on Qwen7 (same 50 personas, seed=42
 
 **Comparison to Σ.** The empirical input-z correlation matrix Σ has off-diagonal mean ~0.30 (W7 §11.5.9 decomposition). The Likert off-diagonal ~0.108 is *lower* than Σ's off-diagonal — meaning Likert recovers MORE diagonal-dominance than the input MVN suggests. This is mildly surprising: the instrument doesn't just reduce projection contamination, it appears to recover a near-orthogonal trait structure even though the *input personas* have substantial cross-trait correlations.
 
-This makes sense in retrospect: the model's per-item Likert judgment is conditional on the persona's Big Five profile *as articulated in the description*, not the population-level cross-trait correlation. Each rating is a marker-specific judgment under that persona, so cross-trait input correlation only enters via the persona description's own structure, not as a projection-aggregate signal.
+**Theory (rgb 2026-04-26): symbolic vs associative reasoning.** The model's Likert judgment on a single marker is a discrete *symbolic* judgment about whether that specific adjective applies under the persona — not an aggregation across associatively-linked trait concepts. The activation projection at the response position, by contrast, reads off the model's *internal state* via a linear projection on the residual stream, which is dense with associative coupling between trait concepts (because trait concepts are correlationally linked in language). The two readouts differ exactly in this dimension: Likert isolates per-adjective judgment, projection aggregates the associative network.
+
+If this is right, several testable predictions follow:
+
+1. **Paraphrase invariance.** Replace the marker-rich persona description with a behavioral paraphrase (no Goldberg adjectives, just "you tend to start tasks immediately and finish them", etc.). Likert ratings should be largely preserved (the model is reasoning symbolically about the marker, not pattern-matching surface adjectives). Activation projections should drop substantially (the marker-rich surface form was driving them).
+
+2. **Synonym invariance.** Replace each Goldberg marker with a synonym. Likert ratings should be highly stable; activation projections should drift more. Worth running on the existing infrastructure with a one-script change.
+
+3. **Chain-of-thought amplification.** Adding "Think step by step before rating" should amplify the Likert orthogonality (more symbolic processing). Predict Δ goes from +0.144 to +0.20+ and Likert off-diag drops further. This is the cleanest single-experiment test.
+
+4. **Lower-resource models should show less of the lift.** Symbolic reasoning is plausibly an emergent capability with scale and instruction-tuning quality. The cohort prereg-on-other-models run (in progress as of this commit) directly tests this: predict Phi4-mini shows the smallest Δ on A and N (where its representation already disagrees with the cohort), and small-cohort Llama 3B / Qwen 3B show smaller Δ overall than the larger cohort.
+
+This theory also bridges to §11.5.1's represent-vs-enact gap: the model *represents* trait concepts in an associatively-dense way (Σ-amplified projections) but *acts* on them via more isolated symbolic judgments (Likert). The "represent ≠ enact" claim now has a candidate mechanism — the difference between the residual-stream geometry the projection reads from and the discrete-judgment process the Likert response engages.
+
+The associative/symbolic framing also connects to the broader literature on dual-process distinctions in LLMs (e.g. Mahowald et al. on structural vs associative competence) and to recent interp work on attention-routed concept retrieval (the model attends to a marker and produces a focused judgment, rather than letting trait associations leak through).
+
+In retrospect: the model's per-item Likert judgment is conditional on the persona's Big Five profile *as articulated in the description*, not the population-level cross-trait correlation. Each rating is a marker-specific symbolic judgment under that persona, so cross-trait input correlation only enters via the persona description's own structure, not as a projection-aggregate signal.
 
 **Why N has the smallest lift (+0.078).** N's rep r is already lowest at +0.665, and N's Likert r (+0.743) is also the cohort's lowest. Both readouts struggle with N. Possible reasons: (a) Goldberg's N markers ("nervous", "anxious", "moody") may be more semantically diffuse than E markers; (b) the assistant baseline state is far from any "high-N" enacted state, so persona-induction has to work harder; (c) consistent with W7 §11.5.7 finding that N facets (Anxiety vs Depression) barely correlate (r=+0.07) — N is the most internally heterogeneous Big Five trait. Whatever the cause, it shows up in both readouts.
 
