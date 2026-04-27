@@ -380,10 +380,10 @@ In ROI order:
 - `scripts/run_gfc_anthropic.py`, `scripts/run_gfc_ollama.py` — inference
   (now both support `--fake-good` and `--neutral {bare,respondent}`)
 - `scripts/run_orin_sequential.sh` — sequential Orin runner
-- `results/tirt_okada_indep.stan` — Okada-exact Stan model
-- `results/fit_tirt_pooled.R` — cross-model pooled fit driver
-- `results/fit_tirt_per_model_pooled_conditions.R` — per-model H+FG driver
-- `results/pooled_tirt_fit.rds` — pooled fit posterior
-- `results/per_model_pooled/{model}_pooled_conditions_fit.rds` — per-model fits
-- `results/render_pooled_report.R` — markdown summary helper
+- [`tirt_okada_indep.stan`](../psychometrics/gfc_tirt/tirt_okada_indep.stan) — Okada-exact Stan model
+- [`fit_tirt_pooled.R`](../psychometrics/gfc_tirt/fit_tirt_pooled.R) — cross-model pooled fit driver
+- [`fit_tirt_per_model_pooled_conditions.R`](../psychometrics/gfc_tirt/fit_tirt_per_model_pooled_conditions.R) — per-model H+FG driver
+- `psychometrics/gfc_tirt/pooled_tirt_fit.rds` — pooled fit posterior (archived in big5_results)
+- `psychometrics/gfc_tirt/per_model_pooled/{model}_pooled_conditions_fit.rds` — per-model fits (archived in big5_results)
+- [`render_pooled_report.R`](../psychometrics/gfc_tirt/render_pooled_report.R) — markdown summary helper
 - `notes_background/okada_2026_gfc_paper.md` — paper text incl. Appendix D

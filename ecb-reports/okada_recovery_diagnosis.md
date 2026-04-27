@@ -126,7 +126,7 @@ Okada's Figure 4 is a frontier-model + custom-Stan + clean-API result. We hit it
 - `instruments/synthetic_personas.json` — 400 personas, seed=42
 - `scripts/generate_trait_personas.py` — persona generator
 - `scripts/run_gfc_ollama.py` — inference script
-- `results/gemma3-12b_gfc30_synthetic.json`, `results/phi4-mini_gfc30_synthetic.json` — raw responses + logprobs
-- `results/gemma3_gfc30_synthetic_tirt_fit.rds`, `results/phi4_gfc30_synthetic_tirt_fit.rds` — TIRT fits
-- `results/gemma3_gfc_tirt_report.html`, `results/phi4_gfc_tirt_report.html` — full diagnostic reports
+- [`gemma3-12b_gfc30_synthetic.json`](../psychometrics/gfc_tirt/gemma3-12b_gfc30_synthetic.json), [`phi4-mini_gfc30_synthetic.json`](../psychometrics/gfc_tirt/phi4-mini_gfc30_synthetic.json) — raw responses + logprobs
+- `psychometrics/gfc_tirt/gemma3_gfc30_synthetic_tirt_fit.rds`, `phi4_gfc30_synthetic_tirt_fit.rds` — TIRT fits (archived in big5_results)
+- [`gemma3_gfc_tirt_report.html`](../psychometrics/gfc_tirt/gemma3_gfc_tirt_report.html), [`phi4_gfc_tirt_report.html`](../psychometrics/gfc_tirt/phi4_gfc_tirt_report.html) — full diagnostic reports
 - `notes_background/okada_2026_gfc_paper.md` — clipped paper text

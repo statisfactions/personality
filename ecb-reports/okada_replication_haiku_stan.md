@@ -52,7 +52,7 @@ The Haiku response distribution is the kind of graded comparative behavior
 TIRT was designed for. Cumulative-link thresholds are well-determined when
 all 7 categories have data. This is the prerequisite the open models violate.
 
-### 1.2 Custom Stan TIRT (`results/tirt_okada.stan`)
+### 1.2 Custom Stan TIRT ([`tirt_okada.stan`](../psychometrics/gfc_tirt/tirt_okada.stan))
 
 Mirrors Okada §3.3 GFC formulation:
 
@@ -235,7 +235,7 @@ directly tests all three:
 ## 4b. Marker-item anchoring did NOT resolve the sign instability
 
 After the §4 analysis suggested a marker-item identification scheme, I built
-`results/tirt_okada_marker.stan` and `results/fit_tirt_okada_marker.R`. The
+[`tirt_okada_marker.stan`](../psychometrics/gfc_tirt/tirt_okada_marker.stan) and [`fit_tirt_okada_marker.R`](../psychometrics/gfc_tirt/fit_tirt_okada_marker.R). The
 spec is the standard Bayesian TIRT convention:
 
 - One positively-keyed marker item per trait, loading constrained > 0
@@ -336,11 +336,11 @@ In ROI order:
 
 - `scripts/run_gfc_anthropic.py` — Anthropic API inference (concurrent,
   resumable, no logprobs)
-- `results/tirt_okada.stan` — custom Okada-style Stan TIRT
-- `results/fit_tirt_okada.R` — driver
-- `results/claude-haiku-4-5-20251001_gfc30_synthetic.json` — Haiku
+- [`tirt_okada.stan`](../psychometrics/gfc_tirt/tirt_okada.stan) — custom Okada-style Stan TIRT
+- [`fit_tirt_okada.R`](../psychometrics/gfc_tirt/fit_tirt_okada.R) — driver
+- [`claude-haiku-4-5-20251001_gfc30_synthetic.json`](../psychometrics/gfc_tirt/claude-haiku-4-5-20251001_gfc30_synthetic.json) — Haiku
   responses (1,500 prompts × 50 personas × 30 pairs)
-- `results/{haiku,gemma3,phi4}_okada_stan_fit.rds` — fitted Stan models
-- `results/{haiku,gemma3,phi4}_okada_stan*.log` — fit logs
+- `psychometrics/gfc_tirt/{haiku,gemma3,phi4}_okada_stan_fit.rds` — fitted Stan models (archived in big5_results)
+- [`haiku_okada_stan.log`](../psychometrics/gfc_tirt/haiku_okada_stan.log), [`gemma3_okada_stan.log`](../psychometrics/gfc_tirt/gemma3_okada_stan.log), [`phi4_okada_stan.log`](../psychometrics/gfc_tirt/phi4_okada_stan.log) — fit logs
 - `instruments/synthetic_personas.json` — 400 personas (use first 50 for
   this analysis)
