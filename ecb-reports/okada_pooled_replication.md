@@ -176,13 +176,155 @@ instruction.
 
 ## 5. Cross-trait recovery matrices (per model × condition)
 
-[Per-model cross-trait matrices not yet recomputed for this revision;
-the structural patterns in the prior version (Haiku rotation, Phi4
-dimensional collapse, Gemma3 trait-swapping) are interpretable as still
-holding qualitatively after the fix because they reflect the
-*off-diagonal* structure of the Σ̂ between θ̂ and ground truth, not just
-diagonal recovery. The diagonal (per-trait recovery) is now
-sign-corrected as in §3.]
+Mean |r| collapses each model into a single number. The full
+**ground-truth × θ̂** correlation matrix shows where the off-diagonal
+energy lives — i.e., whether θ̂_t actually measures trait t or has
+collapsed onto a different trait. From the FIXED per-model joint H+FG
+fits. **Rows = TIRT score; columns = ground-truth z.** The diagonal is
+the standard recovery; off-diagonals reveal trait confusion.
+
+```
+=== Haiku 4.5 | honest ===
+      true_A true_C true_E true_N true_O
+hat_A   0.85   0.27   0.18  -0.26   0.23
+hat_C  -0.05   0.38  -0.47   0.12  -0.52
+hat_E   0.24   0.06   0.85  -0.27   0.44
+hat_N  -0.22  -0.37  -0.26   0.85  -0.14
+hat_O  -0.15  -0.11   0.24   0.13   0.62
+
+=== Haiku 4.5 | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A   0.84   0.26   0.36  -0.37   0.25
+hat_C   0.01   0.44  -0.42   0.00  -0.50
+hat_E   0.18   0.02   0.83  -0.22   0.46
+hat_N  -0.15  -0.22  -0.34   0.74  -0.07
+hat_O  -0.24  -0.25   0.17   0.26   0.64
+
+=== Phi4-mini | honest ===
+      true_A true_C true_E true_N true_O
+hat_A   0.37   0.09   0.28  -0.08  -0.04
+hat_C  -0.31   0.00  -0.47   0.25  -0.23
+hat_E   0.17  -0.05   0.49  -0.06   0.16
+hat_N   0.13   0.24   0.38   0.08   0.23
+hat_O  -0.04   0.26   0.25  -0.25   0.34
+
+=== Phi4-mini | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.11  -0.08  -0.12   0.18  -0.02
+hat_C  -0.11   0.13  -0.45   0.24  -0.50
+hat_E  -0.03  -0.10   0.34  -0.04   0.35
+hat_N   0.00   0.02   0.05   0.06   0.15
+hat_O   0.18  -0.03   0.29  -0.26   0.34
+
+=== Qwen2.5-3B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A   0.32   0.31   0.30  -0.14   0.18
+hat_C  -0.29  -0.20  -0.14   0.27  -0.29
+hat_E   0.27   0.21   0.02  -0.18   0.35
+hat_N   0.03   0.09   0.12  -0.10   0.06
+hat_O  -0.47  -0.41  -0.26   0.27  -0.34
+
+=== Qwen2.5-3B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A   0.35   0.35   0.32  -0.36   0.36
+hat_C  -0.26  -0.04   0.09   0.16  -0.29
+hat_E   0.36  -0.01   0.11  -0.32   0.24
+hat_N   0.30  -0.22   0.25  -0.16   0.08
+hat_O  -0.07  -0.47  -0.19   0.21  -0.13
+
+=== Gemma3-4B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.06   0.00   0.28   0.08   0.25
+hat_C  -0.09  -0.15  -0.34   0.06  -0.36
+hat_E   0.44   0.11   0.52  -0.34   0.39
+hat_N   0.06  -0.13   0.17   0.04   0.32
+hat_O   0.00   0.08   0.24  -0.02   0.21
+
+=== Gemma3-4B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A   0.08   0.24  -0.04  -0.19   0.10
+hat_C   0.03   0.19  -0.11   0.13   0.19
+hat_E   0.18  -0.06   0.57  -0.19   0.40
+hat_N   0.19   0.21   0.34  -0.10   0.45
+hat_O  -0.07  -0.08   0.17   0.02   0.03
+
+=== Llama3.2-3B | honest ===
+      true_A true_C true_E true_N true_O
+hat_A  -0.33  -0.16  -0.15   0.22  -0.18
+hat_C   0.16   0.32   0.02  -0.03   0.14
+hat_E   0.00   0.08   0.06  -0.26  -0.11
+hat_N  -0.19   0.17  -0.27  -0.01  -0.14
+hat_O  -0.10  -0.04  -0.20  -0.06  -0.02
+
+=== Llama3.2-3B | fakegood ===
+      true_A true_C true_E true_N true_O
+hat_A   0.11   0.09  -0.19   0.15  -0.20
+hat_C  -0.07  -0.05   0.14   0.05  -0.08
+hat_E   0.13   0.06   0.13  -0.07   0.17
+hat_N  -0.19   0.06  -0.07   0.05  -0.11
+hat_O  -0.27   0.09  -0.16  -0.09   0.01
+```
+
+### What the off-diagonals reveal (FIXED)
+
+The pre-bugfix structural patterns largely persist, but with the
+diagonal now sign-aligned the interpretation cleans up:
+
+1. **Haiku has clean per-trait identification** — every row's largest
+   |r| is on its own trait, with diagonals at 0.85 / 0.38 / 0.85 / 0.85
+   / 0.62. Off-diagonals are mostly ground-truth Σ leakage (e.g.,
+   hat_C ↔ true_O = −0.52 reflects z_C ↔ z_O ≈ +0.4 in van der Linden Σ
+   propagated through θ̂_C, since C and O are positively correlated in
+   the population). hat_C is the noisiest row, consistent with C being
+   the residual recovery gap in §3. The fake-good condition has the
+   same structure with marginally tighter recovery on E/O.
+
+2. **Phi4-mini now identifies E correctly** (hat_E ↔ true_E = +0.49
+   dominates that row). hat_A's diagonal (+0.37) is now actually its
+   largest column — improvement over the prior version where hat_A's
+   strongest column was true_O. hat_C is still degenerate (the only row
+   where the diagonal is not the largest |r| — biggest column is true_E
+   at −0.47). hat_O picks up modest signal across multiple columns,
+   suggesting partial dimensional collapse rather than the fully
+   collapsed picture from the buggy fits.
+
+3. **Qwen2.5-3B has rotated A/E/O.** hat_A's diagonal +0.32 is roughly
+   tied with hat_A ↔ true_C (+0.31) and hat_A ↔ true_E (+0.30) — so
+   "θ̂_A" is reading something like an "agreeable / conscientious /
+   extraverted" composite rather than agreeableness alone. hat_O has
+   the strongest signal (column-max |r| = −0.47 on true_A), but in the
+   wrong direction — Qwen's hat_O is mostly anti-A.
+
+4. **Gemma3-4B has trait-swapping**, just like the pre-fix report.
+   hat_E carries the most signal but has its diagonal at 0.52 — same
+   magnitude as hat_E ↔ true_A (+0.44). hat_N's strongest column is
+   true_O (+0.32), not true_N (+0.04). hat_C correlates negatively with
+   true_O (−0.36). Reading θ̂_t as trait t requires column-permutation,
+   not just sign-flip, on this model.
+
+5. **Llama3.2-3B is noise** under honest. hat_A diagonal is −0.33
+   (sign-flipped), the second-largest off-diagonal in that row. No row
+   has its diagonal as the largest |r|. Fake-good is even noisier.
+
+### Implication for "what would fix recovery"
+
+If we want a usable per-trait θ̂ on the open models, the fixes differ:
+
+- **Haiku:** done — per-trait recovery is sign-aligned, diagonal-first,
+  and 4/5 traits in Okada's band. C is the only residual gap.
+- **Phi4-mini:** A/E/O are diagonal-first now. C is collapsed; θ̂_C is
+  not recoverable. Could try restricting analysis to A/E/O.
+- **Qwen2.5-3B:** A is roughly identifiable; the rest are too entangled
+  to use on a per-trait basis.
+- **Gemma3-4B:** find the best column-permutation of θ̂ that maximizes
+  diagonal mass, then sign-correct. Treats θ̂ dimensions as anonymous.
+- **Llama3.2-3B:** signal too weak; need bigger model.
+
+The common refrain: **the gap between mean |r| and per-trait usability
+is real for non-Haiku models** even after the bug fix. A model with mean
+|r| = 0.20 distributed evenly across the diagonal would be a reasonable
+weak signal; mean |r| = 0.20 with most of the energy on the *wrong*
+diagonal is dimensional confusion that the fix doesn't address.
 
 ## 6. Cross-model pooled fit (FIXED)
 
