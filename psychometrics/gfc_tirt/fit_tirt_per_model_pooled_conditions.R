@@ -4,7 +4,7 @@
 # cross-model pooling (which hurt because of model heterogeneity).
 #
 # Usage:
-#   Rscript results/fit_tirt_per_model_pooled_conditions.R [output_dir]
+#   Rscript psychometrics/gfc_tirt/fit_tirt_per_model_pooled_conditions.R [output_dir]
 
 suppressMessages({
   library(rstan)
@@ -16,10 +16,10 @@ rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
 args <- commandArgs(trailingOnly = TRUE)
-output_dir <- if (length(args) >= 1) args[1] else "results/per_model_pooled"
+output_dir <- if (length(args) >= 1) args[1] else "psychometrics/gfc_tirt/per_model_pooled"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-stan_file <- "results/tirt_okada_indep.stan"
+stan_file <- "psychometrics/gfc_tirt/tirt_okada_indep.stan"
 model <- stan_model(stan_file)
 
 trait_names <- c("A", "C", "E", "N", "O")
@@ -60,14 +60,18 @@ MODELS <- list(
 
 load_one <- function(slug, condition) {
   path <- switch(condition,
-    honest   = sprintf("results/%s_gfc30_synthetic.json", slug),
-    fakegood = sprintf("results/%s_gfc30_synthetic-fakegood.json", slug)
+    honest   = sprintf("psychometrics/gfc_tirt/%s_gfc30_synthetic.json", slug),
+    fakegood = sprintf("psychometrics/gfc_tirt/%s_gfc30_synthetic-fakegood.json", slug)
   )
   if (!file.exists(path)) return(NULL)
   raw <- fromJSON(path, flatten = TRUE)
   as_tibble(raw$results) %>%
     filter(!is.na(response_argmax)) %>%
-    mutate(response = as.integer(response_argmax),
+    mutate(response_raw = as.integer(response_argmax),
+           # Inference randomized L/R per prompt; un-swap so that response
+           # is always in instrument-canonical L/R coordinates (Stan stmt_df
+           # is built from canonical pairs$left / pairs$right).
+           response = ifelse(swapped, 8L - response_raw, response_raw),
            condition = condition)
 }
 

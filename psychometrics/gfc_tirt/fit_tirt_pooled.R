@@ -9,15 +9,15 @@
 # single-model fits cannot.
 #
 # Usage:
-#   Rscript results/fit_tirt_pooled.R results/pooled_tirt_fit.rds
+#   Rscript psychometrics/gfc_tirt/fit_tirt_pooled.R psychometrics/gfc_tirt/pooled_tirt_fit.rds
 #
-# Stan model: results/tirt_okada_indep.stan (Okada-exact priors, indep θ).
+# Stan model: psychometrics/gfc_tirt/tirt_okada_indep.stan (Okada-exact priors, indep θ).
 #
 # Inputs (loaded automatically if present):
-#   results/<model_slug>_gfc30_synthetic.json           — persona + honest
-#   results/<model_slug>_gfc30_synthetic-fakegood.json  — persona + fake-good
-#   results/<model_slug>_gfc30_neutral-bare.json        — bare
-#   results/<model_slug>_gfc30_neutral-respondent.json  — respondent
+#   psychometrics/gfc_tirt/<model_slug>_gfc30_synthetic.json           — persona + honest
+#   psychometrics/gfc_tirt/<model_slug>_gfc30_synthetic-fakegood.json  — persona + fake-good
+#   psychometrics/gfc_tirt/<model_slug>_gfc30_neutral-bare.json        — bare
+#   psychometrics/gfc_tirt/<model_slug>_gfc30_neutral-respondent.json  — respondent
 #
 # Models scanned: claude-haiku-4-5-20251001, gemma3-4b, qwen2.5-3b,
 # phi4-mini, llama3.2-3b. (phi4-mini-latest also accepted as alias.)
@@ -33,12 +33,12 @@ rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
 args <- commandArgs(trailingOnly = TRUE)
-output_path <- if (length(args) >= 1) args[1] else "results/pooled_tirt_fit.rds"
+output_path <- if (length(args) >= 1) args[1] else "psychometrics/gfc_tirt/pooled_tirt_fit.rds"
 n_personas  <- if (length(args) >= 2) as.integer(args[2]) else 50L
 n_iter      <- if (length(args) >= 3) as.integer(args[3]) else 1500L
 n_chains    <- if (length(args) >= 4) as.integer(args[4]) else 4L
 
-stan_file <- "results/tirt_okada_indep.stan"
+stan_file <- "psychometrics/gfc_tirt/tirt_okada_indep.stan"
 if (!file.exists(stan_file)) stop("Stan file missing: ", stan_file)
 
 # Models to scan (Ollama / Anthropic slug). Order matters only for reporting.
@@ -79,7 +79,10 @@ load_file <- function(path, model_slug, condition) {
   raw <- fromJSON(path, flatten = TRUE)
   rs <- as_tibble(raw$results) %>%
     filter(!is.na(response_argmax)) %>%
-    mutate(response = as.integer(response_argmax),
+    mutate(response_raw = as.integer(response_argmax),
+           # Inference randomized L/R per prompt; un-swap so response is in
+           # instrument-canonical L/R coords (matches stmt_df construction).
+           response = ifelse(swapped, 8L - response_raw, response_raw),
            model    = model_slug,
            condition = condition)
   rs %>% select(model, condition, persona_id, block, response)
@@ -89,10 +92,10 @@ all_rows <- list()
 for (slug in names(MODELS)) {
   for (cond in c("honest", "fakegood", "bare", "respondent")) {
     path <- switch(cond,
-      honest     = sprintf("results/%s_gfc30_synthetic.json", slug),
-      fakegood   = sprintf("results/%s_gfc30_synthetic-fakegood.json", slug),
-      bare       = sprintf("results/%s_gfc30_neutral-bare.json", slug),
-      respondent = sprintf("results/%s_gfc30_neutral-respondent.json", slug)
+      honest     = sprintf("psychometrics/gfc_tirt/%s_gfc30_synthetic.json", slug),
+      fakegood   = sprintf("psychometrics/gfc_tirt/%s_gfc30_synthetic-fakegood.json", slug),
+      bare       = sprintf("psychometrics/gfc_tirt/%s_gfc30_neutral-bare.json", slug),
+      respondent = sprintf("psychometrics/gfc_tirt/%s_gfc30_neutral-respondent.json", slug)
     )
     df <- load_file(path, MODELS[[slug]], cond)
     if (!is.null(df)) {

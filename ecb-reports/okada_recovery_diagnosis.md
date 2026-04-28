@@ -1,5 +1,14 @@
 # Why our Okada et al. (2026) ground-truth recovery fell short
 
+> **⚠️ SUPERSEDED (2026-04-28).** The "global sign flip on Phi4" and "A
+> flip on Gemma3" findings in this report were largely an L/R-swap data-prep
+> bug in the R Stan drivers, not a property of the models or the IRT
+> backend. See [`okada_swap_bug.md`](okada_swap_bug.md) for the bug
+> investigation and [`okada_pooled_replication.md`](okada_pooled_replication.md)
+> for corrected numbers across all 5 models. Conclusions about response
+> distributions (category 2/3/5 dropouts, ceiling effects) are still
+> valid; conclusions about TIRT rotation/sign behavior are not.
+
 **Date:** 2026-04-26
 **Author:** ECB
 **Scope:** Diagnose the gap between Okada et al. (2026, arXiv:2602.17262) Figure 4 (most GFC points in the r ≥ 0.50 band) and our two completed GFC-30 + TIRT runs (Gemma3 12B and Phi4-mini), where TIRT recovery is patchy at best and globally sign-flipped at worst.

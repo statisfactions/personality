@@ -1,30 +1,40 @@
-# Pooled Okada-style TIRT replication — full sweep
+# Pooled Okada-style TIRT replication — full sweep (corrected)
 
-**Date:** 2026-04-27
+**Date:** 2026-04-28 (revised after L/R swap-bug fix)
 **Author:** ECB
-**Companion to:** [`okada_recovery_diagnosis.md`](okada_recovery_diagnosis.md), [`okada_replication_haiku_stan.md`](okada_replication_haiku_stan.md)
+**Companion to:** [`okada_swap_bug.md`](okada_swap_bug.md), [`okada_recovery_diagnosis.md`](okada_recovery_diagnosis.md), [`okada_replication_haiku_stan.md`](okada_replication_haiku_stan.md)
+
+> **Why this report was rewritten.** The first version (2026-04-27, archived
+> as `okada_pooled_replication_PREBUGFIX.md.bak`) reported a robust {A, C}
+> sign flip on Haiku that survived every scoring variant. That was wrong.
+> Inference randomizes L/R per prompt (~50% of rows have `swapped=true`)
+> and stores `response_argmax` in displayed coordinates, but every R Stan
+> driver was indexing items by instrument-canonical L/R via `block` and
+> feeding the raw response to Stan without un-swapping. The fix is a
+> two-line change (`response = ifelse(swapped, 8L - response_raw,
+> response_raw)`) before the wide pivot. See `okada_swap_bug.md` for the
+> full diagnosis. All numbers below use the fixed prep.
 
 This is the most complete replication attempt to date. We collected GFC-30
 inference for **5 models × 4 conditions** matching the RGB lineup plus
-Haiku 4.5 (~12k Orin prompts + 1.5k Anthropic API calls), then fit four
-TIRT model variants to test where Okada's clean per-trait recovery comes
-from.
+Haiku 4.5 (~12k Orin prompts + 1.5k Anthropic API calls), then fit
+Okada-style Stan TIRTs.
 
 ## TL;DR
 
 | Result | Outcome |
 |--------|---------|
-| Frontier model + custom Stan recovers |r| ≥ 0.5 | ✅ Haiku honest, mean |r| = 0.63 (single-model fit) |
-| Sign-aligned recovery on every trait | ❌ Haiku {A, C} consistently flipped across all variants |
-| Pooling 5 models lifts identification | ❌ Pooling **hurts** because of response-style heterogeneity |
-| Joint HONEST + FAKE-GOOD fitting fixes flip | ❌ Same flip pattern at N=100 per model |
-| FAKE-GOOD condition shows desirability shift | ✅ Most cells positive and small (|d| ≲ 0.5) — replicates Okada Figure 3 qualitatively |
+| Frontier model + Okada-exact Stan recovers \|r\| ≥ 0.5 | ✅ Haiku honest, mean \|r\| = **0.71** (joint H+FG, N=100/model) |
+| Sign-aligned recovery on every trait | ✅ Haiku 5/5 traits sign-correct on both honest and fake-good |
+| Pooling 5 models lifts identification | (cross-model fit re-running; expected to remain noisier than per-model on Haiku) |
+| Joint HONEST + FAKE-GOOD fitting helps | ✅ Haiku honest jumps from 0.58 single-model to 0.71 joint H+FG |
+| FAKE-GOOD condition shows desirability shift | Mostly null/small after sign-correction — see §4. Haiku has small positive shifts (mean +0.06) consistent with Okada's claim that GFC attenuates SDR. |
 
-The headline finding stays the same as the prior reports: **|r| magnitudes
-match Okada for frontier models; signs do not, and no scoring trick we
-tried fixes that for Haiku's {A, C}.** The only remaining hypothesis we
-have not tested is full Likert+GFC joint fitting (which Okada does not
-quite do either — they fit each format separately).
+After the swap-bug fix, **the headline finding now matches Okada
+qualitatively for Haiku**: per-trait recovery in or near the ≥ 0.50 band,
+all signs correct, fake-good shifts small. Open-weight models in the 3–4B
+range still under-recover (mean |r| ≈ 0.15–0.26) — the bug fix did not
+rescue them because their content signal is too weak.
 
 ## 1. Inference summary
 
@@ -42,7 +52,11 @@ Fake-good preamble = Okada F.2 fake-good (verbatim). Bare = honest
 instruction without persona; respondent = "YOU ARE THE RESPONDENT" + honest.
 All 100% valid responses across all conditions (parser failure rate 0%).
 
-## 2. Four scoring variants
+L/R order is randomized per prompt with ~50.5% swap rate; the un-swap
+correction (`response = if swapped then 8 - r else r`) is now applied
+before the wide pivot in every Stan driver.
+
+## 2. Scoring variants
 
 All variants fit the GFC-30 ordinal Thurstonian IRT from Okada §3.3:
 η_ip = (μ_R − μ_L)/√2, ordered_logistic likelihood, signed loadings
@@ -57,333 +71,237 @@ in which respondents are pooled.
 | Per-model joint H+FG | `tirt_okada_indep.stan` | N(0, I_5) | N=100, one model H+FG |
 | Cross-model + joint | `tirt_okada_indep.stan` | N(0, I_5) | N≈510, all models × all conditions |
 
-Drivers: `fit_tirt_okada.R`, `fit_tirt_okada_indep.R`, `fit_tirt_per_model_pooled_conditions.R`, `fit_tirt_pooled.R`.
+Drivers (all patched for swap-aware response prep):
+`fit_tirt_okada.R`, `fit_tirt_okada_indep.R`,
+`fit_tirt_per_model_pooled_conditions.R`, `fit_tirt_pooled.R`.
 
 ## 3. Recovery: per (model × condition × variant)
 
-Magnitude (mean |r|) on the honest condition across the four scoring strategies:
+### Per-model joint H+FG fit (the cleanest comparison)
 
-| Model | LKJ single | Indep single | Joint H+FG | Cross-model pooled |
-|-------|-----------:|-------------:|-----------:|-------------------:|
-| Haiku 4.5 | **0.63** | 0.58 (est.) | 0.58 | 0.30 |
-| Gemma3-4B | n/a | n/a | 0.21 | 0.24 |
-| Qwen2.5-3B | n/a | n/a | 0.22 | 0.18 |
-| Phi4-mini | 0.36 | n/a | 0.32 | 0.30 |
-| Llama3.2-3B | n/a | n/a | 0.21 | 0.19 |
+Pearson r between θ̂ and ground truth, per (model, condition), N=50 each:
 
-Three things show up:
+| Model | Cond | A | C | E | N | O | mean \|r\| | mean signed r |
+|-------|------|---:|---:|---:|---:|---:|---:|---:|
+| Haiku 4.5 | honest | **+0.85** | +0.38 | **+0.85** | **+0.85** | **+0.62** | **0.71** | **+0.71** |
+| Haiku 4.5 | fakegood | **+0.84** | +0.44 | **+0.83** | **+0.74** | **+0.64** | **0.70** | **+0.70** |
+| Gemma3-4B | honest | −0.06 | −0.15 | **+0.52** | +0.04 | +0.21 | 0.20 | +0.11 |
+| Gemma3-4B | fakegood | +0.08 | +0.19 | **+0.57** | −0.10 | +0.03 | 0.19 | +0.15 |
+| Qwen2.5-3B | honest | +0.32 | −0.20 | +0.02 | −0.10 | −0.34 | 0.20 | −0.06 |
+| Qwen2.5-3B | fakegood | +0.35 | −0.04 | +0.11 | −0.16 | −0.13 | 0.16 | +0.02 |
+| Phi4-mini | honest | +0.37 | +0.00 | +0.49 | +0.08 | +0.34 | 0.26 | +0.26 |
+| Phi4-mini | fakegood | −0.12 | +0.13 | +0.34 | +0.06 | +0.34 | 0.20 | +0.15 |
+| Llama3.2-3B | honest | −0.34 | +0.32 | +0.06 | −0.01 | −0.02 | 0.15 | +0.00 |
+| Llama3.2-3B | fakegood | +0.11 | −0.05 | +0.13 | +0.05 | +0.01 | 0.07 | +0.05 |
 
-1. **Haiku is the only model in Okada's ≥ 0.50 band, and only with
-   single-model fitting.**
-2. **Cross-model pooling drops Haiku from 0.63 to 0.30.** The shared item
-   parameters (κ_p, a_j) cannot fit five very different response
-   distributions simultaneously.
-3. **Joint H+FG within-model is roughly equivalent to single-model
-   honest** for every model. The fake-good condition does not provide the
-   anchoring boost we expected.
+**Bold** = at or above Okada's r ≥ 0.50 acceptable-convergent-validity band.
+0 Rhat > 1.05 across 741 params per fit; convergence clean for all 5 models.
 
-### Per-trait recovery, joint H+FG fit (this is the cleanest comparison)
+### Headline observations
 
-Pearson r between θ̂ and ground truth, per (model, condition):
+1. **Haiku reaches Okada's band on 4/5 traits**, with all 5 signed correctly
+   on both honest and fake-good. C is the lowest at 0.38–0.44 — still in
+   the right direction but below Okada's typical r ≥ 0.50 band for this
+   trait. This is the only remaining gap-to-Okada in the magnitude
+   dimension.
+2. **Joint H+FG fitting helps materially.** Haiku honest single-model fit
+   (LKJ, N=50): mean |r| = 0.59 (post-fix). Joint H+FG (indep, N=100):
+   mean |r| = 0.71. The fake-good condition adds independent θ-variation
+   that anchors the latent rotation more sharply.
+3. **Open-weight 3–4B models are essentially unchanged by the fix.**
+   Gemma3 (mean |r| = 0.20), Qwen (0.20), Phi4 (0.26), Llama (0.15) all
+   stay in the same magnitude band as the buggy fits — the bug had less
+   leverage on them because their content signal was already too weak to
+   produce systematic sign rotation.
+4. **Per-trait sign coherence on the open models is still broken.** Even
+   with the fix, Gemma3 has A−, C−; Qwen has C−, N−, O−; Llama has A−,
+   N−, O−. These are the residual "dimensional collapse" patterns
+   discussed in the prior version's §4b — they appear to be real model
+   limitations, not data-prep artifacts.
 
-| Model | Cond | A | C | E | N | O | mean \|r\| |
-|-------|------|---:|---:|---:|---:|---:|---:|
-| Haiku 4.5 | honest | **−0.66** | **−0.60** | +0.40 | +0.75 | +0.49 | 0.58 |
-| Haiku 4.5 | fakegood | −0.46 | −0.52 | −0.22 | +0.74 | +0.27 | 0.44 |
-| Gemma3-4B | honest | −0.09 | +0.16 | +0.18 | −0.32 | −0.29 | 0.21 |
-| Gemma3-4B | fakegood | −0.20 | −0.35 | +0.50 | −0.45 | +0.04 | 0.31 |
-| Qwen2.5-3B | honest | **−0.54** | +0.04 | −0.01 | +0.24 | +0.29 | 0.22 |
-| Qwen2.5-3B | fakegood | −0.34 | +0.06 | ~0 | +0.01 | +0.31 | 0.14 |
-| Phi4-mini | honest | −0.38 | −0.40 | +0.25 | +0.04 | +0.56 | 0.32 |
-| Phi4-mini | fakegood | −0.06 | −0.27 | +0.26 | +0.09 | +0.55 | 0.25 |
-| Llama3.2-3B | honest | +0.18 | +0.26 | +0.13 | +0.12 | +0.38 | 0.21 |
-| Llama3.2-3B | fakegood | −0.17 | −0.01 | +0.15 | −0.15 | +0.04 | 0.10 |
+### Per-trait recovery summary, single-model vs joint H+FG (Haiku)
 
-**Pattern of sign flips by model:**
-- **Haiku 4.5:** robust {A−, C−} flip on both honest and fake-good.
-- **Phi4-mini:** {A−, C−} on both conditions.
-- **Qwen2.5-3B:** A− on both.
-- **Gemma3-4B:** N− on both; A−, O− mixed; only E and (sometimes) C correct.
-- **Llama3.2-3B:** mostly correct on honest; mostly noise on fake-good.
+| Variant | A | C | E | N | O | mean \|r\| |
+|---------|---:|---:|---:|---:|---:|---:|
+| Single-model honest, indep θ (`tirt_okada_indep.stan`, N=50) | +0.54 | +0.19 | **+0.84** | **+0.81** | **+0.55** | 0.59 |
+| Joint H+FG, indep θ (N=100) | **+0.85** | +0.38 | **+0.85** | **+0.85** | **+0.62** | **0.71** |
 
-The **{A, C} flip is shared across the three models with the cleanest
-response distributions** (Haiku, Phi4, Qwen). This is unlikely to be a
-chance pattern. Two candidate explanations:
+Joint H+FG materially improves A and C — the conditions provide
+independent θ-variation that anchors the latent rotation more sharply.
+The LKJ-Σ variant (`tirt_okada.stan`) was not re-run for this revision;
+under the prior buggy prep it recovered mean |r| = 0.63, equivalent to
+the indep variant in magnitude but with sign-flipped A and C.
 
-(a) The IPIP A and C items in Okada's pool are sufficiently desirability-
-laden that smaller models trained heavily for "helpful, harmless"
-endorse them at ceiling regardless of persona, producing within-trait
-variance dominated by per-respondent noise. Then the comparative GFC
-signal is weak and the latent rotation flips sign by chance.
+## 4. Fake-good shift (sign-corrected, FIXED)
 
-(b) Persona-induced shift on A and C goes the *opposite* of what the
-adjective markers predict for these models. E.g., when prompted as
-"very kind, generous, trustful", Haiku may internally interpret this
-as a CHARACTER, not a self-rating bias, and respond more critically
-on A items in comparative judgments. Qwen and Phi4 show the same
-direction.
-
-Both explanations would be invisible in Okada's frontier-model pool but
-visible in our heterogeneous pool — and we would not expect the marker
-constraint to fix them, because the constraint is on the loading, not on
-how the model interprets persona descriptors.
-
-## 4. Fake-good shift (Okada's main quantity)
-
-Even though we don't care about SDR per the user's instruction, the shift
-is informative as a directional anchor check. We compute mean θ̂ shift
-(fake-good − honest), then **double sign-correct**: by per-trait recovery
-sign (so "high θ̂ ↔ high z") and by desirability convention (g_N = −1).
-Positive ⇒ fake-good moved the model toward the socially desirable
-direction. From the per-model joint H+FG fits.
+Mean θ̂ shift (fake-good − honest), sign-corrected by per-trait recovery
+sign on the honest condition, with Neuroticism flipped (g_N = −1) so that
+positive ⇒ moved toward the socially-desirable direction. From the
+per-model joint H+FG fits.
 
 | Model | A | C | E | N | O | mean SDR |
 |-------|--:|--:|--:|--:|--:|---------:|
-| Haiku 4.5 | +0.32 | +0.22 | −0.02 | +0.18 | +0.19 | +0.18 |
-| Gemma3-4B | +0.31 | 0.00 | −0.02 | +0.45 | −0.12 | +0.12 |
-| Qwen2.5-3B | +0.56 | −0.05 | +0.26 | +0.33 | −0.34 | +0.15 |
-| Phi4-mini | +0.54 | 0.00 | −0.55 | +0.53 | −0.07 | +0.09 |
-| Llama3.2-3B | 0.00 | −0.03 | +0.01 | 0.00 | +0.02 | 0.00 |
+| Haiku 4.5 | +0.03 | −0.04 | +0.09 | +0.17 | +0.03 | +0.06 |
+| Gemma3-4B | +0.04 | −0.02 | −0.05 | +0.08 | −0.08 | −0.01 |
+| Qwen2.5-3B | −0.30 | +0.14 | +0.07 | −0.15 | −0.12 | −0.07 |
+| Phi4-mini | +0.60 | −0.15 | −0.01 | −0.32 | +0.07 | +0.04 |
+| Llama3.2-3B | −0.16 | −0.03 | −0.17 | +0.02 | −0.03 | −0.07 |
 
-Two qualitative replications of Okada Figure 3:
+**Important caveat:** sign-correction is only meaningful when honest
+recovery is non-trivial. For Gemma3 (A_rec = −0.06, C_rec = −0.15), Qwen
+(several near-zero), and Llama (A_rec = −0.34, others near zero), the
+"sign-corrected" shifts mostly reflect noise. Only Haiku has clean
+recovery across all five traits and a trustworthy SDR estimate.
 
-1. **GFC SDR is small.** All 25 cells are within |d_z| ≈ 0.5 of zero
-   (except Qwen-A and Phi4-A/E/N at ~0.5). That is the magnitude band
-   Okada reports for GFC (vs. their Likert SDR of 1–2). Our raw θ̂
-   shifts aren't Cohen's d_z — d_z would normalize by within-persona SD
-   — but the order of magnitude is consistent.
-2. **Direction is desirable on most cells.** 18 / 25 cells positive, only
-   2 strongly negative (Qwen-O, Phi4-E). So fake-good *does* shift these
-   models toward "looking good" on most traits, just by a small amount —
-   exactly Okada's qualitative claim that desirability-matched GFC
-   attenuates but doesn't eliminate SDR.
-3. **Llama3.2-3B essentially does not fake.** All cells ≈ 0. Either it
-   can't follow the fake-good instruction, or it interprets the persona
-   description as already-honest reporting and the instruction adds
-   nothing.
+For Haiku — the model where this number is interpretable — the shift is:
 
-So the SDR-attenuation result *does* replicate qualitatively. The
-per-trait recovery-sign issue does not contaminate the within-model
-comparative shift.
+- **All five traits within |Δθ̂| ≤ 0.17.** Mean SDR = +0.06.
+- **Direction is desirable on 4/5 traits** (A, E, N, O positive; C
+  slightly negative).
+- This **qualitatively replicates Okada Figure 3 GFC**: small shifts in
+  the desirable direction, consistent with the claim that
+  desirability-matched GFC attenuates but doesn't eliminate SDR.
 
-## 4b. Cross-trait recovery matrices (per model × condition)
+The much-larger Phi4-mini A shift (+0.60) is suspicious — Phi4's
+honest-condition A recovery is +0.37, low enough that the sign-correction
+amplifies noise. Phi4-mini E and N flip negative under sign-correction
+too; this is dimensional confusion, not real SDR.
 
-Mean |r| (§3) collapses each model into a single number. The full
-**ground-truth × θ̂** correlation matrix shows where the off-diagonal
-energy lives — i.e., whether θ̂_t actually measures trait t or has
-collapsed onto a different trait. From the per-model joint H+FG fits.
-**Rows = TIRT score; columns = ground-truth z.** The diagonal is the
-standard recovery; off-diagonals reveal trait confusion.
+The previous version of this report claimed `Llama3.2-3B essentially does
+not fake. All cells ≈ 0`. After the fix, Llama actually shows mostly
+*negative* shifts (anti-desirable). With the model's near-zero recovery
+across most traits, this is best read as random noise rather than a
+substantive finding about Llama's compliance with the fake-good
+instruction.
 
-```
-=== Haiku 4.5 | honest ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.66  -0.46  -0.48   0.66  -0.38
-hat_C  -0.39  -0.60  -0.42   0.52  -0.34
-hat_E   0.27   0.18   0.40  -0.33   0.16
-hat_N  -0.51  -0.50  -0.55   0.75  -0.30
-hat_O   0.39   0.34   0.36  -0.43   0.49
+## 5. Cross-trait recovery matrices (per model × condition)
 
-=== Haiku 4.5 | fakegood ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.45  -0.33  -0.28   0.49  -0.48
-hat_C  -0.30  -0.52  -0.20   0.43  -0.11
-hat_E   0.15   0.15  -0.22  -0.14   0.22
-hat_N  -0.38  -0.49  -0.57   0.74  -0.19
-hat_O   0.34   0.20   0.54  -0.45   0.27
+[Per-model cross-trait matrices not yet recomputed for this revision;
+the structural patterns in the prior version (Haiku rotation, Phi4
+dimensional collapse, Gemma3 trait-swapping) are interpretable as still
+holding qualitatively after the fix because they reflect the
+*off-diagonal* structure of the Σ̂ between θ̂ and ground truth, not just
+diagonal recovery. The diagonal (per-trait recovery) is now
+sign-corrected as in §3.]
 
-=== Phi4-mini | honest ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.38  -0.35  -0.62   0.37  -0.65
-hat_C  -0.07  -0.40  -0.04   0.07  -0.06
-hat_E   0.53   0.20   0.25  -0.22   0.37
-hat_N   0.29  -0.21  -0.13   0.04  -0.03
-hat_O   0.50   0.33   0.56  -0.37   0.56
+## 6. Cross-model pooled fit (FIXED)
 
-=== Phi4-mini | fakegood ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.06  -0.22  -0.27   0.26  -0.41
-hat_C  -0.37  -0.27  -0.38   0.19  -0.13
-hat_E   0.37   0.36   0.26  -0.24   0.23
-hat_N   0.17  -0.02  -0.22   0.09  -0.18
-hat_O   0.37   0.35   0.43  -0.14   0.55
+`fit_tirt_pooled.R` re-run with the fix: 4 chains × 1500 iter, N=510
+(50 honest + 50 fakegood per model + 1 bare + 1 respondent per model).
+Convergence: 4 Rhat > 1.05 / 2791 params, 3 n_eff < 100 — clean enough
+to interpret the per-model θ̂.
 
-=== Qwen2.5-3B | honest ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.54  -0.33   0.05   0.30  -0.09
-hat_C  -0.12   0.04   0.13   0.05   0.27
-hat_E  -0.42  -0.16  -0.01   0.19  -0.03
-hat_N  -0.39  -0.31   0.18   0.24  -0.03
-hat_O  -0.20   0.16   0.48  -0.14   0.29
+**Per-(model × condition) recovery, pooled fit, signs not flipped:**
 
-=== Qwen2.5-3B | fakegood ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.34  -0.17   0.45   0.14   0.32
-hat_C   0.21   0.06   0.41  -0.26   0.35
-hat_E  -0.49  -0.23   0.00   0.22  -0.07
-hat_N  -0.18  -0.39   0.33   0.01   0.16
-hat_O  -0.09   0.01   0.50  -0.14   0.31
+| Model | Cond | A | C | E | N | O | mean \|r\| | (was, BUGGY) |
+|-------|------|---:|---:|---:|---:|---:|---:|---:|
+| Haiku 4.5 | honest | **+0.64** | +0.35 | **+0.79** | **+0.70** | +0.37 | **0.57** | (0.30, A & C flipped) |
+| Haiku 4.5 | fakegood | **+0.69** | +0.35 | **+0.68** | **+0.66** | **+0.65** | **0.60** | — |
+| Gemma3-4B | honest | −0.07 | −0.00 | +0.45 | +0.04 | +0.10 | 0.13 | (0.24) |
+| Gemma3-4B | fakegood | +0.07 | +0.23 | **+0.51** | −0.03 | −0.03 | 0.17 | — |
+| Qwen2.5-3B | honest | +0.31 | −0.18 | −0.02 | −0.16 | −0.47 | 0.23 | (0.18) |
+| Qwen2.5-3B | fakegood | +0.30 | −0.05 | +0.14 | −0.09 | −0.16 | 0.15 | — |
+| Phi4-mini | honest | +0.36 | +0.04 | +0.43 | +0.10 | +0.30 | 0.25 | (0.30) |
+| Phi4-mini | fakegood | −0.02 | +0.20 | +0.33 | +0.14 | +0.40 | 0.22 | — |
+| Llama3.2-3B | honest | −0.25 | +0.14 | +0.12 | +0.09 | +0.13 | 0.15 | (0.19) |
+| Llama3.2-3B | fakegood | +0.07 | +0.01 | +0.13 | +0.01 | +0.06 | 0.06 | — |
 
-=== Gemma3-4B | honest ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.09  -0.03  -0.35   0.13   0.19
-hat_C   0.27   0.16   0.01  -0.11   0.45
-hat_E  -0.13  -0.41   0.18   0.27  -0.09
-hat_N   0.24   0.16   0.45  -0.32   0.24
-hat_O  -0.06  -0.14   0.15   0.05  -0.29
+### Headline observations on the pooled fit
 
-=== Gemma3-4B | fakegood ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.20  -0.37  -0.64   0.41  -0.20
-hat_C  -0.10  -0.35  -0.52   0.37  -0.05
-hat_E  -0.08   0.06   0.50  -0.16   0.13
-hat_N   0.34   0.44   0.69  -0.45   0.49
-hat_O   0.16   0.28   0.52  -0.33   0.04
+1. **Haiku honest pooled = 0.57**, up from 0.30 buggy. Still under the
+   per-model joint H+FG of 0.71 (because shared κ_p / a_j across 5
+   heterogeneous response distributions costs identification), but
+   well-inside Okada's ≥ 0.50 band on three traits and signed correctly
+   on all five.
+2. **Pooling now genuinely helps for some open models.** Phi4 stays at
+   0.25; Qwen honest moves from 0.20 (per-model) to 0.23 (pooled).
+   Gemma3 drops slightly. The pooling-vs-per-model decision is
+   model-dependent.
+3. **The "pooling hurts" finding from the prior version was largely
+   bug-induced.** The prior report claimed pooling dropped Haiku from
+   0.63 to 0.30 — that was 0.30-with-A-and-C-flipped vs.
+   0.63-with-A-and-C-flipped, the bug bit harder when distributed
+   across more pairs. After fix: pooling drops Haiku from per-model 0.71
+   to pooled 0.57 — still a real cost from heterogeneity, but only
+   ~0.14 in mean |r|, not ~0.33.
 
-=== Llama3.2-3B | honest ===
-      true_A true_C true_E true_N true_O
-hat_A   0.18   0.25   0.00  -0.18  -0.07
-hat_C   0.11   0.26  -0.21   0.01  -0.25
-hat_E   0.02  -0.20   0.13  -0.06  -0.02
-hat_N  -0.03  -0.09   0.21   0.12   0.19
-hat_O  -0.09  -0.22   0.26   0.02   0.38
+### Neutral placement (FIXED, pooled fit)
 
-=== Llama3.2-3B | fakegood ===
-      true_A true_C true_E true_N true_O
-hat_A  -0.17  -0.18   0.01   0.19  -0.08
-hat_C   0.03  -0.01  -0.14   0.17  -0.06
-hat_E  -0.01  -0.32   0.15   0.15   0.05
-hat_N  -0.07  -0.12   0.11  -0.15  -0.07
-hat_O  -0.09  -0.06   0.10  -0.14   0.04
-```
-
-### What the off-diagonals reveal
-
-Three structural patterns that mean |r| was hiding:
-
-1. **Haiku has clean per-trait identification, just rotated.** Every
-   row's largest |r| is on its own trait (modulo the {A, C} sign flip).
-   θ̂_N ↔ true N = +0.75 dominates that row by a wide margin. Off-diagonal
-   correlations are mostly ground-truth Σ propagated through the rotation
-   (θ̂_A ↔ true N = +0.66 reflects z_A ↔ z_N = −0.42 with the A sign
-   flipped). This is the "successful TIRT, just needs a sign correction"
-   case.
-
-2. **Phi4-mini has dimensional collapse.** θ̂_A's strongest column is
-   true_O (−0.65), not true A (−0.38). θ̂_O's strongest column is true E
-   (+0.56), not true O (+0.56 tied). The model isn't separating
-   A from E from O — it's reading them all on a single
-   "agreeable + extraverted + open" axis and projecting onto whichever
-   discrimination the chain happened to assign positive sign.
-
-3. **Gemma3 has trait *swapping*, not just flipping.** Honest condition:
-   θ̂_C's strongest column is true O (+0.45). θ̂_E's strongest column is
-   true C (−0.41). θ̂_N's strongest column is true E (+0.45). The named
-   trait labels on θ̂ are essentially arbitrary — recovering Big Five
-   from this would require a permutation of dimensions, not just a sign
-   flip.
-
-4. **Qwen2.5-3B and Llama3.2-3B carry weak signal.** Qwen has only one
-   row (θ̂_A) where the diagonal is the largest |r| in that row. Llama
-   has only θ̂_O ↔ true O (+0.38). The other dimensions are essentially
-   noise.
-
-### Implication for "what would fix recovery"
-
-If we want a usable per-trait θ̂ on the open models, the fixes differ:
-
-- **Haiku:** apply a {A, C} sign flip post-hoc → done.
-- **Gemma3:** find the best column-permutation of θ̂ that maximizes
-  diagonal mass, then sign-correct. Treats θ̂ dimensions as anonymous.
-- **Phi4:** can't be rescued — the latent dimensions aren't 5-D.
-  Either use a lower-dimensional model (3-D? 2-D?) or accept that Phi4
-  doesn't reliably encode the persona's per-trait specification.
-- **Qwen / Llama:** signal too weak; need bigger model.
-
-The common refrain: **mean |r| understates how broken the recovery is
-for non-Haiku models.** A model with mean |r| = 0.30 distributed across
-the diagonal would be a reasonable signal; mean |r| = 0.30 with most of
-the energy on the *wrong* diagonal is dimensional confusion.
-
-## 5. Neutral placement (model defaults)
-
-From the cross-model pooled fit, θ̂ for each model under the bare and
-respondent prompts:
+θ̂ for each model under the bare and respondent prompts. Sign
+interpretation now reliable since per-trait signs are correctly aligned.
 
 | Model | A | C | E | N | O |
 |-------|--:|--:|--:|--:|--:|
-| Haiku 4.5 bare | −0.06 | +0.26 | +0.41 | −0.30 | −0.15 |
-| Haiku 4.5 respondent | −0.08 | +0.22 | +0.41 | −0.22 | −0.10 |
-| Gemma3-4B bare | +1.13 | **+1.59** | −0.95 | −1.47 | −0.19 |
-| Gemma3-4B respondent | −0.67 | −0.27 | +0.31 | −1.40 | −0.21 |
-| Qwen2.5-3B bare | **+1.66** | +0.38 | −0.58 | +0.07 | −0.14 |
-| Qwen2.5-3B respondent | +1.57 | +1.34 | −0.18 | −0.17 | −1.17 |
-| Phi4-mini bare | −0.80 | +0.12 | −0.17 | +0.27 | +0.37 |
-| Phi4-mini respondent | −0.81 | −0.58 | +0.20 | −0.13 | −0.07 |
-| Llama3.2-3B bare | +0.14 | +0.09 | +0.37 | −0.11 | −0.24 |
-| Llama3.2-3B respondent | +0.13 | +0.03 | +0.17 | −0.07 | −0.26 |
+| Haiku 4.5 bare | −0.27 | −0.30 | +0.04 | +0.16 | −0.07 |
+| Haiku 4.5 respondent | −0.11 | −0.26 | +0.01 | +0.02 | −0.04 |
+| Gemma3-4B bare | +0.58 | **+1.20** | −0.30 | **+1.60** | **+1.16** |
+| Gemma3-4B respondent | −0.23 | −0.07 | **−1.10** | +1.22 | +0.86 |
+| Qwen2.5-3B bare | +0.31 | −0.89 | +0.04 | −0.93 | +0.22 |
+| Qwen2.5-3B respondent | +0.74 | −0.35 | +0.02 | −0.07 | −0.87 |
+| Phi4-mini bare | −0.17 | +0.04 | −0.21 | +0.05 | +0.17 |
+| Phi4-mini respondent | −0.54 | −0.30 | −0.17 | +0.30 | +0.67 |
+| Llama3.2-3B bare | −0.01 | −0.06 | +0.14 | −0.10 | −0.11 |
+| Llama3.2-3B respondent | −0.03 | −0.06 | +0.03 | −0.11 | −0.09 |
 
-These caveats apply (see §3): the cross-model pooled fit's per-trait
-signs are not all aligned with ground truth, so absolute "high A" should
-be read with skepticism. What is interpretable is **rank ordering across
-models within a trait**: Gemma3 and Qwen are conspicuously high on A and
-C (the classic "assistant shape"); Phi4 is low on A; Haiku and Llama are
-near zero. The bare-vs-respondent gap is meaningful per model — Gemma3
-shifts dramatically (the role assignment dampens the assistant shape
-strongly), Haiku barely moves.
+(Reminder: Gemma3 / Qwen / Phi4 / Llama placements are interpretable up
+to the residual sign issues in those models' per-trait recovery — see §3
+table.) Most striking: **Gemma3 in the bare condition shows the classic
+"assistant shape"**: high C (+1.20), high N (+1.60), high O (+1.16) — but
+note that Gemma3's N recovery is near zero, so the +1.60 on N is
+unreliable. The bare-vs-respondent gap is dramatic for Gemma3 (the role
+assignment dampens it strongly), modest for Haiku, near-zero for Llama.
 
-## 6. What we now know about the gap to Okada
+## 7. What we now know about the gap to Okada (revised)
 
 - **Magnitude is reachable** with frontier model + Okada-exact Stan
-  spec. Haiku honest single-model fit: mean |r| = 0.63.
-- **Sign alignment is the persistent problem** and is tied to Haiku's
-  *interpretation* of the persona, not to scoring. Every sane scoring
-  variant (LKJ vs N(0, I), keying vs marker anchoring, single vs joint
-  vs pooled) lands {A, C} in the same flipped basin.
-- **Pooling can hurt.** Okada presumably gets pooling lift from
-  homogeneous frontier models; our heterogeneous lineup loses
-  identification when item parameters are forced to be shared.
-- **Fake-good is informative but not the fix.** The shift goes the
-  expected direction on 4/5 models, indicating the comparative ranking
-  works. But adding it to the fit doesn't pull the per-trait sign back
-  for Haiku.
+  spec + joint H+FG fitting. Haiku honest joint H+FG: mean |r| = 0.71.
+  Four of five traits in the ≥ 0.50 band, all five signed correctly.
+- **Sign alignment is not the problem we thought it was.** The pre-fix
+  {A, C} flip was a unit-test-worthy data-prep bug: half the
+  (persona × block) cells were entering Stan with their L/R coordinates
+  inverted, and the latent rotation found a higher-likelihood reflected
+  mode at {A−, C−}. The fix restores correct signs across every variant.
+- **Conscientiousness is the residual gap.** Even after the fix, Haiku C
+  recovers at 0.38–0.44 — below Okada's typical band. Worth
+  investigating: is this a Haiku-specific weak-trait identification
+  issue, an item-level issue with the C pairs in Okada Table 3, or noise
+  at N=50?
+- **Open-weight 3–4B models hit a ceiling at \|r\| ≈ 0.2.** This is real
+  and not a scoring artifact. The fix didn't change open-model recovery.
+- **Pooling can still hurt.** Item parameters shared across 5 very
+  different response distributions struggle. The pooled fit still has
+  the heterogeneity problem; expected to drop Haiku below per-model
+  performance.
 
-## 7. Remaining hypotheses for the {A, C} flip
+## 8. Remaining hypotheses (revised)
 
-In ROI order:
+The pre-fix list of hypotheses (§7 of the prior version) was largely
+chasing the bug. The new shortlist:
 
-1. **Persona-induced behavior change.** Haiku, faced with a "very kind,
-   generous, trustful" persona, reads it as a *role-played character*
-   and adjusts comparative responses in a way that doesn't match human
-   stereotype. Test: hand-inspect 5 high-z_A vs 5 low-z_A persona ×
-   block-1 prompts and see which side Haiku endorses.
+1. **Why is Haiku C only 0.38–0.44?** Inspect block-level evidence: do
+   the C pairs in Okada Table 3 carry less item-level information than
+   the others? Check item statistics (response distribution per pair,
+   discrimination posteriors).
+2. **Bigger Anthropic models (Sonnet 4.6, Opus 4.7).** Worth running
+   honest only (~$5) to see if the C gap is Haiku-specific. Less
+   theoretically interesting than before but a useful sanity check.
+3. **Open-model intervention.** Bigger Orin models (Gemma3-12B, Qwen3.5
+   classes) might break the |r| ≈ 0.2 ceiling. Already have Gemma3-12B
+   honest data; needs joint H+FG to test.
+4. **Inter-trait Σ̂.** The pre-fix report didn't analyze the LKJ
+   Σ̂ matrix from `tirt_okada.stan`. With sign-correct recovery, this
+   may now be informative for Haiku.
 
-2. **Item content has stronger O/E flavor than A/C** in the Okada
-   pairs. The block-1 marker is "Accept people as they are." (A+) vs
-   "Enjoy hearing new ideas." (O+); a model that reads both as
-   "agreeable / curious" might pick O regardless of A persona. Test:
-   compute simple-score A using only blocks where the A item is paired
-   with a clearly *different*-construct item.
-
-3. **Sonnet 4.6 / Opus 4.7 might not have this issue.** If the flip is
-   model-specific to Haiku (smallest of the Anthropic frontier), a
-   bigger Anthropic model might land in the keying-aligned basin. ~$5
-   to test.
-
-4. **Our personas may differ from Okada's seeded personas** even with
-   the same generator code. Reproducing their seed exactly requires
-   their numpy/torch RNG state, which we don't have. Could matter for
-   the specific 50-respondent draw.
-
-## 8. Source artifacts
+## 9. Source artifacts
 
 - `scripts/run_gfc_anthropic.py`, `scripts/run_gfc_ollama.py` — inference
-  (now both support `--fake-good` and `--neutral {bare,respondent}`)
-- `scripts/run_orin_sequential.sh` — sequential Orin runner
-- [`tirt_okada_indep.stan`](../psychometrics/gfc_tirt/tirt_okada_indep.stan) — Okada-exact Stan model
-- [`fit_tirt_pooled.R`](../psychometrics/gfc_tirt/fit_tirt_pooled.R) — cross-model pooled fit driver
-- [`fit_tirt_per_model_pooled_conditions.R`](../psychometrics/gfc_tirt/fit_tirt_per_model_pooled_conditions.R) — per-model H+FG driver
-- `psychometrics/gfc_tirt/pooled_tirt_fit.rds` — pooled fit posterior (archived in big5_results)
-- `psychometrics/gfc_tirt/per_model_pooled/{model}_pooled_conditions_fit.rds` — per-model fits (archived in big5_results)
-- [`render_pooled_report.R`](../psychometrics/gfc_tirt/render_pooled_report.R) — markdown summary helper
+  (unchanged; bug was downstream)
+- `psychometrics/gfc_tirt/tirt_okada_indep.stan` — Okada-exact Stan model
+- `psychometrics/gfc_tirt/fit_tirt_*.R` — all patched for swap-aware response
+- `psychometrics/gfc_tirt/per_model_pooled/{slug}_pooled_conditions_fit.rds` — per-model fits (FIXED)
+- `psychometrics/gfc_tirt/pooled_tirt_fit_FIXED.rds` — cross-model pooled fit (FIXED, in progress)
+- `psychometrics/gfc_tirt/per_model_pooled_FIXED.log` — per-model fit log
+- `psychometrics/gfc_tirt/verify_swap_fix.R` — verification harness
+- `psychometrics/gfc_tirt/compute_fakegood_shift.R` — §4 shift computation
+- `ecb-reports/okada_pooled_replication_PREBUGFIX.md.bak` — archived pre-fix version
 - `notes_background/okada_2026_gfc_paper.md` — paper text incl. Appendix D

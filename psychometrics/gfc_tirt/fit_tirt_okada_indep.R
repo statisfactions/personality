@@ -61,7 +61,10 @@ results_df <- as_tibble(raw$results)
 target_ids <- paste0("s", seq_len(n_personas))
 results_df <- results_df %>%
   filter(persona_id %in% target_ids, !is.na(response_argmax)) %>%
-  mutate(response = as.integer(response_argmax))
+  mutate(response_raw = as.integer(response_argmax),
+         # Inference randomized L/R per prompt; un-swap so response is in
+         # instrument-canonical L/R coords (matches stmt_df construction).
+         response = ifelse(swapped, 8L - response_raw, response_raw))
 
 wide <- results_df %>%
   select(persona_id, block, response) %>%

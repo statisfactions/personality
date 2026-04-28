@@ -1,5 +1,17 @@
 # Replication test: Haiku 4.5 + Okada-style Stan TIRT
 
+> **⚠️ SUPERSEDED (2026-04-28).** The per-trait sign instability noted in
+> §4 of this report (the "Haiku A−, C− pattern") was a data-prep bug in
+> the R Stan driver — the inference scripts randomize L/R per prompt, but
+> the driver fed `response_argmax` to Stan as if it were always in
+> instrument-canonical L/R coordinates. After fixing the prep
+> (`response = ifelse(swapped, 8L - response_raw, response_raw)`), Haiku
+> honest recovery is mean |r| = 0.71 with all five traits sign-aligned
+> (A=+0.85, C=+0.38, E=+0.85, N=+0.85, O=+0.62). See
+> [`okada_swap_bug.md`](okada_swap_bug.md) and the corrected
+> [`okada_pooled_replication.md`](okada_pooled_replication.md) for
+> updated numbers across all 5 models.
+
 **Date:** 2026-04-26
 **Author:** ECB
 **Companion to:** [`okada_recovery_diagnosis.md`](okada_recovery_diagnosis.md)
