@@ -45,6 +45,7 @@ psychometrics/**/results_bfi-*.csv
 psychometrics/gfc_tirt/per_model_pooled/*.rds
 psychometrics/gfc_tirt/per_model_pooled/all_recovery.rds
 psychometrics/gfc_tirt/pooled_tirt_fit*.rds
+psychometrics/gfc_tirt/pooled_haiku_gemma27b_fit*.rds
 
 # Local data (copyrighted instruments, raw results)
 data/

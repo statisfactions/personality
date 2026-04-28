@@ -53,6 +53,7 @@ gt <- tibble(
 MODELS <- list(
   "Haiku 4.5"   = "claude-haiku-4-5-20251001",
   "Gemma3-4B"   = "gemma3-4b",
+  "Gemma3-27B"  = "gemma3-27b",
   "Qwen2.5-3B"  = "qwen2.5-3b",
   "Phi4-mini"   = "phi4-mini",
   "Llama3.2-3B" = "llama3.2-3b"
@@ -82,6 +83,14 @@ all_recovery <- list()
 for (display_name in names(MODELS)) {
   slug <- MODELS[[display_name]]
   cat(sprintf("\n=== %s (%s) ===\n", display_name, slug))
+
+  cache_file <- file.path(output_dir, sprintf("%s_pooled_conditions_fit.rds", slug))
+  if (file.exists(cache_file)) {
+    cat("  Cached fit found, loading recovery only\n")
+    cached <- readRDS(cache_file)
+    all_recovery[[display_name]] <- cached$recovery
+    next
+  }
 
   honest <- load_one(slug, "honest")
   fakegood <- load_one(slug, "fakegood")
