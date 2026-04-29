@@ -51,12 +51,13 @@ gt <- tibble(
 )
 
 MODELS <- list(
-  "Haiku 4.5"   = "claude-haiku-4-5-20251001",
-  "Gemma3-4B"   = "gemma3-4b",
-  "Gemma3-27B"  = "gemma3-27b",
-  "Qwen2.5-3B"  = "qwen2.5-3b",
-  "Phi4-mini"   = "phi4-mini",
-  "Llama3.2-3B" = "llama3.2-3b"
+  "Haiku 4.5"    = "claude-haiku-4-5-20251001",
+  "Gemma3-4B"    = "gemma3-4b",
+  "Gemma3-27B"   = "gemma3-27b",
+  "Qwen2.5-3B"   = "qwen2.5-3b",
+  "Phi4-mini"    = "phi4-mini",
+  "Llama3.2-3B"  = "llama3.2-3b",
+  "Llama3.3-70B" = "llama3.3-70b"
 )
 
 load_one <- function(slug, condition) {
