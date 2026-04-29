@@ -57,7 +57,8 @@ MODELS <- list(
   "Qwen2.5-3B"   = "qwen2.5-3b",
   "Phi4-mini"    = "phi4-mini",
   "Llama3.2-3B"  = "llama3.2-3b",
-  "Llama3.3-70B" = "llama3.3-70b"
+  "Llama3.3-70B" = "llama3.3-70b",
+  "Qwen2.5-72B"  = "qwen2.5-72b"
 )
 
 load_one <- function(slug, condition) {
