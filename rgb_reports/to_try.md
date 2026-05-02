@@ -201,3 +201,22 @@ Three interlocking cleanup items flagged 2026-04-24, mostly waiting on the small
 **(c) Refresh the cross-method matrix with (a) and (b) applied.** Re-run `cross_method_matrix.py --probe lr` after both fixes. Compare to the W7 §6.2 numbers. The interesting question: does the BC↔RepE sign flip on Llama 8B / Qwen 7B (−0.73, −0.80) shrink to small-cohort levels (≈ +0.3) when RepE is also chat-template? That would say "format mismatch was driving the flip." Or does the flip persist? — that would say "scale really has changed the read-write relationship." Either resolution is a finding worth reporting in W8.
 
 **Status:** waiting on `bash b0eblvqzb` (small-cohort precache, ~hours). Larger-cohort chat-template RepE check (subset of (b) + partial (c)) could be done immediately, but more useful to bundle with (a) and (b)-small for a single clean comparison.
+
+## 18. Are Big Five categories over-aggregating model-natural primitives? (chunking-granularity test)
+
+Bookmarked 2026-05-02 from W8 design discussion. Companion to (and partially complementary with) the §11.5.10 symbolic-vs-associative theory: that theory asks "how does the model read out a fixed trait?", this asks "is the trait the right unit at all?" The two are compatible, not competing.
+
+**The puzzle.** W7 §8.4 found that within-model cross-stimulus-type cosine-matrix correlation (markers vs scenarios vs IPIP-NEO) is only +0.32–0.43, while within-stimulus-type cross-model is +0.93–0.99. So the same model treats different stimulus probes of "Agreeableness" as substantially different things, but different models treat one stimulus probe of A nearly identically. One natural read: A (and E, and the rest) aren't a single thing in the model's representation — each is a mixture of more-orthogonal primitives, and different stimulus types differentially probe those subcomponents. The aggregation into a 5-axis trait basis is throwing away most of the signal that's preserved at finer granularity.
+
+**Falsifiable prediction.** Re-run §8.4's analysis at IPIP-NEO-300 facet granularity (30 axes instead of 5). If chunking is the problem: within-model cross-stimulus-type correlation should be *higher* at facet level than at trait level. If chunking isn't the problem: facet-level should look the same as trait-level (~+0.35) and we're back to noise / instrument differences. Already foreshadowed by §11.5.7's finding that N's anxiety vs depression facets barely correlate (r=+0.07) — N is internally heterogeneous in a way the trait label hides.
+
+**Deeper version (rescuable from unfalsifiable territory).** Cluster facets by representational similarity *without* using Big Five trait labels. If natural clusters cross trait boundaries consistently across models — e.g., A.altruism + E.warmth always cluster on a "social engagement" primitive — that's evidence for a shared deep structure. The unfalsifiable phrasing ("models have their own deep representation") becomes the rescuable claim ("models share a structure that crosses Big Five lines, and we can name the dimensions"). Falsification: if the facet clusters are model-idiosyncratic rather than shared, no deep structure to recover.
+
+**Cleanest test (Phase 2).** SAE features on Gemma 12B (GemmaScope 2). Predict Big Five trait directions are linear combinations of N > 5 SAE features rather than 1-to-1 with individual features. The number of features required to span the Big Five is itself the prediction. If a Big Five trait direction lights up exactly one SAE feature, the chunking hypothesis is wrong; if it spans many, the human categories really are over-aggregating.
+
+**Connections.**
+- §11.5.10 symbolic-vs-associative theory: chunking-granularity is the orthogonal axis. Symbolic Likert may bypass the residual-stream geometry; whether the residual-stream geometry is "really" Big Five-shaped is independent.
+- §11.5.7 IPIP facet decomposition: already partial evidence (N facets internally weak, others stronger). The proposed test extends this to cross-model and cross-stimulus.
+- #5 SAE-based trait decomposition: this is the natural Phase 2 test.
+
+**Status.** Not started. The trait-level §8.4 re-analysis at facet level is doable on existing W7 data — just needs a different aggregation step in the analysis script. The cross-trait facet-clustering analysis needs the same data plus a clustering pass. SAE follow-up depends on Phase 2.
