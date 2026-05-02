@@ -1,0 +1,94 @@
+{
+  "_method": {
+    "version": "1.0",
+    "date": "2026-05-02",
+    "purpose": "Annotations for IPIP-NEO-300 items used in W8 natural-persona composition. Companion to scripts/persona_ipip_compose.py and methodology note in rgb_reports/methodology.md.",
+    "rubric": {
+      "default_tier": "mild",
+      "strong_criteria": [
+        "absolute language: love/never/always/dislike myself, etc.",
+        "clinical or near-clinical tone: panic, overwhelmed, suffer, blue, desperate, low opinion of myself",
+        "emphatic content beyond ordinary behavioral description: 'plunge into tasks with all my heart', 'radiate joy', 'love a good fight'"
+      ],
+      "loosen_to_mild_when": [
+        "'tend to' hedges loosen even loaded content (per user feedback 2026-05-02 on ipip179)",
+        "colloquial 'love'/'hate' that doesn't actually intensify (e.g. 'I love to eat')",
+        "'always X' that is a common idiom rather than emphatic absolute (e.g. 'I am always busy')"
+      ]
+    },
+    "selection_rule": {
+      "stanines_3_to_7": "draw from MILD items only",
+      "stanines_1_2_8_9": "draw from MILD + STRONG items (mixed)",
+      "stratified_across_facets": "exactly 1 item per facet per trait (6 items per trait, 30 total)",
+      "polarity_by_band": {
+        "z_>=_1.0": "6 forward, 0 reverse",
+        "0.3_<=_z_<_1.0": "4 forward, 2 reverse",
+        "-0.3_<_z_<_0.3": "3 forward, 3 reverse",
+        "-1.0_<_z_<=_-0.3": "2 forward, 4 reverse",
+        "z_<=_-1.0": "0 forward, 6 reverse"
+      }
+    },
+    "deny_categories": {
+      "marker-like": "items that read as a single trait adjective with 'I' prepended (e.g. 'I love action' ≈ 'excitement-seeking')",
+      "politically-charged": "Liberalism facet items that take a partisan political position; introduce RLHF response priors that aren't about personality",
+      "religiously-charged": "items that endorse specific religious positions",
+      "semantically-odd": "items whose content is too narrow or out-of-context (e.g. 'I love flowers' for a general persona)",
+      "patriotically-charged": "items about national/civic ritual"
+    },
+    "facet_caveat": "Liberalism (O) loses 7 of 10 items to deny-list. Composer should fall back to other facets when assigned facet has too few keep-items at the requested polarity. Reduces O facet stratification slightly but preserves item-level validity.",
+    "fraction_strong": "~18% (55/300)",
+    "fraction_denied": "~4% (12/300)",
+    "fraction_typo_fixed": "0.7% (2/300)"
+  },
+
+  "_strong_notes": "Strong = strongest tier WITHIN a facet, not just 'any clinical content.' Within Depression, ipip11/ipip71 (often feel blue / down in the dumps) are colloquial idioms — kept mild so the facet has mild-forward items available for stanines 3-7. Within SelfCons, ipip46 (afraid of doing the wrong thing) isn't stronger than the other SelfCons items — kept mild. Re-tag 2026-05-02 after composer validation found N.Depression had zero mild-forward items.",
+
+  "strong": [
+    "ipip31", "ipip61",
+    "ipip41", "ipip101", "ipip131", "ipip161", "ipip191",
+    "ipip111",
+    "ipip26", "ipip56", "ipip86", "ipip146",
+
+    "ipip7", "ipip127", "ipip187",
+    "ipip22", "ipip82", "ipip142", "ipip172", "ipip202", "ipip232",
+    "ipip27", "ipip87", "ipip117", "ipip147",
+
+    "ipip33", "ipip63", "ipip123",
+    "ipip13",
+    "ipip53",
+
+    "ipip274",
+    "ipip9", "ipip99", "ipip159", "ipip219", "ipip249", "ipip279",
+    "ipip74", "ipip194", "ipip254",
+    "ipip169", "ipip229", "ipip259",
+    "ipip144",
+    "ipip119", "ipip209", "ipip299",
+
+    "ipip215", "ipip245",
+    "ipip100",
+    "ipip195", "ipip255", "ipip285",
+    "ipip110",
+    "ipip205"
+  ],
+
+  "deny": {
+    "ipip22":  "marker-like ('I love excitement' ≈ 'excitement-seeking')",
+    "ipip52":  "marker-like ('I seek adventure' ≈ 'adventurous')",
+    "ipip82":  "marker-like ('I love action' ≈ 'action-oriented')",
+    "ipip27":  "marker-like ('I radiate joy' ≈ 'joyful')",
+    "ipip98":  "semantically odd ('I love flowers' is narrow content for a general persona)",
+
+    "ipip28":  "politically-charged (votes liberal)",
+    "ipip148": "politically-charged (votes conservative)",
+    "ipip118": "religiously-charged (one true religion)",
+    "ipip88":  "politically-charged (criminals receive help)",
+    "ipip238": "politically-charged (coddle criminals)",
+    "ipip268": "politically-charged (tough on crime)",
+    "ipip298": "patriotically-charged (national anthem)"
+  },
+
+  "fix": {
+    "ipip78":  "I'm interested in many things",
+    "ipip202": "I'm willing to try anything once"
+  }
+}

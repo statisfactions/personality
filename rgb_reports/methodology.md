@@ -178,6 +178,61 @@ Note on terminology: we use "binary choice" for our single-trait A/B scenarios t
 
 ---
 
+## 4.5. Persona composition from validated IPIP-NEO behavioral items (W8)
+
+The W7 §11.5.10 prereg used `instruments/synthetic_personas.json` descriptions composed of Goldberg adjective markers (e.g. "You are very extraverted, very energetic, very talkative..."). These produced strong rep recovery (mean r ≈ 0.74) and very strong Likert recovery (mean r ≈ 0.89). Two concerns: (a) the marker-rich form may put the model in an analytic mode that doesn't generalize to natural prose; (b) the rep result is partly tautological since marker-based directions decode marker-rich prompts.
+
+The natural-persona track replaces the marker form with first-person behavioral self-descriptions assembled from validated IPIP-NEO-300 behavioral items (Goldberg/Johnson 1999). This decouples persona description from the trait-direction extraction vocabulary while preserving psychometric validity — IPIP items have published trait/facet loadings in large human samples.
+
+### Pipeline
+
+- **`instruments/ipip300_annotations.json`** — per-item annotations: intensity tier (mild/strong), deny-list, typo overrides. Compact format (records deviations from defaults). Includes top-level `_method` block with rubric, selection rule, and counts. Frozen artifact, intended to be edited and re-versioned over time.
+- **`scripts/persona_ipip_compose.py`** — composer. Takes `synthetic_personas.json` z-scores and stanines, emits `instruments/synthetic_personas_ipip.json` with `ipip_raw` natural prose per persona.
+
+### Annotation rubric (intensity tier)
+
+- **Default tier: mild.** Mundane, hedged, behavioral statements. "I worry about things", "I leave a mess in my room", "I make friends easily".
+- **Strong tier:** strongest-within-facet items only. Criteria: absolute language (love/never/always), clinical or near-clinical tone (panic, overwhelmed, suffer, blue, desperate, low opinion of myself), or emphatic content beyond ordinary behavioral description ("plunge into tasks with all my heart", "radiate joy").
+- **Loosen-to-mild rules:** "tend to" hedges loosen even loaded content (per rgb 2026-05-02 on ipip179); colloquial "love"/"hate" that doesn't intensify ("I love to eat") stays mild; common idiomatic "always X" ("I am always busy") stays mild.
+
+Constraint: every facet must retain at least one mild-forward and one mild-reverse item after the deny-list is applied. Validated programmatically; one re-tag pass was needed (N.Depression had zero mild-forward items pre-fix).
+
+### Selection rule
+
+Per persona, per trait:
+- **K = 6 items** (one per facet, stratified — exactly one item from each of the 6 facets per trait).
+- **Polarity ratio by z-band** (function `band_K6` in the composer):
+  - z ≥ +1.0 → 6F / 0R
+  - +0.3 ≤ z < +1.0 → 4F / 2R
+  - |z| < 0.3 → 3F / 3R
+  - −1.0 < z ≤ −0.3 → 2F / 4R
+  - z ≤ −1.0 → 0F / 6R
+- **Tier by stanine:**
+  - Stanines 3–7 (|z| roughly ≤ 1) → MILD items only
+  - Stanines 1–2, 8–9 → MILD + STRONG mixed (drawn uniformly from union)
+- **Per-persona deterministic RNG:** seeded from `persona_id + global_seed`, so the same persona always produces the same composition.
+- **Master shuffle:** the 30 items are shuffled at output so trait order isn't preserved in the prose.
+- **Fallback:** if a (facet, polarity, tier) cell is empty, drop the tier filter; if still empty, draw from another facet's same-polarity pool. Fallback events are counted and reported. Over 400 personas × 30 picks = 12,000 picks, 0 fallbacks were observed (validation pass good).
+
+### Deny-list categories
+
+- **Marker-like** (5 items): items that read as a one-word trait label with "I" prepended ("I love action" ≈ "action-oriented", "I radiate joy" ≈ "joyful").
+- **Politically/religiously/patriotically charged** (7 items, all from O.Liberalism): items that take partisan/religious/civic positions. These introduce RLHF response priors that aren't about personality. Liberalism facet retains 3 of 10 items post-deny.
+- **Semantically odd** (1 item): "I love flowers" — too narrow content for a general persona.
+
+### Outputs
+
+- `instruments/synthetic_personas_ipip.json` — 400 composed personas with `ipip_raw` text and per-pick provenance (trait, facet, polarity, item ID).
+- Length: ~165–185 words per persona (vs ~128–192 for marker-rich originals; same ballpark).
+- Companion `ipip_reflowed` field is OPTIONAL and produced separately by Sonnet paraphrase; the raw-vs-reflow contrast isolates stylistic naturalness with content held constant. Not yet implemented.
+
+### Methodological notes
+
+- **Liberal facet has limited variability** (3 of 10 items remain): for high-O personas, the same Liberalism-forward item appears across many personas (only 1 mild-forward Liberal item remains). Acceptable for a stratified composition where Liberalism is one of 6 facets, but worth noting as a low-diversity slot.
+- **Strong items are mostly forward-keyed.** Reverse-keyed strong items are rare in IPIP (~3-5 across 300 items). Low-trait extreme personas (stanines 1-2) therefore rarely sample strong reverse items even when the rule allows it. Composer falls back to mild-only reverse — this is fine; the trait expression is encoded mostly through item polarity rather than reverse-keyed intensity.
+
+---
+
 ## 5. Environment
 
 - **Local inference**: HuggingFace Transformers (bf16, MPS). Ollama is no longer used by the survey/BC pipelines as of 2026-04-24 — remains available for the chat UX but not called by any script.
