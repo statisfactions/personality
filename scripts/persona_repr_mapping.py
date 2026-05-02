@@ -38,7 +38,14 @@ from hf_logprobs import MODELS as ALL_MODELS, load_model
 from generate_trait_personas import MARKERS, TRAITS
 
 
-PERSONA_FILE = "instruments/synthetic_personas.json"
+PERSONA_FILES = {
+    "markers": "instruments/synthetic_personas.json",
+    "ipip_raw": "instruments/synthetic_personas_ipip.json",
+}
+PERSONA_TEXT_KEYS = {
+    "markers": "description",
+    "ipip_raw": "ipip_raw",
+}
 CACHE_DIR = Path("results/phase_b_cache")
 DEFAULT_MODEL = "Qwen7"
 DEFAULT_N = 50
@@ -76,7 +83,8 @@ def extract_marker_directions(model, tok, device, common_layer, neutral_layer):
 
 
 def extract_persona_projections(model, tok, device, personas, directions,
-                                common_layer, neutral_baseline, mode="description"):
+                                common_layer, neutral_baseline,
+                                mode="description", text_key="description"):
     """For each persona, project activation onto each trait direction.
 
     mode="description" (baseline): persona description as user turn, last-
@@ -87,18 +95,22 @@ def extract_persona_projections(model, tok, device, personas, directions,
         chat-template with assistant generation prefix appended. Activation
         at last token = "what the model represents right before generating
         a response." Tests internalization rather than marker transcription.
+
+    text_key selects which field of the persona dict holds the description
+    (e.g. "description" for marker form, "ipip_raw" for IPIP form).
     """
     out = []
     for i, p in enumerate(personas):
+        persona_text = p[text_key]
         if mode == "description":
             a = mdx.hidden_states_for_text(
-                model, tok, p["description"], device,
+                model, tok, persona_text, device,
                 split_prefix=None, chat_template=True,
             )
             act = a[common_layer].float().numpy()
         elif mode == "response-position":
             messages = [
-                {"role": "system", "content": p["description"]},
+                {"role": "system", "content": persona_text},
                 {"role": "user", "content": NEUTRAL_QUESTION},
             ]
             text = tok.apply_chat_template(
@@ -134,12 +146,19 @@ def main():
     parser.add_argument("--seed", type=int, default=SEED)
     parser.add_argument("--mode", default="description",
                         choices=["description", "response-position"])
+    parser.add_argument("--persona-source", default="markers",
+                        choices=list(PERSONA_FILES.keys()),
+                        help="markers = original Goldberg-marker descriptions; "
+                             "ipip_raw = IPIP-NEO-300 behavioral composition")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
         raise ValueError(f"unknown model: {args.model}")
 
-    with open(PERSONA_FILE) as f:
+    persona_file = PERSONA_FILES[args.persona_source]
+    text_key = PERSONA_TEXT_KEYS[args.persona_source]
+    print(f"Persona source: {args.persona_source} ({persona_file}, key='{text_key}')")
+    with open(persona_file) as f:
         all_personas = json.load(f)["personas"]
 
     rng = np.random.default_rng(args.seed)
@@ -175,7 +194,7 @@ def main():
     print(f"\n--- Extracting persona activations (mode={args.mode}) ---")
     persona_data = extract_persona_projections(
         model, tok, device, selected, directions, common_layer, neutral_baseline,
-        mode=args.mode,
+        mode=args.mode, text_key=text_key,
     )
 
     del model, tok
@@ -234,6 +253,8 @@ def main():
         "persona_data": persona_data,
     }
     suffix = "" if args.mode == "description" else f"_{args.mode}"
+    if args.persona_source != "markers":
+        suffix += f"_{args.persona_source}"
     out_path = Path(f"results/persona_repr_mapping_{args.model}{suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:

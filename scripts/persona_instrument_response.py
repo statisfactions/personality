@@ -41,7 +41,14 @@ from hf_logprobs import MODELS as ALL_MODELS, load_model
 from generate_trait_personas import MARKERS, TRAITS
 
 
-PERSONA_FILE = "instruments/synthetic_personas.json"
+PERSONA_FILES = {
+    "markers": "instruments/synthetic_personas.json",
+    "ipip_raw": "instruments/synthetic_personas_ipip.json",
+}
+PERSONA_TEXT_KEYS = {
+    "markers": "description",
+    "ipip_raw": "ipip_raw",
+}
 DEFAULT_MODEL = "Qwen7"
 DEFAULT_N = 50
 SEED = 42
@@ -93,12 +100,19 @@ def main():
     parser.add_argument("--seed", type=int, default=SEED)
     parser.add_argument("--markers-per-pole", type=int, default=0,
                         help="If >0, use only first K markers per (trait, pole). Reduces compute.")
+    parser.add_argument("--persona-source", default="markers",
+                        choices=list(PERSONA_FILES.keys()),
+                        help="markers = original Goldberg-marker descriptions; "
+                             "ipip_raw = IPIP-NEO-300 behavioral composition")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
         raise ValueError(f"unknown model: {args.model}")
 
-    with open(PERSONA_FILE) as f:
+    persona_file = PERSONA_FILES[args.persona_source]
+    text_key = PERSONA_TEXT_KEYS[args.persona_source]
+    print(f"Persona source: {args.persona_source} ({persona_file}, key='{text_key}')")
+    with open(persona_file) as f:
         all_personas = json.load(f)["personas"]
     rng = np.random.default_rng(args.seed)
     idxs = rng.choice(len(all_personas), size=args.n, replace=False)
@@ -132,7 +146,7 @@ def main():
             for pole in ("high", "low"):
                 for marker in markers_used[trait][pole]:
                     _, ev = likert_with_persona(
-                        model, tok, device, p["description"], marker,
+                        model, tok, device, p[text_key], marker,
                     )
                     per_marker_evs[(trait, pole, marker)] = ev
                     call_idx += 1
@@ -192,8 +206,11 @@ def main():
     print(f"  Mean off-diagonal: {np.mean(off_vals):+.3f}")
     print(f"  Difference:       {np.mean(diag_vals) - np.mean(off_vals):+.3f}")
 
-    # Compare to representation result if present
-    repr_path = Path(f"results/persona_repr_mapping_{args.model}_response-position.json")
+    # Compare to representation result if present (matched persona-source)
+    repr_suffix = "_response-position"
+    if args.persona_source != "markers":
+        repr_suffix += f"_{args.persona_source}"
+    repr_path = Path(f"results/persona_repr_mapping_{args.model}{repr_suffix}.json")
     if repr_path.exists():
         with open(repr_path) as f:
             repr_data = json.load(f)
@@ -227,7 +244,8 @@ def main():
         "cross_correlation": cross.tolist(),
         "persona_data": persona_data,
     }
-    out_path = Path(f"results/persona_instrument_response_{args.model}.json")
+    out_suffix = "" if args.persona_source == "markers" else f"_{args.persona_source}"
+    out_path = Path(f"results/persona_instrument_response_{args.model}{out_suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2)
