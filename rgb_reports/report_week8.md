@@ -2,7 +2,7 @@
 
 ## 0. One-line summary
 
-The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three channels — Goldberg adjectives in persona descriptions, Goldberg adjectives in Likert rating targets, and Goldberg-derived rep directions. As we strip each coupling (§3 → §4 → §5), the gap shrinks: +0.185 → +0.107 → **+0.047**. Under fully-matched IPIP-form conditions on Qwen 2.5 7B, rep and Likert nearly converge. The strong symbolic-vs-associative claim ("instruments measure what activations don't") is rejected; the residual +0.047 may still reflect a real dissociation, or may be further measurement-channel artifacts we haven't yet isolated. We don't know we're at the destination.
+The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels: persona descriptions, Likert rating targets, and rep direction extraction. Stripping each (§3 → §4 → §5) on Qwen 2.5 7B shrinks the gap: +0.185 → +0.107 → +0.047. **Cohort sweep across all 7 models confirms the picture: matched-condition gap (§4 Likert − §5 rep) is +0.052 cohort mean, range −0.028 (Llama 8B, rep beats Likert) to +0.117 (Phi4)** — small, present, with model-level counterexamples. The strong symbolic-vs-associative claim ("instruments measure what activations don't") is rejected; the residual +0.052 may still reflect a real dissociation, or may be further measurement-channel artifacts we haven't isolated. We don't know we're at the destination.
 
 ## 1. Motivation: escaping the marker tautology
 
@@ -129,11 +129,13 @@ Pilot 3 fixes this: trait directions extracted from IPIP behavioral items (forwa
 
 The story isn't "the gap amplifies under behavioral form" (§3 framing) or "the gap shrinks but persists" (§4 framing) — it's "the gap mostly evaporates as we strip vocabulary couplings." The §5 +0.047 may still reflect a real symbolic-vs-associative effect, or may further reduce as we identify the next coupling.
 
-Heatmaps: `results/persona_repr_heatmap_ipip_full_*.html`, `results/persona_likert_heatmap_ipip_full_*.html` (Qwen7).
+Heatmaps: `results/persona_repr_heatmap_ipip_full_*.html`, `results/persona_likert_heatmap_ipip_full_*.html` (cohort, post-§6).
 
-## 6. Cohort: rep r on IPIP personas (marker dir, response-position)
+## 6. Cohort sweep — all 7 models × all four conditions
 
-The §3 pilot is one model. We ran the rep half of §3 on the full 7-model cohort (Likert cohort still pending — ~3hr × 2 conditions). Rep extraction is fast (~2min/model).
+The W8 §3-§5 pilots were single-model (Qwen7). To confirm the picture generalizes, we ran the §3 rep, §5 rep, and §4 Likert tracks on the full 7-model cohort.
+
+### 6.1. §3 rep (IPIP persona, marker dir, response-position)
 
 | Model | A | C | E | N | O | Mean | Off-diag |
 |---|---|---|---|---|---|---|---|
@@ -146,13 +148,68 @@ The §3 pilot is one model. We ran the rep half of §3 on the full 7-model cohor
 | Phi4-mini | −0.025 | +0.698 | +0.247 | +0.512 | +0.209 | **+0.328** | −0.037 |
 | **Cohort mean** | **+0.510** | **+0.649** | **+0.637** | **+0.624** | **+0.564** | **+0.597** | **+0.071** |
 
-**Cohort drop from W7 marker baseline** (cohort mean was +0.730 in §11.5.9): mean Δ = **−0.133**. Every model drops; magnitude varies from −0.058 (Llama 3B) to −0.210 (Phi4). The IPIP behavioral form is harder for all 7 models, consistently.
+Cohort drop from W7 marker baseline (cohort mean +0.730): −0.133. Every model drops, magnitude −0.058 (Llama 3B) to −0.210 (Phi4). The behavioral persona form is universally harder than the marker form for rep.
 
-**Phi4-mini becomes much worse on IPIP** (0.538 → 0.328, A goes negative). Phi4 was already the cohort weak point (W7 §11.5.9 found it had different A/N coding axes than the others). IPIP form amplifies this — Phi4's residual-stream geometry is less robust to surface form change than the other models'. This connects to the §11.5.10 cohort finding that Phi4 had the *largest* Likert lift (+0.330) — Phi4's behavioral readout (Likert) was making up for a much weaker representational readout, in a way that cleanly fits the now-revised interpretation: Phi4 is just bad at residual-stream trait recovery, and Likert was masking that with marker-target vocabulary.
+**Phi4 collapses dramatically** (0.538 → 0.328, A goes negative). Already the cohort weak point in W7 with "different A/N coding axes" — IPIP form amplifies this. **Gemma 4B remains cohort best** (+0.711). Scale doesn't monotonically help.
 
-**Gemma 4B is again the cohort best** (+0.711) — same finding as W7 §11.5.9 (best at +0.838 there). Scale doesn't monotonically help; architecture and post-training recipe matter more.
+### 6.2. §5 rep (IPIP persona, **IPIP dir**, response-position)
 
-Cohort §5 (rep with IPIP directions) and cohort §4 (Likert with IPIP target) are not yet run. These are the natural extensions to confirm whether the §5 collapse-to-+0.047 generalizes.
+| Model | A | C | E | N | O | Mean | Off-diag | Δ vs §3 |
+|---|---|---|---|---|---|---|---|---|
+| Gemma 4B  | +0.314 | +0.649 | +0.727 | +0.803 | +0.718 | +0.642 | +0.007 | **−0.069** |
+| Llama 3B  | +0.549 | +0.700 | +0.714 | +0.710 | +0.647 | +0.664 | +0.088 | −0.029 |
+| Llama 8B  | +0.557 | +0.729 | +0.845 | +0.652 | +0.767 | +0.710 | +0.093 | +0.016 |
+| Gemma 12B | +0.749 | +0.704 | +0.788 | +0.807 | +0.782 | **+0.766** | +0.028 | **+0.136** |
+| Qwen 7B   | +0.517 | +0.749 | +0.752 | +0.447 | +0.748 | +0.642 | +0.104 | +0.060 |
+| Qwen 3B   | +0.477 | +0.652 | +0.636 | +0.335 | +0.544 | +0.529 | +0.127 | −0.012 |
+| Phi4-mini | +0.504 | +0.784 | +0.631 | +0.674 | +0.516 | +0.622 | +0.078 | **+0.294** |
+| **Cohort mean** | **+0.524** | **+0.710** | **+0.728** | **+0.633** | **+0.674** | **+0.654** | **+0.075** | **+0.057** |
+
+**Cohort gain from §3 to §5: +0.057.** But Phi4 dominates: +0.294 alone. Without Phi4, cohort mean improvement is +0.012 — essentially flat. **For 6 of 7 models, marker-vs-IPIP direction extraction is roughly a wash on average rep r**, with mixed per-trait shifts (Gemma 4B drops on A from 0.628 → 0.314 but gains on C/N/O; the model-level mean change masks substantial per-trait reorganization).
+
+Phi4's recovery is the cleanest per-model finding: under Goldberg directions Phi4 had A = −0.025, N = +0.512, mean +0.328; under IPIP directions it's A = +0.504, N = +0.674, mean +0.622. **Phi4's W7 §11.5.9 "different coding axes" was specifically a Goldberg-marker artifact** — when directions are extracted from behavioral content, Phi4's residual-stream trait recovery is in line with the rest of the cohort.
+
+**Gemma 12B is the new cohort top** at +0.766 (was 0.630 under §3). Gemma 12B's representations are well-aligned with IPIP-derived axes specifically; IPIP item activations carve cleaner trait directions than Goldberg adjectives do for this model.
+
+**N is the trait that goes the wrong way for several models**: Gemma 4B is OK on N (0.803 stable from §3 0.785), but Qwen 7B's N drops 0.552 → 0.447, and Qwen 3B's drops 0.364 → 0.335. The N-with-IPIP-dirs problem is real but heterogeneous. Goldberg N markers are narrower-clinical ("anxious, nervous, irritable"); IPIP N items pull in clinical Depression-facet content ("I dislike myself", "I feel desperate") that may extract a less coherent direction.
+
+Off-diagonal mean across cohort: +0.075. Comparable to §3's +0.071. IPIP directions don't sharpen the off-diagonal at the rep level.
+
+### 6.3. §4 Likert (IPIP persona, **IPIP target**)
+
+| Model | A | C | E | N | O | Mean | Off-diag | Δ vs W7 baseline |
+|---|---|---|---|---|---|---|---|---|
+| Gemma 4B  | +0.717 | +0.750 | +0.707 | +0.793 | +0.667 | +0.727 | +0.044 | −0.196 |
+| Llama 3B  | +0.751 | +0.736 | +0.727 | +0.697 | +0.837 | +0.750 | +0.063 | −0.153 |
+| Llama 8B  | +0.737 | +0.790 | +0.648 | +0.558 | +0.680 | +0.682 | +0.021 | −0.217 |
+| Gemma 12B | +0.865 | +0.783 | +0.790 | +0.822 | +0.838 | **+0.819** | +0.035 | −0.101 |
+| Qwen 7B   | +0.621 | +0.779 | +0.627 | +0.644 | +0.774 | +0.689 | +0.016 | −0.198 |
+| Qwen 3B   | +0.303 | +0.559 | +0.616 | +0.584 | +0.590 | +0.530 | +0.031 | −0.263 |
+| Phi4-mini | +0.722 | +0.731 | +0.755 | +0.743 | +0.742 | +0.739 | +0.035 | −0.129 |
+| **Cohort mean** | **+0.674** | **+0.733** | **+0.696** | **+0.692** | **+0.733** | **+0.705** | **+0.035** | **−0.180** |
+
+**Cohort drop from W7 Likert baseline: −0.180** (cohort mean 0.885 → 0.705). Every model drops. Largest drop on Qwen 3B (−0.263) — Qwen 3B's marker-vocabulary advantage was the largest, and stripping it costs the most.
+
+**Cohort off-diagonal collapses to +0.035** — sharpest trait-axis structure at any condition, including the W7 baseline (+0.108). The off-diagonal collapse generalizes: across all 7 models, behavioral rating items minimize cross-trait leakage.
+
+**Per-trait pattern is more uniform than under §5 rep.** Cohort means: A 0.674, C 0.733, E 0.696, N 0.692, O 0.733. Range across traits ≈ 0.06 (vs §5 rep's 0.20 spread). Likert under behavioral targets gives more even per-trait recovery than rep does.
+
+### 6.4. The cohort matched gap (§4 Likert − §5 rep)
+
+| Model | §5 Rep | §4 Likert | **Δ matched** |
+|---|---|---|---|
+| Llama 8B | 0.710 | 0.682 | **−0.028** |
+| Qwen 3B | 0.529 | 0.530 | +0.001 |
+| Qwen 7B | 0.642 | 0.689 | +0.047 |
+| Gemma 12B | 0.766 | 0.819 | +0.053 |
+| Gemma 4B | 0.642 | 0.727 | +0.085 |
+| Llama 3B | 0.664 | 0.750 | +0.086 |
+| Phi4-mini | 0.622 | 0.739 | +0.117 |
+| **Cohort mean** | **0.654** | **0.705** | **+0.052** |
+
+**The Qwen7 +0.047 generalizes.** Cohort matched gap is +0.052, range −0.028 (Llama 8B!) to +0.117 (Phi4). The symbolic-vs-associative gap survives at cohort level under matched IPIP conditions, but is small (~+0.05) and **has counterexamples** — Llama 8B genuinely shows rep beating Likert.
+
+The W7 +0.144 cohort Likert-over-Rep was inflated by 3× compared to the matched-condition measurement. Three vocabulary couplings were each contributing roughly +0.03 to the apparent gap, plus Phi4's representational weakness was inflating the average specifically on the rep side under markers (which Likert was implicitly compensating for).
 
 ## 7. Interpretation
 
@@ -176,7 +233,15 @@ Cohort §5 (rep with IPIP directions) and cohort §4 (Likert with IPIP target) a
 
 **Connection to the chunking-granularity hypothesis (to_try #18).** N's bad behavior under IPIP directions is exactly what the chunking hypothesis predicts: if Big Five categories are over-aggregating model-natural primitives, the trait whose internal structure is most heterogeneous (W7 §11.5.7 already named N) should suffer most when direction extraction averages over heterogeneous behavioral exemplars. Goldberg's adjective form coarsens away the internal heterogeneity into a clean label; IPIP's behavioral form preserves it, which is informative for some traits (E, O) and hurts for others (N).
 
-**Where this leaves the symbolic-vs-associative theory.** Weakened but not killed. The strong form ("instruments and activations measure different things") is rejected at the +0.047 residual. The weaker form ("there's still some advantage to per-item symbolic judgment over residual-stream projection") might survive — but the burden of proof has shifted. We need cleaner controls, not bigger numbers.
+**Where this leaves the symbolic-vs-associative theory.** Weakened but not killed. The strong form ("instruments and activations measure different things") is rejected at the +0.052 cohort residual. The weaker form ("there's still some advantage to per-item symbolic judgment over residual-stream projection on average") survives at cohort level — but it has model-level counterexamples (Llama 8B), per-trait counterexamples (E in Qwen7), and a substantial portion of the W7-apparent gap turned out to be Phi4's idiosyncratic representational weakness under markers. The burden of proof has shifted. We need cleaner controls, not bigger numbers.
+
+**The cohort matched gap (+0.052) has interesting per-model structure.** Three regimes:
+
+- **Pro-Likert** (gap +0.05 to +0.12): Phi4, Llama 3B, Gemma 4B, Gemma 12B. These models show a real but small symbolic advantage.
+- **Indifferent** (gap ±0.01): Qwen 3B, Qwen 7B (the Qwen family). Likert and rep nearly equivalent under matched conditions.
+- **Pro-rep** (gap −0.03): Llama 8B. Rep beats Likert.
+
+The Qwen family hugging the rep readout is the most theoretically interesting subset — it's evidence that the symbolic-vs-associative dissociation isn't a universal property of how LLMs handle personality, but is contingent on the post-training recipe. Qwen 2.5 in particular may have post-training that aligns the residual-stream trait representation more directly with behavioral judgment than other model families do.
 
 ## 8. Heatmaps and figures
 
@@ -189,15 +254,15 @@ All figures in `results/`. HTML — open in a browser.
 - `persona_likert_heatmap_*.html` — same three layouts for Likert
 
 **§3 (IPIP persona, marker dir, marker target):**
-- `persona_repr_heatmap_ipip_raw_*.html` — 7-model cohort
+- `persona_repr_heatmap_ipip_raw_*.html` — full 7-model cohort
 - `persona_likert_heatmap_ipip_raw_*.html` — Qwen7 only
 
 **§4 (IPIP persona, marker dir, IPIP target):**
-- `persona_likert_heatmap_ipip_raw_target_ipip_*.html` — Qwen7 only
+- `persona_likert_heatmap_ipip_raw_target_ipip_*.html` — full 7-model cohort
 
 **§5 (IPIP persona, IPIP dir, IPIP target):**
-- `persona_repr_heatmap_ipip_full_*.html` — Qwen7 only
-- `persona_likert_heatmap_ipip_full_*.html` — Qwen7 only
+- `persona_repr_heatmap_ipip_full_*.html` — full 7-model cohort
+- `persona_likert_heatmap_ipip_full_*.html` — full 7-model cohort
 
 To regenerate: `scripts/persona_repr_heatmap.py --variant {markers, ipip_raw, ipip_raw_target_ipip, ipip_full}`.
 
@@ -205,27 +270,28 @@ To regenerate: `scripts/persona_repr_heatmap.py --variant {markers, ipip_raw, ip
 
 In rough order of value:
 
-1. **Cohort §5 — rep with IPIP directions across 7 models.** Confirms whether the +0.060 rep recovery is Qwen7-specific. ~15min of compute. If cohort holds, the §5 collapse generalizes; if Qwen7 is an outlier, the residual +0.047 is suspect.
+1. **Reflow ablation.** Sonnet-paraphrase IPIP-raw descriptions into smooth prose, preserving content. Re-run §3 / §5. Tests whether stilted "I... I... I..." form is contributing to the per-trait variability, or whether the §5 picture is form-stable. The fact that the matched gap has model-level variation (−0.028 to +0.117) makes the question of measurement-channel artifacts still pressing.
 
-2. **Cohort §4 — Likert with IPIP target across 7 models.** ~85min of compute. Tells us if the off-diagonal collapse to +0.016 generalizes. Together with #1, gives us the four-cell × 7-model matrix.
+2. **Per-facet rep direction extraction.** Direct test of the chunking hypothesis (to_try #18). Build per-facet directions instead of per-trait; check whether the cross-stimulus failure improves at facet granularity, and whether N's facet directions cohere or fragment. The cohort §5 result shows N is the trait most affected by direction-source choice (Gemma 4B 0.785 → 0.803, but Qwen 7B 0.552 → 0.447, Qwen 3B 0.364 → 0.335) — facet-level analysis should clarify whether N is genuinely heterogeneous or just unstably extracted.
 
-3. **Reflow ablation.** Sonnet-paraphrase IPIP-raw descriptions into smooth prose, preserving content. Re-run §3 / §5. Tests whether stilted "I... I... I..." form is contributing to the per-trait variability, or whether the §5 picture is form-stable.
+3. **Layer sweep.** Both readouts at common_layer (~2/3 depth). The right layer for behavioral-form readouts may differ. Worth a small ablation over 5-7 layers around the chosen one. Could explain Llama 8B's pro-rep result if rep is naturally cleaner at a different depth on that architecture.
 
-4. **Per-facet rep direction extraction.** Direct test of the chunking hypothesis (to_try #18). Build per-facet directions instead of per-trait; see if N's facet directions cohere or fragment, and whether the W7 §8.4 cross-stimulus failure improves at facet granularity.
+4. **Investigate Qwen-family anomaly.** Qwen 3B and Qwen 7B both have near-zero matched gap (+0.001, +0.047) — substantially smaller than other model families. Worth checking whether this is an artifact of Qwen's post-training recipe, tokenizer, or something else. Cross-architecture interp work might bear on this.
 
-5. **Layer sweep.** Both readouts at common_layer (~2/3 depth). The right layer for behavioral-form readouts may differ. Worth a small ablation over 5-7 layers around the chosen one.
+5. **Headline visualization.** A multi-panel figure showing the four conditions × 5 traits × 7 models would be useful for the reading group. Currently the data lives across many HTML heatmaps; a single comparison plot (mean diagonal r per condition, faceted by model or trait) would be the headline figure for W8.
 
 ## 10. Status
 
 Commits:
 - `ad0296d` — IPIP composer pipeline (annotations, composer script, methodology note, 400-persona output)
 - `461fd81` — §3 wiring + Qwen7 §3 result
-- (this commit) — §4 IPIP-target Likert + §5 IPIP-direction rep + cohort §3 rep + heatmap-script variants + report §3-§7 expansion
+- `b7335eb` — §4/§5 wiring + Qwen7 §4/§5 + cohort §3 rep + heatmap-script variants + report §3-§7 expansion
+- (this commit) — cohort §4 Likert + cohort §5 rep + report §6 cohort sweep + §0/§7/§8/§9 updates
 
 Result files (gitignored, regenerable):
 - `persona_repr_mapping_<MODEL>_response-position_ipip_raw.json` — §3 cohort rep (7 models)
-- `persona_repr_mapping_Qwen7_response-position_ipip_raw_dir-ipip.json` — §5 rep (Qwen7)
-- `persona_instrument_response_Qwen7_ipip_raw.json` — §3 Likert (Qwen7)
-- `persona_instrument_response_Qwen7_ipip_raw_target-ipip.json` — §4/§5 Likert (Qwen7)
+- `persona_repr_mapping_<MODEL>_response-position_ipip_raw_dir-ipip.json` — §5 cohort rep (7 models)
+- `persona_instrument_response_<MODEL>_ipip_raw_target-ipip.json` — §4 cohort Likert (7 models)
+- `persona_instrument_response_Qwen7_ipip_raw.json` — §3 Likert (Qwen7 only)
 
-One sentence for the reading group: "The W7 §11.5.10 +0.144 'Likert beats Rep' gap was substantially a vocabulary-coupling artifact across three Goldberg-marker channels (persona description, rating target, direction extraction); stripping all three on Qwen 2.5 7B collapses the gap to +0.047, but per-trait the picture is much more interesting — E and O move strongly toward rep ≈ Likert ≈ 0.75, while N exhibits the opposite (rep drops to 0.45 with IPIP directions because N is internally heterogeneous), suggesting that Big Five trait categories may not be the right units for cross-channel personality measurement in models."
+One sentence for the reading group: "The W7 §11.5.10 cohort +0.144 'Likert beats Rep' gap was substantially a vocabulary-coupling artifact across three Goldberg channels (persona description, rating target, rep direction extraction) plus Phi4's idiosyncratic representational weakness; stripping all three on the full 7-model cohort reduces the gap to +0.052 cohort mean with model-level counterexamples (Llama 8B at −0.028, Qwen 3B at +0.001), and the Qwen family in particular shows near-zero symbolic-vs-associative dissociation under matched conditions, suggesting the gap isn't a universal property of LLM personality processing but a contingent feature of certain post-training recipes."
