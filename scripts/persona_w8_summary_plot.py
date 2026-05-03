@@ -41,9 +41,9 @@ PATTERNS = {
     ("W7", "rep"):           "results/persona_repr_mapping_{m}_response-position.json",
     ("W7", "likert"):        "results/persona_instrument_response_{m}.json",
     ("§3 raw", "rep"):       "results/persona_repr_mapping_{m}_response-position_ipip_raw.json",
-    ("§3 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw.json",
+    ("§3 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw.json",  # Qwen7 only
     ("§3 reflow", "rep"):    "results/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
-    ("§3 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed.json",
+    ("§3 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed.json",  # cohort
     ("§4 raw", "rep"):       "results/persona_repr_mapping_{m}_response-position_ipip_raw.json",  # same as §3 raw
     ("§4 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw_target-ipip.json",
     ("§4 reflow", "rep"):    "results/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
@@ -54,24 +54,28 @@ PATTERNS = {
     ("§5 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
 }
 
-# The 5 conditions in the headline trajectory
-CONDITIONS_TRAJECTORY = ["W7", "§3 raw", "§4 raw", "§5 raw", "§5 reflow"]
+# Trajectory conditions: all-cohort means. §3 raw dropped from the trajectory
+# because its cohort Likert wasn't run (only Qwen7); §3 reflow is the
+# directly-comparable cohort-wide condition with all-Goldberg readout.
+CONDITIONS_TRAJECTORY = ["W7", "§3 reflow", "§4 raw", "§5 raw", "§5 reflow"]
 
 # Process labels for x-axis ticks: "persona form → measurement form".
 # Two-line: top line is persona-side, bottom line is readout-side details.
 CONDITION_LABELS = {
     "W7":         "Goldberg<br>→ Goldberg",
     "§3 raw":     "IPIP raw<br>→ Goldberg",
+    "§3 reflow":  "IPIP reflow<br>→ Goldberg",
     "§4 raw":     "IPIP raw<br>→ IPIP target<br><sub>(Goldberg dir)</sub>",
     "§5 raw":     "IPIP raw<br>→ IPIP",
     "§5 reflow":  "IPIP reflow<br>→ IPIP",
 }
 CONDITION_TOOLTIPS = {
     "W7":         "Goldberg persona, Goldberg dir, Goldberg target",
-    "§3 raw":     "IPIP-raw persona, Goldberg dir, Goldberg target (changes persona)",
-    "§4 raw":     "IPIP-raw persona, Goldberg dir, IPIP target (also changes rating target)",
-    "§5 raw":     "IPIP-raw persona, IPIP dir, IPIP target (also changes rep dir; fully matched)",
-    "§5 reflow":  "IPIP-reflowed persona, IPIP dir, IPIP target (smooth prose, fully matched)",
+    "§3 raw":     "IPIP-raw persona, Goldberg dir, Goldberg target",
+    "§3 reflow":  "IPIP-reflowed persona, Goldberg dir, Goldberg target (smooth prose, all-Goldberg readout)",
+    "§4 raw":     "IPIP-raw persona, Goldberg dir, IPIP target",
+    "§5 raw":     "IPIP-raw persona, IPIP dir, IPIP target (fully matched IPIP)",
+    "§5 reflow":  "IPIP-reflowed persona, IPIP dir, IPIP target (smooth prose, fully matched IPIP)",
 }
 
 
