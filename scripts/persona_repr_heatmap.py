@@ -69,6 +69,24 @@ VARIANTS = {
         "title_tag":     "W8 §5 (IPIP personas, IPIP directions, IPIP rating target)",
         "out_tag":       "_ipip_full",
     },
+    "ipip_reflowed": {
+        "rep_suffix":    "_ipip_reflowed",
+        "likert_suffix": "_ipip_reflowed",
+        "title_tag":     "W8 §8 (reflowed IPIP personas, marker dir, marker target)",
+        "out_tag":       "_ipip_reflowed",
+    },
+    "ipip_reflowed_target_ipip": {
+        "rep_suffix":    "_ipip_reflowed",
+        "likert_suffix": "_ipip_reflowed_target-ipip",
+        "title_tag":     "W8 §8 (reflowed personas, marker dir, IPIP target)",
+        "out_tag":       "_ipip_reflowed_target_ipip",
+    },
+    "ipip_reflowed_full": {
+        "rep_suffix":    "_ipip_reflowed_dir-ipip",
+        "likert_suffix": "_ipip_reflowed_target-ipip",
+        "title_tag":     "W8 §8 (reflowed personas, IPIP dir, IPIP target — fully matched)",
+        "out_tag":       "_ipip_reflowed_full",
+    },
 }
 
 

@@ -2,7 +2,7 @@
 
 ## 0. One-line summary
 
-The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels (persona descriptions, Likert rating targets, rep direction extraction) plus a stilted-prose rep penalty. Stripping all of these on Qwen 2.5 7B (§3 → §4 → §5 → §8 reflow) shrinks the gap to +0.067. **Cohort sweep across all 7 models confirms the matched-condition gap is +0.052 mean, range −0.028 (Llama 8B, rep beats Likert) to +0.117 (Phi4)**. The reflow ablation shows that the §3 "gap amplifies" finding was a stilted-prose artifact, not a real symbolic effect — under reflowed natural prose the §3 gap drops from +0.185 to +0.097. The cleanest matched-condition gap (§5 reflowed +0.067) is form-stable around the cohort mean. The strong symbolic-vs-associative claim is rejected; the residual ~+0.05 may still reflect a real dissociation, or may be further measurement artifacts we haven't isolated. We don't know we're at the destination.
+The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels (persona descriptions, Likert rating targets, rep direction extraction). Stripping all on the full 7-model cohort under matched IPIP-form conditions reduces the gap to +0.052 mean (raw) or +0.075 (reflowed), with model-level variation from −0.028 (Llama 8B raw, rep beats Likert) to +0.122 (Gemma 12B reflowed). Reflow ablation reveals that **reflow effects on rep are heterogeneous** (Qwen 7B +0.047, Gemma 12B −0.104) — the Qwen7-only "§3 amplification was stilted-prose" story doesn't generalize. Reflow consistently helps Likert (+0.039 cohort) and asymmetrically widens the matched gap (+0.052 → +0.075). All counterexamples (Llama 8B pro-rep, Qwen indifferent) disappear under reflow, but per-model variance stays large. The strong symbolic-vs-associative claim is rejected; the residual ~+0.05–+0.08 matched gap is small but persistent across both raw and reflowed conditions. The dominant finding may be that **reflow asymmetry is itself diagnostic** — Qwen models' rep representations are more reflow-sensitive than Gemma 12B's, suggesting different post-training shapes the residual-stream geometry differently across architectures.
 
 ## 1. Motivation: escaping the marker tautology
 
@@ -243,7 +243,7 @@ The W7 +0.144 cohort Likert-over-Rep was inflated by 3× compared to the matched
 
 The Qwen family hugging the rep readout is the most theoretically interesting subset — it's evidence that the symbolic-vs-associative dissociation isn't a universal property of how LLMs handle personality, but is contingent on the post-training recipe. Qwen 2.5 in particular may have post-training that aligns the residual-stream trait representation more directly with behavioral judgment than other model families do.
 
-## 8. Reflow ablation (Qwen7)
+## 8. Reflow ablation (Qwen7 + cohort)
 
 The §3 pilot's "gap amplifies +0.144 → +0.185" finding had an alternative explanation we hadn't tested: the IPIP-raw form is choppy first-person prose ("I X. I Y. I Z.") that may activate analytic mode in the model. If so, the §3 amplification was a stilted-prose penalty on rep, not a symbolic-vs-associative effect. The reflow ablation tests this directly.
 
@@ -251,49 +251,73 @@ The §3 pilot's "gap amplifies +0.144 → +0.185" finding had an alternative exp
 
 Smoke-checked outputs: every input statement appears in some form in the reflowed prose; magnitude qualifiers preserved ("love" stays "love", "rarely" stays "rarely"); no trait-name adjective leakage. Connectives ("though", "yet", "but") sometimes added — minor risk of altering parallelism into contrast, but acceptable.
 
-Re-ran all four conditions on Qwen7 with reflowed personas:
+### 8.1. Qwen7 four-cell summary (initial pilot)
 
 | Condition | Persona | Rep dir | Target | Rep r | Likert r | Δ (L−R) |
 |---|---|---|---|---|---|---|
 | W7 baseline | Marker | Marker | Marker | 0.743 | 0.887 | +0.144 |
-| §3 raw | IPIP raw | Marker | Marker | 0.582 | 0.767 | **+0.185** |
+| §3 raw | IPIP raw | Marker | Marker | 0.582 | 0.767 | +0.185 |
 | **§3 reflowed** | IPIP reflowed | Marker | Marker | **0.673** | **0.770** | **+0.097** |
 | §4 raw | IPIP raw | Marker | IPIP | 0.582 | 0.689 | +0.107 |
-| **§4 reflowed** | IPIP reflowed | Marker | IPIP | 0.673 | 0.756 | +0.083 |
+| §4 reflowed | IPIP reflowed | Marker | IPIP | 0.673 | 0.756 | +0.083 |
 | §5 raw | IPIP raw | IPIP | IPIP | 0.642 | 0.689 | +0.047 |
 | **§5 reflowed** | IPIP reflowed | IPIP | IPIP | **0.689** | 0.756 | +0.067 |
 
-### 8.1. Reflow effects per readout
+On Qwen7 specifically, reflow recovers most of the rep penalty from going to behavioral form — and the §3 gap drops from +0.185 to +0.097. We initially read this as "the §3 amplification was a stilted-prose artifact." But this turned out to be a Qwen-specific phenomenon. The cohort sweep tells a different story.
 
-- **Reflow consistently helps rep.** Marker dir: +0.091 (0.582 → 0.673). IPIP dir: +0.047 (0.642 → 0.689). Smoother prose → cleaner activation projections. The marker-dir improvement is bigger because Goldberg-marker directions were extracted from natural-context activations (chat-template-wrapped single adjectives) that resemble reflowed prose more than the raw IPIP "I X. I Y. I Z." form.
-- **Reflow barely affects marker-target Likert** (+0.003 on §3 condition). Goldberg adjective ratings are already form-stable — rating "extraverted" against a persona description doesn't need the persona to be in coherent prose; the model can extract the trait signal from any form.
-- **Reflow helps IPIP-target Likert by +0.067** (0.689 → 0.756). Behavioral statement ratings benefit from coherent prose. When rating "I love large parties" against the persona, smoother persona prose makes the symbolic match more reliable.
+### 8.2. Cohort reflow (full 7-model sweep)
 
-### 8.2. Effect on the gap
+| Model | §5 raw R | §5 ref R | Δ R | §4 raw L | §4 ref L | Δ L | raw Gap | ref Gap | Δ Gap |
+|---|---|---|---|---|---|---|---|---|---|
+| Gemma 4B  | 0.642 | 0.672 | +0.030 | 0.727 | 0.745 | +0.018 | +0.085 | +0.073 | −0.012 |
+| Llama 3B  | 0.664 | 0.708 | +0.044 | 0.750 | 0.777 | +0.027 | +0.086 | +0.069 | −0.017 |
+| Phi4-mini | 0.622 | 0.638 | +0.016 | 0.739 | 0.757 | +0.018 | +0.117 | +0.119 | +0.002 |
+| Qwen 3B   | 0.529 | 0.605 | **+0.076** | 0.530 | 0.665 | **+0.135** | +0.001 | +0.061 | **+0.060** |
+| Gemma 12B | **0.766** | **0.662** | **−0.104** | 0.819 | 0.784 | −0.035 | +0.053 | +0.122 | **+0.069** |
+| Llama 8B  | 0.710 | 0.706 | −0.004 | 0.682 | 0.720 | +0.038 | −0.028 | +0.014 | +0.042 |
+| Qwen 7B   | 0.642 | 0.689 | +0.047 | 0.689 | 0.756 | +0.067 | +0.047 | +0.067 | +0.020 |
+| **Cohort** | **0.654** | **0.669** | **+0.015** | **0.705** | **0.744** | **+0.039** | **+0.052** | **+0.075** | **+0.023** |
 
-- **§3 gap drops from +0.185 to +0.097** — major change. The "gap amplifies" framing from §3 was largely a stilted-prose penalty on rep. Once rep recovers (under reflowed prose), the gap is much closer to the baseline +0.144.
-- **§5 matched gap is form-stable**: raw +0.047, reflowed +0.067. Both within a +0.05–+0.07 neighborhood — within measurement noise. The matched-condition finding survives reflow.
-- **§4 gap stays small** (raw +0.107, reflowed +0.083). Mid-range gap reduces slightly under reflow.
+### 8.3. Cohort findings, in tension with the Qwen7 single-model story
 
-### 8.3. Cleaner story
+- **Reflow effects on rep are heterogeneous, not uniformly positive.** Cohort §5 rep mean +0.015 (small). But per-model: Qwen 3B +0.076 and Qwen 7B +0.047 (both gain), Llama 3B +0.044 and Gemma 4B +0.030 (small gain), Phi4 and Llama 8B flat, **Gemma 12B −0.104** (big drop). The "stilted prose hurt rep" hypothesis from the Qwen7 pilot doesn't generalize — Gemma 12B's residual stream is *more* aligned with raw IPIP prose than with reflowed prose.
+- **Reflow consistently helps Likert** at cohort level (+0.039). Larger and more uniform than the rep effect. Cohort range +0.018 to +0.135 (Qwen 3B is the big winner; Gemma 12B is the only model where Likert drops, and only by −0.035).
+- **Reflow widens the matched gap on average** (cohort +0.052 → +0.075). Driven by the asymmetric Likert > rep recovery — Likert benefits more from reflow than rep does, so the gap grows. This is **the opposite of what the Qwen7-only story predicted** (where reflow shrinks the §3 gap dramatically). The Qwen7 §3 finding was specifically about Qwen7's stilted-prose vulnerability on rep, which doesn't generalize.
+- **All 7 models have positive matched gap under reflow.** Llama 8B (the cohort raw counterexample at −0.028) flips to +0.014 under reflow. Qwen 3B (the near-zero raw counterexample at +0.001) jumps to +0.061. The pro-rep counterexamples disappear under reflow.
+- **Per-model variation stays large.** Range +0.014 (Llama 8B) to +0.122 (Gemma 12B). Reflow compresses the negative tail but not the positive tail.
 
-After reflow, the four-cell picture for Qwen7 simplifies:
+### 8.4. Revised story
 
-- **W7 +0.144**: vocabulary coupling (marker descriptions ↔ marker rating ↔ marker dirs) plus a small residual symbolic-vs-associative effect.
-- **§3 raw +0.185**: vocabulary stripped on description side, but stilted-prose penalty hits rep harder than Likert. Apparent amplification was a measurement artifact.
-- **§3 reflowed +0.097**: prose effect removed; gap close to W7 baseline minus the rating-target coupling.
-- **§4 raw +0.107 / reflowed +0.083**: rating-target coupling additionally stripped. Still some residual.
-- **§5 raw +0.047 / reflowed +0.067**: all three vocabulary couplings stripped, residual ~+0.05–+0.07.
+The cohort sweep substantially complicates the §8.1 Qwen7 framing:
 
-The §3 raw "amplification" was a confound. The §5 matched-condition gap is the cleanest measure, and it's form-stable around +0.05–+0.07 on Qwen7. Cohort §6 had matched gap +0.052 mean — consistent.
+- **The §3 raw "+0.185 amplification" is real but Qwen-specific.** Qwen7 has a particular vulnerability to stilted prose on rep that reflow rescues. Other models don't show this — Gemma 4B/Llama 3B/Llama 8B/Gemma 12B all have raw §3 rep > reflow §3 rep or roughly equal.
+- **The §5 matched gap is roughly form-stable at cohort level** (+0.052 → +0.075). The W8 §5 finding survives reflow at cohort level, just with a slight upward shift. The neighborhood is +0.05–+0.08, not exactly +0.052.
+- **Reflow asymmetrically helps Likert more than rep.** This is the consistent cohort finding. Behavioral rating items benefit more from coherent prose than rep-direction projections do.
+- **The Llama 8B "rep beats Likert" counterexample doesn't survive reflow.** Under matched IPIP form with reflowed prose, every cohort model has Likert ≥ rep. The W8 §6 cohort claim "model-level counterexamples exist" weakens — under reflow conditions, the cohort is uniformly pro-Likert (small to moderate).
 
-### 8.4. Methodological note
+### 8.5. Per-model regimes, revised under reflow
+
+Three regimes from W8 §6 (raw matched gap):
+- Pro-Likert (+0.05 to +0.12): Phi4, Llama 3B, Gemma 4B, Gemma 12B
+- Indifferent (±0.01): Qwen 3B, Qwen 7B
+- Pro-rep (−0.03): Llama 8B
+
+Under reflow:
+- All pro-Likert (cohort range +0.014 to +0.122, mean +0.075).
+- Phi4 stable as biggest-Likert.
+- Gemma 12B becomes biggest-Likert tied with Phi4 (+0.122). Driven by rep dropping, not Likert rising.
+- Qwen 3B moves from indifferent (+0.001) to pro-Likert (+0.061).
+- Llama 8B moves from pro-rep (−0.028) to weakly pro-Likert (+0.014).
+
+The "Qwen family is indifferent" subfinding from §6 doesn't survive reflow — Qwen 3B in particular jumps significantly. Whatever was making Qwen 3B's matched gap zero under raw conditions was prose-form-specific.
+
+### 8.6. Methodological note
 
 The reflow is *generated by Sonnet*, an LLM that may or may not perfectly preserve content. Spot-checks on s1 / s6 / s50 looked good, but we don't have an automated content-preservation check. The composer's per-pick provenance is the ground truth (which IPIP items were used), but we can't verify reflowed prose contains all of them without item-level NLI matching. For the W8 ablation as currently scoped this is acceptable; a future tighter ablation could use a Claude-as-judge content-preservation validator.
 
-The reflow was run only on the 50 pilot personas; the remaining 350 in `synthetic_personas_ipip.json` have no `ipip_reflowed` field. Re-run with `--persona-ids` for additional sets if needed.
+Reflow was run on the 50 pilot personas (seed=42); the remaining 350 in `synthetic_personas_ipip.json` have no `ipip_reflowed` field. Re-run with `--persona-ids` for additional sets if needed.
 
-Heatmaps for the reflowed conditions: not yet generated (would require adding `ipip_reflowed` variants to the heatmap script). Numbers reported above are sufficient for the W8 finding; heatmaps can be added if useful for the headline visualization (queued in §10).
+Cohort reflow heatmaps available at `results/persona_repr_heatmap_ipip_reflowed_full_*.html` and `persona_likert_heatmap_ipip_reflowed_full_*.html` (matched-condition: reflowed persona × IPIP dir × IPIP target).
 
 ## 9. Heatmaps and figures
 
