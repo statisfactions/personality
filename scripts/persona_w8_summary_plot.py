@@ -56,12 +56,22 @@ PATTERNS = {
 
 # The 5 conditions in the headline trajectory
 CONDITIONS_TRAJECTORY = ["W7", "§3 raw", "§4 raw", "§5 raw", "§5 reflow"]
+
+# Process labels for x-axis ticks: "persona form → measurement form".
+# Two-line: top line is persona-side, bottom line is readout-side details.
+CONDITION_LABELS = {
+    "W7":         "Goldberg<br>→ Goldberg",
+    "§3 raw":     "IPIP raw<br>→ Goldberg",
+    "§4 raw":     "IPIP raw<br>→ IPIP target<br><sub>(Goldberg dir)</sub>",
+    "§5 raw":     "IPIP raw<br>→ IPIP",
+    "§5 reflow":  "IPIP reflow<br>→ IPIP",
+}
 CONDITION_TOOLTIPS = {
-    "W7":         "Marker persona, marker dir, marker target",
-    "§3 raw":     "IPIP-raw persona, marker dir, marker target",
-    "§4 raw":     "IPIP-raw persona, marker dir, IPIP target",
-    "§5 raw":     "IPIP-raw persona, IPIP dir, IPIP target",
-    "§5 reflow":  "IPIP-reflowed persona, IPIP dir, IPIP target",
+    "W7":         "Goldberg persona, Goldberg dir, Goldberg target",
+    "§3 raw":     "IPIP-raw persona, Goldberg dir, Goldberg target (changes persona)",
+    "§4 raw":     "IPIP-raw persona, Goldberg dir, IPIP target (also changes rating target)",
+    "§5 raw":     "IPIP-raw persona, IPIP dir, IPIP target (also changes rep dir; fully matched)",
+    "§5 reflow":  "IPIP-reflowed persona, IPIP dir, IPIP target (smooth prose, fully matched)",
 }
 
 
@@ -106,6 +116,7 @@ def make_trajectory_figure(data):
     gaps = [(l - r) if (l is not None and r is not None) else None
             for l, r in zip(lik_means, rep_means)]
 
+    x_labels = [CONDITION_LABELS[c] for c in CONDITIONS_TRAJECTORY]
     tooltips = [CONDITION_TOOLTIPS[c] for c in CONDITIONS_TRAJECTORY]
 
     fig = make_subplots(
@@ -119,7 +130,7 @@ def make_trajectory_figure(data):
 
     # Top: rep + likert lines
     fig.add_trace(go.Scatter(
-        x=CONDITIONS_TRAJECTORY, y=rep_means,
+        x=x_labels, y=rep_means,
         mode="lines+markers+text",
         text=[f"{v:.3f}" if v is not None else "" for v in rep_means],
         textposition="bottom center", textfont=dict(size=10),
@@ -129,7 +140,7 @@ def make_trajectory_figure(data):
         customdata=tooltips,
     ), row=1, col=1)
     fig.add_trace(go.Scatter(
-        x=CONDITIONS_TRAJECTORY, y=lik_means,
+        x=x_labels, y=lik_means,
         mode="lines+markers+text",
         text=[f"{v:.3f}" if v is not None else "" for v in lik_means],
         textposition="top center", textfont=dict(size=10),
@@ -141,7 +152,7 @@ def make_trajectory_figure(data):
 
     # Bottom: gap bars
     fig.add_trace(go.Bar(
-        x=CONDITIONS_TRAJECTORY, y=gaps,
+        x=x_labels, y=gaps,
         text=[f"{g:+.3f}" if g is not None else "" for g in gaps],
         textposition="outside",
         marker=dict(color=["#888" if g and g > 0 else "#cc6666" for g in gaps]),
