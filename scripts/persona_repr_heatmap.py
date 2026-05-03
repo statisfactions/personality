@@ -38,26 +38,62 @@ from plotly.subplots import make_subplots
 MODELS = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7"]
 TRAITS = ["A", "C", "E", "N", "O"]
 
-MODES = {
-    "rep": {
-        "results_pattern": "results/persona_repr_mapping_{m}_response-position.json",
-        "value_key": "projections",
-        "label": "projection",
-        "title": "Persona representation back-mapping (W7 §11.5.9)",
-        "out_prefix": "persona_repr_heatmap",
+# Per-variant suffix applied to result-file patterns + output filenames.
+# "markers" reproduces the W7 §11.5.9-10 figures (no suffix).
+# "ipip_raw" uses the W8 IPIP-NEO-300 behavioral persona compositions
+# (rep against marker-derived directions; Likert with marker rating target).
+# "ipip_raw_target_ipip" additionally uses IPIP rating items as Likert targets
+# (W8 §4 — only meaningful for the likert mode; rep is identical to ipip_raw).
+VARIANTS = {
+    "markers": {
+        "rep_suffix":    "",
+        "likert_suffix": "",
+        "title_tag":     "W7 §11.5.9-10 (Goldberg-marker personas)",
+        "out_tag":       "",
     },
-    "likert": {
-        "results_pattern": "results/persona_instrument_response_{m}.json",
-        "value_key": "scored_trait",
-        "label": "scored trait (Likert)",
-        "title": "Persona Likert response track (W7 §11.5.10)",
-        "out_prefix": "persona_likert_heatmap",
+    "ipip_raw": {
+        "rep_suffix":    "_ipip_raw",
+        "likert_suffix": "_ipip_raw",
+        "title_tag":     "W8 §3 (IPIP-NEO-300 behavioral personas, marker rating target)",
+        "out_tag":       "_ipip_raw",
+    },
+    "ipip_raw_target_ipip": {
+        "rep_suffix":    "_ipip_raw",  # same rep file as ipip_raw (marker dirs)
+        "likert_suffix": "_ipip_raw_target-ipip",
+        "title_tag":     "W8 §4 (IPIP personas, IPIP rating target, marker dirs)",
+        "out_tag":       "_ipip_raw_target_ipip",
+    },
+    "ipip_full": {
+        "rep_suffix":    "_ipip_raw_dir-ipip",
+        "likert_suffix": "_ipip_raw_target-ipip",
+        "title_tag":     "W8 §5 (IPIP personas, IPIP directions, IPIP rating target)",
+        "out_tag":       "_ipip_full",
     },
 }
 
 
-def load(model, mode):
-    path = Path(MODES[mode]["results_pattern"].format(m=model))
+def make_modes(variant):
+    v = VARIANTS[variant]
+    return {
+        "rep": {
+            "results_pattern": f"results/persona_repr_mapping_{{m}}_response-position{v['rep_suffix']}.json",
+            "value_key": "projections",
+            "label": "projection",
+            "title": f"Persona representation back-mapping — {v['title_tag']}",
+            "out_prefix": f"persona_repr_heatmap{v['out_tag']}",
+        },
+        "likert": {
+            "results_pattern": f"results/persona_instrument_response_{{m}}{v['likert_suffix']}.json",
+            "value_key": "scored_trait",
+            "label": "scored trait (Likert)",
+            "title": f"Persona Likert response track — {v['title_tag']}",
+            "out_prefix": f"persona_likert_heatmap{v['out_tag']}",
+        },
+    }
+
+
+def load(model, mode, modes):
+    path = Path(modes[mode]["results_pattern"].format(m=model))
     if not path.exists():
         return None
     with open(path) as f:
@@ -79,9 +115,9 @@ def compute_sampled_z_sigma(n=50, seed=42):
     return np.corrcoef(Z.T)
 
 
-def make_per_model_figure(data, sigma, mode):
+def make_per_model_figure(data, sigma, mode, modes):
     """Per-model 5x5 cross-correlation: Σ + one panel per model."""
-    cfg = MODES[mode]
+    cfg = modes[mode]
     label = cfg["label"]
     models_present = list(data.keys())
 
@@ -144,9 +180,9 @@ def make_per_model_figure(data, sigma, mode):
     return fig
 
 
-def make_cross_model_figure(data, mode):
+def make_cross_model_figure(data, mode, modes):
     """Cross-model agreement on measurement vectors, per trait."""
-    cfg = MODES[mode]
+    cfg = modes[mode]
     label = cfg["label"]
     models_present = list(data.keys())
     if len(models_present) < 2:
@@ -197,11 +233,11 @@ def make_cross_model_figure(data, mode):
     return fig
 
 
-def make_scatter_figure(data, mode, normalize=True):
+def make_scatter_figure(data, mode, modes, normalize=True):
     """Sampled z vs measured value, per trait, all models. Z-scored within
     model when normalize=True so cross-model magnitude differences don't
     squash the visual."""
-    cfg = MODES[mode]
+    cfg = modes[mode]
     label = cfg["label"]
     models_present = list(data.keys())
 
@@ -254,9 +290,9 @@ def make_scatter_figure(data, mode, normalize=True):
     return fig
 
 
-def render_mode(mode, sigma):
-    cfg = MODES[mode]
-    data = {m: load(m, mode) for m in MODELS}
+def render_mode(mode, sigma, modes):
+    cfg = modes[mode]
+    data = {m: load(m, mode, modes) for m in MODELS}
     data = {m: d for m, d in data.items() if d is not None}
     if not data:
         print(f"  [{mode}] no data files found, skipping")
@@ -267,12 +303,12 @@ def render_mode(mode, sigma):
     out_dir.mkdir(exist_ok=True)
     prefix = cfg["out_prefix"]
 
-    fig1 = make_per_model_figure(data, sigma, mode)
+    fig1 = make_per_model_figure(data, sigma, mode, modes)
     out1 = out_dir / f"{prefix}_per_model.html"
     fig1.write_html(str(out1))
     print(f"  [{mode}] wrote {out1}")
 
-    fig2 = make_cross_model_figure(data, mode)
+    fig2 = make_cross_model_figure(data, mode, modes)
     if fig2 is not None:
         out2 = out_dir / f"{prefix}_cross_model.html"
         fig2.write_html(str(out2))
@@ -280,7 +316,7 @@ def render_mode(mode, sigma):
     else:
         print(f"  [{mode}] skipped cross_model (need ≥2 models)")
 
-    fig3 = make_scatter_figure(data, mode, normalize=True)
+    fig3 = make_scatter_figure(data, mode, modes, normalize=True)
     out3 = out_dir / f"{prefix}_scatter.html"
     fig3.write_html(str(out3))
     print(f"  [{mode}] wrote {out3}")
@@ -289,7 +325,12 @@ def render_mode(mode, sigma):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["rep", "likert", "all"], default="all")
+    parser.add_argument("--variant", choices=list(VARIANTS.keys()), default="markers",
+                        help="Persona/rating variant (W7 markers vs W8 IPIP forms).")
     args = parser.parse_args()
+
+    print(f"Variant: {args.variant} ({VARIANTS[args.variant]['title_tag']})")
+    modes = make_modes(args.variant)
 
     sigma = compute_sampled_z_sigma()
     print(f"Σ off-diagonal mean: {np.mean(sigma[~np.eye(5, dtype=bool)]):+.3f}")
@@ -297,7 +338,7 @@ def main():
     modes_to_run = ["rep", "likert"] if args.mode == "all" else [args.mode]
     for mode in modes_to_run:
         print(f"\n--- Mode: {mode} ---")
-        render_mode(mode, sigma)
+        render_mode(mode, sigma, modes)
 
 
 if __name__ == "__main__":

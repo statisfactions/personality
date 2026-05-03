@@ -58,18 +58,25 @@ def safe(s): return s.replace("/", "_")
 def unit(v): return v / (np.linalg.norm(v) + 1e-12)
 
 
-def extract_marker_directions(model, tok, device, common_layer, neutral_layer):
+def extract_directions_from_pool(model, tok, device, common_layer, neutral_layer,
+                                  pool, label):
     """Return {trait: unit-norm direction (hidden_dim,)} via mean(high)-mean(low),
-    neutral-PC-projected. Same recipe as markers_as_stimuli.py."""
+    neutral-PC-projected. Same recipe as markers_as_stimuli.py.
+
+    `pool` is a dict {trait: {"high": [text, ...], "low": [text, ...]}}.
+    Texts are passed through chat-template; activation read at common_layer
+    (the token at position -1 after applying chat template).
+    """
     pcs, _, _ = mdx.compute_pc_projection(neutral_layer, 0.5)
 
-    print(f"  extracting {sum(len(v['high']) + len(v['low']) for v in MARKERS.values())} marker activations...")
+    n_total = sum(len(v["high"]) + len(v["low"]) for v in pool.values())
+    print(f"  extracting {n_total} {label} activations...")
     by_trait_pole = {(t, p): [] for t in TRAITS for p in ("high", "low")}
     for trait in TRAITS:
         for pole in ("high", "low"):
-            for adj in MARKERS[trait][pole]:
+            for text in pool[trait][pole]:
                 a = mdx.hidden_states_for_text(
-                    model, tok, adj, device,
+                    model, tok, text, device,
                     split_prefix=None, chat_template=True,
                 )
                 by_trait_pole[(trait, pole)].append(a[common_layer].float().numpy())
@@ -80,6 +87,37 @@ def extract_marker_directions(model, tok, device, common_layer, neutral_layer):
         low_mean = np.mean(by_trait_pole[(trait, "low")], axis=0)
         directions[trait] = unit(mdx.project_out_pcs(high_mean - low_mean, pcs))
     return directions
+
+
+def build_marker_pool():
+    """Goldberg-marker pool, matches W7 §11.5.9 direction extraction."""
+    return {t: {p: list(MARKERS[t][p]) for p in ("high", "low")} for t in TRAITS}
+
+
+def build_ipip_direction_pool():
+    """IPIP-NEO-300 pool: per trait, forward-keyed item texts as 'high',
+    reverse-keyed as 'low'. Excludes deny-listed items. Applies typo fixes."""
+    SHORT = {"A": "AGR", "C": "CON", "E": "EXT", "N": "NEU", "O": "OPE"}
+    with open("admin_sessions/prod_run_01_external_rating.json") as f:
+        ipip = json.load(f)["measures"]["IPIP300"]
+    items = ipip["items"]
+    scales = ipip["scales"]
+    with open("instruments/ipip300_annotations.json") as f:
+        ann = json.load(f)
+    deny = set(ann["deny"].keys())
+    fixes = ann["fix"]
+
+    pool = {}
+    for t in TRAITS:
+        sc = scales[f"IPIP300-{SHORT[t]}"]
+        rev = set(sc["reverse_keyed_item_ids"])
+        high_iids = [i for i in sc["item_ids"] if i not in rev and i not in deny]
+        low_iids  = [i for i in sc["item_ids"] if i in rev and i not in deny]
+        pool[t] = {
+            "high": [fixes.get(i, items[i]) for i in high_iids],
+            "low":  [fixes.get(i, items[i]) for i in low_iids],
+        }
+    return pool
 
 
 def extract_persona_projections(model, tok, device, personas, directions,
@@ -150,6 +188,11 @@ def main():
                         choices=list(PERSONA_FILES.keys()),
                         help="markers = original Goldberg-marker descriptions; "
                              "ipip_raw = IPIP-NEO-300 behavioral composition")
+    parser.add_argument("--direction-source", default="markers",
+                        choices=["markers", "ipip"],
+                        help="markers = trait directions from Goldberg adjectives "
+                             "(W7); ipip = trait directions from IPIP-NEO-300 "
+                             "behavioral items (W8 §5).")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
@@ -186,9 +229,16 @@ def main():
 
     model, tok, device = load_model(args.model)
 
-    print("\n--- Extracting Big Five marker directions ---")
-    directions = extract_marker_directions(
-        model, tok, device, common_layer, neutral_layer_t,
+    if args.direction_source == "markers":
+        print("\n--- Extracting Big Five trait directions from Goldberg markers ---")
+        pool = build_marker_pool()
+        label = "marker"
+    else:
+        print("\n--- Extracting Big Five trait directions from IPIP-NEO-300 items ---")
+        pool = build_ipip_direction_pool()
+        label = "IPIP item"
+    directions = extract_directions_from_pool(
+        model, tok, device, common_layer, neutral_layer_t, pool, label,
     )
 
     print(f"\n--- Extracting persona activations (mode={args.mode}) ---")
@@ -255,6 +305,8 @@ def main():
     suffix = "" if args.mode == "description" else f"_{args.mode}"
     if args.persona_source != "markers":
         suffix += f"_{args.persona_source}"
+    if args.direction_source != "markers":
+        suffix += f"_dir-{args.direction_source}"
     out_path = Path(f"results/persona_repr_mapping_{args.model}{suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
