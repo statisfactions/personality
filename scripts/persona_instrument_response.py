@@ -43,12 +43,14 @@ from generate_trait_personas import MARKERS, TRAITS
 
 
 PERSONA_FILES = {
-    "markers": "instruments/synthetic_personas.json",
-    "ipip_raw": "instruments/synthetic_personas_ipip.json",
+    "markers":       "instruments/synthetic_personas.json",
+    "ipip_raw":      "instruments/synthetic_personas_ipip.json",
+    "ipip_reflowed": "instruments/synthetic_personas_ipip.json",
 }
 PERSONA_TEXT_KEYS = {
-    "markers": "description",
-    "ipip_raw": "ipip_raw",
+    "markers":       "description",
+    "ipip_raw":      "ipip_raw",
+    "ipip_reflowed": "ipip_reflowed",
 }
 ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
 ANNOTATIONS = "instruments/ipip300_annotations.json"
@@ -207,9 +209,9 @@ def main():
 
     if args.model not in ALL_MODELS:
         raise ValueError(f"unknown model: {args.model}")
-    if args.rating_target == "ipip" and args.persona_source != "ipip_raw":
-        raise ValueError("--rating-target=ipip requires --persona-source=ipip_raw "
-                         "(needs persona pick provenance for exclusion).")
+    if args.rating_target == "ipip" and args.persona_source not in ("ipip_raw", "ipip_reflowed"):
+        raise ValueError("--rating-target=ipip requires --persona-source=ipip_raw or "
+                         "ipip_reflowed (needs persona pick provenance for exclusion).")
 
     persona_file = PERSONA_FILES[args.persona_source]
     text_key = PERSONA_TEXT_KEYS[args.persona_source]

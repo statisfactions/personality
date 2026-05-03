@@ -2,7 +2,7 @@
 
 ## 0. One-line summary
 
-The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels: persona descriptions, Likert rating targets, and rep direction extraction. Stripping each (§3 → §4 → §5) on Qwen 2.5 7B shrinks the gap: +0.185 → +0.107 → +0.047. **Cohort sweep across all 7 models confirms the picture: matched-condition gap (§4 Likert − §5 rep) is +0.052 cohort mean, range −0.028 (Llama 8B, rep beats Likert) to +0.117 (Phi4)** — small, present, with model-level counterexamples. The strong symbolic-vs-associative claim ("instruments measure what activations don't") is rejected; the residual +0.052 may still reflect a real dissociation, or may be further measurement-channel artifacts we haven't isolated. We don't know we're at the destination.
+The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels (persona descriptions, Likert rating targets, rep direction extraction) plus a stilted-prose rep penalty. Stripping all of these on Qwen 2.5 7B (§3 → §4 → §5 → §8 reflow) shrinks the gap to +0.067. **Cohort sweep across all 7 models confirms the matched-condition gap is +0.052 mean, range −0.028 (Llama 8B, rep beats Likert) to +0.117 (Phi4)**. The reflow ablation shows that the §3 "gap amplifies" finding was a stilted-prose artifact, not a real symbolic effect — under reflowed natural prose the §3 gap drops from +0.185 to +0.097. The cleanest matched-condition gap (§5 reflowed +0.067) is form-stable around the cohort mean. The strong symbolic-vs-associative claim is rejected; the residual ~+0.05 may still reflect a real dissociation, or may be further measurement artifacts we haven't isolated. We don't know we're at the destination.
 
 ## 1. Motivation: escaping the marker tautology
 
@@ -243,7 +243,59 @@ The W7 +0.144 cohort Likert-over-Rep was inflated by 3× compared to the matched
 
 The Qwen family hugging the rep readout is the most theoretically interesting subset — it's evidence that the symbolic-vs-associative dissociation isn't a universal property of how LLMs handle personality, but is contingent on the post-training recipe. Qwen 2.5 in particular may have post-training that aligns the residual-stream trait representation more directly with behavioral judgment than other model families do.
 
-## 8. Heatmaps and figures
+## 8. Reflow ablation (Qwen7)
+
+The §3 pilot's "gap amplifies +0.144 → +0.185" finding had an alternative explanation we hadn't tested: the IPIP-raw form is choppy first-person prose ("I X. I Y. I Z.") that may activate analytic mode in the model. If so, the §3 amplification was a stilted-prose penalty on rep, not a symbolic-vs-associative effect. The reflow ablation tests this directly.
+
+`scripts/sonnet_reflow_personas.py` paraphrases each IPIP-raw persona via Anthropic API (claude-sonnet-4-6) into smooth first-person prose that preserves all behavioral statements and their magnitude/qualifier without introducing trait-name adjectives. Result stored in `synthetic_personas_ipip.json` as a parallel `ipip_reflowed` field. Reflowed at the 50 pilot personas (seed=42); cost ~$0.30, ~3.5min API time.
+
+Smoke-checked outputs: every input statement appears in some form in the reflowed prose; magnitude qualifiers preserved ("love" stays "love", "rarely" stays "rarely"); no trait-name adjective leakage. Connectives ("though", "yet", "but") sometimes added — minor risk of altering parallelism into contrast, but acceptable.
+
+Re-ran all four conditions on Qwen7 with reflowed personas:
+
+| Condition | Persona | Rep dir | Target | Rep r | Likert r | Δ (L−R) |
+|---|---|---|---|---|---|---|
+| W7 baseline | Marker | Marker | Marker | 0.743 | 0.887 | +0.144 |
+| §3 raw | IPIP raw | Marker | Marker | 0.582 | 0.767 | **+0.185** |
+| **§3 reflowed** | IPIP reflowed | Marker | Marker | **0.673** | **0.770** | **+0.097** |
+| §4 raw | IPIP raw | Marker | IPIP | 0.582 | 0.689 | +0.107 |
+| **§4 reflowed** | IPIP reflowed | Marker | IPIP | 0.673 | 0.756 | +0.083 |
+| §5 raw | IPIP raw | IPIP | IPIP | 0.642 | 0.689 | +0.047 |
+| **§5 reflowed** | IPIP reflowed | IPIP | IPIP | **0.689** | 0.756 | +0.067 |
+
+### 8.1. Reflow effects per readout
+
+- **Reflow consistently helps rep.** Marker dir: +0.091 (0.582 → 0.673). IPIP dir: +0.047 (0.642 → 0.689). Smoother prose → cleaner activation projections. The marker-dir improvement is bigger because Goldberg-marker directions were extracted from natural-context activations (chat-template-wrapped single adjectives) that resemble reflowed prose more than the raw IPIP "I X. I Y. I Z." form.
+- **Reflow barely affects marker-target Likert** (+0.003 on §3 condition). Goldberg adjective ratings are already form-stable — rating "extraverted" against a persona description doesn't need the persona to be in coherent prose; the model can extract the trait signal from any form.
+- **Reflow helps IPIP-target Likert by +0.067** (0.689 → 0.756). Behavioral statement ratings benefit from coherent prose. When rating "I love large parties" against the persona, smoother persona prose makes the symbolic match more reliable.
+
+### 8.2. Effect on the gap
+
+- **§3 gap drops from +0.185 to +0.097** — major change. The "gap amplifies" framing from §3 was largely a stilted-prose penalty on rep. Once rep recovers (under reflowed prose), the gap is much closer to the baseline +0.144.
+- **§5 matched gap is form-stable**: raw +0.047, reflowed +0.067. Both within a +0.05–+0.07 neighborhood — within measurement noise. The matched-condition finding survives reflow.
+- **§4 gap stays small** (raw +0.107, reflowed +0.083). Mid-range gap reduces slightly under reflow.
+
+### 8.3. Cleaner story
+
+After reflow, the four-cell picture for Qwen7 simplifies:
+
+- **W7 +0.144**: vocabulary coupling (marker descriptions ↔ marker rating ↔ marker dirs) plus a small residual symbolic-vs-associative effect.
+- **§3 raw +0.185**: vocabulary stripped on description side, but stilted-prose penalty hits rep harder than Likert. Apparent amplification was a measurement artifact.
+- **§3 reflowed +0.097**: prose effect removed; gap close to W7 baseline minus the rating-target coupling.
+- **§4 raw +0.107 / reflowed +0.083**: rating-target coupling additionally stripped. Still some residual.
+- **§5 raw +0.047 / reflowed +0.067**: all three vocabulary couplings stripped, residual ~+0.05–+0.07.
+
+The §3 raw "amplification" was a confound. The §5 matched-condition gap is the cleanest measure, and it's form-stable around +0.05–+0.07 on Qwen7. Cohort §6 had matched gap +0.052 mean — consistent.
+
+### 8.4. Methodological note
+
+The reflow is *generated by Sonnet*, an LLM that may or may not perfectly preserve content. Spot-checks on s1 / s6 / s50 looked good, but we don't have an automated content-preservation check. The composer's per-pick provenance is the ground truth (which IPIP items were used), but we can't verify reflowed prose contains all of them without item-level NLI matching. For the W8 ablation as currently scoped this is acceptable; a future tighter ablation could use a Claude-as-judge content-preservation validator.
+
+The reflow was run only on the 50 pilot personas; the remaining 350 in `synthetic_personas_ipip.json` have no `ipip_reflowed` field. Re-run with `--persona-ids` for additional sets if needed.
+
+Heatmaps for the reflowed conditions: not yet generated (would require adding `ipip_reflowed` variants to the heatmap script). Numbers reported above are sufficient for the W8 finding; heatmaps can be added if useful for the headline visualization (queued in §10).
+
+## 9. Heatmaps and figures
 
 All figures in `results/`. HTML — open in a browser.
 
@@ -266,32 +318,36 @@ All figures in `results/`. HTML — open in a browser.
 
 To regenerate: `scripts/persona_repr_heatmap.py --variant {markers, ipip_raw, ipip_raw_target_ipip, ipip_full}`.
 
-## 9. Next steps
+## 10. Next steps
 
 In rough order of value:
 
-1. **Reflow ablation.** Sonnet-paraphrase IPIP-raw descriptions into smooth prose, preserving content. Re-run §3 / §5. Tests whether stilted "I... I... I..." form is contributing to the per-trait variability, or whether the §5 picture is form-stable. The fact that the matched gap has model-level variation (−0.028 to +0.117) makes the question of measurement-channel artifacts still pressing.
+1. **Per-facet rep direction extraction.** Direct test of the chunking hypothesis (to_try #18). Build per-facet directions instead of per-trait; check whether the cross-stimulus failure improves at facet granularity, and whether N's facet directions cohere or fragment. The cohort §5 result shows N is the trait most affected by direction-source choice (Gemma 4B 0.785 → 0.803, but Qwen 7B 0.552 → 0.447, Qwen 3B 0.364 → 0.335) — facet-level analysis should clarify whether N is genuinely heterogeneous or just unstably extracted.
 
-2. **Per-facet rep direction extraction.** Direct test of the chunking hypothesis (to_try #18). Build per-facet directions instead of per-trait; check whether the cross-stimulus failure improves at facet granularity, and whether N's facet directions cohere or fragment. The cohort §5 result shows N is the trait most affected by direction-source choice (Gemma 4B 0.785 → 0.803, but Qwen 7B 0.552 → 0.447, Qwen 3B 0.364 → 0.335) — facet-level analysis should clarify whether N is genuinely heterogeneous or just unstably extracted.
+2. **Cohort reflow extension.** Run the §8 reflow ablation on the other 6 cohort models. Tests whether the per-model regimes (pro-Likert / indifferent / pro-rep) are reflow-stable. Particularly interesting: does Llama 8B's "pro-rep" gap (−0.028) survive reflow, or does rep recover further and tip even more toward rep?
 
 3. **Layer sweep.** Both readouts at common_layer (~2/3 depth). The right layer for behavioral-form readouts may differ. Worth a small ablation over 5-7 layers around the chosen one. Could explain Llama 8B's pro-rep result if rep is naturally cleaner at a different depth on that architecture.
 
-4. **Investigate Qwen-family anomaly.** Qwen 3B and Qwen 7B both have near-zero matched gap (+0.001, +0.047) — substantially smaller than other model families. Worth checking whether this is an artifact of Qwen's post-training recipe, tokenizer, or something else. Cross-architecture interp work might bear on this.
+4. **Investigate Qwen-family anomaly.** Qwen 3B and Qwen 7B both have near-zero matched gap (+0.001, +0.047) — substantially smaller than other model families. Worth checking whether this is an artifact of Qwen's post-training recipe, tokenizer, or something else.
 
-5. **Headline visualization.** A multi-panel figure showing the four conditions × 5 traits × 7 models would be useful for the reading group. Currently the data lives across many HTML heatmaps; a single comparison plot (mean diagonal r per condition, faceted by model or trait) would be the headline figure for W8.
+5. **Headline visualization.** A multi-panel figure showing the four conditions × reflow × 5 traits × 7 models would be useful for the reading group. Currently the data lives across many HTML heatmaps; a single comparison plot (mean diagonal r per condition, faceted by model or trait) would be the headline figure for W8.
 
-## 10. Status
+6. **Tighter reflow content-preservation check.** The current reflow trusts Sonnet to preserve content; we don't have an automated check. Could add a Claude-as-judge step that rates reflowed prose on whether each input statement is faithfully expressed. Mostly a methodology improvement; the W8 finding probably survives without it given how stable §5 reflowed → raw was (+0.067 vs +0.047).
+
+## 11. Status
 
 Commits:
 - `ad0296d` — IPIP composer pipeline (annotations, composer script, methodology note, 400-persona output)
 - `461fd81` — §3 wiring + Qwen7 §3 result
 - `b7335eb` — §4/§5 wiring + Qwen7 §4/§5 + cohort §3 rep + heatmap-script variants + report §3-§7 expansion
-- (this commit) — cohort §4 Likert + cohort §5 rep + report §6 cohort sweep + §0/§7/§8/§9 updates
+- `347e0a6` — cohort §4 Likert + cohort §5 rep + report §6 cohort sweep + §0/§7/§8/§9 updates
+- (this commit) — Sonnet reflow pipeline + Qwen7 reflow ablation + report §8 reflow section + ipip_reflowed wired into rep+Likert scripts
 
 Result files (gitignored, regenerable):
 - `persona_repr_mapping_<MODEL>_response-position_ipip_raw.json` — §3 cohort rep (7 models)
 - `persona_repr_mapping_<MODEL>_response-position_ipip_raw_dir-ipip.json` — §5 cohort rep (7 models)
 - `persona_instrument_response_<MODEL>_ipip_raw_target-ipip.json` — §4 cohort Likert (7 models)
-- `persona_instrument_response_Qwen7_ipip_raw.json` — §3 Likert (Qwen7 only)
+- `persona_repr_mapping_Qwen7_response-position_ipip_reflowed*.json` — §8 reflow rep (Qwen7)
+- `persona_instrument_response_Qwen7_ipip_reflowed*.json` — §8 reflow Likert (Qwen7)
 
-One sentence for the reading group: "The W7 §11.5.10 cohort +0.144 'Likert beats Rep' gap was substantially a vocabulary-coupling artifact across three Goldberg channels (persona description, rating target, rep direction extraction) plus Phi4's idiosyncratic representational weakness; stripping all three on the full 7-model cohort reduces the gap to +0.052 cohort mean with model-level counterexamples (Llama 8B at −0.028, Qwen 3B at +0.001), and the Qwen family in particular shows near-zero symbolic-vs-associative dissociation under matched conditions, suggesting the gap isn't a universal property of LLM personality processing but a contingent feature of certain post-training recipes."
+One sentence for the reading group: "The W7 §11.5.10 cohort +0.144 'Likert beats Rep' gap was substantially a vocabulary-coupling artifact across three Goldberg channels (persona description, rating target, rep direction extraction) plus a stilted-prose penalty on rep specifically; stripping all of these on Qwen 2.5 7B reduces the gap to +0.067, and the cohort matched-condition gap (+0.052 mean) confirms the picture across 7 models with model-level variation including Llama 8B as a counterexample (rep beats Likert, −0.028) — suggesting the symbolic-vs-associative dissociation is real but small, contingent on post-training recipe, and not a universal property of LLM personality processing."

@@ -39,12 +39,14 @@ from generate_trait_personas import MARKERS, TRAITS
 
 
 PERSONA_FILES = {
-    "markers": "instruments/synthetic_personas.json",
-    "ipip_raw": "instruments/synthetic_personas_ipip.json",
+    "markers":       "instruments/synthetic_personas.json",
+    "ipip_raw":      "instruments/synthetic_personas_ipip.json",
+    "ipip_reflowed": "instruments/synthetic_personas_ipip.json",
 }
 PERSONA_TEXT_KEYS = {
-    "markers": "description",
-    "ipip_raw": "ipip_raw",
+    "markers":       "description",
+    "ipip_raw":      "ipip_raw",
+    "ipip_reflowed": "ipip_reflowed",
 }
 CACHE_DIR = Path("results/phase_b_cache")
 DEFAULT_MODEL = "Qwen7"

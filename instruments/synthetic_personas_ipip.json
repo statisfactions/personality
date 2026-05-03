@@ -4,7 +4,12 @@
     "composer": "scripts/persona_ipip_compose.py",
     "seed": 42,
     "n_personas": 400,
-    "fallback_events": 0
+    "fallback_events": 0,
+    "reflow": {
+      "model": "claude-sonnet-4-6",
+      "prompt_version": "v1",
+      "n_reflowed": 50
+    }
   },
   "personas": [
     {
@@ -5755,7 +5760,8 @@
           "iid": "ipip178",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I feel comfortable with myself, though I dislike talking about myself, and I spend time reflecting on things and trying to understand who I am. I see beauty in things that others might not notice, look at the bright side of life, and don't worry about things that have already happened. I feel sympathy for those who are worse off than myself, anticipate the needs of others, involve others in what I am doing, and believe that others have good intentions, though I avoid contacts with others. I am not easily annoyed, not embarrassed easily, and remain calm under pressure. I stick to the rules, work hard, complete tasks successfully, like to tidy up, and can manage many things at the same time, though I postpone decisions and sometimes get others to do my duties. I like to act on a whim and like to begin new things, though I would never go hang gliding or bungee jumping, never splurge, and have difficulty understanding abstract ideas. I am easy to satisfy, can talk others into doing things, and believe that too much tax money goes to support artists."
     },
     {
       "persona_id": "s26",
@@ -6215,7 +6221,8 @@
           "iid": "ipip228",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I love large parties and act comfortably with others, though I dislike being the center of attention and make people feel uncomfortable at times \u2014 I have a sharp tongue, distrust people, and try not to think about the needy. I often get stressed out easily and am often down in the dumps, yet I rarely get irritated and am comfortable in unfamiliar situations. I do things according to a plan, stick to the rules, avoid mistakes, and am a creature of habit, though I have difficulty starting tasks, can't make up my mind, and misjudge situations. I have a rich vocabulary, like to get lost in thought, try to understand myself, listen to my conscience, and enjoy the beauty of nature, while also enjoying being reckless and loving to eat. I do a lot in my spare time, take charge, laugh aloud, and am not highly motivated to succeed; I believe too much tax money goes to support artists."
     },
     {
       "persona_id": "s28",
@@ -7135,7 +7142,8 @@
           "iid": "ipip143",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I am often down in the dumps, get upset easily, worry about things, and experience my emotions intensely \u2014 and I am frequently afraid I will do the wrong thing. I feel comfortable around people and enjoy being part of a group, though I dislike talking about myself, contradict others, and take no time for others. In my work life, I put little time and effort into what I do, postpone decisions, can't make up my mind, get others to do my duties, and let things proceed at their own pace, even though I do things according to a plan when I choose to and take control of things. I like to get lost in thought, enjoy thinking about things, come up with good solutions, and choose my words with care. I like to visit new places, enjoy the beauty of nature, love to eat, and dislike loud music, though I am not easily amused. I stick to the rules, value cooperation over competition, believe in human goodness, and believe there is no absolute right or wrong."
     },
     {
       "persona_id": "s32",
@@ -7365,7 +7373,8 @@
           "iid": "ipip213",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I can't stand weak people, and I believe people are essentially evil \u2014 I don't understand people who get emotional, I take no time for others, and I find it difficult to approach others since I'm hard to get to know and have little to say. I make myself the center of attention, yell at people, obstruct others' plans, and get others to do my duties, though I do involve others in what I'm doing and do more than what's expected of me. I get stressed out easily, get upset easily, and am often down in the dumps, and I often eat too much. I react quickly, yet I can't make up my mind, misjudge situations, and find it difficult to get down to work, often forgetting to put things back in their proper place. I am a creature of habit, seldom joke around, avoid difficult reading material, do not like art, do not have a good imagination, and would never go hang gliding or bungee jumping; I believe laws should be strictly enforced."
     },
     {
       "persona_id": "s33",
@@ -7825,7 +7834,8 @@
           "iid": "ipip208",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I choose my words with care, dislike talking about myself, and tend to avoid contact with others, though I do involve others in what I'm doing and anticipate their needs when it matters. I get to work at once, manage many things at the same time, pay my bills on time, like to tidy up, work hard, and complete tasks successfully. I remain calm under pressure, don't worry about things that have already happened, and am not easily annoyed or embarrassed. I never splurge, am easy to satisfy, believe people should fend for themselves, and feel that laws should be strictly enforced \u2014 though I also know how to get around the rules. I spend time reflecting on things and try to understand myself, I look at the bright side of life, believe others have good intentions, and notice beauty in things others might not; I dislike new foods, would never go hang gliding or bungee jumping, and have no interest in theoretical discussions."
     },
     {
       "persona_id": "s35",
@@ -8285,7 +8295,8 @@
           "iid": "ipip248",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I distrust people, avoid contacts with others, and tend to avoid crowds \u2014 I don't like to draw attention to myself and dislike being the center of attention, though I'm not bothered by difficult social situations and am not easily annoyed or bothered by things. I experience very few emotional highs and lows, yet I'm often down in the dumps, and I do things I later regret partly because I don't see the consequences of things. In my work life, I carry out my plans, do things according to a plan, avoid mistakes, and stick to the rules \u2014 I believe laws should be strictly enforced and I listen to my conscience, though I'm not highly motivated to succeed. I have a sharp tongue but also have a good word for everyone and amuse my friends. I dislike loud music, concerts, and new foods, am not interested in theoretical discussions, have no good imagination, try not to think about the needy, and am always on the go \u2014 and I readily overcome setbacks."
     },
     {
       "persona_id": "s37",
@@ -11045,7 +11056,8 @@
           "iid": "ipip128",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I make myself the center of attention at parties, talking to a lot of different people and cheering them up, though I'm also afraid to draw attention to myself at times. I like to begin new things, I'm willing to try anything once, and I enjoy wild flights of fantasy, including examining myself and my life \u2014 I have a rich vocabulary and believe there is no absolute right or wrong. I get angry easily, I often feel blue, I suspect hidden motives in others, I contradict others, I misjudge situations, and I often eat too much. I am always busy, I carry out my plans, I do more than what's expected of me, I avoid mistakes, and I like order. I feel sympathy for those who are worse off than myself, I make people feel welcome, and I laugh my way through life. I know how to get around the rules, I get others to do my duties, and I am calm even in tense situations \u2014 I am not easily bothered by things. I enjoy the beauty of nature and I try to lead others."
     },
     {
       "persona_id": "s49",
@@ -14955,7 +14967,8 @@
           "iid": "ipip258",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I don't know why I do some of the things I do \u2014 I jump into things without thinking, react quickly, and don't see the consequences of things, which might be part of why I postpone decisions and can't make up my mind, often getting others to do my duties and doing just enough work to get by. I stick to the rules, though I believe there is no absolute right or wrong, and I don't worry about things that have already happened because I think that all will be well. I seldom feel blue, I'm not easily annoyed, and I'm comfortable in unfamiliar situations, though I dislike new foods and would never go hang gliding or bungee jumping. I'm not interested in abstract ideas, do not have a good imagination, and am not really interested in others \u2014 I take no time for others and try not to think about the needy. I enjoy being part of a group, like music, and enjoy examining myself and my life, though I seldom joke around, don't like to draw attention to myself, and am not bothered by messy people; I also know the answers to many questions, and I yell at people."
     },
     {
       "persona_id": "s66",
@@ -15875,7 +15888,8 @@
           "iid": "ipip13",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I work hard, carry out my plans, keep my promises, avoid mistakes, and would never cheat on my taxes \u2014 getting things done and following through matter deeply to me. I like order and am able to control my cravings, and even in tense situations I stay calm, rarely get irritated, and am not easily bothered by things. I experience my emotions intensely, suffer from others' sorrows, and see beauty in things that others might not notice, spending a lot of time reflecting on things. I believe people are basically moral and have a good word for everyone, though I hate to seem pushy, dislike being the center of attention, and am hard to get to know. At parties I talk to a lot of different people and enjoy being part of a loud crowd, feeling comfortable with myself and not bothered by difficult social situations. I like to visit new places, can handle a lot of information, take charge when needed, and believe there is no absolute right or wrong. I react quickly and seldom joke around."
     },
     {
       "persona_id": "s70",
@@ -16795,7 +16809,8 @@
           "iid": "ipip283",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I distrust people and only feel comfortable with friends, though I make friends easily \u2014 even if I make people feel uncomfortable and have little to say, especially when it comes to talking about myself. I avoid crowds, yet I enjoy being part of a loud crowd, and I am a creature of habit who rarely overindulges and seldom feels blue. I carry out my plans, complete tasks successfully, and keep my promises, though I put little time and effort into my work and know how to get around the rules. I want everything to be \"just right,\" react quickly, and do crazy things; I get irritated easily, hold a grudge, and don't understand people who get emotional. I am not easily amused or easily bothered by things, I readily overcome setbacks, like to get lost in thought, am not interested in theoretical discussions, value cooperation over competition, believe laws should be strictly enforced, and like music."
     },
     {
       "persona_id": "s74",
@@ -20015,7 +20030,8 @@
           "iid": "ipip293",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I talk to a lot of different people at parties, make myself the center of attention, and enjoy being part of a loud crowd, though I hate to seem pushy and tend to wait for others to lead the way. I'm interested in many things, spend time reflecting on things, and am passionate about causes, yet I avoid difficult reading material and do not enjoy watching dance performances. I distrust people and am hard to get to know, though I have a good word for everyone and feel sympathy for those who are worse off than myself. I like order, am always prepared, keep my promises, stick to my chosen path, set high standards for myself and others, and excel in what I do. I react quickly, am not easily annoyed, am not easily disturbed by events, am not embarrassed easily, rarely overindulge, and seldom joke around, though I am often down in the dumps, can't make up my mind, know how to get around the rules, and believe that there is no absolute right or wrong."
     },
     {
       "persona_id": "s88",
@@ -24845,7 +24861,8 @@
           "iid": "ipip188",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I work hard and excel in what I do \u2014 I avoid mistakes, take control of things, and can handle complex problems \u2014 though I also find it difficult to get down to work, like to take it easy, and sometimes get others to do my duties. I make myself the center of attention, enjoy being part of a loud crowd, and make friends easily, yet I also find it difficult to approach others, take no time for others, avoid crowds, and tend to put people under pressure. I believe that people are essentially evil, hold a grudge, tend to dislike soft-hearted people, and believe too much tax money goes to support artists. I lose my temper, do things I later regret, and am often down in the dumps, though I don't worry about things that have already happened. I want everything to be just right, like to begin new things, and try to understand myself, but I have a vivid imagination while remaining uninterested in abstract ideas, do not like poetry, and am not easily amused."
     },
     {
       "persona_id": "s109",
@@ -31745,7 +31762,8 @@
           "iid": "ipip233",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I demand quality in what I do, start tasks right away, and complete them successfully \u2014 rarely complaining along the way. I stick to the rules, tell the truth, and believe laws should be strictly enforced; I have a sharp tongue and tend to dislike soft-hearted people, though I take no time for others and seldom toot my own horn. I keep in the background, am wary of others, and make friends easily despite that wariness, enjoying being part of a group or a loud crowd even though I do not like concerts. I seldom feel blue, am not embarrassed easily, readily overcome setbacks, and don't worry about things that have already happened. I like to act on a whim, react quickly, am able to control my cravings, and spend time reflecting on things, though I have difficulty understanding abstract ideas and try to understand myself. I dislike changes and am not bothered by messy people, and I seldom joke around."
     },
     {
       "persona_id": "s139",
@@ -32205,7 +32223,8 @@
           "iid": "ipip78",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I get upset easily, though I'm also not easily bothered by things depending on the situation, and I look at the bright side of life while spending time reflecting on things and trying to understand myself. I enjoy thinking about things and I'm interested in many things, including a belief in the importance of art and a sense that there is no absolute right or wrong. In my interactions with others, I value cooperation over competition, involve others in what I am doing, and act comfortably with others, though I dislike being the center of attention, contradict others, suspect hidden motives in them, and take no time for others. I want everything to be \"just right,\" pay my bills on time, get chores done right away, and stick to the rules, yet I rush into things, can't make up my mind, and misjudge situations. I am always on the go, turn plans into actions, seek to influence others, enjoy being part of a loud crowd, often eat too much, and am very pleased with myself, even as I am afraid that I will do the wrong thing."
     },
     {
       "persona_id": "s141",
@@ -34965,7 +34984,8 @@
           "iid": "ipip168",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I think highly of myself and tend to take control of things, though I also get others to do my duties, need a push to get started, act without thinking, and can't make up my mind. I feel comfortable around people, yet I prefer to be alone, pretend to be concerned for others, try not to think about the needy, distrust people, and make people feel uncomfortable. I love a good fight, lose my temper, misjudge situations, and am afraid I will do the wrong thing. I seldom feel blue, experience very few emotional highs and lows, look at the bright side of life, and let things proceed at their own pace. I enjoy thinking about things and spend time reflecting on things, believe in the importance of art, believe laws should be strictly enforced, dislike changes, yet adapt easily to new situations. I would never go hang gliding or bungee jumping, leave my belongings around, am not highly motivated to succeed, and love to eat."
     },
     {
       "persona_id": "s153",
@@ -35425,7 +35445,8 @@
           "iid": "ipip83",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I believe there's no absolute right or wrong, I tell the truth, stick to the rules, and do more than what's expected of me \u2014 starting tasks right away, handling them smoothly, and sticking to my chosen path even while liking to take my time with new things I'm eager to begin. I love order and regularity, never spend more than I can afford, and don't worry about things that have already happened. I feel comfortable around people and enjoy being part of a loud crowd, yet I also prefer to be alone at times; I seldom toot my own horn, seldom joke around, and while I have a good word for everyone and feel sympathy for those worse off than me, I do have a sharp tongue and remain wary of others. I see beauty in things others might not notice, have a vivid imagination and a rich vocabulary, enjoy examining myself and my life, feel comfortable with myself, am not easily annoyed, can stand up for myself, can talk others into doing things, and can handle complex problems."
     },
     {
       "persona_id": "s155",
@@ -35885,7 +35906,8 @@
           "iid": "ipip233",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I demand quality in what I do and start tasks right away, sticking to the rules while believing there is no absolute right or wrong. I try to lead others and sometimes get others to do my duties, though I make friends easily, enjoy being part of a group, and laugh aloud \u2014 I even enjoy being part of a loud crowd, though I do not like concerts and dislike changes. I spend time reflecting on things and try to understand myself, yet I can't make up my mind, react quickly, lose my temper, have a sharp tongue, and do things I later regret. I misjudge situations, am easily intimidated, am wary of others, like to act on a whim, and have difficulty understanding abstract ideas. I am not bothered by messy people, take no time for others, tend to dislike soft-hearted people, seldom toot my own horn, seldom feel blue, and don't worry about things that have already happened."
     },
     {
       "persona_id": "s157",
@@ -38415,7 +38437,8 @@
           "iid": "ipip203",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I keep my promises, stick to my chosen path, and turn plans into actions, though I find it difficult to get down to work and can't make up my mind at times. I value cooperation over competition, hate to seem pushy, hold back my opinions, and take no time for others \u2014 I prefer to be alone, and while I often feel uncomfortable around others, difficult social situations don't bother me. I seldom joke around, seldom get lost in thought, and avoid philosophical discussions; I dislike new foods, do not enjoy going to art museums, and would never go hang gliding or bungee jumping. I get angry easily and often feel blue, yet I seldom get emotional and am relaxed most of the time. I am not bothered by disorder, let things proceed at their own pace, think highly of myself, believe people are basically moral, and believe laws should be strictly enforced \u2014 and I stick to the rules. I often eat too much, and I come up with good solutions."
     },
     {
       "persona_id": "s168",
@@ -38875,7 +38898,8 @@
           "iid": "ipip283",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I think highly of myself, and I seldom feel blue or worry about things that have already happened. I enjoy being part of a group and I cheer people up, though I also yell at people, make them feel uncomfortable, and use flattery to get ahead. I get others to do my duties, do just enough work to get by, leave my belongings around, and like a leisurely lifestyle. I postpone decisions, often make last-minute plans, can't make up my mind, and I don't know why I do some of the things I do. I prefer to stick with things I know, avoid philosophical discussions, do not like art, would never go hang gliding or bungee jumping, and do not have a good imagination. I distrust people, hold back my opinions, am easily intimidated, misjudge situations, and don't understand people who get emotional. I seldom joke around, try not to think about the needy, and believe laws should be strictly enforced."
     },
     {
       "persona_id": "s170",
@@ -39565,7 +39589,8 @@
           "iid": "ipip293",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I often feel blue and get stressed out easily, though I keep my cool and know how to cope \u2014 I rarely notice my emotional reactions as they happen. I enjoy being part of a loud crowd but don't like crowded events, and I'm hard to get to know; I'm wary of others, I make people feel uncomfortable, and I have a sharp tongue, though I choose my words with care. I stick to the rules, want everything to be \"just right,\" never spend more than I can afford, and am attached to conventional ways, yet I believe there is no absolute right or wrong. I do more than what's expected of me, start tasks right away, come up with good solutions, can talk others into doing things, and am able to stand up for myself \u2014 I also boast about my virtues and tell the truth. I see beauty in things others might not notice and have a vivid imagination, though I avoid difficult reading material, prefer a leisurely lifestyle, am not easily amused, and feel sympathy for those who are worse off than myself."
     },
     {
       "persona_id": "s173",
@@ -40715,7 +40740,8 @@
           "iid": "ipip233",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I value cooperation over competition, believe in human goodness, and hold that there is no absolute right or wrong, though I don't like the idea of change and stick to my chosen path once I've chosen it. I am always prepared, like order, work hard, and try to follow the rules \u2014 while also knowing how to get around them when needed. At parties I talk to a lot of different people and enjoy being part of a loud crowd, yet I avoid contacts with others in everyday life, take no time for others, and am afraid to draw attention to myself. I am often down in the dumps, get stressed out easily, and get angry easily, though I am not easily affected by my emotions in other respects. I can't make up my mind, react slowly, seldom get lost in thought, have difficulty understanding abstract ideas, don't know why I do some of the things I do, have little to say, and seldom joke around, though I do like music, know the answers to many questions, am sure of my ground, and am easy to satisfy."
     },
     {
       "persona_id": "s178",
@@ -42785,7 +42811,8 @@
           "iid": "ipip278",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I prefer to be alone and keep others at a distance, though I make myself the center of attention and pretend to be concerned for others while actually looking down on them and believing people are essentially evil. I contradict others, get angry easily, break rules, and believe in an eye for an eye, since I see no absolute right or wrong. I have little to say, seldom joke around, dislike loud music, and do not enjoy watching dance performances. I don't like the idea of change and prefer a leisurely lifestyle \u2014 I love to eat, find it difficult to get down to work, and am not highly motivated to succeed. I avoid difficult reading material, don't understand things, can't make up my mind, and rarely notice my emotional reactions, though I do spend time reflecting on things and worry about things. I am often down in the dumps, am afraid I will do the wrong thing, and occasionally do crazy things."
     },
     {
       "persona_id": "s187",
@@ -43475,7 +43502,8 @@
           "iid": "ipip223",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I carry out my plans and take control of things, managing many things at the same time and handling a lot of information, though I put little time and effort into my work and often forget to put things back in their proper place. I worry about things and get angry easily, yet I seldom feel blue and am calm even in tense situations, rarely noticing my emotional reactions and seldom getting lost in thought. I dislike talking about myself, choose my words with care, seldom joke around, and am hard to get to know, though difficult social situations don't bother me even as I make people feel uncomfortable and put them under pressure. I break rules yet believe laws should be strictly enforced and that people are basically moral, and I sympathize with the homeless. I like to visit new places but would never go hang gliding or bungee jumping, seek quiet, am easy to satisfy, can control my cravings, and do not like art."
     },
     {
       "persona_id": "s190",
@@ -43935,7 +43963,8 @@
           "iid": "ipip273",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I take charge, carry out my plans, and handle tasks smoothly, avoiding mistakes while demanding quality and sticking to the rules. I love order and regularity, keep my promises, and can manage many things at the same time, though I never splurge and rarely complain or toot my own horn. I value cooperation over competition, involve others in what I am doing, make friends easily, enjoy being part of a loud crowd, and feel others' emotions \u2014 yet I can't stand confrontations. I am calm even in tense situations, seldom feel blue, don't worry about things that have already happened, and look at the bright side of life. I suspect hidden motives in others and look down on others, though I believe that there is no absolute right or wrong. I like to begin new things and believe in the importance of art, while I avoid philosophical discussions and have difficulty imagining things, and I am not embarrassed easily."
     },
     {
       "persona_id": "s192",
@@ -47615,7 +47644,8 @@
           "iid": "ipip188",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I find it difficult to get down to work and am not highly motivated to succeed, though when I do take on something I excel at it, take control of things, and avoid mistakes. I make myself the center of attention, make friends easily, and use flattery to get ahead, yet I also find it difficult to approach others, avoid crowds, can't stand confrontations, and sometimes make people feel uncomfortable. I get stressed out easily, lose my temper, am often down in the dumps, do things I later regret, can't make up my mind, and get others to do my duties. I like to begin new things and like to take it easy, leave my belongings around, and try to understand myself. I believe people are basically moral and sympathize with the homeless, though I believe too much tax money goes to support artists, dislike loud music, do not like poetry, am not easily amused, do not have a good imagination, and am not interested in abstract ideas."
     },
     {
       "persona_id": "s208",
@@ -48995,7 +49025,8 @@
           "iid": "ipip178",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I sympathize with the homeless and trust what people say, though I keep others at a distance, hold back my opinions, and hate to seem pushy \u2014 I rarely get irritated, am not easily disturbed by events, and don't understand people who get emotional. I enjoy being part of a loud crowd and talk to a lot of different people at parties, yet I dislike being the center of attention and seldom joke around. I am always busy: I get chores done right away, turn plans into actions, complete tasks successfully, stick to the rules, and am not bothered by disorder, though I do often make last-minute plans and get others to do my duties. I avoid difficult reading material, do not like poetry, seldom daydream, and dislike new foods. I often feel blue, am afraid I will do the wrong thing, often eat too much, believe too much tax money goes to support artists, and make people feel welcome."
     },
     {
       "persona_id": "s214",
@@ -53365,7 +53396,8 @@
           "iid": "ipip203",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I get upset easily and often feel blue, though I don't worry about things that have already happened and readily overcome setbacks, experiencing very few emotional highs and lows overall. I am hard to get to know, make people feel uncomfortable, and am afraid to draw attention to myself, yet I try to lead others, involve others in what I am doing, and amuse my friends. I plunge into tasks with all my heart, get chores done right away, like order, avoid mistakes, and never spend more than I can afford. I am sure of my ground, know the answers to many questions, tell the truth, believe laws should be strictly enforced, believe people should fend for themselves, and believe that people are essentially evil. I prefer variety to routine, enjoy the beauty of nature, and enjoy being part of a loud crowd, though I react slowly, have difficulty imagining things, avoid philosophical discussions, obstruct others' plans, and hold a grudge."
     },
     {
       "persona_id": "s233",
@@ -55895,7 +55927,8 @@
           "iid": "ipip188",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I work hard and excel in what I do, though I find it difficult to get down to work and like to take my time once I start. I make myself the center of attention and take control of things, involving others in what I am doing and making friends easily, yet I am also afraid to draw attention to myself and can't stand confrontations. I become overwhelmed by events, feel desperate, fear for the worst, lose my temper, do things I later regret, and seldom joke around. I use flattery to get ahead and get others to do my duties, and I leave my belongings around. I avoid mistakes and try to understand myself, and I like to begin new things, though I do not have a good imagination and am not interested in abstract ideas. I do not like poetry, believe that too much tax money goes to support artists, tend to dislike soft-hearted people, believe that people are basically moral, and I make people feel uncomfortable."
     },
     {
       "persona_id": "s244",
@@ -56815,7 +56848,8 @@
           "iid": "ipip123",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I think highly of myself, keep my cool, and complete tasks successfully \u2014 though I'm not highly motivated to succeed and like to take my time. I prefer variety to routine, am not bothered by disorder, and both stick to and break rules depending on the situation. I have a rich vocabulary and choose my words with care; I believe in the importance of art, indulge in my fantasies, and am passionate about causes, holding no belief in absolute right or wrong. I sympathize with the homeless and believe in human goodness, yet I take no time for others, often feel uncomfortable around others, and am afraid to draw attention to myself \u2014 though I enjoy being part of a group and even a loud crowd, and I have a lot of fun. I often feel blue, can't make up my mind, do things I later regret, am always prepared, am easy to satisfy, and don't worry about things that have already happened."
     },
     {
       "persona_id": "s248",
@@ -57505,7 +57539,8 @@
           "iid": "ipip183",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I do things according to a plan, get chores done right away, go straight for the goal, and take control of things, though I also jump into things without thinking sometimes and misjudge situations. At parties I talk to a lot of different people, amuse my friends, and yet I'm hard to get to know, and I'm afraid to draw attention to myself. I have a low opinion of myself, consider myself an average person, am often in a bad mood, get overwhelmed by emotions, and am afraid of many things. I feel sympathy for those who are worse off than myself, anticipate the needs of others, tell the truth, and believe that people are basically moral, while also believing there is no absolute right or wrong. I hold a grudge, know how to get around the rules, dislike changes, avoid philosophical discussions, seldom daydream, react slowly, would never go hang gliding or bungee jumping, love to eat, enjoy the beauty of nature, and try to understand myself."
     },
     {
       "persona_id": "s251",
@@ -60265,7 +60300,8 @@
           "iid": "ipip83",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I start tasks right away, do more than what's expected of me, and once I've chosen a path I stick to it \u2014 I love order and regularity, handle tasks smoothly, and never spend more than I can afford. At parties I enjoy being part of a loud crowd and talk to a lot of different people, and I feel comfortable around people generally, though I remain wary of them. I amuse my friends, can talk others into doing things, am able to stand up for myself, and I'll admit I boast about my virtues and have a sharp tongue that can make people feel uncomfortable. I see beauty in things others might not notice, have a vivid imagination and a rich vocabulary, and I enjoy examining myself and my life. I feel sympathy for those who are worse off than myself, tell the truth, stick to the rules, and believe there is no absolute right or wrong. I'm not easily annoyed, don't worry about things that have already happened, feel comfortable with myself, can handle complex problems, like to begin new things, and am always on the go."
     },
     {
       "persona_id": "s263",
@@ -61645,7 +61681,8 @@
           "iid": "ipip283",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I think highly of myself, and I seldom feel blue or worry about things that have already happened. I enjoy being part of a group and I cheer people up, anticipate the needs of others, and feel sympathy for those who are worse off than myself, though I also distrust people, yell at them sometimes, use flattery to get ahead, and get others to do my duties. I get upset easily, am easily intimidated, can't make up my mind, postpone decisions, and often make last-minute plans. I do just enough work to get by and like a leisurely lifestyle, leaving my belongings around and holding back my opinions. I avoid philosophical discussions, do not like art, have no good imagination, don't understand people who get emotional, prefer to stick with things I know, would never go hang gliding or bungee jumping, seldom joke around, misjudge situations, and don't know why I do some of the things I do. I believe laws should be strictly enforced."
     },
     {
       "persona_id": "s269",
@@ -62335,7 +62372,8 @@
           "iid": "ipip293",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I feel comfortable with myself and enjoy examining myself and my life, though I can't always make up my mind and tend to postpone decisions, preferring to take my time and wait for others to lead the way. I stick to the rules, adhere to conventional ways, and stick to my chosen path, yet I believe there is no absolute right or wrong. I avoid contacts with others, seek quiet, dislike loud music, and hate to seem pushy, so I seldom toot my own horn and often get others to do my duties, putting little time and effort into my work \u2014 even though I excel in what I do. I see beauty in things others might not notice and have a vivid imagination, but I avoid difficult reading material and am not easily amused. I trust others, have a good word for everyone, feel sympathy for those worse off than myself, am able to stand up for myself, never spend more than I can afford, want everything to be just right, get stressed out easily, and am not easily annoyed."
     },
     {
       "persona_id": "s272",
@@ -62795,7 +62833,8 @@
           "iid": "ipip233",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I demand quality in what I do, start tasks right away, stick to the rules, and complete tasks successfully, though I can't make up my mind at times and occasionally do things I later regret. I keep in the background, am hard to get to know, seldom joke around, seldom toot my own horn, and hate to seem pushy, yet I enjoy being part of a loud crowd and enjoy being part of a group. I tell the truth, believe that others have good intentions, love to help others, and sympathize with the homeless, while also believing there is no absolute right or wrong. I spend time reflecting on things and try to understand myself, though I react slowly, am easily intimidated, have difficulty understanding abstract ideas, and dislike changes. I seldom feel blue, don't worry about things that have already happened, am not bothered by messy people, do not like concerts, and like to act on a whim, and I lose my temper at times."
     },
     {
       "persona_id": "s274",
@@ -63485,7 +63524,8 @@
           "iid": "ipip223",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I value cooperation over competition and believe in human goodness, holding that there is no absolute right or wrong. I have little to say, avoid contact with others, take no time for them, and am afraid to draw attention to myself \u2014 I don't like crowded events or loud music, though I do like music generally. I am always prepared, like order, never spend more than I can afford, and can handle complex problems, knowing the answers to many questions, though I have difficulty understanding abstract ideas and don't see the consequences of things. I break rules and know how to get around them, do crazy things, and have a vivid imagination, yet I seldom joke around and rarely notice my emotional reactions. I react slowly, am easy to satisfy, am not highly motivated to succeed, don't worry about things that have already happened, don't like the idea of change, and am very pleased with myself \u2014 though I do get angry easily."
     },
     {
       "persona_id": "s277",
@@ -63945,7 +63985,8 @@
           "iid": "ipip163",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I prefer to be alone and dislike talking about myself, though I do feel comfortable around people and make them feel welcome when we're together. I hold back my opinions, can't stand confrontations, and am easily intimidated, yet I remain calm under pressure, am sure of my ground, and stick to my chosen path \u2014 I work hard, carry out my plans, and break rules while also believing laws should be strictly enforced. I seldom feel blue and seldom get emotional, though I do get stressed out easily and lose my temper at times. I trust what people say, sympathize with the homeless, and enjoy the beauty of nature, though I would never go hang gliding or bungee jumping. I'm interested in many things but have difficulty understanding abstract ideas and do not have a good imagination. I love to eat, like a leisurely lifestyle, have a lot of fun, and often forget to put things back in their proper place."
     },
     {
       "persona_id": "s279",
@@ -66245,7 +66286,8 @@
           "iid": "ipip43",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I carry out my plans and keep my promises, and in my work life I put little time and effort in \u2014 though I do like order and let things proceed at their own pace. I choose my words with care, hold back my opinions, dislike talking about myself, and seldom joke around, which makes me hard to get to know and often makes people feel uncomfortable. I find it difficult to approach others and seek quiet rather than social situations, and I would never go hang gliding or bungee jumping. I am often down in the dumps, get stressed out easily, get angry easily, get overwhelmed by emotions, do things I later regret, and misjudge situations. I sympathize with the homeless and feel others' emotions, and I believe people are basically moral, though I also believe there is no absolute right or wrong. I love to read challenging material, spend time reflecting on things, like to visit new places, and see beauty in things that others might not notice. I am easy to satisfy, yet I put people under pressure."
     },
     {
       "persona_id": "s289",
@@ -67625,7 +67667,8 @@
           "iid": "ipip223",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I value cooperation over competition, believe in human goodness, and hold that there is no absolute right or wrong. I'm interested in many things, have a vivid imagination, know the answers to many questions, like music, and love to eat. At parties I talk to a lot of different people and enjoy being part of a loud crowd, though I'm afraid to draw attention to myself and otherwise avoid contact with others, rarely joking around or taking time for others. I work hard, am always prepared, like order, and try to follow the rules\u2014though I also know how to get around them\u2014yet I don't see the consequences of things and have difficulty understanding abstract ideas. I react quickly, panic easily, get angry easily, have frequent mood swings, and rarely notice my emotional reactions, though I am easy to satisfy and do crazy things."
     },
     {
       "persona_id": "s295",
@@ -68545,7 +68588,8 @@
           "iid": "ipip213",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I handle tasks smoothly, start them right away, and can manage many things at the same time, though I put little time and effort into my work and act without thinking. I trust others, have a good word for everyone, feel sympathy for those who are worse off than myself, and feel others' emotions, yet I dislike talking about myself and am hard to get to know. I stick to the rules, tell the truth, rarely overindulge, and want everything to be \"just right,\" though I can't make up my mind and can't stand confrontations. I talk to a lot of different people at parties, take control of things, and am able to stand up for myself. I have a rich vocabulary but do not have a good imagination, do not enjoy watching dance performances, would never go hang gliding or bungee jumping, and am a creature of habit. I am not easily disturbed by events, yet I am often down in the dumps and get irritated easily. I am not easily amused, and I believe there is no absolute right or wrong."
     },
     {
       "persona_id": "s299",
@@ -70385,7 +70429,8 @@
           "iid": "ipip188",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I work hard and excel in what I do, though I find it difficult to get down to work and like to take my time; I avoid mistakes and want everything to be \"just right.\" I make myself the center of attention, use flattery to get ahead, and get others to do my duties, yet I also find it difficult to approach others, hold back my opinions, and am hard to get to know. I suspect hidden motives in others, hold a grudge, tend to dislike soft-hearted people, and make people feel uncomfortable. I lose my temper, do things I later regret, and am often down in the dumps, though I am relaxed most of the time and readily overcome setbacks. I seldom joke around, want to be left alone, and try to understand myself. I do not like poetry, dislike loud music, am not interested in abstract ideas, do not have a good imagination, and believe that too much tax money goes to support artists, though I do like to begin new things."
     },
     {
       "persona_id": "s307",
@@ -71305,7 +71350,8 @@
           "iid": "ipip53",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I believe there is no absolute right or wrong, I break rules, and I misjudge situations, yet I try to understand myself, indulge in my fantasies, see beauty in things others might not notice, and love to read challenging material. I look at the bright side of life and think that all will be well, though I get caught up in my problems and can't make up my mind, so I postpone decisions. I like order but prefer variety to routine, and I like to take it easy, putting little time and effort into my work. I enjoy being part of a group, I make myself the center of attention, I can talk others into doing things, and I put people under pressure, though I only feel comfortable with friends and I make people feel uncomfortable. I sympathize with the homeless, I am easy to satisfy, I feel comfortable with myself, I feel comfortable around people, I seldom get mad, I avoid mistakes, I would never go hang gliding or bungee jumping, and I love to eat."
     },
     {
       "persona_id": "s311",
@@ -71765,7 +71811,8 @@
           "iid": "ipip208",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I take control of things and turn plans into actions, though I find it difficult to get down to work and sometimes get others to do my duties. I am always busy, talk to a lot of different people at parties, enjoy being part of a loud crowd, and I amuse my friends and cheer people up, yet I hate to seem pushy and take no time for others. I feel others' emotions and sympathize with the homeless, and I like to get lost in thought and like music, though I avoid difficult reading material. I can handle complex problems, stick to the rules, believe laws should be strictly enforced, avoid mistakes, and am not bothered by disorder. I suspect hidden motives in others and misjudge situations, and I am afraid that I will do the wrong thing, yet I am not easily disturbed by events, rarely get irritated, rarely overindulge, often feel blue, prefer variety to routine, and think highly of myself."
     },
     {
       "persona_id": "s313",
@@ -74065,7 +74112,8 @@
           "iid": "ipip183",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I misjudge situations fairly often, jump into things without thinking, and find it difficult to get down to work, though once I have a goal I go straight for it. I'm often in a bad mood and often down in the dumps, yet I experience very few emotional highs and lows overall, and I stay calm even in tense situations. I hold back my opinions, avoid philosophical discussions, am hard to get to know, and am afraid to draw attention to myself, though I do talk to a lot of different people at parties and manage to amuse my friends. I tell the truth, consider myself an average person, believe laws should be strictly enforced, believe people should fend for themselves, and I hold a grudge. I dislike changes, would never go hang gliding or bungee jumping, don't like concerts, seldom daydream, and yet I adapt easily to new situations and know how to get around the rules. I'm not bothered by messy people, look down on others, believe people are basically moral, react slowly, and I love to eat."
     },
     {
       "persona_id": "s323",
@@ -76595,7 +76643,8 @@
           "iid": "ipip188",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I find it difficult to get down to work and am not highly motivated to succeed, often jumping into things without thinking and doing things I later regret \u2014 I don't see the consequences of things, lose my temper, break my promises, and hold a grudge. I make myself the center of attention while also being afraid to draw attention to myself, hold back my opinions, and am hard to get to know; I use flattery to get ahead and make people feel uncomfortable. I become overwhelmed by events, feel desperate, and fear for the worst, and I want to be left alone. I dislike loud music and poetry, am not interested in abstract ideas, do not have a good imagination, and believe too much tax money goes to support artists; I tend to dislike soft-hearted people. I like to begin new things and take my time, try to understand myself, seldom joke around, and leave my belongings around."
     },
     {
       "persona_id": "s334",
@@ -78665,7 +78714,8 @@
           "iid": "ipip158",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I make friends easily, though I also make people feel uncomfortable and suspect hidden motives in others, sometimes using flattery to get ahead. I make myself the center of attention while also being afraid to draw attention to myself, and I hold grudges, lose my temper, and do things I later regret. I jump into things without thinking, don't see the consequences of things, break my promises, and find it difficult to get down to work \u2014 I'm not highly motivated to succeed and like to take it easy. I leave my belongings around, get caught up in my problems, feel desperate, and feel that I'm unable to deal with things, though I experience very few emotional highs and lows. I avoid crowds and philosophical discussions, dislike loud music and art, believe too much tax money goes to support artists, tend to dislike soft-hearted people, am attached to conventional ways, have difficulty imagining things, take control of things, and am not easily amused."
     },
     {
       "persona_id": "s343",
@@ -79815,7 +79865,8 @@
           "iid": "ipip183",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I love to eat, I enjoy the beauty of nature, and I like to begin new things, though I seldom daydream and am not interested in theoretical discussions. I am always prepared, avoid mistakes, demand quality, and can manage many things at the same time \u2014 I know how to get things done. I make friends easily, yet I only feel comfortable with friends and avoid crowds, and I would never go hang gliding or bungee jumping. I seek to influence others, contradict others, look down on others, and have a high opinion of myself; I seldom joke around and am not bothered by messy people. I rarely notice my emotional reactions, am not interested in other people's problems, and often feel blue and am often in a bad mood, though I remain calm under pressure and don't worry about things that have already happened. I believe that people are basically moral and that there is no absolute right or wrong, and while I stick to the rules, I also break rules."
     },
     {
       "persona_id": "s348",
@@ -81425,7 +81476,8 @@
           "iid": "ipip78",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I often feel uncomfortable around others, distrust people, take no time for others, and have little to say, yet I enjoy being part of a loud crowd and being part of a group. I have difficulty starting tasks, do just enough work to get by, and jump into things without thinking, though I know how to get things done and pay my bills on time. I readily overcome setbacks, adapt easily to new situations, feel comfortable with myself, and am not embarrassed easily. I like a leisurely lifestyle, never splurge, and seldom get mad, though I put people under pressure, have a sharp tongue, and boast about my virtues. I like to get lost in thought, enjoy thinking about and examining myself and my life, and am interested in many things, including music, though I am not easily amused, am not bothered by messy people, am not interested in other people's problems, and believe there is no absolute right or wrong."
     },
     {
       "persona_id": "s355",
@@ -81885,7 +81937,8 @@
           "iid": "ipip108",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I believe people are essentially evil and that there is no absolute right or wrong, which shapes how I move through the world \u2014 I keep others at a distance, look down on them, and can't stand weakness in anyone. I set high standards for myself and others, keep my promises, and am very pleased with myself, though I make rash decisions, can't always make up my mind, misjudge situations, and sometimes don't know why I do the things I do. I need a push to get started and tend to wait for others to lead the way, yet I love a good fight, stand up for myself, make myself the center of attention, and amuse my friends. I enjoy examining myself and my life, indulge in my fantasies, love reading challenging material, and take pleasure in the beauty of nature, though I also seek quiet even as I enjoy being part of a loud crowd. I use flattery to get ahead, react slowly, seldom get mad, like to begin new things, am not bothered by disorder, and get stressed out easily."
     },
     {
       "persona_id": "s357",
@@ -88555,7 +88608,8 @@
           "iid": "ipip283",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I prefer being part of a group rather than the center of attention, and I hold back my opinions and seldom joke around, though I do cheer people up and anticipate the needs of others. I can't stand confrontations, I'm easily intimidated, and I value cooperation over competition, trusting others and sticking to my chosen path even while I can't always make up my mind. In my work life, I get to work at once, do more than what's expected of me, want everything to be \"just right,\" and do a lot in my spare time, though I sometimes misjudge situations and don't always know why I do some of the things I do. I prefer variety to routine, have a rich vocabulary and a vivid imagination, yet I do not like art and would never go hang gliding or bungee jumping. I seldom feel blue, don't worry about things that have already happened, am not easily annoyed, believe laws should be strictly enforced, and stick to the rules \u2014 though I do break them at times."
     },
     {
       "persona_id": "s386",
@@ -92005,7 +92059,8 @@
           "iid": "ipip243",
           "fallback": null
         }
-      ]
+      ],
+      "ipip_reflowed": "I believe there is no absolute right or wrong, and I think that all will be well \u2014 I am very pleased with myself, relaxed most of the time, and not easily annoyed or bothered by difficult social situations, though I do make people feel uncomfortable and put people under pressure, and I make myself the center of attention. I seek quiet and avoid contacts with others, I have little to say, and I am not interested in other people's problems. I like order and avoid mistakes, I listen to my conscience, and I can handle a lot of information, yet I don't see the consequences of things, I can't make up my mind, and I need a push to get started. I am not highly motivated to succeed, I like to take my time, I seldom get lost in thought, and I prefer variety to routine, though I would never go hang gliding or bungee jumping and I do not enjoy going to art museums. I love to eat, I am easy to satisfy, I am not easily amused, and I try to understand myself."
     }
   ]
 }
