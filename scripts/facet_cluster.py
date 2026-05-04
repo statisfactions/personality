@@ -148,6 +148,7 @@ def analyze(model_name, facet_names, D):
         "nn_within_trait": right,
         "n_facets": n,
         "purity_6": purity,
+        "cosine_matrix": cos.tolist(),
     }
 
 
