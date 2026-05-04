@@ -227,7 +227,7 @@ Same persona prose. Switching the readout vocabulary from Goldberg to IPIP gives
 
 This reframes the whole W8 result. The story is not "the symbolic-vs-associative gap shrinks under matched vocabulary" (a technical correction to W7's framing). The story is **the model's residual-stream geometry is vocabulary-tied, but its forward reasoning is vocabulary-free.** Cf. Mahowald et al. (2024) on formal vs functional linguistic competence — a similar dissociation, in a different domain.
 
-This connects to the broader recognition-vs-execution literature on LLM representations (CARE 2024, and a separate Wu et al. paper referenced in CLAUDE.md but unverified). Where they find recognition and execution use different subspaces, we find a finer-grained version: even within "recognition" (rep readout), the geometry is contingent on the extraction vocabulary. The model can SYMBOLICALLY recognize across vocabularies; the LINEAR PROJECTION can't.
+This connects to the broader recognition-vs-execution literature on LLM representations (CARE 2024; Wu et al. 2026 "Knowing without Acting," arXiv:2603.05773, which demonstrates a causal double-dissociation between recognition and execution subspaces in safety mechanisms). Where they find recognition and execution use different subspaces for one vocabulary, we find a finer-grained version: even within "recognition" (rep readout), the geometry is contingent on the extraction vocabulary. The model can SYMBOLICALLY recognize across vocabularies; the LINEAR PROJECTION can't.
 
 ### 7.2. The numerical story
 
