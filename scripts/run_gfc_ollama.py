@@ -41,6 +41,7 @@ from urllib.error import URLError
 INSTRUMENT_PATH = "instruments/okada_gfc30.json"
 ADMIN_SESSION_PATH = "admin_sessions/prod_run_01_external_rating.json"
 GFC_TOKENS = ["1", "2", "3", "4", "5", "6", "7"]
+BINARY_TOKENS = ["A", "B"]
 MAX_ENTROPY = math.log(len(GFC_TOKENS))  # ln(7) ≈ 1.946
 
 # Ollama endpoints
@@ -61,6 +62,12 @@ GFC_INSTRUCTION = (
     "6: RIGHT statement describes me moderately more accurately\n"
     "7: RIGHT statement describes me much more accurately\n"
     "Return ONLY one integer (1-7). Do not include any other text.\n"
+)
+
+BINARY_INSTRUCTION = (
+    "For the following pair of statements, indicate which one describes you "
+    "more accurately. Respond with a single letter: A for the LEFT statement "
+    "or B for the RIGHT statement. Do not include any other text.\n"
 )
 
 GFC_ITEM_TEMPLATE = (
@@ -107,7 +114,8 @@ BARE_PREFIX = (
 
 
 def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
-                 persona_desc=None, neutral_mode=None, fake_good=False):
+                 persona_desc=None, neutral_mode=None, fake_good=False,
+                 binary=False):
     """Build GFC prompt for a single pair, optionally with persona prefix.
 
     Args:
@@ -143,7 +151,7 @@ def build_prompt(pair, randomize_lr=True, use_raw=False, seed=None,
         parts.append(RESPONDENT_PREFIX)
     elif neutral_mode == "bare":
         parts.append(BARE_PREFIX)
-    parts.append(GFC_INSTRUCTION)
+    parts.append(BINARY_INSTRUCTION if binary else GFC_INSTRUCTION)
     parts.append(GFC_ITEM_TEMPLATE.format(left_text=left_text,
                                           right_text=right_text))
     prompt = "".join(parts)
@@ -223,14 +231,16 @@ def ollama_generate_local(model, prompt, top_logprobs=10, num_predict=1,
 # --- Ollama API (remote Orin, curl) ---
 
 def ollama_generate_remote(model, prompt, api_key, top_logprobs=20,
-                           timeout=120):
+                           timeout=120, binary=False):
     """Call remote Orin server via curl (OpenAI-compatible endpoint)."""
+    sys_msg = ("You are completing a personality questionnaire. "
+               "Respond with ONLY a single letter: A or B." if binary
+               else "You are completing a personality questionnaire. "
+                    "Respond with ONLY a single integer (1-7).")
     payload = {
         "model": model,
         "messages": [
-            {"role": "system",
-             "content": ("You are completing a personality questionnaire. "
-                         "Respond with ONLY a single integer (1-7).")},
+            {"role": "system", "content": sys_msg},
             {"role": "user", "content": prompt},
         ],
         "temperature": 0,
@@ -276,13 +286,13 @@ def ollama_generate_remote(model, prompt, api_key, top_logprobs=20,
 
 # --- Logprob extraction ---
 
-def extract_gfc_distribution(response):
-    """Extract probability distribution over {1..7} from logprobs.
+def extract_distribution(response, tokens):
+    """Extract probability distribution over `tokens` from logprobs.
 
     Returns (dist, argmax_response, raw_logprobs) where:
-        dist: dict mapping "1"-"7" to renormalized probabilities
-        argmax_response: str, the most probable GFC token
-        raw_logprobs: dict mapping "1"-"7" to raw log-probabilities
+        dist: dict mapping each token in `tokens` to renormalized probability
+        argmax_response: str, the most probable token in the set
+        raw_logprobs: dict mapping each present token to raw log-probability
     """
     if response is None:
         return None, None, None
@@ -303,38 +313,54 @@ def extract_gfc_distribution(response):
         if not past_think and logprobs_list[0].get("token", "") == "<think>":
             continue
         candidates = entry.get("top_logprobs", [])
-        has_gfc = any(c.get("token", "").strip() in GFC_TOKENS
-                      for c in candidates)
-        if has_gfc:
+        has_target = any(c.get("token", "").strip() in tokens
+                         for c in candidates)
+        if has_target:
             token_logprobs = candidates
             break
 
     if token_logprobs is None:
         token_logprobs = logprobs_list[0].get("top_logprobs", [])
 
-    # Build raw logprob map
     raw = {}
     for entry in token_logprobs:
         tok = entry.get("token", "").strip()
-        if tok in GFC_TOKENS:
+        if tok in tokens:
             raw[tok] = entry["logprob"]
 
     if not raw:
         return None, generated, None
 
-    # Renormalize over GFC tokens
     max_lp = max(raw.values())
     exp_sum = sum(math.exp(lp - max_lp) for lp in raw.values())
     dist = {}
-    for tok in GFC_TOKENS:
+    for tok in tokens:
         if tok in raw:
             dist[tok] = math.exp(raw[tok] - max_lp) / exp_sum
         else:
             dist[tok] = 0.0
 
     argmax = max(raw, key=raw.get)
-
     return dist, argmax, raw
+
+
+def extract_gfc_distribution(response):
+    """7-point graded extraction (legacy name, kept for compat)."""
+    return extract_distribution(response, GFC_TOKENS)
+
+
+def extract_binary_distribution(response):
+    """A/B extraction; returns dist/argmax/raw rekeyed to '1'/'0' so the
+    storage convention matches the analytic pipeline (1 = LEFT-as-shown
+    chosen, 0 = RIGHT-as-shown chosen)."""
+    dist, argmax, raw = extract_distribution(response, BINARY_TOKENS)
+    if dist is None:
+        return None, argmax, None
+    rekey = {"A": "1", "B": "0"}
+    dist2 = {rekey[k]: v for k, v in dist.items()}
+    raw2 = {rekey[k]: v for k, v in raw.items()}
+    argmax2 = rekey.get(argmax)
+    return dist2, argmax2, raw2
 
 
 def entropy(dist):
@@ -362,7 +388,7 @@ def load_instrument(path):
 def administer_one(pair, model, api_key, use_raw, num_predict,
                    top_logprobs, timeout, randomize_lr, seed,
                    persona_desc=None, remote=False, neutral_mode=None,
-                   fake_good=False):
+                   fake_good=False, binary=False):
     """Administer a single GFC pair and return result dict."""
     prompt, swapped = build_prompt(
         pair,
@@ -372,21 +398,27 @@ def administer_one(pair, model, api_key, use_raw, num_predict,
         persona_desc=persona_desc,
         neutral_mode=neutral_mode,
         fake_good=fake_good,
+        binary=binary,
     )
 
     if remote:
         response = ollama_generate_remote(
             model, prompt, api_key,
             top_logprobs=top_logprobs,
-            timeout=timeout)
+            timeout=timeout, binary=binary)
     else:
         response = ollama_generate_local(
             model, prompt, top_logprobs,
             num_predict=num_predict, raw=use_raw)
 
-    dist, argmax_resp, raw_logprobs = extract_gfc_distribution(response)
-    ev = expected_value(dist)
-    h = entropy(dist)
+    if binary:
+        dist, argmax_resp, raw_logprobs = extract_binary_distribution(response)
+        ev = None
+        h = entropy(dist)
+    else:
+        dist, argmax_resp, raw_logprobs = extract_gfc_distribution(response)
+        ev = expected_value(dist)
+        h = entropy(dist)
 
     if swapped:
         actual_left = pair["right"]
@@ -483,6 +515,10 @@ def main():
     parser.add_argument("--fake-good", action="store_true",
                         help="Use Okada F.2 fake-good preamble instead of "
                              "honest. Only affects persona prompts.")
+    parser.add_argument("--binary", action="store_true",
+                        help="True forced-choice: respond A/B instead of 1-7. "
+                             "response_argmax stored as '1' (LEFT chosen) or "
+                             "'0' (RIGHT chosen).")
     args = parser.parse_args()
 
     instrument = load_instrument(INSTRUMENT_PATH)
@@ -525,6 +561,8 @@ def main():
             suffix = f"_neutral-{args.neutral}"
         else:
             suffix = ""
+        if args.binary:
+            suffix = suffix + "_binary"
         output_path = f"results/{model_slug}_gfc30{suffix}.json"
 
     # Resume from checkpoint if it exists
@@ -612,6 +650,7 @@ def main():
                 remote=args.remote,
                 neutral_mode=args.neutral,
                 fake_good=args.fake_good,
+                binary=args.binary,
             )
             result["persona_id"] = persona_id
             results.append(result)

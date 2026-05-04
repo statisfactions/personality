@@ -42,6 +42,12 @@ GFC_INSTRUCTION = (
     "Return ONLY one integer (1-7). Do not include any other text.\n"
 )
 
+BINARY_INSTRUCTION = (
+    "For the following pair of statements, indicate which one describes you "
+    "more accurately. Respond with a single letter: A for the LEFT statement "
+    "or B for the RIGHT statement. Do not include any other text.\n"
+)
+
 GFC_ITEM_TEMPLATE = (
     "++++\n"
     "LEFT: {left_text}\n"
@@ -79,7 +85,7 @@ BARE_PREFIX = (
 
 
 def build_prompt(pair, randomize_lr, seed, persona_desc,
-                 neutral_mode=None, fake_good=False):
+                 neutral_mode=None, fake_good=False, binary=False):
     rng = random.Random(seed)
     swapped = False
     left_text = pair["left"]["text"]
@@ -96,15 +102,20 @@ def build_prompt(pair, randomize_lr, seed, persona_desc,
         parts.append(RESPONDENT_PREFIX)
     elif neutral_mode == "bare":
         parts.append(BARE_PREFIX)
-    parts.append(GFC_INSTRUCTION)
+    parts.append(BINARY_INSTRUCTION if binary else GFC_INSTRUCTION)
     parts.append(GFC_ITEM_TEMPLATE.format(left_text=left_text,
                                           right_text=right_text))
     return "".join(parts), swapped
 
 
-def parse_response(text):
-    """Extract the first integer 1-7 from a model response."""
+def parse_response(text, binary=False):
+    """Extract the response. Graded: integer 1-7. Binary: A/B -> "1"/"0"."""
     if not text:
+        return None
+    if binary:
+        match = re.search(r"\b([AaBb])\b", text)
+        if match:
+            return "1" if match.group(1).upper() == "A" else "0"
         return None
     match = re.search(r"\b([1-7])\b", text)
     if match:
@@ -114,10 +125,10 @@ def parse_response(text):
 
 def administer_one(client, model, pair, persona_desc, seed,
                    randomize_lr, max_retries=5,
-                   neutral_mode=None, fake_good=False):
+                   neutral_mode=None, fake_good=False, binary=False):
     prompt, swapped = build_prompt(pair, randomize_lr, seed, persona_desc,
                                    neutral_mode=neutral_mode,
-                                   fake_good=fake_good)
+                                   fake_good=fake_good, binary=binary)
 
     last_err = None
     text, argmax = None, None
@@ -125,13 +136,13 @@ def administer_one(client, model, pair, persona_desc, seed,
         try:
             resp = client.messages.create(
                 model=model,
-                max_tokens=8,
+                max_tokens=4 if binary else 8,
                 temperature=0,
                 messages=[{"role": "user", "content": prompt}],
             )
             text = "".join(b.text for b in resp.content
                            if getattr(b, "type", None) == "text").strip()
-            argmax = parse_response(text)
+            argmax = parse_response(text, binary=binary)
             break
         except Exception as e:  # noqa: BLE001
             last_err = e
@@ -184,6 +195,10 @@ def main():
                              "'bare' = honest only. No persona.")
     parser.add_argument("--fake-good", action="store_true",
                         help="Use Okada F.2 fake-good preamble. Persona-only.")
+    parser.add_argument("--binary", action="store_true",
+                        help="True forced-choice: respond A/B instead of 1-7. "
+                             "response_argmax stored as '1' (LEFT chosen) or "
+                             "'0' (RIGHT chosen).")
     args = parser.parse_args()
 
     if not args.synthetic_personas and not args.neutral:
@@ -214,6 +229,8 @@ def main():
         if args.max_personas > 0:
             personas = personas[:args.max_personas]
         suffix = "_synthetic-fakegood" if args.fake_good else "_synthetic"
+    if args.binary:
+        suffix = suffix + "_binary"
 
     total = len(personas) * len(pairs)
     print(f"Model:    {args.model}")
@@ -258,7 +275,8 @@ def main():
         r = administer_one(client, args.model, pair, persona_desc, lr_seed,
                            randomize_lr=not args.no_randomize,
                            neutral_mode=args.neutral,
-                           fake_good=args.fake_good)
+                           fake_good=args.fake_good,
+                           binary=args.binary)
         r["persona_id"] = persona_id
         return r
 
