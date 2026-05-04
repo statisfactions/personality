@@ -2,7 +2,7 @@
 
 ## 0. One-line summary
 
-The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a *vocabulary-coupling artifact* across three Goldberg-adjective channels (persona descriptions, Likert rating targets, rep direction extraction). Stripping all on the full 7-model cohort under matched IPIP-form conditions reduces the gap to +0.052 mean (raw) or +0.075 (reflowed), with model-level variation from −0.028 (Llama 8B raw, rep beats Likert) to +0.122 (Gemma 12B reflowed). Reflow ablation reveals that **reflow effects on rep are heterogeneous** (Qwen 7B +0.047, Gemma 12B −0.104) — the Qwen7-only "§3 amplification was stilted-prose" story doesn't generalize. Reflow consistently helps Likert (+0.039 cohort) and asymmetrically widens the matched gap (+0.052 → +0.075). All counterexamples (Llama 8B pro-rep, Qwen indifferent) disappear under reflow, but per-model variance stays large. The strong symbolic-vs-associative claim is rejected; the residual ~+0.05–+0.08 matched gap is small but persistent across both raw and reflowed conditions. The dominant finding may be that **reflow asymmetry is itself diagnostic** — Qwen models' rep representations are more reflow-sensitive than Gemma 12B's, suggesting different post-training shapes the residual-stream geometry differently across architectures.
+**Rep is vocabulary-bound, reasoning is vocabulary-free.** The W7 §11.5.10 +0.144 Likert-over-rep gap was substantially a vocabulary-coupling artifact: when persona, rep direction, and rating target all use Goldberg adjectives, both readouts are at peak. As we de-Goldberg the persona, the rep readout takes systematic hits because Goldberg-derived directions are geometrically far from the residual-stream encoding of behavioral scenarios; Likert ratings are largely unaffected by the vocabulary mismatch — the model's symbolic forward reasoning bridges the gap that the activation projection can't. Cohort matched-condition gap (full-IPIP readout): +0.052 (raw) or +0.075 (reflowed), range −0.028 (Llama 8B raw, rep beats Likert) to +0.122 (Gemma 12B reflowed). The strong symbolic-vs-associative claim ("instruments and activations measure different things") is rejected; the residual gap is small. **The interesting finding is not the size of the gap but the asymmetric vocabulary-binding** — activation projections are tied to extraction-vocabulary in a way symbolic reasoning isn't. We don't know we're at the destination, but we now have a sharper question: why does the residual-stream geometry decode behavioral scenarios poorly via Goldberg-derived axes, when the same model can rate behavioral statements against a Goldberg-marker persona just fine?
 
 ## 1. Motivation: escaping the marker tautology
 
@@ -213,7 +213,25 @@ The W7 +0.144 cohort Likert-over-Rep was inflated by 3× compared to the matched
 
 ## 7. Interpretation
 
-**The W8 finding deflates the W7 §11.5.10 framing.** "Instruments measure what activations don't" was the strong symbolic-vs-associative claim, and at +0.144 it looked supported. At +0.047 under matched-vocabulary conditions, the claim is in trouble — under our cleanest measurement, rep and Likert are nearly equivalent on Qwen7.
+### 7.1. Headline framing — vocabulary-bound rep, vocabulary-free reasoning
+
+The cleanest single contrast in the W8 data is between two reflowed-persona conditions that differ *only* in which vocabulary the rep readout uses:
+
+| Persona | Readout vocab | Rep r (cohort) | Likert r (cohort) |
+|---|---|---|---|
+| IPIP-reflow | Goldberg dir + Goldberg target | **0.584** | **0.752** |
+| IPIP-reflow | IPIP dir + IPIP target | **0.669** | **0.744** |
+| **vocabulary-match cost** | | **+0.085 rep gains** | **−0.008 Likert (flat)** |
+
+Same persona prose. Switching the readout vocabulary from Goldberg to IPIP gives rep a +0.085 boost and Likert essentially nothing. The activation projection is *bound* to the vocabulary used to extract its directions: Goldberg-derived axes are geometrically far from where the residual-stream encoding of behavioral scenarios lives. The Likert response, by contrast, can rate Goldberg adjectives ("extraverted") against an IPIP-behavioral persona just as accurately as it rates IPIP behavioral statements ("I love large parties") against the same persona. Symbolic forward reasoning bridges the vocabulary gap that the activation projection can't.
+
+This reframes the whole W8 result. The story is not "the symbolic-vs-associative gap shrinks under matched vocabulary" (a technical correction to W7's framing). The story is **the model's residual-stream geometry is vocabulary-tied, but its forward reasoning is vocabulary-free.** Cf. Mahowald et al. (2024) on formal vs functional linguistic competence — a similar dissociation, in a different domain.
+
+This connects to the broader recognition-vs-execution literature on LLM representations (CARE 2024, and a separate Wu et al. paper referenced in CLAUDE.md but unverified). Where they find recognition and execution use different subspaces, we find a finer-grained version: even within "recognition" (rep readout), the geometry is contingent on the extraction vocabulary. The model can SYMBOLICALLY recognize across vocabularies; the LINEAR PROJECTION can't.
+
+### 7.2. The numerical story
+
+**The W8 finding deflates the W7 §11.5.10 framing.** "Instruments measure what activations don't" was the strong symbolic-vs-associative claim, and at +0.144 it looked supported. At +0.052 cohort matched-vocabulary (raw) or +0.075 (reflow), the strong claim is in trouble. Under our cleanest measurement, rep and Likert are roughly equivalent on average, with substantial per-model variation.
 
 **This is methodologically clarifying, not invalidating.** The W7 finding is real: under marker-form persona descriptions and marker-keyed rating targets, the Likert track recovers sampled z's at substantially higher r than the rep track. That's a robust empirical fact across 7 models. What we now understand is *why*: vocabulary coupling. Three Goldberg-marker channels (description, rating target, direction extraction) reinforced each other into a Likert-track advantage that mostly dissolves once any one channel is decoupled.
 
