@@ -41,7 +41,7 @@ The initial port defaulted `likert_distribution` to bare-text on the assumption 
 
 Diagnosis: weeks 1–6 numbers were *chat-template* all along. Ollama `raw=False` (the default) applies the chat template server-side; the Qwen3-specific code path used hand-written `<|im_start|>...<|no_think|>...<|im_end|>` wrapping which is also chat-template by construction. The bare-text HF default was a format change.
 
-Behavioral signature was concrete: variant v3 (terse, ends in `\n`) collapsed to EV ≈ 1.2 across nearly all items in bare text. Restoring chat-template default recovered ICC = +0.54 on Qwen 7B. The bare-text run is preserved in `results/Qwen7_*_baretext.json` for the `to_try.md` §15 ablation; §15 itself was rewritten — bare-text Likert is now the novel condition, not the legacy.
+Behavioral signature was concrete: variant v3 (terse, ends in `\n`) collapsed to EV ≈ 1.2 across nearly all items in bare text. Restoring chat-template default recovered ICC = +0.54 on Qwen 7B. The bare-text run is preserved in `results/surveys/Qwen7_*_baretext.json` for the `to_try.md` §15 ablation; §15 itself was rewritten — bare-text Likert is now the novel condition, not the legacy.
 
 This is the Week 7 methodology lesson worth flagging: assumed-equivalent inference paths can have load-bearing format differences. The check is to re-run a known-quantity item (here, qwen3-style ICC) before treating new pipeline output as comparable.
 
@@ -334,7 +334,7 @@ This is more interesting than a deflationary "the matrix is just in the items" r
 
 One thing this isolates partially: HEXACO sentences and contrast-pair paragraphs differ in *format* (declarative self-statement vs. scenario-with-options) as well as in *content/author*. The Goldberg-marker test in §8.5 adds a third stimulus type at very different format (single adjectives) and grain (Big Five rather than HEXACO facets) to extend this picture.
 
-Outputs: `results/hexaco_as_stimuli_directions.json` (matrices), `results/hexaco_as_stimuli_heatmap.html` (per-model heatmaps).
+Outputs: `results/stimuli/hexaco_as_stimuli_directions.json` (matrices), `results/stimuli/hexaco_as_stimuli_heatmap.html` (per-model heatmaps).
 
 ### 8.5 Goldberg's 52 markers as a third stimulus type
 
@@ -371,7 +371,7 @@ Methodology consequence: any claim from a single matrix (W6 §2 mis-groupings, �
 
 Theoretical aside: the dense-positive entanglement of E/A/C/O on Goldberg markers (E↔O = +0.69 on Qwen 7B; +0.57–0.69 across the three) is in tension with a strict superposition reading where well-separated concepts ought to be approximately orthogonal at the representation level. It's instead consistent with the model treating these traits as *associatively related* in a way that supports correlation-based inference (a person who is conscientious tends to be agreeable and open) at the expense of clean symbolic disentanglement. SAE-decomposed features at lower layers may still show the orthogonal-feature structure superposition predicts; what we're measuring is a linear projection at ~2/3 depth that aggregates across many such features, and the aggregation collapses the quasi-orthogonality. The cross-domain stimulus test (`to_try.md` §16) directly probes whether dense entanglement is specific to assistant-shape-relevant concepts or a more general property of how transformers represent semantically-rich concept categories.
 
-Outputs: `results/markers_as_stimuli.json`, `results/markers_as_stimuli_heatmap.html`.
+Outputs: `results/stimuli/markers_as_stimuli.json`, `results/stimuli/markers_as_stimuli_heatmap.html`.
 
 ---
 
@@ -556,11 +556,11 @@ Trait-level: −0.788. Mean of 4 facet rs: −0.425. Range across facets: 0.475.
 
 This adds confidence to §11.5.1 as a paper-shaped finding without changing its scope. Next-step lean (cheap items still on the queue): §11.5.4 #2 (IPIP-NEO-300 facet rescoring, free analysis on existing data), then #3 (cross-domain stimulus test from `to_try.md` §16).
 
-Data: `results/x_facet_decomposition.json` and the printed table in the script's stdout.
+Data: `results/facets/x_facet_decomposition.json` and the printed table in the script's stdout.
 
 ### 11.5.7 IPIP-NEO-300 facet rescoring — result (2026-04-26)
 
-Ran §11.5.4 #2 (`scripts/ipip_facet_rescore.py`). Re-aggregated the existing 7-model IPIP-300 Likert results at the 30-facet granularity (Goldberg/Johnson 1999 facet key — items at stride 6 within each trait scale, 10 items per facet, verified by inspection of the first three items per facet). Output table in `results/ipip_facet_rescore.json`.
+Ran §11.5.4 #2 (`scripts/ipip_facet_rescore.py`). Re-aggregated the existing 7-model IPIP-300 Likert results at the 30-facet granularity (Goldberg/Johnson 1999 facet key — items at stride 6 within each trait scale, 10 items per facet, verified by inspection of the first three items per facet). Output table in `results/facets/ipip_facet_rescore.json`.
 
 Five questions answered.
 
@@ -614,7 +614,7 @@ Block mean: **+0.445**. Block range: **−0.806 to +0.899**. Trait-level E↔C o
 
 For W7's reading-group framing: the "assistant shape" claim is robust in the aggregate, but at facet resolution it dissolves into a multi-axis structure with discriminable cross-model variation. This makes the §9 plan to move toward broader inventories (IPIP-AB5C / 16PF-style; report §9.2) more compelling — the ~30 facets here clearly carry information that the 5-trait aggregation discards.
 
-Data: `results/ipip_facet_rescore.json`. Full 30×30 facet correlation matrix in the JSON `facet_corr_ev` field.
+Data: `results/facets/ipip_facet_rescore.json`. Full 30×30 facet correlation matrix in the JSON `facet_corr_ev` field.
 
 ### 11.5.8 Cross-domain stimulus test: emotions — result (2026-04-26)
 
@@ -651,7 +651,7 @@ A positive-valence cluster (Joy / Love / Hope / Trust / Pride) cohabits in cosin
 
 **Status:** #3 partial (emotions done, cleanly answers central hypothesis). Shorebirds/transportation domains in `to_try.md` §16 are now lower priority — emotion result already establishes the cross-architecture preservation is not personality-specific. They could still be useful as a third anchor (especially transportation, which is functional rather than valence-laden), but not load-bearing.
 
-Data: `results/emotion_markers_as_stimuli.json` (8×8 matrices) and `results/emotion_markers_as_stimuli_heatmap.html`.
+Data: `results/stimuli/emotion_markers_as_stimuli.json` (8×8 matrices) and `results/stimuli/emotion_markers_as_stimuli_heatmap.html`.
 
 ### 11.5.9 Persona representation back-mapping — result (2026-04-26, partial #4)
 
@@ -768,9 +768,9 @@ Combined with the per-trait diagonal weakness on Phi4 (A: +0.122, N: +0.333), th
 **Excluding Phi4, cohort agreement is much higher.** The mean A cross-model r for the other 6-model subset (15 pairs) is approximately +0.7 (eyeballed from the matrix). The +0.500 cohort mean is bottle-necked entirely by Phi4 disagreement. So among "well-conditioned" instruction models, persona-projection geometry is highly conserved across architectures — a Big-Five concept-class extension of the W7 §8.4–§8.5 cross-architecture preservation finding.
 
 **Visualizations** (`scripts/persona_repr_heatmap.py`):
-- `results/persona_repr_heatmap_per_model.html` — 8-panel grid: ground-truth Σ (empirical 5×5 sample correlation of the 50 sampled z's, seed=42) + 7 per-model 5×5 cross-correlation matrices. Σ panel makes the input MVN structure visually explicit; each model panel shows how its projection coupling diverges from Σ.
-- `results/persona_repr_heatmap_cross_model.html` — 5 panels (one per trait): 7×7 model-vs-model agreement on persona projection vectors. Phi4 row/col on the A panel is visibly cool (anti-correlated).
-- `results/persona_repr_heatmap_scatter.html` — 5 panels: sampled z vs projection scatter per trait, all 7 models color-coded.
+- `results/persona/persona_repr_heatmap_per_model.html` — 8-panel grid: ground-truth Σ (empirical 5×5 sample correlation of the 50 sampled z's, seed=42) + 7 per-model 5×5 cross-correlation matrices. Σ panel makes the input MVN structure visually explicit; each model panel shows how its projection coupling diverges from Σ.
+- `results/persona/persona_repr_heatmap_cross_model.html` — 5 panels (one per trait): 7×7 model-vs-model agreement on persona projection vectors. Phi4 row/col on the A panel is visibly cool (anti-correlated).
+- `results/persona/persona_repr_heatmap_scatter.html` — 5 panels: sampled z vs projection scatter per trait, all 7 models color-coded.
 
 ### 11.5.10 Persona × instrument response track — preregistered prediction confirmed (2026-04-26)
 
@@ -858,11 +858,11 @@ In retrospect: the model's per-item Likert judgment is conditional on the person
 
 **Status:** §11.5.4 #4 effectively done across the full cohort. The original Serapio-Garcia framing (multiple instruments per persona, cross-instrument convergence) reduces to a multi-instrument generalization of this prereg test — run BFI, IPIP-300, GFC instead of just Goldberg markers; check that the trait scores converge under each persona. That's a clean Phase 2 follow-up. Already validated for Goldberg markers across 7 models; the per-trait recovery ceiling appears to be set by stimulus + trait combination, not by methodology or by model architecture (modulo Qwen3B C exception).
 
-Data: `results/persona_instrument_response_<MODEL>.json` for each of the 7 models. Heatmaps at `results/persona_likert_heatmap_*.html`.
+Data: `results/persona/persona_instrument_response_<MODEL>.json` for each of the 7 models. Heatmaps at `results/persona/persona_likert_heatmap_*.html`.
 
 **Status:** §11.5.4 #4 partial. The representation back-mapping is now solidly answered for the rgb twist. The full Serapio-Garcia-style persona × instrument response track (run multiple instruments per persona, measure cross-instrument convergence) is still untouched and is the natural integration point with statisfactions's GFC infra. The representation-back-mapping result here is complementary, not redundant — and it suggests an interesting pre-registration for that next track: **if the model internalizes personas to r ≈ 0.74 representationally, we'd predict instrument responses under those personas to recover sampled z's at *higher* r (since instruments are designed to measure exactly the trait dimension), and the gap between representational r and behavioral r is itself a measurement-validity diagnostic.**
 
-Data: `results/persona_repr_mapping_Qwen7.json` (description mode), `results/persona_repr_mapping_Qwen7_response-position.json` (response-position mode).
+Data: `results/persona/persona_repr_mapping_Qwen7.json` (description mode), `results/persona/persona_repr_mapping_Qwen7_response-position.json` (response-position mode).
 
 ---
 

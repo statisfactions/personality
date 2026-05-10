@@ -154,7 +154,7 @@ def main():
     facet_data = {}
     trait_data = {}
     for m in MODELS:
-        path = f"results/{m}_ipip300.json"
+        path = f"results/surveys/{m}_ipip300.json"
         if not Path(path).exists():
             print(f"  WARNING: {path} missing, skipping {m}")
             continue
@@ -334,7 +334,7 @@ def main():
         print()
 
     # ----- Save JSON -----
-    out_path = Path("results/ipip_facet_rescore.json")
+    out_path = Path("results/facets/ipip_facet_rescore.json")
     payload = {
         "models": models_present,
         "facets": [f"{t}:{f}" for t, f in ALL_FACET_KEYS],

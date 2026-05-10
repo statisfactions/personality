@@ -120,7 +120,7 @@ def main():
     parser.add_argument("--items", type=int, default=0,
                         help="Limit to first N items (0 = all 300)")
     parser.add_argument("--output", type=str, default=None,
-                        help="Output JSON path (default: results/<model>_ipip300.json)")
+                        help="Output JSON path (default: results/surveys/<model>_ipip300.json)")
     parser.add_argument("--variants", action="store_true",
                         help="Run all prompt variants and compute reliability")
     args = parser.parse_args()

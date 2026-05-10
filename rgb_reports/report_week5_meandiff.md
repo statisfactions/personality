@@ -264,7 +264,7 @@ Earlier framing: "Llama's behavior can't be steered at small residual-stream mag
 
 ## 10. Phase A sweep results — LDA wins the grid
 
-Grid: 2 formats (bare, chat) × 4 prefixes (high, low, absent, generic) × 3 neutrals (scenario_setups, shaggy_dog, factual) = 24 extraction cells on Llama-3.2-3B × Honesty-Humility. Each cell produces one LDA direction + one MD-raw + one MD-projected direction (72 directions). Driver: `scripts/phase_a_sweep.py`. Full table: `results/phase_a_sweep_meta-llama_Llama-3.2-3B-Instruct_H.csv`.
+Grid: 2 formats (bare, chat) × 4 prefixes (high, low, absent, generic) × 3 neutrals (scenario_setups, shaggy_dog, factual) = 24 extraction cells on Llama-3.2-3B × Honesty-Humility. Each cell produces one LDA direction + one MD-raw + one MD-projected direction (72 directions). Driver: `scripts/phase_a_sweep.py`. Full table: `results/sweeps/phase_a_sweep_meta-llama_Llama-3.2-3B-Instruct_H.csv`.
 
 ### 10.1 Holdout sign-correct (best method-agnostic result per cell, 24 pairs)
 
@@ -348,7 +348,7 @@ Phase B would produce 4 models × 6 traits × 3 methods = 72 rows per neutral va
 
 ## 11. Phase B — 4 models × 6 traits — LDA wins H, MD wins almost everything else
 
-With Phase A's recommended configuration (generic prefix, scenario_setups neutral, both formats reported), swept 4 models × 6 traits × 2 formats × 3 methods = 144 rows. Driver: `scripts/phase_b_sweep.py`. Full table: `results/phase_b_sweep.csv`. Took 40 min on MPS.
+With Phase A's recommended configuration (generic prefix, scenario_setups neutral, both formats reported), swept 4 models × 6 traits × 2 formats × 3 methods = 144 rows. Driver: `scripts/phase_b_sweep.py`. Full table: `results/sweeps/phase_b_sweep.csv`. Took 40 min on MPS.
 
 ### 11.1 Method comparison (48 cells = 4 models × 6 traits × 2 formats)
 
@@ -430,9 +430,9 @@ Done in week 5:
 - Single-cell apples-to-apples comparison (bare × absent × scenario_setups) — §6. MD-projected wins on that cell.
 - Wrong-sign residual-stream BC steering finding (§7) and position-bias finding (§8).
 - Prompt-steering baseline revealing chat-template confound (§9).
-- **Phase A sweep — 24 cells on Llama × H** (`scripts/phase_a_sweep.py`, `results/phase_a_sweep_*.csv`). Headline: LDA beats MD-projected on holdout in 6/8 format × prefix cells for Llama × H (§10).
+- **Phase A sweep — 24 cells on Llama × H** (`scripts/phase_a_sweep.py`, `results/sweeps/phase_a_sweep_*.csv`). Headline: LDA beats MD-projected on holdout in 6/8 format × prefix cells for Llama × H (§10).
 - **4-model prompt-steering ceiling** (`scripts/prompt_steering_ceiling.py`, `results/prompt_ceiling.csv`). Headline: chat-template bump is Llama-specific, not universal (§9.2).
-- **Phase B sweep — 4 models × 6 traits × 2 formats** (`scripts/phase_b_sweep.py`, `results/phase_b_sweep.{csv,json,txt}`). Headline: LDA wins H universally (8/8 cells); MD-projected wins or ties everywhere else (§11). Facet-level breakdown confirms MD's failure mode is Modesty + Greed-Avoidance (§11.3).
+- **Phase B sweep — 4 models × 6 traits × 2 formats** (`scripts/phase_b_sweep.py`, `results/sweeps/phase_b_sweep.{csv,json,txt}`). Headline: LDA wins H universally (8/8 cells); MD-projected wins or ties everywhere else (§11). Facet-level breakdown confirms MD's failure mode is Modesty + Greed-Avoidance (§11.3).
 
 Next priorities:
 

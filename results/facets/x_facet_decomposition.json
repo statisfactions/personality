@@ -1,0 +1,269 @@
+{
+  "models": [
+    "Gemma",
+    "Llama",
+    "Phi4",
+    "Qwen",
+    "Gemma12",
+    "Llama8",
+    "Qwen7"
+  ],
+  "facets": [
+    "Liveliness",
+    "Sociability",
+    "Social Boldness",
+    "Social Self-Esteem"
+  ],
+  "format": "chat",
+  "method": "Per-trait LR direction at LDA-CV best layer; per-trait mean_proj z-scored within model across 6 traits to define a matrix-frame z. Per-facet RepE = mean of holdout pair diffs (6 per facet) projected onto X direction at X best layer; per-facet z applies the same affine (mu, sd) as the trait-level z.",
+  "trait_level": {
+    "argmax_vs_repez": -0.7880359593670961,
+    "ev_vs_repez": -0.6257398424780648,
+    "n": 7
+  },
+  "per_facet_correlations": {
+    "Liveliness": {
+      "argmax_vs_repez": -0.456874574894123,
+      "ev_vs_repez": -0.4538006976299282,
+      "argmax_vs_reperaw": 0.4432199278081106,
+      "n": 7
+    },
+    "Sociability": {
+      "argmax_vs_repez": -0.4034829339012824,
+      "ev_vs_repez": -0.5373321429947844,
+      "argmax_vs_reperaw": -0.7056697400122628,
+      "n": 7
+    },
+    "Social Boldness": {
+      "argmax_vs_repez": -0.6580538097067133,
+      "ev_vs_repez": -0.49386665431633653,
+      "argmax_vs_reperaw": -0.197736956940744,
+      "n": 7
+    },
+    "Social Self-Esteem": {
+      "argmax_vs_repez": -0.18300456125517547,
+      "ev_vs_repez": 0.18102560084508065,
+      "argmax_vs_reperaw": 0.2717874020538767,
+      "n": 7
+    }
+  },
+  "per_model_per_facet": {
+    "Gemma": {
+      "argmax": {
+        "Liveliness": 3.0,
+        "Sociability": 2.75,
+        "Social Boldness": 2.25,
+        "Social Self-Esteem": 3.75
+      },
+      "ev": {
+        "Liveliness": 3.0233,
+        "Sociability": 2.806075,
+        "Social Boldness": 2.2975,
+        "Social Self-Esteem": 3.703975
+      },
+      "repe_raw": {
+        "Liveliness": 213.86841609697126,
+        "Sociability": 244.9082382221253,
+        "Social Boldness": 174.15118109476035,
+        "Social Self-Esteem": 113.60744324714382
+      },
+      "repe_z_matrix": {
+        "Liveliness": 0.9035232853923302,
+        "Sociability": 1.4616847353372233,
+        "Social Boldness": 0.18932365540569146,
+        "Social Self-Esteem": -0.8993804088719136
+      },
+      "x_layer": 16,
+      "trait_argmax": 2.9375,
+      "trait_ev": 2.957722625,
+      "trait_repe_raw": 266.4087808703409,
+      "trait_repe_z_matrix": 1.8483098265101792
+    },
+    "Llama": {
+      "argmax": {
+        "Liveliness": 2.0,
+        "Sociability": 2.75,
+        "Social Boldness": 2.5,
+        "Social Self-Esteem": 3.75
+      },
+      "ev": {
+        "Liveliness": 2.5218499999999997,
+        "Sociability": 2.777,
+        "Social Boldness": 2.520825,
+        "Social Self-Esteem": 3.4943
+      },
+      "repe_raw": {
+        "Liveliness": 2.8272987183039056,
+        "Sociability": 3.1358368537995744,
+        "Social Boldness": 1.6632002019471293,
+        "Social Self-Esteem": 1.7085670660757468
+      },
+      "repe_z_matrix": {
+        "Liveliness": 1.5728789858613326,
+        "Sociability": 1.9483178527588558,
+        "Social Boldness": 0.15636745079304884,
+        "Social Self-Esteem": 0.21157127198610576
+      },
+      "x_layer": 24,
+      "trait_argmax": 2.75,
+      "trait_ev": 2.8284975625,
+      "trait_repe_raw": 3.2706317807417635,
+      "trait_repe_z_matrix": 2.112340541731838
+    },
+    "Phi4": {
+      "argmax": {
+        "Liveliness": 3.25,
+        "Sociability": 3.0,
+        "Social Boldness": 3.25,
+        "Social Self-Esteem": 4.0
+      },
+      "ev": {
+        "Liveliness": 3.3710750000000003,
+        "Sociability": 3.204575,
+        "Social Boldness": 3.2152000000000003,
+        "Social Self-Esteem": 3.5951
+      },
+      "repe_raw": {
+        "Liveliness": 1.740716871313448,
+        "Sociability": 2.890556798321746,
+        "Social Boldness": 1.2842618032233595,
+        "Social Self-Esteem": 1.5810588991496077
+      },
+      "repe_z_matrix": {
+        "Liveliness": -1.9889382825349575,
+        "Sociability": -0.9197151073175986,
+        "Social Boldness": -2.4133907004616644,
+        "Social Self-Esteem": -2.137402429531441
+      },
+      "x_layer": 10,
+      "trait_argmax": 3.375,
+      "trait_ev": 3.346476,
+      "trait_repe_raw": 2.9685166974186283,
+      "trait_repe_z_matrix": -0.847221076719032
+    },
+    "Qwen": {
+      "argmax": {
+        "Liveliness": 3.0,
+        "Sociability": 3.0,
+        "Social Boldness": 2.5,
+        "Social Self-Esteem": 3.25
+      },
+      "ev": {
+        "Liveliness": 2.9131750000000003,
+        "Sociability": 3.0645749999999996,
+        "Social Boldness": 2.7765,
+        "Social Self-Esteem": 3.3184
+      },
+      "repe_raw": {
+        "Liveliness": 8.132063811219451,
+        "Sociability": 7.384370534995472,
+        "Social Boldness": 4.794147884880663,
+        "Social Self-Esteem": 4.714066380700539
+      },
+      "repe_z_matrix": {
+        "Liveliness": 0.8784099306254086,
+        "Sociability": 0.5179802209701913,
+        "Social Boldness": -0.7306510392146072,
+        "Social Self-Esteem": -0.7692547744871288
+      },
+      "x_layer": 26,
+      "trait_argmax": 2.9375,
+      "trait_ev": 3.01815475,
+      "trait_repe_raw": 8.895751264374681,
+      "trait_repe_z_matrix": 1.246549722383568
+    },
+    "Gemma12": {
+      "argmax": {
+        "Liveliness": 3.25,
+        "Sociability": 2.75,
+        "Social Boldness": 3.0,
+        "Social Self-Esteem": 3.75
+      },
+      "ev": {
+        "Liveliness": 3.2425249999999997,
+        "Sociability": 2.750425,
+        "Social Boldness": 3.0753250000000003,
+        "Social Self-Esteem": 3.80995
+      },
+      "repe_raw": {
+        "Liveliness": 297.0815882747506,
+        "Sociability": 345.86216016481495,
+        "Social Boldness": 230.95534365305306,
+        "Social Self-Esteem": 164.57002337470036
+      },
+      "repe_z_matrix": {
+        "Liveliness": 0.2102478939839323,
+        "Sociability": 0.5310018792483849,
+        "Social Boldness": -0.2245616146208993,
+        "Social Self-Esteem": -0.6610746610510856
+      },
+      "x_layer": 21,
+      "trait_argmax": 3.1875,
+      "trait_ev": 3.219555625,
+      "trait_repe_raw": 380.28452680644136,
+      "trait_repe_z_matrix": 0.7573442703835056
+    },
+    "Llama8": {
+      "argmax": {
+        "Liveliness": 2.5,
+        "Sociability": 3.0,
+        "Social Boldness": 3.0,
+        "Social Self-Esteem": 3.5
+      },
+      "ev": {
+        "Liveliness": 2.4798,
+        "Sociability": 2.749425,
+        "Social Boldness": 2.7306250000000003,
+        "Social Self-Esteem": 3.3600999999999996
+      },
+      "repe_raw": {
+        "Liveliness": 1.1102106900434972,
+        "Sociability": 1.1801311856840913,
+        "Social Boldness": 0.8202628698453466,
+        "Social Self-Esteem": 0.6523103115162957
+      },
+      "repe_z_matrix": {
+        "Liveliness": 0.17830087520975954,
+        "Sociability": 0.5970713539634722,
+        "Social Boldness": -1.558265583101794,
+        "Social Self-Esteem": -2.5641734019035467
+      },
+      "x_layer": 13,
+      "trait_argmax": 3.0,
+      "trait_ev": 2.8299960625,
+      "trait_repe_raw": 1.260421473977713,
+      "trait_repe_z_matrix": 1.0779489873375816
+    },
+    "Qwen7": {
+      "argmax": {
+        "Liveliness": 3.0,
+        "Sociability": 3.0,
+        "Social Boldness": 3.0,
+        "Social Self-Esteem": 3.5
+      },
+      "ev": {
+        "Liveliness": 3.119625,
+        "Sociability": 2.99295,
+        "Social Boldness": 3.109725,
+        "Social Self-Esteem": 3.535225
+      },
+      "repe_raw": {
+        "Liveliness": 20.61441023763026,
+        "Sociability": 21.09237250754349,
+        "Social Boldness": 9.93853145675091,
+        "Social Self-Esteem": 12.042356051294462
+      },
+      "repe_z_matrix": {
+        "Liveliness": 1.8928140868504522,
+        "Sociability": 1.9767025979794672,
+        "Social Boldness": 0.01906037803909035,
+        "Social Self-Esteem": 0.38830858866647266
+      },
+      "x_layer": 24,
+      "trait_argmax": 3.125,
+      "trait_ev": 3.18938575,
+      "trait_repe_raw": 21.99033956177344,
+      "trait_repe_z_matrix": 2.134307337859737
+    }
+  }
+}

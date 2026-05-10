@@ -46,13 +46,13 @@ MODELS = {
     # field is now a misnomer — it doubles as the BC lookup key, which is the
     # cohort short name. Small-cohort qwen Likert is now genuinely Qwen 2.5 3B
     # (previously qwen3_8B carryover).
-    "gemma3":  {"hf": "google/gemma-3-4b-it",             "ollama": "Gemma",   "likert": "results/Gemma_hexaco100.json"},
-    "llama":   {"hf": "meta-llama/Llama-3.2-3B-Instruct", "ollama": "Llama",   "likert": "results/Llama_hexaco100.json"},
-    "phi4":    {"hf": "microsoft/Phi-4-mini-instruct",    "ollama": "Phi4",    "likert": "results/Phi4_hexaco100.json"},
-    "qwen":    {"hf": "Qwen/Qwen2.5-3B-Instruct",         "ollama": "Qwen",    "likert": "results/Qwen_hexaco100.json"},
-    "Gemma12": {"hf": "google/gemma-3-12b-it",            "ollama": "Gemma12", "likert": "results/Gemma12_hexaco100.json"},
-    "Llama8":  {"hf": "meta-llama/Llama-3.1-8B-Instruct", "ollama": "Llama8",  "likert": "results/Llama8_hexaco100.json"},
-    "Qwen7":   {"hf": "Qwen/Qwen2.5-7B-Instruct",         "ollama": "Qwen7",   "likert": "results/Qwen7_hexaco100.json"},
+    "gemma3":  {"hf": "google/gemma-3-4b-it",             "ollama": "Gemma",   "likert": "results/surveys/Gemma_hexaco100.json"},
+    "llama":   {"hf": "meta-llama/Llama-3.2-3B-Instruct", "ollama": "Llama",   "likert": "results/surveys/Llama_hexaco100.json"},
+    "phi4":    {"hf": "microsoft/Phi-4-mini-instruct",    "ollama": "Phi4",    "likert": "results/surveys/Phi4_hexaco100.json"},
+    "qwen":    {"hf": "Qwen/Qwen2.5-3B-Instruct",         "ollama": "Qwen",    "likert": "results/surveys/Qwen_hexaco100.json"},
+    "Gemma12": {"hf": "google/gemma-3-12b-it",            "ollama": "Gemma12", "likert": "results/surveys/Gemma12_hexaco100.json"},
+    "Llama8":  {"hf": "meta-llama/Llama-3.1-8B-Instruct", "ollama": "Llama8",  "likert": "results/surveys/Llama8_hexaco100.json"},
+    "Qwen7":   {"hf": "Qwen/Qwen2.5-7B-Instruct",         "ollama": "Qwen7",   "likert": "results/surveys/Qwen7_hexaco100.json"},
 }
 
 

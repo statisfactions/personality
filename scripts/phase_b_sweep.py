@@ -21,8 +21,8 @@ Metrics per cell (24-pair holdout, facet-stratified 6 pairs × 4 facets):
   - k_pcs at best layer (MD-projected only)
   - cos_to_lda (MD methods only)
 
-Output: results/phase_b_sweep.csv (one row per model × trait × format × method),
-        results/phase_b_sweep.json (same plus full facet breakdown),
+Output: results/sweeps/phase_b_sweep.csv (one row per model × trait × format × method),
+        results/sweeps/phase_b_sweep.json (same plus full facet breakdown),
         results/phase_b_summary.txt (readable table).
 
 Usage:

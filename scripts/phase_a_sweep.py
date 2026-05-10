@@ -24,8 +24,8 @@ alongside each cell for direct method comparison.
 Prompt-steering ceiling (from report_week5_meandiff.md §9) is reported as a
 reference row, not computed in this script.
 
-Output: CSV at results/phase_a_sweep_<model>_<trait>.csv, plus a rich JSON
-at results/phase_a_sweep_<model>_<trait>.json with per-cell details.
+Output: CSV at results/sweeps/phase_a_sweep_<model>_<trait>.csv, plus a rich JSON
+at results/sweeps/phase_a_sweep_<model>_<trait>.json with per-cell details.
 
 Usage:
     python scripts/phase_a_sweep.py \

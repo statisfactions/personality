@@ -94,14 +94,14 @@ def make_modes(variant):
     v = VARIANTS[variant]
     return {
         "rep": {
-            "results_pattern": f"results/persona_repr_mapping_{{m}}_response-position{v['rep_suffix']}.json",
+            "results_pattern": f"results/persona/persona_repr_mapping_{{m}}_response-position{v['rep_suffix']}.json",
             "value_key": "projections",
             "label": "projection",
             "title": f"Persona representation back-mapping — {v['title_tag']}",
             "out_prefix": f"persona_repr_heatmap{v['out_tag']}",
         },
         "likert": {
-            "results_pattern": f"results/persona_instrument_response_{{m}}{v['likert_suffix']}.json",
+            "results_pattern": f"results/persona/persona_instrument_response_{{m}}{v['likert_suffix']}.json",
             "value_key": "scored_trait",
             "label": "scored trait (Likert)",
             "title": f"Persona Likert response track — {v['title_tag']}",

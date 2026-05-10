@@ -211,7 +211,7 @@ def main():
         print(f"  {own:>25s} → {other:<25s}  r={r_val:+.3f}")
 
     # Save
-    out = Path("results/per_scenario_text_repr.json")
+    out = Path("results/stimuli/per_scenario_text_repr.json")
     out.write_text(json.dumps({
         "overall_pearson_r": float(np.corrcoef(text_arr, repr_arr)[0, 1]),
         "overall_spearman_rho": float(spearmanr(text_arr, repr_arr)[0]),

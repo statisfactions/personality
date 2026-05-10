@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-model agreement on IPIP facet cosine geometry (W8 §11).
 
-Loads results/ipip_facet_cluster.json (the 30×30 cosine matrices per
+Loads results/facets/ipip_facet_cluster.json (the 30×30 cosine matrices per
 cohort model produced by ipip_facet_cluster.py) and asks: do different
 models agree on the geometric structure of IPIP-NEO facets?
 
@@ -12,9 +12,9 @@ geometry too, and how does it compare to the HEXACO facet geometry
 agreement?
 
 Output:
-- results/ipip_facet_cross_model.json — pairwise model cosine-matrix
+- results/facets/ipip_facet_cross_model.json — pairwise model cosine-matrix
   correlations (Pearson r on flattened upper triangle excluding diagonal)
-- results/ipip_facet_cross_model_heatmap.html — pairwise correlation
+- results/facets/ipip_facet_cross_model_heatmap.html — pairwise correlation
   heatmap, one panel for IPIP, with HEXACO comparison if available
 
 Usage:
@@ -84,8 +84,8 @@ def build_heatmap(models, R, title):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ipip", default="results/ipip_facet_cluster.json")
-    parser.add_argument("--hexaco", default="results/facet_cluster.json",
+    parser.add_argument("--ipip", default="results/facets/ipip_facet_cluster.json")
+    parser.add_argument("--hexaco", default="results/facets/facet_cluster.json",
                         help="HEXACO comparison data (from facet_cluster.py).")
     args = parser.parse_args()
 
@@ -145,7 +145,7 @@ def main():
             "mean_pairwise_r": float(np.mean(panels[1][2][np.triu_indices(len(panels[1][1]), k=1)])),
         }
     Path("results").mkdir(exist_ok=True)
-    json_out = Path("results/ipip_facet_cross_model.json")
+    json_out = Path("results/facets/ipip_facet_cross_model.json")
     with open(json_out, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\nSaved {json_out}")
@@ -180,7 +180,7 @@ def main():
             height=560, width=1280,
         )
 
-    html_out = Path("results/ipip_facet_cross_model_heatmap.html")
+    html_out = Path("results/facets/ipip_facet_cross_model_heatmap.html")
     fig.write_html(str(html_out))
     print(f"Saved {html_out}")
 

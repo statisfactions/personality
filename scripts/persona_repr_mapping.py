@@ -309,7 +309,7 @@ def main():
         suffix += f"_{args.persona_source}"
     if args.direction_source != "markers":
         suffix += f"_dir-{args.direction_source}"
-    out_path = Path(f"results/persona_repr_mapping_{args.model}{suffix}.json")
+    out_path = Path(f"results/persona/persona_repr_mapping_{args.model}{suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2)

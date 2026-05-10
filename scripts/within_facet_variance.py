@@ -7,8 +7,8 @@ pair-diffs are diffuse). With the stratified dataset we have enough pairs per
 facet (median 35) to ask the question at finer granularity.
 
 Output:
-  - results/within_facet_variance.html — scree plots
-  - results/within_facet_variance.json — raw numbers
+  - results/facets/within_facet_variance.html — scree plots
+  - results/facets/within_facet_variance.json — raw numbers
   - stdout summary per (model, trait, facet) + per-facet summary across models
 
 Usage:
@@ -140,7 +140,7 @@ def main():
     print(f"FACET vs TRAIT MD-coherence (does aggregating across facets dilute the axis?)")
     print(f"{'=' * 80}")
     # Load within-trait results (stratified) for comparison
-    trait_path = Path("results/within_trait_variance_stratified.json")
+    trait_path = Path("results/facets/within_trait_variance_stratified.json")
     trait_data = json.loads(trait_path.read_text()) if trait_path.exists() else {}
     print(f"{'model':>6s} {'trait':>2s}  {'trait MD':>8s}  {'mean facet MD':>13s}  "
           f"{'max facet MD':>12s}  facets sorted by MD coherence:")
@@ -194,11 +194,11 @@ def main():
         height=800, width=1200,
         legend=dict(title="trait", orientation="h", y=-0.08, x=0.5, xanchor="center"),
     )
-    out_html = Path("results/within_facet_variance.html")
+    out_html = Path("results/facets/within_facet_variance.html")
     fig.write_html(str(out_html))
     print(f"\nWrote {out_html}")
 
-    out_json = Path("results/within_facet_variance.json")
+    out_json = Path("results/facets/within_facet_variance.json")
     out_json.write_text(json.dumps(all_results, indent=2))
     print(f"Wrote {out_json}")
 

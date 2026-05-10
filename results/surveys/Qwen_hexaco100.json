@@ -1,0 +1,2071 @@
+{
+  "model": "Qwen",
+  "hf_repo": "Qwen/Qwen2.5-3B-Instruct",
+  "instrument": "HEXACO-100",
+  "timestamp": "2026-04-25T14:55:34",
+  "n_items": 100,
+  "n_variants": 4,
+  "elapsed_seconds": 12.1,
+  "scale_scores": {
+    "H": {
+      "name": "Honesty-Humility",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 3.875,
+      "ev_mean": 3.7113731875,
+      "entropy_mean": 0.5736125
+    },
+    "E": {
+      "name": "Emotionality",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 2.9375,
+      "ev_mean": 2.9158256875,
+      "entropy_mean": 0.70366875
+    },
+    "X": {
+      "name": "Extraversion",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 2.9375,
+      "ev_mean": 3.01815475,
+      "entropy_mean": 0.49719375
+    },
+    "A": {
+      "name": "Agreeableness",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 3.125,
+      "ev_mean": 3.162644625,
+      "entropy_mean": 0.5726375
+    },
+    "C": {
+      "name": "Conscientiousness",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 3.5,
+      "ev_mean": 3.475091125,
+      "entropy_mean": 0.5284875
+    },
+    "O": {
+      "name": "Openness to Experience",
+      "n_items": 16,
+      "n_scored": 16,
+      "argmax_mean": 3.5625,
+      "ev_mean": 3.424157125,
+      "entropy_mean": 0.69815625
+    },
+    "ALT": {
+      "name": "Altruism (interstitial)",
+      "n_items": 4,
+      "n_scored": 4,
+      "argmax_mean": 3.25,
+      "ev_mean": 3.2483190000000004,
+      "entropy_mean": 0.431775
+    }
+  },
+  "item_results": {
+    "hex1": {
+      "item_text": "I would be quite bored by a visit to an art gallery.",
+      "argmax": "2",
+      "expected_value": 2.342,
+      "entropy": 1.3074,
+      "entropy_normalized": 0.8123,
+      "distribution": {
+        "1": 0.209027,
+        "2": 0.344627,
+        "3": 0.344627,
+        "4": 0.098737,
+        "5": 0.002982
+      }
+    },
+    "hex2": {
+      "item_text": "I clean my office or home quite frequently.",
+      "argmax": "3",
+      "expected_value": 2.8816,
+      "entropy": 0.3703,
+      "entropy_normalized": 0.2301,
+      "distribution": {
+        "1": 7.5e-05,
+        "2": 0.119137,
+        "3": 0.880313,
+        "4": 9.6e-05,
+        "5": 0.000379
+      }
+    },
+    "hex3": {
+      "item_text": "I rarely hold a grudge, even against people who have badly wronged me.",
+      "argmax": "3",
+      "expected_value": 3.2191,
+      "entropy": 0.6926,
+      "entropy_normalized": 0.4304,
+      "distribution": {
+        "1": 0.000152,
+        "2": 0.022616,
+        "3": 0.74894,
+        "4": 0.214575,
+        "5": 0.013717
+      }
+    },
+    "hex4": {
+      "item_text": "I feel reasonably satisfied with myself overall.",
+      "argmax": "3",
+      "expected_value": 2.9974,
+      "entropy": 0.0496,
+      "entropy_normalized": 0.0308,
+      "distribution": {
+        "1": 9e-06,
+        "2": 0.005208,
+        "3": 0.992534,
+        "4": 0.001916,
+        "5": 0.000333
+      }
+    },
+    "hex5": {
+      "item_text": "I would feel afraid if I had to travel in bad weather conditions.",
+      "argmax": "2",
+      "expected_value": 2.4416,
+      "entropy": 0.7317,
+      "entropy_normalized": 0.4547,
+      "distribution": {
+        "1": 0.002928,
+        "2": 0.557945,
+        "3": 0.434528,
+        "4": 0.003759,
+        "5": 0.000839
+      }
+    },
+    "hex6": {
+      "item_text": "If I want something from a person I dislike, I will act very nicely toward that person in order to get it.",
+      "argmax": "2",
+      "expected_value": 2.2132,
+      "entropy": 0.4274,
+      "entropy_normalized": 0.2655,
+      "distribution": {
+        "1": 0.000381,
+        "2": 0.883528,
+        "3": 0.020779,
+        "4": 0.093123,
+        "5": 0.00219
+      }
+    },
+    "hex7": {
+      "item_text": "I'm interested in learning about the history and politics of other countries.",
+      "argmax": "5",
+      "expected_value": 4.8516,
+      "entropy": 0.421,
+      "entropy_normalized": 0.2616,
+      "distribution": {
+        "1": 0.0,
+        "2": 4e-06,
+        "3": 0.000173,
+        "4": 0.148021,
+        "5": 0.851802
+      }
+    },
+    "hex8": {
+      "item_text": "When working, I often set ambitious goals for myself.",
+      "argmax": "4",
+      "expected_value": 3.8541,
+      "entropy": 0.4589,
+      "entropy_normalized": 0.2851,
+      "distribution": {
+        "1": 5e-06,
+        "2": 0.015832,
+        "3": 0.116987,
+        "4": 0.864424,
+        "5": 0.002751
+      }
+    },
+    "hex9": {
+      "item_text": "People sometimes tell me that I am too critical of others.",
+      "argmax": "4",
+      "expected_value": 3.9756,
+      "entropy": 0.2101,
+      "entropy_normalized": 0.1305,
+      "distribution": {
+        "1": 0.0,
+        "2": 0.003047,
+        "3": 0.028911,
+        "4": 0.957406,
+        "5": 0.010636
+      }
+    },
+    "hex10": {
+      "item_text": "I rarely express my opinions in group meetings.",
+      "argmax": "3",
+      "expected_value": 2.8487,
+      "entropy": 0.6039,
+      "entropy_normalized": 0.3753,
+      "distribution": {
+        "1": 0.001534,
+        "2": 0.177307,
+        "3": 0.794634,
+        "4": 0.023996,
+        "5": 0.002529
+      }
+    },
+    "hex11": {
+      "item_text": "I sometimes can't help worrying about little things.",
+      "argmax": "3",
+      "expected_value": 3.2618,
+      "entropy": 0.6929,
+      "entropy_normalized": 0.4305,
+      "distribution": {
+        "1": 1.7e-05,
+        "2": 0.008557,
+        "3": 0.770304,
+        "4": 0.171878,
+        "5": 0.049244
+      }
+    },
+    "hex12": {
+      "item_text": "If I knew that I could never get caught, I would be willing to steal a million dollars.",
+      "argmax": "1",
+      "expected_value": 1.8506,
+      "entropy": 1.1097,
+      "entropy_normalized": 0.6895,
+      "distribution": {
+        "1": 0.474721,
+        "2": 0.224242,
+        "3": 0.287933,
+        "4": 0.00194,
+        "5": 0.011164
+      }
+    },
+    "hex13": {
+      "item_text": "I would like a job that requires following a routine rather than being creative.",
+      "argmax": "2",
+      "expected_value": 2.344,
+      "entropy": 0.9144,
+      "entropy_normalized": 0.5682,
+      "distribution": {
+        "1": 0.070461,
+        "2": 0.520643,
+        "3": 0.405477,
+        "4": 0.001291,
+        "5": 0.002128
+      }
+    },
+    "hex14": {
+      "item_text": "I often check my work over repeatedly to find any mistakes.",
+      "argmax": "3",
+      "expected_value": 3.006,
+      "entropy": 0.1983,
+      "entropy_normalized": 0.1232,
+      "distribution": {
+        "1": 7.2e-05,
+        "2": 0.017613,
+        "3": 0.961641,
+        "4": 0.017613,
+        "5": 0.003061
+      }
+    },
+    "hex15": {
+      "item_text": "People sometimes tell me that I'm too stubborn.",
+      "argmax": "4",
+      "expected_value": 3.889,
+      "entropy": 0.4211,
+      "entropy_normalized": 0.2616,
+      "distribution": {
+        "1": 3e-06,
+        "2": 0.012642,
+        "3": 0.093413,
+        "4": 0.886275,
+        "5": 0.007668
+      }
+    },
+    "hex16": {
+      "item_text": "I avoid making \"small talk\" with people.",
+      "argmax": "3",
+      "expected_value": 2.5858,
+      "entropy": 0.8275,
+      "entropy_normalized": 0.5142,
+      "distribution": {
+        "1": 0.00777,
+        "2": 0.424201,
+        "3": 0.544684,
+        "4": 0.02112,
+        "5": 0.002226
+      }
+    },
+    "hex17": {
+      "item_text": "When I suffer from a painful experience, I need someone to make me feel comfortable.",
+      "argmax": "2",
+      "expected_value": 2.2689,
+      "entropy": 0.6028,
+      "entropy_normalized": 0.3746,
+      "distribution": {
+        "1": 0.001807,
+        "2": 0.728957,
+        "3": 0.268168,
+        "4": 0.000665,
+        "5": 0.000403
+      }
+    },
+    "hex18": {
+      "item_text": "Having a lot of money is not especially important to me.",
+      "argmax": "3",
+      "expected_value": 3.1167,
+      "entropy": 0.5563,
+      "entropy_normalized": 0.3457,
+      "distribution": {
+        "1": 0.004438,
+        "2": 0.01989,
+        "3": 0.845726,
+        "4": 0.114457,
+        "5": 0.01549
+      }
+    },
+    "hex19": {
+      "item_text": "I think that paying attention to radical ideas is a waste of time.",
+      "argmax": "3",
+      "expected_value": 2.9776,
+      "entropy": 0.6471,
+      "entropy_normalized": 0.402,
+      "distribution": {
+        "1": 0.001228,
+        "2": 0.110542,
+        "3": 0.816804,
+        "4": 0.052217,
+        "5": 0.019209
+      }
+    },
+    "hex20": {
+      "item_text": "I make decisions based on the feeling of the moment rather than on careful thought.",
+      "argmax": "2",
+      "expected_value": 1.9933,
+      "entropy": 0.762,
+      "entropy_normalized": 0.4734,
+      "distribution": {
+        "1": 0.131463,
+        "2": 0.756517,
+        "3": 0.102383,
+        "4": 0.006545,
+        "5": 0.003092
+      }
+    },
+    "hex21": {
+      "item_text": "People think of me as someone who has a quick temper.",
+      "argmax": "2",
+      "expected_value": 2.2284,
+      "entropy": 0.5536,
+      "entropy_normalized": 0.344,
+      "distribution": {
+        "1": 0.00026,
+        "2": 0.774529,
+        "3": 0.221906,
+        "4": 0.003165,
+        "5": 0.000139
+      }
+    },
+    "hex22": {
+      "item_text": "I am energetic nearly all the time.",
+      "argmax": "3",
+      "expected_value": 2.5771,
+      "entropy": 0.7367,
+      "entropy_normalized": 0.4577,
+      "distribution": {
+        "1": 2.9e-05,
+        "2": 0.4333,
+        "3": 0.556368,
+        "4": 0.01019,
+        "5": 0.000113
+      }
+    },
+    "hex23": {
+      "item_text": "I feel like crying when I see other people crying.",
+      "argmax": "3",
+      "expected_value": 2.7778,
+      "entropy": 0.5405,
+      "entropy_normalized": 0.3358,
+      "distribution": {
+        "1": 0.000429,
+        "2": 0.222424,
+        "3": 0.776335,
+        "4": 0.000551,
+        "5": 0.00026
+      }
+    },
+    "hex24": {
+      "item_text": "I am an ordinary person who is no better than others.",
+      "argmax": "1",
+      "expected_value": 1.0364,
+      "entropy": 0.1353,
+      "entropy_normalized": 0.0841,
+      "distribution": {
+        "1": 0.975018,
+        "2": 0.013908,
+        "3": 0.010831,
+        "4": 0.000106,
+        "5": 0.000136
+      }
+    },
+    "hex25": {
+      "item_text": "I wouldn't spend my time reading a book of poetry.",
+      "argmax": "3",
+      "expected_value": 2.6791,
+      "entropy": 1.0353,
+      "entropy_normalized": 0.6433,
+      "distribution": {
+        "1": 0.035688,
+        "2": 0.338595,
+        "3": 0.558248,
+        "4": 0.045824,
+        "5": 0.021646
+      }
+    },
+    "hex26": {
+      "item_text": "I plan ahead and organize things, to avoid scrambling at the last minute.",
+      "argmax": "3",
+      "expected_value": 3.4655,
+      "entropy": 0.8401,
+      "entropy_normalized": 0.522,
+      "distribution": {
+        "1": 6.7e-05,
+        "2": 0.009916,
+        "3": 0.541411,
+        "4": 0.421651,
+        "5": 0.026955
+      }
+    },
+    "hex27": {
+      "item_text": "My attitude toward people who have treated me badly is \"forgive and forget\".",
+      "argmax": "3",
+      "expected_value": 3.5431,
+      "entropy": 0.9216,
+      "entropy_normalized": 0.5727,
+      "distribution": {
+        "1": 6.1e-05,
+        "2": 0.002019,
+        "3": 0.634402,
+        "4": 0.181759,
+        "5": 0.181759
+      }
+    },
+    "hex28": {
+      "item_text": "I think that most people like some aspects of my personality.",
+      "argmax": "4",
+      "expected_value": 4.0072,
+      "entropy": 0.1141,
+      "entropy_normalized": 0.0709,
+      "distribution": {
+        "1": 0.0,
+        "2": 9.4e-05,
+        "3": 0.006599,
+        "4": 0.979338,
+        "5": 0.01397
+      }
+    },
+    "hex29": {
+      "item_text": "I don't mind doing jobs that involve dangerous work.",
+      "argmax": "3",
+      "expected_value": 2.9636,
+      "entropy": 0.3293,
+      "entropy_normalized": 0.2046,
+      "distribution": {
+        "1": 0.0001,
+        "2": 0.058891,
+        "3": 0.921205,
+        "4": 0.016872,
+        "5": 0.002932
+      }
+    },
+    "hex30": {
+      "item_text": "I wouldn't use flattery to get a raise or promotion at work, even if I thought it would succeed.",
+      "argmax": "5",
+      "expected_value": 4.0926,
+      "entropy": 1.0275,
+      "entropy_normalized": 0.6384,
+      "distribution": {
+        "1": 3.2e-05,
+        "2": 0.006859,
+        "3": 0.374489,
+        "4": 0.137767,
+        "5": 0.480853
+      }
+    },
+    "hex31": {
+      "item_text": "I enjoy looking at maps of different places.",
+      "argmax": "3",
+      "expected_value": 2.9953,
+      "entropy": 0.0366,
+      "entropy_normalized": 0.0228,
+      "distribution": {
+        "1": 1e-06,
+        "2": 0.005218,
+        "3": 0.994352,
+        "4": 0.000334,
+        "5": 9.6e-05
+      }
+    },
+    "hex32": {
+      "item_text": "I often push myself very hard when trying to achieve a goal.",
+      "argmax": "2",
+      "expected_value": 2.383,
+      "entropy": 0.6845,
+      "entropy_normalized": 0.4253,
+      "distribution": {
+        "1": 7.7e-05,
+        "2": 0.620307,
+        "3": 0.376235,
+        "4": 0.003255,
+        "5": 0.000126
+      }
+    },
+    "hex33": {
+      "item_text": "I generally accept people's faults without complaining about them.",
+      "argmax": "3",
+      "expected_value": 3.0488,
+      "entropy": 0.1655,
+      "entropy_normalized": 0.1028,
+      "distribution": {
+        "1": 1.6e-05,
+        "2": 0.000417,
+        "3": 0.968029,
+        "4": 0.013808,
+        "5": 0.01773
+      }
+    },
+    "hex34": {
+      "item_text": "In social situations, I'm usually the one who makes the first move.",
+      "argmax": "2",
+      "expected_value": 2.2886,
+      "entropy": 0.6739,
+      "entropy_normalized": 0.4187,
+      "distribution": {
+        "1": 0.000414,
+        "2": 0.747961,
+        "3": 0.214294,
+        "4": 0.037239,
+        "5": 9.2e-05
+      }
+    },
+    "hex35": {
+      "item_text": "I worry a lot less than most people do.",
+      "argmax": "4",
+      "expected_value": 3.5327,
+      "entropy": 0.8442,
+      "entropy_normalized": 0.5246,
+      "distribution": {
+        "1": 0.000634,
+        "2": 0.02694,
+        "3": 0.421412,
+        "4": 0.541104,
+        "5": 0.009911
+      }
+    },
+    "hex36": {
+      "item_text": "I would be tempted to buy stolen property if I were financially tight.",
+      "argmax": "3",
+      "expected_value": 3.2882,
+      "entropy": 1.1686,
+      "entropy_normalized": 0.7261,
+      "distribution": {
+        "1": 0.02974,
+        "2": 0.21975,
+        "3": 0.465211,
+        "4": 0.003135,
+        "5": 0.282165
+      }
+    },
+    "hex37": {
+      "item_text": "I would enjoy creating a work of art, such as a novel, a song, or a painting.",
+      "argmax": "3",
+      "expected_value": 2.9535,
+      "entropy": 0.9536,
+      "entropy_normalized": 0.5925,
+      "distribution": {
+        "1": 0.000179,
+        "2": 0.221994,
+        "3": 0.603442,
+        "4": 0.172889,
+        "5": 0.001496
+      }
+    },
+    "hex38": {
+      "item_text": "When working on something, I don't pay much attention to small details.",
+      "argmax": "2",
+      "expected_value": 2.1997,
+      "entropy": 0.416,
+      "entropy_normalized": 0.2585,
+      "distribution": {
+        "1": 0.003623,
+        "2": 0.886629,
+        "3": 0.016239,
+        "4": 0.09345,
+        "5": 5.9e-05
+      }
+    },
+    "hex39": {
+      "item_text": "I am usually quite flexible in my opinions when people disagree with me.",
+      "argmax": "4",
+      "expected_value": 3.9296,
+      "entropy": 0.4437,
+      "entropy_normalized": 0.2757,
+      "distribution": {
+        "1": 2e-06,
+        "2": 0.002178,
+        "3": 0.092612,
+        "4": 0.878675,
+        "5": 0.026534
+      }
+    },
+    "hex40": {
+      "item_text": "I enjoy having lots of people around to talk with.",
+      "argmax": "3",
+      "expected_value": 2.9862,
+      "entropy": 0.0761,
+      "entropy_normalized": 0.0473,
+      "distribution": {
+        "1": 1.6e-05,
+        "2": 0.014061,
+        "3": 0.985727,
+        "4": 0.000122,
+        "5": 7.4e-05
+      }
+    },
+    "hex41": {
+      "item_text": "I can handle difficult situations without needing emotional support from anyone else.",
+      "argmax": "2",
+      "expected_value": 2.7045,
+      "entropy": 1.2695,
+      "entropy_normalized": 0.7888,
+      "distribution": {
+        "1": 0.078812,
+        "2": 0.353212,
+        "3": 0.353212,
+        "4": 0.214234,
+        "5": 0.000531
+      }
+    },
+    "hex42": {
+      "item_text": "I would like to live in a very expensive, high-class neighborhood.",
+      "argmax": "3",
+      "expected_value": 2.9952,
+      "entropy": 0.0404,
+      "entropy_normalized": 0.0251,
+      "distribution": {
+        "1": 0.000333,
+        "2": 0.005215,
+        "3": 0.99389,
+        "4": 1.1e-05,
+        "5": 0.00055
+      }
+    },
+    "hex43": {
+      "item_text": "I like people who have unconventional views.",
+      "argmax": "3",
+      "expected_value": 2.9982,
+      "entropy": 0.0226,
+      "entropy_normalized": 0.014,
+      "distribution": {
+        "1": 1e-06,
+        "2": 0.002471,
+        "3": 0.996926,
+        "4": 0.000551,
+        "5": 5.1e-05
+      }
+    },
+    "hex44": {
+      "item_text": "I make a lot of mistakes because I don't think before I act.",
+      "argmax": "2",
+      "expected_value": 2.3174,
+      "entropy": 0.6976,
+      "entropy_normalized": 0.4334,
+      "distribution": {
+        "1": 0.000238,
+        "2": 0.710458,
+        "3": 0.261363,
+        "4": 0.027547,
+        "5": 0.000393
+      }
+    },
+    "hex45": {
+      "item_text": "I rarely feel anger, even when people treat me quite badly.",
+      "argmax": "3",
+      "expected_value": 2.8204,
+      "entropy": 0.6912,
+      "entropy_normalized": 0.4295,
+      "distribution": {
+        "1": 0.002374,
+        "2": 0.213707,
+        "3": 0.745909,
+        "4": 0.037137,
+        "5": 0.000873
+      }
+    },
+    "hex46": {
+      "item_text": "On most days, I feel cheerful and optimistic.",
+      "argmax": "3",
+      "expected_value": 3.0186,
+      "entropy": 0.3159,
+      "entropy_normalized": 0.1963,
+      "distribution": {
+        "1": 3.3e-05,
+        "2": 0.027952,
+        "3": 0.925655,
+        "4": 0.046086,
+        "5": 0.000274
+      }
+    },
+    "hex47": {
+      "item_text": "When someone I know well is unhappy, I can almost feel that person's pain myself.",
+      "argmax": "3",
+      "expected_value": 2.7512,
+      "entropy": 0.9639,
+      "entropy_normalized": 0.5989,
+      "distribution": {
+        "1": 0.006187,
+        "2": 0.337806,
+        "3": 0.556948,
+        "4": 0.096783,
+        "5": 0.002276
+      }
+    },
+    "hex48": {
+      "item_text": "I wouldn't want people to treat me as though I were superior to them.",
+      "argmax": "5",
+      "expected_value": 4.9986,
+      "entropy": 0.0085,
+      "entropy_normalized": 0.0053,
+      "distribution": {
+        "1": 0.0,
+        "2": 3e-06,
+        "3": 0.00043,
+        "4": 0.000553,
+        "5": 0.999014
+      }
+    },
+    "hex49": {
+      "item_text": "If I had the opportunity, I would like to attend a classical music concert.",
+      "argmax": "4",
+      "expected_value": 3.7375,
+      "entropy": 0.6564,
+      "entropy_normalized": 0.4079,
+      "distribution": {
+        "1": 2.9e-05,
+        "2": 0.003782,
+        "3": 0.265152,
+        "4": 0.720756,
+        "5": 0.010281
+      }
+    },
+    "hex50": {
+      "item_text": "People often joke with me about the messiness of my room or desk.",
+      "argmax": "2",
+      "expected_value": 2.2728,
+      "entropy": 0.6516,
+      "entropy_normalized": 0.4049,
+      "distribution": {
+        "1": 0.000179,
+        "2": 0.776742,
+        "3": 0.173315,
+        "4": 0.049655,
+        "5": 0.000109
+      }
+    },
+    "hex51": {
+      "item_text": "If someone has cheated me once, I will always feel suspicious of that person.",
+      "argmax": "4",
+      "expected_value": 3.6931,
+      "entropy": 0.799,
+      "entropy_normalized": 0.4965,
+      "distribution": {
+        "1": 1.5e-05,
+        "2": 0.058964,
+        "3": 0.205803,
+        "4": 0.718324,
+        "5": 0.016893
+      }
+    },
+    "hex52": {
+      "item_text": "I feel that I am an unpopular person.",
+      "argmax": "3",
+      "expected_value": 2.9993,
+      "entropy": 0.0149,
+      "entropy_normalized": 0.0093,
+      "distribution": {
+        "1": 0.000203,
+        "2": 0.001169,
+        "3": 0.998185,
+        "4": 1.3e-05,
+        "5": 0.00043
+      }
+    },
+    "hex53": {
+      "item_text": "When it comes to physical danger, I am very fearful.",
+      "argmax": "2",
+      "expected_value": 2.0357,
+      "entropy": 0.7257,
+      "entropy_normalized": 0.4509,
+      "distribution": {
+        "1": 0.103123,
+        "2": 0.761982,
+        "3": 0.132413,
+        "4": 0.001011,
+        "5": 0.001471
+      }
+    },
+    "hex54": {
+      "item_text": "If I want something from someone, I will laugh at that person's worst jokes.",
+      "argmax": "2",
+      "expected_value": 2.0222,
+      "entropy": 0.1036,
+      "entropy_normalized": 0.0644,
+      "distribution": {
+        "1": 0.000256,
+        "2": 0.981575,
+        "3": 0.014001,
+        "4": 0.004011,
+        "5": 0.000156
+      }
+    },
+    "hex55": {
+      "item_text": "I would be very bored by a book about the history of science and technology.",
+      "argmax": "2",
+      "expected_value": 2.4658,
+      "entropy": 0.9452,
+      "entropy_normalized": 0.5873,
+      "distribution": {
+        "1": 0.01532,
+        "2": 0.65143,
+        "3": 0.186638,
+        "4": 0.145354,
+        "5": 0.001258
+      }
+    },
+    "hex56": {
+      "item_text": "Often when I set a goal, I end up quitting without having reached it.",
+      "argmax": "2",
+      "expected_value": 2.0332,
+      "entropy": 0.1702,
+      "entropy_normalized": 0.1058,
+      "distribution": {
+        "1": 0.002393,
+        "2": 0.965293,
+        "3": 0.029149,
+        "4": 0.003072,
+        "5": 9.3e-05
+      }
+    },
+    "hex57": {
+      "item_text": "I tend to be lenient in judging other people.",
+      "argmax": "3",
+      "expected_value": 3.2559,
+      "entropy": 0.6856,
+      "entropy_normalized": 0.426,
+      "distribution": {
+        "1": 1.7e-05,
+        "2": 0.016821,
+        "3": 0.715226,
+        "4": 0.263117,
+        "5": 0.004819
+      }
+    },
+    "hex58": {
+      "item_text": "When I'm in a group of people, I'm often the one who speaks on behalf of the group.",
+      "argmax": "2",
+      "expected_value": 2.4001,
+      "entropy": 0.7396,
+      "entropy_normalized": 0.4595,
+      "distribution": {
+        "1": 0.001183,
+        "2": 0.61257,
+        "3": 0.371542,
+        "4": 0.014406,
+        "5": 0.000299
+      }
+    },
+    "hex59": {
+      "item_text": "I rarely, if ever, have trouble sleeping due to stress or anxiety.",
+      "argmax": "3",
+      "expected_value": 2.7575,
+      "entropy": 0.6821,
+      "entropy_normalized": 0.4238,
+      "distribution": {
+        "1": 0.000837,
+        "2": 0.262849,
+        "3": 0.714498,
+        "4": 0.021576,
+        "5": 0.00024
+      }
+    },
+    "hex60": {
+      "item_text": "I would never accept a bribe, even if it were very large.",
+      "argmax": "5",
+      "expected_value": 4.9675,
+      "entropy": 0.1441,
+      "entropy_normalized": 0.0895,
+      "distribution": {
+        "1": 2e-06,
+        "2": 9.3e-05,
+        "3": 0.001457,
+        "4": 0.029267,
+        "5": 0.969181
+      }
+    },
+    "hex61": {
+      "item_text": "People have often told me that I have a good imagination.",
+      "argmax": "4",
+      "expected_value": 4.0478,
+      "entropy": 0.2877,
+      "entropy_normalized": 0.1788,
+      "distribution": {
+        "1": 0.0,
+        "2": 0.00066,
+        "3": 0.010327,
+        "4": 0.929586,
+        "5": 0.059426
+      }
+    },
+    "hex62": {
+      "item_text": "I always try to be accurate in my work, even at the expense of time.",
+      "argmax": "3",
+      "expected_value": 3.2071,
+      "entropy": 0.6035,
+      "entropy_normalized": 0.375,
+      "distribution": {
+        "1": 1.6e-05,
+        "2": 0.014024,
+        "3": 0.765689,
+        "4": 0.219374,
+        "5": 0.000897
+      }
+    },
+    "hex63": {
+      "item_text": "When people tell me that I'm wrong, my first reaction is to argue with them.",
+      "argmax": "2",
+      "expected_value": 2.2353,
+      "entropy": 0.5114,
+      "entropy_normalized": 0.3177,
+      "distribution": {
+        "1": 5e-05,
+        "2": 0.855034,
+        "3": 0.054661,
+        "4": 0.09012,
+        "5": 0.000135
+      }
+    },
+    "hex64": {
+      "item_text": "I prefer jobs that involve active social interaction to those that involve working alone.",
+      "argmax": "3",
+      "expected_value": 3.0008,
+      "entropy": 0.3122,
+      "entropy_normalized": 0.194,
+      "distribution": {
+        "1": 1.5e-05,
+        "2": 0.035969,
+        "3": 0.927647,
+        "4": 0.035969,
+        "5": 0.0004
+      }
+    },
+    "hex65": {
+      "item_text": "Whenever I feel worried about something, I want to share my concern with another person.",
+      "argmax": "4",
+      "expected_value": 3.8657,
+      "entropy": 0.7439,
+      "entropy_normalized": 0.4622,
+      "distribution": {
+        "1": 3e-05,
+        "2": 0.013838,
+        "3": 0.168582,
+        "4": 0.755532,
+        "5": 0.062018
+      }
+    },
+    "hex66": {
+      "item_text": "I would like to be seen driving around in a very expensive car.",
+      "argmax": "3",
+      "expected_value": 2.426,
+      "entropy": 1.2196,
+      "entropy_normalized": 0.7578,
+      "distribution": {
+        "1": 0.282315,
+        "2": 0.171233,
+        "3": 0.465459,
+        "4": 0.000107,
+        "5": 0.080885
+      }
+    },
+    "hex67": {
+      "item_text": "I think of myself as a somewhat eccentric person.",
+      "argmax": "4",
+      "expected_value": 3.7055,
+      "entropy": 0.756,
+      "entropy_normalized": 0.4697,
+      "distribution": {
+        "1": 4e-06,
+        "2": 0.004439,
+        "3": 0.311201,
+        "4": 0.658812,
+        "5": 0.025545
+      }
+    },
+    "hex68": {
+      "item_text": "I don't allow my impulses to govern my behavior.",
+      "argmax": "3",
+      "expected_value": 2.9764,
+      "entropy": 0.4928,
+      "entropy_normalized": 0.3062,
+      "distribution": {
+        "1": 0.003576,
+        "2": 0.071834,
+        "3": 0.875123,
+        "4": 0.04357,
+        "5": 0.005897
+      }
+    },
+    "hex69": {
+      "item_text": "Most people tend to get angry more quickly than I do.",
+      "argmax": "4",
+      "expected_value": 3.6555,
+      "entropy": 0.7669,
+      "entropy_normalized": 0.4765,
+      "distribution": {
+        "1": 0.00099,
+        "2": 0.019889,
+        "3": 0.311109,
+        "4": 0.658618,
+        "5": 0.009395
+      }
+    },
+    "hex70": {
+      "item_text": "People often tell me that I should try to cheer up.",
+      "argmax": "2",
+      "expected_value": 2.4633,
+      "entropy": 0.9683,
+      "entropy_normalized": 0.6016,
+      "distribution": {
+        "1": 0.014292,
+        "2": 0.607724,
+        "3": 0.287069,
+        "4": 0.082247,
+        "5": 0.008669
+      }
+    },
+    "hex71": {
+      "item_text": "I feel strong emotions when someone close to me is going away for a long time.",
+      "argmax": "3",
+      "expected_value": 2.8213,
+      "entropy": 0.4998,
+      "entropy_normalized": 0.3106,
+      "distribution": {
+        "1": 0.00031,
+        "2": 0.181735,
+        "3": 0.81448,
+        "4": 0.003329,
+        "5": 0.000146
+      }
+    },
+    "hex72": {
+      "item_text": "I think that I am entitled to more respect than the average person is.",
+      "argmax": "2",
+      "expected_value": 2.3883,
+      "entropy": 0.7068,
+      "entropy_normalized": 0.4392,
+      "distribution": {
+        "1": 0.000723,
+        "2": 0.617592,
+        "3": 0.374589,
+        "4": 0.006861,
+        "5": 0.000235
+      }
+    },
+    "hex73": {
+      "item_text": "Sometimes I like to just watch the wind as it blows through the trees.",
+      "argmax": "3",
+      "expected_value": 2.9985,
+      "entropy": 0.1424,
+      "entropy_normalized": 0.0885,
+      "distribution": {
+        "1": 0.00042,
+        "2": 0.013905,
+        "3": 0.974825,
+        "4": 0.008434,
+        "5": 0.002416
+      }
+    },
+    "hex74": {
+      "item_text": "When working, I sometimes have difficulties due to being disorganized.",
+      "argmax": "3",
+      "expected_value": 3.0824,
+      "entropy": 0.8496,
+      "entropy_normalized": 0.5279,
+      "distribution": {
+        "1": 6.6e-05,
+        "2": 0.118661,
+        "3": 0.682845,
+        "4": 0.195638,
+        "5": 0.002791
+      }
+    },
+    "hex75": {
+      "item_text": "I find it hard to fully forgive someone who has done something mean to me.",
+      "argmax": "3",
+      "expected_value": 2.9658,
+      "entropy": 0.5201,
+      "entropy_normalized": 0.3231,
+      "distribution": {
+        "1": 0.000368,
+        "2": 0.090013,
+        "3": 0.854023,
+        "4": 0.054596,
+        "5": 0.001
+      }
+    },
+    "hex76": {
+      "item_text": "I sometimes feel that I am a worthless person.",
+      "argmax": "3",
+      "expected_value": 2.7317,
+      "entropy": 0.5923,
+      "entropy_normalized": 0.368,
+      "distribution": {
+        "1": 0.000404,
+        "2": 0.268609,
+        "3": 0.730154,
+        "4": 0.000519,
+        "5": 0.000315
+      }
+    },
+    "hex77": {
+      "item_text": "Even in an emergency I wouldn't feel like panicking.",
+      "argmax": "3",
+      "expected_value": 3.4953,
+      "entropy": 0.7958,
+      "entropy_normalized": 0.4944,
+      "distribution": {
+        "1": 0.000348,
+        "2": 0.011514,
+        "3": 0.489586,
+        "4": 0.489586,
+        "5": 0.008967
+      }
+    },
+    "hex78": {
+      "item_text": "I wouldn't pretend to like someone just to get that person to do favors for me.",
+      "argmax": "5",
+      "expected_value": 4.9907,
+      "entropy": 0.0525,
+      "entropy_normalized": 0.0326,
+      "distribution": {
+        "1": 0.0,
+        "2": 1.3e-05,
+        "3": 0.000332,
+        "4": 0.008575,
+        "5": 0.99108
+      }
+    },
+    "hex79": {
+      "item_text": "I've never really enjoyed looking through an encyclopedia.",
+      "argmax": "2",
+      "expected_value": 2.5082,
+      "entropy": 1.4164,
+      "entropy_normalized": 0.8801,
+      "distribution": {
+        "1": 0.153523,
+        "2": 0.417319,
+        "3": 0.253117,
+        "4": 0.119564,
+        "5": 0.056478
+      }
+    },
+    "hex80": {
+      "item_text": "I do only the minimum amount of work needed to get by.",
+      "argmax": "2",
+      "expected_value": 2.0676,
+      "entropy": 0.28,
+      "entropy_normalized": 0.174,
+      "distribution": {
+        "1": 0.002967,
+        "2": 0.93215,
+        "3": 0.05959,
+        "4": 0.004891,
+        "5": 0.000402
+      }
+    },
+    "hex81": {
+      "item_text": "Even when people make a lot of mistakes, I rarely say anything negative.",
+      "argmax": "3",
+      "expected_value": 3.0918,
+      "entropy": 0.3432,
+      "entropy_normalized": 0.2132,
+      "distribution": {
+        "1": 0.000186,
+        "2": 0.002902,
+        "3": 0.911926,
+        "4": 0.074855,
+        "5": 0.010131
+      }
+    },
+    "hex82": {
+      "item_text": "I tend to feel quite self-conscious when speaking in front of a group of people.",
+      "argmax": "3",
+      "expected_value": 2.734,
+      "entropy": 0.5982,
+      "entropy_normalized": 0.3717,
+      "distribution": {
+        "1": 4.3e-05,
+        "2": 0.268293,
+        "3": 0.729295,
+        "4": 0.002321,
+        "5": 4.8e-05
+      }
+    },
+    "hex83": {
+      "item_text": "I get very anxious when waiting to hear about an important decision.",
+      "argmax": "3",
+      "expected_value": 2.9629,
+      "entropy": 0.161,
+      "entropy_normalized": 0.1,
+      "distribution": {
+        "1": 1.1e-05,
+        "2": 0.037321,
+        "3": 0.962519,
+        "4": 9.3e-05,
+        "5": 5.6e-05
+      }
+    },
+    "hex84": {
+      "item_text": "I'd be tempted to use counterfeit money, if I were sure I could get away with it.",
+      "argmax": "1",
+      "expected_value": 1.7993,
+      "entropy": 1.1031,
+      "entropy_normalized": 0.6854,
+      "distribution": {
+        "1": 0.439564,
+        "2": 0.342333,
+        "3": 0.207635,
+        "4": 0.00013,
+        "5": 0.010338
+      }
+    },
+    "hex85": {
+      "item_text": "I don't think of myself as the artistic or creative type.",
+      "argmax": "2",
+      "expected_value": 2.47,
+      "entropy": 0.942,
+      "entropy_normalized": 0.5853,
+      "distribution": {
+        "1": 0.026031,
+        "2": 0.522848,
+        "3": 0.407194,
+        "4": 0.042918,
+        "5": 0.001009
+      }
+    },
+    "hex86": {
+      "item_text": "People often call me a perfectionist.",
+      "argmax": "4",
+      "expected_value": 4.0655,
+      "entropy": 0.317,
+      "entropy_normalized": 0.197,
+      "distribution": {
+        "1": 5e-06,
+        "2": 0.00177,
+        "3": 0.006177,
+        "4": 0.916793,
+        "5": 0.075255
+      }
+    },
+    "hex87": {
+      "item_text": "I find it hard to compromise with people when I really think I'm right.",
+      "argmax": "2",
+      "expected_value": 2.3463,
+      "entropy": 0.7438,
+      "entropy_normalized": 0.4622,
+      "distribution": {
+        "1": 0.000386,
+        "2": 0.697985,
+        "3": 0.256774,
+        "4": 0.044621,
+        "5": 0.000234
+      }
+    },
+    "hex88": {
+      "item_text": "The first thing that I always do in a new place is to make friends.",
+      "argmax": "3",
+      "expected_value": 2.8571,
+      "entropy": 0.4467,
+      "entropy_normalized": 0.2775,
+      "distribution": {
+        "1": 1.6e-05,
+        "2": 0.147379,
+        "3": 0.848105,
+        "4": 0.00445,
+        "5": 4.9e-05
+      }
+    },
+    "hex89": {
+      "item_text": "I rarely discuss my problems with other people.",
+      "argmax": "3",
+      "expected_value": 2.9487,
+      "entropy": 1.0299,
+      "entropy_normalized": 0.6399,
+      "distribution": {
+        "1": 0.001044,
+        "2": 0.255483,
+        "3": 0.540858,
+        "4": 0.198971,
+        "5": 0.003644
+      }
+    },
+    "hex90": {
+      "item_text": "I would get a lot of pleasure from owning expensive luxury goods.",
+      "argmax": "2",
+      "expected_value": 2.274,
+      "entropy": 0.6725,
+      "entropy_normalized": 0.4179,
+      "distribution": {
+        "1": 0.010249,
+        "2": 0.718542,
+        "3": 0.264337,
+        "4": 0.000655,
+        "5": 0.006217
+      }
+    },
+    "hex91": {
+      "item_text": "I find it boring to discuss philosophy.",
+      "argmax": "4",
+      "expected_value": 3.7146,
+      "entropy": 0.6864,
+      "entropy_normalized": 0.4265,
+      "distribution": {
+        "1": 0.005202,
+        "2": 0.049354,
+        "3": 0.172261,
+        "4": 0.772022,
+        "5": 0.001161
+      }
+    },
+    "hex92": {
+      "item_text": "I prefer to do whatever comes to mind, rather than stick to a plan.",
+      "argmax": "2",
+      "expected_value": 2.2714,
+      "entropy": 0.6634,
+      "entropy_normalized": 0.4122,
+      "distribution": {
+        "1": 0.008,
+        "2": 0.720175,
+        "3": 0.264937,
+        "4": 0.006231,
+        "5": 0.000657
+      }
+    },
+    "hex93": {
+      "item_text": "I find it hard to keep my temper when people insult me.",
+      "argmax": "3",
+      "expected_value": 2.6285,
+      "entropy": 0.6928,
+      "entropy_normalized": 0.4305,
+      "distribution": {
+        "1": 0.000343,
+        "2": 0.375706,
+        "3": 0.619435,
+        "4": 0.004174,
+        "5": 0.000343
+      }
+    },
+    "hex94": {
+      "item_text": "Most people are more upbeat and dynamic than I generally am.",
+      "argmax": "4",
+      "expected_value": 3.4797,
+      "entropy": 0.8852,
+      "entropy_normalized": 0.55,
+      "distribution": {
+        "1": 0.000228,
+        "2": 0.055726,
+        "3": 0.411766,
+        "4": 0.528718,
+        "5": 0.003562
+      }
+    },
+    "hex95": {
+      "item_text": "I remain unemotional even in situations where most people get very sentimental.",
+      "argmax": "2",
+      "expected_value": 2.1312,
+      "entropy": 0.6457,
+      "entropy_normalized": 0.4012,
+      "distribution": {
+        "1": 0.040064,
+        "2": 0.804712,
+        "3": 0.139838,
+        "4": 0.014739,
+        "5": 0.000648
+      }
+    },
+    "hex96": {
+      "item_text": "I want people to know that I am an important person of high status.",
+      "argmax": "3",
+      "expected_value": 2.5633,
+      "entropy": 0.7019,
+      "entropy_normalized": 0.4361,
+      "distribution": {
+        "1": 0.000843,
+        "2": 0.436861,
+        "3": 0.560941,
+        "4": 0.000843,
+        "5": 0.000512
+      }
+    },
+    "hex97": {
+      "item_text": "I have sympathy for people who are less fortunate than I am.",
+      "argmax": "5",
+      "expected_value": 4.9071,
+      "entropy": 0.2839,
+      "entropy_normalized": 0.1764,
+      "distribution": {
+        "1": 0.0,
+        "2": 4.2e-05,
+        "3": 0.028248,
+        "4": 0.036271,
+        "5": 0.935439
+      }
+    },
+    "hex98": {
+      "item_text": "I try to give generously to those in need.",
+      "argmax": "3",
+      "expected_value": 2.9998,
+      "entropy": 0.0097,
+      "entropy_normalized": 0.006,
+      "distribution": {
+        "1": 3e-06,
+        "2": 0.000709,
+        "3": 0.998878,
+        "4": 0.000335,
+        "5": 7.5e-05
+      }
+    },
+    "hex99": {
+      "item_text": "It wouldn't bother me to harm someone I didn't like.",
+      "argmax": "5",
+      "expected_value": 4.48,
+      "entropy": 0.7108,
+      "entropy_normalized": 0.4416,
+      "distribution": {
+        "1": 0.014127,
+        "2": 0.038402,
+        "3": 0.172105,
+        "4": 0.004048,
+        "5": 0.771319
+      }
+    },
+    "hex100": {
+      "item_text": "People see me as a hard-hearted person.",
+      "argmax": "2",
+      "expected_value": 2.4336,
+      "entropy": 0.7227,
+      "entropy_normalized": 0.449,
+      "distribution": {
+        "1": 0.004834,
+        "2": 0.558723,
+        "3": 0.435134,
+        "4": 0.000654,
+        "5": 0.000654
+      }
+    }
+  },
+  "variant_evs": {
+    "hex1": [
+      2.342,
+      2.9625,
+      3.2732,
+      1.0451
+    ],
+    "hex2": [
+      2.8816,
+      3.0098,
+      3.0855,
+      3.0977
+    ],
+    "hex3": [
+      3.2191,
+      4.0454,
+      4.8855,
+      2.8344
+    ],
+    "hex4": [
+      2.9974,
+      3.8811,
+      3.3828,
+      3.8807
+    ],
+    "hex5": [
+      2.4416,
+      2.979,
+      2.5003,
+      1.0062
+    ],
+    "hex6": [
+      2.2132,
+      2.5335,
+      1.3458,
+      1.016
+    ],
+    "hex7": [
+      4.8516,
+      4.0001,
+      4.4635,
+      4.5436
+    ],
+    "hex8": [
+      3.8541,
+      3.9773,
+      3.1092,
+      3.8081
+    ],
+    "hex9": [
+      3.9756,
+      3.1195,
+      3.1783,
+      3.0288
+    ],
+    "hex10": [
+      2.8487,
+      3.004,
+      3.072,
+      1.0
+    ],
+    "hex11": [
+      3.2618,
+      3.1193,
+      3.0508,
+      3.1462
+    ],
+    "hex12": [
+      1.8506,
+      3.4321,
+      1.0281,
+      1.0
+    ],
+    "hex13": [
+      2.344,
+      2.0699,
+      1.1062,
+      1.0049
+    ],
+    "hex14": [
+      3.006,
+      3.048,
+      2.7235,
+      3.0961
+    ],
+    "hex15": [
+      3.889,
+      3.0295,
+      3.393,
+      3.087
+    ],
+    "hex16": [
+      2.5858,
+      2.6744,
+      1.492,
+      1.0003
+    ],
+    "hex17": [
+      2.2689,
+      3.0027,
+      1.0234,
+      1.0009
+    ],
+    "hex18": [
+      3.1167,
+      3.0666,
+      4.6011,
+      2.3998
+    ],
+    "hex19": [
+      2.9776,
+      2.9889,
+      2.9847,
+      1.0002
+    ],
+    "hex20": [
+      1.9933,
+      2.418,
+      1.0292,
+      1.0006
+    ],
+    "hex21": [
+      2.2284,
+      3.0016,
+      1.0184,
+      1.1286
+    ],
+    "hex22": [
+      2.5771,
+      3.0087,
+      3.1037,
+      3.0009
+    ],
+    "hex23": [
+      2.7778,
+      3.0035,
+      1.7954,
+      1.7157
+    ],
+    "hex24": [
+      1.0364,
+      2.958,
+      1.0049,
+      1.0005
+    ],
+    "hex25": [
+      2.6791,
+      2.2636,
+      1.3083,
+      1.0014
+    ],
+    "hex26": [
+      3.4655,
+      4.0004,
+      3.9996,
+      4.9973
+    ],
+    "hex27": [
+      3.5431,
+      3.8839,
+      4.7453,
+      4.3638
+    ],
+    "hex28": [
+      4.0072,
+      3.9994,
+      4.1461,
+      4.7018
+    ],
+    "hex29": [
+      2.9636,
+      3.0106,
+      3.0417,
+      1.0396
+    ],
+    "hex30": [
+      4.0926,
+      3.0477,
+      3.5308,
+      1.0192
+    ],
+    "hex31": [
+      2.9953,
+      3.2711,
+      3.346,
+      3.0552
+    ],
+    "hex32": [
+      2.383,
+      3.1452,
+      1.8099,
+      2.9078
+    ],
+    "hex33": [
+      3.0488,
+      3.1043,
+      4.5018,
+      3.2525
+    ],
+    "hex34": [
+      2.2886,
+      3.011,
+      1.1707,
+      2.9608
+    ],
+    "hex35": [
+      3.5327,
+      4.0024,
+      3.922,
+      2.9761
+    ],
+    "hex36": [
+      3.2882,
+      4.354,
+      4.8758,
+      1.0
+    ],
+    "hex37": [
+      2.9535,
+      4.0006,
+      3.3497,
+      3.0938
+    ],
+    "hex38": [
+      2.1997,
+      2.0021,
+      1.5878,
+      1.0
+    ],
+    "hex39": [
+      3.9296,
+      3.9915,
+      3.6893,
+      3.0933
+    ],
+    "hex40": [
+      2.9862,
+      3.042,
+      2.9891,
+      3.0082
+    ],
+    "hex41": [
+      2.7045,
+      2.9973,
+      1.0502,
+      2.8312
+    ],
+    "hex42": [
+      2.9952,
+      3.0493,
+      1.0011,
+      2.7947
+    ],
+    "hex43": [
+      2.9982,
+      4.0004,
+      3.037,
+      4.1777
+    ],
+    "hex44": [
+      2.3174,
+      3.0026,
+      1.2616,
+      2.0043
+    ],
+    "hex45": [
+      2.8204,
+      2.4715,
+      1.9904,
+      1.0002
+    ],
+    "hex46": [
+      3.0186,
+      3.9247,
+      4.1717,
+      3.0618
+    ],
+    "hex47": [
+      2.7512,
+      3.151,
+      4.8735,
+      3.3232
+    ],
+    "hex48": [
+      4.9986,
+      3.453,
+      4.8714,
+      4.999
+    ],
+    "hex49": [
+      3.7375,
+      4.0013,
+      3.5432,
+      4.8401
+    ],
+    "hex50": [
+      2.2728,
+      3.0116,
+      3.039,
+      2.957
+    ],
+    "hex51": [
+      3.6931,
+      3.6222,
+      3.0444,
+      3.4934
+    ],
+    "hex52": [
+      2.9993,
+      3.0029,
+      3.8147,
+      1.0029
+    ],
+    "hex53": [
+      2.0357,
+      2.4297,
+      1.0494,
+      1.0002
+    ],
+    "hex54": [
+      2.0222,
+      3.0037,
+      1.0386,
+      1.1293
+    ],
+    "hex55": [
+      2.4658,
+      2.3236,
+      1.2359,
+      2.9895
+    ],
+    "hex56": [
+      2.0332,
+      3.0291,
+      1.8751,
+      2.0969
+    ],
+    "hex57": [
+      3.2559,
+      3.3233,
+      3.0741,
+      1.0246
+    ],
+    "hex58": [
+      2.4001,
+      3.0015,
+      1.6822,
+      2.8856
+    ],
+    "hex59": [
+      2.7575,
+      3.001,
+      1.7003,
+      1.9066
+    ],
+    "hex60": [
+      4.9675,
+      4.9523,
+      4.9825,
+      3.0
+    ],
+    "hex61": [
+      4.0478,
+      3.0247,
+      4.374,
+      4.9854
+    ],
+    "hex62": [
+      3.2071,
+      3.018,
+      3.266,
+      2.7884
+    ],
+    "hex63": [
+      2.2353,
+      3.086,
+      2.5175,
+      1.0211
+    ],
+    "hex64": [
+      3.0008,
+      3.996,
+      2.8805,
+      3.0256
+    ],
+    "hex65": [
+      3.8657,
+      3.9862,
+      3.5098,
+      3.2412
+    ],
+    "hex66": [
+      2.426,
+      3.0329,
+      1.0006,
+      1.2908
+    ],
+    "hex67": [
+      3.7055,
+      3.9047,
+      3.0015,
+      3.4383
+    ],
+    "hex68": [
+      2.9764,
+      3.1058,
+      3.2225,
+      1.2702
+    ],
+    "hex69": [
+      3.6555,
+      3.0099,
+      2.749,
+      1.0008
+    ],
+    "hex70": [
+      2.4633,
+      3.0111,
+      2.9779,
+      3.0581
+    ],
+    "hex71": [
+      2.8213,
+      3.6229,
+      3.432,
+      3.2256
+    ],
+    "hex72": [
+      2.3883,
+      3.0374,
+      1.0967,
+      2.9037
+    ],
+    "hex73": [
+      2.9985,
+      3.8859,
+      3.1026,
+      3.2305
+    ],
+    "hex74": [
+      3.0824,
+      3.1825,
+      3.0526,
+      2.9681
+    ],
+    "hex75": [
+      2.9658,
+      3.0482,
+      2.8944,
+      1.0136
+    ],
+    "hex76": [
+      2.7317,
+      3.0154,
+      3.2327,
+      1.2931
+    ],
+    "hex77": [
+      3.4953,
+      3.033,
+      4.4305,
+      3.0527
+    ],
+    "hex78": [
+      4.9907,
+      4.5282,
+      4.8398,
+      4.9998
+    ],
+    "hex79": [
+      2.5082,
+      3.0408,
+      2.5277,
+      1.0001
+    ],
+    "hex80": [
+      2.0676,
+      2.9958,
+      1.0364,
+      1.0
+    ],
+    "hex81": [
+      3.0918,
+      3.0017,
+      3.4442,
+      1.0312
+    ],
+    "hex82": [
+      2.734,
+      3.0757,
+      3.0511,
+      2.9347
+    ],
+    "hex83": [
+      2.9629,
+      3.0947,
+      1.3645,
+      2.5212
+    ],
+    "hex84": [
+      1.7993,
+      3.2566,
+      1.029,
+      1.0
+    ],
+    "hex85": [
+      2.47,
+      2.1292,
+      1.5563,
+      1.0001
+    ],
+    "hex86": [
+      4.0655,
+      3.0006,
+      3.916,
+      4.4307
+    ],
+    "hex87": [
+      2.3463,
+      2.9343,
+      2.8566,
+      1.0222
+    ],
+    "hex88": [
+      2.8571,
+      3.0053,
+      2.552,
+      2.9792
+    ],
+    "hex89": [
+      2.9487,
+      2.9518,
+      2.7337,
+      1.0006
+    ],
+    "hex90": [
+      2.274,
+      3.018,
+      1.0095,
+      2.0024
+    ],
+    "hex91": [
+      3.7146,
+      3.0022,
+      2.7538,
+      1.0006
+    ],
+    "hex92": [
+      2.2714,
+      2.8424,
+      1.0441,
+      1.0034
+    ],
+    "hex93": [
+      2.6285,
+      2.9638,
+      2.5251,
+      1.0055
+    ],
+    "hex94": [
+      3.4797,
+      3.4236,
+      3.0024,
+      1.0004
+    ],
+    "hex95": [
+      2.1312,
+      1.0065,
+      1.5998,
+      1.0
+    ],
+    "hex96": [
+      2.5633,
+      3.0215,
+      1.0002,
+      2.8675
+    ],
+    "hex97": [
+      4.9071,
+      4.0034,
+      3.4625,
+      4.998
+    ],
+    "hex98": [
+      2.9998,
+      3.0405,
+      3.0256,
+      3.0305
+    ],
+    "hex99": [
+      4.48,
+      4.978,
+      4.9654,
+      1.0
+    ],
+    "hex100": [
+      2.4336,
+      3.001,
+      2.1888,
+      1.0023
+    ]
+  }
+}

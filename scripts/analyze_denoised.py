@@ -18,10 +18,10 @@ import sys
 ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
 
 VARIANT_FILES = {
-    "gemma3":    "results/gemma3_4b_variants.json",
-    "llama3.2":  "results/llama3.2_3b_variants.json",
-    "phi4-mini": "results/phi4-mini_variants.json",
-    "qwen3":     "results/qwen3_8b_variants.json",
+    "gemma3":    "results/surveys/gemma3_4b_variants.json",
+    "llama3.2":  "results/surveys/llama3.2_3b_variants.json",
+    "phi4-mini": "results/surveys/phi4-mini_variants.json",
+    "qwen3":     "results/surveys/qwen3_8b_variants.json",
 }
 
 

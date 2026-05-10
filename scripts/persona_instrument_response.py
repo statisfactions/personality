@@ -348,7 +348,7 @@ def main():
     repr_suffix = "_response-position"
     if args.persona_source != "markers":
         repr_suffix += f"_{args.persona_source}"
-    repr_path = Path(f"results/persona_repr_mapping_{args.model}{repr_suffix}.json")
+    repr_path = Path(f"results/persona/persona_repr_mapping_{args.model}{repr_suffix}.json")
     if repr_path.exists():
         with open(repr_path) as f:
             repr_data = json.load(f)
@@ -387,7 +387,7 @@ def main():
     out_suffix = "" if args.persona_source == "markers" else f"_{args.persona_source}"
     if args.rating_target != "markers":
         out_suffix += f"_target-{args.rating_target}"
-    out_path = Path(f"results/persona_instrument_response_{args.model}{out_suffix}.json")
+    out_path = Path(f"results/persona/persona_instrument_response_{args.model}{out_suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2)

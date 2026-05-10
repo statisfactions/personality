@@ -2,10 +2,10 @@
 """Multi-panel W8 headline figure.
 
 Builds two plotly HTML figures:
-  - results/persona_w8_trajectory.html — cohort mean r per condition
+  - results/persona/persona_w8_trajectory.html — cohort mean r per condition
     (W7 marker baseline, §3 raw, §5 raw, §5 reflowed) for rep + Likert,
     plus the matched gap.
-  - results/persona_w8_per_model_gap.html — per-model matched-gap slope
+  - results/persona/persona_w8_per_model_gap.html — per-model matched-gap slope
     plot (raw → reflow).
 
 Designed for the W8 reading-group framing: shows the trajectory of the
@@ -38,20 +38,20 @@ TRAITS = ["A", "C", "E", "N", "O"]
 
 # Result file patterns by (condition, mode)
 PATTERNS = {
-    ("W7", "rep"):           "results/persona_repr_mapping_{m}_response-position.json",
-    ("W7", "likert"):        "results/persona_instrument_response_{m}.json",
-    ("§3 raw", "rep"):       "results/persona_repr_mapping_{m}_response-position_ipip_raw.json",
-    ("§3 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw.json",  # Qwen7 only
-    ("§3 reflow", "rep"):    "results/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
-    ("§3 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed.json",  # cohort
-    ("§4 raw", "rep"):       "results/persona_repr_mapping_{m}_response-position_ipip_raw.json",  # same as §3 raw
-    ("§4 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw_target-ipip.json",
-    ("§4 reflow", "rep"):    "results/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
-    ("§4 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
-    ("§5 raw", "rep"):       "results/persona_repr_mapping_{m}_response-position_ipip_raw_dir-ipip.json",
-    ("§5 raw", "likert"):    "results/persona_instrument_response_{m}_ipip_raw_target-ipip.json",  # same as §4 raw
-    ("§5 reflow", "rep"):    "results/persona_repr_mapping_{m}_response-position_ipip_reflowed_dir-ipip.json",
-    ("§5 reflow", "likert"): "results/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
+    ("W7", "rep"):           "results/persona/persona_repr_mapping_{m}_response-position.json",
+    ("W7", "likert"):        "results/persona/persona_instrument_response_{m}.json",
+    ("§3 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw.json",
+    ("§3 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw.json",  # Qwen7 only
+    ("§3 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
+    ("§3 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed.json",  # cohort
+    ("§4 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw.json",  # same as §3 raw
+    ("§4 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw_target-ipip.json",
+    ("§4 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
+    ("§4 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
+    ("§5 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw_dir-ipip.json",
+    ("§5 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw_target-ipip.json",  # same as §4 raw
+    ("§5 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed_dir-ipip.json",
+    ("§5 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
 }
 
 # Trajectory conditions: all-cohort means. §3 raw dropped from the trajectory

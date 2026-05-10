@@ -1,0 +1,6843 @@
+{
+  "rows": [
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 12,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.4104365110397339,
+      "snr_hold": 1.3927233219146729,
+      "mean_signed_hold": 0.4540962278842926,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 4.090200654188373,
+      "snr_hold": 1.1670527664836716,
+      "mean_signed_hold": 0.7116935593284867,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3881974844150477
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 5,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.5893919467926025,
+      "snr_hold": 0.7767970561981201,
+      "mean_signed_hold": 0.22760321199893951,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13875199854373932
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 5,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.5894410610198975,
+      "snr_hold": 0.7770863175392151,
+      "mean_signed_hold": 0.2276320904493332,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.13881844282150269
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 12,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3963569402694702,
+      "snr_hold": 1.4849040508270264,
+      "mean_signed_hold": 0.4749147891998291,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 4.089110704706105,
+      "snr_hold": 1.234736969033354,
+      "mean_signed_hold": 0.7290261441651099,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3727477463424502
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 5,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.508280038833618,
+      "snr_hold": 0.8277978897094727,
+      "mean_signed_hold": 0.2717941701412201,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13444258272647858
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 2.6765923500061035,
+      "snr_hold": 1.1379512548446655,
+      "mean_signed_hold": 0.7507475018501282,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.4852944016456604
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 4,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 1.392296314239502,
+      "snr_hold": 1.2298020124435425,
+      "mean_signed_hold": 0.11202174425125122,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          5,
+          6
+        ],
+        "Dependence": [
+          3,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 4,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.423376075577014,
+      "snr_hold": 2.179370827844604,
+      "mean_signed_hold": 0.28260956535696397,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.38443974236657424
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.572535037994385,
+      "snr_hold": 3.4510366916656494,
+      "mean_signed_hold": 1.221897006034851,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13198962807655334
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.576674461364746,
+      "snr_hold": 3.4497296810150146,
+      "mean_signed_hold": 1.221301794052124,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.13205073773860931
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 10,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 1.7844090461730957,
+      "snr_hold": 1.4334663152694702,
+      "mean_signed_hold": 0.3389085829257965,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          5,
+          6
+        ],
+        "Dependence": [
+          4,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.510930471154773,
+      "snr_hold": 2.700969467255963,
+      "mean_signed_hold": 0.950086329597832,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.35942754118339404
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.523657321929932,
+      "snr_hold": 2.97727370262146,
+      "mean_signed_hold": 1.2044765949249268,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3015632927417755
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.7250261306762695,
+      "snr_hold": 3.020768165588379,
+      "mean_signed_hold": 1.097481608390808,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.2785182297229767
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 24,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.2631733417510986,
+      "snr_hold": 1.5143779516220093,
+      "mean_signed_hold": 1.2078686952590942,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          4,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.895186440102917,
+      "snr_hold": 2.1481824938101473,
+      "mean_signed_hold": 2.3337257100301536,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.26714079323603995
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.9149973392486572,
+      "snr_hold": 2.1287529468536377,
+      "mean_signed_hold": 1.144033670425415,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19398178160190582
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.913362979888916,
+      "snr_hold": 2.1321256160736084,
+      "mean_signed_hold": 1.1440106630325317,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.1937861442565918
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 11,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.2957942485809326,
+      "snr_hold": 1.771226167678833,
+      "mean_signed_hold": 0.4713383615016937,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.047919824875398,
+      "snr_hold": 2.0937147624372052,
+      "mean_signed_hold": 0.8198561279274124,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3477219156560196
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.8023698329925537,
+      "snr_hold": 2.1175661087036133,
+      "mean_signed_hold": 1.1321643590927124,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3813488185405731
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.7792868614196777,
+      "snr_hold": 2.185331344604492,
+      "mean_signed_hold": 1.0586119890213013,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.35526639223098755
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 12,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.378563404083252,
+      "snr_hold": 1.6778254508972168,
+      "mean_signed_hold": 0.4258438050746918,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.702728563727098,
+      "snr_hold": 1.7785864534413693,
+      "mean_signed_hold": 0.8384733026870821,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.35727380936072384
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.507659435272217,
+      "snr_hold": 1.6990934610366821,
+      "mean_signed_hold": 0.855222225189209,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4544355273246765
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5101122856140137,
+      "snr_hold": 1.7005411386489868,
+      "mean_signed_hold": 0.8554655909538269,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.4544660151004791
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 21,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 1.1773394346237183,
+      "snr_hold": 1.073785662651062,
+      "mean_signed_hold": 0.5762636065483093,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          5,
+          6
+        ],
+        "Flexibility": [
+          4,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.956585008275071,
+      "snr_hold": 1.652263601739546,
+      "mean_signed_hold": 1.3482984705001284,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.30145518948391875
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.6418211460113525,
+      "snr_hold": 1.8233006000518799,
+      "mean_signed_hold": 0.8735458850860596,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19002723693847656
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6653175354003906,
+      "snr_hold": 1.5461593866348267,
+      "mean_signed_hold": 0.5699652433395386,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 29,
+      "cos_to_lda": 0.16176354885101318
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 9,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.4387187957763672,
+      "snr_hold": 1.588510513305664,
+      "mean_signed_hold": 0.3984616696834564,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 9,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.9028128367901727,
+      "snr_hold": 1.5546368484864632,
+      "mean_signed_hold": 0.7503343472921263,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.33273286239198774
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 27,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 3.2719008922576904,
+      "snr_hold": 1.402467131614685,
+      "mean_signed_hold": 2.672349691390991,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          5,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.1298498958349228
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 27,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.498993396759033,
+      "snr_hold": 1.3903783559799194,
+      "mean_signed_hold": 2.4089558124542236,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 23,
+      "cos_to_lda": 0.12808169424533844
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 8,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3162062168121338,
+      "snr_hold": 1.5442630052566528,
+      "mean_signed_hold": 0.3409123718738556,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 8,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.924895045338659,
+      "snr_hold": 1.6386457884901837,
+      "mean_signed_hold": 0.6431507901111889,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3275401593524321
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.2274930477142334,
+      "snr_hold": 1.6834595203399658,
+      "mean_signed_hold": 1.0679970979690552,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.24116221070289612
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.527618408203125,
+      "snr_hold": 1.7501537799835205,
+      "mean_signed_hold": 0.915658175945282,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.2254680097103119
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 9,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.6723774671554565,
+      "snr_hold": 2.7391631603240967,
+      "mean_signed_hold": 0.34787365794181824,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 9,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.717858037990267,
+      "snr_hold": 3.8015590307601927,
+      "mean_signed_hold": 0.7699084383552299,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3948203722968045
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.597463369369507,
+      "snr_hold": 4.465301513671875,
+      "mean_signed_hold": 1.6476682424545288,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.20968985557556152
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5814483165740967,
+      "snr_hold": 4.3542160987854,
+      "mean_signed_hold": 1.1887383460998535,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.28020793199539185
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 12,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.7376331090927124,
+      "snr_hold": 3.57822847366333,
+      "mean_signed_hold": 0.5777431130409241,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.863841976484848,
+      "snr_hold": 4.03626384320748,
+      "mean_signed_hold": 1.1441361910435999,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.38229494162944655
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 28,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.4322245121002197,
+      "snr_hold": 3.076186418533325,
+      "mean_signed_hold": 6.210029125213623,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.17002823948860168
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 28,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.238159418106079,
+      "snr_hold": 2.9676055908203125,
+      "mean_signed_hold": 5.5335845947265625,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 31,
+      "cos_to_lda": 0.1788584589958191
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 15,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3186556100845337,
+      "snr_hold": 1.521139144897461,
+      "mean_signed_hold": 47.91096115112305,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 5.375047852336639,
+      "snr_hold": 1.2225222185526101,
+      "mean_signed_hold": 87.42237677538078,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.229893584986804
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.199812889099121,
+      "snr_hold": 0.9799787402153015,
+      "mean_signed_hold": 9.574082374572754,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13502028584480286
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.750932455062866,
+      "snr_hold": 0.971503734588623,
+      "mean_signed_hold": 8.15711784362793,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 30,
+      "cos_to_lda": 0.12933140993118286
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 15,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3164697885513306,
+      "snr_hold": 1.3742221593856812,
+      "mean_signed_hold": 49.102230072021484,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 4.363054739857175,
+      "snr_hold": 1.1188635196601933,
+      "mean_signed_hold": 101.0928149370845,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2633231898769911
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 2.1173198223114014,
+      "snr_hold": 0.9291142821311951,
+      "mean_signed_hold": 7.251558780670166,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13543319702148438
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 6,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.373683214187622,
+      "snr_hold": 0.7568274736404419,
+      "mean_signed_hold": 25.2932186126709,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 2,
+      "cos_to_lda": 0.0855264663696289
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.7857383489608765,
+      "snr_hold": 2.176605463027954,
+      "mean_signed_hold": 33.125709533691406,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 8.746310813087735,
+      "snr_hold": 3.1469632525057643,
+      "mean_signed_hold": 131.3891878339564,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2104026195852956
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.613110542297363,
+      "snr_hold": 2.572371482849121,
+      "mean_signed_hold": 16.228574752807617,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.06280826777219772
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.888704299926758,
+      "snr_hold": 3.211270332336426,
+      "mean_signed_hold": 223.766357421875,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.22111576795578003
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 14,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.893695592880249,
+      "snr_hold": 2.148029088973999,
+      "mean_signed_hold": 38.53553771972656,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          5,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 7.645193489093684,
+      "snr_hold": 2.9996846605577865,
+      "mean_signed_hold": 139.79407736710007,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.27167092256875225
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 20,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.8180792331695557,
+      "snr_hold": 2.293522357940674,
+      "mean_signed_hold": 471.1043395996094,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19313165545463562
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.682888984680176,
+      "snr_hold": 3.152064323425293,
+      "mean_signed_hold": 215.61534118652344,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.27307772636413574
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 16,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.5680073499679565,
+      "snr_hold": 1.793758511543274,
+      "mean_signed_hold": 77.97309112548828,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          4,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 6.765514926861175,
+      "snr_hold": 2.6202292832020317,
+      "mean_signed_hold": 186.6338196669926,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2111945631182312
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.208320140838623,
+      "snr_hold": 1.9671710729599,
+      "mean_signed_hold": 14.912625312805176,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.16143935918807983
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.885322093963623,
+      "snr_hold": 2.3356003761291504,
+      "mean_signed_hold": 195.2886199951172,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.3794648051261902
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 16,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.5687111616134644,
+      "snr_hold": 1.9199527502059937,
+      "mean_signed_hold": 84.7708511352539,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 6.187492626662699,
+      "snr_hold": 2.6133029135483383,
+      "mean_signed_hold": 189.0765327935204,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2437055354208402
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 22,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 2.9410243034362793,
+      "snr_hold": 2.053384780883789,
+      "mean_signed_hold": 598.8860473632812,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.24575252830982208
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5407066345214844,
+      "snr_hold": 2.655409812927246,
+      "mean_signed_hold": 148.7015838623047,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.325178861618042
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 11,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.5632790327072144,
+      "snr_hold": 1.7698899507522583,
+      "mean_signed_hold": 25.164674758911133,
+      "per_facet_hold": {
+        "Forgiveness": [
+          5,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.728602487270814,
+      "snr_hold": 1.5740938269142106,
+      "mean_signed_hold": 62.044369592119004,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2590185702413059
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.7244997024536133,
+      "snr_hold": 1.946179986000061,
+      "mean_signed_hold": 208.682373046875,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.20599721372127533
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.112810134887695,
+      "snr_hold": 1.9932475090026855,
+      "mean_signed_hold": 339.5594787597656,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.17034737765789032
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.4391053915023804,
+      "snr_hold": 1.8358604907989502,
+      "mean_signed_hold": 35.05821990966797,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.790475579618868,
+      "snr_hold": 1.6038126612904546,
+      "mean_signed_hold": 85.4896460480117,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.25053462116248315
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 33,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 3.0387749671936035,
+      "snr_hold": 1.5471549034118652,
+      "mean_signed_hold": 968.430419921875,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          5,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.11906836181879044
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6580941677093506,
+      "snr_hold": 1.873738408088684,
+      "mean_signed_hold": 114.7677993774414,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.2936057448387146
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 8,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.2594987154006958,
+      "snr_hold": 1.167231559753418,
+      "mean_signed_hold": 8.674254417419434,
+      "per_facet_hold": {
+        "Organization": [
+          5,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 8,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 3.593914424152406,
+      "snr_hold": 1.3807318259373085,
+      "mean_signed_hold": 64.85775708920647,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          4,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": -0.0009447064662882676
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.042222023010254,
+      "snr_hold": 1.4670343399047852,
+      "mean_signed_hold": 12.965746879577637,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.10513998568058014
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 22,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.4842214584350586,
+      "snr_hold": 1.6389800310134888,
+      "mean_signed_hold": 483.7925720214844,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.13249343633651733
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 8,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.220908284187317,
+      "snr_hold": 1.2027593851089478,
+      "mean_signed_hold": 9.186661720275879,
+      "per_facet_hold": {
+        "Organization": [
+          5,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 8,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 3.9160836759943645,
+      "snr_hold": 1.2297110655672885,
+      "mean_signed_hold": 64.45093762315123,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          5,
+          6
+        ],
+        "Prudence": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.0048399642663704496
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 2.963482618331909,
+      "snr_hold": 1.4269070625305176,
+      "mean_signed_hold": 9.410521507263184,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.11337016522884369
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 22,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.4449217319488525,
+      "snr_hold": 1.6824243068695068,
+      "mean_signed_hold": 541.4299926757812,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.12252051383256912
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 11,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.485585331916809,
+      "snr_hold": 3.104837656021118,
+      "mean_signed_hold": 25.016281127929688,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.1450544302037144,
+      "snr_hold": 3.0715066877876085,
+      "mean_signed_hold": 90.21339890529453,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13088671745378302
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.8802378177642822,
+      "snr_hold": 4.278286933898926,
+      "mean_signed_hold": 13.889511108398438,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.1386175900697708
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.1569952964782715,
+      "snr_hold": 5.078573703765869,
+      "mean_signed_hold": 164.63746643066406,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.20138375461101532
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 11,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.454875111579895,
+      "snr_hold": 3.072489023208618,
+      "mean_signed_hold": 24.819795608520508,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.087168793243524,
+      "snr_hold": 3.3344202206490463,
+      "mean_signed_hold": 87.17789225560462,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13421545581529126
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.8464136123657227,
+      "snr_hold": 3.1007189750671387,
+      "mean_signed_hold": 10.799041748046875,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.12625296413898468
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 18,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.7566678524017334,
+      "snr_hold": 3.9403865337371826,
+      "mean_signed_hold": 359.4344787597656,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.1701899617910385
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 14,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.4366884231567383,
+      "snr_hold": 1.104505181312561,
+      "mean_signed_hold": 1.5280851125717163,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 4.985017420945089,
+      "snr_hold": 1.1099158989773759,
+      "mean_signed_hold": 2.34917836569155,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3075069090778791
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 23,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 16,
+      "n_hold": 24,
+      "snr_train": 2.249721050262451,
+      "snr_hold": 0.737248420715332,
+      "mean_signed_hold": 4.946290969848633,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          3,
+          6
+        ],
+        "Modesty": [
+          1,
+          6
+        ]
+      },
+      "cos_to_lda": 0.27979597449302673
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.6379611492156982,
+      "snr_hold": 0.9716202020645142,
+      "mean_signed_hold": 2.600938081741333,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 18,
+      "cos_to_lda": 0.45235681533813477
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 14,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 1.5032894611358643,
+      "snr_hold": 1.0472583770751953,
+      "mean_signed_hold": 1.7395992279052734,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 5.004729507729923,
+      "snr_hold": 0.9275606834808663,
+      "mean_signed_hold": 2.577922490748783,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.33074229840452096
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 16,
+      "n_hold": 24,
+      "snr_train": 2.52167010307312,
+      "snr_hold": 0.6407785415649414,
+      "mean_signed_hold": 1.5726150274276733,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2915728688240051
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.6117615699768066,
+      "snr_hold": 0.8823986649513245,
+      "mean_signed_hold": 1.6151350736618042,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          3,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 23,
+      "cos_to_lda": 0.2891973853111267
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.915419578552246,
+      "snr_hold": 2.053806781768799,
+      "mean_signed_hold": 1.5789896249771118,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 8.63952473085514,
+      "snr_hold": 3.0937622025156752,
+      "mean_signed_hold": 4.07177794408308,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.34593920809275164
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.711804389953613,
+      "snr_hold": 2.7374794483184814,
+      "mean_signed_hold": 3.918501615524292,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          5,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4057679772377014
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.688261032104492,
+      "snr_hold": 2.968414545059204,
+      "mean_signed_hold": 3.553372621536255,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 16,
+      "cos_to_lda": 0.3908712863922119
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.9729993343353271,
+      "snr_hold": 2.104933023452759,
+      "mean_signed_hold": 1.7120720148086548,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          5,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 8.10567768701736,
+      "snr_hold": 3.3571405853812264,
+      "mean_signed_hold": 4.406248412591396,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.35451276829142964
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.382002353668213,
+      "snr_hold": 3.0412027835845947,
+      "mean_signed_hold": 4.332586288452148,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4339277148246765
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.004825592041016,
+      "snr_hold": 2.9463815689086914,
+      "mean_signed_hold": 3.801301956176758,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.4227004051208496
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 10,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.289765477180481,
+      "snr_hold": 1.5659741163253784,
+      "mean_signed_hold": 1.0139613151550293,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 4.59342335285744,
+      "snr_hold": 1.476459272233159,
+      "mean_signed_hold": 1.874148593000842,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          5,
+          6
+        ],
+        "Social Boldness": [
+          5,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.28902971765673396
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.208374261856079,
+      "snr_hold": 1.886606216430664,
+      "mean_signed_hold": 4.683163166046143,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2650925815105438
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.492342948913574,
+      "snr_hold": 1.9744385480880737,
+      "mean_signed_hold": 3.2365922927856445,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 16,
+      "cos_to_lda": 0.3237972855567932
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 19,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.3504499197006226,
+      "snr_hold": 1.434627652168274,
+      "mean_signed_hold": 2.962404489517212,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.305899848773047,
+      "snr_hold": 1.9808360314670914,
+      "mean_signed_hold": 5.248515777554773,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2930128267127274
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 18,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.3052186965942383,
+      "snr_hold": 1.8089505434036255,
+      "mean_signed_hold": 4.8155436515808105,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.44465529918670654
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.526758909225464,
+      "snr_hold": 1.8920371532440186,
+      "mean_signed_hold": 3.5213096141815186,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.3607727587223053
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.6348485946655273,
+      "snr_hold": 1.9037384986877441,
+      "mean_signed_hold": 1.7668572664260864,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.567817408327558,
+      "snr_hold": 2.2436030535299536,
+      "mean_signed_hold": 2.884832445514166,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3897476808295759
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.2578554153442383,
+      "snr_hold": 1.8855236768722534,
+      "mean_signed_hold": 3.7143707275390625,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.36260613799095154
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6256515979766846,
+      "snr_hold": 2.347566604614258,
+      "mean_signed_hold": 2.8454387187957764,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 18,
+      "cos_to_lda": 0.4551231563091278
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 13,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.5347516536712646,
+      "snr_hold": 1.8727060556411743,
+      "mean_signed_hold": 1.8757473230361938,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.81323775029395,
+      "snr_hold": 2.203458605087938,
+      "mean_signed_hold": 3.1268718263065476,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3549550740863733
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6204230785369873,
+      "snr_hold": 2.089449882507324,
+      "mean_signed_hold": 3.5781478881835938,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4282580018043518
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6465935707092285,
+      "snr_hold": 2.188840866088867,
+      "mean_signed_hold": 3.171708106994629,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 26,
+      "cos_to_lda": 0.45956113934516907
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 10,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3472357988357544,
+      "snr_hold": 1.5465087890625,
+      "mean_signed_hold": 1.0499684810638428,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.064446526608884,
+      "snr_hold": 1.5815311332846176,
+      "mean_signed_hold": 2.023983966893343,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2299192317544241
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.2998080253601074,
+      "snr_hold": 1.743529200553894,
+      "mean_signed_hold": 4.034228801727295,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2929498553276062
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.779499053955078,
+      "snr_hold": 1.7365853786468506,
+      "mean_signed_hold": 3.3956527709960938,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 20,
+      "cos_to_lda": 0.27083563804626465
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 10,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3918832540512085,
+      "snr_hold": 1.6339462995529175,
+      "mean_signed_hold": 1.2071548700332642,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 10,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.359798332400046,
+      "snr_hold": 1.5765599397798067,
+      "mean_signed_hold": 2.3672310126098832,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.22825383784967507
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 18,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.195765495300293,
+      "snr_hold": 1.6190376281738281,
+      "mean_signed_hold": 5.758054256439209,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2657160758972168
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.889533519744873,
+      "snr_hold": 1.7291003465652466,
+      "mean_signed_hold": 3.2193572521209717,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 25,
+      "cos_to_lda": 0.28827568888664246
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 8,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.3839292526245117,
+      "snr_hold": 1.9827077388763428,
+      "mean_signed_hold": 0.6955036520957947,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 8,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.760532072268228,
+      "snr_hold": 2.9556796905510883,
+      "mean_signed_hold": 1.4125856703909168,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.30419527573800526
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6797890663146973,
+      "snr_hold": 4.606649875640869,
+      "mean_signed_hold": 4.015891075134277,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2337038516998291
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.414109230041504,
+      "snr_hold": 4.0253190994262695,
+      "mean_signed_hold": 3.443208932876587,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 20,
+      "cos_to_lda": 0.22904229164123535
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 9,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.4131970405578613,
+      "snr_hold": 2.201951742172241,
+      "mean_signed_hold": 0.9355972409248352,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 9,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.849775115061437,
+      "snr_hold": 2.8501961594338248,
+      "mean_signed_hold": 2.024298097226677,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2971435578072247
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 14,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6528427600860596,
+      "snr_hold": 3.2570903301239014,
+      "mean_signed_hold": 4.255136489868164,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.30801814794540405
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.2010467052459717,
+      "snr_hold": 3.3685028553009033,
+      "mean_signed_hold": 2.382802724838257,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 24,
+      "cos_to_lda": 0.3727152943611145
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 21,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.3983228206634521,
+      "snr_hold": 1.2455772161483765,
+      "mean_signed_hold": 1.5498771667480469,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 5.122796917815475,
+      "snr_hold": 1.2616258033263603,
+      "mean_signed_hold": 3.395821609850787,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.23192298060527936
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 18,
+      "n_hold": 24,
+      "snr_train": 2.317345142364502,
+      "snr_hold": 0.9470651149749756,
+      "mean_signed_hold": 3.8886613845825195,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2468758523464203
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.4615392684936523,
+      "snr_hold": 1.0758167505264282,
+      "mean_signed_hold": 3.976794481277466,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 15,
+      "cos_to_lda": 0.24372997879981995
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 21,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.3388949632644653,
+      "snr_hold": 1.1042479276657104,
+      "mean_signed_hold": 1.658903956413269,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 5.106663903326885,
+      "snr_hold": 1.1634631726984364,
+      "mean_signed_hold": 3.7000476256402326,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19874922704312534
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 20,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.1959915161132812,
+      "snr_hold": 0.838799238204956,
+      "mean_signed_hold": 3.964777946472168,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.26148128509521484
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 1,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 15,
+      "n_hold": 24,
+      "snr_train": 2.211127281188965,
+      "snr_hold": 0.6953199505805969,
+      "mean_signed_hold": 0.555422306060791,
+      "per_facet_hold": {
+        "Sincerity": [
+          5,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 30,
+      "cos_to_lda": 0.0418173223733902
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 3,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 1.3796314001083374,
+      "snr_hold": 0.9686906933784485,
+      "mean_signed_hold": 0.29837551712989807,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          2,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 3,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.893602106342081,
+      "snr_hold": 1.7967566290255237,
+      "mean_signed_hold": 1.070081144635992,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          5,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.25636054061874625
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.322451114654541,
+      "snr_hold": 2.9226133823394775,
+      "mean_signed_hold": 6.7792816162109375,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.0768057107925415
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.835305690765381,
+      "snr_hold": 2.9821882247924805,
+      "mean_signed_hold": 5.933701992034912,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 15,
+      "cos_to_lda": 0.07330480962991714
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 21,
+      "sign_correct_train": 48,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.866227149963379,
+      "snr_hold": 2.279189109802246,
+      "mean_signed_hold": 1.8781132698059082,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 8.202927145867699,
+      "snr_hold": 3.213488119673339,
+      "mean_signed_hold": 7.421563662203457,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.20323431186636387
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.655966758728027,
+      "snr_hold": 2.9657678604125977,
+      "mean_signed_hold": 7.409303188323975,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.26157087087631226
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.656535625457764,
+      "snr_hold": 2.9673612117767334,
+      "mean_signed_hold": 7.407393932342529,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.26157379150390625
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 26,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.4302105903625488,
+      "snr_hold": 1.731862187385559,
+      "mean_signed_hold": 2.46382999420166,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.032164451767767,
+      "snr_hold": 2.2109582571361703,
+      "mean_signed_hold": 6.256162152947354,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.22038547101949635
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5759596824645996,
+      "snr_hold": 2.391502857208252,
+      "mean_signed_hold": 6.300632476806641,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2846863269805908
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.471712827682495,
+      "snr_hold": 2.5788748264312744,
+      "mean_signed_hold": 5.86515474319458,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 17,
+      "cos_to_lda": 0.2821042239665985
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 26,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.4308890104293823,
+      "snr_hold": 1.7870750427246094,
+      "mean_signed_hold": 2.9468629360198975,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.866111727237439,
+      "snr_hold": 2.1416888118887787,
+      "mean_signed_hold": 7.033236003393964,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.21210948511083028
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.4777615070343018,
+      "snr_hold": 2.24770188331604,
+      "mean_signed_hold": 6.879119873046875,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2660907804965973
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.4805688858032227,
+      "snr_hold": 2.2523093223571777,
+      "mean_signed_hold": 6.884011745452881,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.2657071352005005
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 21,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.630170226097107,
+      "snr_hold": 1.6053338050842285,
+      "mean_signed_hold": 1.7485405206680298,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          4,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 6.190026416929236,
+      "snr_hold": 1.6871498048983582,
+      "mean_signed_hold": 3.8867677683853317,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.306316812186653
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.71916127204895,
+      "snr_hold": 1.7196224927902222,
+      "mean_signed_hold": 4.139841556549072,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2940213680267334
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.9042563438415527,
+      "snr_hold": 1.7644085884094238,
+      "mean_signed_hold": 4.3082499504089355,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 15,
+      "cos_to_lda": 0.24987417459487915
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 23,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.3630964756011963,
+      "snr_hold": 1.8461344242095947,
+      "mean_signed_hold": 2.1458740234375,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 6.932719355118129,
+      "snr_hold": 1.6607315535573768,
+      "mean_signed_hold": 4.520067132913522,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2675312419839635
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.6394972801208496,
+      "snr_hold": 1.499370813369751,
+      "mean_signed_hold": 4.831031322479248,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2899784445762634
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 28,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.6280384063720703,
+      "snr_hold": 1.5728012323379517,
+      "mean_signed_hold": 6.17092752456665,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.24041008949279785
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 17,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3703149557113647,
+      "snr_hold": 1.5105204582214355,
+      "mean_signed_hold": 1.597256064414978,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.646773528342179,
+      "snr_hold": 1.8249038406139237,
+      "mean_signed_hold": 4.298468570947407,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.15319238952666597
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 2.9870293140411377,
+      "snr_hold": 1.7679389715194702,
+      "mean_signed_hold": 6.460750579833984,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.1834859549999237
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.501086711883545,
+      "snr_hold": 1.7978785037994385,
+      "mean_signed_hold": 5.166681289672852,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 17,
+      "cos_to_lda": 0.17189756035804749
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 16,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.3394345045089722,
+      "snr_hold": 1.5421909093856812,
+      "mean_signed_hold": 1.7758445739746094,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.528671560965174,
+      "snr_hold": 1.6483337287785274,
+      "mean_signed_hold": 4.30881468553575,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.13708331717398925
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 2.959482431411743,
+      "snr_hold": 1.680198073387146,
+      "mean_signed_hold": 7.1637444496154785,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.1775120347738266
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 2.9903950691223145,
+      "snr_hold": 1.680922269821167,
+      "mean_signed_hold": 7.044850826263428,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.1779605597257614
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 15,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.2762080430984497,
+      "snr_hold": 1.7515151500701904,
+      "mean_signed_hold": 1.0260061025619507,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 15,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 5.969638032127139,
+      "snr_hold": 2.7689076387629044,
+      "mean_signed_hold": 3.2445703836928694,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.17506604391648098
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6715805530548096,
+      "snr_hold": 4.19607400894165,
+      "mean_signed_hold": 6.118150234222412,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19105127453804016
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.3762359619140625,
+      "snr_hold": 3.4984006881713867,
+      "mean_signed_hold": 5.260003566741943,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 15,
+      "cos_to_lda": 0.14501750469207764
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 22,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.778410792350769,
+      "snr_hold": 2.7606937885284424,
+      "mean_signed_hold": 2.3236172199249268,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 22,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.191679920985095,
+      "snr_hold": 4.519084424217517,
+      "mean_signed_hold": 6.200356931860145,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.24140938149201271
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.4910671710968018,
+      "snr_hold": 4.29954719543457,
+      "mean_signed_hold": 6.64242696762085,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3050580620765686
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "format": "bare",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 21,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.489222288131714,
+      "snr_hold": 4.293788433074951,
+      "mean_signed_hold": 6.6397552490234375,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.30489611625671387
+    }
+  ],
+  "config": {
+    "models": [
+      "Llama",
+      "Gemma",
+      "Phi4",
+      "Qwen"
+    ],
+    "traits": [
+      "H",
+      "E",
+      "X",
+      "A",
+      "C",
+      "O"
+    ],
+    "formats": [
+      "chat",
+      "bare"
+    ],
+    "device": "mps",
+    "dtype": "bfloat16",
+    "output_prefix": "phase_b_sweep"
+  }
+}

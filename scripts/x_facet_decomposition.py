@@ -54,13 +54,13 @@ from sklearn.model_selection import cross_val_score
 
 MODELS = [
     # (short_name, hf_repo, hexaco_likert_path)
-    ("Gemma",   "google/gemma-3-4b-it",             "results/Gemma_hexaco100.json"),
-    ("Llama",   "meta-llama/Llama-3.2-3B-Instruct", "results/Llama_hexaco100.json"),
-    ("Phi4",    "microsoft/Phi-4-mini-instruct",    "results/Phi4_hexaco100.json"),
-    ("Qwen",    "Qwen/Qwen2.5-3B-Instruct",         "results/Qwen_hexaco100.json"),
-    ("Gemma12", "google/gemma-3-12b-it",            "results/Gemma12_hexaco100.json"),
-    ("Llama8",  "meta-llama/Llama-3.1-8B-Instruct", "results/Llama8_hexaco100.json"),
-    ("Qwen7",   "Qwen/Qwen2.5-7B-Instruct",         "results/Qwen7_hexaco100.json"),
+    ("Gemma",   "google/gemma-3-4b-it",             "results/surveys/Gemma_hexaco100.json"),
+    ("Llama",   "meta-llama/Llama-3.2-3B-Instruct", "results/surveys/Llama_hexaco100.json"),
+    ("Phi4",    "microsoft/Phi-4-mini-instruct",    "results/surveys/Phi4_hexaco100.json"),
+    ("Qwen",    "Qwen/Qwen2.5-3B-Instruct",         "results/surveys/Qwen_hexaco100.json"),
+    ("Gemma12", "google/gemma-3-12b-it",            "results/surveys/Gemma12_hexaco100.json"),
+    ("Llama8",  "meta-llama/Llama-3.1-8B-Instruct", "results/surveys/Llama8_hexaco100.json"),
+    ("Qwen7",   "Qwen/Qwen2.5-7B-Instruct",         "results/surveys/Qwen7_hexaco100.json"),
 ]
 
 ALL_TRAITS = ["H", "E", "X", "A", "C", "O"]
@@ -317,7 +317,7 @@ def main():
     print()
 
     # ----- Save -----
-    out_path = Path("results/x_facet_decomposition.json")
+    out_path = Path("results/facets/x_facet_decomposition.json")
     payload = {
         "models": models_present,
         "facets": X_FACETS,

@@ -155,7 +155,7 @@ def main():
         if device == "mps":
             torch.mps.empty_cache()
 
-    out_path = Path("results/emotion_markers_as_stimuli.json")
+    out_path = Path("results/stimuli/emotion_markers_as_stimuli.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(output, f, indent=2)
@@ -218,7 +218,7 @@ def main():
             title=dict(text="8 emotion axes — cosine similarity (W7 §11.5.4 #3)", x=0.5),
             height=500 * n_rows, width=550 * n_cols,
         )
-        hm_path = Path("results/emotion_markers_as_stimuli_heatmap.html")
+        hm_path = Path("results/stimuli/emotion_markers_as_stimuli_heatmap.html")
         fig.write_html(str(hm_path))
         print(f"Wrote {hm_path}")
 

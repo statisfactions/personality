@@ -1,0 +1,6054 @@
+{
+  "model": "Llama",
+  "hf_repo": "meta-llama/Llama-3.2-3B-Instruct",
+  "timestamp": "2026-04-25T14:47:52",
+  "n_items": 300,
+  "n_variants": 4,
+  "elapsed_seconds": 34.0,
+  "scale_scores": {
+    "IPIP300-NEU": {
+      "name": "IPIP-NEO-300 Neuroticism",
+      "n_items": 60,
+      "n_scored": 60,
+      "argmax_mean": 2.716666666666667,
+      "ev_mean": 2.7371219333333334,
+      "entropy_mean": 1.3937966666666666
+    },
+    "IPIP300-EXT": {
+      "name": "IPIP-NEO-300 Extraversion",
+      "n_items": 60,
+      "n_scored": 60,
+      "argmax_mean": 2.816666666666667,
+      "ev_mean": 2.8464878666666666,
+      "entropy_mean": 1.3290283333333333
+    },
+    "IPIP300-OPE": {
+      "name": "IPIP-NEO-300 Openness",
+      "n_items": 60,
+      "n_scored": 60,
+      "argmax_mean": 3.1166666666666667,
+      "ev_mean": 3.214710466666667,
+      "entropy_mean": 1.29308
+    },
+    "IPIP300-AGR": {
+      "name": "IPIP-NEO-300 Agreeableness",
+      "n_items": 60,
+      "n_scored": 60,
+      "argmax_mean": 3.966666666666667,
+      "ev_mean": 3.697408633333333,
+      "entropy_mean": 1.2110483333333333
+    },
+    "IPIP300-CON": {
+      "name": "IPIP-NEO-300 Conscientiousness",
+      "n_items": 60,
+      "n_scored": 60,
+      "argmax_mean": 3.466666666666667,
+      "ev_mean": 3.2456854333333336,
+      "entropy_mean": 1.3452266666666666
+    }
+  },
+  "item_results": {
+    "ipip1": {
+      "item_text": "I worry about things",
+      "argmax": "4",
+      "expected_value": 3.3926,
+      "entropy": 1.3211,
+      "entropy_normalized": 0.8208,
+      "distribution": {
+        "1": 0.037532,
+        "2": 0.148444,
+        "3": 0.277329,
+        "4": 0.457239,
+        "5": 0.079456
+      }
+    },
+    "ipip2": {
+      "item_text": "I make friends easily",
+      "argmax": "2",
+      "expected_value": 1.7959,
+      "entropy": 1.0734,
+      "entropy_normalized": 0.6669,
+      "distribution": {
+        "1": 0.376635,
+        "2": 0.483608,
+        "3": 0.107908,
+        "4": 0.030916,
+        "5": 0.000934
+      }
+    },
+    "ipip3": {
+      "item_text": "I have a vivid imagination",
+      "argmax": "4",
+      "expected_value": 3.816,
+      "entropy": 1.3644,
+      "entropy_normalized": 0.8477,
+      "distribution": {
+        "1": 0.043217,
+        "2": 0.071253,
+        "3": 0.193686,
+        "4": 0.410033,
+        "5": 0.281811
+      }
+    },
+    "ipip4": {
+      "item_text": "I trust others",
+      "argmax": "2",
+      "expected_value": 2.5012,
+      "entropy": 1.4281,
+      "entropy_normalized": 0.8873,
+      "distribution": {
+        "1": 0.189692,
+        "2": 0.354391,
+        "3": 0.243569,
+        "4": 0.189692,
+        "5": 0.022655
+      }
+    },
+    "ipip5": {
+      "item_text": "I complete tasks successfully",
+      "argmax": "4",
+      "expected_value": 3.0625,
+      "entropy": 1.4754,
+      "entropy_normalized": 0.9167,
+      "distribution": {
+        "1": 0.096281,
+        "2": 0.230965,
+        "3": 0.261718,
+        "4": 0.336053,
+        "5": 0.074983
+      }
+    },
+    "ipip6": {
+      "item_text": "I get angry easily",
+      "argmax": "2",
+      "expected_value": 2.4066,
+      "entropy": 1.4553,
+      "entropy_normalized": 0.9042,
+      "distribution": {
+        "1": 0.251683,
+        "2": 0.323168,
+        "3": 0.22211,
+        "4": 0.172979,
+        "5": 0.030059
+      }
+    },
+    "ipip7": {
+      "item_text": "I love large parties",
+      "argmax": "1",
+      "expected_value": 1.6619,
+      "entropy": 1.0922,
+      "entropy_normalized": 0.6786,
+      "distribution": {
+        "1": 0.54888,
+        "2": 0.293794,
+        "3": 0.108081,
+        "4": 0.045055,
+        "5": 0.004191
+      }
+    },
+    "ipip8": {
+      "item_text": "I believe in the importance of art",
+      "argmax": "4",
+      "expected_value": 4.2756,
+      "entropy": 0.9456,
+      "entropy_normalized": 0.5876,
+      "distribution": {
+        "1": 0.002849,
+        "2": 0.007743,
+        "3": 0.073466,
+        "4": 0.542848,
+        "5": 0.373094
+      }
+    },
+    "ipip99": {
+      "item_text": "I use others for my own ends",
+      "argmax": "2",
+      "expected_value": 2.6539,
+      "entropy": 1.5132,
+      "entropy_normalized": 0.9402,
+      "distribution": {
+        "1": 0.222746,
+        "2": 0.252404,
+        "3": 0.222746,
+        "4": 0.252404,
+        "5": 0.049701
+      }
+    },
+    "ipip40": {
+      "item_text": "I like to tidy up",
+      "argmax": "4",
+      "expected_value": 3.1958,
+      "entropy": 1.395,
+      "entropy_normalized": 0.8668,
+      "distribution": {
+        "1": 0.069879,
+        "2": 0.189951,
+        "3": 0.276377,
+        "4": 0.402126,
+        "5": 0.061668
+      }
+    },
+    "ipip11": {
+      "item_text": "I often feel blue",
+      "argmax": "4",
+      "expected_value": 2.8695,
+      "entropy": 1.5461,
+      "entropy_normalized": 0.9606,
+      "distribution": {
+        "1": 0.177337,
+        "2": 0.258024,
+        "3": 0.177337,
+        "4": 0.29238,
+        "5": 0.094922
+      }
+    },
+    "ipip12": {
+      "item_text": "I take charge",
+      "argmax": "3",
+      "expected_value": 2.9655,
+      "entropy": 1.3973,
+      "entropy_normalized": 0.8682,
+      "distribution": {
+        "1": 0.074281,
+        "2": 0.259267,
+        "3": 0.332905,
+        "4": 0.293788,
+        "5": 0.03976
+      }
+    },
+    "ipip13": {
+      "item_text": "I experience my emotions intensely",
+      "argmax": "4",
+      "expected_value": 3.4897,
+      "entropy": 1.3684,
+      "entropy_normalized": 0.8502,
+      "distribution": {
+        "1": 0.03007,
+        "2": 0.134765,
+        "3": 0.285297,
+        "4": 0.415104,
+        "5": 0.134765
+      }
+    },
+    "ipip74": {
+      "item_text": "I love to help others",
+      "argmax": "4",
+      "expected_value": 4.2695,
+      "entropy": 1.041,
+      "entropy_normalized": 0.6468,
+      "distribution": {
+        "1": 0.011125,
+        "2": 0.016186,
+        "3": 0.082201,
+        "4": 0.473035,
+        "5": 0.417452
+      }
+    },
+    "ipip45": {
+      "item_text": "I keep my promises",
+      "argmax": "4",
+      "expected_value": 3.4325,
+      "entropy": 1.4905,
+      "entropy_normalized": 0.9261,
+      "distribution": {
+        "1": 0.076807,
+        "2": 0.126634,
+        "3": 0.268083,
+        "4": 0.344226,
+        "5": 0.184251
+      }
+    },
+    "ipip76": {
+      "item_text": "I find it difficult to approach others",
+      "argmax": "2",
+      "expected_value": 2.8516,
+      "entropy": 1.43,
+      "entropy_normalized": 0.8885,
+      "distribution": {
+        "1": 0.097129,
+        "2": 0.299179,
+        "3": 0.299179,
+        "4": 0.264024,
+        "5": 0.040489
+      }
+    },
+    "ipip17": {
+      "item_text": "I am always busy",
+      "argmax": "2",
+      "expected_value": 2.4903,
+      "entropy": 1.4946,
+      "entropy_normalized": 0.9287,
+      "distribution": {
+        "1": 0.241416,
+        "2": 0.309984,
+        "3": 0.213049,
+        "4": 0.188015,
+        "5": 0.047538
+      }
+    },
+    "ipip18": {
+      "item_text": "I prefer variety to routine",
+      "argmax": "4",
+      "expected_value": 3.9176,
+      "entropy": 1.2034,
+      "entropy_normalized": 0.7477,
+      "distribution": {
+        "1": 0.013597,
+        "2": 0.047459,
+        "3": 0.187702,
+        "4": 0.510228,
+        "5": 0.241014
+      }
+    },
+    "ipip169": {
+      "item_text": "I love a good fight",
+      "argmax": "1",
+      "expected_value": 1.8232,
+      "entropy": 1.2202,
+      "entropy_normalized": 0.7581,
+      "distribution": {
+        "1": 0.490346,
+        "2": 0.29741,
+        "3": 0.123979,
+        "4": 0.075197,
+        "5": 0.013067
+      }
+    },
+    "ipip50": {
+      "item_text": "I work hard",
+      "argmax": "4",
+      "expected_value": 2.9602,
+      "entropy": 1.4851,
+      "entropy_normalized": 0.9227,
+      "distribution": {
+        "1": 0.121377,
+        "2": 0.256955,
+        "3": 0.226762,
+        "4": 0.329937,
+        "5": 0.064968
+      }
+    },
+    "ipip111": {
+      "item_text": "I go on binges",
+      "argmax": "1",
+      "expected_value": 1.705,
+      "entropy": 1.1311,
+      "entropy_normalized": 0.7028,
+      "distribution": {
+        "1": 0.555611,
+        "2": 0.262452,
+        "3": 0.109406,
+        "4": 0.066358,
+        "5": 0.006172
+      }
+    },
+    "ipip22": {
+      "item_text": "I love excitement",
+      "argmax": "4",
+      "expected_value": 3.7085,
+      "entropy": 1.3742,
+      "entropy_normalized": 0.8538,
+      "distribution": {
+        "1": 0.034551,
+        "2": 0.09392,
+        "3": 0.225303,
+        "4": 0.420922,
+        "5": 0.225303
+      }
+    },
+    "ipip53": {
+      "item_text": "I love to read challenging material",
+      "argmax": "4",
+      "expected_value": 3.6221,
+      "entropy": 1.346,
+      "entropy_normalized": 0.8363,
+      "distribution": {
+        "1": 0.032946,
+        "2": 0.101482,
+        "3": 0.243443,
+        "4": 0.454812,
+        "5": 0.167316
+      }
+    },
+    "ipip144": {
+      "item_text": "I believe that I am better than others",
+      "argmax": "2",
+      "expected_value": 2.4736,
+      "entropy": 1.4614,
+      "entropy_normalized": 0.908,
+      "distribution": {
+        "1": 0.22188,
+        "2": 0.365819,
+        "3": 0.172801,
+        "4": 0.195809,
+        "5": 0.043691
+      }
+    },
+    "ipip55": {
+      "item_text": "I am always prepared",
+      "argmax": "2",
+      "expected_value": 1.9659,
+      "entropy": 1.2437,
+      "entropy_normalized": 0.7728,
+      "distribution": {
+        "1": 0.355238,
+        "2": 0.402537,
+        "3": 0.167802,
+        "4": 0.06995,
+        "5": 0.004472
+      }
+    },
+    "ipip26": {
+      "item_text": "I panic easily",
+      "argmax": "2",
+      "expected_value": 2.5229,
+      "entropy": 1.5039,
+      "entropy_normalized": 0.9344,
+      "distribution": {
+        "1": 0.243376,
+        "2": 0.275782,
+        "3": 0.243376,
+        "4": 0.189542,
+        "5": 0.047924
+      }
+    },
+    "ipip27": {
+      "item_text": "I radiate joy",
+      "argmax": "1",
+      "expected_value": 2.0968,
+      "entropy": 1.3645,
+      "entropy_normalized": 0.8478,
+      "distribution": {
+        "1": 0.381715,
+        "2": 0.29728,
+        "3": 0.180309,
+        "4": 0.123925,
+        "5": 0.016771
+      }
+    },
+    "ipip28": {
+      "item_text": "I tend to vote for liberal political candidates",
+      "argmax": "4",
+      "expected_value": 3.029,
+      "entropy": 1.4263,
+      "entropy_normalized": 0.8862,
+      "distribution": {
+        "1": 0.094273,
+        "2": 0.25626,
+        "3": 0.226149,
+        "4": 0.372857,
+        "5": 0.050461
+      }
+    },
+    "ipip29": {
+      "item_text": "I sympathize with the homeless",
+      "argmax": "4",
+      "expected_value": 3.9097,
+      "entropy": 1.0733,
+      "entropy_normalized": 0.6669,
+      "distribution": {
+        "1": 0.016653,
+        "2": 0.03995,
+        "3": 0.139438,
+        "4": 0.624917,
+        "5": 0.179042
+      }
+    },
+    "ipip120": {
+      "item_text": "I jump into things without thinking",
+      "argmax": "2",
+      "expected_value": 2.419,
+      "entropy": 1.3732,
+      "entropy_normalized": 0.8532,
+      "distribution": {
+        "1": 0.187005,
+        "2": 0.39589,
+        "3": 0.240119,
+        "4": 0.165031,
+        "5": 0.011955
+      }
+    },
+    "ipip31": {
+      "item_text": "I fear for the worst",
+      "argmax": "2",
+      "expected_value": 2.4524,
+      "entropy": 1.4687,
+      "entropy_normalized": 0.9125,
+      "distribution": {
+        "1": 0.245058,
+        "2": 0.314661,
+        "3": 0.216263,
+        "4": 0.190852,
+        "5": 0.033165
+      }
+    },
+    "ipip62": {
+      "item_text": "I feel comfortable around people",
+      "argmax": "4",
+      "expected_value": 3.437,
+      "entropy": 1.3746,
+      "entropy_normalized": 0.8541,
+      "distribution": {
+        "1": 0.060215,
+        "2": 0.112496,
+        "3": 0.269864,
+        "4": 0.44493,
+        "5": 0.112496
+      }
+    },
+    "ipip33": {
+      "item_text": "I enjoy wild flights of fantasy",
+      "argmax": "5",
+      "expected_value": 4.2377,
+      "entropy": 1.1183,
+      "entropy_normalized": 0.6948,
+      "distribution": {
+        "1": 0.007129,
+        "2": 0.019379,
+        "3": 0.143192,
+        "4": 0.389237,
+        "5": 0.441063
+      }
+    },
+    "ipip34": {
+      "item_text": "I believe that others have good intentions",
+      "argmax": "4",
+      "expected_value": 4.1643,
+      "entropy": 0.8941,
+      "entropy_normalized": 0.5556,
+      "distribution": {
+        "1": 0.002046,
+        "2": 0.01039,
+        "3": 0.076774,
+        "4": 0.642822,
+        "5": 0.267968
+      }
+    },
+    "ipip35": {
+      "item_text": "I excel in what I do",
+      "argmax": "4",
+      "expected_value": 3.4216,
+      "entropy": 1.367,
+      "entropy_normalized": 0.8494,
+      "distribution": {
+        "1": 0.035545,
+        "2": 0.159301,
+        "3": 0.262643,
+        "4": 0.433025,
+        "5": 0.109486
+      }
+    },
+    "ipip36": {
+      "item_text": "I get irritated easily",
+      "argmax": "4",
+      "expected_value": 3.1222,
+      "entropy": 1.4797,
+      "entropy_normalized": 0.9194,
+      "distribution": {
+        "1": 0.081322,
+        "2": 0.221055,
+        "3": 0.28384,
+        "4": 0.321633,
+        "5": 0.092149
+      }
+    },
+    "ipip37": {
+      "item_text": "I talk to a lot of different people at parties",
+      "argmax": "2",
+      "expected_value": 2.5728,
+      "entropy": 1.4829,
+      "entropy_normalized": 0.9214,
+      "distribution": {
+        "1": 0.193953,
+        "2": 0.319775,
+        "3": 0.249041,
+        "4": 0.193953,
+        "5": 0.043277
+      }
+    },
+    "ipip68": {
+      "item_text": "I see beauty in things that others might not notice",
+      "argmax": "4",
+      "expected_value": 4.019,
+      "entropy": 0.9242,
+      "entropy_normalized": 0.5743,
+      "distribution": {
+        "1": 0.001265,
+        "2": 0.009349,
+        "3": 0.146235,
+        "4": 0.655381,
+        "5": 0.18777
+      }
+    },
+    "ipip159": {
+      "item_text": "I cheat to get ahead",
+      "argmax": "1",
+      "expected_value": 1.1092,
+      "entropy": 0.2819,
+      "entropy_normalized": 0.1751,
+      "distribution": {
+        "1": 0.944596,
+        "2": 0.022215,
+        "3": 0.015268,
+        "4": 0.015268,
+        "5": 0.002653
+      }
+    },
+    "ipip160": {
+      "item_text": "I often forget to put things back in their proper place",
+      "argmax": "4",
+      "expected_value": 3.3457,
+      "entropy": 1.3283,
+      "entropy_normalized": 0.8253,
+      "distribution": {
+        "1": 0.026024,
+        "2": 0.169697,
+        "3": 0.317036,
+        "4": 0.407083,
+        "5": 0.080159
+      }
+    },
+    "ipip41": {
+      "item_text": "I dislike myself",
+      "argmax": "1",
+      "expected_value": 1.8972,
+      "entropy": 1.1615,
+      "entropy_normalized": 0.7217,
+      "distribution": {
+        "1": 0.615053,
+        "2": 0.10688,
+        "3": 0.083238,
+        "4": 0.15551,
+        "5": 0.039319
+      }
+    },
+    "ipip42": {
+      "item_text": "I try to lead others",
+      "argmax": "3",
+      "expected_value": 3.0574,
+      "entropy": 1.3546,
+      "entropy_normalized": 0.8417,
+      "distribution": {
+        "1": 0.059606,
+        "2": 0.208045,
+        "3": 0.388679,
+        "4": 0.302704,
+        "5": 0.040966
+      }
+    },
+    "ipip43": {
+      "item_text": "I feel others' emotions",
+      "argmax": "3",
+      "expected_value": 2.8437,
+      "entropy": 1.4267,
+      "entropy_normalized": 0.8865,
+      "distribution": {
+        "1": 0.122882,
+        "2": 0.260141,
+        "3": 0.294779,
+        "4": 0.294779,
+        "5": 0.027419
+      }
+    },
+    "ipip104": {
+      "item_text": "I am concerned about others",
+      "argmax": "4",
+      "expected_value": 3.8005,
+      "entropy": 1.0723,
+      "entropy_normalized": 0.6663,
+      "distribution": {
+        "1": 0.015015,
+        "2": 0.059385,
+        "3": 0.161426,
+        "4": 0.638454,
+        "5": 0.125719
+      }
+    },
+    "ipip105": {
+      "item_text": "I tell the truth",
+      "argmax": "1",
+      "expected_value": 2.3067,
+      "entropy": 1.4614,
+      "entropy_normalized": 0.908,
+      "distribution": {
+        "1": 0.365819,
+        "2": 0.22188,
+        "3": 0.195809,
+        "4": 0.172801,
+        "5": 0.043691
+      }
+    },
+    "ipip106": {
+      "item_text": "I am afraid to draw attention to myself",
+      "argmax": "4",
+      "expected_value": 3.6944,
+      "entropy": 1.3058,
+      "entropy_normalized": 0.8114,
+      "distribution": {
+        "1": 0.021414,
+        "2": 0.108748,
+        "3": 0.203168,
+        "4": 0.487375,
+        "5": 0.179295
+      }
+    },
+    "ipip47": {
+      "item_text": "I am always on the go",
+      "argmax": "2",
+      "expected_value": 2.0884,
+      "entropy": 1.3219,
+      "entropy_normalized": 0.8213,
+      "distribution": {
+        "1": 0.327184,
+        "2": 0.370748,
+        "3": 0.198447,
+        "4": 0.09374,
+        "5": 0.00988
+      }
+    },
+    "ipip138": {
+      "item_text": "I prefer to stick with things that I know",
+      "argmax": "4",
+      "expected_value": 3.9364,
+      "entropy": 0.9414,
+      "entropy_normalized": 0.5849,
+      "distribution": {
+        "1": 0.00128,
+        "2": 0.020023,
+        "3": 0.167655,
+        "4": 0.663087,
+        "5": 0.147955
+      }
+    },
+    "ipip199": {
+      "item_text": "I yell at people",
+      "argmax": "1",
+      "expected_value": 1.2215,
+      "entropy": 0.5629,
+      "entropy_normalized": 0.3497,
+      "distribution": {
+        "1": 0.845212,
+        "2": 0.100946,
+        "3": 0.042081,
+        "4": 0.01064,
+        "5": 0.001121
+      }
+    },
+    "ipip140": {
+      "item_text": "I do more than what's expected of me",
+      "argmax": "4",
+      "expected_value": 3.6888,
+      "entropy": 1.2767,
+      "entropy_normalized": 0.7933,
+      "distribution": {
+        "1": 0.021808,
+        "2": 0.086252,
+        "3": 0.234457,
+        "4": 0.496344,
+        "5": 0.161139
+      }
+    },
+    "ipip171": {
+      "item_text": "I rarely overindulge",
+      "argmax": "4",
+      "expected_value": 3.4849,
+      "entropy": 1.506,
+      "entropy_normalized": 0.9358,
+      "distribution": {
+        "1": 0.091525,
+        "2": 0.133169,
+        "3": 0.193759,
+        "4": 0.361989,
+        "5": 0.219558
+      }
+    },
+    "ipip52": {
+      "item_text": "I seek adventure",
+      "argmax": "4",
+      "expected_value": 3.9651,
+      "entropy": 1.3265,
+      "entropy_normalized": 0.8242,
+      "distribution": {
+        "1": 0.038592,
+        "2": 0.056151,
+        "3": 0.172957,
+        "4": 0.36615,
+        "5": 0.36615
+      }
+    },
+    "ipip203": {
+      "item_text": "I avoid philosophical discussions",
+      "argmax": "4",
+      "expected_value": 3.7908,
+      "entropy": 1.3974,
+      "entropy_normalized": 0.8683,
+      "distribution": {
+        "1": 0.041009,
+        "2": 0.076615,
+        "3": 0.235991,
+        "4": 0.343365,
+        "5": 0.303019
+      }
+    },
+    "ipip174": {
+      "item_text": "I think highly of myself",
+      "argmax": "2",
+      "expected_value": 2.9023,
+      "entropy": 1.5,
+      "entropy_normalized": 0.932,
+      "distribution": {
+        "1": 0.124177,
+        "2": 0.297886,
+        "3": 0.204734,
+        "4": 0.297886,
+        "5": 0.075317
+      }
+    },
+    "ipip145": {
+      "item_text": "I carry out my plans",
+      "argmax": "3",
+      "expected_value": 2.9012,
+      "entropy": 1.4307,
+      "entropy_normalized": 0.8889,
+      "distribution": {
+        "1": 0.104545,
+        "2": 0.250791,
+        "3": 0.322021,
+        "4": 0.284183,
+        "5": 0.03846
+      }
+    },
+    "ipip56": {
+      "item_text": "I become overwhelmed by events",
+      "argmax": "3",
+      "expected_value": 2.7631,
+      "entropy": 1.435,
+      "entropy_normalized": 0.8916,
+      "distribution": {
+        "1": 0.131454,
+        "2": 0.278287,
+        "3": 0.315341,
+        "4": 0.245588,
+        "5": 0.029331
+      }
+    },
+    "ipip57": {
+      "item_text": "I have a lot of fun",
+      "argmax": "4",
+      "expected_value": 2.9904,
+      "entropy": 1.4851,
+      "entropy_normalized": 0.9227,
+      "distribution": {
+        "1": 0.121377,
+        "2": 0.226762,
+        "3": 0.256955,
+        "4": 0.329937,
+        "5": 0.064968
+      }
+    },
+    "ipip58": {
+      "item_text": "I believe that there is no absolute right or wrong",
+      "argmax": "4",
+      "expected_value": 4.1073,
+      "entropy": 1.0126,
+      "entropy_normalized": 0.6292,
+      "distribution": {
+        "1": 0.00209,
+        "2": 0.015442,
+        "3": 0.129294,
+        "4": 0.579457,
+        "5": 0.273716
+      }
+    },
+    "ipip59": {
+      "item_text": "I feel sympathy for those who are worse off than myself",
+      "argmax": "4",
+      "expected_value": 3.9452,
+      "entropy": 1.1091,
+      "entropy_normalized": 0.6891,
+      "distribution": {
+        "1": 0.009319,
+        "2": 0.036857,
+        "3": 0.165182,
+        "4": 0.576543,
+        "5": 0.212098
+      }
+    },
+    "ipip150": {
+      "item_text": "I make rash decisions",
+      "argmax": "2",
+      "expected_value": 2.2336,
+      "entropy": 1.3882,
+      "entropy_normalized": 0.8625,
+      "distribution": {
+        "1": 0.281521,
+        "2": 0.361481,
+        "3": 0.219249,
+        "4": 0.117356,
+        "5": 0.020393
+      }
+    },
+    "ipip61": {
+      "item_text": "I am afraid of many things",
+      "argmax": "4",
+      "expected_value": 2.7539,
+      "entropy": 1.5351,
+      "entropy_normalized": 0.9538,
+      "distribution": {
+        "1": 0.205129,
+        "2": 0.232442,
+        "3": 0.232442,
+        "4": 0.263391,
+        "5": 0.066596
+      }
+    },
+    "ipip212": {
+      "item_text": "I avoid contacts with others",
+      "argmax": "3",
+      "expected_value": 2.8424,
+      "entropy": 1.523,
+      "entropy_normalized": 0.9463,
+      "distribution": {
+        "1": 0.162093,
+        "2": 0.235844,
+        "3": 0.267246,
+        "4": 0.267246,
+        "5": 0.06757
+      }
+    },
+    "ipip63": {
+      "item_text": "I love to daydream",
+      "argmax": "4",
+      "expected_value": 3.1401,
+      "entropy": 1.4521,
+      "entropy_normalized": 0.9022,
+      "distribution": {
+        "1": 0.087375,
+        "2": 0.184973,
+        "3": 0.304969,
+        "4": 0.345575,
+        "5": 0.077108
+      }
+    },
+    "ipip64": {
+      "item_text": "I trust what people say",
+      "argmax": "2",
+      "expected_value": 2.2288,
+      "entropy": 1.3187,
+      "entropy_normalized": 0.8194,
+      "distribution": {
+        "1": 0.236906,
+        "2": 0.442599,
+        "3": 0.184503,
+        "4": 0.126807,
+        "5": 0.009186
+      }
+    },
+    "ipip65": {
+      "item_text": "I handle tasks smoothly",
+      "argmax": "2",
+      "expected_value": 2.7405,
+      "entropy": 1.3805,
+      "entropy_normalized": 0.8578,
+      "distribution": {
+        "1": 0.098111,
+        "2": 0.34244,
+        "3": 0.302202,
+        "4": 0.235355,
+        "5": 0.021891
+      }
+    },
+    "ipip126": {
+      "item_text": "I lose my temper",
+      "argmax": "1",
+      "expected_value": 2.3727,
+      "entropy": 1.4581,
+      "entropy_normalized": 0.906,
+      "distribution": {
+        "1": 0.293629,
+        "2": 0.259127,
+        "3": 0.259127,
+        "4": 0.157168,
+        "5": 0.030948
+      }
+    },
+    "ipip157": {
+      "item_text": "I prefer to be alone",
+      "argmax": "1",
+      "expected_value": 2.4552,
+      "entropy": 1.4711,
+      "entropy_normalized": 0.9141,
+      "distribution": {
+        "1": 0.262693,
+        "2": 0.262693,
+        "3": 0.262693,
+        "4": 0.180546,
+        "5": 0.031374
+      }
+    },
+    "ipip188": {
+      "item_text": "I do not like poetry",
+      "argmax": "5",
+      "expected_value": 3.94,
+      "entropy": 1.3577,
+      "entropy_normalized": 0.8436,
+      "distribution": {
+        "1": 0.081452,
+        "2": 0.055981,
+        "3": 0.172434,
+        "4": 0.221409,
+        "5": 0.468724
+      }
+    },
+    "ipip249": {
+      "item_text": "I take advantage of others",
+      "argmax": "1",
+      "expected_value": 1.3635,
+      "entropy": 0.7811,
+      "entropy_normalized": 0.4853,
+      "distribution": {
+        "1": 0.740621,
+        "2": 0.187258,
+        "3": 0.041783,
+        "4": 0.028717,
+        "5": 0.00162
+      }
+    },
+    "ipip190": {
+      "item_text": "I leave a mess in my room",
+      "argmax": "3",
+      "expected_value": 3.1514,
+      "entropy": 1.4568,
+      "entropy_normalized": 0.9052,
+      "distribution": {
+        "1": 0.139425,
+        "2": 0.095825,
+        "3": 0.334463,
+        "4": 0.334463,
+        "5": 0.095825
+      }
+    },
+    "ipip71": {
+      "item_text": "I am often down in the dumps",
+      "argmax": "4",
+      "expected_value": 3.1706,
+      "entropy": 1.5071,
+      "entropy_normalized": 0.9364,
+      "distribution": {
+        "1": 0.104072,
+        "2": 0.22032,
+        "3": 0.194432,
+        "4": 0.363247,
+        "5": 0.117929
+      }
+    },
+    "ipip132": {
+      "item_text": "I take control of things",
+      "argmax": "2",
+      "expected_value": 2.768,
+      "entropy": 1.3445,
+      "entropy_normalized": 0.8354,
+      "distribution": {
+        "1": 0.078492,
+        "2": 0.351778,
+        "3": 0.310443,
+        "4": 0.241773,
+        "5": 0.017514
+      }
+    },
+    "ipip223": {
+      "item_text": "I rarely notice my emotional reactions",
+      "argmax": "2",
+      "expected_value": 2.6815,
+      "entropy": 1.43,
+      "entropy_normalized": 0.8885,
+      "distribution": {
+        "1": 0.147334,
+        "2": 0.311905,
+        "3": 0.275255,
+        "4": 0.242912,
+        "5": 0.022594
+      }
+    },
+    "ipip194": {
+      "item_text": "I am indifferent to the feelings of others",
+      "argmax": "4",
+      "expected_value": 2.9054,
+      "entropy": 1.4692,
+      "entropy_normalized": 0.9129,
+      "distribution": {
+        "1": 0.128999,
+        "2": 0.241002,
+        "3": 0.273091,
+        "4": 0.309452,
+        "5": 0.047456
+      }
+    },
+    "ipip165": {
+      "item_text": "I break rules",
+      "argmax": "1",
+      "expected_value": 1.5592,
+      "entropy": 0.9825,
+      "entropy_normalized": 0.6105,
+      "distribution": {
+        "1": 0.676065,
+        "2": 0.150851,
+        "3": 0.117483,
+        "4": 0.048974,
+        "5": 0.006628
+      }
+    },
+    "ipip136": {
+      "item_text": "I only feel comfortable with friends",
+      "argmax": "2",
+      "expected_value": 2.3481,
+      "entropy": 1.4267,
+      "entropy_normalized": 0.8864,
+      "distribution": {
+        "1": 0.259394,
+        "2": 0.333069,
+        "3": 0.228914,
+        "4": 0.15733,
+        "5": 0.021292
+      }
+    },
+    "ipip77": {
+      "item_text": "I do a lot in my spare time",
+      "argmax": "4",
+      "expected_value": 3.437,
+      "entropy": 1.3662,
+      "entropy_normalized": 0.8488,
+      "distribution": {
+        "1": 0.040849,
+        "2": 0.142577,
+        "3": 0.266368,
+        "4": 0.439167,
+        "5": 0.111039
+      }
+    },
+    "ipip168": {
+      "item_text": "I dislike changes",
+      "argmax": "3",
+      "expected_value": 3.0686,
+      "entropy": 1.4389,
+      "entropy_normalized": 0.894,
+      "distribution": {
+        "1": 0.069186,
+        "2": 0.241484,
+        "3": 0.310072,
+        "4": 0.310072,
+        "5": 0.069186
+      }
+    },
+    "ipip229": {
+      "item_text": "I insult people",
+      "argmax": "1",
+      "expected_value": 1.1712,
+      "entropy": 0.4825,
+      "entropy_normalized": 0.2998,
+      "distribution": {
+        "1": 0.866397,
+        "2": 0.103476,
+        "3": 0.023089,
+        "4": 0.006615,
+        "5": 0.000423
+      }
+    },
+    "ipip260": {
+      "item_text": "I do just enough work to get by",
+      "argmax": "2",
+      "expected_value": 2.817,
+      "entropy": 1.3578,
+      "entropy_normalized": 0.8437,
+      "distribution": {
+        "1": 0.07568,
+        "2": 0.339172,
+        "3": 0.299318,
+        "4": 0.264147,
+        "5": 0.021683
+      }
+    },
+    "ipip201": {
+      "item_text": "I easily resist temptations",
+      "argmax": "2",
+      "expected_value": 2.1736,
+      "entropy": 1.3326,
+      "entropy_normalized": 0.828,
+      "distribution": {
+        "1": 0.278291,
+        "2": 0.404911,
+        "3": 0.191266,
+        "4": 0.116009,
+        "5": 0.009523
+      }
+    },
+    "ipip142": {
+      "item_text": "I enjoy being reckless",
+      "argmax": "1",
+      "expected_value": 1.3458,
+      "entropy": 0.7643,
+      "entropy_normalized": 0.4749,
+      "distribution": {
+        "1": 0.742095,
+        "2": 0.187631,
+        "3": 0.053757,
+        "4": 0.015402,
+        "5": 0.001116
+      }
+    },
+    "ipip233": {
+      "item_text": "I have difficulty understanding abstract ideas",
+      "argmax": "4",
+      "expected_value": 3.346,
+      "entropy": 1.4394,
+      "entropy_normalized": 0.8944,
+      "distribution": {
+        "1": 0.051662,
+        "2": 0.180317,
+        "3": 0.26236,
+        "4": 0.381731,
+        "5": 0.12393
+      }
+    },
+    "ipip204": {
+      "item_text": "I have a high opinion of myself",
+      "argmax": "2",
+      "expected_value": 2.9088,
+      "entropy": 1.5289,
+      "entropy_normalized": 0.95,
+      "distribution": {
+        "1": 0.125891,
+        "2": 0.301996,
+        "3": 0.207559,
+        "4": 0.266511,
+        "5": 0.098044
+      }
+    },
+    "ipip205": {
+      "item_text": "I waste my time",
+      "argmax": "1",
+      "expected_value": 2.1789,
+      "entropy": 1.4147,
+      "entropy_normalized": 0.879,
+      "distribution": {
+        "1": 0.414419,
+        "2": 0.221822,
+        "3": 0.172755,
+        "4": 0.152456,
+        "5": 0.038547
+      }
+    },
+    "ipip86": {
+      "item_text": "I feel that I'm unable to deal with things",
+      "argmax": "4",
+      "expected_value": 2.981,
+      "entropy": 1.4548,
+      "entropy_normalized": 0.9039,
+      "distribution": {
+        "1": 0.088198,
+        "2": 0.27167,
+        "3": 0.27167,
+        "4": 0.307843,
+        "5": 0.060618
+      }
+    },
+    "ipip147": {
+      "item_text": "I love life",
+      "argmax": "4",
+      "expected_value": 3.1502,
+      "entropy": 1.4706,
+      "entropy_normalized": 0.9138,
+      "distribution": {
+        "1": 0.107334,
+        "2": 0.176963,
+        "3": 0.25748,
+        "4": 0.374631,
+        "5": 0.083592
+      }
+    },
+    "ipip148": {
+      "item_text": "I tend to vote for conservative political candidates",
+      "argmax": "2",
+      "expected_value": 2.5874,
+      "entropy": 1.4701,
+      "entropy_normalized": 0.9134,
+      "distribution": {
+        "1": 0.234289,
+        "2": 0.265485,
+        "3": 0.20676,
+        "4": 0.265485,
+        "5": 0.027982
+      }
+    },
+    "ipip149": {
+      "item_text": "I am not interested in other people's problems",
+      "argmax": "2",
+      "expected_value": 2.8566,
+      "entropy": 1.4891,
+      "entropy_normalized": 0.9252,
+      "distribution": {
+        "1": 0.118343,
+        "2": 0.28389,
+        "3": 0.28389,
+        "4": 0.250532,
+        "5": 0.063344
+      }
+    },
+    "ipip210": {
+      "item_text": "I rush into things",
+      "argmax": "2",
+      "expected_value": 2.5186,
+      "entropy": 1.3561,
+      "entropy_normalized": 0.8426,
+      "distribution": {
+        "1": 0.141614,
+        "2": 0.384947,
+        "3": 0.299797,
+        "4": 0.16047,
+        "5": 0.013172
+      }
+    },
+    "ipip91": {
+      "item_text": "I get stressed out easily",
+      "argmax": "4",
+      "expected_value": 3.1626,
+      "entropy": 1.4885,
+      "entropy_normalized": 0.9249,
+      "distribution": {
+        "1": 0.089243,
+        "2": 0.214082,
+        "3": 0.242587,
+        "4": 0.352962,
+        "5": 0.101125
+      }
+    },
+    "ipip272": {
+      "item_text": "I keep others at a distance",
+      "argmax": "2",
+      "expected_value": 2.3405,
+      "entropy": 1.3271,
+      "entropy_normalized": 0.8246,
+      "distribution": {
+        "1": 0.184023,
+        "2": 0.441447,
+        "3": 0.23629,
+        "4": 0.126477,
+        "5": 0.011764
+      }
+    },
+    "ipip93": {
+      "item_text": "I like to get lost in thought",
+      "argmax": "4",
+      "expected_value": 4.016,
+      "entropy": 0.9298,
+      "entropy_normalized": 0.5777,
+      "distribution": {
+        "1": 0.001432,
+        "2": 0.010578,
+        "3": 0.146029,
+        "4": 0.654456,
+        "5": 0.187505
+      }
+    },
+    "ipip184": {
+      "item_text": "I distrust people",
+      "argmax": "2",
+      "expected_value": 2.5356,
+      "entropy": 1.467,
+      "entropy_normalized": 0.9115,
+      "distribution": {
+        "1": 0.20179,
+        "2": 0.332696,
+        "3": 0.228658,
+        "4": 0.20179,
+        "5": 0.035066
+      }
+    },
+    "ipip155": {
+      "item_text": "I know how to get things done",
+      "argmax": "4",
+      "expected_value": 3.3541,
+      "entropy": 1.3407,
+      "entropy_normalized": 0.833,
+      "distribution": {
+        "1": 0.041502,
+        "2": 0.164144,
+        "3": 0.270628,
+        "4": 0.44619,
+        "5": 0.077536
+      }
+    },
+    "ipip216": {
+      "item_text": "I am not easily annoyed",
+      "argmax": "4",
+      "expected_value": 3.7252,
+      "entropy": 1.3877,
+      "entropy_normalized": 0.8622,
+      "distribution": {
+        "1": 0.033143,
+        "2": 0.102087,
+        "3": 0.216117,
+        "4": 0.40376,
+        "5": 0.244893
+      }
+    },
+    "ipip247": {
+      "item_text": "I avoid crowds",
+      "argmax": "4",
+      "expected_value": 3.61,
+      "entropy": 1.3433,
+      "entropy_normalized": 0.8347,
+      "distribution": {
+        "1": 0.036427,
+        "2": 0.087384,
+        "3": 0.269162,
+        "4": 0.443772,
+        "5": 0.163255
+      }
+    },
+    "ipip218": {
+      "item_text": "I do not enjoy going to art museums",
+      "argmax": "5",
+      "expected_value": 4.1386,
+      "entropy": 1.2503,
+      "entropy_normalized": 0.7769,
+      "distribution": {
+        "1": 0.036912,
+        "2": 0.047397,
+        "3": 0.16543,
+        "4": 0.2407,
+        "5": 0.509561
+      }
+    },
+    "ipip279": {
+      "item_text": "I obstruct others' plans",
+      "argmax": "1",
+      "expected_value": 1.3644,
+      "entropy": 0.7759,
+      "entropy_normalized": 0.4821,
+      "distribution": {
+        "1": 0.753491,
+        "2": 0.148371,
+        "3": 0.079417,
+        "4": 0.01772,
+        "5": 0.001
+      }
+    },
+    "ipip220": {
+      "item_text": "I leave my belongings around",
+      "argmax": "2",
+      "expected_value": 2.3439,
+      "entropy": 1.379,
+      "entropy_normalized": 0.8568,
+      "distribution": {
+        "1": 0.228313,
+        "2": 0.376425,
+        "3": 0.228313,
+        "4": 0.156917,
+        "5": 0.010031
+      }
+    },
+    "ipip251": {
+      "item_text": "I feel comfortable with myself",
+      "argmax": "4",
+      "expected_value": 3.9957,
+      "entropy": 1.2022,
+      "entropy_normalized": 0.747,
+      "distribution": {
+        "1": 0.016443,
+        "2": 0.034809,
+        "3": 0.176774,
+        "4": 0.480522,
+        "5": 0.291452
+      }
+    },
+    "ipip162": {
+      "item_text": "I wait for others to lead the way",
+      "argmax": "2",
+      "expected_value": 2.6879,
+      "entropy": 1.3595,
+      "entropy_normalized": 0.8447,
+      "distribution": {
+        "1": 0.08891,
+        "2": 0.398468,
+        "3": 0.273863,
+        "4": 0.213285,
+        "5": 0.025473
+      }
+    },
+    "ipip283": {
+      "item_text": "I don't understand people who get emotional",
+      "argmax": "2",
+      "expected_value": 2.1425,
+      "entropy": 1.3306,
+      "entropy_normalized": 0.8267,
+      "distribution": {
+        "1": 0.294701,
+        "2": 0.378404,
+        "3": 0.229513,
+        "4": 0.084433,
+        "5": 0.012948
+      }
+    },
+    "ipip284": {
+      "item_text": "I take no time for others",
+      "argmax": "1",
+      "expected_value": 1.7527,
+      "entropy": 1.1525,
+      "entropy_normalized": 0.7161,
+      "distribution": {
+        "1": 0.489965,
+        "2": 0.336748,
+        "3": 0.109326,
+        "4": 0.058518,
+        "5": 0.005443
+      }
+    },
+    "ipip195": {
+      "item_text": "I break my promises",
+      "argmax": "1",
+      "expected_value": 1.8518,
+      "entropy": 1.2412,
+      "entropy_normalized": 0.7712,
+      "distribution": {
+        "1": 0.546302,
+        "2": 0.200973,
+        "3": 0.138127,
+        "4": 0.083778,
+        "5": 0.03082
+      }
+    },
+    "ipip256": {
+      "item_text": "I am not bothered by difficult social situations",
+      "argmax": "4",
+      "expected_value": 3.0364,
+      "entropy": 1.4856,
+      "entropy_normalized": 0.923,
+      "distribution": {
+        "1": 0.107719,
+        "2": 0.228042,
+        "3": 0.258405,
+        "4": 0.331799,
+        "5": 0.074034
+      }
+    },
+    "ipip167": {
+      "item_text": "I like to take it easy",
+      "argmax": "4",
+      "expected_value": 3.3582,
+      "entropy": 1.3497,
+      "entropy_normalized": 0.8386,
+      "distribution": {
+        "1": 0.039663,
+        "2": 0.156872,
+        "3": 0.293075,
+        "4": 0.426422,
+        "5": 0.083967
+      }
+    },
+    "ipip288": {
+      "item_text": "I am attached to conventional ways",
+      "argmax": "4",
+      "expected_value": 3.0192,
+      "entropy": 1.3429,
+      "entropy_normalized": 0.8344,
+      "distribution": {
+        "1": 0.045026,
+        "2": 0.293605,
+        "3": 0.293605,
+        "4": 0.332698,
+        "5": 0.035066
+      }
+    },
+    "ipip259": {
+      "item_text": "I get back at others",
+      "argmax": "1",
+      "expected_value": 1.4248,
+      "entropy": 0.8587,
+      "entropy_normalized": 0.5335,
+      "distribution": {
+        "1": 0.674825,
+        "2": 0.248254,
+        "3": 0.055393,
+        "4": 0.020378,
+        "5": 0.00115
+      }
+    },
+    "ipip290": {
+      "item_text": "I put little time and effort into my work",
+      "argmax": "2",
+      "expected_value": 2.6413,
+      "entropy": 1.5105,
+      "entropy_normalized": 0.9385,
+      "distribution": {
+        "1": 0.188652,
+        "2": 0.352449,
+        "3": 0.166485,
+        "4": 0.213771,
+        "5": 0.078642
+      }
+    },
+    "ipip231": {
+      "item_text": "I am able to control my cravings",
+      "argmax": "3",
+      "expected_value": 2.8674,
+      "entropy": 1.4278,
+      "entropy_normalized": 0.8872,
+      "distribution": {
+        "1": 0.129252,
+        "2": 0.2131,
+        "3": 0.351343,
+        "4": 0.273626,
+        "5": 0.03268
+      }
+    },
+    "ipip172": {
+      "item_text": "I act wild and crazy",
+      "argmax": "2",
+      "expected_value": 2.0604,
+      "entropy": 1.3182,
+      "entropy_normalized": 0.819,
+      "distribution": {
+        "1": 0.340604,
+        "2": 0.385955,
+        "3": 0.16089,
+        "4": 0.097585,
+        "5": 0.014965
+      }
+    },
+    "ipip263": {
+      "item_text": "I am not interested in theoretical discussions",
+      "argmax": "4",
+      "expected_value": 3.0608,
+      "entropy": 1.5196,
+      "entropy_normalized": 0.9442,
+      "distribution": {
+        "1": 0.096801,
+        "2": 0.263131,
+        "3": 0.232212,
+        "4": 0.298167,
+        "5": 0.109689
+      }
+    },
+    "ipip264": {
+      "item_text": "I boast about my virtues",
+      "argmax": "1",
+      "expected_value": 1.7365,
+      "entropy": 1.138,
+      "entropy_normalized": 0.7071,
+      "distribution": {
+        "1": 0.496341,
+        "2": 0.34113,
+        "3": 0.097735,
+        "4": 0.05928,
+        "5": 0.005514
+      }
+    },
+    "ipip265": {
+      "item_text": "I have difficulty starting tasks",
+      "argmax": "4",
+      "expected_value": 3.5367,
+      "entropy": 1.1877,
+      "entropy_normalized": 0.738,
+      "distribution": {
+        "1": 0.011876,
+        "2": 0.099435,
+        "3": 0.30628,
+        "4": 0.50497,
+        "5": 0.07744
+      }
+    },
+    "ipip176": {
+      "item_text": "I remain calm under pressure",
+      "argmax": "3",
+      "expected_value": 3.1455,
+      "entropy": 1.5078,
+      "entropy_normalized": 0.9368,
+      "distribution": {
+        "1": 0.098407,
+        "2": 0.183849,
+        "3": 0.303116,
+        "4": 0.303116,
+        "5": 0.11151
+      }
+    },
+    "ipip177": {
+      "item_text": "I look at the bright side of life",
+      "argmax": "4",
+      "expected_value": 3.9833,
+      "entropy": 1.1156,
+      "entropy_normalized": 0.6932,
+      "distribution": {
+        "1": 0.009193,
+        "2": 0.041199,
+        "3": 0.143797,
+        "4": 0.56873,
+        "5": 0.237082
+      }
+    },
+    "ipip268": {
+      "item_text": "I believe that we should be tough on crime",
+      "argmax": "4",
+      "expected_value": 2.942,
+      "entropy": 1.4256,
+      "entropy_normalized": 0.8858,
+      "distribution": {
+        "1": 0.089903,
+        "2": 0.27692,
+        "3": 0.27692,
+        "4": 0.313791,
+        "5": 0.042467
+      }
+    },
+    "ipip239": {
+      "item_text": "I try not to think about the needy",
+      "argmax": "4",
+      "expected_value": 3.203,
+      "entropy": 1.4003,
+      "entropy_normalized": 0.8701,
+      "distribution": {
+        "1": 0.066869,
+        "2": 0.181769,
+        "3": 0.299687,
+        "4": 0.384806,
+        "5": 0.066869
+      }
+    },
+    "ipip270": {
+      "item_text": "I act without thinking",
+      "argmax": "1",
+      "expected_value": 1.9443,
+      "entropy": 1.2752,
+      "entropy_normalized": 0.7923,
+      "distribution": {
+        "1": 0.414785,
+        "2": 0.323035,
+        "3": 0.172908,
+        "4": 0.081676,
+        "5": 0.007597
+      }
+    },
+    "ipip9": {
+      "item_text": "I would never cheat on my taxes",
+      "argmax": "5",
+      "expected_value": 4.9541,
+      "entropy": 0.1758,
+      "entropy_normalized": 0.1092,
+      "distribution": {
+        "1": 0.002106,
+        "2": 9.3e-05,
+        "3": 0.002106,
+        "4": 0.032944,
+        "5": 0.962752
+      }
+    },
+    "ipip10": {
+      "item_text": "I like order",
+      "argmax": "4",
+      "expected_value": 3.9,
+      "entropy": 1.0628,
+      "entropy_normalized": 0.6603,
+      "distribution": {
+        "1": 0.005868,
+        "2": 0.029799,
+        "3": 0.194316,
+        "4": 0.598534,
+        "5": 0.171483
+      }
+    },
+    "ipip14": {
+      "item_text": "I make people feel welcome",
+      "argmax": "4",
+      "expected_value": 3.7523,
+      "entropy": 1.1399,
+      "entropy_normalized": 0.7083,
+      "distribution": {
+        "1": 0.013674,
+        "2": 0.061281,
+        "3": 0.213893,
+        "4": 0.58142,
+        "5": 0.129732
+      }
+    },
+    "ipip15": {
+      "item_text": "I try to follow the rules",
+      "argmax": "4",
+      "expected_value": 3.626,
+      "entropy": 1.1911,
+      "entropy_normalized": 0.7401,
+      "distribution": {
+        "1": 0.023179,
+        "2": 0.063007,
+        "3": 0.282379,
+        "4": 0.527553,
+        "5": 0.103881
+      }
+    },
+    "ipip16": {
+      "item_text": "I am easily intimidated",
+      "argmax": "2",
+      "expected_value": 2.4617,
+      "entropy": 1.4813,
+      "entropy_normalized": 0.9204,
+      "distribution": {
+        "1": 0.251649,
+        "2": 0.285155,
+        "3": 0.251649,
+        "4": 0.172955,
+        "5": 0.038592
+      }
+    },
+    "ipip19": {
+      "item_text": "I am easy to satisfy",
+      "argmax": "2",
+      "expected_value": 2.7538,
+      "entropy": 1.437,
+      "entropy_normalized": 0.8928,
+      "distribution": {
+        "1": 0.121377,
+        "2": 0.329937,
+        "3": 0.256955,
+        "4": 0.256955,
+        "5": 0.034775
+      }
+    },
+    "ipip20": {
+      "item_text": "I go straight for the goal",
+      "argmax": "3",
+      "expected_value": 2.623,
+      "entropy": 1.5165,
+      "entropy_normalized": 0.9423,
+      "distribution": {
+        "1": 0.242644,
+        "2": 0.214132,
+        "3": 0.274951,
+        "4": 0.214132,
+        "5": 0.054141
+      }
+    },
+    "ipip21": {
+      "item_text": "I often eat too much",
+      "argmax": "1",
+      "expected_value": 2.7802,
+      "entropy": 1.5671,
+      "entropy_normalized": 0.9737,
+      "distribution": {
+        "1": 0.257536,
+        "2": 0.177002,
+        "3": 0.200569,
+        "4": 0.257536,
+        "5": 0.107357
+      }
+    },
+    "ipip23": {
+      "item_text": "I like to solve complex problems",
+      "argmax": "4",
+      "expected_value": 3.5354,
+      "entropy": 1.4026,
+      "entropy_normalized": 0.8715,
+      "distribution": {
+        "1": 0.042226,
+        "2": 0.114783,
+        "3": 0.27535,
+        "4": 0.400632,
+        "5": 0.167008
+      }
+    },
+    "ipip24": {
+      "item_text": "I dislike being the center of attention",
+      "argmax": "4",
+      "expected_value": 3.9526,
+      "entropy": 1.2973,
+      "entropy_normalized": 0.806,
+      "distribution": {
+        "1": 0.023454,
+        "2": 0.063754,
+        "3": 0.1733,
+        "4": 0.415725,
+        "5": 0.323767
+      }
+    },
+    "ipip25": {
+      "item_text": "I get chores done right away",
+      "argmax": "2",
+      "expected_value": 2.1575,
+      "entropy": 1.2502,
+      "entropy_normalized": 0.7768,
+      "distribution": {
+        "1": 0.230618,
+        "2": 0.488218,
+        "3": 0.179605,
+        "4": 0.096136,
+        "5": 0.005424
+      }
+    },
+    "ipip30": {
+      "item_text": "I avoid mistakes",
+      "argmax": "2",
+      "expected_value": 2.6958,
+      "entropy": 1.4317,
+      "entropy_normalized": 0.8895,
+      "distribution": {
+        "1": 0.129742,
+        "2": 0.352675,
+        "3": 0.24239,
+        "4": 0.24239,
+        "5": 0.032804
+      }
+    },
+    "ipip32": {
+      "item_text": "I warm up quickly to others",
+      "argmax": "4",
+      "expected_value": 3.5506,
+      "entropy": 1.3253,
+      "entropy_normalized": 0.8234,
+      "distribution": {
+        "1": 0.033099,
+        "2": 0.101951,
+        "3": 0.277131,
+        "4": 0.456912,
+        "5": 0.130907
+      }
+    },
+    "ipip38": {
+      "item_text": "I like music",
+      "argmax": "5",
+      "expected_value": 4.4304,
+      "entropy": 0.9993,
+      "entropy_normalized": 0.6209,
+      "distribution": {
+        "1": 0.017643,
+        "2": 0.01557,
+        "3": 0.069781,
+        "4": 0.312737,
+        "5": 0.584269
+      }
+    },
+    "ipip39": {
+      "item_text": "I stick to the rules",
+      "argmax": "2",
+      "expected_value": 2.5026,
+      "entropy": 1.3858,
+      "entropy_normalized": 0.861,
+      "distribution": {
+        "1": 0.179638,
+        "2": 0.335608,
+        "3": 0.296173,
+        "4": 0.179638,
+        "5": 0.008944
+      }
+    },
+    "ipip44": {
+      "item_text": "I anticipate the needs of others",
+      "argmax": "4",
+      "expected_value": 3.135,
+      "entropy": 1.4282,
+      "entropy_normalized": 0.8874,
+      "distribution": {
+        "1": 0.082307,
+        "2": 0.197443,
+        "3": 0.287278,
+        "4": 0.368872,
+        "5": 0.0641
+      }
+    },
+    "ipip46": {
+      "item_text": "I am afraid that I will do the wrong thing",
+      "argmax": "4",
+      "expected_value": 3.3283,
+      "entropy": 1.4111,
+      "entropy_normalized": 0.8767,
+      "distribution": {
+        "1": 0.054301,
+        "2": 0.167258,
+        "3": 0.275762,
+        "4": 0.401232,
+        "5": 0.101447
+      }
+    },
+    "ipip48": {
+      "item_text": "I like to visit new places",
+      "argmax": "4",
+      "expected_value": 4.0424,
+      "entropy": 1.1706,
+      "entropy_normalized": 0.7274,
+      "distribution": {
+        "1": 0.015131,
+        "2": 0.036298,
+        "3": 0.143563,
+        "4": 0.501084,
+        "5": 0.303923
+      }
+    },
+    "ipip49": {
+      "item_text": "I can't stand confrontations",
+      "argmax": "4",
+      "expected_value": 3.5214,
+      "entropy": 1.4409,
+      "entropy_normalized": 0.8953,
+      "distribution": {
+        "1": 0.046541,
+        "2": 0.143355,
+        "3": 0.236353,
+        "4": 0.38968,
+        "5": 0.184072
+      }
+    },
+    "ipip51": {
+      "item_text": "I don't know why I do some of the things I do",
+      "argmax": "4",
+      "expected_value": 3.3169,
+      "entropy": 1.3412,
+      "entropy_normalized": 0.8333,
+      "distribution": {
+        "1": 0.043448,
+        "2": 0.15165,
+        "3": 0.321042,
+        "4": 0.412226,
+        "5": 0.071634
+      }
+    },
+    "ipip54": {
+      "item_text": "I dislike talking about myself",
+      "argmax": "4",
+      "expected_value": 3.7067,
+      "entropy": 1.4668,
+      "entropy_normalized": 0.9114,
+      "distribution": {
+        "1": 0.070738,
+        "2": 0.102923,
+        "3": 0.192286,
+        "4": 0.317026,
+        "5": 0.317026
+      }
+    },
+    "ipip60": {
+      "item_text": "I choose my words with care",
+      "argmax": "4",
+      "expected_value": 4.2406,
+      "entropy": 0.9918,
+      "entropy_normalized": 0.6162,
+      "distribution": {
+        "1": 0.00315,
+        "2": 0.010994,
+        "3": 0.092053,
+        "4": 0.529727,
+        "5": 0.364076
+      }
+    },
+    "ipip66": {
+      "item_text": "I get upset easily",
+      "argmax": "4",
+      "expected_value": 2.8562,
+      "entropy": 1.512,
+      "entropy_normalized": 0.9394,
+      "distribution": {
+        "1": 0.151917,
+        "2": 0.250468,
+        "3": 0.250468,
+        "4": 0.283818,
+        "5": 0.063328
+      }
+    },
+    "ipip67": {
+      "item_text": "I enjoy being part of a group",
+      "argmax": "4",
+      "expected_value": 3.8687,
+      "entropy": 1.1317,
+      "entropy_normalized": 0.7032,
+      "distribution": {
+        "1": 0.011678,
+        "2": 0.035971,
+        "3": 0.206998,
+        "4": 0.562678,
+        "5": 0.182675
+      }
+    },
+    "ipip69": {
+      "item_text": "I use flattery to get ahead",
+      "argmax": "1",
+      "expected_value": 2.1038,
+      "entropy": 1.3491,
+      "entropy_normalized": 0.8383,
+      "distribution": {
+        "1": 0.344984,
+        "2": 0.344984,
+        "3": 0.184656,
+        "4": 0.112,
+        "5": 0.013376
+      }
+    },
+    "ipip70": {
+      "item_text": "I want everything to be \"just right\"",
+      "argmax": "5",
+      "expected_value": 4.1494,
+      "entropy": 1.1925,
+      "entropy_normalized": 0.7409,
+      "distribution": {
+        "1": 0.011111,
+        "2": 0.030203,
+        "3": 0.173805,
+        "4": 0.367945,
+        "5": 0.416936
+      }
+    },
+    "ipip72": {
+      "item_text": "I can talk others into doing things",
+      "argmax": "4",
+      "expected_value": 3.6999,
+      "entropy": 1.3018,
+      "entropy_normalized": 0.8088,
+      "distribution": {
+        "1": 0.027248,
+        "2": 0.083931,
+        "3": 0.228148,
+        "4": 0.48299,
+        "5": 0.177682
+      }
+    },
+    "ipip73": {
+      "item_text": "I am passionate about causes",
+      "argmax": "4",
+      "expected_value": 3.9708,
+      "entropy": 1.1226,
+      "entropy_normalized": 0.6975,
+      "distribution": {
+        "1": 0.007039,
+        "2": 0.040505,
+        "3": 0.160202,
+        "4": 0.559161,
+        "5": 0.233093
+      }
+    },
+    "ipip75": {
+      "item_text": "I pay my bills on time",
+      "argmax": "3",
+      "expected_value": 2.9083,
+      "entropy": 1.542,
+      "entropy_normalized": 0.9581,
+      "distribution": {
+        "1": 0.189939,
+        "2": 0.167621,
+        "3": 0.27636,
+        "4": 0.27636,
+        "5": 0.089721
+      }
+    },
+    "ipip78": {
+      "item_text": "I interested in many things",
+      "argmax": "4",
+      "expected_value": 3.6999,
+      "entropy": 1.1852,
+      "entropy_normalized": 0.7364,
+      "distribution": {
+        "1": 0.015047,
+        "2": 0.086592,
+        "3": 0.207723,
+        "4": 0.564648,
+        "5": 0.12599
+      }
+    },
+    "ipip79": {
+      "item_text": "I hate to seem pushy",
+      "argmax": "4",
+      "expected_value": 3.717,
+      "entropy": 1.2406,
+      "entropy_normalized": 0.7708,
+      "distribution": {
+        "1": 0.024024,
+        "2": 0.095017,
+        "3": 0.177516,
+        "4": 0.546786,
+        "5": 0.156657
+      }
+    },
+    "ipip80": {
+      "item_text": "I turn plans into actions",
+      "argmax": "4",
+      "expected_value": 4.2223,
+      "entropy": 1.0129,
+      "entropy_normalized": 0.6294,
+      "distribution": {
+        "1": 0.003107,
+        "2": 0.012289,
+        "3": 0.102898,
+        "4": 0.522557,
+        "5": 0.359148
+      }
+    },
+    "ipip81": {
+      "item_text": "I do things I later regret",
+      "argmax": "3",
+      "expected_value": 2.9474,
+      "entropy": 1.3801,
+      "entropy_normalized": 0.8575,
+      "distribution": {
+        "1": 0.07494,
+        "2": 0.261567,
+        "3": 0.335859,
+        "4": 0.296394,
+        "5": 0.03124
+      }
+    },
+    "ipip82": {
+      "item_text": "I love action",
+      "argmax": "2",
+      "expected_value": 2.7617,
+      "entropy": 1.538,
+      "entropy_normalized": 0.9556,
+      "distribution": {
+        "1": 0.178225,
+        "2": 0.259317,
+        "3": 0.259317,
+        "4": 0.228846,
+        "5": 0.074295
+      }
+    },
+    "ipip83": {
+      "item_text": "I have a rich vocabulary",
+      "argmax": "4",
+      "expected_value": 3.701,
+      "entropy": 1.3918,
+      "entropy_normalized": 0.8648,
+      "distribution": {
+        "1": 0.052048,
+        "2": 0.097238,
+        "3": 0.181664,
+        "4": 0.435789,
+        "5": 0.233261
+      }
+    },
+    "ipip84": {
+      "item_text": "I consider myself an average person",
+      "argmax": "4",
+      "expected_value": 3.7528,
+      "entropy": 1.1347,
+      "entropy_normalized": 0.705,
+      "distribution": {
+        "1": 0.008271,
+        "2": 0.069248,
+        "3": 0.2133,
+        "4": 0.579809,
+        "5": 0.129373
+      }
+    },
+    "ipip85": {
+      "item_text": "I start tasks right away",
+      "argmax": "4",
+      "expected_value": 3.2269,
+      "entropy": 1.37,
+      "entropy_normalized": 0.8512,
+      "distribution": {
+        "1": 0.050802,
+        "2": 0.177317,
+        "3": 0.331271,
+        "4": 0.375379,
+        "5": 0.065231
+      }
+    },
+    "ipip87": {
+      "item_text": "I express childlike joy",
+      "argmax": "2",
+      "expected_value": 2.2938,
+      "entropy": 1.395,
+      "entropy_normalized": 0.8668,
+      "distribution": {
+        "1": 0.266555,
+        "2": 0.342263,
+        "3": 0.235234,
+        "4": 0.142677,
+        "5": 0.013271
+      }
+    },
+    "ipip88": {
+      "item_text": "I believe that criminals should receive help rather than punishment",
+      "argmax": "4",
+      "expected_value": 3.8813,
+      "entropy": 0.9816,
+      "entropy_normalized": 0.6099,
+      "distribution": {
+        "1": 0.005119,
+        "2": 0.042858,
+        "3": 0.149591,
+        "4": 0.670419,
+        "5": 0.132013
+      }
+    },
+    "ipip89": {
+      "item_text": "I value cooperation over competition",
+      "argmax": "5",
+      "expected_value": 4.4191,
+      "entropy": 0.9183,
+      "entropy_normalized": 0.5705,
+      "distribution": {
+        "1": 0.002602,
+        "2": 0.004861,
+        "3": 0.059214,
+        "4": 0.437534,
+        "5": 0.495791
+      }
+    },
+    "ipip90": {
+      "item_text": "I stick to my chosen path",
+      "argmax": "4",
+      "expected_value": 3.3864,
+      "entropy": 1.2997,
+      "entropy_normalized": 0.8075,
+      "distribution": {
+        "1": 0.035364,
+        "2": 0.123431,
+        "3": 0.335522,
+        "4": 0.430818,
+        "5": 0.074865
+      }
+    },
+    "ipip92": {
+      "item_text": "I act comfortably with others",
+      "argmax": "4",
+      "expected_value": 3.2132,
+      "entropy": 1.359,
+      "entropy_normalized": 0.8444,
+      "distribution": {
+        "1": 0.051194,
+        "2": 0.178686,
+        "3": 0.33383,
+        "4": 0.378279,
+        "5": 0.058011
+      }
+    },
+    "ipip94": {
+      "item_text": "I believe that people are basically moral",
+      "argmax": "4",
+      "expected_value": 3.859,
+      "entropy": 1.0703,
+      "entropy_normalized": 0.665,
+      "distribution": {
+        "1": 0.006722,
+        "2": 0.038685,
+        "3": 0.196458,
+        "4": 0.605133,
+        "5": 0.153002
+      }
+    },
+    "ipip95": {
+      "item_text": "I am sure of my ground",
+      "argmax": "4",
+      "expected_value": 3.0525,
+      "entropy": 1.4976,
+      "entropy_normalized": 0.9305,
+      "distribution": {
+        "1": 0.118299,
+        "2": 0.195042,
+        "3": 0.283784,
+        "4": 0.32157,
+        "5": 0.081306
+      }
+    },
+    "ipip96": {
+      "item_text": "I am often in a bad mood",
+      "argmax": "1",
+      "expected_value": 2.025,
+      "entropy": 1.3316,
+      "entropy_normalized": 0.8274,
+      "distribution": {
+        "1": 0.486902,
+        "2": 0.202971,
+        "3": 0.1395,
+        "4": 0.1395,
+        "5": 0.031127
+      }
+    },
+    "ipip97": {
+      "item_text": "I involve others in what I am doing",
+      "argmax": "4",
+      "expected_value": 3.642,
+      "entropy": 1.1871,
+      "entropy_normalized": 0.7376,
+      "distribution": {
+        "1": 0.014411,
+        "2": 0.082927,
+        "3": 0.255432,
+        "4": 0.54075,
+        "5": 0.10648
+      }
+    },
+    "ipip98": {
+      "item_text": "I love flowers",
+      "argmax": "1",
+      "expected_value": 2.318,
+      "entropy": 1.4327,
+      "entropy_normalized": 0.8902,
+      "distribution": {
+        "1": 0.352283,
+        "2": 0.24212,
+        "3": 0.166407,
+        "4": 0.21367,
+        "5": 0.025519
+      }
+    },
+    "ipip100": {
+      "item_text": "I love order and regularity",
+      "argmax": "4",
+      "expected_value": 3.6,
+      "entropy": 1.2262,
+      "entropy_normalized": 0.7619,
+      "distribution": {
+        "1": 0.023284,
+        "2": 0.092091,
+        "3": 0.250328,
+        "4": 0.529945,
+        "5": 0.104352
+      }
+    },
+    "ipip101": {
+      "item_text": "I have a low opinion of myself",
+      "argmax": "4",
+      "expected_value": 3.2834,
+      "entropy": 1.4943,
+      "entropy_normalized": 0.9284,
+      "distribution": {
+        "1": 0.083835,
+        "2": 0.20111,
+        "3": 0.20111,
+        "4": 0.375723,
+        "5": 0.138221
+      }
+    },
+    "ipip102": {
+      "item_text": "I seek to influence others",
+      "argmax": "4",
+      "expected_value": 3.9308,
+      "entropy": 1.1154,
+      "entropy_normalized": 0.693,
+      "distribution": {
+        "1": 0.007116,
+        "2": 0.036137,
+        "3": 0.183518,
+        "4": 0.565276,
+        "5": 0.207953
+      }
+    },
+    "ipip103": {
+      "item_text": "I enjoy examining myself and my life",
+      "argmax": "4",
+      "expected_value": 3.3146,
+      "entropy": 1.3361,
+      "entropy_normalized": 0.8301,
+      "distribution": {
+        "1": 0.04555,
+        "2": 0.158985,
+        "3": 0.297023,
+        "4": 0.432167,
+        "5": 0.066275
+      }
+    },
+    "ipip107": {
+      "item_text": "I can manage many things at the same time",
+      "argmax": "4",
+      "expected_value": 3.278,
+      "entropy": 1.4039,
+      "entropy_normalized": 0.8723,
+      "distribution": {
+        "1": 0.049338,
+        "2": 0.172206,
+        "3": 0.321722,
+        "4": 0.364559,
+        "5": 0.092175
+      }
+    },
+    "ipip108": {
+      "item_text": "I like to begin new things",
+      "argmax": "4",
+      "expected_value": 3.9347,
+      "entropy": 1.1423,
+      "entropy_normalized": 0.7098,
+      "distribution": {
+        "1": 0.007657,
+        "2": 0.034316,
+        "3": 0.197473,
+        "4": 0.536788,
+        "5": 0.223766
+      }
+    },
+    "ipip109": {
+      "item_text": "I have a sharp tongue",
+      "argmax": "3",
+      "expected_value": 3.1272,
+      "entropy": 1.5618,
+      "entropy_normalized": 0.9704,
+      "distribution": {
+        "1": 0.106727,
+        "2": 0.22594,
+        "3": 0.256024,
+        "4": 0.256024,
+        "5": 0.155286
+      }
+    },
+    "ipip110": {
+      "item_text": "I plunge into tasks with all my heart",
+      "argmax": "4",
+      "expected_value": 3.0906,
+      "entropy": 1.416,
+      "entropy_normalized": 0.8798,
+      "distribution": {
+        "1": 0.066966,
+        "2": 0.233734,
+        "3": 0.300121,
+        "4": 0.340081,
+        "5": 0.059097
+      }
+    },
+    "ipip112": {
+      "item_text": "I enjoy being part of a loud crowd",
+      "argmax": "2",
+      "expected_value": 2.1189,
+      "entropy": 1.2837,
+      "entropy_normalized": 0.7976,
+      "distribution": {
+        "1": 0.270645,
+        "2": 0.446218,
+        "3": 0.186011,
+        "4": 0.087865,
+        "5": 0.009261
+      }
+    },
+    "ipip113": {
+      "item_text": "I can handle a lot of information",
+      "argmax": "5",
+      "expected_value": 4.3504,
+      "entropy": 1.0056,
+      "entropy_normalized": 0.6248,
+      "distribution": {
+        "1": 0.003622,
+        "2": 0.009846,
+        "3": 0.093421,
+        "4": 0.418682,
+        "5": 0.474429
+      }
+    },
+    "ipip114": {
+      "item_text": "I seldom toot my own horn",
+      "argmax": "5",
+      "expected_value": 4.2146,
+      "entropy": 1.1753,
+      "entropy_normalized": 0.7302,
+      "distribution": {
+        "1": 0.020542,
+        "2": 0.043487,
+        "3": 0.104321,
+        "4": 0.364116,
+        "5": 0.467534
+      }
+    },
+    "ipip115": {
+      "item_text": "I get to work at once",
+      "argmax": "2",
+      "expected_value": 2.5825,
+      "entropy": 1.4977,
+      "entropy_normalized": 0.9306,
+      "distribution": {
+        "1": 0.207845,
+        "2": 0.302413,
+        "3": 0.23552,
+        "4": 0.207845,
+        "5": 0.046377
+      }
+    },
+    "ipip116": {
+      "item_text": "I can't make up my mind",
+      "argmax": "4",
+      "expected_value": 3.0909,
+      "entropy": 1.4998,
+      "entropy_normalized": 0.9319,
+      "distribution": {
+        "1": 0.08755,
+        "2": 0.237987,
+        "3": 0.269674,
+        "4": 0.305581,
+        "5": 0.099208
+      }
+    },
+    "ipip117": {
+      "item_text": "I laugh my way through life",
+      "argmax": "2",
+      "expected_value": 2.5169,
+      "entropy": 1.4261,
+      "entropy_normalized": 0.8861,
+      "distribution": {
+        "1": 0.183733,
+        "2": 0.343259,
+        "3": 0.26733,
+        "4": 0.183733,
+        "5": 0.021944
+      }
+    },
+    "ipip118": {
+      "item_text": "I believe in one true religion",
+      "argmax": "1",
+      "expected_value": 2.3721,
+      "entropy": 1.4508,
+      "entropy_normalized": 0.9014,
+      "distribution": {
+        "1": 0.295261,
+        "2": 0.295261,
+        "3": 0.179085,
+        "4": 0.20293,
+        "5": 0.027464
+      }
+    },
+    "ipip119": {
+      "item_text": "I suffer from others' sorrows",
+      "argmax": "4",
+      "expected_value": 2.9092,
+      "entropy": 1.451,
+      "entropy_normalized": 0.9016,
+      "distribution": {
+        "1": 0.134208,
+        "2": 0.221272,
+        "3": 0.284119,
+        "4": 0.321949,
+        "5": 0.038451
+      }
+    },
+    "ipip121": {
+      "item_text": "I get caught up in my problems",
+      "argmax": "4",
+      "expected_value": 3.3483,
+      "entropy": 1.2338,
+      "entropy_normalized": 0.7666,
+      "distribution": {
+        "1": 0.022043,
+        "2": 0.143738,
+        "3": 0.34481,
+        "4": 0.442744,
+        "5": 0.046665
+      }
+    },
+    "ipip122": {
+      "item_text": "I cheer people up",
+      "argmax": "4",
+      "expected_value": 3.2286,
+      "entropy": 1.395,
+      "entropy_normalized": 0.8668,
+      "distribution": {
+        "1": 0.061668,
+        "2": 0.189951,
+        "3": 0.276377,
+        "4": 0.402126,
+        "5": 0.069879
+      }
+    },
+    "ipip123": {
+      "item_text": "I indulge in my fantasies",
+      "argmax": "1",
+      "expected_value": 1.4064,
+      "entropy": 0.7667,
+      "entropy_normalized": 0.4764,
+      "distribution": {
+        "1": 0.782757,
+        "2": 0.082502,
+        "3": 0.082502,
+        "4": 0.05004,
+        "5": 0.002199
+      }
+    },
+    "ipip124": {
+      "item_text": "I believe in human goodness",
+      "argmax": "4",
+      "expected_value": 3.9646,
+      "entropy": 1.0937,
+      "entropy_normalized": 0.6796,
+      "distribution": {
+        "1": 0.012224,
+        "2": 0.033227,
+        "3": 0.148914,
+        "4": 0.588966,
+        "5": 0.216669
+      }
+    },
+    "ipip125": {
+      "item_text": "I come up with good solutions",
+      "argmax": "4",
+      "expected_value": 3.6037,
+      "entropy": 1.2822,
+      "entropy_normalized": 0.7967,
+      "distribution": {
+        "1": 0.02059,
+        "2": 0.092279,
+        "3": 0.284238,
+        "4": 0.468629,
+        "5": 0.134264
+      }
+    },
+    "ipip127": {
+      "item_text": "I love surprise parties",
+      "argmax": "1",
+      "expected_value": 1.8199,
+      "entropy": 1.211,
+      "entropy_normalized": 0.7524,
+      "distribution": {
+        "1": 0.497633,
+        "2": 0.266364,
+        "3": 0.161558,
+        "4": 0.067347,
+        "5": 0.007098
+      }
+    },
+    "ipip128": {
+      "item_text": "I enjoy the beauty of nature",
+      "argmax": "4",
+      "expected_value": 4.0464,
+      "entropy": 1.0461,
+      "entropy_normalized": 0.65,
+      "distribution": {
+        "1": 0.007443,
+        "2": 0.022925,
+        "3": 0.131924,
+        "4": 0.591242,
+        "5": 0.246466
+      }
+    },
+    "ipip129": {
+      "item_text": "I know how to get around the rules",
+      "argmax": "1",
+      "expected_value": 1.7287,
+      "entropy": 1.1321,
+      "entropy_normalized": 0.7034,
+      "distribution": {
+        "1": 0.60122,
+        "2": 0.172252,
+        "3": 0.13415,
+        "4": 0.081366,
+        "5": 0.011012
+      }
+    },
+    "ipip130": {
+      "item_text": "I do things according to a plan",
+      "argmax": "3",
+      "expected_value": 3.0503,
+      "entropy": 1.3631,
+      "entropy_normalized": 0.847,
+      "distribution": {
+        "1": 0.062775,
+        "2": 0.219106,
+        "3": 0.361245,
+        "4": 0.318798,
+        "5": 0.038075
+      }
+    },
+    "ipip131": {
+      "item_text": "I have frequent mood swings",
+      "argmax": "1",
+      "expected_value": 2.238,
+      "entropy": 1.4295,
+      "entropy_normalized": 0.8882,
+      "distribution": {
+        "1": 0.346707,
+        "2": 0.270016,
+        "3": 0.210289,
+        "4": 0.144529,
+        "5": 0.028459
+      }
+    },
+    "ipip133": {
+      "item_text": "I try to understand myself",
+      "argmax": "4",
+      "expected_value": 4.1045,
+      "entropy": 0.9694,
+      "entropy_normalized": 0.6023,
+      "distribution": {
+        "1": 0.002498,
+        "2": 0.011194,
+        "3": 0.120349,
+        "4": 0.611181,
+        "5": 0.254778
+      }
+    },
+    "ipip134": {
+      "item_text": "I have a good word for everyone",
+      "argmax": "4",
+      "expected_value": 2.9681,
+      "entropy": 1.5536,
+      "entropy_normalized": 0.9653,
+      "distribution": {
+        "1": 0.150167,
+        "2": 0.218492,
+        "3": 0.247584,
+        "4": 0.280549,
+        "5": 0.103208
+      }
+    },
+    "ipip135": {
+      "item_text": "I listen to my conscience",
+      "argmax": "4",
+      "expected_value": 3.6271,
+      "entropy": 1.3613,
+      "entropy_normalized": 0.8458,
+      "distribution": {
+        "1": 0.040208,
+        "2": 0.085121,
+        "3": 0.262191,
+        "4": 0.432279,
+        "5": 0.180201
+      }
+    },
+    "ipip137": {
+      "item_text": "I react quickly",
+      "argmax": "3",
+      "expected_value": 3.3039,
+      "entropy": 1.4438,
+      "entropy_normalized": 0.8971,
+      "distribution": {
+        "1": 0.057655,
+        "2": 0.156723,
+        "3": 0.331783,
+        "4": 0.331783,
+        "5": 0.122056
+      }
+    },
+    "ipip139": {
+      "item_text": "I contradict others",
+      "argmax": "3",
+      "expected_value": 2.8717,
+      "entropy": 1.4589,
+      "entropy_normalized": 0.9064,
+      "distribution": {
+        "1": 0.102747,
+        "2": 0.279296,
+        "3": 0.316483,
+        "4": 0.246477,
+        "5": 0.054997
+      }
+    },
+    "ipip141": {
+      "item_text": "I love to eat",
+      "argmax": "4",
+      "expected_value": 2.698,
+      "entropy": 1.5106,
+      "entropy_normalized": 0.9386,
+      "distribution": {
+        "1": 0.224779,
+        "2": 0.254708,
+        "3": 0.175058,
+        "4": 0.288622,
+        "5": 0.056833
+      }
+    },
+    "ipip143": {
+      "item_text": "I enjoy thinking about things",
+      "argmax": "4",
+      "expected_value": 4.054,
+      "entropy": 1.0664,
+      "entropy_normalized": 0.6626,
+      "distribution": {
+        "1": 0.003744,
+        "2": 0.019012,
+        "3": 0.159185,
+        "4": 0.555609,
+        "5": 0.262451
+      }
+    },
+    "ipip146": {
+      "item_text": "I get overwhelmed by emotions",
+      "argmax": "4",
+      "expected_value": 3.4917,
+      "entropy": 1.3226,
+      "entropy_normalized": 0.8218,
+      "distribution": {
+        "1": 0.039213,
+        "2": 0.120784,
+        "3": 0.2557,
+        "4": 0.477711,
+        "5": 0.106592
+      }
+    },
+    "ipip151": {
+      "item_text": "I am not easily bothered by things",
+      "argmax": "4",
+      "expected_value": 3.5148,
+      "entropy": 1.4248,
+      "entropy_normalized": 0.8853,
+      "distribution": {
+        "1": 0.048403,
+        "2": 0.131573,
+        "3": 0.24581,
+        "4": 0.405272,
+        "5": 0.168943
+      }
+    },
+    "ipip152": {
+      "item_text": "I am hard to get to know",
+      "argmax": "4",
+      "expected_value": 3.3145,
+      "entropy": 1.4572,
+      "entropy_normalized": 0.9054,
+      "distribution": {
+        "1": 0.0445,
+        "2": 0.199436,
+        "3": 0.290178,
+        "4": 0.328815,
+        "5": 0.13707
+      }
+    },
+    "ipip153": {
+      "item_text": "I spend time reflecting on things",
+      "argmax": "4",
+      "expected_value": 3.6557,
+      "entropy": 1.1124,
+      "entropy_normalized": 0.6912,
+      "distribution": {
+        "1": 0.009177,
+        "2": 0.067809,
+        "3": 0.268189,
+        "4": 0.567757,
+        "5": 0.087068
+      }
+    },
+    "ipip154": {
+      "item_text": "I think that all will be well",
+      "argmax": "4",
+      "expected_value": 3.7897,
+      "entropy": 1.3063,
+      "entropy_normalized": 0.8117,
+      "distribution": {
+        "1": 0.030348,
+        "2": 0.0728,
+        "3": 0.197892,
+        "4": 0.474718,
+        "5": 0.224241
+      }
+    },
+    "ipip156": {
+      "item_text": "I rarely get irritated",
+      "argmax": "4",
+      "expected_value": 3.5642,
+      "entropy": 1.4872,
+      "entropy_normalized": 0.9241,
+      "distribution": {
+        "1": 0.068884,
+        "2": 0.128692,
+        "3": 0.212177,
+        "4": 0.34982,
+        "5": 0.240428
+      }
+    },
+    "ipip158": {
+      "item_text": "I do not like art",
+      "argmax": "1",
+      "expected_value": 3.0187,
+      "entropy": 1.5805,
+      "entropy_normalized": 0.982,
+      "distribution": {
+        "1": 0.261715,
+        "2": 0.123625,
+        "3": 0.179874,
+        "4": 0.203824,
+        "5": 0.230962
+      }
+    },
+    "ipip161": {
+      "item_text": "I feel desperate",
+      "argmax": "1",
+      "expected_value": 1.7893,
+      "entropy": 1.1887,
+      "entropy_normalized": 0.7386,
+      "distribution": {
+        "1": 0.512489,
+        "2": 0.274316,
+        "3": 0.129578,
+        "4": 0.078593,
+        "5": 0.005024
+      }
+    },
+    "ipip163": {
+      "item_text": "I seldom get emotional",
+      "argmax": "2",
+      "expected_value": 2.7061,
+      "entropy": 1.5214,
+      "entropy_normalized": 0.9453,
+      "distribution": {
+        "1": 0.205992,
+        "2": 0.264499,
+        "3": 0.205992,
+        "4": 0.264499,
+        "5": 0.059018
+      }
+    },
+    "ipip164": {
+      "item_text": "I look down on others",
+      "argmax": "1",
+      "expected_value": 1.3857,
+      "entropy": 0.8093,
+      "entropy_normalized": 0.5029,
+      "distribution": {
+        "1": 0.741798,
+        "2": 0.165517,
+        "3": 0.06089,
+        "4": 0.028763,
+        "5": 0.003032
+      }
+    },
+    "ipip166": {
+      "item_text": "I stumble over my words",
+      "argmax": "3",
+      "expected_value": 2.8065,
+      "entropy": 1.5022,
+      "entropy_normalized": 0.9334,
+      "distribution": {
+        "1": 0.153056,
+        "2": 0.252346,
+        "3": 0.285946,
+        "4": 0.252346,
+        "5": 0.056306
+      }
+    },
+    "ipip170": {
+      "item_text": "I set high standards for myself and others",
+      "argmax": "4",
+      "expected_value": 3.5708,
+      "entropy": 1.2732,
+      "entropy_normalized": 0.7911,
+      "distribution": {
+        "1": 0.025293,
+        "2": 0.113355,
+        "3": 0.239973,
+        "4": 0.508023,
+        "5": 0.113355
+      }
+    },
+    "ipip173": {
+      "item_text": "I am not interested in abstract ideas",
+      "argmax": "4",
+      "expected_value": 2.9657,
+      "entropy": 1.4994,
+      "entropy_normalized": 0.9316,
+      "distribution": {
+        "1": 0.112089,
+        "2": 0.268889,
+        "3": 0.237293,
+        "4": 0.304691,
+        "5": 0.077038
+      }
+    },
+    "ipip175": {
+      "item_text": "I find it difficult to get down to work",
+      "argmax": "4",
+      "expected_value": 3.2723,
+      "entropy": 1.4091,
+      "entropy_normalized": 0.8755,
+      "distribution": {
+        "1": 0.044459,
+        "2": 0.199253,
+        "3": 0.289912,
+        "4": 0.372254,
+        "5": 0.094121
+      }
+    },
+    "ipip178": {
+      "item_text": "I believe that too much tax money goes to support artists",
+      "argmax": "4",
+      "expected_value": 2.828,
+      "entropy": 1.4895,
+      "entropy_normalized": 0.9255,
+      "distribution": {
+        "1": 0.169671,
+        "2": 0.24687,
+        "3": 0.217862,
+        "4": 0.316987,
+        "5": 0.048611
+      }
+    },
+    "ipip179": {
+      "item_text": "I tend to dislike soft-hearted people",
+      "argmax": "4",
+      "expected_value": 3.2046,
+      "entropy": 1.4253,
+      "entropy_normalized": 0.8856,
+      "distribution": {
+        "1": 0.052968,
+        "2": 0.209494,
+        "3": 0.304811,
+        "4": 0.345397,
+        "5": 0.08733
+      }
+    },
+    "ipip180": {
+      "item_text": "I like to act on a whim",
+      "argmax": "3",
+      "expected_value": 3.0838,
+      "entropy": 1.4274,
+      "entropy_normalized": 0.8869,
+      "distribution": {
+        "1": 0.071808,
+        "2": 0.221183,
+        "3": 0.32182,
+        "4": 0.32182,
+        "5": 0.06337
+      }
+    },
+    "ipip181": {
+      "item_text": "I am relaxed most of the time",
+      "argmax": "4",
+      "expected_value": 3.6745,
+      "entropy": 1.2437,
+      "entropy_normalized": 0.7728,
+      "distribution": {
+        "1": 0.021957,
+        "2": 0.067633,
+        "3": 0.267492,
+        "4": 0.499741,
+        "5": 0.143178
+      }
+    },
+    "ipip182": {
+      "item_text": "I often feel uncomfortable around others",
+      "argmax": "3",
+      "expected_value": 3.0253,
+      "entropy": 1.4083,
+      "entropy_normalized": 0.875,
+      "distribution": {
+        "1": 0.082212,
+        "2": 0.223475,
+        "3": 0.325154,
+        "4": 0.325154,
+        "5": 0.044005
+      }
+    },
+    "ipip183": {
+      "item_text": "I seldom daydream",
+      "argmax": "4",
+      "expected_value": 3.0314,
+      "entropy": 1.5511,
+      "entropy_normalized": 0.9637,
+      "distribution": {
+        "1": 0.142867,
+        "2": 0.20787,
+        "3": 0.235548,
+        "4": 0.30245,
+        "5": 0.111265
+      }
+    },
+    "ipip185": {
+      "item_text": "I misjudge situations",
+      "argmax": "4",
+      "expected_value": 3.434,
+      "entropy": 1.2216,
+      "entropy_normalized": 0.759,
+      "distribution": {
+        "1": 0.010489,
+        "2": 0.12778,
+        "3": 0.347341,
+        "4": 0.445995,
+        "5": 0.068396
+      }
+    },
+    "ipip186": {
+      "item_text": "I seldom get mad",
+      "argmax": "4",
+      "expected_value": 3.8288,
+      "entropy": 1.3616,
+      "entropy_normalized": 0.846,
+      "distribution": {
+        "1": 0.039225,
+        "2": 0.094096,
+        "3": 0.155137,
+        "4": 0.421707,
+        "5": 0.289835
+      }
+    },
+    "ipip187": {
+      "item_text": "I want to be left alone",
+      "argmax": "3",
+      "expected_value": 2.7441,
+      "entropy": 1.5217,
+      "entropy_normalized": 0.9455,
+      "distribution": {
+        "1": 0.200493,
+        "2": 0.227188,
+        "3": 0.257438,
+        "4": 0.257438,
+        "5": 0.057442
+      }
+    },
+    "ipip189": {
+      "item_text": "I put people under pressure",
+      "argmax": "2",
+      "expected_value": 2.3365,
+      "entropy": 1.3944,
+      "entropy_normalized": 0.8664,
+      "distribution": {
+        "1": 0.230556,
+        "2": 0.380123,
+        "3": 0.230556,
+        "4": 0.139839,
+        "5": 0.018925
+      }
+    },
+    "ipip191": {
+      "item_text": "I feel that my life lacks direction",
+      "argmax": "4",
+      "expected_value": 3.4511,
+      "entropy": 1.3661,
+      "entropy_normalized": 0.8488,
+      "distribution": {
+        "1": 0.042169,
+        "2": 0.147183,
+        "3": 0.242664,
+        "4": 0.453357,
+        "5": 0.114627
+      }
+    },
+    "ipip192": {
+      "item_text": "I keep in the background",
+      "argmax": "2",
+      "expected_value": 2.7541,
+      "entropy": 1.4083,
+      "entropy_normalized": 0.875,
+      "distribution": {
+        "1": 0.100683,
+        "2": 0.351419,
+        "3": 0.273685,
+        "4": 0.241526,
+        "5": 0.032687
+      }
+    },
+    "ipip193": {
+      "item_text": "I am not easily affected by my emotions",
+      "argmax": "4",
+      "expected_value": 2.9669,
+      "entropy": 1.513,
+      "entropy_normalized": 0.9401,
+      "distribution": {
+        "1": 0.129167,
+        "2": 0.241316,
+        "3": 0.241316,
+        "4": 0.309856,
+        "5": 0.078344
+      }
+    },
+    "ipip196": {
+      "item_text": "I am not embarrassed easily",
+      "argmax": "4",
+      "expected_value": 3.5066,
+      "entropy": 1.513,
+      "entropy_normalized": 0.9401,
+      "distribution": {
+        "1": 0.078344,
+        "2": 0.129167,
+        "3": 0.241316,
+        "4": 0.309856,
+        "5": 0.241316
+      }
+    },
+    "ipip197": {
+      "item_text": "I like to take my time",
+      "argmax": "4",
+      "expected_value": 3.4637,
+      "entropy": 1.3253,
+      "entropy_normalized": 0.8234,
+      "distribution": {
+        "1": 0.033099,
+        "2": 0.130907,
+        "3": 0.277131,
+        "4": 0.456912,
+        "5": 0.101951
+      }
+    },
+    "ipip198": {
+      "item_text": "I don't like the idea of change",
+      "argmax": "3",
+      "expected_value": 2.8683,
+      "entropy": 1.4288,
+      "entropy_normalized": 0.8878,
+      "distribution": {
+        "1": 0.092926,
+        "2": 0.286233,
+        "3": 0.324345,
+        "4": 0.2526,
+        "5": 0.043895
+      }
+    },
+    "ipip200": {
+      "item_text": "I demand quality",
+      "argmax": "4",
+      "expected_value": 3.7324,
+      "entropy": 1.3723,
+      "entropy_normalized": 0.8526,
+      "distribution": {
+        "1": 0.041007,
+        "2": 0.09837,
+        "3": 0.18378,
+        "4": 0.440865,
+        "5": 0.235978
+      }
+    },
+    "ipip202": {
+      "item_text": "I willing to try anything once",
+      "argmax": "5",
+      "expected_value": 4.3638,
+      "entropy": 1.0667,
+      "entropy_normalized": 0.6628,
+      "distribution": {
+        "1": 0.016846,
+        "2": 0.016846,
+        "3": 0.109849,
+        "4": 0.2986,
+        "5": 0.557859
+      }
+    },
+    "ipip206": {
+      "item_text": "I can handle complex problems",
+      "argmax": "4",
+      "expected_value": 3.8189,
+      "entropy": 1.34,
+      "entropy_normalized": 0.8326,
+      "distribution": {
+        "1": 0.025253,
+        "2": 0.068644,
+        "3": 0.239591,
+        "4": 0.395019,
+        "5": 0.271493
+      }
+    },
+    "ipip207": {
+      "item_text": "I laugh aloud",
+      "argmax": "1",
+      "expected_value": 1.8779,
+      "entropy": 1.2326,
+      "entropy_normalized": 0.7659,
+      "distribution": {
+        "1": 0.432096,
+        "2": 0.336517,
+        "3": 0.158959,
+        "4": 0.066264,
+        "5": 0.006164
+      }
+    },
+    "ipip208": {
+      "item_text": "I believe laws should be strictly enforced",
+      "argmax": "4",
+      "expected_value": 3.2996,
+      "entropy": 1.1872,
+      "entropy_normalized": 0.7377,
+      "distribution": {
+        "1": 0.025532,
+        "2": 0.146924,
+        "3": 0.352453,
+        "4": 0.452559,
+        "5": 0.022532
+      }
+    },
+    "ipip209": {
+      "item_text": "I believe in an eye for an eye",
+      "argmax": "2",
+      "expected_value": 2.3996,
+      "entropy": 1.4682,
+      "entropy_normalized": 0.9122,
+      "distribution": {
+        "1": 0.266134,
+        "2": 0.301569,
+        "3": 0.234862,
+        "4": 0.161418,
+        "5": 0.036017
+      }
+    },
+    "ipip211": {
+      "item_text": "I am not easily disturbed by events",
+      "argmax": "4",
+      "expected_value": 3.1845,
+      "entropy": 1.4565,
+      "entropy_normalized": 0.905,
+      "distribution": {
+        "1": 0.088389,
+        "2": 0.165132,
+        "3": 0.308507,
+        "4": 0.349584,
+        "5": 0.088389
+      }
+    },
+    "ipip213": {
+      "item_text": "I do not have a good imagination",
+      "argmax": "5",
+      "expected_value": 3.7411,
+      "entropy": 1.4653,
+      "entropy_normalized": 0.9105,
+      "distribution": {
+        "1": 0.080821,
+        "2": 0.103776,
+        "3": 0.171098,
+        "4": 0.282092,
+        "5": 0.362214
+      }
+    },
+    "ipip214": {
+      "item_text": "I suspect hidden motives in others",
+      "argmax": "4",
+      "expected_value": 3.5019,
+      "entropy": 1.2104,
+      "entropy_normalized": 0.7521,
+      "distribution": {
+        "1": 0.020064,
+        "2": 0.115462,
+        "3": 0.276979,
+        "4": 0.517464,
+        "5": 0.070031
+      }
+    },
+    "ipip215": {
+      "item_text": "I don't understand things",
+      "argmax": "1",
+      "expected_value": 1.9746,
+      "entropy": 1.3142,
+      "entropy_normalized": 0.8166,
+      "distribution": {
+        "1": 0.441649,
+        "2": 0.267874,
+        "3": 0.184107,
+        "4": 0.086966,
+        "5": 0.019405
+      }
+    },
+    "ipip217": {
+      "item_text": "I don't like crowded events",
+      "argmax": "4",
+      "expected_value": 3.724,
+      "entropy": 1.3453,
+      "entropy_normalized": 0.8359,
+      "distribution": {
+        "1": 0.032718,
+        "2": 0.088936,
+        "3": 0.213346,
+        "4": 0.451654,
+        "5": 0.213346
+      }
+    },
+    "ipip219": {
+      "item_text": "I pretend to be concerned for others",
+      "argmax": "2",
+      "expected_value": 2.5736,
+      "entropy": 1.2847,
+      "entropy_normalized": 0.7982,
+      "distribution": {
+        "1": 0.082136,
+        "2": 0.472659,
+        "3": 0.252996,
+        "4": 0.173882,
+        "5": 0.018327
+      }
+    },
+    "ipip221": {
+      "item_text": "I seldom feel blue",
+      "argmax": "4",
+      "expected_value": 3.2018,
+      "entropy": 1.5057,
+      "entropy_normalized": 0.9355,
+      "distribution": {
+        "1": 0.106838,
+        "2": 0.199599,
+        "3": 0.199599,
+        "4": 0.372901,
+        "5": 0.121063
+      }
+    },
+    "ipip222": {
+      "item_text": "I have little to say",
+      "argmax": "2",
+      "expected_value": 2.7706,
+      "entropy": 1.5537,
+      "entropy_normalized": 0.9654,
+      "distribution": {
+        "1": 0.187107,
+        "2": 0.272239,
+        "3": 0.21202,
+        "4": 0.24025,
+        "5": 0.088383
+      }
+    },
+    "ipip224": {
+      "item_text": "I make people feel uncomfortable",
+      "argmax": "1",
+      "expected_value": 1.4857,
+      "entropy": 0.9305,
+      "entropy_normalized": 0.5781,
+      "distribution": {
+        "1": 0.667789,
+        "2": 0.216799,
+        "3": 0.079756,
+        "4": 0.033247,
+        "5": 0.002408
+      }
+    },
+    "ipip225": {
+      "item_text": "I get others to do my duties",
+      "argmax": "2",
+      "expected_value": 2.3737,
+      "entropy": 1.3911,
+      "entropy_normalized": 0.8643,
+      "distribution": {
+        "1": 0.209131,
+        "2": 0.390708,
+        "3": 0.236976,
+        "4": 0.143733,
+        "5": 0.019452
+      }
+    },
+    "ipip226": {
+      "item_text": "I am comfortable in unfamiliar situations",
+      "argmax": "4",
+      "expected_value": 3.4942,
+      "entropy": 1.3565,
+      "entropy_normalized": 0.8429,
+      "distribution": {
+        "1": 0.037976,
+        "2": 0.103229,
+        "3": 0.317968,
+        "4": 0.408279,
+        "5": 0.132549
+      }
+    },
+    "ipip227": {
+      "item_text": "I like a leisurely lifestyle",
+      "argmax": "4",
+      "expected_value": 3.3775,
+      "entropy": 1.3091,
+      "entropy_normalized": 0.8134,
+      "distribution": {
+        "1": 0.037886,
+        "2": 0.149843,
+        "3": 0.279943,
+        "4": 0.461548,
+        "5": 0.070781
+      }
+    },
+    "ipip228": {
+      "item_text": "I am a creature of habit",
+      "argmax": "4",
+      "expected_value": 3.4292,
+      "entropy": 1.2643,
+      "entropy_normalized": 0.7855,
+      "distribution": {
+        "1": 0.029632,
+        "2": 0.117196,
+        "3": 0.318571,
+        "4": 0.463518,
+        "5": 0.071083
+      }
+    },
+    "ipip230": {
+      "item_text": "I am not highly motivated to succeed",
+      "argmax": "5",
+      "expected_value": 3.8125,
+      "entropy": 1.4259,
+      "entropy_normalized": 0.8859,
+      "distribution": {
+        "1": 0.048079,
+        "2": 0.115336,
+        "3": 0.167812,
+        "4": 0.313515,
+        "5": 0.355259
+      }
+    },
+    "ipip232": {
+      "item_text": "I seek danger",
+      "argmax": "1",
+      "expected_value": 1.4613,
+      "entropy": 0.9047,
+      "entropy_normalized": 0.5622,
+      "distribution": {
+        "1": 0.676775,
+        "2": 0.219717,
+        "3": 0.071332,
+        "4": 0.029735,
+        "5": 0.002441
+      }
+    },
+    "ipip234": {
+      "item_text": "I know the answers to many questions",
+      "argmax": "4",
+      "expected_value": 3.0887,
+      "entropy": 1.56,
+      "entropy_normalized": 0.9693,
+      "distribution": {
+        "1": 0.148401,
+        "2": 0.19055,
+        "3": 0.215922,
+        "4": 0.314164,
+        "5": 0.130963
+      }
+    },
+    "ipip235": {
+      "item_text": "I need a push to get started",
+      "argmax": "4",
+      "expected_value": 3.3215,
+      "entropy": 1.429,
+      "entropy_normalized": 0.8879,
+      "distribution": {
+        "1": 0.052425,
+        "2": 0.182982,
+        "3": 0.266237,
+        "4": 0.387372,
+        "5": 0.110984
+      }
+    },
+    "ipip236": {
+      "item_text": "I know how to cope",
+      "argmax": "2",
+      "expected_value": 2.7131,
+      "entropy": 1.4581,
+      "entropy_normalized": 0.906,
+      "distribution": {
+        "1": 0.157168,
+        "2": 0.293629,
+        "3": 0.259127,
+        "4": 0.259127,
+        "5": 0.030948
+      }
+    },
+    "ipip237": {
+      "item_text": "I amuse my friends",
+      "argmax": "2",
+      "expected_value": 2.7905,
+      "entropy": 1.4847,
+      "entropy_normalized": 0.9225,
+      "distribution": {
+        "1": 0.138478,
+        "2": 0.293158,
+        "3": 0.258711,
+        "4": 0.258711,
+        "5": 0.050943
+      }
+    },
+    "ipip238": {
+      "item_text": "I believe that we coddle criminals too much",
+      "argmax": "4",
+      "expected_value": 4.0398,
+      "entropy": 1.0859,
+      "entropy_normalized": 0.6747,
+      "distribution": {
+        "1": 0.004776,
+        "2": 0.024255,
+        "3": 0.158162,
+        "4": 0.552041,
+        "5": 0.260766
+      }
+    },
+    "ipip240": {
+      "item_text": "I do crazy things",
+      "argmax": "2",
+      "expected_value": 2.5202,
+      "entropy": 1.4494,
+      "entropy_normalized": 0.9006,
+      "distribution": {
+        "1": 0.185095,
+        "2": 0.345802,
+        "3": 0.269311,
+        "4": 0.163345,
+        "5": 0.036447
+      }
+    },
+    "ipip241": {
+      "item_text": "I don't worry about things that have already happened",
+      "argmax": "4",
+      "expected_value": 3.8784,
+      "entropy": 1.1903,
+      "entropy_normalized": 0.7396,
+      "distribution": {
+        "1": 0.015595,
+        "2": 0.03741,
+        "3": 0.215281,
+        "4": 0.516433,
+        "5": 0.215281
+      }
+    },
+    "ipip242": {
+      "item_text": "I am not really interested in others",
+      "argmax": "2",
+      "expected_value": 2.1868,
+      "entropy": 1.3326,
+      "entropy_normalized": 0.828,
+      "distribution": {
+        "1": 0.262,
+        "2": 0.431964,
+        "3": 0.180069,
+        "4": 0.109218,
+        "5": 0.016749
+      }
+    },
+    "ipip243": {
+      "item_text": "I seldom get lost in thought",
+      "argmax": "4",
+      "expected_value": 3.0308,
+      "entropy": 1.4736,
+      "entropy_normalized": 0.9156,
+      "distribution": {
+        "1": 0.093408,
+        "2": 0.25391,
+        "3": 0.25391,
+        "4": 0.326026,
+        "5": 0.072746
+      }
+    },
+    "ipip244": {
+      "item_text": "I am wary of others",
+      "argmax": "4",
+      "expected_value": 2.8772,
+      "entropy": 1.4663,
+      "entropy_normalized": 0.911,
+      "distribution": {
+        "1": 0.124988,
+        "2": 0.2646,
+        "3": 0.2646,
+        "4": 0.299831,
+        "5": 0.045981
+      }
+    },
+    "ipip245": {
+      "item_text": "I have little to contribute",
+      "argmax": "2",
+      "expected_value": 2.4858,
+      "entropy": 1.5146,
+      "entropy_normalized": 0.9411,
+      "distribution": {
+        "1": 0.274559,
+        "2": 0.311116,
+        "3": 0.146961,
+        "4": 0.188701,
+        "5": 0.078662
+      }
+    },
+    "ipip246": {
+      "item_text": "I keep my cool",
+      "argmax": "4",
+      "expected_value": 3.2841,
+      "entropy": 1.425,
+      "entropy_normalized": 0.8854,
+      "distribution": {
+        "1": 0.054873,
+        "2": 0.169021,
+        "3": 0.315773,
+        "4": 0.357817,
+        "5": 0.102516
+      }
+    },
+    "ipip248": {
+      "item_text": "I do not like concerts",
+      "argmax": "5",
+      "expected_value": 4.0147,
+      "entropy": 1.3101,
+      "entropy_normalized": 0.814,
+      "distribution": {
+        "1": 0.077145,
+        "2": 0.046791,
+        "3": 0.163316,
+        "4": 0.209701,
+        "5": 0.503047
+      }
+    },
+    "ipip250": {
+      "item_text": "I am not bothered by messy people",
+      "argmax": "4",
+      "expected_value": 3.4826,
+      "entropy": 1.4263,
+      "entropy_normalized": 0.8862,
+      "distribution": {
+        "1": 0.05727,
+        "2": 0.137382,
+        "3": 0.226505,
+        "4": 0.423168,
+        "5": 0.155675
+      }
+    },
+    "ipip252": {
+      "item_text": "I don't like to draw attention to myself",
+      "argmax": "4",
+      "expected_value": 4.1236,
+      "entropy": 1.0844,
+      "entropy_normalized": 0.6738,
+      "distribution": {
+        "1": 0.005124,
+        "2": 0.022966,
+        "3": 0.132162,
+        "4": 0.522709,
+        "5": 0.317039
+      }
+    },
+    "ipip253": {
+      "item_text": "I experience very few emotional highs and lows",
+      "argmax": "2",
+      "expected_value": 2.7993,
+      "entropy": 1.4972,
+      "entropy_normalized": 0.9302,
+      "distribution": {
+        "1": 0.141827,
+        "2": 0.300248,
+        "3": 0.233834,
+        "4": 0.264968,
+        "5": 0.059122
+      }
+    },
+    "ipip254": {
+      "item_text": "I turn my back on others",
+      "argmax": "1",
+      "expected_value": 2.2909,
+      "entropy": 1.4344,
+      "entropy_normalized": 0.8913,
+      "distribution": {
+        "1": 0.342538,
+        "2": 0.235423,
+        "3": 0.235423,
+        "4": 0.161803,
+        "5": 0.024813
+      }
+    },
+    "ipip255": {
+      "item_text": "I do the opposite of what is asked",
+      "argmax": "2",
+      "expected_value": 2.8234,
+      "entropy": 1.5375,
+      "entropy_normalized": 0.9553,
+      "distribution": {
+        "1": 0.147102,
+        "2": 0.274822,
+        "3": 0.274822,
+        "4": 0.214032,
+        "5": 0.089222
+      }
+    },
+    "ipip257": {
+      "item_text": "I let things proceed at their own pace",
+      "argmax": "4",
+      "expected_value": 3.6647,
+      "entropy": 1.1952,
+      "entropy_normalized": 0.7426,
+      "distribution": {
+        "1": 0.013288,
+        "2": 0.059554,
+        "3": 0.302441,
+        "4": 0.498641,
+        "5": 0.126076
+      }
+    },
+    "ipip258": {
+      "item_text": "I dislike new foods",
+      "argmax": "4",
+      "expected_value": 3.155,
+      "entropy": 1.5342,
+      "entropy_normalized": 0.9532,
+      "distribution": {
+        "1": 0.101213,
+        "2": 0.214269,
+        "3": 0.242798,
+        "4": 0.311759,
+        "5": 0.129961
+      }
+    },
+    "ipip261": {
+      "item_text": "I never spend more than I can afford",
+      "argmax": "5",
+      "expected_value": 4.8021,
+      "entropy": 0.5299,
+      "entropy_normalized": 0.3292,
+      "distribution": {
+        "1": 0.001799,
+        "2": 0.00075,
+        "3": 0.01329,
+        "4": 0.161911,
+        "5": 0.82225
+      }
+    },
+    "ipip262": {
+      "item_text": "I would never go hang gliding or bungee jumping",
+      "argmax": "5",
+      "expected_value": 4.1459,
+      "entropy": 1.244,
+      "entropy_normalized": 0.7729,
+      "distribution": {
+        "1": 0.03596,
+        "2": 0.040748,
+        "3": 0.161163,
+        "4": 0.265712,
+        "5": 0.496416
+      }
+    },
+    "ipip266": {
+      "item_text": "I readily overcome setbacks",
+      "argmax": "2",
+      "expected_value": 2.5795,
+      "entropy": 1.359,
+      "entropy_normalized": 0.8444,
+      "distribution": {
+        "1": 0.124169,
+        "2": 0.382469,
+        "3": 0.297867,
+        "4": 0.180665,
+        "5": 0.01483
+      }
+    },
+    "ipip267": {
+      "item_text": "I am not easily amused",
+      "argmax": "4",
+      "expected_value": 3.685,
+      "entropy": 1.4276,
+      "entropy_normalized": 0.887,
+      "distribution": {
+        "1": 0.044238,
+        "2": 0.106122,
+        "3": 0.224661,
+        "4": 0.370404,
+        "5": 0.254574
+      }
+    },
+    "ipip269": {
+      "item_text": "I believe people should fend for themselves",
+      "argmax": "2",
+      "expected_value": 2.235,
+      "entropy": 1.3727,
+      "entropy_normalized": 0.8529,
+      "distribution": {
+        "1": 0.279801,
+        "2": 0.359272,
+        "3": 0.217909,
+        "4": 0.132169,
+        "5": 0.010849
+      }
+    },
+    "ipip271": {
+      "item_text": "I adapt easily to new situations",
+      "argmax": "4",
+      "expected_value": 3.5195,
+      "entropy": 1.3074,
+      "entropy_normalized": 0.8124,
+      "distribution": {
+        "1": 0.027176,
+        "2": 0.094854,
+        "3": 0.331072,
+        "4": 0.425104,
+        "5": 0.121794
+      }
+    },
+    "ipip273": {
+      "item_text": "I have difficulty imagining things",
+      "argmax": "3",
+      "expected_value": 2.9262,
+      "entropy": 1.479,
+      "entropy_normalized": 0.919,
+      "distribution": {
+        "1": 0.114033,
+        "2": 0.241407,
+        "3": 0.309973,
+        "4": 0.27355,
+        "5": 0.061037
+      }
+    },
+    "ipip274": {
+      "item_text": "I believe that people are essentially evil",
+      "argmax": "1",
+      "expected_value": 1.595,
+      "entropy": 0.9918,
+      "entropy_normalized": 0.6162,
+      "distribution": {
+        "1": 0.683626,
+        "2": 0.134614,
+        "3": 0.092519,
+        "4": 0.081647,
+        "5": 0.007594
+      }
+    },
+    "ipip275": {
+      "item_text": "I don't see the consequences of things",
+      "argmax": "2",
+      "expected_value": 2.1984,
+      "entropy": 1.2677,
+      "entropy_normalized": 0.7877,
+      "distribution": {
+        "1": 0.219424,
+        "2": 0.464521,
+        "3": 0.219424,
+        "4": 0.09147,
+        "5": 0.00516
+      }
+    },
+    "ipip276": {
+      "item_text": "I rarely complain",
+      "argmax": "4",
+      "expected_value": 3.3906,
+      "entropy": 1.5284,
+      "entropy_normalized": 0.9497,
+      "distribution": {
+        "1": 0.084247,
+        "2": 0.178351,
+        "3": 0.202099,
+        "4": 0.333204,
+        "5": 0.202099
+      }
+    },
+    "ipip277": {
+      "item_text": "I seek quiet",
+      "argmax": "4",
+      "expected_value": 3.2134,
+      "entropy": 1.43,
+      "entropy_normalized": 0.8885,
+      "distribution": {
+        "1": 0.079634,
+        "2": 0.191031,
+        "3": 0.245289,
+        "4": 0.404413,
+        "5": 0.079634
+      }
+    },
+    "ipip278": {
+      "item_text": "I do not enjoy watching dance performances",
+      "argmax": "5",
+      "expected_value": 3.8516,
+      "entropy": 1.3923,
+      "entropy_normalized": 0.8651,
+      "distribution": {
+        "1": 0.080106,
+        "2": 0.048587,
+        "3": 0.217751,
+        "4": 0.246744,
+        "5": 0.406812
+      }
+    },
+    "ipip280": {
+      "item_text": "I am not bothered by disorder",
+      "argmax": "4",
+      "expected_value": 3.5653,
+      "entropy": 1.3739,
+      "entropy_normalized": 0.8537,
+      "distribution": {
+        "1": 0.045767,
+        "2": 0.096889,
+        "3": 0.263372,
+        "4": 0.434228,
+        "5": 0.159743
+      }
+    },
+    "ipip281": {
+      "item_text": "I am very pleased with myself",
+      "argmax": "1",
+      "expected_value": 2.0602,
+      "entropy": 1.3484,
+      "entropy_normalized": 0.8378,
+      "distribution": {
+        "1": 0.378461,
+        "2": 0.333991,
+        "3": 0.157766,
+        "4": 0.108431,
+        "5": 0.021351
+      }
+    },
+    "ipip282": {
+      "item_text": "I hold back my opinions",
+      "argmax": "2",
+      "expected_value": 2.967,
+      "entropy": 1.3613,
+      "entropy_normalized": 0.8458,
+      "distribution": {
+        "1": 0.052767,
+        "2": 0.303655,
+        "3": 0.303655,
+        "4": 0.303655,
+        "5": 0.036266
+      }
+    },
+    "ipip285": {
+      "item_text": "I misrepresent the facts",
+      "argmax": "1",
+      "expected_value": 1.9397,
+      "entropy": 1.1172,
+      "entropy_normalized": 0.6941,
+      "distribution": {
+        "1": 0.636795,
+        "2": 0.052271,
+        "3": 0.097656,
+        "4": 0.161007,
+        "5": 0.052271
+      }
+    },
+    "ipip286": {
+      "item_text": "I am able to stand up for myself",
+      "argmax": "4",
+      "expected_value": 3.8234,
+      "entropy": 1.3196,
+      "entropy_normalized": 0.8199,
+      "distribution": {
+        "1": 0.03503,
+        "2": 0.050968,
+        "3": 0.228421,
+        "4": 0.426747,
+        "5": 0.258835
+      }
+    },
+    "ipip287": {
+      "item_text": "I react slowly",
+      "argmax": "2",
+      "expected_value": 2.5676,
+      "entropy": 1.5146,
+      "entropy_normalized": 0.9411,
+      "distribution": {
+        "1": 0.216263,
+        "2": 0.314661,
+        "3": 0.216263,
+        "4": 0.190852,
+        "5": 0.06196
+      }
+    },
+    "ipip289": {
+      "item_text": "I hold a grudge",
+      "argmax": "1",
+      "expected_value": 1.7189,
+      "entropy": 1.1316,
+      "entropy_normalized": 0.7031,
+      "distribution": {
+        "1": 0.514987,
+        "2": 0.312355,
+        "3": 0.114909,
+        "4": 0.054279,
+        "5": 0.00347
+      }
+    },
+    "ipip291": {
+      "item_text": "I never splurge",
+      "argmax": "1",
+      "expected_value": 2.4899,
+      "entropy": 1.5244,
+      "entropy_normalized": 0.9472,
+      "distribution": {
+        "1": 0.312087,
+        "2": 0.214494,
+        "3": 0.214494,
+        "4": 0.18929,
+        "5": 0.069636
+      }
+    },
+    "ipip292": {
+      "item_text": "I dislike loud music",
+      "argmax": "4",
+      "expected_value": 3.9503,
+      "entropy": 1.2772,
+      "entropy_normalized": 0.7936,
+      "distribution": {
+        "1": 0.028558,
+        "2": 0.053353,
+        "3": 0.16434,
+        "4": 0.446722,
+        "5": 0.307027
+      }
+    },
+    "ipip293": {
+      "item_text": "I avoid difficult reading material",
+      "argmax": "4",
+      "expected_value": 3.4443,
+      "entropy": 1.3783,
+      "entropy_normalized": 0.8564,
+      "distribution": {
+        "1": 0.035034,
+        "2": 0.157012,
+        "3": 0.258869,
+        "4": 0.426803,
+        "5": 0.122281
+      }
+    },
+    "ipip294": {
+      "item_text": "I make myself the center of attention",
+      "argmax": "2",
+      "expected_value": 2.5503,
+      "entropy": 1.476,
+      "entropy_normalized": 0.9171,
+      "distribution": {
+        "1": 0.190323,
+        "2": 0.35557,
+        "3": 0.215664,
+        "4": 0.190323,
+        "5": 0.048121
+      }
+    },
+    "ipip295": {
+      "item_text": "I postpone decisions",
+      "argmax": "4",
+      "expected_value": 3.3286,
+      "entropy": 1.2848,
+      "entropy_normalized": 0.7983,
+      "distribution": {
+        "1": 0.025906,
+        "2": 0.14908,
+        "3": 0.357625,
+        "4": 0.405242,
+        "5": 0.062146
+      }
+    },
+    "ipip296": {
+      "item_text": "I am calm even in tense situations",
+      "argmax": "4",
+      "expected_value": 3.3943,
+      "entropy": 1.4181,
+      "entropy_normalized": 0.8811,
+      "distribution": {
+        "1": 0.059406,
+        "2": 0.125763,
+        "3": 0.30169,
+        "4": 0.387378,
+        "5": 0.125763
+      }
+    },
+    "ipip297": {
+      "item_text": "I seldom joke around",
+      "argmax": "4",
+      "expected_value": 3.5336,
+      "entropy": 1.4455,
+      "entropy_normalized": 0.8982,
+      "distribution": {
+        "1": 0.055285,
+        "2": 0.150281,
+        "3": 0.192964,
+        "4": 0.408505,
+        "5": 0.192964
+      }
+    },
+    "ipip298": {
+      "item_text": "I like to stand during the national anthem",
+      "argmax": "3",
+      "expected_value": 2.9349,
+      "entropy": 1.4898,
+      "entropy_normalized": 0.9256,
+      "distribution": {
+        "1": 0.171728,
+        "2": 0.133742,
+        "3": 0.363548,
+        "4": 0.249863,
+        "5": 0.081119
+      }
+    },
+    "ipip299": {
+      "item_text": "I can't stand weak people",
+      "argmax": "1",
+      "expected_value": 2.366,
+      "entropy": 1.4705,
+      "entropy_normalized": 0.9136,
+      "distribution": {
+        "1": 0.29865,
+        "2": 0.29865,
+        "3": 0.181141,
+        "4": 0.181141,
+        "5": 0.040418
+      }
+    },
+    "ipip300": {
+      "item_text": "I often make last-minute plans",
+      "argmax": "3",
+      "expected_value": 3.1766,
+      "entropy": 1.3752,
+      "entropy_normalized": 0.8545,
+      "distribution": {
+        "1": 0.053576,
+        "2": 0.186998,
+        "3": 0.349358,
+        "4": 0.349358,
+        "5": 0.060709
+      }
+    }
+  },
+  "variant_evs": {
+    "ipip1": [
+      3.3926,
+      3.8836,
+      2.8846,
+      3.4425
+    ],
+    "ipip2": [
+      1.7959,
+      2.8856,
+      2.2584,
+      3.3005
+    ],
+    "ipip3": [
+      3.816,
+      4.1389,
+      3.8219,
+      3.6541
+    ],
+    "ipip4": [
+      2.5012,
+      3.1626,
+      3.1884,
+      3.3529
+    ],
+    "ipip5": [
+      3.0625,
+      4.4368,
+      4.2963,
+      3.6697
+    ],
+    "ipip6": [
+      2.4066,
+      3.453,
+      2.977,
+      3.4819
+    ],
+    "ipip7": [
+      1.6619,
+      3.5581,
+      2.5606,
+      3.3078
+    ],
+    "ipip8": [
+      4.2756,
+      4.8773,
+      4.296,
+      3.9198
+    ],
+    "ipip99": [
+      2.6539,
+      3.0125,
+      3.3021,
+      3.2399
+    ],
+    "ipip40": [
+      3.1958,
+      4.1072,
+      3.3301,
+      3.4212
+    ],
+    "ipip11": [
+      2.8695,
+      3.0478,
+      2.8605,
+      3.3472
+    ],
+    "ipip12": [
+      2.9655,
+      4.4227,
+      3.5722,
+      3.6536
+    ],
+    "ipip13": [
+      3.4897,
+      4.5656,
+      4.0919,
+      3.7674
+    ],
+    "ipip74": [
+      4.2695,
+      4.8163,
+      4.2695,
+      3.7821
+    ],
+    "ipip45": [
+      3.4325,
+      4.7971,
+      3.6323,
+      3.695
+    ],
+    "ipip76": [
+      2.8516,
+      2.8992,
+      2.9568,
+      3.057
+    ],
+    "ipip17": [
+      2.4903,
+      3.5424,
+      2.9969,
+      3.5745
+    ],
+    "ipip18": [
+      3.9176,
+      4.5341,
+      3.8813,
+      3.6677
+    ],
+    "ipip169": [
+      1.8232,
+      3.3409,
+      3.3673,
+      3.2995
+    ],
+    "ipip50": [
+      2.9602,
+      4.0271,
+      3.5205,
+      3.7873
+    ],
+    "ipip111": [
+      1.705,
+      2.191,
+      2.773,
+      3.145
+    ],
+    "ipip22": [
+      3.7085,
+      4.8183,
+      3.7298,
+      3.7813
+    ],
+    "ipip53": [
+      3.6221,
+      4.2788,
+      3.555,
+      3.7614
+    ],
+    "ipip144": [
+      2.4736,
+      2.1427,
+      2.9374,
+      3.2149
+    ],
+    "ipip55": [
+      1.9659,
+      3.1484,
+      2.2152,
+      3.3423
+    ],
+    "ipip26": [
+      2.5229,
+      3.3106,
+      3.2262,
+      3.3719
+    ],
+    "ipip27": [
+      2.0968,
+      3.7985,
+      3.187,
+      3.5039
+    ],
+    "ipip28": [
+      3.029,
+      4.4219,
+      3.4329,
+      3.5889
+    ],
+    "ipip29": [
+      3.9097,
+      4.2329,
+      3.9857,
+      3.5686
+    ],
+    "ipip120": [
+      2.419,
+      3.1971,
+      3.3995,
+      3.4583
+    ],
+    "ipip31": [
+      2.4524,
+      3.469,
+      3.1187,
+      3.2001
+    ],
+    "ipip62": [
+      3.437,
+      4.2321,
+      3.7737,
+      3.4805
+    ],
+    "ipip33": [
+      4.2377,
+      4.521,
+      4.2751,
+      3.7572
+    ],
+    "ipip34": [
+      4.1643,
+      4.0466,
+      4.041,
+      3.4618
+    ],
+    "ipip35": [
+      3.4216,
+      4.7031,
+      2.8098,
+      3.8254
+    ],
+    "ipip36": [
+      3.1222,
+      3.9286,
+      3.1351,
+      3.6077
+    ],
+    "ipip37": [
+      2.5728,
+      3.671,
+      3.1971,
+      3.6274
+    ],
+    "ipip68": [
+      4.019,
+      4.1627,
+      3.8877,
+      3.7612
+    ],
+    "ipip159": [
+      1.1092,
+      1.4258,
+      3.2841,
+      3.1159
+    ],
+    "ipip160": [
+      3.3457,
+      3.5897,
+      3.2208,
+      3.3972
+    ],
+    "ipip41": [
+      1.8972,
+      1.6252,
+      2.3166,
+      2.7834
+    ],
+    "ipip42": [
+      3.0574,
+      3.7554,
+      3.4671,
+      3.6083
+    ],
+    "ipip43": [
+      2.8437,
+      3.5962,
+      3.4432,
+      3.3716
+    ],
+    "ipip104": [
+      3.8005,
+      3.632,
+      3.394,
+      3.4087
+    ],
+    "ipip105": [
+      2.3067,
+      4.0592,
+      3.1393,
+      3.429
+    ],
+    "ipip106": [
+      3.6944,
+      3.2463,
+      2.9657,
+      3.2233
+    ],
+    "ipip47": [
+      2.0884,
+      3.2538,
+      2.7393,
+      3.4992
+    ],
+    "ipip138": [
+      3.9364,
+      4.0456,
+      3.5536,
+      3.5806
+    ],
+    "ipip199": [
+      1.2215,
+      1.5036,
+      1.9963,
+      3.0398
+    ],
+    "ipip140": [
+      3.6888,
+      4.1463,
+      3.9661,
+      3.6185
+    ],
+    "ipip171": [
+      3.4849,
+      3.9551,
+      3.3719,
+      3.151
+    ],
+    "ipip52": [
+      3.9651,
+      4.7272,
+      4.2646,
+      3.7
+    ],
+    "ipip203": [
+      3.7908,
+      3.438,
+      3.9504,
+      2.974
+    ],
+    "ipip174": [
+      2.9023,
+      3.767,
+      3.0,
+      3.5882
+    ],
+    "ipip145": [
+      2.9012,
+      4.1205,
+      3.2031,
+      3.6082
+    ],
+    "ipip56": [
+      2.7631,
+      3.2189,
+      2.9421,
+      3.3991
+    ],
+    "ipip57": [
+      2.9904,
+      4.0964,
+      2.7949,
+      3.5479
+    ],
+    "ipip58": [
+      4.1073,
+      4.1803,
+      3.7828,
+      3.6116
+    ],
+    "ipip59": [
+      3.9452,
+      4.0633,
+      3.3366,
+      3.5046
+    ],
+    "ipip150": [
+      2.2336,
+      2.7493,
+      3.2948,
+      3.3093
+    ],
+    "ipip61": [
+      2.7539,
+      3.5307,
+      3.0056,
+      3.2655
+    ],
+    "ipip212": [
+      2.8424,
+      2.6672,
+      2.5599,
+      2.9009
+    ],
+    "ipip63": [
+      3.1401,
+      3.7532,
+      3.5485,
+      3.5923
+    ],
+    "ipip64": [
+      2.2288,
+      2.2671,
+      2.508,
+      3.1709
+    ],
+    "ipip65": [
+      2.7405,
+      3.72,
+      3.3374,
+      3.6586
+    ],
+    "ipip126": [
+      2.3727,
+      2.8846,
+      2.2933,
+      3.2522
+    ],
+    "ipip157": [
+      2.4552,
+      3.3588,
+      2.9697,
+      3.1266
+    ],
+    "ipip188": [
+      3.94,
+      2.5491,
+      3.1559,
+      2.5702
+    ],
+    "ipip249": [
+      1.3635,
+      1.5374,
+      2.2764,
+      3.127
+    ],
+    "ipip190": [
+      3.1514,
+      3.1915,
+      3.0179,
+      3.2574
+    ],
+    "ipip71": [
+      3.1706,
+      3.1799,
+      2.9724,
+      3.315
+    ],
+    "ipip132": [
+      2.768,
+      3.9568,
+      3.026,
+      3.6055
+    ],
+    "ipip223": [
+      2.6815,
+      3.0268,
+      2.495,
+      2.978
+    ],
+    "ipip194": [
+      2.9054,
+      2.9075,
+      2.9585,
+      3.0897
+    ],
+    "ipip165": [
+      1.5592,
+      1.2801,
+      2.6344,
+      3.1382
+    ],
+    "ipip136": [
+      2.3481,
+      3.0,
+      2.8292,
+      3.2093
+    ],
+    "ipip77": [
+      3.437,
+      3.6946,
+      2.8976,
+      3.5238
+    ],
+    "ipip168": [
+      3.0686,
+      2.9065,
+      2.93,
+      2.9823
+    ],
+    "ipip229": [
+      1.1712,
+      1.1673,
+      1.9303,
+      2.7883
+    ],
+    "ipip260": [
+      2.817,
+      3.0586,
+      2.7182,
+      3.2076
+    ],
+    "ipip201": [
+      2.1736,
+      2.9092,
+      2.2022,
+      3.0617
+    ],
+    "ipip142": [
+      1.3458,
+      1.6845,
+      2.2918,
+      2.9819
+    ],
+    "ipip233": [
+      3.346,
+      3.1135,
+      3.1255,
+      3.1258
+    ],
+    "ipip204": [
+      2.9088,
+      4.2517,
+      3.1335,
+      3.5764
+    ],
+    "ipip205": [
+      2.1789,
+      2.9718,
+      2.5492,
+      3.1619
+    ],
+    "ipip86": [
+      2.981,
+      2.893,
+      2.7966,
+      3.121
+    ],
+    "ipip147": [
+      3.1502,
+      4.5954,
+      3.6275,
+      3.679
+    ],
+    "ipip148": [
+      2.5874,
+      4.4793,
+      2.9407,
+      3.4194
+    ],
+    "ipip149": [
+      2.8566,
+      3.0189,
+      2.683,
+      2.9814
+    ],
+    "ipip210": [
+      2.5186,
+      3.2504,
+      2.9609,
+      3.4055
+    ],
+    "ipip91": [
+      3.1626,
+      3.9358,
+      3.3957,
+      3.5695
+    ],
+    "ipip272": [
+      2.3405,
+      3.0618,
+      3.142,
+      3.2228
+    ],
+    "ipip93": [
+      4.016,
+      3.9871,
+      3.7442,
+      3.5747
+    ],
+    "ipip184": [
+      2.5356,
+      2.2785,
+      2.5876,
+      3.0769
+    ],
+    "ipip155": [
+      3.3541,
+      3.9943,
+      3.8012,
+      3.6603
+    ],
+    "ipip216": [
+      3.7252,
+      3.5794,
+      3.2165,
+      3.3086
+    ],
+    "ipip247": [
+      3.61,
+      3.6421,
+      3.0931,
+      3.1862
+    ],
+    "ipip218": [
+      4.1386,
+      3.1369,
+      3.6917,
+      2.8745
+    ],
+    "ipip279": [
+      1.3644,
+      1.5163,
+      2.4056,
+      3.0749
+    ],
+    "ipip220": [
+      2.3439,
+      2.7727,
+      2.9681,
+      3.151
+    ],
+    "ipip251": [
+      3.9957,
+      4.6501,
+      4.0993,
+      3.652
+    ],
+    "ipip162": [
+      2.6879,
+      2.7964,
+      2.5517,
+      3.0255
+    ],
+    "ipip283": [
+      2.1425,
+      2.2928,
+      1.8655,
+      2.66
+    ],
+    "ipip284": [
+      1.7527,
+      2.2983,
+      2.0905,
+      2.7487
+    ],
+    "ipip195": [
+      1.8518,
+      2.1728,
+      3.2253,
+      3.0818
+    ],
+    "ipip256": [
+      3.0364,
+      3.2021,
+      2.8056,
+      3.1808
+    ],
+    "ipip167": [
+      3.3582,
+      3.9372,
+      3.4403,
+      3.4042
+    ],
+    "ipip288": [
+      3.0192,
+      3.3332,
+      3.1219,
+      3.3072
+    ],
+    "ipip259": [
+      1.4248,
+      2.4862,
+      2.1084,
+      3.1758
+    ],
+    "ipip290": [
+      2.6413,
+      3.0099,
+      3.4833,
+      3.0163
+    ],
+    "ipip231": [
+      2.8674,
+      3.0177,
+      2.9167,
+      3.212
+    ],
+    "ipip172": [
+      2.0604,
+      2.847,
+      2.432,
+      3.3031
+    ],
+    "ipip263": [
+      3.0608,
+      2.8399,
+      2.9156,
+      3.0004
+    ],
+    "ipip264": [
+      1.7365,
+      2.6376,
+      2.786,
+      3.2487
+    ],
+    "ipip265": [
+      3.5367,
+      3.5492,
+      3.4084,
+      3.2373
+    ],
+    "ipip176": [
+      3.1455,
+      4.3308,
+      3.9828,
+      3.5201
+    ],
+    "ipip177": [
+      3.9833,
+      4.3809,
+      3.8204,
+      3.5907
+    ],
+    "ipip268": [
+      2.942,
+      4.7223,
+      3.9426,
+      3.9223
+    ],
+    "ipip239": [
+      3.203,
+      2.9787,
+      2.7408,
+      2.9197
+    ],
+    "ipip270": [
+      1.9443,
+      2.6579,
+      3.0849,
+      3.1374
+    ],
+    "ipip9": [
+      4.9541,
+      4.9911,
+      4.9367,
+      3.5938
+    ],
+    "ipip10": [
+      3.9,
+      4.1091,
+      3.5808,
+      3.5495
+    ],
+    "ipip14": [
+      3.7523,
+      4.5467,
+      4.248,
+      3.6888
+    ],
+    "ipip15": [
+      3.626,
+      4.1686,
+      3.5742,
+      3.4476
+    ],
+    "ipip16": [
+      2.4617,
+      2.8021,
+      2.9777,
+      3.1042
+    ],
+    "ipip19": [
+      2.7538,
+      3.171,
+      3.1207,
+      3.2076
+    ],
+    "ipip20": [
+      2.623,
+      3.8617,
+      3.7397,
+      3.5094
+    ],
+    "ipip21": [
+      2.7802,
+      3.5684,
+      3.2475,
+      3.4469
+    ],
+    "ipip23": [
+      3.5354,
+      4.3584,
+      3.5296,
+      3.7633
+    ],
+    "ipip24": [
+      3.9526,
+      3.6534,
+      3.3012,
+      3.1461
+    ],
+    "ipip25": [
+      2.1575,
+      2.9916,
+      2.3067,
+      3.4019
+    ],
+    "ipip30": [
+      2.6958,
+      3.1836,
+      2.57,
+      3.0588
+    ],
+    "ipip32": [
+      3.5506,
+      4.1047,
+      3.7501,
+      3.5934
+    ],
+    "ipip38": [
+      4.4304,
+      4.8239,
+      4.2998,
+      3.7161
+    ],
+    "ipip39": [
+      2.5026,
+      3.9288,
+      2.8098,
+      3.4663
+    ],
+    "ipip44": [
+      3.135,
+      3.6912,
+      3.3918,
+      3.4629
+    ],
+    "ipip46": [
+      3.3283,
+      3.2728,
+      3.0153,
+      3.3437
+    ],
+    "ipip48": [
+      4.0424,
+      4.4813,
+      3.997,
+      3.7465
+    ],
+    "ipip49": [
+      3.5214,
+      3.9007,
+      3.4988,
+      2.9489
+    ],
+    "ipip51": [
+      3.3169,
+      3.2933,
+      3.1631,
+      3.2352
+    ],
+    "ipip54": [
+      3.7067,
+      3.6734,
+      2.9916,
+      2.9945
+    ],
+    "ipip60": [
+      4.2406,
+      4.458,
+      4.004,
+      3.7061
+    ],
+    "ipip66": [
+      2.8562,
+      3.3352,
+      3.0318,
+      3.4365
+    ],
+    "ipip67": [
+      3.8687,
+      4.2151,
+      3.7455,
+      3.6133
+    ],
+    "ipip69": [
+      2.1038,
+      3.3443,
+      3.4766,
+      3.3763
+    ],
+    "ipip70": [
+      4.1494,
+      3.7874,
+      3.6361,
+      3.5342
+    ],
+    "ipip72": [
+      3.6999,
+      4.1535,
+      3.7758,
+      3.614
+    ],
+    "ipip73": [
+      3.9708,
+      4.4438,
+      4.0527,
+      3.8178
+    ],
+    "ipip75": [
+      2.9083,
+      4.85,
+      3.7618,
+      3.5446
+    ],
+    "ipip78": [
+      3.6999,
+      3.8539,
+      3.3737,
+      3.5733
+    ],
+    "ipip79": [
+      3.717,
+      3.7423,
+      3.184,
+      3.2298
+    ],
+    "ipip80": [
+      4.2223,
+      4.5357,
+      4.5321,
+      3.8136
+    ],
+    "ipip81": [
+      2.9474,
+      3.3472,
+      3.1444,
+      3.3076
+    ],
+    "ipip82": [
+      2.7617,
+      4.4969,
+      3.0417,
+      3.6501
+    ],
+    "ipip83": [
+      3.701,
+      3.6514,
+      3.7343,
+      3.5526
+    ],
+    "ipip84": [
+      3.7528,
+      3.4829,
+      3.0575,
+      3.1991
+    ],
+    "ipip85": [
+      3.2269,
+      4.3116,
+      4.4297,
+      3.6071
+    ],
+    "ipip87": [
+      2.2938,
+      3.5846,
+      3.4132,
+      3.384
+    ],
+    "ipip88": [
+      3.8813,
+      4.0734,
+      3.7524,
+      3.5225
+    ],
+    "ipip89": [
+      4.4191,
+      4.7497,
+      4.3841,
+      3.7009
+    ],
+    "ipip90": [
+      3.3864,
+      4.3492,
+      3.677,
+      3.5939
+    ],
+    "ipip92": [
+      3.2132,
+      3.7053,
+      3.4957,
+      3.5228
+    ],
+    "ipip94": [
+      3.859,
+      3.8912,
+      3.5857,
+      3.5601
+    ],
+    "ipip95": [
+      3.0525,
+      3.8244,
+      3.1394,
+      3.4198
+    ],
+    "ipip96": [
+      2.025,
+      2.855,
+      2.4393,
+      3.3749
+    ],
+    "ipip97": [
+      3.642,
+      3.9426,
+      3.825,
+      3.5355
+    ],
+    "ipip98": [
+      2.318,
+      4.4413,
+      3.0911,
+      3.6275
+    ],
+    "ipip100": [
+      3.6,
+      4.4081,
+      3.6103,
+      3.6024
+    ],
+    "ipip101": [
+      3.2834,
+      3.0559,
+      3.2495,
+      3.0961
+    ],
+    "ipip102": [
+      3.9308,
+      4.1829,
+      4.0863,
+      3.6702
+    ],
+    "ipip103": [
+      3.3146,
+      3.4009,
+      3.2362,
+      3.4459
+    ],
+    "ipip107": [
+      3.278,
+      3.4772,
+      3.198,
+      3.4742
+    ],
+    "ipip108": [
+      3.9347,
+      4.1929,
+      3.6853,
+      3.5784
+    ],
+    "ipip109": [
+      3.1272,
+      3.6695,
+      3.2777,
+      3.4622
+    ],
+    "ipip110": [
+      3.0906,
+      4.4234,
+      3.8594,
+      3.7991
+    ],
+    "ipip112": [
+      2.1189,
+      2.9129,
+      2.7208,
+      3.2981
+    ],
+    "ipip113": [
+      4.3504,
+      4.104,
+      3.9773,
+      3.644
+    ],
+    "ipip114": [
+      4.2146,
+      3.9524,
+      3.5059,
+      3.272
+    ],
+    "ipip115": [
+      2.5825,
+      3.2561,
+      3.3074,
+      3.303
+    ],
+    "ipip116": [
+      3.0909,
+      3.1319,
+      3.1213,
+      3.1693
+    ],
+    "ipip117": [
+      2.5169,
+      4.2823,
+      3.858,
+      3.5184
+    ],
+    "ipip118": [
+      2.3721,
+      2.5162,
+      2.7851,
+      3.127
+    ],
+    "ipip119": [
+      2.9092,
+      3.4056,
+      3.0161,
+      3.3625
+    ],
+    "ipip121": [
+      3.3483,
+      3.5872,
+      3.195,
+      3.414
+    ],
+    "ipip122": [
+      3.2286,
+      3.9367,
+      3.9854,
+      3.5358
+    ],
+    "ipip123": [
+      1.4064,
+      3.181,
+      3.1735,
+      3.2685
+    ],
+    "ipip124": [
+      3.9646,
+      4.5403,
+      4.1197,
+      3.6971
+    ],
+    "ipip125": [
+      3.6037,
+      4.2432,
+      3.8652,
+      3.7124
+    ],
+    "ipip127": [
+      1.8199,
+      3.7387,
+      2.7234,
+      3.4595
+    ],
+    "ipip128": [
+      4.0464,
+      4.7231,
+      4.0874,
+      3.7799
+    ],
+    "ipip129": [
+      1.7287,
+      2.5064,
+      2.2225,
+      3.2737
+    ],
+    "ipip130": [
+      3.0503,
+      3.586,
+      3.0081,
+      3.4804
+    ],
+    "ipip131": [
+      2.238,
+      3.0455,
+      3.0847,
+      3.3939
+    ],
+    "ipip133": [
+      4.1045,
+      4.1677,
+      3.6671,
+      3.646
+    ],
+    "ipip134": [
+      2.9681,
+      4.0484,
+      3.7161,
+      3.3295
+    ],
+    "ipip135": [
+      3.6271,
+      4.3445,
+      3.9016,
+      3.5212
+    ],
+    "ipip137": [
+      3.3039,
+      3.9175,
+      3.6553,
+      3.5577
+    ],
+    "ipip139": [
+      2.8717,
+      2.3316,
+      3.4329,
+      3.1842
+    ],
+    "ipip141": [
+      2.698,
+      4.5913,
+      2.9712,
+      3.6076
+    ],
+    "ipip143": [
+      4.054,
+      4.0549,
+      3.7668,
+      3.6082
+    ],
+    "ipip146": [
+      3.4917,
+      3.7881,
+      3.276,
+      3.4364
+    ],
+    "ipip151": [
+      3.5148,
+      3.5097,
+      3.2516,
+      3.3435
+    ],
+    "ipip152": [
+      3.3145,
+      3.7193,
+      3.5921,
+      3.1685
+    ],
+    "ipip153": [
+      3.6557,
+      3.485,
+      3.4692,
+      3.4983
+    ],
+    "ipip154": [
+      3.7897,
+      4.0642,
+      4.0199,
+      3.4886
+    ],
+    "ipip156": [
+      3.5642,
+      3.5903,
+      2.9207,
+      2.9247
+    ],
+    "ipip158": [
+      3.0187,
+      1.4427,
+      2.4674,
+      2.18
+    ],
+    "ipip161": [
+      1.7893,
+      2.5867,
+      2.3268,
+      3.202
+    ],
+    "ipip163": [
+      2.7061,
+      2.8089,
+      2.2174,
+      2.8816
+    ],
+    "ipip164": [
+      1.3857,
+      1.7126,
+      1.7049,
+      2.6681
+    ],
+    "ipip166": [
+      2.8065,
+      3.0538,
+      2.8465,
+      3.0936
+    ],
+    "ipip170": [
+      3.5708,
+      4.413,
+      4.0308,
+      3.9313
+    ],
+    "ipip173": [
+      2.9657,
+      2.863,
+      2.5473,
+      2.8753
+    ],
+    "ipip175": [
+      3.2723,
+      3.2915,
+      3.2497,
+      3.2376
+    ],
+    "ipip178": [
+      2.828,
+      3.2194,
+      2.983,
+      3.1781
+    ],
+    "ipip179": [
+      3.2046,
+      3.6458,
+      3.4205,
+      3.2743
+    ],
+    "ipip180": [
+      3.0838,
+      3.6963,
+      3.5134,
+      3.5038
+    ],
+    "ipip181": [
+      3.6745,
+      3.8584,
+      3.4799,
+      3.4084
+    ],
+    "ipip182": [
+      3.0253,
+      3.1657,
+      3.0268,
+      3.3171
+    ],
+    "ipip183": [
+      3.0314,
+      2.9732,
+      2.3976,
+      2.8148
+    ],
+    "ipip185": [
+      3.434,
+      3.4984,
+      3.2944,
+      3.3048
+    ],
+    "ipip186": [
+      3.8288,
+      3.6943,
+      3.0506,
+      2.973
+    ],
+    "ipip187": [
+      2.7441,
+      3.9795,
+      3.1936,
+      3.1461
+    ],
+    "ipip189": [
+      2.3365,
+      2.7332,
+      3.195,
+      3.2251
+    ],
+    "ipip191": [
+      3.4511,
+      3.5365,
+      3.3769,
+      3.3031
+    ],
+    "ipip192": [
+      2.7541,
+      2.856,
+      2.4463,
+      2.9725
+    ],
+    "ipip193": [
+      2.9669,
+      2.8548,
+      2.41,
+      3.1425
+    ],
+    "ipip196": [
+      3.5066,
+      4.1904,
+      3.0813,
+      3.5604
+    ],
+    "ipip197": [
+      3.4637,
+      3.824,
+      3.5311,
+      3.4387
+    ],
+    "ipip198": [
+      2.8683,
+      2.6796,
+      2.7066,
+      3.0179
+    ],
+    "ipip200": [
+      3.7324,
+      4.7808,
+      4.3449,
+      3.8482
+    ],
+    "ipip202": [
+      4.3638,
+      4.4499,
+      3.5103,
+      3.549
+    ],
+    "ipip206": [
+      3.8189,
+      4.3485,
+      3.8416,
+      3.7435
+    ],
+    "ipip207": [
+      1.8779,
+      3.2466,
+      2.772,
+      3.2692
+    ],
+    "ipip208": [
+      3.2996,
+      4.6727,
+      4.2267,
+      4.0102
+    ],
+    "ipip209": [
+      2.3996,
+      2.5715,
+      2.92,
+      3.1389
+    ],
+    "ipip211": [
+      3.1845,
+      3.3087,
+      3.2636,
+      3.2519
+    ],
+    "ipip213": [
+      3.7411,
+      2.6394,
+      2.8229,
+      2.8851
+    ],
+    "ipip214": [
+      3.5019,
+      3.8129,
+      3.4897,
+      3.5415
+    ],
+    "ipip215": [
+      1.9746,
+      2.3704,
+      2.4525,
+      2.6947
+    ],
+    "ipip217": [
+      3.724,
+      4.0054,
+      3.2425,
+      3.1072
+    ],
+    "ipip219": [
+      2.5736,
+      2.7581,
+      2.7013,
+      3.2199
+    ],
+    "ipip221": [
+      3.2018,
+      3.4664,
+      2.7284,
+      2.7882
+    ],
+    "ipip222": [
+      2.7706,
+      2.8807,
+      2.3924,
+      2.7759
+    ],
+    "ipip224": [
+      1.4857,
+      2.5912,
+      3.0572,
+      2.9783
+    ],
+    "ipip225": [
+      2.3737,
+      3.2264,
+      3.0353,
+      3.2415
+    ],
+    "ipip226": [
+      3.4942,
+      3.8346,
+      3.5597,
+      3.4869
+    ],
+    "ipip227": [
+      3.3775,
+      4.245,
+      3.6428,
+      3.5794
+    ],
+    "ipip228": [
+      3.4292,
+      3.6153,
+      3.5199,
+      3.4763
+    ],
+    "ipip230": [
+      3.8125,
+      3.0532,
+      3.2257,
+      2.9204
+    ],
+    "ipip232": [
+      1.4613,
+      2.7543,
+      3.7199,
+      3.3865
+    ],
+    "ipip234": [
+      3.0887,
+      3.027,
+      3.008,
+      3.5
+    ],
+    "ipip235": [
+      3.3215,
+      3.5668,
+      2.9557,
+      3.2458
+    ],
+    "ipip236": [
+      2.7131,
+      3.5013,
+      3.2463,
+      3.4254
+    ],
+    "ipip237": [
+      2.7905,
+      3.05,
+      3.1823,
+      3.4381
+    ],
+    "ipip238": [
+      4.0398,
+      4.2142,
+      3.8526,
+      3.8438
+    ],
+    "ipip240": [
+      2.5202,
+      3.2323,
+      3.3808,
+      3.4186
+    ],
+    "ipip241": [
+      3.8784,
+      3.9566,
+      3.7562,
+      3.2528
+    ],
+    "ipip242": [
+      2.1868,
+      2.7997,
+      2.5077,
+      2.7289
+    ],
+    "ipip243": [
+      3.0308,
+      3.136,
+      2.761,
+      2.9069
+    ],
+    "ipip244": [
+      2.8772,
+      2.9848,
+      3.0311,
+      3.0824
+    ],
+    "ipip245": [
+      2.4858,
+      2.616,
+      2.1792,
+      2.7389
+    ],
+    "ipip246": [
+      3.2841,
+      4.1809,
+      3.7396,
+      3.4415
+    ],
+    "ipip248": [
+      4.0147,
+      3.063,
+      3.4528,
+      2.5481
+    ],
+    "ipip250": [
+      3.4826,
+      3.3573,
+      3.4078,
+      3.2212
+    ],
+    "ipip252": [
+      4.1236,
+      3.7848,
+      3.1483,
+      3.2198
+    ],
+    "ipip253": [
+      2.7993,
+      2.9846,
+      2.5521,
+      3.0758
+    ],
+    "ipip254": [
+      2.2909,
+      2.1989,
+      2.5131,
+      2.9909
+    ],
+    "ipip255": [
+      2.8234,
+      2.545,
+      3.0695,
+      3.0599
+    ],
+    "ipip257": [
+      3.6647,
+      3.5783,
+      3.7706,
+      3.4749
+    ],
+    "ipip258": [
+      3.155,
+      3.273,
+      3.343,
+      3.0924
+    ],
+    "ipip261": [
+      4.8021,
+      4.856,
+      4.6338,
+      3.5171
+    ],
+    "ipip262": [
+      4.1459,
+      4.6087,
+      4.3474,
+      3.145
+    ],
+    "ipip266": [
+      2.5795,
+      3.4701,
+      3.7607,
+      3.5693
+    ],
+    "ipip267": [
+      3.685,
+      4.1599,
+      3.6402,
+      3.4811
+    ],
+    "ipip269": [
+      2.235,
+      3.6238,
+      3.2237,
+      3.3991
+    ],
+    "ipip271": [
+      3.5195,
+      4.1358,
+      3.7408,
+      3.6983
+    ],
+    "ipip273": [
+      2.9262,
+      3.0013,
+      2.8358,
+      2.9872
+    ],
+    "ipip274": [
+      1.595,
+      1.4029,
+      1.2248,
+      2.574
+    ],
+    "ipip275": [
+      2.1984,
+      2.6671,
+      2.4942,
+      3.0288
+    ],
+    "ipip276": [
+      3.3906,
+      3.1224,
+      3.1703,
+      2.936
+    ],
+    "ipip277": [
+      3.2134,
+      3.6653,
+      3.5508,
+      3.1158
+    ],
+    "ipip278": [
+      3.8516,
+      2.9116,
+      3.158,
+      2.7192
+    ],
+    "ipip280": [
+      3.5653,
+      3.202,
+      3.4017,
+      3.0941
+    ],
+    "ipip281": [
+      2.0602,
+      2.2573,
+      2.1163,
+      3.229
+    ],
+    "ipip282": [
+      2.967,
+      3.2311,
+      2.8527,
+      3.1702
+    ],
+    "ipip285": [
+      1.9397,
+      1.0482,
+      2.5428,
+      2.506
+    ],
+    "ipip286": [
+      3.8234,
+      4.654,
+      4.029,
+      3.6294
+    ],
+    "ipip287": [
+      2.5676,
+      2.8757,
+      2.636,
+      3.0832
+    ],
+    "ipip289": [
+      1.7189,
+      2.7437,
+      2.4948,
+      3.1745
+    ],
+    "ipip291": [
+      2.4899,
+      2.7531,
+      2.868,
+      2.9682
+    ],
+    "ipip292": [
+      3.9503,
+      4.3075,
+      3.1885,
+      3.2247
+    ],
+    "ipip293": [
+      3.4443,
+      3.6235,
+      3.1407,
+      3.2484
+    ],
+    "ipip294": [
+      2.5503,
+      3.5914,
+      3.3571,
+      3.469
+    ],
+    "ipip295": [
+      3.3286,
+      3.2376,
+      3.1852,
+      3.3409
+    ],
+    "ipip296": [
+      3.3943,
+      4.3321,
+      3.769,
+      3.5158
+    ],
+    "ipip297": [
+      3.5336,
+      3.8587,
+      3.0793,
+      3.1367
+    ],
+    "ipip298": [
+      2.9349,
+      4.0399,
+      2.3292,
+      3.1573
+    ],
+    "ipip299": [
+      2.366,
+      3.8731,
+      3.8946,
+      3.0437
+    ],
+    "ipip300": [
+      3.1766,
+      3.575,
+      3.4577,
+      3.5585
+    ]
+  }
+}

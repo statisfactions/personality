@@ -10,9 +10,9 @@ at ~2/3-depth layer, neutral-PC-projected. Each marker wrapped as a user turn
 in the model's chat template; activations averaged over content tokens.
 
 Output:
-    results/markers_as_stimuli.json — 5×5 cosine matrices per model + cross-
+    results/stimuli/markers_as_stimuli.json — 5×5 cosine matrices per model + cross-
         model upper-tri correlations.
-    results/markers_as_stimuli_heatmap.html — per-model 5×5 heatmaps.
+    results/stimuli/markers_as_stimuli_heatmap.html — per-model 5×5 heatmaps.
 
 Usage:
     PYTHONPATH=scripts .venv/bin/python scripts/markers_as_stimuli.py
@@ -155,7 +155,7 @@ def main():
         if device == "mps":
             torch.mps.empty_cache()
 
-    out_path = Path("results/markers_as_stimuli.json")
+    out_path = Path("results/stimuli/markers_as_stimuli.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(output, f, indent=2)
@@ -209,7 +209,7 @@ def main():
             title=dict(text="Goldberg 52 markers — Big Five trait cosine similarity", x=0.5),
             height=400 * n_rows, width=450 * n_cols,
         )
-        hm_path = Path("results/markers_as_stimuli_heatmap.html")
+        hm_path = Path("results/stimuli/markers_as_stimuli_heatmap.html")
         fig.write_html(str(hm_path))
         print(f"Wrote {hm_path}")
 

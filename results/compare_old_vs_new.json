@@ -1,0 +1,1998 @@
+{
+  "by_cell": [
+    {
+      "model": "Llama",
+      "trait": "H",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 138,
+      "cos_LR": 0.5345369239372382,
+      "cos_MD-raw": 0.667931854724884,
+      "cos_MD-proj": 0.6638279533771736,
+      "cos_new_LR_vs_MDp": 0.8990588915322388
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.7474607831120311,
+      "cos_MD-raw": 0.7716695070266724,
+      "cos_MD-proj": 0.7666251672124563,
+      "cos_new_LR_vs_MDp": 0.944273705330375
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 143,
+      "cos_LR": 0.6556714458391928,
+      "cos_MD-raw": 0.7177294492721558,
+      "cos_MD-proj": 0.7039666898466123,
+      "cos_new_LR_vs_MDp": 0.8998223608696037
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.6186531140047901,
+      "cos_MD-raw": 0.5973228812217712,
+      "cos_MD-proj": 0.6142026720442817,
+      "cos_new_LR_vs_MDp": 0.9145587969706293
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.6201186797740152,
+      "cos_MD-raw": 0.7740883827209473,
+      "cos_MD-proj": 0.7570238257637623,
+      "cos_new_LR_vs_MDp": 0.8931669500175287
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "layer": 19,
+      "n_old": 50,
+      "n_new": 140,
+      "cos_LR": 0.687906934029415,
+      "cos_MD-raw": 0.747929573059082,
+      "cos_MD-proj": 0.7207715596122363,
+      "cos_new_LR_vs_MDp": 0.8480222784583129
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 138,
+      "cos_LR": 0.5061530407696229,
+      "cos_MD-raw": 0.7699999809265137,
+      "cos_MD-proj": 0.7003305977591511,
+      "cos_new_LR_vs_MDp": 0.8217017349048525
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.6684267392568919,
+      "cos_MD-raw": 0.7525646686553955,
+      "cos_MD-proj": 0.7706178229427363,
+      "cos_new_LR_vs_MDp": 0.9948416129305462
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 143,
+      "cos_LR": 0.6460730651270772,
+      "cos_MD-raw": 0.7302536964416504,
+      "cos_MD-proj": 0.7486968405420715,
+      "cos_new_LR_vs_MDp": 0.9506228345665368
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.6242782803605025,
+      "cos_MD-raw": 0.5723896026611328,
+      "cos_MD-proj": 0.7098585520954457,
+      "cos_new_LR_vs_MDp": 0.8596465474097077
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.5096580407668487,
+      "cos_MD-raw": 0.8711867332458496,
+      "cos_MD-proj": 0.7764353721080771,
+      "cos_new_LR_vs_MDp": 0.8018573543858836
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "layer": 23,
+      "n_old": 50,
+      "n_new": 140,
+      "cos_LR": 0.5702866865910972,
+      "cos_MD-raw": 0.7835830450057983,
+      "cos_MD-proj": 0.7340955890509353,
+      "cos_new_LR_vs_MDp": 0.7873813144517938
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 138,
+      "cos_LR": 0.46185944806637746,
+      "cos_MD-raw": 0.6793209314346313,
+      "cos_MD-proj": 0.6755343978105788,
+      "cos_new_LR_vs_MDp": 0.8030619674366686
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.7210280977616456,
+      "cos_MD-raw": 0.7758715748786926,
+      "cos_MD-proj": 0.7508598508249091,
+      "cos_new_LR_vs_MDp": 0.8787245415125886
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 143,
+      "cos_LR": 0.5552046277227769,
+      "cos_MD-raw": 0.6967774629592896,
+      "cos_MD-proj": 0.7135895472753786,
+      "cos_new_LR_vs_MDp": 0.8023837787650439
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.5654623497887732,
+      "cos_MD-raw": 0.5970694422721863,
+      "cos_MD-proj": 0.6345924434475511,
+      "cos_new_LR_vs_MDp": 0.8546656675908426
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.5422527983441217,
+      "cos_MD-raw": 0.7800459265708923,
+      "cos_MD-proj": 0.7528852179735128,
+      "cos_new_LR_vs_MDp": 0.7980286868116888
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "layer": 22,
+      "n_old": 50,
+      "n_new": 140,
+      "cos_LR": 0.6470609544232873,
+      "cos_MD-raw": 0.7348245978355408,
+      "cos_MD-proj": 0.7103271595880328,
+      "cos_new_LR_vs_MDp": 0.8005036526586524
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 138,
+      "cos_LR": 0.5369736486896048,
+      "cos_MD-raw": 0.7034567594528198,
+      "cos_MD-proj": 0.7112906210657257,
+      "cos_new_LR_vs_MDp": 0.8316222733959835
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.746540543201637,
+      "cos_MD-raw": 0.7825175523757935,
+      "cos_MD-proj": 0.7553300103982329,
+      "cos_new_LR_vs_MDp": 0.8875686496726526
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 143,
+      "cos_LR": 0.5984653859245159,
+      "cos_MD-raw": 0.7369066476821899,
+      "cos_MD-proj": 0.7317003260139352,
+      "cos_new_LR_vs_MDp": 0.8161048299690511
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.6035123251191972,
+      "cos_MD-raw": 0.5867646932601929,
+      "cos_MD-proj": 0.6373309580695299,
+      "cos_new_LR_vs_MDp": 0.8511703647922022
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 139,
+      "cos_LR": 0.5986062128324501,
+      "cos_MD-raw": 0.7916175127029419,
+      "cos_MD-proj": 0.7524025142931432,
+      "cos_new_LR_vs_MDp": 0.7850349799168134
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "layer": 25,
+      "n_old": 50,
+      "n_new": 140,
+      "cos_LR": 0.6466635327098369,
+      "cos_MD-raw": 0.7638117074966431,
+      "cos_MD-proj": 0.7194932610880209,
+      "cos_new_LR_vs_MDp": 0.770385126824702
+    }
+  ],
+  "by_facet": [
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5280371283003491,
+      "cos_new_trait": 0.5521327271467387
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.7029481425987771,
+      "cos_new_trait": 0.5823096558833802
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.2586937843523901,
+      "cos_new_trait": 0.5818039726598753
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.19206914887272783,
+      "cos_new_trait": 0.5997622794490225
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.13644613617334345,
+      "cos_new_trait": 0.6093351146853803
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.087811867191397,
+      "cos_new_trait": 0.5284416766873592
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.4739095264810468,
+      "cos_new_trait": 0.6104832657344953
+    },
+    {
+      "model": "Llama",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.5787214602692097,
+      "cos_new_trait": 0.7187125190192712
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.5492503022150431,
+      "cos_new_trait": 0.7047302558654569
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5291750158147182,
+      "cos_new_trait": 0.7515222892032078
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4474277505999114,
+      "cos_new_trait": 0.7055441033540706
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.38984561662437356,
+      "cos_new_trait": 0.6087743649840456
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6486989710351294,
+      "cos_new_trait": 0.7490165163733391
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6245078846336694,
+      "cos_new_trait": 0.761933143603051
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.61902083306363,
+      "cos_new_trait": 0.6936732355125247
+    },
+    {
+      "model": "Llama",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.6515565426168244,
+      "cos_new_trait": 0.7494024882671191
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.606347657214209,
+      "cos_new_trait": 0.7273158412079412
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5799867671040758,
+      "cos_new_trait": 0.7889548766307415
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.7202112586097049,
+      "cos_new_trait": 0.7685082147097633
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.7395430371679292,
+      "cos_new_trait": 0.8368050602424961
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5918472184973746,
+      "cos_new_trait": 0.7578282068330872
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5051951188956496,
+      "cos_new_trait": 0.7615126328248084
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.33295356382868413,
+      "cos_new_trait": 0.7736926207435516
+    },
+    {
+      "model": "Llama",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.3442106991153083,
+      "cos_new_trait": 0.7043871880597335
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.27340785457871153,
+      "cos_new_trait": 0.6452582584538031
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.2926148878771836,
+      "cos_new_trait": 0.670941254676144
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.38097268674641405,
+      "cos_new_trait": 0.6687707908962058
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.3928694632302519,
+      "cos_new_trait": 0.6671030131633274
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5761537378758261,
+      "cos_new_trait": 0.7021949466158879
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5179839921243159,
+      "cos_new_trait": 0.7102031152368613
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5251425111758963,
+      "cos_new_trait": 0.6729900122775483
+    },
+    {
+      "model": "Llama",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.5310730766969443,
+      "cos_new_trait": 0.7333626847377479
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5656960833712478,
+      "cos_new_trait": 0.771802401658847
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.684085563824897,
+      "cos_new_trait": 0.7660676497412391
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "LR",
+      "n_facet": 32,
+      "cos_old_trait": 0.6226702236720782,
+      "cos_new_trait": 0.6664673743959026
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "MD-proj",
+      "n_facet": 32,
+      "cos_old_trait": 0.6600596875705447,
+      "cos_new_trait": 0.7499933194775937
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.3843188854893375,
+      "cos_new_trait": 0.7467734048866179
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.385562090022104,
+      "cos_new_trait": 0.7194775594194488
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.46750442298495154,
+      "cos_new_trait": 0.6993731388366997
+    },
+    {
+      "model": "Llama",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5075172357477824,
+      "cos_new_trait": 0.7244457302778846
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5592741269613636,
+      "cos_new_trait": 0.7301833505276856
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.5631016753554896,
+      "cos_new_trait": 0.8599149890807034
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5834857165390388,
+      "cos_new_trait": 0.759210514077081
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5574576214455325,
+      "cos_new_trait": 0.7179183667040885
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.4958139502355282,
+      "cos_new_trait": 0.745156516978563
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.49939423771656744,
+      "cos_new_trait": 0.785910792981351
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6135178623938479,
+      "cos_new_trait": 0.8209441211675954
+    },
+    {
+      "model": "Llama",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6622241261401991,
+      "cos_new_trait": 0.7641397722928185
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5055895291414989,
+      "cos_new_trait": 0.5807950927851098
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.6925297170535007,
+      "cos_new_trait": 0.5883904746524115
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.3023898299053125,
+      "cos_new_trait": 0.5290448610145552
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.26991405337193586,
+      "cos_new_trait": 0.6099422358961761
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.19363255703139384,
+      "cos_new_trait": 0.5940228306201516
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.1896120534046757,
+      "cos_new_trait": 0.5614378105452325
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.3831436701927652,
+      "cos_new_trait": 0.5325015190716396
+    },
+    {
+      "model": "Gemma",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.5828140407776117,
+      "cos_new_trait": 0.7386699429040133
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.43779044776376785,
+      "cos_new_trait": 0.7040654981533283
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5274806548461526,
+      "cos_new_trait": 0.7647434003894982
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.3406877381493954,
+      "cos_new_trait": 0.6605935560354707
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.43300988745575886,
+      "cos_new_trait": 0.6481296366884514
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6250448775362626,
+      "cos_new_trait": 0.7666685555649
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6266636052649543,
+      "cos_new_trait": 0.7679492130055195
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.5693444161307362,
+      "cos_new_trait": 0.7541021651356776
+    },
+    {
+      "model": "Gemma",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.6719895855576195,
+      "cos_new_trait": 0.7523178277722031
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5971201422746331,
+      "cos_new_trait": 0.7387968861500509
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.654022019448826,
+      "cos_new_trait": 0.8290514026945083
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.7331827732922944,
+      "cos_new_trait": 0.8082322145444616
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.7925836562143734,
+      "cos_new_trait": 0.8589450837006922
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5754268864732406,
+      "cos_new_trait": 0.7338449278843154
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5374652368421104,
+      "cos_new_trait": 0.7736160124772637
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.3160313804948821,
+      "cos_new_trait": 0.7529913127980437
+    },
+    {
+      "model": "Gemma",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.3661877427827209,
+      "cos_new_trait": 0.701347311391388
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.3702348521540223,
+      "cos_new_trait": 0.5921285274740147
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.3897259075964573,
+      "cos_new_trait": 0.6999552700529021
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.440341471282794,
+      "cos_new_trait": 0.6042248085817196
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.4851297695783501,
+      "cos_new_trait": 0.7311429761881263
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.6150339315802276,
+      "cos_new_trait": 0.7003474521432627
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.6018698267496079,
+      "cos_new_trait": 0.7222827959795923
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5478838897911643,
+      "cos_new_trait": 0.6123144246787774
+    },
+    {
+      "model": "Gemma",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.5978094953013343,
+      "cos_new_trait": 0.7163836794393591
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.505113372076617,
+      "cos_new_trait": 0.7052983580349677
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.7067357610720177,
+      "cos_new_trait": 0.7838219519636942
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "LR",
+      "n_facet": 32,
+      "cos_old_trait": 0.5012216783322709,
+      "cos_new_trait": 0.48397126980528005
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "MD-proj",
+      "n_facet": 32,
+      "cos_old_trait": 0.6849822369399876,
+      "cos_new_trait": 0.7676837300679964
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.38311928096783127,
+      "cos_new_trait": 0.6460100163885729
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.4189361977214965,
+      "cos_new_trait": 0.7272482521587491
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4037244254957614,
+      "cos_new_trait": 0.6479759095900781
+    },
+    {
+      "model": "Gemma",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5024309340466137,
+      "cos_new_trait": 0.7013126796508138
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5548562062132791,
+      "cos_new_trait": 0.5125846914858471
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.5711942294966553,
+      "cos_new_trait": 0.8516414183633738
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5487451304111446,
+      "cos_new_trait": 0.6901380466247946
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5839961393419655,
+      "cos_new_trait": 0.7206948735735812
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.5035928473409992,
+      "cos_new_trait": 0.6571488516167943
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5278429529674016,
+      "cos_new_trait": 0.8206685737269497
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6113523505279801,
+      "cos_new_trait": 0.730894551951113
+    },
+    {
+      "model": "Gemma",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6614989152266266,
+      "cos_new_trait": 0.7773114940873712
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.47773399552126256,
+      "cos_new_trait": 0.5159645323059872
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.7169402293444291,
+      "cos_new_trait": 0.6167563556532858
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.22313673519949973,
+      "cos_new_trait": 0.5329446287336579
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.22505584426068875,
+      "cos_new_trait": 0.5961531188670148
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.12960208417564145,
+      "cos_new_trait": 0.6106314178332821
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.07383885373203189,
+      "cos_new_trait": 0.4903758472178648
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.4316194707080252,
+      "cos_new_trait": 0.5698830538376758
+    },
+    {
+      "model": "Phi4",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.582057453290437,
+      "cos_new_trait": 0.7581322039445266
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.576646087719632,
+      "cos_new_trait": 0.7055855372455127
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5431760525979817,
+      "cos_new_trait": 0.76930858109589
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4270799499587293,
+      "cos_new_trait": 0.7443583719022832
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.3833515752754848,
+      "cos_new_trait": 0.6249209018306481
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6393800564159726,
+      "cos_new_trait": 0.7497029625156515
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6115727324632281,
+      "cos_new_trait": 0.7741087080447766
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.6154242345250168,
+      "cos_new_trait": 0.6662383204300906
+    },
+    {
+      "model": "Phi4",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.6454058387162712,
+      "cos_new_trait": 0.767095993534421
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5644188555234065,
+      "cos_new_trait": 0.6763269072016961
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5854134133304065,
+      "cos_new_trait": 0.7783475696914188
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6425184764262462,
+      "cos_new_trait": 0.6998936430697551
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.7402329259911787,
+      "cos_new_trait": 0.8320219668835851
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4993177569260305,
+      "cos_new_trait": 0.7132565608613849
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5128647794165612,
+      "cos_new_trait": 0.764729187621993
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.2827161933299263,
+      "cos_new_trait": 0.7388698807841212
+    },
+    {
+      "model": "Phi4",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.31058369325972385,
+      "cos_new_trait": 0.6521126817275016
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.2699329515091502,
+      "cos_new_trait": 0.6417127190819045
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.3208619172917221,
+      "cos_new_trait": 0.6367098094874901
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.3980832568464691,
+      "cos_new_trait": 0.6480466621089702
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.43832581086007694,
+      "cos_new_trait": 0.6946230767591399
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5211049088815515,
+      "cos_new_trait": 0.6751111000338743
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5215169763645858,
+      "cos_new_trait": 0.7351723266012473
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.492647872725679,
+      "cos_new_trait": 0.6232643888865473
+    },
+    {
+      "model": "Phi4",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.515262104882162,
+      "cos_new_trait": 0.7447736499737172
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.482549410336921,
+      "cos_new_trait": 0.721397745004436
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.6763761459081961,
+      "cos_new_trait": 0.7458388191080629
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "LR",
+      "n_facet": 32,
+      "cos_old_trait": 0.5960012600847661,
+      "cos_new_trait": 0.6240517934300287
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "MD-proj",
+      "n_facet": 32,
+      "cos_old_trait": 0.6769826676055857,
+      "cos_new_trait": 0.7621204765882823
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.31833673037557375,
+      "cos_new_trait": 0.7192862559251884
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.3785672907990168,
+      "cos_new_trait": 0.7093759547830495
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4153517668237222,
+      "cos_new_trait": 0.6216886044999588
+    },
+    {
+      "model": "Phi4",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.4931990927236209,
+      "cos_new_trait": 0.7308801737784352
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5075966699970644,
+      "cos_new_trait": 0.6766501765428146
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.5847507191092147,
+      "cos_new_trait": 0.8648733381555642
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5406488971250897,
+      "cos_new_trait": 0.7703171444046703
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5082012317507949,
+      "cos_new_trait": 0.6982630728336541
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.4728311257495072,
+      "cos_new_trait": 0.7164457985692347
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5087266043484424,
+      "cos_new_trait": 0.798300789208414
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5759642699653819,
+      "cos_new_trait": 0.7889941399688292
+    },
+    {
+      "model": "Phi4",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6252577849774676,
+      "cos_new_trait": 0.7463691652512163
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5145945810400223,
+      "cos_new_trait": 0.5939598486223128
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Fairness",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.7215141297489964,
+      "cos_new_trait": 0.6335407404522582
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.31521589011009604,
+      "cos_new_trait": 0.5773979168148788
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Greed-Avoidance",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.2925918880041174,
+      "cos_new_trait": 0.6366581461434684
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.17243165554626544,
+      "cos_new_trait": 0.6180362259545705
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Modesty",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.1862194616962857,
+      "cos_new_trait": 0.5855936953913807
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.4814237198930656,
+      "cos_new_trait": 0.5993503785500651
+    },
+    {
+      "model": "Qwen",
+      "trait": "H",
+      "facet": "Sincerity",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6433756469496348,
+      "cos_new_trait": 0.767580669765187
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.6071700713690824,
+      "cos_new_trait": 0.7427869994082503
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Anxiety",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5918026701680029,
+      "cos_new_trait": 0.8240589538340463
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5107677673112677,
+      "cos_new_trait": 0.7699967274793146
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Dependence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.4628555496346852,
+      "cos_new_trait": 0.7057477804145351
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6538330681984243,
+      "cos_new_trait": 0.786748005002222
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Fearfulness",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6065755001826436,
+      "cos_new_trait": 0.7720511058374369
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.6511979984108649,
+      "cos_new_trait": 0.7055783413344028
+    },
+    {
+      "model": "Qwen",
+      "trait": "E",
+      "facet": "Sentimentality",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.6620345563677921,
+      "cos_new_trait": 0.7867368925057004
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5888162891302845,
+      "cos_new_trait": 0.7142587774628367
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Liveliness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.6144979557746879,
+      "cos_new_trait": 0.7841408090466995
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.6937014786140464,
+      "cos_new_trait": 0.7437508159873639
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Sociability",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.7629555641783722,
+      "cos_new_trait": 0.8284702156234822
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5534506723250943,
+      "cos_new_trait": 0.7409889590881038
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Social Boldness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5413173347289124,
+      "cos_new_trait": 0.7849871717042255
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.28519720145942773,
+      "cos_new_trait": 0.7400219552494833
+    },
+    {
+      "model": "Qwen",
+      "trait": "X",
+      "facet": "Social Self-Esteem",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.35695590873194993,
+      "cos_new_trait": 0.7017995638426979
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.3017371283814212,
+      "cos_new_trait": 0.6670244433317338
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Flexibility",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.30943185641363824,
+      "cos_new_trait": 0.6628271234041031
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.4163841581092603,
+      "cos_new_trait": 0.6844694298262737
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Forgiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.4384345588406953,
+      "cos_new_trait": 0.7114547225246397
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5893498684472493,
+      "cos_new_trait": 0.693821387325551
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Gentleness",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5517276715826909,
+      "cos_new_trait": 0.7553595791046992
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "LR",
+      "n_facet": 33,
+      "cos_old_trait": 0.5346796131593516,
+      "cos_new_trait": 0.6370550354077937
+    },
+    {
+      "model": "Qwen",
+      "trait": "A",
+      "facet": "Patience",
+      "method": "MD-proj",
+      "n_facet": 33,
+      "cos_old_trait": 0.5689807812716206,
+      "cos_new_trait": 0.7761445510183984
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5579901590578991,
+      "cos_new_trait": 0.7466996328072764
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Diligence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.6880030649914857,
+      "cos_new_trait": 0.7339268517317288
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "LR",
+      "n_facet": 32,
+      "cos_old_trait": 0.6463492445910206,
+      "cos_new_trait": 0.6451819561509518
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Organization",
+      "method": "MD-proj",
+      "n_facet": 32,
+      "cos_old_trait": 0.7304979595776189,
+      "cos_new_trait": 0.7841122441342787
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.3975234106879183,
+      "cos_new_trait": 0.7324900964584202
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Perfectionism",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.3935795097114507,
+      "cos_new_trait": 0.7326805497658829
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.4260397425175905,
+      "cos_new_trait": 0.6793669447577388
+    },
+    {
+      "model": "Qwen",
+      "trait": "C",
+      "facet": "Prudence",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.45648457346853943,
+      "cos_new_trait": 0.7417954739665139
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5572123656463928,
+      "cos_new_trait": 0.6883315391547744
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Aesthetic Appreciation",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.6100391203439993,
+      "cos_new_trait": 0.8730447493712276
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "LR",
+      "n_facet": 36,
+      "cos_old_trait": 0.5542325886848705,
+      "cos_new_trait": 0.7904330345301438
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Creativity",
+      "method": "MD-proj",
+      "n_facet": 36,
+      "cos_old_trait": 0.5591938568635665,
+      "cos_new_trait": 0.7183265117112808
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "LR",
+      "n_facet": 34,
+      "cos_old_trait": 0.5035754178713107,
+      "cos_new_trait": 0.7278735955176612
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Inquisitiveness",
+      "method": "MD-proj",
+      "n_facet": 34,
+      "cos_old_trait": 0.5393585658265359,
+      "cos_new_trait": 0.8323243995097767
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "LR",
+      "n_facet": 35,
+      "cos_old_trait": 0.5908618983994958,
+      "cos_new_trait": 0.8087938349099466
+    },
+    {
+      "model": "Qwen",
+      "trait": "O",
+      "facet": "Unconventionality",
+      "method": "MD-proj",
+      "n_facet": 35,
+      "cos_old_trait": 0.625075838640156,
+      "cos_new_trait": 0.8060459255260348
+    }
+  ]
+}

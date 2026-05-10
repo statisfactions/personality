@@ -11,8 +11,8 @@ For each (model, trait), take all 50 training pair-diffs at ~2/3-depth layer
   - Participation ratio (effective # of dimensions)
 
 Output:
-  - results/within_trait_variance.html     — scree plots per model
-  - results/within_trait_variance.json     — raw numbers
+  - results/facets/within_trait_variance.html     — scree plots per model
+  - results/facets/within_trait_variance.json     — raw numbers
   - stdout summary table
 
 Usage:
@@ -201,11 +201,11 @@ def main():
         legend=dict(title="trait", orientation="h", y=-0.08, x=0.5, xanchor="center"),
     )
     suffix = "_stratified" if args.source == "stratified" else ""
-    out_html = Path(f"results/within_trait_variance{suffix}.html")
+    out_html = Path(f"results/facets/within_trait_variance{suffix}.html")
     fig.write_html(str(out_html))
     print(f"\nWrote {out_html}")
 
-    out_json = Path(f"results/within_trait_variance{suffix}.json")
+    out_json = Path(f"results/facets/within_trait_variance{suffix}.json")
     out_json.write_text(json.dumps(results, indent=2))
     print(f"Wrote {out_json}")
 

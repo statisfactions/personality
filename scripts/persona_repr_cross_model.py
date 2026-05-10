@@ -30,7 +30,7 @@ SUFFIX = "response-position"
 
 
 def load(model):
-    path = Path(f"results/persona_repr_mapping_{model}_{SUFFIX}.json")
+    path = Path(f"results/persona/persona_repr_mapping_{model}_{SUFFIX}.json")
     if not path.exists():
         return None
     with open(path) as f:
@@ -117,7 +117,7 @@ def main():
         print(f"  {t:5s}  {cross_r:>+20.3f}  {mean_rep_z:>+14.3f}  {ratio:>+8.3f}")
 
     # ----- Save -----
-    out_path = Path("results/persona_repr_cross_model.json")
+    out_path = Path("results/persona/persona_repr_cross_model.json")
     payload = {
         "models": models_present,
         "traits": TRAITS,

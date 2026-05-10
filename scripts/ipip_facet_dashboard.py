@@ -8,9 +8,9 @@ Single HTML page with three rows:
   3. Cross-model 7×7 cosine-matrix correlation heatmaps (one per
      instrument).
 
-Reads from `results/ipip_facet_cluster.json` (W8 §11) and
-`results/facet_cluster.json` (W7 §11.5.6 / §11.5.7-style HEXACO output).
-Outputs `results/ipip_facet_dashboard.html`.
+Reads from `results/facets/ipip_facet_cluster.json` (W8 §11) and
+`results/facets/facet_cluster.json` (W7 §11.5.6 / §11.5.7-style HEXACO output).
+Outputs `results/facets/ipip_facet_dashboard.html`.
 
 Usage:
     .venv/bin/python scripts/ipip_facet_dashboard.py
@@ -51,13 +51,13 @@ def cross_model_corr(per_model_matrices):
 
 
 def main():
-    ipip = load("results/ipip_facet_cluster.json")
-    hex_raw = load("results/facet_cluster.json")
+    ipip = load("results/facets/ipip_facet_cluster.json")
+    hex_raw = load("results/facets/facet_cluster.json")
     if ipip is None:
-        print("Missing results/ipip_facet_cluster.json")
+        print("Missing results/facets/ipip_facet_cluster.json")
         return
     if hex_raw is None:
-        print("Missing results/facet_cluster.json")
+        print("Missing results/facets/facet_cluster.json")
         return
 
     # Normalize HEXACO data to {model: entry}
@@ -229,7 +229,7 @@ def main():
                     xanchor="center", x=0.25),
     )
 
-    out = Path("results/ipip_facet_dashboard.html")
+    out = Path("results/facets/ipip_facet_dashboard.html")
     fig.write_html(str(out))
     print(f"Wrote {out}")
 

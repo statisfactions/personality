@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """2D visualization of facet directions (MDS on cosine distance) + PCA variance.
 
-Produces results/facet_cluster.html — 2x2 scatter with 4 models, color by
+Produces results/facets/facet_cluster.html — 2x2 scatter with 4 models, color by
 parent HEXACO trait. Hover shows facet name.
 
 Usage:
@@ -192,7 +192,7 @@ def main():
     if method != "md_proj": parts.append(method)
     if use_stratified: parts.append("stratified")
     suffix_ = "_" + "_".join(parts) if parts else ""
-    out = Path(f"results/facet_cluster{suffix_}.html")
+    out = Path(f"results/facets/facet_cluster{suffix_}.html")
     fig.write_html(str(out))
     print(f"Wrote {out}")
 
@@ -267,7 +267,7 @@ def main():
         ),
         height=600 * hm_rows, width=1400,
     )
-    hm_out = Path(f"results/facet_cosine_heatmap{suffix_}.html")
+    hm_out = Path(f"results/facets/facet_cosine_heatmap{suffix_}.html")
     hm.write_html(str(hm_out))
     print(f"Wrote {hm_out}")
 

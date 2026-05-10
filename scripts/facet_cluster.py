@@ -176,7 +176,7 @@ def main():
               f"{s['within_mean']:>+7.3f}  {s['across_mean']:>+7.3f}  "
               f"{s['nn_within_trait']:>2d}/{s['n_facets']}  {s['purity_6']:>8.3f}")
 
-    out = Path("results/facet_cluster.json")
+    out = Path("results/facets/facet_cluster.json")
     out.write_text(json.dumps({
         "summary": summary,
         "layer_used": {m: common_layer_cache[m] for m in MODELS},

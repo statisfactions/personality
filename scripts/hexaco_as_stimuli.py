@@ -10,10 +10,10 @@ model's chat template; activations averaged over content tokens (matches
 hidden_states_for_text(split_prefix=None, chat_template=True)).
 
 Output:
-    results/hexaco_as_stimuli_directions.json — 24×24 cosine matrices per
+    results/stimuli/hexaco_as_stimuli_directions.json — 24×24 cosine matrices per
         model + pairwise correlation between this matrix and the contrast-pair
         cosine matrix from facet_cluster.json.
-    results/hexaco_as_stimuli_heatmap.html — per-model heatmaps.
+    results/stimuli/hexaco_as_stimuli_heatmap.html — per-model heatmaps.
 
 Usage:
     PYTHONPATH=scripts .venv/bin/python scripts/hexaco_as_stimuli.py
@@ -236,7 +236,7 @@ def main():
         if device == "mps":
             torch.mps.empty_cache()
 
-    out_path = Path("results/hexaco_as_stimuli_directions.json")
+    out_path = Path("results/stimuli/hexaco_as_stimuli_directions.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(output, f, indent=2)
@@ -280,7 +280,7 @@ def main():
             title=dict(text="HEXACO-100 items as RepE stimuli — facet cosine similarity", x=0.5),
             height=600 * n_rows, width=1400,
         )
-        hm_path = Path("results/hexaco_as_stimuli_heatmap.html")
+        hm_path = Path("results/stimuli/hexaco_as_stimuli_heatmap.html")
         fig.write_html(str(hm_path))
         print(f"Wrote {hm_path}")
 

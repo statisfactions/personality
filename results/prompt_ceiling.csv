@@ -1,0 +1,21 @@
+model,repo,trait,condition,use_chat_template,system_content,high_pick_rate
+Llama,meta-llama/Llama-3.2-3B-Instruct,H,bare,False,<none>,0.625
+Llama,meta-llama/Llama-3.2-3B-Instruct,H,chat default,True,<none>,0.9375
+Llama,meta-llama/Llama-3.2-3B-Instruct,H,chat empty-sys,True,,0.9375
+Llama,meta-llama/Llama-3.2-3B-Instruct,H,chat +H persona,True,"You are a person who is honest, fair, modest, and genuine. Respond as such a person would.",0.9791666666666666
+Llama,meta-llama/Llama-3.2-3B-Instruct,H,chat -H persona,True,"You are a person who is manipulative, greedy, pretentious, and self-serving. Respond as such a person would.",0.0625
+Gemma,google/gemma-3-4b-it,H,bare,False,<none>,0.8541666666666666
+Gemma,google/gemma-3-4b-it,H,chat default,True,<none>,0.8958333333333334
+Gemma,google/gemma-3-4b-it,H,chat empty-sys,True,,0.8958333333333334
+Gemma,google/gemma-3-4b-it,H,chat +H persona,True,"You are a person who is honest, fair, modest, and genuine. Respond as such a person would.",1.0
+Gemma,google/gemma-3-4b-it,H,chat -H persona,True,"You are a person who is manipulative, greedy, pretentious, and self-serving. Respond as such a person would.",0.0
+Phi4,microsoft/Phi-4-mini-instruct,H,bare,False,<none>,0.875
+Phi4,microsoft/Phi-4-mini-instruct,H,chat default,True,<none>,0.8958333333333334
+Phi4,microsoft/Phi-4-mini-instruct,H,chat empty-sys,True,,0.875
+Phi4,microsoft/Phi-4-mini-instruct,H,chat +H persona,True,"You are a person who is honest, fair, modest, and genuine. Respond as such a person would.",0.9791666666666666
+Phi4,microsoft/Phi-4-mini-instruct,H,chat -H persona,True,"You are a person who is manipulative, greedy, pretentious, and self-serving. Respond as such a person would.",0.10416666666666667
+Qwen,Qwen/Qwen2.5-3B-Instruct,H,bare,False,<none>,0.9583333333333334
+Qwen,Qwen/Qwen2.5-3B-Instruct,H,chat default,True,<none>,1.0
+Qwen,Qwen/Qwen2.5-3B-Instruct,H,chat empty-sys,True,,1.0
+Qwen,Qwen/Qwen2.5-3B-Instruct,H,chat +H persona,True,"You are a person who is honest, fair, modest, and genuine. Respond as such a person would.",1.0
+Qwen,Qwen/Qwen2.5-3B-Instruct,H,chat -H persona,True,"You are a person who is manipulative, greedy, pretentious, and self-serving. Respond as such a person would.",0.125

@@ -62,9 +62,12 @@ mirt/
 
 # results/ — keep summary files (json/html/csv/png) shareable with collaborators,
 # ignore everything else (especially the multi-GB .pt activation caches under
-# phase_b_cache/, phase_b_cache_stratified/, repe/, and command-output .txt logs)
-results/*
-!results/*.json
-!results/*.html
-!results/*.csv
-!results/*.png
+# phase_b_cache/, phase_b_cache_stratified/, repe/, and command-output .txt logs).
+# Pattern: blanket-ignore recursively, then re-include directories so git can
+# traverse, then re-include shareable file types at any depth.
+results/**
+!results/**/
+!results/**/*.json
+!results/**/*.html
+!results/**/*.csv
+!results/**/*.png
