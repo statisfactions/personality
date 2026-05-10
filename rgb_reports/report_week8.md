@@ -365,7 +365,91 @@ Cohort reflow heatmaps available at `results/persona_repr_heatmap_ipip_reflowed_
 - `results/persona_w8_trajectory.html` — cohort mean rep + Likert across the 5 conditions (W7 → §3 raw → §4 raw → §5 raw → §5 reflow), with the matched gap shown as bars below. The rep recovers slowly across vocabulary-coupling strip-down; Likert drops; gap shrinks then partially recovers under reflow.
 - `results/persona_w8_per_model_gap.html` — per-model matched gap raw → reflow slope plot. Shows the heterogeneity directly: most models grow under reflow, Gemma 4B and Llama 3B shrink slightly, all converge into the +0.01 to +0.12 band. Cohort-mean diamond marker shows aggregate trajectory.
 
-## 9. Heatmaps and figures
+## 9. Facet-level cosine geometry — IPIP-NEO vs HEXACO
+
+The W7 §11.5.7 facet cluster work (HEXACO, single Qwen7) showed within-trait cosines ≈3× across-trait cosines and 6-cluster hierarchical purity well above chance — evidence that HEXACO trait categories partially survive at the facet level in residual-stream representations. W8 §9 extends this to: (1) the IPIP-NEO 30-facet structure with parallel methodology; (2) the full 7-model cohort for both instruments; (3) cross-model agreement on the resulting 30×30 / 24×24 cosine matrices.
+
+Goal: probe the chunking-granularity hypothesis (`to_try.md` #18 — Big Five categories may over-aggregate model-natural primitives). If model representations carve up trait space differently from how IPIP-NEO does, the IPIP 30-facet decomposition should give weaker cluster purity than HEXACO's 24-facet decomposition. Conversely, if the underlying facet geometry is invariant across instruments, we'd expect comparable structure.
+
+### 9.1. Methodology
+
+For HEXACO (`scripts/facet_cluster.py`, W7 §11.5.7-style): per facet, mean(high-pole holdout pair) − mean(low-pole holdout pair) at common_layer (~2/3 depth), neutral-PC-projected at 50% variance, unit-normed. 24 directions per model (6 traits × 4 facets).
+
+For IPIP-NEO 300 (`scripts/ipip_facet_cluster.py`, new): per facet, mean(forward-keyed item activations) − mean(reverse-keyed item activations) at common_layer, same neutral-PC recipe, unit-normed. 30 directions per model (5 traits × 6 facets, 10 items per facet, with 12 deny-listed and 2 typo-fixed per `instruments/ipip300_annotations.json`).
+
+Per-model analysis (parallel for both instruments): N×N cosine matrix, within-trait vs across-trait mean cosine, nearest-neighbor within-trait %, hierarchical clustering (average linkage on 1−cos distance) cut at 5 clusters (IPIP) or 6 (HEXACO) with purity scoring.
+
+### 9.2. Per-model facet structure
+
+| Model | IPIP within | IPIP across | NN-within | 5-clust purity | HEX within | HEX across | NN-within | 6-clust purity |
+|---|---|---|---|---|---|---|---|---|
+| Gemma 4B  | +0.163 | +0.027 | 16/30 | 0.533 | +0.205 | +0.033 | 15/24 | 0.583 |
+| Llama 3B  | +0.135 | +0.027 | 17/30 | 0.533 | +0.188 | +0.041 | 17/24 | 0.542 |
+| Phi4-mini | +0.115 | +0.036 | 12/30 | 0.500 | +0.168 | +0.040 | 17/24 | 0.625 |
+| Qwen 3B   | +0.169 | +0.029 | 15/30 | 0.533 | +0.202 | +0.048 | 15/24 | 0.583 |
+| Gemma 12B | +0.166 | +0.023 | 15/30 | 0.533 | +0.221 | +0.040 | 16/24 | 0.667 |
+| Llama 8B  | +0.128 | +0.026 | 16/30 | 0.533 | +0.191 | +0.045 | 17/24 | 0.542 |
+| Qwen 7B   | +0.193 | +0.029 | 15/30 | 0.533 | +0.236 | +0.059 | 16/24 | 0.542 |
+| **Cohort** | **+0.153** | **+0.028** | **15.1/30 (50%)** | **0.527** | **+0.202** | **+0.044** | **16.1/24 (67%)** | **0.583** |
+| Chance | | | 5/29 ≈ 17% | 0.200 | | | 3/23 ≈ 13% | 0.167 |
+
+Findings:
+
+- **Within/across cosine ratio is slightly higher on IPIP than HEXACO** (5.5× cohort vs 4.6× cohort). The pairwise categorical signal — within-trait cosine systematically exceeding across-trait cosine — is *stronger* on IPIP per-pair, not weaker.
+- **Discrete clustering metrics favor HEXACO.** NN-within: 67% vs 50% (∼5× chance vs ∼3× chance). 6-cluster purity 0.58 vs 5-cluster purity 0.53. Despite IPIP's stronger per-pair signal, HEXACO's facets land in the right cluster more reliably; IPIP's within-trait signal is more diffusely distributed across its 6 facets per trait, so a given facet's nearest neighbor isn't reliably another in-trait facet.
+- **Qwen 7B has the sharpest facet structure on both instruments** (IPIP within +0.193, HEXACO within +0.236 — both cohort high). Connects to W8 §6's Qwen-family "indifferent" matched gap finding and §7.2's Qwen-specific post-training observation: Qwen 7B's residual stream may encode personality-relevant directions more sharply than other model families do.
+- **Phi4 has the weakest within-trait cosine on both instruments** (IPIP +0.115, HEXACO +0.168). But Phi4's HEXACO 6-clust purity (0.625) is actually high; small absolute differences in within-trait cosine can still produce sharp clusters when across-trait cosine is also low. Consistent with W7 §11.5.9's "different coding axes" finding for Phi4 — Phi4 isn't categorically worse, it's geometrically different.
+
+### 9.3. Cross-model agreement
+
+For each instrument, flatten the per-model upper-triangle cosine matrix (435 entries for IPIP, 276 for HEXACO) and compute pairwise Pearson r across the 7 cohort models.
+
+| Pair | IPIP r | HEXACO r |
+|---|---|---|
+| highest pair | Gemma–Gemma12 (+0.979) | Llama–Llama8 (+0.974) |
+| lowest pair | Phi4–Qwen7 (+0.867) | Phi4–Gemma12 (+0.885) |
+| **cohort mean off-diag r** | **+0.939** | **+0.933** |
+
+Per-model mean pairwise r:
+
+| Model | IPIP r | range | HEXACO r | range |
+|---|---|---|---|---|
+| Gemma 4B  | +0.944 | +0.916 to +0.979 | +0.933 | +0.904 to +0.963 |
+| Llama 3B  | +0.951 | +0.932 to +0.976 | +0.944 | +0.930 to +0.974 |
+| Phi4-mini | **+0.914** | +0.867 to +0.938 | **+0.923** | +0.885 to +0.948 |
+| Qwen 3B   | +0.943 | +0.924 to +0.960 | +0.924 | +0.886 to +0.943 |
+| Gemma 12B | +0.946 | +0.905 to +0.979 | +0.924 | +0.885 to +0.963 |
+| Llama 8B  | +0.948 | +0.922 to +0.976 | +0.948 | +0.939 to +0.974 |
+| Qwen 7B   | +0.929 | +0.867 to +0.954 | +0.932 | +0.912 to +0.946 |
+
+Findings:
+
+- **Cross-architecture agreement on facet-level geometry is essentially equal across instruments** (IPIP r=+0.939 vs HEXACO r=+0.933). Whatever geometric structure the models recover at the facet level is highly architecture-agnostic, regardless of whether the items come from a Big Five (IPIP-NEO) or HEXACO instrument.
+- **Replicates the W7 §8.4 cross-architecture preservation finding at facet granularity.** W7 §8.4 found cross-architecture cosine-matrix r=0.93–0.99 within-stimulus-type for Goldberg markers, HEXACO contrast pairs, and IPIP Likert items at trait granularity. The result extends down to facet-level for both instruments — same magnitude, no degradation with finer granularity.
+- **Same-family pairs agree most strongly:** Gemma–Gemma12 (+0.979 on IPIP, +0.963 on HEXACO), Llama–Llama8 (+0.976 on IPIP, +0.974 on HEXACO). Architecture family is a real but small contributor to cosine geometry alignment; the cross-family floor is ~+0.87.
+- **Phi4 is the cross-model outlier on both instruments** (mean r=+0.914 IPIP, +0.923 HEXACO — lowest per-model agreement on both). Reinforces W7 §11.5.9 and W8 §6.2's "different coding axes" finding for Phi4. Phi4 has no same-family partner in the cohort, which contributes to but doesn't fully explain the gap (Qwen 3B and Qwen 7B also lack family partners with very different sizes and pair fine).
+
+### 9.4. Implications for the chunking-granularity hypothesis (#18)
+
+The hypothesis from `to_try.md` #18 (and W7 §11.5.7) was: if Big Five categories over-aggregate model-natural primitives, IPIP-style decompositions should show messier facet structure than HEXACO's.
+
+The W8 §9 evidence is mixed:
+
+- **Within-trait cosine signal is slightly stronger on IPIP** per pair — contradicts a strong chunking-mismatch story at the pairwise level.
+- **Discrete clustering metrics favor HEXACO.** Consistent with a chunking-mismatch reading *if* we interpret it as IPIP's 6-facet structure spreading the trait signal more thinly than HEXACO's 4-facet structure. But could equally well reflect: (a) more facets per trait in IPIP (6 vs 4) means more pairs to potentially fall outside the in-trait bucket; (b) HEXACO's facet design was tighter from the start (24 facets across 6 traits vs 30 across 5).
+- **Cross-model agreement is equal on both instruments.** This is the cleanest finding: whatever geometric structure exists is stable across architectures regardless of the instrument that framed it. Consistent with a shared underlying trait geometry that lives below the instrument level — model representations don't strongly "prefer" IPIP-NEO's 30-facet decomposition over HEXACO's 24-facet decomposition; both recover comparable structure.
+
+**The chunking-granularity hypothesis isn't strongly supported nor strongly rejected at the cosine-geometry level.** What the data does show is that IPIP-NEO and HEXACO behavioral items produce facet directions whose pairwise geometry agrees across architectures and is statistically well above chance (within > across cosine, NN-within and cluster purity well above 1/k baseline), but with the IPIP signal more diffuse at the discrete-clustering level. The cleaner cluster purity on HEXACO may reflect HEXACO's facet design rather than a failure of Big Five to chunk model-natural primitives.
+
+A direct test of chunking would substitute per-facet directions for per-trait directions in §5's persona z-recovery setup: do facet-level directions recover persona facet z's better than trait-level directions recover persona trait z's? And do model-discovered clusters at the facet level recombine into something other than trait labels? Neither was tested in W8 §9 (which only inspects the cosine-internal structure of facet directions, not their utility for downstream readouts) — left for later.
+
+### 9.5. Visualizations
+
+- `results/ipip_facet_dashboard.html` — single-page reading-group dashboard. 3 rows: per-model within-vs-across cosine bars (IPIP and HEXACO side-by-side); per-model NN-within-% + cluster purity bars (5-cluster IPIP vs 6-cluster HEXACO); cross-model 7×7 cosine-matrix correlation heatmaps with mean off-diag r in subplot titles.
+- `results/ipip_facet_cross_model_heatmap.html` — cross-model 7×7 heatmaps only, larger.
+- `results/ipip_facet_cluster.json` and `results/facet_cluster.json` — per-model summaries with full cosine matrices, used by both the dashboard and the cross-model script.
+
+## 10. Heatmaps and figures
 
 All figures in `results/`. HTML — open in a browser.
 
@@ -388,13 +472,13 @@ All figures in `results/`. HTML — open in a browser.
 
 To regenerate: `scripts/persona_repr_heatmap.py --variant {markers, ipip_raw, ipip_raw_target_ipip, ipip_full}`.
 
-## 10. Next steps
+## 11. Next steps
 
 In rough order of value:
 
-1. **Per-facet rep direction extraction.** Direct test of the chunking hypothesis (to_try #18). Build per-facet directions instead of per-trait; check whether the cross-stimulus failure improves at facet granularity, and whether N's facet directions cohere or fragment. The cohort §5 result shows N is the trait most affected by direction-source choice (Gemma 4B 0.785 → 0.803, but Qwen 7B 0.552 → 0.447, Qwen 3B 0.364 → 0.335) — facet-level analysis should clarify whether N is genuinely heterogeneous or just unstably extracted.
+1. **Per-facet rep direction × persona z-recovery.** §9 built per-facet directions and inspected their internal cosine geometry (within/across, NN, cluster purity, cross-model). What §9 did *not* do: substitute per-facet directions for per-trait directions in §5's persona z-recovery setup. The direct chunking-hypothesis test is whether per-facet directions recover persona facet z's better than per-trait directions recover persona trait z's, and whether the §5 N-with-IPIP-dirs problem (Qwen 7B 0.552 → 0.447) is explained by facet-level heterogeneity that aggregating-to-trait obscures. §9.4 sketches the design.
 
-2. **Cohort reflow extension.** Run the §8 reflow ablation on the other 6 cohort models. Tests whether the per-model regimes (pro-Likert / indifferent / pro-rep) are reflow-stable. Particularly interesting: does Llama 8B's "pro-rep" gap (−0.028) survive reflow, or does rep recover further and tip even more toward rep?
+2. **Reflow other-set + content-preservation check.** §8.2 covered the full 7-model cohort on the 50 pilot personas (seed=42). What's left: scale reflow to the remaining 350 personas in `synthetic_personas_ipip.json` if any analyses need them; add a Claude-as-judge content-preservation pass to validate Sonnet's reflows item-by-item (deferred from §8.7 / old #6). Probably only needed if a downstream analysis uses reflowed prose more centrally.
 
 3. **Layer sweep.** Both readouts at common_layer (~2/3 depth). The right layer for behavioral-form readouts may differ. Worth a small ablation over 5-7 layers around the chosen one. Could explain Llama 8B's pro-rep result if rep is naturally cleaner at a different depth on that architecture.
 
@@ -402,16 +486,18 @@ In rough order of value:
 
 5. **Headline visualization.** A multi-panel figure showing the four conditions × reflow × 5 traits × 7 models would be useful for the reading group. Currently the data lives across many HTML heatmaps; a single comparison plot (mean diagonal r per condition, faceted by model or trait) would be the headline figure for W8.
 
-6. **Tighter reflow content-preservation check.** The current reflow trusts Sonnet to preserve content; we don't have an automated check. Could add a Claude-as-judge step that rates reflowed prose on whether each input statement is faithfully expressed. Mostly a methodology improvement; the W8 finding probably survives without it given how stable §5 reflowed → raw was (+0.067 vs +0.047).
+6. **Single-direction representations (W9).** Drop the contrast subtraction (mean(fwd)−mean(rev)) and use single-pole projections directly, with both zero baseline and neutral-text baseline. Open question whether contrast extraction was removing useful signal or removing noise; relevant to facet-level chunking analysis (§9) since the choice of baseline will shift cosine geometry.
 
-## 11. Status
+## 12. Status
 
 Commits:
 - `ad0296d` — IPIP composer pipeline (annotations, composer script, methodology note, 400-persona output)
 - `461fd81` — §3 wiring + Qwen7 §3 result
 - `b7335eb` — §4/§5 wiring + Qwen7 §4/§5 + cohort §3 rep + heatmap-script variants + report §3-§7 expansion
 - `347e0a6` — cohort §4 Likert + cohort §5 rep + report §6 cohort sweep + §0/§7/§8/§9 updates
-- (this commit) — Sonnet reflow pipeline + Qwen7 reflow ablation + report §8 reflow section + ipip_reflowed wired into rep+Likert scripts
+- `dbb686a` — Sonnet reflow pipeline + Qwen7 reflow ablation + report §8 reflow section + ipip_reflowed wired into rep+Likert scripts + W8 reframing as vocabulary-bound rep
+- `661008f`/`fde777a`/`5c62d96` — bibliography updates (Wu et al. 2026, Basu et al. 2026, Mahowald et al. 2024) + cross-link to lit_review_steering_vectors.md
+- `b665ec5` — W8 §9 facet-level cosine geometry: IPIP-NEO + HEXACO cohort + dashboard (this section)
 
 Result files (gitignored, regenerable):
 - `persona_repr_mapping_<MODEL>_response-position_ipip_raw.json` — §3 cohort rep (7 models)
@@ -419,5 +505,8 @@ Result files (gitignored, regenerable):
 - `persona_instrument_response_<MODEL>_ipip_raw_target-ipip.json` — §4 cohort Likert (7 models)
 - `persona_repr_mapping_Qwen7_response-position_ipip_reflowed*.json` — §8 reflow rep (Qwen7)
 - `persona_instrument_response_Qwen7_ipip_reflowed*.json` — §8 reflow Likert (Qwen7)
+- `ipip_facet_cluster.json`, `facet_cluster.json` — §9 per-model facet cosine matrices (cohort, both instruments)
+- `ipip_facet_cross_model.json` — §9 cross-model cosine-matrix correlations (IPIP + HEXACO)
+- `ipip_facet_dashboard.html`, `ipip_facet_cross_model_heatmap.html` — §9 reading-group figures
 
 One sentence for the reading group: "The W7 §11.5.10 cohort +0.144 'Likert beats Rep' gap was substantially a vocabulary-coupling artifact across three Goldberg channels (persona description, rating target, rep direction extraction) plus a stilted-prose penalty on rep specifically; stripping all of these on Qwen 2.5 7B reduces the gap to +0.067, and the cohort matched-condition gap (+0.052 mean) confirms the picture across 7 models with model-level variation including Llama 8B as a counterexample (rep beats Likert, −0.028) — suggesting the symbolic-vs-associative dissociation is real but small, contingent on post-training recipe, and not a universal property of LLM personality processing."
