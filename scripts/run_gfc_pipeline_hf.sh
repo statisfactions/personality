@@ -13,7 +13,7 @@
 # Outputs:
 #   psychometrics/gfc_tirt/<MODEL>_gfc30_hf_<FORM>.json   (raw inference)
 #   psychometrics/gfc_tirt/<MODEL>_gfc30_hf_<FORM>_indep_fit.rds
-#   results/persona_gfc_tirt_<MODEL>_<FORM>.json          (recovery sidecar)
+#   results/persona/persona_gfc_tirt_<MODEL>_<FORM>.json  (recovery sidecar)
 #   results/persona_w8_trajectory.html                    (replot)
 #
 # Resume-safe: HF script checkpoints every 200 prompts; R fitter overwrites
