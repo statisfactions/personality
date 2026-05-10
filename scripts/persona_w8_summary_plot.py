@@ -37,21 +37,35 @@ MODEL_COLORS = {
 TRAITS = ["A", "C", "E", "N", "O"]
 
 # Result file patterns by (condition, mode)
+#
+# TIRT/GFC has only persona-side vocabulary coupling (no rating-target or
+# direction-extraction step). So the 5 trajectory x-positions collapse to
+# 3 distinct GFC values per model, keyed by persona form:
+#   description (Goldberg)  — used at W7
+#   ipip_raw                — used at §3 raw, §4 raw, §5 raw
+#   ipip_reflowed           — used at §3 reflow, §5 reflow
 PATTERNS = {
     ("W7", "rep"):           "results/persona/persona_repr_mapping_{m}_response-position.json",
     ("W7", "likert"):        "results/persona/persona_instrument_response_{m}.json",
+    ("W7", "tirt"):          "results/persona/persona_gfc_tirt_{m}_description.json",
     ("§3 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw.json",
     ("§3 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw.json",  # Qwen7 only
+    ("§3 raw", "tirt"):      "results/persona/persona_gfc_tirt_{m}_ipip_raw.json",
     ("§3 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
     ("§3 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed.json",  # cohort
+    ("§3 reflow", "tirt"):   "results/persona/persona_gfc_tirt_{m}_ipip_reflowed.json",
     ("§4 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw.json",  # same as §3 raw
     ("§4 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw_target-ipip.json",
+    ("§4 raw", "tirt"):      "results/persona/persona_gfc_tirt_{m}_ipip_raw.json",
     ("§4 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed.json",
     ("§4 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
+    ("§4 reflow", "tirt"):   "results/persona/persona_gfc_tirt_{m}_ipip_reflowed.json",
     ("§5 raw", "rep"):       "results/persona/persona_repr_mapping_{m}_response-position_ipip_raw_dir-ipip.json",
     ("§5 raw", "likert"):    "results/persona/persona_instrument_response_{m}_ipip_raw_target-ipip.json",  # same as §4 raw
+    ("§5 raw", "tirt"):      "results/persona/persona_gfc_tirt_{m}_ipip_raw.json",
     ("§5 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed_dir-ipip.json",
     ("§5 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
+    ("§5 reflow", "tirt"):   "results/persona/persona_gfc_tirt_{m}_ipip_reflowed.json",
 }
 
 # Trajectory conditions: all-cohort means. §3 raw dropped from the trajectory
@@ -97,11 +111,13 @@ def load_diag_mean(path):
 def collect_means():
     """Return {condition: {mode: {model: mean_r or None}}}."""
     out = {}
-    # Collect for all conditions in the patterns dict, not just the trajectory.
     all_conds = sorted({c for (c, _) in PATTERNS.keys()})
+    all_modes = sorted({m for (_, m) in PATTERNS.keys()})
     for cond in all_conds:
-        out[cond] = {"rep": {}, "likert": {}}
-        for mode in ("rep", "likert"):
+        out[cond] = {mode: {} for mode in all_modes}
+        for mode in all_modes:
+            if (cond, mode) not in PATTERNS:
+                continue
             for m in MODELS:
                 path = PATTERNS[(cond, mode)].format(m=m)
                 out[cond][mode][m] = load_diag_mean(path)
@@ -114,9 +130,17 @@ def cohort_mean(d):
 
 
 def make_trajectory_figure(data):
-    """Cohort mean r per condition for rep + Likert, with gap shading."""
+    """Cohort mean r per condition for rep + Likert + TIRT/GFC, with gap shading.
+
+    The TIRT line collapses across the §3/§4/§5 raw triple (one IPIP-raw
+    persona run feeds all three) and across §3/§5 reflow (one IPIP-reflow
+    persona run feeds both), producing visible step-segments where Rep and
+    Likert vary continuously.
+    """
     rep_means = [cohort_mean(data[c]["rep"]) for c in CONDITIONS_TRAJECTORY]
     lik_means = [cohort_mean(data[c]["likert"]) for c in CONDITIONS_TRAJECTORY]
+    tirt_means = [cohort_mean(data[c].get("tirt", {}))
+                  for c in CONDITIONS_TRAJECTORY]
     gaps = [(l - r) if (l is not None and r is not None) else None
             for l, r in zip(lik_means, rep_means)]
 
@@ -153,6 +177,22 @@ def make_trajectory_figure(data):
         hovertemplate="<b>%{x}</b><br>Likert r = %{y:+.3f}<br>%{customdata}<extra></extra>",
         customdata=tooltips,
     ), row=1, col=1)
+    # GFC/TIRT line — only renders if any cohort means resolved (i.e., the
+    # 21-run inference + TIRT fit pipeline has been executed).
+    if any(v is not None for v in tirt_means):
+        fig.add_trace(go.Scatter(
+            x=x_labels, y=tirt_means,
+            mode="lines+markers+text",
+            text=[f"{v:.3f}" if v is not None else "" for v in tirt_means],
+            textposition="top center", textfont=dict(size=10, color="#4daf4a"),
+            name="TIRT/GFC r",
+            line=dict(color="#4daf4a", width=3, dash="dash", shape="hv"),
+            marker=dict(size=10),
+            hovertemplate="<b>%{x}</b><br>TIRT/GFC r = %{y:+.3f}<br>"
+                          "(GFC has no readout-side coupling — value is "
+                          "shared across §3/§4/§5 raw and across §3/§5 "
+                          "reflow)<extra></extra>",
+        ), row=1, col=1)
 
     # Bottom: gap bars
     fig.add_trace(go.Bar(

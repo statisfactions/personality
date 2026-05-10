@@ -1,13 +1,19 @@
 #!/usr/bin/env Rscript
-# Fit the Okada-Appendix-D-exact TIRT (results/tirt_okada_indep.stan) to one
-# model's GFC-30 responses.
+# Fit the Okada-Appendix-D-exact TIRT
+# (psychometrics/gfc_tirt/tirt_okada_indep.stan) to one model's GFC-30
+# responses, and emit a sidecar JSON with per-trait diagonal recovery r in
+# the shape persona_w8_summary_plot.py consumes.
 #
 # Differences vs fit_tirt_okada.R:
 #   - Uses tirt_okada_indep.stan (independent theta prior, Okada priors)
 #   - No Omega in output (model doesn't estimate it)
 #
 # Usage:
-#   Rscript results/fit_tirt_okada_indep.R <responses.json> <output.rds> [n_personas] [iter] [chains]
+#   Rscript psychometrics/gfc_tirt/fit_tirt_okada_indep.R \
+#       <responses.json> <output.rds> [n_personas] [iter] [chains] [recovery.json]
+#
+# If <recovery.json> is omitted, derives results/persona_gfc_tirt_<basename>.json
+# from <responses.json>.
 
 suppressMessages({
   library(rstan)
@@ -25,8 +31,21 @@ output_path    <- args[2]
 n_personas     <- if (length(args) >= 3) as.integer(args[3]) else 50L
 n_iter         <- if (length(args) >= 4) as.integer(args[4]) else 700L  # Okada: 200 warmup + 500 sampling
 n_chains       <- if (length(args) >= 5) as.integer(args[5]) else 4L
+recovery_path  <- if (length(args) >= 6) args[6] else {
+  # Derive recovery JSON path to match what scripts/persona_w8_summary_plot.py
+  # consumes: results/persona/persona_gfc_tirt_<MODEL>_<FORM>.json.
+  # (results/ was reorganized into subdirs in commit 96c5cd1; the persona
+  # track lives in results/persona/.)
+  # Inputs from scripts/run_gfc_hf.py are named:
+  #   psychometrics/gfc_tirt/<MODEL>_gfc30_hf_<FORM>.json
+  # → strip "_gfc30_hf" so the basename becomes "<MODEL>_<FORM>".
+  # Other inputs (e.g. existing Orin runs) pass through unchanged.
+  base <- tools::file_path_sans_ext(basename(responses_path))
+  base <- sub("_gfc30_hf", "", base, fixed = TRUE)
+  file.path("results", "persona", paste0("persona_gfc_tirt_", base, ".json"))
+}
 
-stan_file <- "results/tirt_okada_indep.stan"
+stan_file <- "psychometrics/gfc_tirt/tirt_okada_indep.stan"
 if (!file.exists(stan_file)) stop("Stan file missing: ", stan_file)
 
 message("Stan model: ", stan_file)
@@ -148,3 +167,21 @@ high_rhat <- sum(diagnostics[, "Rhat"] > 1.05, na.rm = TRUE)
 low_neff  <- sum(diagnostics[, "n_eff"] < 100, na.rm = TRUE)
 message(sprintf("\nConvergence: %d Rhat>1.05, %d n_eff<100",
                 high_rhat, low_neff))
+
+# Sidecar JSON in the shape persona_w8_summary_plot.py consumes.
+# Note: signed r. Okada-indep model has a known {A, C} sign-flip on some
+# models (see ecb-reports/okada_pooled_replication.md) — those entries can
+# come back negative. Cohort-mean trajectory plotting accepts that; for a
+# sign-stable variant fit tirt_okada_marker.stan instead.
+dir.create(dirname(recovery_path), showWarnings = FALSE, recursive = TRUE)
+write(jsonlite::toJSON(list(
+  diagonal_correlations     = as.list(round(recovery, 6)),
+  abs_diagonal_correlations = as.list(round(abs(recovery), 6)),
+  n_personas                = N,
+  n_high_rhat               = unname(high_rhat),
+  n_low_neff                = unname(low_neff),
+  responses_path            = responses_path,
+  fit_rds                   = output_path,
+  stan_model                = stan_file
+), auto_unbox = TRUE, pretty = TRUE), recovery_path)
+message("Recovery JSON: ", recovery_path)
