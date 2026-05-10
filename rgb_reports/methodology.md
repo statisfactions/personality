@@ -26,7 +26,7 @@ Each approach measures a different construct (see "Three Constructs" in `reports
   - `--variants` — run 4 prompt phrasings for ICC reliability analysis
   - `--items N` — limit to first N items for quick tests
 - **Backend**: HuggingFace Transformers via `scripts/hf_logprobs.py`. Replaces the Ollama `/api/generate` path used in weeks 1–6.
-- **Output**: `results/surveys/<model>_ipip300.json` (single variant), `results/surveys/<model>_variants.json` (with prompt variants)
+- **Output**: `results/surveys/<model>_ipip300.json` (multi-variant data embedded inline when `--variants` is used; no separate `_variants.json` file)
 - **Measures collected**: argmax, expected value (EV), Shannon entropy, full probability distribution over {1,2,3,4,5}
 
 ### HEXACO-100
@@ -39,7 +39,7 @@ Each approach measures a different construct (see "Three Constructs" in `reports
 - **Script**: `scripts/run_hexaco.py`
   - Same flags as `run_ipip300.py`
   - Requires `PYTHONPATH=scripts` to import shared functions (`hf_logprobs`, `run_ipip300`)
-- **Output**: `results/surveys/<model>_hexaco100.json`, `results/surveys/<model>_hexaco100_variants.json`
+- **Output**: `results/surveys/<model>_hexaco100.json` (multi-variant data embedded inline; no separate `_variants.json` file)
 - **Measures collected**: Same as IPIP-300
 
 ### HEXACO-60 (shorter version)
