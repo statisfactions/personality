@@ -59,3 +59,12 @@ CLAUDE.md
 # Other local context
 local/
 mirt/
+
+# results/ — keep summary files (json/html/csv/png) shareable with collaborators,
+# ignore everything else (especially the multi-GB .pt activation caches under
+# phase_b_cache/, phase_b_cache_stratified/, repe/, and command-output .txt logs)
+results/*
+!results/*.json
+!results/*.html
+!results/*.csv
+!results/*.png
