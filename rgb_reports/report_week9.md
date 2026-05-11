@@ -170,16 +170,43 @@ For each model × extraction method, we compute Pearson r between the model's 30
 
 - **Models recover human facet covariance via contrast extraction.** Cohort r=+0.564 under `meandiff-pcs`. Every cohort model has r ≥ +0.44 with the human matrix; six of seven have r ≥ +0.51. This is direct evidence that the cross-architecture-preserved component of trait geometry IS the human-aligned one. Training data does encode the empirical Big Five facet structure, and models pick it up consistently across the 3B–12B scale range we've sampled.
 - **Contrast extraction is what reveals this alignment.** The three anisotropy-degenerate methods show only weak alignment (r ≈ +0.12 to +0.18 cohort) — their geometries are dominated by residual-stream anisotropy, which has no Big-Five-aligned structure to speak of.
-- **Single-ipip-mean has *heterogeneous* alignment** (cohort r=+0.326, range +0.06 to +0.62). Three models — Phi4 (+0.540), Qwen (+0.617), Llama8 (+0.434) — show alignment that's nearly as strong as their contrast-extraction alignment. Three others — Gemma (+0.149), Gemma12 (+0.095), Qwen7 (+0.059) — drop to near zero. The same models that have low cross-model agreement with the rest of the cohort under single-ipip-mean (§6) also have low human-alignment under single-ipip-mean. Geographical/family structure: Gemma family + Qwen7 cluster together at low single-ipip-mean human-alignment; Llama family + Phi4 + Qwen (3B) cluster at higher alignment.
+- **Single-ipip-mean has *heterogeneous* alignment** (cohort r=+0.326, range +0.06 to +0.62). Three models — Phi4 (+0.540), Qwen (+0.617), Llama8 (+0.434) — show alignment that's nearly as strong as their contrast-extraction alignment. Three others — Gemma (+0.149), Gemma12 (+0.095), Qwen7 (+0.059) — drop to near zero. The same models that have low cross-model agreement with the rest of the cohort under single-ipip-mean (§6) also have low human-alignment under single-ipip-mean. Geographical/family structure: Gemma family + Qwen7 cluster together at low single-ipip-mean human-alignment; Llama family + Phi4 + Qwen (3B) cluster at higher alignment. §7.3 traces this heterogeneity to incomplete anisotropy cancellation, not to real model-specific structure.
 - **The W8 §9 +0.94 cross-architecture preservation reframes as a "shared with humans" finding.** Under meandiff-pcs: models agree with each other at +0.94 mean, and agree with humans at +0.56 mean. Both numbers are about the same robust axis of trait geometry. The +0.94 model-model is higher than +0.56 model-human because models share architectural/training similarities humans don't; but the model-human residual is still substantial.
 
-### 7.3. Synthesis
+### 7.3. Why single-ipip-mean fails on Gemma family + Qwen7: anisotropy residue
+
+rgb's hypothesis (2026-05-10): Gemma's huge activation norms (CLAUDE.md notes "norms from 50 to 63,000 across Gemma3's 34 layers") might be what's making single-ipip-mean weird for that family. Diagnostic confirms this — and finds the same shape on Qwen7 for a different reason.
+
+For each cohort model at its common_layer, we measured: (a) the norm of the IPIP-centroid baseline `mean(all 288 IPIP items)`; (b) the median norm of per-facet deviation vectors `mean(fwd_facet) − ipip_centroid`; (c) the median absolute cosine of each deviation vector with the IPIP-centroid direction — i.e. how much of the residual "deviation" still points along the anisotropy axis after centroid subtraction.
+
+| Model | norm(IPIP centroid) | median norm(deviation) | median \|cos(dev, centroid)\| | r vs human (single-ipip-mean) |
+|---|---:|---:|---:|---:|
+| Gemma 4B   | **59,996** | 1,158.78 | **0.680** | +0.149 |
+| Gemma 12B  | **116,823** | 2,505.63 | **0.786** | +0.095 |
+| Qwen 7B    | 492 | 7.93 | **0.847** | +0.059 |
+| Llama 3B   | 22 | 0.77 | 0.324 | +0.389 |
+| Llama 8B   | 16 | 0.65 | 0.243 | +0.434 |
+| Phi4-mini  | 76 | 11.44 | 0.079 | +0.540 |
+| Qwen 3B    | 48 | 3.26 | 0.059 | +0.617 |
+
+Two failure modes share a symptom (high `|cos(dev, centroid)|`) but with different mechanisms:
+
+- **Gemma family — extreme anisotropy magnitude.** IPIP-centroid norm is 60k / 117k at common_layer, vs 16–492 for every other model. Gemma's pre-norm transformer compounds residual-stream norms exponentially through depth (Heimersheim & Turner 2023; Peri-LN paper for Gemma specifically). At common_layer (~2/3 depth), the centroid is huge, and the per-facet deviation `fwd_mean − centroid` carries ~68–79% of its magnitude back along the centroid direction. Unit-norming this deviation yields a direction dominated by leftover anisotropy, not trait content.
+- **Qwen7 — extreme anisotropy *alignment*.** Centroid norm is only 492 (modest, comparable to Phi4 and Qwen), but median \|cos(dev, centroid)\| is the highest in the cohort at 0.847. Qwen7's per-facet IPIP activations all sit on a thin spike around the centroid; the deviations mostly point along the same axis the centroid does. Subtracting a rank-1 mean isn't enough to escape the shared spike.
+
+There's a clean rank correspondence across the cohort: cos(deviation, centroid) negatively predicts human alignment under single-ipip-mean. Spearman ρ between the two columns is approximately −0.93 — almost monotone. Models where the deviation IS orthogonal to the centroid direction (Phi4 at 0.079, Qwen at 0.059) get clean trait-relevant directions and high human alignment; models where it isn't (Gemma family, Qwen7) get directions dominated by residual anisotropy.
+
+**Implication.** The W9 §1 finding "single-ipip-mean reveals a small-magnitude model-specific subspace orthogonal to anisotropy" was overstated for Gemma family + Qwen7. For those models, what `single-ipip-mean` reveals is mostly an *extraction failure* — leftover anisotropy bleed-through that wasn't cancelled by the rank-1 centroid subtraction — not real model-specific structure. For Phi4, Qwen (3B), and Llama family, the picture from §1 stands: single-ipip-mean is recovering meaningful structure that genuinely differs from contrast extraction's view.
+
+A cleaner matched-baseline method for the high-anisotropy models would project out the IPIP-centroid direction explicitly (rather than just subtracting it) before unit-norming — or use a richer subspace projection (e.g., top PCs of forward-pole items). Left for after the next reading group.
+
+### 7.4. Synthesis
 
 This settles the user's question. Cross-architecture preservation isn't just an artifact of structural similarity between transformers — it's at least partly an artifact of all models being trained on text that encodes the empirical Big Five facet structure. The +0.56 model-human r under contrast extraction is approximately *the* signal that's preserved across architectures: training data → models learn human facet covariance → all models converge on similar facet geometries → cross-architecture r ≈ +0.94 with that signal as the shared anchor.
 
-What's NOT in the human-aligned signal is the additional structure single-ipip-mean reveals: a small-magnitude, model-specific, anisotropy-orthogonal subspace whose geometry doesn't match human facet covariance and isn't preserved across architectures. This is plausibly what differentiates models' personality representations from each other — post-training recipe, tokenizer artifacts, model-specific anisotropy structure. It's real geometric content but not "trait" in the human sense.
+What single-ipip-mean ADDS to that picture is real for some models (Phi4, Qwen 3B, Llama family) and extraction-artifact for others (Gemma family, Qwen7; see §7.3). Where it's real, it reveals a small-magnitude, model-specific, anisotropy-orthogonal subspace whose geometry doesn't match human facet covariance and isn't preserved across architectures — plausibly post-training recipe / tokenizer / training-data idiosyncrasies. Where it isn't, it's anisotropy bleed-through and shouldn't be interpreted as model-specific representational content at all.
 
-The chunking-granularity hypothesis (to_try #18) gets a partial answer: Big Five facets ARE the model-natural chunks insofar as model facet cosine geometry recovers human facet correlations at r=+0.56. Models don't over-aggregate into "wrong" units — they pick up the *same* unit structure humans do. The residual model-specific structure is real but doesn't necessarily indicate alternative trait chunkings; it might just be noise plus model-architecture-specific representational quirks. A cleaner test of chunking would now be: does the model-specific structure cluster into coherent dimensions when factor-analyzed, or is it diffuse? If diffuse, the chunking is fine; if coherent and reproducible across model families, there really are model-natural primitives that don't map to Big Five.
+The chunking-granularity hypothesis (to_try #18) gets a partial answer: Big Five facets ARE the model-natural chunks insofar as model facet cosine geometry recovers human facet correlations at r=+0.56. Models don't over-aggregate into "wrong" units — they pick up the *same* unit structure humans do. The residual structure single-ipip-mean reveals is partly real and partly extraction-failure; an improved matched-baseline extraction (next steps) would let us cleanly assess whether the genuine model-specific portion clusters into coherent alternative dimensions or is diffuse.
 
 ## 8. Implications for the superposition-vs-embedding question
 
@@ -198,7 +225,8 @@ The W7 §8.4 "cross-architecture r=0.93-0.99" finding was a real observation but
 
 ## 9. Visualizations
 
-- `results/facets/ipip_facet_method_dashboard.html` — single-page dashboard for the group meeting. Four sections: per-method cohort bars (within/across/NN/purity, all 5 methods × 7 models); cross-model 7×7 agreement heatmaps for `meandiff-pcs` and `single-ipip-mean` side-by-side; per-model 30×30 cosine matrices for 4 representative models under `single-ipip-mean`.
+- `results/facets/ipip_facet_method_dashboard.html` — five-method × seven-model summary dashboard. Four sections: per-method cohort bars (within/across/NN/purity, all 5 methods × 7 models); cross-model 7×7 agreement heatmaps for `meandiff-pcs` and `single-ipip-mean` side-by-side; per-model 30×30 cosine matrices for 4 representative models under `single-ipip-mean`.
+- `results/facets/ipip_facet_vs_human_dashboard.html` — **8-panel side-by-side**: human IPIP-NEO-300 facet correlation matrix (N=145,388) in position (0,0), then the 7 cohort models' `meandiff-pcs` facet cosine matrices, all on a common color scale with trait-block dividers. Each panel title shows the model's Pearson r against the human matrix. Visual case for "models recover human facet covariance" (cohort r=+0.564, all models ≥ +0.44).
 - `results/facets/ipip_facet_cluster_<method>.json` — per-model summaries with full cosine matrices for each of the 5 methods. `ipip_facet_cluster.json` (unsuffixed) remains the `meandiff-pcs` / W8 §9 output.
 - `instruments/ipip300_human_facet_correlations.json` — 30×30 inter-facet correlation matrix from Johnson IPIP-NEO-300 raw data (N=145,388), scored via standard Goldberg/Johnson 1999 key.
 - `results/facets/ipip_facet_human_comparison.json` — per-model × per-method Pearson r between cohort cosine matrices and the human correlation matrix.
@@ -209,25 +237,31 @@ The W7 §8.4 "cross-architecture r=0.93-0.99" finding was a real observation but
 
 - **Token aggregation choice**: `mean-all-skip0` (current IPIP pipeline) includes chat-template wrapper tokens. A response-position-only aggregation (`mean-response`, the HEXACO contrast-pair convention) might give cleaner signal. Worth ablating.
 
-- **Phi4–Qwen7 disagreement**: under `single-ipip-mean`, these two models have r=+0.203 (cohort minimum) — Phi4 is geometrically closer to Qwen (3B) than to Qwen7 (7B). What's specifically different about Phi4 and Qwen7's residual structure that makes them disagree on the absolute centroid-deviation slice but agree on the contrast slice (r=+0.877)? Possible: Phi4 has been the W7/W8 cohort outlier on the rep readout side throughout; this is another facet of "Phi4's residual stream encodes trait info differently."
+- **Phi4–Qwen7 disagreement**: under `single-ipip-mean`, these two models have r=+0.203 (cohort minimum) — Phi4 is geometrically closer to Qwen (3B) than to Qwen7 (7B). §7.3 partly explains this — Qwen7 has 84% anisotropy residue in its single-ipip-mean directions, so its low cross-model agreement with Phi4 (which has only 8% residue) is at least partly an extraction artifact. An anisotropy-projection variant should test whether the Phi4–Qwen7 contrast slice agreement (+0.877) is what survives after extraction-noise is removed.
 
 - **Reverse-only sanity check**: `single-*` methods all use forward-keyed items. Computing forward-only and reverse-only directions and checking whether they're anti-correlated would test whether the IPIP forward/reverse polarity actually probes opposite poles in absolute space.
 
 ## 11. Next steps
 
-1. **Use single-ipip-mean directions for persona z-recovery** (Phase B of the W9 plan): does substituting per-facet `single-ipip-mean` directions for `meandiff-pcs` directions in the W8 §5 setup recover persona facet z's better or worse? This is the downstream test that turns the methodological discrimination into a behavioral one.
+1. **Anisotropy-projection variant of single-direction** (deferred after reading group). §7.3 traces the heterogeneous human-alignment under `single-ipip-mean` to incomplete anisotropy cancellation: Gemma family + Qwen7 retain 68–85% projection on the centroid direction even after rank-1 mean subtraction. A `single-ipip-proj` method would project out the centroid direction explicitly before unit-norming (or use top-K PCs of forward-pole items as a richer subspace projection). Should bring Gemma family + Qwen7 up to the Phi4/Qwen/Llama-family band, separating real model-specific structure from extraction failure.
 
-2. **Investigate the PC-projection boost**. Quick: try `contrast-no-pcs` (mean(fwd) − mean(rev), no projection) and compare facet directions to `meandiff-pcs`'s. The 5× within-trait boost from PC projection is interesting and not currently understood.
+2. **Use single-ipip-mean (or single-ipip-proj) directions for persona z-recovery** (Phase B of the W9 plan): does substituting per-facet single-direction directions for `meandiff-pcs` directions in the W8 §5 setup recover persona facet z's better or worse? This is the downstream test that turns the methodological discrimination into a behavioral one.
 
-3. **Layer sweep**. The activation cache stores all layers; sweeping common_layer over ±5 layers would test whether the single-ipip-mean / contrast disagreement is layer-localized or holds across depths.
+3. **Investigate the PC-projection boost**. Quick: try `contrast-no-pcs` (mean(fwd) − mean(rev), no projection) and compare facet directions to `meandiff-pcs`'s. The 5× within-trait boost from PC projection is interesting and not currently understood.
 
-4. **Per-facet rep direction × persona z-recovery** (deferred from W8 §9 next-steps). The chunking-granularity test, now with the proper extraction method established.
+4. **Layer sweep**. The activation cache stores all layers; sweeping common_layer over ±5 layers would test whether the single-ipip-mean / contrast disagreement is layer-localized or holds across depths.
+
+5. **Per-facet rep direction × persona z-recovery** (deferred from W8 §9 next-steps). The chunking-granularity test, now with the proper extraction method established.
 
 ## 12. Status
 
 Commits:
 - `f95dd00` — W9 §1 setup: representation_vector_methods.md catalog + 5-extraction refactor of ipip_facet_cluster.py + IPIP item activation cache
 - `613281c` — W9 §1 cohort: 5 methods × 7 cohort models; anisotropy degeneracy confirmed; single-ipip-mean cross-model r=+0.649
+- `b92b613` — W9 §1 writeup + 5-method comparison dashboard (`ipip_facet_method_dashboard.html`)
+- `a12ca5f` — W9 §7 human comparison: N=145,388 human facet correlation matrix + per-model × per-method r table; cohort r=+0.564 under meandiff-pcs
+- `178509f` — bibliography: add Johnson 2014, Kajonius & Johnson 2019, NeuroQuestAi/ipip-neo-data references
+- (this commit) — W9 §7.3 anisotropy-residue diagnostic + `ipip_facet_vs_human_dashboard.html` 8-panel side-by-side
 
 Result files:
 - `results/facets/ipip_facet_cluster.json` — meandiff-pcs cohort (W8 §9, regenerated identically)
