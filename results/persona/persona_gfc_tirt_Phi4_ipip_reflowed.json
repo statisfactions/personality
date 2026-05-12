@@ -1,0 +1,22 @@
+{
+  "diagonal_correlations": {
+    "A": 0.1816,
+    "C": -0.5252,
+    "E": 0.8534,
+    "N": 0.7197,
+    "O": 0.7106
+  },
+  "abs_diagonal_correlations": {
+    "A": 0.1816,
+    "C": 0.5252,
+    "E": 0.8534,
+    "N": 0.7197,
+    "O": 0.7106
+  },
+  "n_personas": 7,
+  "n_high_rhat": 0,
+  "n_low_neff": 0,
+  "responses_path": "psychometrics/gfc_tirt/Phi4_gfc30_hf_ipip_reflowed.json",
+  "fit_rds": "psychometrics/gfc_tirt/Phi4_gfc30_hf_ipip_reflowed_indep_fit.rds",
+  "stan_model": "psychometrics/gfc_tirt/tirt_okada_indep.stan"
+}

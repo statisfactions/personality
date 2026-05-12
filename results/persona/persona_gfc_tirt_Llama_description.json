@@ -1,0 +1,22 @@
+{
+  "diagonal_correlations": {
+    "A": -0.0557,
+    "C": 0.0239,
+    "E": 0.1705,
+    "N": -0.0945,
+    "O": 0.1863
+  },
+  "abs_diagonal_correlations": {
+    "A": 0.0557,
+    "C": 0.0239,
+    "E": 0.1705,
+    "N": 0.0945,
+    "O": 0.1863
+  },
+  "n_personas": 50,
+  "n_high_rhat": 0,
+  "n_low_neff": 0,
+  "responses_path": "psychometrics/gfc_tirt/Llama_gfc30_hf_description.json",
+  "fit_rds": "psychometrics/gfc_tirt/Llama_gfc30_hf_description_indep_fit.rds",
+  "stan_model": "psychometrics/gfc_tirt/tirt_okada_indep.stan"
+}
