@@ -71,7 +71,10 @@ PATTERNS = {
 # Trajectory conditions: all-cohort means. §3 raw dropped from the trajectory
 # because its cohort Likert wasn't run (only Qwen7); §3 reflow is the
 # directly-comparable cohort-wide condition with all-Goldberg readout.
-CONDITIONS_TRAJECTORY = ["W7", "§3 reflow", "§4 raw", "§5 raw", "§5 reflow"]
+# Ordered by persona form (Goldberg description → IPIP-raw → IPIP-reflowed)
+# so TIRT's step function shows two visible transitions (description → raw,
+# raw → reflow) rather than four when reflow positions are interleaved with raw.
+CONDITIONS_TRAJECTORY = ["W7", "§4 raw", "§5 raw", "§3 reflow", "§5 reflow"]
 
 # Process labels for x-axis ticks: "persona form → measurement form".
 # Two-line: top line is persona-side, bottom line is readout-side details.
@@ -208,7 +211,7 @@ def make_trajectory_figure(data):
                   opacity=0.5, row=2, col=1)
 
     fig.update_yaxes(title_text="diagonal r (cohort mean)", row=1, col=1,
-                     range=[0.4, 1.0])
+                     range=[0.0, 1.0])
     fig.update_yaxes(title_text="Likert − Rep", row=2, col=1,
                      range=[-0.05, 0.20])
     fig.update_xaxes(title_text="condition", row=2, col=1)
