@@ -138,10 +138,12 @@ def load_personas(path, field):
 
 
 def _save_output(path, args, pairs, persona_list, results, hf_repo, n_completed):
+    instrument_id = Path(args.instrument).stem
     out = {
         "model": args.model,
         "hf_repo": hf_repo,
-        "instrument": "okada_gfc30",
+        "instrument": instrument_id,
+        "instrument_path": args.instrument,
         "backend": "hf",
         "persona_field": args.persona_field,
         "personas_path": args.synthetic_personas,
@@ -183,10 +185,14 @@ def main():
                         help="Output JSON path (auto-generated if omitted)")
     parser.add_argument("--checkpoint-every", type=int, default=200,
                         help="Save checkpoint every N completed prompts")
+    parser.add_argument("--instrument", type=str, default=INSTRUMENT_PATH,
+                        help=f"Instrument JSON path (default: {INSTRUMENT_PATH}). "
+                             "Must match the okada_gfc30.json schema "
+                             "(top-level 'pairs' list with left/right items).")
     args = parser.parse_args()
 
     # Instrument
-    with open(INSTRUMENT_PATH) as f:
+    with open(args.instrument) as f:
         instrument = json.load(f)
     pairs = instrument["pairs"]
     if args.pairs > 0:
