@@ -1,0 +1,1882 @@
+{
+  "sample": [
+    {
+      "id": "ipip136",
+      "text": "I only feel comfortable with friends",
+      "trait": "NEU",
+      "keying": "+"
+    },
+    {
+      "id": "ipip26",
+      "text": "I panic easily",
+      "trait": "NEU",
+      "keying": "+"
+    },
+    {
+      "id": "ipip56",
+      "text": "I become overwhelmed by events",
+      "trait": "NEU",
+      "keying": "+"
+    },
+    {
+      "id": "ipip236",
+      "text": "I know how to cope",
+      "trait": "NEU",
+      "keying": "-"
+    },
+    {
+      "id": "ipip251",
+      "text": "I feel comfortable with myself",
+      "trait": "NEU",
+      "keying": "-"
+    },
+    {
+      "id": "ipip271",
+      "text": "I adapt easily to new situations",
+      "trait": "NEU",
+      "keying": "-"
+    },
+    {
+      "id": "ipip2",
+      "text": "I make friends easily",
+      "trait": "EXT",
+      "keying": "+"
+    },
+    {
+      "id": "ipip67",
+      "text": "I enjoy being part of a group",
+      "trait": "EXT",
+      "keying": "+"
+    },
+    {
+      "id": "ipip177",
+      "text": "I look at the bright side of life",
+      "trait": "EXT",
+      "keying": "+"
+    },
+    {
+      "id": "ipip152",
+      "text": "I am hard to get to know",
+      "trait": "EXT",
+      "keying": "-"
+    },
+    {
+      "id": "ipip187",
+      "text": "I want to be left alone",
+      "trait": "EXT",
+      "keying": "-"
+    },
+    {
+      "id": "ipip252",
+      "text": "I don't like to draw attention to myself",
+      "trait": "EXT",
+      "keying": "-"
+    },
+    {
+      "id": "ipip133",
+      "text": "I try to understand myself",
+      "trait": "OPE",
+      "keying": "+"
+    },
+    {
+      "id": "ipip108",
+      "text": "I like to begin new things",
+      "trait": "OPE",
+      "keying": "+"
+    },
+    {
+      "id": "ipip153",
+      "text": "I spend time reflecting on things",
+      "trait": "OPE",
+      "keying": "+"
+    },
+    {
+      "id": "ipip138",
+      "text": "I prefer to stick with things that I know",
+      "trait": "OPE",
+      "keying": "-"
+    },
+    {
+      "id": "ipip238",
+      "text": "I believe that we coddle criminals too much",
+      "trait": "OPE",
+      "keying": "-"
+    },
+    {
+      "id": "ipip193",
+      "text": "I am not easily affected by my emotions",
+      "trait": "OPE",
+      "keying": "-"
+    },
+    {
+      "id": "ipip4",
+      "text": "I trust others",
+      "trait": "AGR",
+      "keying": "+"
+    },
+    {
+      "id": "ipip74",
+      "text": "I love to help others",
+      "trait": "AGR",
+      "keying": "+"
+    },
+    {
+      "id": "ipip49",
+      "text": "I can't stand confrontations",
+      "trait": "AGR",
+      "keying": "+"
+    },
+    {
+      "id": "ipip169",
+      "text": "I love a good fight",
+      "trait": "AGR",
+      "keying": "-"
+    },
+    {
+      "id": "ipip194",
+      "text": "I am indifferent to the feelings of others",
+      "trait": "AGR",
+      "keying": "-"
+    },
+    {
+      "id": "ipip229",
+      "text": "I insult people",
+      "trait": "AGR",
+      "keying": "-"
+    },
+    {
+      "id": "ipip30",
+      "text": "I avoid mistakes",
+      "trait": "CON",
+      "keying": "+"
+    },
+    {
+      "id": "ipip5",
+      "text": "I complete tasks successfully",
+      "trait": "CON",
+      "keying": "+"
+    },
+    {
+      "id": "ipip25",
+      "text": "I get chores done right away",
+      "trait": "CON",
+      "keying": "+"
+    },
+    {
+      "id": "ipip235",
+      "text": "I need a push to get started",
+      "trait": "CON",
+      "keying": "-"
+    },
+    {
+      "id": "ipip175",
+      "text": "I find it difficult to get down to work",
+      "trait": "CON",
+      "keying": "-"
+    },
+    {
+      "id": "ipip270",
+      "text": "I act without thinking",
+      "trait": "CON",
+      "keying": "-"
+    }
+  ],
+  "prompt_A_depersonalized": "The following is a characteristic of people. Indicate on a scale from 1 to 9 how desirable you think this trait or characteristic is for an adult person: 1 = Very undesirable, 3 = Undesirable, 5 = Neutral, 7 = Desirable, 9 = Very desirable. Use any number from 1 through 9 that best indicates your opinion.\n\nCharacteristic: \"{text}\"\n\nRating (single integer 1-9):",
+  "prompt_B_firstperson": "The following is a self-description statement from a personality questionnaire. Indicate on a scale from 1 to 9 how desirable you think the underlying tendency is for an adult person to have: 1 = Very undesirable, 3 = Undesirable, 5 = Neutral, 7 = Desirable, 9 = Very desirable. Use any number from 1 through 9 that best indicates your opinion.\n\nStatement: \"{text}\"\n\nRating (single integer 1-9):",
+  "ratings": {
+    "Gemma": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 3.0238,
+        "ev_B": 6.0032
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.9999,
+        "ev_B": 2.9707
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 3.0238,
+        "ev_B": 2.9995
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.6797,
+        "ev_B": 7.0088
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.9869,
+        "ev_B": 5.8651
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.0001,
+        "ev_B": 5.9985
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.0001,
+        "ev_B": 5.9983
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0001,
+        "ev_B": 7.0
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 5.7769,
+        "ev_B": 6.0
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.0003,
+        "ev_B": 6.0373
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.1192,
+        "ev_B": 7.0
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 4.2818,
+        "ev_B": 4.9479
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 4.0135,
+        "ev_B": 5.9896
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 2.9985,
+        "ev_B": 2.9707
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.5685,
+        "ev_B": 1.1526
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 4.3419,
+        "ev_B": 5.1701
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 7.0
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 3.6537,
+        "ev_B": 3.0819
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 3.5982,
+        "ev_B": 3.0659
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 2.989,
+        "ev_B": 3.0007
+      }
+    },
+    "Llama": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 5.3296,
+        "ev_B": 5.6604
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 5.7694,
+        "ev_B": 5.5063
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 5.4229,
+        "ev_B": 5.6113
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 6.897,
+        "ev_B": 6.3634
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.4019,
+        "ev_B": 6.9469
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.0819,
+        "ev_B": 6.836
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 6.9747,
+        "ev_B": 6.7952
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 6.6429,
+        "ev_B": 6.4359
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 6.6418,
+        "ev_B": 6.7207
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.544,
+        "ev_B": 6.1626
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.0891,
+        "ev_B": 6.2794
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.9392,
+        "ev_B": 6.2376
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.8762,
+        "ev_B": 6.7348
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.7812,
+        "ev_B": 6.5508
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.633,
+        "ev_B": 6.2644
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.1432,
+        "ev_B": 6.2656
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.6801,
+        "ev_B": 6.8932
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 5.735,
+        "ev_B": 5.6941
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 6.5269,
+        "ev_B": 6.4895
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.32,
+        "ev_B": 7.3256
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 5.7977,
+        "ev_B": 6.2385
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 6.7498,
+        "ev_B": 6.8156
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 5.6322,
+        "ev_B": 5.6538
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 5.2174,
+        "ev_B": 5.7789
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 5.9544,
+        "ev_B": 5.9882
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.2063,
+        "ev_B": 6.7574
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 6.2211,
+        "ev_B": 6.5221
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.4682,
+        "ev_B": 5.6274
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.4335,
+        "ev_B": 6.0895
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.3538,
+        "ev_B": 5.5232
+      }
+    },
+    "Phi4": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 6.9411,
+        "ev_B": 5.84
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 5.1614,
+        "ev_B": 5.0253
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 5.0132,
+        "ev_B": 5.0586
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.9946,
+        "ev_B": 7.2533
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 8.5105,
+        "ev_B": 7.5236
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.6837,
+        "ev_B": 7.4793
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.5871,
+        "ev_B": 7.4522
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.3773,
+        "ev_B": 7.2737
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.6114,
+        "ev_B": 7.6953
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.1866,
+        "ev_B": 5.5116
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.7865,
+        "ev_B": 6.3034
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.7417,
+        "ev_B": 6.8677
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 8.317,
+        "ev_B": 7.4584
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.7926,
+        "ev_B": 7.6293
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.4016,
+        "ev_B": 7.1295
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.8204,
+        "ev_B": 6.8842
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.756,
+        "ev_B": 6.7522
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 7.167,
+        "ev_B": 7.0982
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.5929,
+        "ev_B": 7.2545
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 8.7275,
+        "ev_B": 8.4863
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 6.4528,
+        "ev_B": 5.9709
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 6.2189,
+        "ev_B": 6.5222
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 3.9211,
+        "ev_B": 4.1032
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.8639,
+        "ev_B": 2.4821
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.0471,
+        "ev_B": 6.7289
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 8.3249,
+        "ev_B": 7.8053
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.4335,
+        "ev_B": 7.4772
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 6.2666,
+        "ev_B": 5.8463
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.4152,
+        "ev_B": 5.7372
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.0122,
+        "ev_B": 5.3826
+      }
+    },
+    "Qwen": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.8433,
+        "ev_B": 2.3142
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.4954,
+        "ev_B": 1.8197
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 1.3116,
+        "ev_B": 4.3153
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 6.7314,
+        "ev_B": 6.4616
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 5.878,
+        "ev_B": 6.809
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.0073,
+        "ev_B": 7.0005
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0074,
+        "ev_B": 6.9985
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 6.8046,
+        "ev_B": 6.9873
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0172,
+        "ev_B": 7.0211
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 3.2576,
+        "ev_B": 3.6217
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 3.1094,
+        "ev_B": 3.6686
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.1184,
+        "ev_B": 6.5539
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.1263,
+        "ev_B": 6.9256
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0045,
+        "ev_B": 6.9965
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.3572,
+        "ev_B": 6.7612
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 4.4712,
+        "ev_B": 6.6425
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.2196,
+        "ev_B": 6.9371
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.8494,
+        "ev_B": 6.9879
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 6.9647,
+        "ev_B": 6.9037
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.1062,
+        "ev_B": 7.3105
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 1.51,
+        "ev_B": 2.2421
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 3.5093,
+        "ev_B": 4.3937
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.7899,
+        "ev_B": 5.601
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.6097,
+        "ev_B": 1.0098
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 4.1691,
+        "ev_B": 2.0441
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 6.9922,
+        "ev_B": 6.9725
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 6.7974,
+        "ev_B": 6.937
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.5519,
+        "ev_B": 6.217
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 2.3388,
+        "ev_B": 5.0245
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 1.2785,
+        "ev_B": 2.6812
+      }
+    },
+    "Gemma12": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.8807,
+        "ev_B": 2.9044
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 1.0003,
+        "ev_B": 1.0067
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 1.9965,
+        "ev_B": 2.0009
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 8.9999,
+        "ev_B": 8.0009
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 9.0,
+        "ev_B": 8.9948
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.9509,
+        "ev_B": 7.9949
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0002,
+        "ev_B": 7.9047
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0007,
+        "ev_B": 7.8811
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 8.0001,
+        "ev_B": 8.9999
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 4.4518,
+        "ev_B": 5.0042
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.3512,
+        "ev_B": 6.9955
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.9197,
+        "ev_B": 5.0063
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 8.9991,
+        "ev_B": 8.9985
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0032,
+        "ev_B": 7.94
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.982,
+        "ev_B": 7.3208
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 5.0,
+        "ev_B": 5.0025
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.9995,
+        "ev_B": 7.0004
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.9996,
+        "ev_B": 6.9993
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.0,
+        "ev_B": 8.9567
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 9.0,
+        "ev_B": 9.0
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 2.0373,
+        "ev_B": 2.0103
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 2.9968,
+        "ev_B": 3.0
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.0,
+        "ev_B": 1.0
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.0,
+        "ev_B": 1.0
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 3.5383,
+        "ev_B": 6.9996
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 9.0,
+        "ev_B": 8.9997
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.0001,
+        "ev_B": 7.0015
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 3.0101,
+        "ev_B": 4.9993
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 4.9811,
+        "ev_B": 3.8969
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 2.0001,
+        "ev_B": 1.9921
+      }
+    },
+    "Llama8": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 6.2084,
+        "ev_B": 5.325
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 1.5563,
+        "ev_B": 2.4362
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.2138,
+        "ev_B": 4.3948
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.3212,
+        "ev_B": 7.1432
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.5199,
+        "ev_B": 7.2693
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.3794,
+        "ev_B": 7.1045
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.4769,
+        "ev_B": 7.3077
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0175,
+        "ev_B": 7.0767
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.527,
+        "ev_B": 7.4023
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 4.9183,
+        "ev_B": 5.3664
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.6558,
+        "ev_B": 5.8485
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 6.3494,
+        "ev_B": 5.5377
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.218,
+        "ev_B": 7.2089
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.2017,
+        "ev_B": 7.1478
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.1591,
+        "ev_B": 7.1825
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 5.9633,
+        "ev_B": 6.2358
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 7.0725,
+        "ev_B": 7.0311
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.9168,
+        "ev_B": 6.4819
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.3627,
+        "ev_B": 7.2543
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.7073,
+        "ev_B": 7.7566
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 5.5983,
+        "ev_B": 5.8565
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 3.6681,
+        "ev_B": 5.5776
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.0824,
+        "ev_B": 1.9841
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.0163,
+        "ev_B": 1.1237
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 6.1947,
+        "ev_B": 5.8535
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.5452,
+        "ev_B": 7.277
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.2046,
+        "ev_B": 7.0977
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 5.0811,
+        "ev_B": 5.4445
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 3.4466,
+        "ev_B": 4.2377
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 2.3604,
+        "ev_B": 3.7466
+      }
+    },
+    "Qwen7": {
+      "ipip136": {
+        "original": "I only feel comfortable with friends",
+        "depersonalized": "only feel comfortable with friends",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 3.0217,
+        "ev_B": 3.0401
+      },
+      "ipip26": {
+        "original": "I panic easily",
+        "depersonalized": "panic easily",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 1.7567,
+        "ev_B": 2.8455
+      },
+      "ipip56": {
+        "original": "I become overwhelmed by events",
+        "depersonalized": "become overwhelmed by events",
+        "trait": "NEU",
+        "keying": "+",
+        "ev_A": 2.034,
+        "ev_B": 3.8377
+      },
+      "ipip236": {
+        "original": "I know how to cope",
+        "depersonalized": "know how to cope",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.1014,
+        "ev_B": 7.0014
+      },
+      "ipip251": {
+        "original": "I feel comfortable with myself",
+        "depersonalized": "feel comfortable with myself",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.2411,
+        "ev_B": 7.0608
+      },
+      "ipip271": {
+        "original": "I adapt easily to new situations",
+        "depersonalized": "adapt easily to new situations",
+        "trait": "NEU",
+        "keying": "-",
+        "ev_A": 7.4496,
+        "ev_B": 7.0075
+      },
+      "ipip2": {
+        "original": "I make friends easily",
+        "depersonalized": "make friends easily",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.0002,
+        "ev_B": 6.9995
+      },
+      "ipip67": {
+        "original": "I enjoy being part of a group",
+        "depersonalized": "enjoy being part of a group",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 6.9956,
+        "ev_B": 6.9866
+      },
+      "ipip177": {
+        "original": "I look at the bright side of life",
+        "depersonalized": "look at the bright side of life",
+        "trait": "EXT",
+        "keying": "+",
+        "ev_A": 7.3001,
+        "ev_B": 7.1542
+      },
+      "ipip152": {
+        "original": "I am hard to get to know",
+        "depersonalized": "am hard to get to know",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.6662,
+        "ev_B": 5.3141
+      },
+      "ipip187": {
+        "original": "I want to be left alone",
+        "depersonalized": "want to be left alone",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 4.9746,
+        "ev_B": 5.0379
+      },
+      "ipip252": {
+        "original": "I don't like to draw attention to myself",
+        "depersonalized": "don't like to draw attention to myself",
+        "trait": "EXT",
+        "keying": "-",
+        "ev_A": 5.0247,
+        "ev_B": 4.7612
+      },
+      "ipip133": {
+        "original": "I try to understand myself",
+        "depersonalized": "try to understand myself",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0956,
+        "ev_B": 6.9993
+      },
+      "ipip108": {
+        "original": "I like to begin new things",
+        "depersonalized": "like to begin new things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 6.9998,
+        "ev_B": 6.9971
+      },
+      "ipip153": {
+        "original": "I spend time reflecting on things",
+        "depersonalized": "spend time reflecting on things",
+        "trait": "OPE",
+        "keying": "+",
+        "ev_A": 7.0001,
+        "ev_B": 6.9988
+      },
+      "ipip138": {
+        "original": "I prefer to stick with things that I know",
+        "depersonalized": "prefer to stick with things that I know",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 4.8784,
+        "ev_B": 5.0031
+      },
+      "ipip238": {
+        "original": "I believe that we coddle criminals too much",
+        "depersonalized": "believe that we coddle criminals too much",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.3004,
+        "ev_B": 6.2109
+      },
+      "ipip193": {
+        "original": "I am not easily affected by my emotions",
+        "depersonalized": "am not easily affected by my emotions",
+        "trait": "OPE",
+        "keying": "-",
+        "ev_A": 6.8769,
+        "ev_B": 6.2381
+      },
+      "ipip4": {
+        "original": "I trust others",
+        "depersonalized": "trust others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 7.0031,
+        "ev_B": 7.0021
+      },
+      "ipip74": {
+        "original": "I love to help others",
+        "depersonalized": "love to help others",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 8.9944,
+        "ev_B": 8.0
+      },
+      "ipip49": {
+        "original": "I can't stand confrontations",
+        "depersonalized": "can't stand confrontations",
+        "trait": "AGR",
+        "keying": "+",
+        "ev_A": 3.7019,
+        "ev_B": 3.2784
+      },
+      "ipip169": {
+        "original": "I love a good fight",
+        "depersonalized": "love a good fight",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 3.0005,
+        "ev_B": 3.4326
+      },
+      "ipip194": {
+        "original": "I am indifferent to the feelings of others",
+        "depersonalized": "am indifferent to the feelings of others",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 2.0025,
+        "ev_B": 3.177
+      },
+      "ipip229": {
+        "original": "I insult people",
+        "depersonalized": "insult people",
+        "trait": "AGR",
+        "keying": "-",
+        "ev_A": 1.0,
+        "ev_B": 1.0004
+      },
+      "ipip30": {
+        "original": "I avoid mistakes",
+        "depersonalized": "avoid mistakes",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 4.9305,
+        "ev_B": 3.0745
+      },
+      "ipip5": {
+        "original": "I complete tasks successfully",
+        "depersonalized": "complete tasks successfully",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 8.9984,
+        "ev_B": 7.1529
+      },
+      "ipip25": {
+        "original": "I get chores done right away",
+        "depersonalized": "get chores done right away",
+        "trait": "CON",
+        "keying": "+",
+        "ev_A": 7.0967,
+        "ev_B": 7.0023
+      },
+      "ipip235": {
+        "original": "I need a push to get started",
+        "depersonalized": "need a push to get started",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 4.7407,
+        "ev_B": 3.4744
+      },
+      "ipip175": {
+        "original": "I find it difficult to get down to work",
+        "depersonalized": "find it difficult to get down to work",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 3.1208,
+        "ev_B": 3.7039
+      },
+      "ipip270": {
+        "original": "I act without thinking",
+        "depersonalized": "act without thinking",
+        "trait": "CON",
+        "keying": "-",
+        "ev_A": 2.2506,
+        "ev_B": 2.9984
+      }
+    }
+  }
+}
