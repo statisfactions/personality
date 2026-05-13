@@ -1,0 +1,1444 @@
+{
+  "instrument": "IPIP-NEO-GFC-60-fp",
+  "description": "Desirability-matched graded forced-choice inventory built on IPIP-NEO-300 items, using cohort-mean (Gemma/Llama/Phi4/Qwen 3B-12B) desirability ratings as input to Okada Appendix C's constraint set. [Variant: uses original first-person item text for inference, vs the de-personalized form used in the main P60 instrument.]",
+  "citation": "Okada et al. 2026 (arXiv 2602.17262) methodology; constructed 2026-05-13",
+  "n_pairs": 60,
+  "n_items": 120,
+  "traits": [
+    "A",
+    "C",
+    "E",
+    "N",
+    "O"
+  ],
+  "design_notes": {
+    "max_delta_sd": 0.0125,
+    "mean_delta_sd": 0.0042,
+    "total_squared_mismatch": 0.0016,
+    "domain_counts": {
+      "A": 24,
+      "C": 24,
+      "E": 24,
+      "N": 24,
+      "O": 24
+    },
+    "pair_combo_counts": {
+      "AC": 6,
+      "AE": 6,
+      "AN": 6,
+      "AO": 6,
+      "CE": 6,
+      "CN": 6,
+      "CO": 6,
+      "EN": 6,
+      "EO": 6,
+      "NO": 6
+    },
+    "keying_per_domain": {
+      "A": {
+        "+": 14,
+        "-": 10
+      },
+      "C": {
+        "+": 13,
+        "-": 11
+      },
+      "E": {
+        "+": 16,
+        "-": 8
+      },
+      "N": {
+        "+": 11,
+        "-": 13
+      },
+      "O": {
+        "+": 11,
+        "-": 13
+      }
+    },
+    "n_mixed_keying": 31,
+    "mixed_keying_fraction": 0.5167
+  },
+  "pairs": [
+    {
+      "block": 1,
+      "left": {
+        "text": "I go straight for the goal",
+        "original_first_person": "I go straight for the goal",
+        "ipip_id": "ipip20",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.1303,
+        "text_depersonalized": "go straight for the goal"
+      },
+      "right": {
+        "text": "I am not embarrassed easily",
+        "original_first_person": "I am not embarrassed easily",
+        "ipip_id": "ipip196",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.1303,
+        "text_depersonalized": "am not embarrassed easily"
+      },
+      "delta_sd": 0.0,
+      "mixed_keying": true
+    },
+    {
+      "block": 2,
+      "left": {
+        "text": "I complete tasks successfully",
+        "original_first_person": "I complete tasks successfully",
+        "ipip_id": "ipip5",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.8667,
+        "text_depersonalized": "complete tasks successfully"
+      },
+      "right": {
+        "text": "I remain calm under pressure",
+        "original_first_person": "I remain calm under pressure",
+        "ipip_id": "ipip176",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.867,
+        "text_depersonalized": "remain calm under pressure"
+      },
+      "delta_sd": 0.0003,
+      "mixed_keying": true
+    },
+    {
+      "block": 3,
+      "left": {
+        "text": "I have frequent mood swings",
+        "original_first_person": "I have frequent mood swings",
+        "ipip_id": "ipip131",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.762,
+        "text_depersonalized": "have frequent mood swings"
+      },
+      "right": {
+        "text": "I have difficulty imagining things",
+        "original_first_person": "I have difficulty imagining things",
+        "ipip_id": "ipip273",
+        "trait": "O",
+        "keying": "-",
+        "sd": 3.7615,
+        "text_depersonalized": "have difficulty imagining things"
+      },
+      "delta_sd": 0.0005,
+      "mixed_keying": true
+    },
+    {
+      "block": 4,
+      "left": {
+        "text": "I can't stand confrontations",
+        "original_first_person": "I can't stand confrontations",
+        "ipip_id": "ipip49",
+        "trait": "A",
+        "keying": "+",
+        "sd": 4.1971,
+        "text_depersonalized": "can't stand confrontations"
+      },
+      "right": {
+        "text": "I have little to say",
+        "original_first_person": "I have little to say",
+        "ipip_id": "ipip222",
+        "trait": "E",
+        "keying": "-",
+        "sd": 4.1976,
+        "text_depersonalized": "have little to say"
+      },
+      "delta_sd": 0.0005,
+      "mixed_keying": true
+    },
+    {
+      "block": 5,
+      "left": {
+        "text": "I make people feel uncomfortable",
+        "original_first_person": "I make people feel uncomfortable",
+        "ipip_id": "ipip224",
+        "trait": "A",
+        "keying": "-",
+        "sd": 2.0025,
+        "text_depersonalized": "make people feel uncomfortable"
+      },
+      "right": {
+        "text": "I misrepresent the facts",
+        "original_first_person": "I misrepresent the facts",
+        "ipip_id": "ipip285",
+        "trait": "C",
+        "keying": "-",
+        "sd": 2.0019,
+        "text_depersonalized": "misrepresent the facts"
+      },
+      "delta_sd": 0.0006,
+      "mixed_keying": false
+    },
+    {
+      "block": 6,
+      "left": {
+        "text": "I handle tasks smoothly",
+        "original_first_person": "I handle tasks smoothly",
+        "ipip_id": "ipip65",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.3653,
+        "text_depersonalized": "handle tasks smoothly"
+      },
+      "right": {
+        "text": "I adapt easily to new situations",
+        "original_first_person": "I adapt easily to new situations",
+        "ipip_id": "ipip271",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.3647,
+        "text_depersonalized": "adapt easily to new situations"
+      },
+      "delta_sd": 0.0007,
+      "mixed_keying": true
+    },
+    {
+      "block": 7,
+      "left": {
+        "text": "I stick to the rules",
+        "original_first_person": "I stick to the rules",
+        "ipip_id": "ipip39",
+        "trait": "A",
+        "keying": "+",
+        "sd": 6.8217,
+        "text_depersonalized": "stick to the rules"
+      },
+      "right": {
+        "text": "I feel others' emotions",
+        "original_first_person": "I feel others' emotions",
+        "ipip_id": "ipip43",
+        "trait": "O",
+        "keying": "+",
+        "sd": 6.8225,
+        "text_depersonalized": "feel others' emotions"
+      },
+      "delta_sd": 0.0008,
+      "mixed_keying": false
+    },
+    {
+      "block": 8,
+      "left": {
+        "text": "I have a good word for everyone",
+        "original_first_person": "I have a good word for everyone",
+        "ipip_id": "ipip134",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.0521,
+        "text_depersonalized": "have a good word for everyone"
+      },
+      "right": {
+        "text": "I feel comfortable around people",
+        "original_first_person": "I feel comfortable around people",
+        "ipip_id": "ipip62",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.0512,
+        "text_depersonalized": "feel comfortable around people"
+      },
+      "delta_sd": 0.0009,
+      "mixed_keying": false
+    },
+    {
+      "block": 9,
+      "left": {
+        "text": "I feel sympathy for those who are worse off than myself",
+        "original_first_person": "I feel sympathy for those who are worse off than myself",
+        "ipip_id": "ipip59",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.4336,
+        "text_depersonalized": "feel sympathy for those who are worse off than myself"
+      },
+      "right": {
+        "text": "I readily overcome setbacks",
+        "original_first_person": "I readily overcome setbacks",
+        "ipip_id": "ipip266",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.4347,
+        "text_depersonalized": "readily overcome setbacks"
+      },
+      "delta_sd": 0.0011,
+      "mixed_keying": true
+    },
+    {
+      "block": 10,
+      "left": {
+        "text": "I suffer from others' sorrows",
+        "original_first_person": "I suffer from others' sorrows",
+        "ipip_id": "ipip119",
+        "trait": "A",
+        "keying": "+",
+        "sd": 4.7489,
+        "text_depersonalized": "suffer from others' sorrows"
+      },
+      "right": {
+        "text": "I do not like poetry",
+        "original_first_person": "I do not like poetry",
+        "ipip_id": "ipip188",
+        "trait": "O",
+        "keying": "-",
+        "sd": 4.7503,
+        "text_depersonalized": "do not like poetry"
+      },
+      "delta_sd": 0.0014,
+      "mixed_keying": true
+    },
+    {
+      "block": 11,
+      "left": {
+        "text": "I anticipate the needs of others",
+        "original_first_person": "I anticipate the needs of others",
+        "ipip_id": "ipip44",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.3575,
+        "text_depersonalized": "anticipate the needs of others"
+      },
+      "right": {
+        "text": "I love to read challenging material",
+        "original_first_person": "I love to read challenging material",
+        "ipip_id": "ipip53",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.356,
+        "text_depersonalized": "love to read challenging material"
+      },
+      "delta_sd": 0.0014,
+      "mixed_keying": false
+    },
+    {
+      "block": 12,
+      "left": {
+        "text": "I get back at others",
+        "original_first_person": "I get back at others",
+        "ipip_id": "ipip259",
+        "trait": "A",
+        "keying": "-",
+        "sd": 2.8428,
+        "text_depersonalized": "get back at others"
+      },
+      "right": {
+        "text": "I am not really interested in others",
+        "original_first_person": "I am not really interested in others",
+        "ipip_id": "ipip242",
+        "trait": "E",
+        "keying": "-",
+        "sd": 2.8442,
+        "text_depersonalized": "am not really interested in others"
+      },
+      "delta_sd": 0.0014,
+      "mixed_keying": false
+    },
+    {
+      "block": 13,
+      "left": {
+        "text": "I can't make up my mind",
+        "original_first_person": "I can't make up my mind",
+        "ipip_id": "ipip116",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.9255,
+        "text_depersonalized": "can't make up my mind"
+      },
+      "right": {
+        "text": "I do not like art",
+        "original_first_person": "I do not like art",
+        "ipip_id": "ipip158",
+        "trait": "O",
+        "keying": "-",
+        "sd": 3.9239,
+        "text_depersonalized": "do not like art"
+      },
+      "delta_sd": 0.0015,
+      "mixed_keying": true
+    },
+    {
+      "block": 14,
+      "left": {
+        "text": "I am not easily disturbed by events",
+        "original_first_person": "I am not easily disturbed by events",
+        "ipip_id": "ipip211",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.0062,
+        "text_depersonalized": "am not easily disturbed by events"
+      },
+      "right": {
+        "text": "I prefer variety to routine",
+        "original_first_person": "I prefer variety to routine",
+        "ipip_id": "ipip18",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.0043,
+        "text_depersonalized": "prefer variety to routine"
+      },
+      "delta_sd": 0.0019,
+      "mixed_keying": true
+    },
+    {
+      "block": 15,
+      "left": {
+        "text": "I believe that people are essentially evil",
+        "original_first_person": "I believe that people are essentially evil",
+        "ipip_id": "ipip274",
+        "trait": "A",
+        "keying": "-",
+        "sd": 2.5615,
+        "text_depersonalized": "believe that people are essentially evil"
+      },
+      "right": {
+        "text": "I feel that I'm unable to deal with things",
+        "original_first_person": "I feel that I'm unable to deal with things",
+        "ipip_id": "ipip86",
+        "trait": "N",
+        "keying": "+",
+        "sd": 2.5634,
+        "text_depersonalized": "feel that I'm unable to deal with things"
+      },
+      "delta_sd": 0.002,
+      "mixed_keying": true
+    },
+    {
+      "block": 16,
+      "left": {
+        "text": "I believe in human goodness",
+        "original_first_person": "I believe in human goodness",
+        "ipip_id": "ipip124",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.3147,
+        "text_depersonalized": "believe in human goodness"
+      },
+      "right": {
+        "text": "I easily resist temptations",
+        "original_first_person": "I easily resist temptations",
+        "ipip_id": "ipip201",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.3126,
+        "text_depersonalized": "easily resist temptations"
+      },
+      "delta_sd": 0.0021,
+      "mixed_keying": true
+    },
+    {
+      "block": 17,
+      "left": {
+        "text": "I let things proceed at their own pace",
+        "original_first_person": "I let things proceed at their own pace",
+        "ipip_id": "ipip257",
+        "trait": "E",
+        "keying": "-",
+        "sd": 6.6514,
+        "text_depersonalized": "let things proceed at their own pace"
+      },
+      "right": {
+        "text": "I am not easily affected by my emotions",
+        "original_first_person": "I am not easily affected by my emotions",
+        "ipip_id": "ipip193",
+        "trait": "O",
+        "keying": "-",
+        "sd": 6.6493,
+        "text_depersonalized": "am not easily affected by my emotions"
+      },
+      "delta_sd": 0.0021,
+      "mixed_keying": false
+    },
+    {
+      "block": 18,
+      "left": {
+        "text": "I am often in a bad mood",
+        "original_first_person": "I am often in a bad mood",
+        "ipip_id": "ipip96",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.4483,
+        "text_depersonalized": "am often in a bad mood"
+      },
+      "right": {
+        "text": "I don't like the idea of change",
+        "original_first_person": "I don't like the idea of change",
+        "ipip_id": "ipip198",
+        "trait": "O",
+        "keying": "-",
+        "sd": 3.446,
+        "text_depersonalized": "don't like the idea of change"
+      },
+      "delta_sd": 0.0023,
+      "mixed_keying": true
+    },
+    {
+      "block": 19,
+      "left": {
+        "text": "I believe that I am better than others",
+        "original_first_person": "I believe that I am better than others",
+        "ipip_id": "ipip144",
+        "trait": "A",
+        "keying": "-",
+        "sd": 2.7879,
+        "text_depersonalized": "believe that I am better than others"
+      },
+      "right": {
+        "text": "I feel desperate",
+        "original_first_person": "I feel desperate",
+        "ipip_id": "ipip161",
+        "trait": "N",
+        "keying": "+",
+        "sd": 2.7856,
+        "text_depersonalized": "feel desperate"
+      },
+      "delta_sd": 0.0023,
+      "mixed_keying": true
+    },
+    {
+      "block": 20,
+      "left": {
+        "text": "I seek danger",
+        "original_first_person": "I seek danger",
+        "ipip_id": "ipip232",
+        "trait": "E",
+        "keying": "+",
+        "sd": 4.3618,
+        "text_depersonalized": "seek danger"
+      },
+      "right": {
+        "text": "I feel that my life lacks direction",
+        "original_first_person": "I feel that my life lacks direction",
+        "ipip_id": "ipip191",
+        "trait": "N",
+        "keying": "+",
+        "sd": 4.3641,
+        "text_depersonalized": "feel that my life lacks direction"
+      },
+      "delta_sd": 0.0023,
+      "mixed_keying": false
+    },
+    {
+      "block": 21,
+      "left": {
+        "text": "I enjoy being part of a group",
+        "original_first_person": "I enjoy being part of a group",
+        "ipip_id": "ipip67",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.9769,
+        "text_depersonalized": "enjoy being part of a group"
+      },
+      "right": {
+        "text": "I am not easily bothered by things",
+        "original_first_person": "I am not easily bothered by things",
+        "ipip_id": "ipip151",
+        "trait": "N",
+        "keying": "-",
+        "sd": 6.9793,
+        "text_depersonalized": "am not easily bothered by things"
+      },
+      "delta_sd": 0.0024,
+      "mixed_keying": true
+    },
+    {
+      "block": 22,
+      "left": {
+        "text": "I seldom toot my own horn",
+        "original_first_person": "I seldom toot my own horn",
+        "ipip_id": "ipip114",
+        "trait": "A",
+        "keying": "+",
+        "sd": 6.4278,
+        "text_depersonalized": "seldom toot my own horn"
+      },
+      "right": {
+        "text": "I get to work at once",
+        "original_first_person": "I get to work at once",
+        "ipip_id": "ipip115",
+        "trait": "C",
+        "keying": "+",
+        "sd": 6.4303,
+        "text_depersonalized": "get to work at once"
+      },
+      "delta_sd": 0.0025,
+      "mixed_keying": false
+    },
+    {
+      "block": 23,
+      "left": {
+        "text": "I am not bothered by messy people",
+        "original_first_person": "I am not bothered by messy people",
+        "ipip_id": "ipip250",
+        "trait": "C",
+        "keying": "-",
+        "sd": 6.0739,
+        "text_depersonalized": "am not bothered by messy people"
+      },
+      "right": {
+        "text": "I try to lead others",
+        "original_first_person": "I try to lead others",
+        "ipip_id": "ipip42",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.0768,
+        "text_depersonalized": "try to lead others"
+      },
+      "delta_sd": 0.0029,
+      "mixed_keying": true
+    },
+    {
+      "block": 24,
+      "left": {
+        "text": "I trust others",
+        "original_first_person": "I trust others",
+        "ipip_id": "ipip4",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.0643,
+        "text_depersonalized": "trust others"
+      },
+      "right": {
+        "text": "I start tasks right away",
+        "original_first_person": "I start tasks right away",
+        "ipip_id": "ipip85",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.0672,
+        "text_depersonalized": "start tasks right away"
+      },
+      "delta_sd": 0.0029,
+      "mixed_keying": false
+    },
+    {
+      "block": 25,
+      "left": {
+        "text": "I talk to a lot of different people at parties",
+        "original_first_person": "I talk to a lot of different people at parties",
+        "ipip_id": "ipip37",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.6773,
+        "text_depersonalized": "talk to a lot of different people at parties"
+      },
+      "right": {
+        "text": "I like to get lost in thought",
+        "original_first_person": "I like to get lost in thought",
+        "ipip_id": "ipip93",
+        "trait": "O",
+        "keying": "+",
+        "sd": 6.6803,
+        "text_depersonalized": "like to get lost in thought"
+      },
+      "delta_sd": 0.003,
+      "mixed_keying": false
+    },
+    {
+      "block": 26,
+      "left": {
+        "text": "I am not bothered by difficult social situations",
+        "original_first_person": "I am not bothered by difficult social situations",
+        "ipip_id": "ipip256",
+        "trait": "N",
+        "keying": "-",
+        "sd": 6.9354,
+        "text_depersonalized": "am not bothered by difficult social situations"
+      },
+      "right": {
+        "text": "I believe laws should be strictly enforced",
+        "original_first_person": "I believe laws should be strictly enforced",
+        "ipip_id": "ipip208",
+        "trait": "O",
+        "keying": "-",
+        "sd": 6.9383,
+        "text_depersonalized": "believe laws should be strictly enforced"
+      },
+      "delta_sd": 0.003,
+      "mixed_keying": false
+    },
+    {
+      "block": 27,
+      "left": {
+        "text": "I am always prepared",
+        "original_first_person": "I am always prepared",
+        "ipip_id": "ipip55",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.4479,
+        "text_depersonalized": "am always prepared"
+      },
+      "right": {
+        "text": "I like to solve complex problems",
+        "original_first_person": "I like to solve complex problems",
+        "ipip_id": "ipip23",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.4447,
+        "text_depersonalized": "like to solve complex problems"
+      },
+      "delta_sd": 0.0032,
+      "mixed_keying": false
+    },
+    {
+      "block": 28,
+      "left": {
+        "text": "I seldom joke around",
+        "original_first_person": "I seldom joke around",
+        "ipip_id": "ipip297",
+        "trait": "E",
+        "keying": "-",
+        "sd": 5.1178,
+        "text_depersonalized": "seldom joke around"
+      },
+      "right": {
+        "text": "I believe that there is no absolute right or wrong",
+        "original_first_person": "I believe that there is no absolute right or wrong",
+        "ipip_id": "ipip58",
+        "trait": "O",
+        "keying": "+",
+        "sd": 5.1211,
+        "text_depersonalized": "believe that there is no absolute right or wrong"
+      },
+      "delta_sd": 0.0033,
+      "mixed_keying": true
+    },
+    {
+      "block": 29,
+      "left": {
+        "text": "I believe that people are basically moral",
+        "original_first_person": "I believe that people are basically moral",
+        "ipip_id": "ipip94",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.0562,
+        "text_depersonalized": "believe that people are basically moral"
+      },
+      "right": {
+        "text": "I am relaxed most of the time",
+        "original_first_person": "I am relaxed most of the time",
+        "ipip_id": "ipip181",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.0595,
+        "text_depersonalized": "am relaxed most of the time"
+      },
+      "delta_sd": 0.0033,
+      "mixed_keying": true
+    },
+    {
+      "block": 30,
+      "left": {
+        "text": "I know how to get around the rules",
+        "original_first_person": "I know how to get around the rules",
+        "ipip_id": "ipip129",
+        "trait": "A",
+        "keying": "-",
+        "sd": 3.9177,
+        "text_depersonalized": "know how to get around the rules"
+      },
+      "right": {
+        "text": "I get angry easily",
+        "original_first_person": "I get angry easily",
+        "ipip_id": "ipip6",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.9142,
+        "text_depersonalized": "get angry easily"
+      },
+      "delta_sd": 0.0034,
+      "mixed_keying": true
+    },
+    {
+      "block": 31,
+      "left": {
+        "text": "I act wild and crazy",
+        "original_first_person": "I act wild and crazy",
+        "ipip_id": "ipip172",
+        "trait": "E",
+        "keying": "+",
+        "sd": 4.6232,
+        "text_depersonalized": "act wild and crazy"
+      },
+      "right": {
+        "text": "I avoid philosophical discussions",
+        "original_first_person": "I avoid philosophical discussions",
+        "ipip_id": "ipip203",
+        "trait": "O",
+        "keying": "-",
+        "sd": 4.6267,
+        "text_depersonalized": "avoid philosophical discussions"
+      },
+      "delta_sd": 0.0035,
+      "mixed_keying": true
+    },
+    {
+      "block": 32,
+      "left": {
+        "text": "I leave my belongings around",
+        "original_first_person": "I leave my belongings around",
+        "ipip_id": "ipip220",
+        "trait": "C",
+        "keying": "-",
+        "sd": 3.5114,
+        "text_depersonalized": "leave my belongings around"
+      },
+      "right": {
+        "text": "I am easily intimidated",
+        "original_first_person": "I am easily intimidated",
+        "ipip_id": "ipip16",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.5078,
+        "text_depersonalized": "am easily intimidated"
+      },
+      "delta_sd": 0.0036,
+      "mixed_keying": true
+    },
+    {
+      "block": 33,
+      "left": {
+        "text": "I seldom feel blue",
+        "original_first_person": "I seldom feel blue",
+        "ipip_id": "ipip221",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.0723,
+        "text_depersonalized": "seldom feel blue"
+      },
+      "right": {
+        "text": "I spend time reflecting on things",
+        "original_first_person": "I spend time reflecting on things",
+        "ipip_id": "ipip153",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.0761,
+        "text_depersonalized": "spend time reflecting on things"
+      },
+      "delta_sd": 0.0038,
+      "mixed_keying": true
+    },
+    {
+      "block": 34,
+      "left": {
+        "text": "I act comfortably with others",
+        "original_first_person": "I act comfortably with others",
+        "ipip_id": "ipip92",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.2414,
+        "text_depersonalized": "act comfortably with others"
+      },
+      "right": {
+        "text": "I am not easily annoyed",
+        "original_first_person": "I am not easily annoyed",
+        "ipip_id": "ipip216",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.2373,
+        "text_depersonalized": "am not easily annoyed"
+      },
+      "delta_sd": 0.0042,
+      "mixed_keying": true
+    },
+    {
+      "block": 35,
+      "left": {
+        "text": "I rush into things",
+        "original_first_person": "I rush into things",
+        "ipip_id": "ipip210",
+        "trait": "C",
+        "keying": "-",
+        "sd": 3.9019,
+        "text_depersonalized": "rush into things"
+      },
+      "right": {
+        "text": "I often feel uncomfortable around others",
+        "original_first_person": "I often feel uncomfortable around others",
+        "ipip_id": "ipip182",
+        "trait": "E",
+        "keying": "-",
+        "sd": 3.8975,
+        "text_depersonalized": "often feel uncomfortable around others"
+      },
+      "delta_sd": 0.0044,
+      "mixed_keying": false
+    },
+    {
+      "block": 36,
+      "left": {
+        "text": "I need a push to get started",
+        "original_first_person": "I need a push to get started",
+        "ipip_id": "ipip235",
+        "trait": "C",
+        "keying": "-",
+        "sd": 4.8246,
+        "text_depersonalized": "need a push to get started"
+      },
+      "right": {
+        "text": "I am afraid that I will do the wrong thing",
+        "original_first_person": "I am afraid that I will do the wrong thing",
+        "ipip_id": "ipip46",
+        "trait": "N",
+        "keying": "+",
+        "sd": 4.8201,
+        "text_depersonalized": "am afraid that I will do the wrong thing"
+      },
+      "delta_sd": 0.0045,
+      "mixed_keying": true
+    },
+    {
+      "block": 37,
+      "left": {
+        "text": "I involve others in what I am doing",
+        "original_first_person": "I involve others in what I am doing",
+        "ipip_id": "ipip97",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.8859,
+        "text_depersonalized": "involve others in what I am doing"
+      },
+      "right": {
+        "text": "I rarely overindulge",
+        "original_first_person": "I rarely overindulge",
+        "ipip_id": "ipip171",
+        "trait": "N",
+        "keying": "-",
+        "sd": 6.8814,
+        "text_depersonalized": "rarely overindulge"
+      },
+      "delta_sd": 0.0045,
+      "mixed_keying": true
+    },
+    {
+      "block": 38,
+      "left": {
+        "text": "I'm willing to try anything once",
+        "original_first_person": "I'm willing to try anything once",
+        "ipip_id": "ipip202",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.6665,
+        "text_depersonalized": "am willing to try anything once"
+      },
+      "right": {
+        "text": "I enjoy wild flights of fantasy",
+        "original_first_person": "I enjoy wild flights of fantasy",
+        "ipip_id": "ipip33",
+        "trait": "O",
+        "keying": "+",
+        "sd": 6.6619,
+        "text_depersonalized": "enjoy wild flights of fantasy"
+      },
+      "delta_sd": 0.0046,
+      "mixed_keying": false
+    },
+    {
+      "block": 39,
+      "left": {
+        "text": "I listen to my conscience",
+        "original_first_person": "I listen to my conscience",
+        "ipip_id": "ipip135",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.088,
+        "text_depersonalized": "listen to my conscience"
+      },
+      "right": {
+        "text": "I express childlike joy",
+        "original_first_person": "I express childlike joy",
+        "ipip_id": "ipip87",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.0931,
+        "text_depersonalized": "express childlike joy"
+      },
+      "delta_sd": 0.0052,
+      "mixed_keying": false
+    },
+    {
+      "block": 40,
+      "left": {
+        "text": "I do more than what's expected of me",
+        "original_first_person": "I do more than what's expected of me",
+        "ipip_id": "ipip140",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.2225,
+        "text_depersonalized": "do more than what's expected of me"
+      },
+      "right": {
+        "text": "I have a vivid imagination",
+        "original_first_person": "I have a vivid imagination",
+        "ipip_id": "ipip3",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.2278,
+        "text_depersonalized": "have a vivid imagination"
+      },
+      "delta_sd": 0.0052,
+      "mixed_keying": false
+    },
+    {
+      "block": 41,
+      "left": {
+        "text": "I pretend to be concerned for others",
+        "original_first_person": "I pretend to be concerned for others",
+        "ipip_id": "ipip219",
+        "trait": "A",
+        "keying": "-",
+        "sd": 3.9036,
+        "text_depersonalized": "pretend to be concerned for others"
+      },
+      "right": {
+        "text": "I have difficulty understanding abstract ideas",
+        "original_first_person": "I have difficulty understanding abstract ideas",
+        "ipip_id": "ipip233",
+        "trait": "O",
+        "keying": "-",
+        "sd": 3.8982,
+        "text_depersonalized": "have difficulty understanding abstract ideas"
+      },
+      "delta_sd": 0.0053,
+      "mixed_keying": false
+    },
+    {
+      "block": 42,
+      "left": {
+        "text": "I know the answers to many questions",
+        "original_first_person": "I know the answers to many questions",
+        "ipip_id": "ipip234",
+        "trait": "A",
+        "keying": "-",
+        "sd": 6.9539,
+        "text_depersonalized": "know the answers to many questions"
+      },
+      "right": {
+        "text": "I try to follow the rules",
+        "original_first_person": "I try to follow the rules",
+        "ipip_id": "ipip15",
+        "trait": "C",
+        "keying": "+",
+        "sd": 6.9594,
+        "text_depersonalized": "try to follow the rules"
+      },
+      "delta_sd": 0.0055,
+      "mixed_keying": true
+    },
+    {
+      "block": 43,
+      "left": {
+        "text": "I tend to dislike soft-hearted people",
+        "original_first_person": "I tend to dislike soft-hearted people",
+        "ipip_id": "ipip179",
+        "trait": "A",
+        "keying": "-",
+        "sd": 3.0508,
+        "text_depersonalized": "tend to dislike soft-hearted people"
+      },
+      "right": {
+        "text": "I do just enough work to get by",
+        "original_first_person": "I do just enough work to get by",
+        "ipip_id": "ipip260",
+        "trait": "C",
+        "keying": "-",
+        "sd": 3.0564,
+        "text_depersonalized": "do just enough work to get by"
+      },
+      "delta_sd": 0.0056,
+      "mixed_keying": false
+    },
+    {
+      "block": 44,
+      "left": {
+        "text": "I set high standards for myself and others",
+        "original_first_person": "I set high standards for myself and others",
+        "ipip_id": "ipip170",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.1582,
+        "text_depersonalized": "set high standards for myself and others"
+      },
+      "right": {
+        "text": "I take control of things",
+        "original_first_person": "I take control of things",
+        "ipip_id": "ipip132",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.1524,
+        "text_depersonalized": "take control of things"
+      },
+      "delta_sd": 0.0057,
+      "mixed_keying": false
+    },
+    {
+      "block": 45,
+      "left": {
+        "text": "I cheat to get ahead",
+        "original_first_person": "I cheat to get ahead",
+        "ipip_id": "ipip159",
+        "trait": "A",
+        "keying": "-",
+        "sd": 2.1295,
+        "text_depersonalized": "cheat to get ahead"
+      },
+      "right": {
+        "text": "I have little to contribute",
+        "original_first_person": "I have little to contribute",
+        "ipip_id": "ipip245",
+        "trait": "C",
+        "keying": "-",
+        "sd": 2.1354,
+        "text_depersonalized": "have little to contribute"
+      },
+      "delta_sd": 0.0059,
+      "mixed_keying": false
+    },
+    {
+      "block": 46,
+      "left": {
+        "text": "I am easy to satisfy",
+        "original_first_person": "I am easy to satisfy",
+        "ipip_id": "ipip19",
+        "trait": "A",
+        "keying": "+",
+        "sd": 5.4548,
+        "text_depersonalized": "am easy to satisfy"
+      },
+      "right": {
+        "text": "I am not interested in theoretical discussions",
+        "original_first_person": "I am not interested in theoretical discussions",
+        "ipip_id": "ipip263",
+        "trait": "O",
+        "keying": "-",
+        "sd": 5.4488,
+        "text_depersonalized": "am not interested in theoretical discussions"
+      },
+      "delta_sd": 0.006,
+      "mixed_keying": true
+    },
+    {
+      "block": 47,
+      "left": {
+        "text": "I am sure of my ground",
+        "original_first_person": "I am sure of my ground",
+        "ipip_id": "ipip95",
+        "trait": "C",
+        "keying": "+",
+        "sd": 6.9138,
+        "text_depersonalized": "am sure of my ground"
+      },
+      "right": {
+        "text": "I experience my emotions intensely",
+        "original_first_person": "I experience my emotions intensely",
+        "ipip_id": "ipip13",
+        "trait": "O",
+        "keying": "+",
+        "sd": 6.92,
+        "text_depersonalized": "experience my emotions intensely"
+      },
+      "delta_sd": 0.0062,
+      "mixed_keying": false
+    },
+    {
+      "block": 48,
+      "left": {
+        "text": "I act without thinking",
+        "original_first_person": "I act without thinking",
+        "ipip_id": "ipip270",
+        "trait": "C",
+        "keying": "-",
+        "sd": 3.0349,
+        "text_depersonalized": "act without thinking"
+      },
+      "right": {
+        "text": "I do not have a good imagination",
+        "original_first_person": "I do not have a good imagination",
+        "ipip_id": "ipip213",
+        "trait": "O",
+        "keying": "-",
+        "sd": 3.0284,
+        "text_depersonalized": "do not have a good imagination"
+      },
+      "delta_sd": 0.0066,
+      "mixed_keying": false
+    },
+    {
+      "block": 49,
+      "left": {
+        "text": "I get others to do my duties",
+        "original_first_person": "I get others to do my duties",
+        "ipip_id": "ipip225",
+        "trait": "C",
+        "keying": "-",
+        "sd": 2.3813,
+        "text_depersonalized": "get others to do my duties"
+      },
+      "right": {
+        "text": "I dislike myself",
+        "original_first_person": "I dislike myself",
+        "ipip_id": "ipip41",
+        "trait": "N",
+        "keying": "+",
+        "sd": 2.3879,
+        "text_depersonalized": "dislike myself"
+      },
+      "delta_sd": 0.0066,
+      "mixed_keying": true
+    },
+    {
+      "block": 50,
+      "left": {
+        "text": "I value cooperation over competition",
+        "original_first_person": "I value cooperation over competition",
+        "ipip_id": "ipip89",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.2929,
+        "text_depersonalized": "value cooperation over competition"
+      },
+      "right": {
+        "text": "I look at the bright side of life",
+        "original_first_person": "I look at the bright side of life",
+        "ipip_id": "ipip177",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.2997,
+        "text_depersonalized": "look at the bright side of life"
+      },
+      "delta_sd": 0.0067,
+      "mixed_keying": false
+    },
+    {
+      "block": 51,
+      "left": {
+        "text": "I often make last-minute plans",
+        "original_first_person": "I often make last-minute plans",
+        "ipip_id": "ipip300",
+        "trait": "C",
+        "keying": "-",
+        "sd": 5.362,
+        "text_depersonalized": "often make last-minute plans"
+      },
+      "right": {
+        "text": "I seldom get emotional",
+        "original_first_person": "I seldom get emotional",
+        "ipip_id": "ipip163",
+        "trait": "O",
+        "keying": "-",
+        "sd": 5.369,
+        "text_depersonalized": "seldom get emotional"
+      },
+      "delta_sd": 0.0069,
+      "mixed_keying": false
+    },
+    {
+      "block": 52,
+      "left": {
+        "text": "I plunge into tasks with all my heart",
+        "original_first_person": "I plunge into tasks with all my heart",
+        "ipip_id": "ipip110",
+        "trait": "C",
+        "keying": "+",
+        "sd": 7.442,
+        "text_depersonalized": "plunge into tasks with all my heart"
+      },
+      "right": {
+        "text": "I have a lot of fun",
+        "original_first_person": "I have a lot of fun",
+        "ipip_id": "ipip57",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.4341,
+        "text_depersonalized": "have a lot of fun"
+      },
+      "delta_sd": 0.0078,
+      "mixed_keying": false
+    },
+    {
+      "block": 53,
+      "left": {
+        "text": "I sympathize with the homeless",
+        "original_first_person": "I sympathize with the homeless",
+        "ipip_id": "ipip29",
+        "trait": "A",
+        "keying": "+",
+        "sd": 7.3866,
+        "text_depersonalized": "sympathize with the homeless"
+      },
+      "right": {
+        "text": "I am passionate about causes",
+        "original_first_person": "I am passionate about causes",
+        "ipip_id": "ipip73",
+        "trait": "O",
+        "keying": "+",
+        "sd": 7.3788,
+        "text_depersonalized": "am passionate about causes"
+      },
+      "delta_sd": 0.0078,
+      "mixed_keying": false
+    },
+    {
+      "block": 54,
+      "left": {
+        "text": "I have a high opinion of myself",
+        "original_first_person": "I have a high opinion of myself",
+        "ipip_id": "ipip204",
+        "trait": "A",
+        "keying": "-",
+        "sd": 6.7266,
+        "text_depersonalized": "have a high opinion of myself"
+      },
+      "right": {
+        "text": "I seek to influence others",
+        "original_first_person": "I seek to influence others",
+        "ipip_id": "ipip102",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.7347,
+        "text_depersonalized": "seek to influence others"
+      },
+      "delta_sd": 0.0081,
+      "mixed_keying": true
+    },
+    {
+      "block": 55,
+      "left": {
+        "text": "I avoid contacts with others",
+        "original_first_person": "I avoid contacts with others",
+        "ipip_id": "ipip212",
+        "trait": "E",
+        "keying": "-",
+        "sd": 3.2032,
+        "text_depersonalized": "avoid contacts with others"
+      },
+      "right": {
+        "text": "I am often down in the dumps",
+        "original_first_person": "I am often down in the dumps",
+        "ipip_id": "ipip71",
+        "trait": "N",
+        "keying": "+",
+        "sd": 3.2116,
+        "text_depersonalized": "am often down in the dumps"
+      },
+      "delta_sd": 0.0084,
+      "mixed_keying": true
+    },
+    {
+      "block": 56,
+      "left": {
+        "text": "I like order",
+        "original_first_person": "I like order",
+        "ipip_id": "ipip10",
+        "trait": "C",
+        "keying": "+",
+        "sd": 6.8057,
+        "text_depersonalized": "like order"
+      },
+      "right": {
+        "text": "I amuse my friends",
+        "original_first_person": "I amuse my friends",
+        "ipip_id": "ipip237",
+        "trait": "E",
+        "keying": "+",
+        "sd": 6.8145,
+        "text_depersonalized": "amuse my friends"
+      },
+      "delta_sd": 0.0089,
+      "mixed_keying": false
+    },
+    {
+      "block": 57,
+      "left": {
+        "text": "I break rules",
+        "original_first_person": "I break rules",
+        "ipip_id": "ipip165",
+        "trait": "C",
+        "keying": "-",
+        "sd": 4.0818,
+        "text_depersonalized": "break rules"
+      },
+      "right": {
+        "text": "I am not interested in abstract ideas",
+        "original_first_person": "I am not interested in abstract ideas",
+        "ipip_id": "ipip173",
+        "trait": "O",
+        "keying": "-",
+        "sd": 4.0908,
+        "text_depersonalized": "am not interested in abstract ideas"
+      },
+      "delta_sd": 0.009,
+      "mixed_keying": false
+    },
+    {
+      "block": 58,
+      "left": {
+        "text": "I cheer people up",
+        "original_first_person": "I cheer people up",
+        "ipip_id": "ipip122",
+        "trait": "E",
+        "keying": "+",
+        "sd": 7.7174,
+        "text_depersonalized": "cheer people up"
+      },
+      "right": {
+        "text": "I can handle complex problems",
+        "original_first_person": "I can handle complex problems",
+        "ipip_id": "ipip206",
+        "trait": "N",
+        "keying": "-",
+        "sd": 7.7264,
+        "text_depersonalized": "can handle complex problems"
+      },
+      "delta_sd": 0.009,
+      "mixed_keying": true
+    },
+    {
+      "block": 59,
+      "left": {
+        "text": "I want to be left alone",
+        "original_first_person": "I want to be left alone",
+        "ipip_id": "ipip187",
+        "trait": "E",
+        "keying": "-",
+        "sd": 5.5667,
+        "text_depersonalized": "want to be left alone"
+      },
+      "right": {
+        "text": "I prefer to stick with things that I know",
+        "original_first_person": "I prefer to stick with things that I know",
+        "ipip_id": "ipip138",
+        "trait": "O",
+        "keying": "-",
+        "sd": 5.5791,
+        "text_depersonalized": "prefer to stick with things that I know"
+      },
+      "delta_sd": 0.0124,
+      "mixed_keying": false
+    },
+    {
+      "block": 60,
+      "left": {
+        "text": "I dislike talking about myself",
+        "original_first_person": "I dislike talking about myself",
+        "ipip_id": "ipip54",
+        "trait": "A",
+        "keying": "+",
+        "sd": 5.8643,
+        "text_depersonalized": "dislike talking about myself"
+      },
+      "right": {
+        "text": "I prefer to be alone",
+        "original_first_person": "I prefer to be alone",
+        "ipip_id": "ipip157",
+        "trait": "E",
+        "keying": "-",
+        "sd": 5.8776,
+        "text_depersonalized": "prefer to be alone"
+      },
+      "delta_sd": 0.0133,
+      "mixed_keying": true
+    }
+  ]
+}

@@ -303,6 +303,10 @@ def main():
     parser.add_argument("--output", default=None)
     parser.add_argument("--m-tol", type=float, default=0.005,
                         help="Binary-search convergence tolerance for m*.")
+    parser.add_argument("--m-target", type=float, default=None,
+                        help="If set, skip binary search and use this fixed m_threshold "
+                             "for Stage 2 (e.g., 0.18 matches Okada published gap). "
+                             "Useful when tight matching weakens TIRT identification.")
     parser.add_argument("--feas-time", type=int, default=60,
                         help="Time limit per feasibility check (seconds).")
     parser.add_argument("--stage2-time", type=int, default=300,
@@ -313,9 +317,15 @@ def main():
 
     pool = load_inputs(args.P)
     pairs = build_candidates(pool)
-    m_star, _ = binary_search_m_star(pool, pairs, args.P, tol=args.m_tol, time_limit=args.feas_time)
+    if args.m_target is not None:
+        print(f"\nUsing fixed m_target = {args.m_target} (skipping binary search)")
+        m_star = args.m_target
+    else:
+        m_star, _ = binary_search_m_star(pool, pairs, args.P, tol=args.m_tol, time_limit=args.feas_time)
     total_sq, selection = solve_stage2(pool, pairs, args.P, m_star, time_limit=args.stage2_time)
-    emit_instrument(pool, pairs, selection, args.P, m_star, total_sq, args.output)
+    # Report the ACTUAL max delta in the selected solution (may be < m_star if a tighter one is optimal)
+    actual_max = max(pairs[k][2] for k in selection)
+    emit_instrument(pool, pairs, selection, args.P, actual_max, total_sq, args.output)
 
 
 if __name__ == "__main__":
