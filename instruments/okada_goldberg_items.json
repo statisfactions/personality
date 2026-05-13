@@ -1,0 +1,488 @@
+{
+  "source": "Okada et al. 2026 (arXiv 2602.17262) Table 3",
+  "instrument": "GFC-30 Goldberg-IPIP items with LLM-mean desirability",
+  "rater_pool": "GPT-5 + Gemini 2.5 Pro, 30 reps each",
+  "n_items": 60,
+  "items": [
+    {
+      "block": 1,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Accept people as they are.",
+      "sd": 8.75
+    },
+    {
+      "block": 1,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Enjoy hearing new ideas.",
+      "sd": 8.75
+    },
+    {
+      "block": 2,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Am concerned about others.",
+      "sd": 8.87
+    },
+    {
+      "block": 2,
+      "side": "right",
+      "domain": "C",
+      "keying": "+",
+      "text": "Carry out my plans.",
+      "sd": 8.87
+    },
+    {
+      "block": 3,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Am easy to satisfy.",
+      "sd": 6.63
+    },
+    {
+      "block": 3,
+      "side": "right",
+      "domain": "E",
+      "keying": "+",
+      "text": "Talk to a lot of different people at parties.",
+      "sd": 6.65
+    },
+    {
+      "block": 4,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Believe that others have good intentions.",
+      "sd": 7.43
+    },
+    {
+      "block": 4,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Can say things beautifully.",
+      "sd": 7.62
+    },
+    {
+      "block": 5,
+      "side": "left",
+      "domain": "A",
+      "keying": "-",
+      "text": "Contradict others.",
+      "sd": 3.23
+    },
+    {
+      "block": 5,
+      "side": "right",
+      "domain": "O",
+      "keying": "-",
+      "text": "Am not interested in abstract ideas.",
+      "sd": 3.17
+    },
+    {
+      "block": 6,
+      "side": "left",
+      "domain": "A",
+      "keying": "-",
+      "text": "Cut others to pieces.",
+      "sd": 1.0
+    },
+    {
+      "block": 6,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Dislike myself.",
+      "sd": 1.02
+    },
+    {
+      "block": 7,
+      "side": "left",
+      "domain": "A",
+      "keying": "-",
+      "text": "Get back at others.",
+      "sd": 1.03
+    },
+    {
+      "block": 7,
+      "side": "right",
+      "domain": "C",
+      "keying": "-",
+      "text": "Shirk my duties.",
+      "sd": 1.03
+    },
+    {
+      "block": 8,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Have a good word for everyone.",
+      "sd": 8.08
+    },
+    {
+      "block": 8,
+      "side": "right",
+      "domain": "N",
+      "keying": "-",
+      "text": "Am not easily bothered by things.",
+      "sd": 8.07
+    },
+    {
+      "block": 9,
+      "side": "left",
+      "domain": "A",
+      "keying": "-",
+      "text": "Have a sharp tongue.",
+      "sd": 2.58
+    },
+    {
+      "block": 9,
+      "side": "right",
+      "domain": "E",
+      "keying": "-",
+      "text": "Retreat from others.",
+      "sd": 2.62
+    },
+    {
+      "block": 10,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Respect others.",
+      "sd": 9.0
+    },
+    {
+      "block": 10,
+      "side": "right",
+      "domain": "N",
+      "keying": "-",
+      "text": "Remain calm under pressure.",
+      "sd": 9.0
+    },
+    {
+      "block": 11,
+      "side": "left",
+      "domain": "A",
+      "keying": "-",
+      "text": "Suspect hidden motives in others.",
+      "sd": 2.57
+    },
+    {
+      "block": 11,
+      "side": "right",
+      "domain": "E",
+      "keying": "-",
+      "text": "Would describe my experiences as somewhat dull.",
+      "sd": 2.53
+    },
+    {
+      "block": 12,
+      "side": "left",
+      "domain": "A",
+      "keying": "+",
+      "text": "Treat all people equally.",
+      "sd": 9.0
+    },
+    {
+      "block": 12,
+      "side": "right",
+      "domain": "C",
+      "keying": "+",
+      "text": "Complete tasks successfully.",
+      "sd": 9.0
+    },
+    {
+      "block": 13,
+      "side": "left",
+      "domain": "C",
+      "keying": "+",
+      "text": "Am exacting in my work.",
+      "sd": 7.92
+    },
+    {
+      "block": 13,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Have a rich vocabulary.",
+      "sd": 7.8
+    },
+    {
+      "block": 14,
+      "side": "left",
+      "domain": "C",
+      "keying": "+",
+      "text": "Do things according to a plan.",
+      "sd": 7.93
+    },
+    {
+      "block": 14,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Have a vivid imagination.",
+      "sd": 7.93
+    },
+    {
+      "block": 15,
+      "side": "left",
+      "domain": "C",
+      "keying": "-",
+      "text": "Don\u2019t put my mind on the task at hand.",
+      "sd": 1.65
+    },
+    {
+      "block": 15,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Often feel blue.",
+      "sd": 1.63
+    },
+    {
+      "block": 16,
+      "side": "left",
+      "domain": "C",
+      "keying": "-",
+      "text": "Don\u2019t see things through.",
+      "sd": 1.52
+    },
+    {
+      "block": 16,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Am often down in the dumps.",
+      "sd": 1.5
+    },
+    {
+      "block": 17,
+      "side": "left",
+      "domain": "C",
+      "keying": "-",
+      "text": "Find it difficult to get down to work.",
+      "sd": 1.95
+    },
+    {
+      "block": 17,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Get stressed out easily.",
+      "sd": 1.93
+    },
+    {
+      "block": 18,
+      "side": "left",
+      "domain": "C",
+      "keying": "+",
+      "text": "Get chores done right away.",
+      "sd": 8.07
+    },
+    {
+      "block": 18,
+      "side": "right",
+      "domain": "E",
+      "keying": "+",
+      "text": "Make friends easily.",
+      "sd": 8.07
+    },
+    {
+      "block": 19,
+      "side": "left",
+      "domain": "C",
+      "keying": "+",
+      "text": "Make plans and stick to them.",
+      "sd": 8.75
+    },
+    {
+      "block": 19,
+      "side": "right",
+      "domain": "E",
+      "keying": "+",
+      "text": "Cheer people up.",
+      "sd": 8.68
+    },
+    {
+      "block": 20,
+      "side": "left",
+      "domain": "C",
+      "keying": "-",
+      "text": "Need a push to get started.",
+      "sd": 2.78
+    },
+    {
+      "block": 20,
+      "side": "right",
+      "domain": "E",
+      "keying": "-",
+      "text": "Find it difficult to approach others.",
+      "sd": 2.83
+    },
+    {
+      "block": 21,
+      "side": "left",
+      "domain": "C",
+      "keying": "+",
+      "text": "Pay attention to details.",
+      "sd": 8.17
+    },
+    {
+      "block": 21,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Enjoy thinking about things.",
+      "sd": 8.1
+    },
+    {
+      "block": 22,
+      "side": "left",
+      "domain": "E",
+      "keying": "+",
+      "text": "Am skilled in handling social situations.",
+      "sd": 8.57
+    },
+    {
+      "block": 22,
+      "side": "right",
+      "domain": "N",
+      "keying": "-",
+      "text": "Rarely lose my composure.",
+      "sd": 8.57
+    },
+    {
+      "block": 23,
+      "side": "left",
+      "domain": "E",
+      "keying": "+",
+      "text": "Am the life of the party.",
+      "sd": 6.47
+    },
+    {
+      "block": 23,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Enjoy wild flights of fantasy.",
+      "sd": 6.45
+    },
+    {
+      "block": 24,
+      "side": "left",
+      "domain": "E",
+      "keying": "-",
+      "text": "Avoid contacts with others.",
+      "sd": 2.17
+    },
+    {
+      "block": 24,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Fear for the worst.",
+      "sd": 2.17
+    },
+    {
+      "block": 25,
+      "side": "left",
+      "domain": "E",
+      "keying": "-",
+      "text": "Don\u2019t talk a lot.",
+      "sd": 4.98
+    },
+    {
+      "block": 25,
+      "side": "right",
+      "domain": "O",
+      "keying": "-",
+      "text": "Believe that too much tax money goes to support artists.",
+      "sd": 4.9
+    },
+    {
+      "block": 26,
+      "side": "left",
+      "domain": "E",
+      "keying": "-",
+      "text": "Keep in the background.",
+      "sd": 4.7
+    },
+    {
+      "block": 26,
+      "side": "right",
+      "domain": "O",
+      "keying": "-",
+      "text": "Do not like poetry.",
+      "sd": 4.63
+    },
+    {
+      "block": 27,
+      "side": "left",
+      "domain": "E",
+      "keying": "-",
+      "text": "Keep others at a distance.",
+      "sd": 2.7
+    },
+    {
+      "block": 27,
+      "side": "right",
+      "domain": "N",
+      "keying": "+",
+      "text": "Am filled with doubts about things.",
+      "sd": 2.72
+    },
+    {
+      "block": 28,
+      "side": "left",
+      "domain": "N",
+      "keying": "+",
+      "text": "Worry about things.",
+      "sd": 2.7
+    },
+    {
+      "block": 28,
+      "side": "right",
+      "domain": "O",
+      "keying": "-",
+      "text": "Have difficulty understanding abstract ideas.",
+      "sd": 2.63
+    },
+    {
+      "block": 29,
+      "side": "left",
+      "domain": "N",
+      "keying": "-",
+      "text": "Rarely get irritated.",
+      "sd": 8.32
+    },
+    {
+      "block": 29,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Get excited by new ideas.",
+      "sd": 8.33
+    },
+    {
+      "block": 30,
+      "side": "left",
+      "domain": "N",
+      "keying": "-",
+      "text": "Seldom get mad.",
+      "sd": 8.05
+    },
+    {
+      "block": 30,
+      "side": "right",
+      "domain": "O",
+      "keying": "+",
+      "text": "Carry the conversation to a higher level.",
+      "sd": 8.07
+    }
+  ]
+}
