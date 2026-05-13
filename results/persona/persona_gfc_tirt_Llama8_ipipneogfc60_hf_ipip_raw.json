@@ -1,0 +1,22 @@
+{
+  "diagonal_correlations": {
+    "A": -0.002,
+    "C": 0.1783,
+    "E": 0.258,
+    "N": 0.0449,
+    "O": -0.1037
+  },
+  "abs_diagonal_correlations": {
+    "A": 0.002,
+    "C": 0.1783,
+    "E": 0.258,
+    "N": 0.0449,
+    "O": 0.1037
+  },
+  "n_personas": 50,
+  "n_high_rhat": 0,
+  "n_low_neff": 0,
+  "responses_path": "psychometrics/gfc_tirt/Llama8_ipipneogfc60_hf_ipip_raw.json",
+  "fit_rds": "psychometrics/gfc_tirt/Llama8_ipipneogfc60_hf_ipip_raw_indep_fit.rds",
+  "stan_model": "psychometrics/gfc_tirt/tirt_okada_indep.stan"
+}
