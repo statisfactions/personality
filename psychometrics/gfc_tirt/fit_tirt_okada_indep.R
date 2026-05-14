@@ -52,34 +52,46 @@ message("Stan model: ", stan_file)
 message("Responses:  ", responses_path)
 message("Output:     ", output_path)
 
-# Read instrument from the path embedded in the inference JSON if present
-# (set by scripts/run_gfc_hf.py since 959f672). Falls back to Okada GFC-30
-# for backwards compatibility with pre-W11 inference files.
-.raw_for_path <- fromJSON(responses_path, flatten = FALSE)
-.instrument_path <- if (!is.null(.raw_for_path$instrument_path)) {
-  .raw_for_path$instrument_path
-} else {
-  "instruments/okada_gfc30.json"
+# Derive stmt_df DIRECTLY from the inference JSON's response records,
+# which carry per-record left_trait/left_keying/right_trait/right_keying.
+# The previous version loaded instruments/okada_gfc30.json regardless of
+# which inference data was being fit — a path-coupling bug that produced
+# silently-wrong fits when the inference used a non-Okada instrument
+# (see W11 §5.4). Reading metadata from the inference data itself makes
+# the fit a pure function of that data and eliminates the bug class.
+.raw <- fromJSON(responses_path, flatten = FALSE)
+.results <- if (!is.null(.raw$results)) .raw$results else stop(
+  "responses_path JSON has no `results` field: ", responses_path)
+# scripts/run_gfc_hf.py records the AS-PRESENTED L/R in each record
+# (after possible swap randomization). To get instrument-canonical L/R,
+# filter to swapped=FALSE rows first. With 50% swap probability and
+# many personas per block, every block should have unswapped examples.
+.first_per_block <- .results %>%
+  filter(!swapped) %>%
+  arrange(block) %>%
+  group_by(block) %>%
+  slice(1) %>%
+  ungroup()
+if (nrow(.first_per_block) != length(unique(.results$block))) {
+  stop("Some blocks have no swapped=FALSE record; can't derive canonical L/R")
 }
-message("Instrument: ", .instrument_path)
-inst <- fromJSON(.instrument_path)
-pairs <- inst$pairs
-P <- nrow(pairs)
+P <- nrow(.first_per_block)
 D <- 5L
 K <- 7L
 trait_names <- c("A", "C", "E", "N", "O")
 trait_idx <- setNames(seq_along(trait_names), trait_names)
 
 stmt_df <- tibble(
-  block = rep(seq_len(P), each = 2),
+  block = rep(.first_per_block$block, each = 2),
   side  = rep(c("L", "R"), times = P),
-  trait = c(rbind(pairs$left$trait,   pairs$right$trait)),
-  key   = c(rbind(pairs$left$keying,  pairs$right$keying))
+  trait = c(rbind(.first_per_block$left_trait,  .first_per_block$right_trait)),
+  key   = c(rbind(.first_per_block$left_keying, .first_per_block$right_keying))
 ) %>%
   mutate(g = ifelse(key == "+", 1L, -1L),
          trait_id = trait_idx[trait])
 stmt_df$stmt_index <- seq_len(nrow(stmt_df))
 J <- nrow(stmt_df)
+message("Pairs: ", P, " (derived from response records, not from any external instrument file)")
 
 L_idx <- stmt_df$stmt_index[stmt_df$side == "L"]
 R_idx <- stmt_df$stmt_index[stmt_df$side == "R"]
