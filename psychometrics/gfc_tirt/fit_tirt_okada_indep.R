@@ -45,14 +45,24 @@ recovery_path  <- if (length(args) >= 6) args[6] else {
   file.path("results", "persona", paste0("persona_gfc_tirt_", base, ".json"))
 }
 
-stan_file <- "psychometrics/gfc_tirt/tirt_okada_indep.stan"
+stan_file <- if (length(args) >= 7) args[7] else "psychometrics/gfc_tirt/tirt_okada_indep.stan"
 if (!file.exists(stan_file)) stop("Stan file missing: ", stan_file)
 
 message("Stan model: ", stan_file)
 message("Responses:  ", responses_path)
 message("Output:     ", output_path)
 
-inst <- fromJSON("instruments/okada_gfc30.json")
+# Read instrument from the path embedded in the inference JSON if present
+# (set by scripts/run_gfc_hf.py since 959f672). Falls back to Okada GFC-30
+# for backwards compatibility with pre-W11 inference files.
+.raw_for_path <- fromJSON(responses_path, flatten = FALSE)
+.instrument_path <- if (!is.null(.raw_for_path$instrument_path)) {
+  .raw_for_path$instrument_path
+} else {
+  "instruments/okada_gfc30.json"
+}
+message("Instrument: ", .instrument_path)
+inst <- fromJSON(.instrument_path)
 pairs <- inst$pairs
 P <- nrow(pairs)
 D <- 5L
