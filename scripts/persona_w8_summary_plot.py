@@ -66,6 +66,13 @@ PATTERNS = {
     ("§5 reflow", "rep"):    "results/persona/persona_repr_mapping_{m}_response-position_ipip_reflowed_dir-ipip.json",
     ("§5 reflow", "likert"): "results/persona/persona_instrument_response_{m}_ipip_reflowed_target-ipip.json",
     ("§5 reflow", "tirt"):   "results/persona/persona_gfc_tirt_{m}_ipip_reflowed.json",
+    # W11: IPIP-NEO-GFC-60 (P=60, behavioral items, cohort-rater desirability)
+    # tirt60 line: same persona-form mapping as tirt above
+    ("W7",        "tirt60"): "results/persona/persona_gfc_tirt_{m}_ipipneogfc60_hf_description.json",
+    ("§4 raw",    "tirt60"): "results/persona/persona_gfc_tirt_{m}_ipipneogfc60_hf_ipip_raw.json",
+    ("§5 raw",    "tirt60"): "results/persona/persona_gfc_tirt_{m}_ipipneogfc60_hf_ipip_raw.json",
+    ("§3 reflow", "tirt60"): "results/persona/persona_gfc_tirt_{m}_ipipneogfc60_hf_ipip_reflowed.json",
+    ("§5 reflow", "tirt60"): "results/persona/persona_gfc_tirt_{m}_ipipneogfc60_hf_ipip_reflowed.json",
 }
 
 # Trajectory conditions: all-cohort means. §3 raw dropped from the trajectory
@@ -144,6 +151,8 @@ def make_trajectory_figure(data):
     lik_means = [cohort_mean(data[c]["likert"]) for c in CONDITIONS_TRAJECTORY]
     tirt_means = [cohort_mean(data[c].get("tirt", {}))
                   for c in CONDITIONS_TRAJECTORY]
+    tirt60_means = [cohort_mean(data[c].get("tirt60", {}))
+                    for c in CONDITIONS_TRAJECTORY]
     gaps = [(l - r) if (l is not None and r is not None) else None
             for l, r in zip(lik_means, rep_means)]
 
@@ -180,21 +189,32 @@ def make_trajectory_figure(data):
         hovertemplate="<b>%{x}</b><br>Likert r = %{y:+.3f}<br>%{customdata}<extra></extra>",
         customdata=tooltips,
     ), row=1, col=1)
-    # GFC/TIRT line — only renders if any cohort means resolved (i.e., the
-    # 21-run inference + TIRT fit pipeline has been executed).
+    # GFC/TIRT (Okada P=30) line — only renders if any cohort means resolved
     if any(v is not None for v in tirt_means):
         fig.add_trace(go.Scatter(
             x=x_labels, y=tirt_means,
             mode="lines+markers+text",
             text=[f"{v:.3f}" if v is not None else "" for v in tirt_means],
             textposition="top center", textfont=dict(size=10, color="#4daf4a"),
-            name="TIRT/GFC r",
+            name="TIRT (Okada P=30)",
             line=dict(color="#4daf4a", width=3, dash="dash", shape="hv"),
             marker=dict(size=10),
-            hovertemplate="<b>%{x}</b><br>TIRT/GFC r = %{y:+.3f}<br>"
-                          "(GFC has no readout-side coupling — value is "
-                          "shared across §3/§4/§5 raw and across §3/§5 "
-                          "reflow)<extra></extra>",
+            hovertemplate="<b>%{x}</b><br>TIRT (P=30) r = %{y:+.3f}<extra></extra>",
+        ), row=1, col=1)
+    # W11: GFC/TIRT (IPIP-NEO-GFC-60) — same hv-step shape (3 distinct values
+    # across 5 x-positions: description, raw, reflow)
+    if any(v is not None for v in tirt60_means):
+        fig.add_trace(go.Scatter(
+            x=x_labels, y=tirt60_means,
+            mode="lines+markers+text",
+            text=[f"{v:.3f}" if v is not None else "" for v in tirt60_means],
+            textposition="bottom center", textfont=dict(size=10, color="#984ea3"),
+            name="TIRT (IPIP-NEO P=60)",
+            line=dict(color="#984ea3", width=3, dash="dot", shape="hv"),
+            marker=dict(size=10, symbol="square"),
+            hovertemplate="<b>%{x}</b><br>TIRT (P=60) r = %{y:+.3f}<br>"
+                          "(IPIP-NEO-GFC-60 — open-rater desirability, "
+                          "60 pairs vs Okada's 30)<extra></extra>",
         ), row=1, col=1)
 
     # Bottom: gap bars
