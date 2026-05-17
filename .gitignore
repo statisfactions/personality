@@ -50,6 +50,9 @@ psychometrics/gfc_tirt/pooled_haiku_gemma27b_fit*.rds
 # inference + scripts/filter_ablation_responses.py
 psychometrics/gfc_tirt/ablation_subsets/*.json
 psychometrics/gfc_tirt/ablation_run.log
+# W12 fake-good run logs (Stan + inference verbose output, regenerable)
+psychometrics/gfc_tirt/fake_good_inference.log
+psychometrics/gfc_tirt/fake_good_tirt_fits.log
 
 # Local data (copyrighted instruments, raw results)
 data/

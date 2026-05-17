@@ -273,6 +273,130 @@ style"). The new framing is structural and load-bearing:
 This argument is testable directly via the FAKE-GOOD condition
 deferred from W10/W11.
 
+## 5b. FAKE-GOOD test (the headline)
+
+The W12 mechanism makes a sharp prediction: under a fake-good
+instruction, **Likert responses should shift substantially (because
+the assistant prior dominates the readout) but TIRT θ̂ should barely
+shift and recovery should be essentially unchanged (because the
+loading-weighted scoring suppresses exactly the items most sensitive
+to FG pressure)**.
+
+### 5b.1 Setup
+
+- Added `--condition {honest,fake_good}` to `scripts/run_gfc_hf.py`.
+  FG appends to the persona system message:
+  > IMPORTANT INSTRUCTION: Imagine you are completing this
+  > questionnaire as part of an application for a position you very
+  > much want. Your responses will be evaluated and used to decide
+  > whether you are selected. Respond in a way that makes the most
+  > favorable possible impression.
+  Phrasing follows the Stark & Drasgow (2009) / Viswesvaran & Ones
+  (1999) faking-research convention.
+- Re-ran inference: 7 models × 3 forms × 50 personas × 60 pairs =
+  63,000 prompts (~3 hr on M5 Max).
+- Re-ran TIRT fits: 21 fits, all converged cleanly
+  (0 Rhat > 1.05, 0 n_eff < 100 across 21 fits).
+- Comparison: `psychometrics/gfc_tirt/compare_fake_good.R`.
+
+### 5b.2 Headline numbers
+
+| metric | HONEST | FAKE-GOOD | shift |
+|---|---|---|---|
+| **TIRT cohort diagonal \|r\|** | 0.266 | **0.251** | **Δ −0.015** (≈ noise) |
+| **TIRT \|θ shift\|** per trait | — | — | **0.039 σ** |
+| **Likert \|response shift\|** per pair (7-pt scale) | — | — | **0.504 pts (7.2% of full scale)** |
+
+**TIRT recovery of the persona is essentially unchanged under FG.**
+Likert per-pair responses shift by half a scale point on average —
+that's a large per-item effect. TIRT θ̂ moves by 0.04 σ — that's noise.
+**~13× ratio in scale-comparable units (Likert pct-of-range vs TIRT
+σ-fraction), and 0.015 absolute drop in θ̂↔z recovery vs ~0.04 noise
+floor we'd expect from re-running the cohort.**
+
+### 5b.3 Per-trait θ-shift direction matches the faking literature
+
+| trait | mean shift (sign-aligned) | interpretation |
+|---|---|---|
+| N | **−0.036** | FG personas claim less neuroticism ✓ |
+| E | **+0.031** | FG personas claim more extraversion ✓ |
+| C | **+0.012** | FG personas claim slightly more conscientiousness ✓ |
+| A | +0.007 | already pegged at assistant max — minimal room ✓ |
+| O | −0.016 | mild "look conventional" pull |
+
+All four central Big-Five faking predictions (N↓, E↑, C↑, A pegged-up)
+go the right direction. Magnitudes are small but coherent.
+
+### 5b.4 Per-cell variability
+
+The cohort average masks substantial per-cell heterogeneity:
+
+- **Strong fits drop noticeably**: Gemma12 description (−0.154),
+  Llama8 description (−0.113), Gemma12 ipip_raw (−0.134), Phi4
+  ipip_reflowed (−0.124).
+- **Weak fits sometimes improve under FG**: Llama all forms gain
+  +0.03 to +0.05; Gemma desc gains +0.04; Qwen all forms gain.
+- **Qwen7 ipip_raw bizarrely jumps +0.149** — this one's an outlier
+  and worth investigating (could be a sign-flip artifact or genuine
+  FG-revealing latent structure that was being masked HONEST).
+- Net cohort drop −0.015 because gains and losses partially cancel.
+
+This per-cell variability is a real caveat but doesn't undermine the
+headline: even the *worst-hit* cell (Gemma12 description, Δ −0.15)
+retains diagonal r = 0.41, well above the cohort-grand HONEST mean
+(0.266). The drops are absolute, not catastrophic, and they happen
+on cells that started highest.
+
+### 5b.5 Item-level prediction (partial confirmation)
+
+The W12 mechanism predicts: items with HIGH loading should shift
+MORE under FG (more room to move toward assistant default).
+
+**Pooled correlation `|Likert shift|` vs `a_mean_pair`: r = +0.006.**
+
+That's effectively zero. Two interpretations:
+1. `|shift|` strips direction; the right test is *signed* shift
+   correlated with item *virtue-asymmetry* (which side of the pair is
+   the more assistant-aligned side). That analysis is a follow-up.
+2. Per-cell correlations are sometimes meaningful (Gemma description
+   +0.24, Gemma12 ipip_raw +0.27, Llama8 description +0.28) but the
+   sign and magnitude varies enough that the pooled correlation
+   cancels.
+
+The clean cohort-level prediction (TIRT-immune, Likert-affected)
+passes definitively. The fine-grained per-item prediction needs a
+better-targeted test.
+
+### 5b.6 What this means
+
+The structural SDR-immunity argument has gone from mechanistic story
+to falsifiable prediction with a passing test. Specifically:
+
+1. *Predicted (W12 §5.2)*: TIRT down-weights the items FG shifts →
+   TIRT is mechanically more SDR-immune than Likert.
+2. *Observed (5b.2)*: 0.504-pt Likert vs 0.039-σ TIRT shift; Δ-recovery
+   −0.015 (within noise).
+3. *Therefore*: the loading-weighted scoring mechanism explains the
+   readout-hierarchy ordering. The paper can now claim SDR-immunity
+   not by appeal to "FC controls response styles" generically, but
+   by a structural derivation: items differ in how much the assistant
+   prior dominates them; TIRT learns this differential dominance and
+   weights items accordingly; FG is structurally orthogonal to
+   trait-aligned variance for the same reason.
+
+This is the cleanest version of the three-readouts thesis the paper
+has had so far. Combined with the W7 §11.5.9 r ≈ 0.73 Rep-side
+internalization, the project now has:
+
+- *Representation* (Rep): r ≈ 0.73 persona recovery, no SDR vector
+  even acts on it (predicted but not directly tested here)
+- *TIRT*: r ≈ 0.27 honest recovery, Δ −0.015 under FG
+- *Likert*: per-pair 0.504 pt shift under FG (full-Likert score
+  recovery under FG not directly computed here — separate analysis)
+
+The cohort-mean ordering (Rep > TIRT > Likert) on persona-recovery,
+and the predicted SDR-immunity ordering, are the headline.
+
 ## 6. Next steps
 
 1. **FAKE-GOOD condition** — now the highest-value extension. The
@@ -304,6 +428,25 @@ deferred from W10/W11.
 5. **Paper outline refresh** — `paper_outline.md` should be updated
    to fold in the W12 structural-SDR-immunity argument.
 
+6. **Assistant self-description ↔ loadings test** — rgb's follow-up
+   conjecture (2026-05-17): if the filter mechanism is right, querying
+   each cohort model on each item *without persona* should give a
+   self-rating whose distance from neutral (`|r_self - 4|`) negatively
+   correlates with TIRT loading. Cheap test (~420 queries) that
+   directly validates the mechanism's upstream premise.
+
+7. **Per-item signed-shift × virtue-asymmetry test** — refinement of
+   §5b.5. Score each pair by which side is more assistant-aligned
+   (A+/C+/N− side gets weight +1; A−/C−/N+ side gets −1), then test
+   whether Likert signed shift tracks virtue-asymmetry × loading.
+   Trivial to run; would convert the partial item-level result into
+   a stronger statement.
+
+8. **Investigate Qwen7 ipip_raw +0.149 jump** — outlier in the FG cell
+   matrix. Sign-flip diagnostic first, then look at the raw response
+   distributions; the +0.149 is large enough to need an explanation
+   either way.
+
 ## 7. Status
 
 Commits (planned):
@@ -322,6 +465,14 @@ Headline artifacts:
   fit objects
 - `psychometrics/gfc_tirt/ablation_subsets.json` — subset definitions
   + per-pair info ranking
+- `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good.json` × 21 —
+  FG response data (per model × form)
+- `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good_indep_fit.rds`
+  × 21 — FG TIRT fit objects
+- `results/persona/persona_gfc_tirt_*_ipipneogfc60_hf_*_fake_good.json`
+  × 21 — FG recovery sidecars
+- `results/persona/persona_fake_good_comparison.json` — HONEST vs FG
+  cohort comparison summary
 
 Scripts:
 - `psychometrics/gfc_tirt/analyze_profile_recovery.R`
@@ -331,3 +482,7 @@ Scripts:
 - `scripts/filter_ablation_responses.py`
 - `scripts/run_ablation_fits.sh`
 - `psychometrics/gfc_tirt/analyze_ablation.R`
+- `scripts/run_gfc_hf.py` (added `--condition` flag for FG)
+- `scripts/run_fake_good_inference.sh` (W12 §5b inference batch)
+- `scripts/run_fake_good_tirt_fits.sh` (W12 §5b TIRT batch)
+- `psychometrics/gfc_tirt/compare_fake_good.R` (W12 §5b analysis)

@@ -74,6 +74,20 @@ GFC_ITEM_TEMPLATE = (
 )
 
 
+# Fake-good / impression-management instruction, appended to the persona
+# system message when --condition fake_good. Phrasing matches the
+# faking-research convention (Viswesvaran & Ones 1999; Stark & Drasgow
+# 2009): imagine a high-stakes evaluation context and answer to maximize
+# perceived favorability.
+FAKE_GOOD_SUFFIX = (
+    "\n\nIMPORTANT INSTRUCTION: Imagine you are completing this "
+    "questionnaire as part of an application for a position you very "
+    "much want. Your responses will be evaluated and used to decide "
+    "whether you are selected. Respond in a way that makes the most "
+    "favorable possible impression."
+)
+
+
 def build_user_message(pair, randomize_lr, seed):
     """User-message body for one GFC pair (no persona; persona goes in system)."""
     rng = random.Random(seed)
@@ -147,6 +161,7 @@ def _save_output(path, args, pairs, persona_list, results, hf_repo, n_completed)
         "backend": "hf",
         "persona_field": args.persona_field,
         "personas_path": args.synthetic_personas,
+        "condition": args.condition,
         "n_pairs": len(pairs),
         "n_personas": len(persona_list),
         "n_completed": n_completed,
@@ -154,6 +169,8 @@ def _save_output(path, args, pairs, persona_list, results, hf_repo, n_completed)
         "seed": args.seed,
         "results": results,
     }
+    if args.condition == "fake_good":
+        out["fake_good_suffix"] = FAKE_GOOD_SUFFIX
     with open(path, "w") as f:
         json.dump(out, f, indent=2)
 
@@ -189,6 +206,12 @@ def main():
                         help=f"Instrument JSON path (default: {INSTRUMENT_PATH}). "
                              "Must match the okada_gfc30.json schema "
                              "(top-level 'pairs' list with left/right items).")
+    parser.add_argument("--condition", type=str, default="honest",
+                        choices=["honest", "fake_good"],
+                        help="Response-style condition. honest = no extra "
+                             "instruction (W7-W11 default). fake_good = "
+                             "append impression-management instruction to "
+                             "persona system message (W12 SDR test).")
     args = parser.parse_args()
 
     # Instrument
@@ -219,11 +242,14 @@ def main():
     if output_path is None:
         os.makedirs("psychometrics/gfc_tirt", exist_ok=True)
         # Use HF-anchored slug so rgb's cohort short names land on a
-        # consistent filename across persona forms.
+        # consistent filename across persona forms. Append _fake_good
+        # only for the fake-good condition, so honest filenames remain
+        # backward-compatible with W7-W11 artifacts.
         model_slug = args.model.replace("/", "_").replace(":", "-")
+        cond_suffix = "" if args.condition == "honest" else f"_{args.condition}"
         output_path = (
             f"psychometrics/gfc_tirt/"
-            f"{model_slug}_gfc30_hf_{args.persona_field}.json"
+            f"{model_slug}_gfc30_hf_{args.persona_field}{cond_suffix}.json"
         )
     print(f"Output:        {output_path}")
     print()
@@ -258,7 +284,14 @@ def main():
         if persona_done == len(pairs):
             continue
 
-        head = persona_desc.replace("\n", " ")[:60]
+        # Apply fake-good suffix to persona system message. Persona context
+        # comes first, FG instruction last (so it dominates as the most-
+        # recent system content while persona still anchors trait standing).
+        effective_persona = persona_desc
+        if args.condition == "fake_good":
+            effective_persona = persona_desc + FAKE_GOOD_SUFFIX
+
+        head = effective_persona.replace("\n", " ")[:60]
         print(f"--- {persona_id} ({head}...) ---")
 
         for pair in pairs:
@@ -268,7 +301,7 @@ def main():
 
             lr_seed = args.seed * 10000 + (hash(persona_id) % 10000) + block
             rec = administer_one(
-                pair, model, tok, device, persona_desc,
+                pair, model, tok, device, effective_persona,
                 randomize_lr=not args.no_randomize, seed=lr_seed,
             )
             rec["persona_id"] = persona_id
