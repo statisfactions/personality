@@ -46,6 +46,10 @@ psychometrics/gfc_tirt/per_model_pooled/*.rds
 psychometrics/gfc_tirt/per_model_pooled/all_recovery.rds
 psychometrics/gfc_tirt/pooled_tirt_fit*.rds
 psychometrics/gfc_tirt/pooled_haiku_gemma27b_fit*.rds
+# W12 ablation: filtered response JSONs are regenerable from original
+# inference + scripts/filter_ablation_responses.py
+psychometrics/gfc_tirt/ablation_subsets/*.json
+psychometrics/gfc_tirt/ablation_run.log
 
 # Local data (copyrighted instruments, raw results)
 data/

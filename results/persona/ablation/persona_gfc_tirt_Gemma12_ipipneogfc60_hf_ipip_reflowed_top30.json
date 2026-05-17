@@ -1,0 +1,22 @@
+{
+  "diagonal_correlations": {
+    "A": 0.2665,
+    "C": 0.183,
+    "E": 0.5656,
+    "N": 0.6866,
+    "O": 0.4626
+  },
+  "abs_diagonal_correlations": {
+    "A": 0.2665,
+    "C": 0.183,
+    "E": 0.5656,
+    "N": 0.6866,
+    "O": 0.4626
+  },
+  "n_personas": 50,
+  "n_high_rhat": 0,
+  "n_low_neff": 0,
+  "responses_path": "psychometrics/gfc_tirt/ablation_subsets/Gemma12_ipipneogfc60_hf_ipip_reflowed_top30.json",
+  "fit_rds": "psychometrics/gfc_tirt/ablation_subsets/Gemma12_ipipneogfc60_hf_ipip_reflowed_top30_indep_fit.rds",
+  "stan_model": "psychometrics/gfc_tirt/tirt_okada_indep.stan"
+}
