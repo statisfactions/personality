@@ -53,6 +53,9 @@ psychometrics/gfc_tirt/ablation_run.log
 # W12 fake-good run logs (Stan + inference verbose output, regenerable)
 psychometrics/gfc_tirt/fake_good_inference.log
 psychometrics/gfc_tirt/fake_good_tirt_fits.log
+# W12 §5c.4 assistant-match ablation: filtered JSONs regenerable
+psychometrics/gfc_tirt/ablation_assistant_subsets/*.json
+psychometrics/gfc_tirt/asst_match_fits.log
 
 # Local data (copyrighted instruments, raw results)
 data/

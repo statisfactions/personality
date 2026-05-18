@@ -397,6 +397,190 @@ internalization, the project now has:
 The cohort-mean ordering (Rep > TIRT > Likert) on persona-recovery,
 and the predicted SDR-immunity ordering, are the headline.
 
+## 5c. Is the "filter" really assistant-shape, or just human SDR?
+
+The W12 §5.2 framing claimed TIRT's loading-weighting suppresses items
+the *assistant prior* dominates. But assistant-default position and
+*human-rated social desirability* are correlated by training: assistants
+mostly inherit human SDR norms. So the FG result might simply be the
+classical "FC controls SDR" story applied to LLMs, not an LLM-specific
+mechanism. Worth disentangling.
+
+### 5c.1 Discriminating test setup
+
+Two per-item measures of "where the item is pinned":
+- `desirability_dist`: `|cohort-mean SD − 5|` on the 1–9 Phase B scale.
+  How far the item sits from desirability-neutral, by *human-modeled*
+  desirability ratings.
+- `selfrating_dist`: cohort-mean within-model `|Likert EV − 4|` from a
+  fresh no-persona single-item Likert pass on each P=60 item (7 models
+  × 60 items, see `scripts/run_no_persona_self_rating.py`). How far
+  the item is from neutral in the assistant's *default* position
+  without any persona conditioning.
+
+Both should predict TIRT loading *negatively* — items pinned far from
+neutral have less room to move with persona, so lower per-persona
+variance, so lower loading. The discriminating test is which predictor
+has *unique* variance after partialling out the other.
+
+### 5c.2 Results
+
+| pair | r |
+|---|---|
+| desirability_dist ↔ selfrating_dist | **0.450** |
+
+The constructs overlap (~20% shared variance) but are discriminable.
+
+| univariate predictor | r with `a_pos` |
+|---|---|
+| desirability_dist | **−0.225** |
+| selfrating_dist  | **−0.123** |
+
+Both go the predicted direction. SDR is ~2× stronger.
+
+| partial correlation | r |
+|---|---|
+| `r(a_pos, desirability_dist \| selfrating_dist)` | **−0.191** |
+| `r(a_pos, selfrating_dist  \| desirability_dist)` | **−0.025** |
+
+**SDR retains almost all its predictive power; assistant-default loses
+essentially all of it.** Cohort-level: SDR is doing the work.
+
+Per-model (each model's own no-persona self-rating predicting loading):
+
+| model | r |
+|---|---|
+| Phi4    | **−0.296** |
+| Llama   | −0.249 |
+| Gemma   | −0.179 |
+| Llama8  | −0.165 |
+| Qwen    | −0.074 |
+| Gemma12 | +0.015 |
+| Qwen7   | **+0.287** (wrong sign — outlier) |
+
+Heterogeneous. The cohort mean masks model-by-model variation. Phi4 has
+a meaningful assistant-default effect *distinct* from SDR; Gemma12 has
+none; Qwen7 inverts. Qwen7's reverse-sign matches the Qwen7 ipip_raw
+FG outlier (Δ +0.149) from §5b.4 — there's something systematically
+different about Qwen7's self-other framing worth a separate look.
+
+### 5c.3 Methodological caveat: instrument's matching constraint
+
+The W11 P=60 instrument was MIP-built with **within-pair SDR matching**
+(`pair_sd_diff` ≈ 0.0042 by construction). At the pair level, SDR
+differences between L and R are absorbed into κ (thresholds), not into
+`a` (loadings). So the loading we estimate reflects *trait + other*,
+not *trait + SDR*. This biases the partial correlation toward finding
+SDR-as-predictor, because SDR-driven variance was structurally absent
+from the data we fit.
+
+If we had instead built an **assistant-default-matched instrument**
+(within-pair similarity in `selfrating_dist`), the pair-level structure
+would absorb assistant-default differences into κ, leaving SDR + trait
+in `a`. The partial correlation in that instrument might flip.
+
+### 5c.4 Half-test: the partial correlation flips cleanly
+
+Without rebuilding the instrument, we split the existing 60 pairs by
+within-pair `|selfrating_dist_L − selfrating_dist_R|`:
+
+- `asst_top30`: 30 pairs with smallest difference (mean Δ = 0.142) —
+  effectively assistant-matched at the pair level
+- `asst_bot30`: 30 pairs with largest difference (mean Δ = 0.822) —
+  assistant-mismatched (SDR is the only active pair-level constraint)
+
+Refit TIRT on each subset (42 fits, 7 models × 3 forms × 2 subsets).
+Re-run the per-item SDR-vs-assistant partial correlation on each.
+
+**Result table:**
+
+| metric | full_p60 (SDR-matched) | asst_top30 (asst-matched) | asst_bot30 (asst-mismatched) |
+|---|---|---|---|
+| `cor(SDR, assistant)` (items in subset) | +0.450 | **+0.693** | +0.322 |
+| univariate `r(load, SDR)` | −0.225 | −0.188 | **−0.290** |
+| univariate `r(load, assistant)` | −0.123 | **−0.239** | −0.085 |
+| **partial `r(load, SDR \| assistant)`** | **−0.191** | **−0.032** | **−0.278** |
+| **partial `r(load, assistant \| SDR)`** | **−0.025** | **−0.153** | +0.010 |
+
+**Read the bottom two rows.** As you move from the SDR-matched baseline
+to the assistant-matched subset:
+- SDR's unique variance for loading **collapses from −0.19 to −0.03**
+- Assistant-default's unique variance **rises from −0.03 to −0.15**
+
+This is a near-mirror flip. In the assistant-mismatched subset (where
+SDR is the *only* active pair-level constraint), SDR jumps even higher
+(−0.28) and assistant-default goes to zero (+0.01). The matching
+constraint *causes* the partial-correlation framing: whichever
+construct the instrument controls at the pair level loses unique
+predictive power, because its within-pair variance gets absorbed by κ
+(thresholds) rather than `a` (loadings).
+
+### 5c.5 What this means: SDR and assistant-default are entangled labels for the same mechanism
+
+The two constructs aren't competing causes. They're two labels for **the
+same "wall-pinning" effect** — items where the assistant has any kind
+of default position (driven by human SDR norms inherited from training,
+by alignment objectives, or by both) get low TIRT loading because
+their per-persona response variance is suppressed. The labels overlap
+at the cohort level (r = 0.45) and rise to r = 0.69 in subsets where
+the matching constraint pulls them into closer alignment.
+
+The W12 §5c.2 result ("SDR has unique variance, assistant-default
+doesn't") was an artifact of Okada matching on SDR. An assistant-matched
+instrument would produce the opposite labeling. The underlying
+mechanism is the same.
+
+### 5c.6 Refined paper claim
+
+The honest version:
+
+> **TIRT loading-weighted scoring suppresses items where the assistant
+> has a strong default position. Whether that "default" is best
+> described as SDR-pinning or as assistant-default-pinning depends on
+> the instrument's pair-matching constraint — at the cohort level the
+> two constructs are highly entangled (r ≈ 0.45–0.69) and the partial-
+> correlation analysis can be made to favor either one by changing
+> what the instrument controls at the pair level. The empirical FG-
+> immunity result is robust to this labeling debate, since FG
+> instructions shift responses toward whichever wall the assistant is
+> pinned at, and TIRT down-weights those items regardless of how we
+> label the wall.**
+
+This is better than either of the earlier versions:
+
+- More **conservative** than the original "LLM-specific assistant
+  baseline" framing — we explicitly disclaim being able to attribute
+  the mechanism uniquely to LLM-specific factors.
+- More **precise** than the "classical SDR" framing — we now have
+  empirical evidence that assistant-default *does* have unique
+  variance for loading when SDR is controlled, and vice versa. They're
+  entangled, not collapsible.
+- The **FG-immunity result is independent** of this distinction. The
+  mechanism (loading-weighting suppresses wall-pinned items) is robust
+  regardless of which wall we label.
+
+### 5c.7 Implications for instrument-v3
+
+The §5c.4 result changes the instrument-v3 design objective. We
+shouldn't choose between SDR-matching and assistant-matching — we
+should **constrain both simultaneously**: a MIP with both
+`pair_sd_diff < ε₁` and `pair_asst_dist_diff < ε₂`. Within such an
+instrument:
+
+- Both wall-pinning labels get controlled at the pair level → both
+  absorbed by κ → neither has within-pair variance available to bias
+  the loading estimator
+- `a` should reflect *only* trait signal + idiosyncratic item variance
+- Partial correlations of loading against SDR or assistant-default at
+  the per-item level would tell us about *residual* item structure
+  beyond the wall-pinning entanglement
+
+That's the cleanest possible test of "what does TIRT's loading actually
+measure beyond the SDR/assistant wall-pinning?" Likely outcome: with
+both controlled, neither partial correlation is significant, and
+loadings reflect trait + noise. That would be the cleanest possible
+demonstration of TIRT's structural SDR/assistant immunity.
+
 ## 6. Next steps
 
 1. **FAKE-GOOD condition** — now the highest-value extension. The
@@ -445,7 +629,20 @@ and the predicted SDR-immunity ordering, are the headline.
 8. **Investigate Qwen7 ipip_raw +0.149 jump** — outlier in the FG cell
    matrix. Sign-flip diagnostic first, then look at the raw response
    distributions; the +0.149 is large enough to need an explanation
-   either way.
+   either way. The §5c.2 per-model partial result shows Qwen7's
+   self-rating-distance correlates *positively* with loading (wrong
+   sign); these are probably the same phenomenon.
+
+9. **Doubly-matched instrument-v3** (replaces earlier instrument-v3
+   proposal). The §5c.4 result shows the SDR-vs-assistant partial
+   correlation flips cleanly under different matching constraints,
+   meaning either single-constraint instrument gives a biased view
+   of which "wall" the loading is suppressing. The clean test is an
+   instrument that matches *both* simultaneously: SDR-matched AND
+   assistant-default-matched at the pair level. This is the MIP-v3
+   we should build. Predicted result: neither partial correlation
+   is significant, loadings reflect only trait + idiosyncratic
+   variance, FG-immunity result generalizes.
 
 ## 7. Status
 
@@ -473,6 +670,20 @@ Headline artifacts:
   × 21 — FG recovery sidecars
 - `results/persona/persona_fake_good_comparison.json` — HONEST vs FG
   cohort comparison summary
+- `results/persona/cohort_self_rating_P60.json` — no-persona Likert
+  EVs per (model, item) for the P=60 items
+- `results/persona/persona_sdr_vs_assistant.json` — per-item table +
+  partial correlations from §5c.2
+- `psychometrics/gfc_tirt/ablation_assistant_subsets.json` — asst_top30
+  / asst_bot30 pair definitions
+- `psychometrics/gfc_tirt/ablation_assistant_subsets/*.json` — filtered
+  response data (gitignored, regenerable)
+- `psychometrics/gfc_tirt/ablation_assistant_subsets/*.rds` — fit
+  objects (gitignored)
+- `results/persona/ablation_assistant/persona_gfc_tirt_*.json` × 42 —
+  recovery sidecars
+- `results/persona/persona_asst_match_partial.json` — §5c.4 summary
+  comparison (full_p60 / asst_top30 / asst_bot30 partial correlations)
 
 Scripts:
 - `psychometrics/gfc_tirt/analyze_profile_recovery.R`
@@ -486,3 +697,9 @@ Scripts:
 - `scripts/run_fake_good_inference.sh` (W12 §5b inference batch)
 - `scripts/run_fake_good_tirt_fits.sh` (W12 §5b TIRT batch)
 - `psychometrics/gfc_tirt/compare_fake_good.R` (W12 §5b analysis)
+- `scripts/run_no_persona_self_rating.py` (W12 §5c.1 no-persona Likert)
+- `psychometrics/gfc_tirt/analyze_sdr_vs_assistant.R` (W12 §5c.2)
+- `psychometrics/gfc_tirt/build_assistant_match_subsets.R` (W12 §5c.4)
+- `scripts/filter_asst_match_responses.py` (W12 §5c.4)
+- `scripts/run_asst_match_fits.sh` (W12 §5c.4)
+- `psychometrics/gfc_tirt/analyze_asst_match_partial.R` (W12 §5c.4)

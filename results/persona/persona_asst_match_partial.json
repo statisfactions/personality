@@ -1,0 +1,28 @@
+{
+  "full_p60": {
+    "subset": "full_p60",
+    "n_items": 120,
+    "cor_loading_sdr": -0.2248,
+    "cor_loading_assistant": -0.1229,
+    "partial_loading_sdr_given_assistant": -0.1912,
+    "partial_loading_assistant_given_sdr": -0.0251
+  },
+  "asst_top30": {
+    "subset": "asst_top30 (assistant-matched at pair level)",
+    "n_items": 60,
+    "r_sdr_assistant": 0.6932,
+    "cor_loading_sdr": -0.1878,
+    "cor_loading_assistant": -0.2388,
+    "partial_loading_sdr_given_assistant": -0.0318,
+    "partial_loading_assistant_given_sdr": -0.1534
+  },
+  "asst_bot30": {
+    "subset": "asst_bot30 (assistant-mismatched at pair level)",
+    "n_items": 60,
+    "r_sdr_assistant": 0.3225,
+    "cor_loading_sdr": -0.2898,
+    "cor_loading_assistant": -0.0845,
+    "partial_loading_sdr_given_assistant": -0.2784,
+    "partial_loading_assistant_given_sdr": 0.0099
+  }
+}

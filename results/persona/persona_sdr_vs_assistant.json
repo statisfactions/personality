@@ -1,0 +1,1210 @@
+{
+  "n_items": 120,
+  "cor_sdr_assistant": 0.4496,
+  "cor_loading_sdr": -0.2248,
+  "cor_loading_assistant": -0.1229,
+  "partial_loading_sdr_given_assistant": -0.1912,
+  "partial_loading_assistant_given_sdr": -0.0251,
+  "per_item": [
+    {
+      "ipip_id": "ipip20",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.1303,
+      "desirability_dist": 2.1303,
+      "cohort_ev": 4.4714,
+      "selfrating_dist": 0.9905,
+      "a_pos_mean": 0.3308
+    },
+    {
+      "ipip_id": "ipip196",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.1303,
+      "desirability_dist": 2.1303,
+      "cohort_ev": 5.6383,
+      "selfrating_dist": 1.6383,
+      "a_pos_mean": 0.3885
+    },
+    {
+      "ipip_id": "ipip5",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.8667,
+      "desirability_dist": 2.8667,
+      "cohort_ev": 5.9166,
+      "selfrating_dist": 1.9166,
+      "a_pos_mean": 0.3369
+    },
+    {
+      "ipip_id": "ipip176",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.867,
+      "desirability_dist": 2.867,
+      "cohort_ev": 4.5518,
+      "selfrating_dist": 0.6922,
+      "a_pos_mean": 0.3463
+    },
+    {
+      "ipip_id": "ipip131",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.762,
+      "desirability_dist": 1.238,
+      "cohort_ev": 3.4784,
+      "selfrating_dist": 0.8071,
+      "a_pos_mean": 0.4078
+    },
+    {
+      "ipip_id": "ipip273",
+      "trait": "O",
+      "keying": "-",
+      "sd": 3.7615,
+      "desirability_dist": 1.2385,
+      "cohort_ev": 3.2976,
+      "selfrating_dist": 0.8181,
+      "a_pos_mean": 0.5025
+    },
+    {
+      "ipip_id": "ipip49",
+      "trait": "A",
+      "keying": "+",
+      "sd": 4.1971,
+      "desirability_dist": 0.8029,
+      "cohort_ev": 3.6507,
+      "selfrating_dist": 0.7973,
+      "a_pos_mean": 0.3563
+    },
+    {
+      "ipip_id": "ipip222",
+      "trait": "E",
+      "keying": "-",
+      "sd": 4.1976,
+      "desirability_dist": 0.8024,
+      "cohort_ev": 2.9908,
+      "selfrating_dist": 1.1741,
+      "a_pos_mean": 0.352
+    },
+    {
+      "ipip_id": "ipip224",
+      "trait": "A",
+      "keying": "-",
+      "sd": 2.0025,
+      "desirability_dist": 2.9975,
+      "cohort_ev": 2.1478,
+      "selfrating_dist": 1.8522,
+      "a_pos_mean": 0.3553
+    },
+    {
+      "ipip_id": "ipip285",
+      "trait": "C",
+      "keying": "-",
+      "sd": 2.0019,
+      "desirability_dist": 2.9981,
+      "cohort_ev": 2.3725,
+      "selfrating_dist": 1.6275,
+      "a_pos_mean": 0.3559
+    },
+    {
+      "ipip_id": "ipip65",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.3653,
+      "desirability_dist": 2.3653,
+      "cohort_ev": 5.2481,
+      "selfrating_dist": 1.2481,
+      "a_pos_mean": 0.365
+    },
+    {
+      "ipip_id": "ipip271",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.3647,
+      "desirability_dist": 2.3647,
+      "cohort_ev": 5.4624,
+      "selfrating_dist": 1.4624,
+      "a_pos_mean": 0.3083
+    },
+    {
+      "ipip_id": "ipip39",
+      "trait": "A",
+      "keying": "+",
+      "sd": 6.8217,
+      "desirability_dist": 1.8217,
+      "cohort_ev": 4.3626,
+      "selfrating_dist": 0.9071,
+      "a_pos_mean": 0.3804
+    },
+    {
+      "ipip_id": "ipip43",
+      "trait": "O",
+      "keying": "+",
+      "sd": 6.8225,
+      "desirability_dist": 1.8225,
+      "cohort_ev": 4.1548,
+      "selfrating_dist": 1.2082,
+      "a_pos_mean": 0.4465
+    },
+    {
+      "ipip_id": "ipip134",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.0521,
+      "desirability_dist": 2.0521,
+      "cohort_ev": 4.3061,
+      "selfrating_dist": 0.7737,
+      "a_pos_mean": 0.3583
+    },
+    {
+      "ipip_id": "ipip62",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.0512,
+      "desirability_dist": 2.0512,
+      "cohort_ev": 4.5097,
+      "selfrating_dist": 0.9587,
+      "a_pos_mean": 0.3781
+    },
+    {
+      "ipip_id": "ipip59",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.4336,
+      "desirability_dist": 2.4336,
+      "cohort_ev": 5.4058,
+      "selfrating_dist": 1.5278,
+      "a_pos_mean": 0.3459
+    },
+    {
+      "ipip_id": "ipip266",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.4347,
+      "desirability_dist": 2.4347,
+      "cohort_ev": 4.2933,
+      "selfrating_dist": 0.7909,
+      "a_pos_mean": 0.3854
+    },
+    {
+      "ipip_id": "ipip119",
+      "trait": "A",
+      "keying": "+",
+      "sd": 4.7489,
+      "desirability_dist": 0.2511,
+      "cohort_ev": 4.3898,
+      "selfrating_dist": 1.0252,
+      "a_pos_mean": 0.3657
+    },
+    {
+      "ipip_id": "ipip188",
+      "trait": "O",
+      "keying": "-",
+      "sd": 4.7503,
+      "desirability_dist": 0.2497,
+      "cohort_ev": 3.5514,
+      "selfrating_dist": 0.8675,
+      "a_pos_mean": 0.3845
+    },
+    {
+      "ipip_id": "ipip44",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.3575,
+      "desirability_dist": 2.3575,
+      "cohort_ev": 4.6852,
+      "selfrating_dist": 1.2597,
+      "a_pos_mean": 0.3574
+    },
+    {
+      "ipip_id": "ipip53",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.356,
+      "desirability_dist": 2.356,
+      "cohort_ev": 4.7814,
+      "selfrating_dist": 1.2976,
+      "a_pos_mean": 0.3382
+    },
+    {
+      "ipip_id": "ipip259",
+      "trait": "A",
+      "keying": "-",
+      "sd": 2.8428,
+      "desirability_dist": 2.1572,
+      "cohort_ev": 2.3037,
+      "selfrating_dist": 1.6963,
+      "a_pos_mean": 0.3577
+    },
+    {
+      "ipip_id": "ipip242",
+      "trait": "E",
+      "keying": "-",
+      "sd": 2.8442,
+      "desirability_dist": 2.1558,
+      "cohort_ev": 3.1522,
+      "selfrating_dist": 1.327,
+      "a_pos_mean": 0.419
+    },
+    {
+      "ipip_id": "ipip116",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.9255,
+      "desirability_dist": 1.0745,
+      "cohort_ev": 3.6486,
+      "selfrating_dist": 0.5702,
+      "a_pos_mean": 0.3802
+    },
+    {
+      "ipip_id": "ipip158",
+      "trait": "O",
+      "keying": "-",
+      "sd": 3.9239,
+      "desirability_dist": 1.0761,
+      "cohort_ev": 3.3052,
+      "selfrating_dist": 1.0582,
+      "a_pos_mean": 0.4274
+    },
+    {
+      "ipip_id": "ipip211",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.0062,
+      "desirability_dist": 2.0062,
+      "cohort_ev": 5.1584,
+      "selfrating_dist": 1.1584,
+      "a_pos_mean": 0.3835
+    },
+    {
+      "ipip_id": "ipip18",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.0043,
+      "desirability_dist": 2.0043,
+      "cohort_ev": 5.2318,
+      "selfrating_dist": 1.4715,
+      "a_pos_mean": 0.4331
+    },
+    {
+      "ipip_id": "ipip274",
+      "trait": "A",
+      "keying": "-",
+      "sd": 2.5615,
+      "desirability_dist": 2.4385,
+      "cohort_ev": 2.0697,
+      "selfrating_dist": 1.987,
+      "a_pos_mean": 0.3995
+    },
+    {
+      "ipip_id": "ipip86",
+      "trait": "N",
+      "keying": "+",
+      "sd": 2.5634,
+      "desirability_dist": 2.4366,
+      "cohort_ev": 3.259,
+      "selfrating_dist": 0.8993,
+      "a_pos_mean": 0.3873
+    },
+    {
+      "ipip_id": "ipip124",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.3147,
+      "desirability_dist": 2.3147,
+      "cohort_ev": 5.3285,
+      "selfrating_dist": 1.3285,
+      "a_pos_mean": 0.335
+    },
+    {
+      "ipip_id": "ipip201",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.3126,
+      "desirability_dist": 2.3126,
+      "cohort_ev": 3.5212,
+      "selfrating_dist": 0.9629,
+      "a_pos_mean": 0.3779
+    },
+    {
+      "ipip_id": "ipip257",
+      "trait": "E",
+      "keying": "-",
+      "sd": 6.6514,
+      "desirability_dist": 1.6514,
+      "cohort_ev": 5.1417,
+      "selfrating_dist": 1.1731,
+      "a_pos_mean": 0.3301
+    },
+    {
+      "ipip_id": "ipip193",
+      "trait": "O",
+      "keying": "-",
+      "sd": 6.6493,
+      "desirability_dist": 1.6493,
+      "cohort_ev": 4.0773,
+      "selfrating_dist": 0.9039,
+      "a_pos_mean": 0.4398
+    },
+    {
+      "ipip_id": "ipip96",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.4483,
+      "desirability_dist": 1.5517,
+      "cohort_ev": 3.3805,
+      "selfrating_dist": 0.8856,
+      "a_pos_mean": 0.4659
+    },
+    {
+      "ipip_id": "ipip198",
+      "trait": "O",
+      "keying": "-",
+      "sd": 3.446,
+      "desirability_dist": 1.554,
+      "cohort_ev": 3.4166,
+      "selfrating_dist": 0.8459,
+      "a_pos_mean": 0.3808
+    },
+    {
+      "ipip_id": "ipip144",
+      "trait": "A",
+      "keying": "-",
+      "sd": 2.7879,
+      "desirability_dist": 2.2121,
+      "cohort_ev": 2.6091,
+      "selfrating_dist": 1.4593,
+      "a_pos_mean": 0.3999
+    },
+    {
+      "ipip_id": "ipip161",
+      "trait": "N",
+      "keying": "+",
+      "sd": 2.7856,
+      "desirability_dist": 2.2144,
+      "cohort_ev": 2.5274,
+      "selfrating_dist": 1.4726,
+      "a_pos_mean": 0.427
+    },
+    {
+      "ipip_id": "ipip232",
+      "trait": "E",
+      "keying": "+",
+      "sd": 4.3618,
+      "desirability_dist": 0.6382,
+      "cohort_ev": 2.3232,
+      "selfrating_dist": 1.6768,
+      "a_pos_mean": 0.4838
+    },
+    {
+      "ipip_id": "ipip191",
+      "trait": "N",
+      "keying": "+",
+      "sd": 4.3641,
+      "desirability_dist": 0.6359,
+      "cohort_ev": 3.7841,
+      "selfrating_dist": 0.6662,
+      "a_pos_mean": 0.3589
+    },
+    {
+      "ipip_id": "ipip67",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.9769,
+      "desirability_dist": 1.9769,
+      "cohort_ev": 5.1715,
+      "selfrating_dist": 1.1715,
+      "a_pos_mean": 0.4498
+    },
+    {
+      "ipip_id": "ipip151",
+      "trait": "N",
+      "keying": "-",
+      "sd": 6.9793,
+      "desirability_dist": 1.9793,
+      "cohort_ev": 4.702,
+      "selfrating_dist": 0.8777,
+      "a_pos_mean": 0.3902
+    },
+    {
+      "ipip_id": "ipip114",
+      "trait": "A",
+      "keying": "+",
+      "sd": 6.4278,
+      "desirability_dist": 1.4278,
+      "cohort_ev": 4.6261,
+      "selfrating_dist": 1.0559,
+      "a_pos_mean": 0.3342
+    },
+    {
+      "ipip_id": "ipip115",
+      "trait": "C",
+      "keying": "+",
+      "sd": 6.4303,
+      "desirability_dist": 1.4303,
+      "cohort_ev": 3.2317,
+      "selfrating_dist": 0.9693,
+      "a_pos_mean": 0.3257
+    },
+    {
+      "ipip_id": "ipip250",
+      "trait": "C",
+      "keying": "-",
+      "sd": 6.0739,
+      "desirability_dist": 1.0739,
+      "cohort_ev": 4.6828,
+      "selfrating_dist": 1.0007,
+      "a_pos_mean": 0.3464
+    },
+    {
+      "ipip_id": "ipip42",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.0768,
+      "desirability_dist": 1.0768,
+      "cohort_ev": 4.2329,
+      "selfrating_dist": 1.0209,
+      "a_pos_mean": 0.4206
+    },
+    {
+      "ipip_id": "ipip4",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.0643,
+      "desirability_dist": 2.0643,
+      "cohort_ev": 4.0784,
+      "selfrating_dist": 0.8715,
+      "a_pos_mean": 0.3383
+    },
+    {
+      "ipip_id": "ipip85",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.0672,
+      "desirability_dist": 2.0672,
+      "cohort_ev": 4.4875,
+      "selfrating_dist": 1.0123,
+      "a_pos_mean": 0.3819
+    },
+    {
+      "ipip_id": "ipip37",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.6773,
+      "desirability_dist": 1.6773,
+      "cohort_ev": 4.0107,
+      "selfrating_dist": 1.0021,
+      "a_pos_mean": 0.4258
+    },
+    {
+      "ipip_id": "ipip93",
+      "trait": "O",
+      "keying": "+",
+      "sd": 6.6803,
+      "desirability_dist": 1.6803,
+      "cohort_ev": 5.5018,
+      "selfrating_dist": 1.5018,
+      "a_pos_mean": 0.3548
+    },
+    {
+      "ipip_id": "ipip256",
+      "trait": "N",
+      "keying": "-",
+      "sd": 6.9354,
+      "desirability_dist": 1.9354,
+      "cohort_ev": 3.5093,
+      "selfrating_dist": 1.0761,
+      "a_pos_mean": 0.4274
+    },
+    {
+      "ipip_id": "ipip208",
+      "trait": "O",
+      "keying": "-",
+      "sd": 6.9383,
+      "desirability_dist": 1.9383,
+      "cohort_ev": 4.7086,
+      "selfrating_dist": 0.7086,
+      "a_pos_mean": 0.3559
+    },
+    {
+      "ipip_id": "ipip55",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.4479,
+      "desirability_dist": 2.4479,
+      "cohort_ev": 3.7464,
+      "selfrating_dist": 0.8086,
+      "a_pos_mean": 0.3484
+    },
+    {
+      "ipip_id": "ipip23",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.4447,
+      "desirability_dist": 2.4447,
+      "cohort_ev": 5.2077,
+      "selfrating_dist": 1.2641,
+      "a_pos_mean": 0.3555
+    },
+    {
+      "ipip_id": "ipip297",
+      "trait": "E",
+      "keying": "-",
+      "sd": 5.1178,
+      "desirability_dist": 0.1178,
+      "cohort_ev": 3.7258,
+      "selfrating_dist": 1.0021,
+      "a_pos_mean": 0.3778
+    },
+    {
+      "ipip_id": "ipip58",
+      "trait": "O",
+      "keying": "+",
+      "sd": 5.1211,
+      "desirability_dist": 0.1211,
+      "cohort_ev": 5.4705,
+      "selfrating_dist": 1.4705,
+      "a_pos_mean": 0.3913
+    },
+    {
+      "ipip_id": "ipip94",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.0562,
+      "desirability_dist": 2.0562,
+      "cohort_ev": 4.9773,
+      "selfrating_dist": 0.9824,
+      "a_pos_mean": 0.3411
+    },
+    {
+      "ipip_id": "ipip181",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.0595,
+      "desirability_dist": 2.0595,
+      "cohort_ev": 4.1707,
+      "selfrating_dist": 0.6719,
+      "a_pos_mean": 0.3136
+    },
+    {
+      "ipip_id": "ipip129",
+      "trait": "A",
+      "keying": "-",
+      "sd": 3.9177,
+      "desirability_dist": 1.0823,
+      "cohort_ev": 2.4784,
+      "selfrating_dist": 1.5216,
+      "a_pos_mean": 0.3809
+    },
+    {
+      "ipip_id": "ipip6",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.9142,
+      "desirability_dist": 1.0858,
+      "cohort_ev": 3.2728,
+      "selfrating_dist": 0.7824,
+      "a_pos_mean": 0.4424
+    },
+    {
+      "ipip_id": "ipip172",
+      "trait": "E",
+      "keying": "+",
+      "sd": 4.6232,
+      "desirability_dist": 0.3768,
+      "cohort_ev": 2.5783,
+      "selfrating_dist": 1.4217,
+      "a_pos_mean": 0.4152
+    },
+    {
+      "ipip_id": "ipip203",
+      "trait": "O",
+      "keying": "-",
+      "sd": 4.6267,
+      "desirability_dist": 0.3733,
+      "cohort_ev": 3.9542,
+      "selfrating_dist": 0.5942,
+      "a_pos_mean": 0.4213
+    },
+    {
+      "ipip_id": "ipip220",
+      "trait": "C",
+      "keying": "-",
+      "sd": 3.5114,
+      "desirability_dist": 1.4886,
+      "cohort_ev": 3.1319,
+      "selfrating_dist": 0.9163,
+      "a_pos_mean": 0.3725
+    },
+    {
+      "ipip_id": "ipip16",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.5078,
+      "desirability_dist": 1.4922,
+      "cohort_ev": 3.0993,
+      "selfrating_dist": 0.9007,
+      "a_pos_mean": 0.3794
+    },
+    {
+      "ipip_id": "ipip221",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.0723,
+      "desirability_dist": 2.0723,
+      "cohort_ev": 4.8036,
+      "selfrating_dist": 0.8036,
+      "a_pos_mean": 0.4331
+    },
+    {
+      "ipip_id": "ipip153",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.0761,
+      "desirability_dist": 2.0761,
+      "cohort_ev": 5.3033,
+      "selfrating_dist": 1.3033,
+      "a_pos_mean": 0.3384
+    },
+    {
+      "ipip_id": "ipip92",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.2414,
+      "desirability_dist": 2.2414,
+      "cohort_ev": 4.9895,
+      "selfrating_dist": 1.2031,
+      "a_pos_mean": 0.3673
+    },
+    {
+      "ipip_id": "ipip216",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.2373,
+      "desirability_dist": 2.2373,
+      "cohort_ev": 4.737,
+      "selfrating_dist": 1.1213,
+      "a_pos_mean": 0.4115
+    },
+    {
+      "ipip_id": "ipip210",
+      "trait": "C",
+      "keying": "-",
+      "sd": 3.9019,
+      "desirability_dist": 1.0981,
+      "cohort_ev": 3.3385,
+      "selfrating_dist": 0.8968,
+      "a_pos_mean": 0.3804
+    },
+    {
+      "ipip_id": "ipip182",
+      "trait": "E",
+      "keying": "-",
+      "sd": 3.8975,
+      "desirability_dist": 1.1025,
+      "cohort_ev": 3.5452,
+      "selfrating_dist": 0.9356,
+      "a_pos_mean": 0.4904
+    },
+    {
+      "ipip_id": "ipip235",
+      "trait": "C",
+      "keying": "-",
+      "sd": 4.8246,
+      "desirability_dist": 0.1754,
+      "cohort_ev": 4.0199,
+      "selfrating_dist": 0.6351,
+      "a_pos_mean": 0.3649
+    },
+    {
+      "ipip_id": "ipip46",
+      "trait": "N",
+      "keying": "+",
+      "sd": 4.8201,
+      "desirability_dist": 0.1799,
+      "cohort_ev": 4.2075,
+      "selfrating_dist": 0.9316,
+      "a_pos_mean": 0.37
+    },
+    {
+      "ipip_id": "ipip97",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.8859,
+      "desirability_dist": 1.8859,
+      "cohort_ev": 4.7627,
+      "selfrating_dist": 1.1661,
+      "a_pos_mean": 0.3945
+    },
+    {
+      "ipip_id": "ipip171",
+      "trait": "N",
+      "keying": "-",
+      "sd": 6.8814,
+      "desirability_dist": 1.8814,
+      "cohort_ev": 5.182,
+      "selfrating_dist": 1.182,
+      "a_pos_mean": 0.3928
+    },
+    {
+      "ipip_id": "ipip202",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.6665,
+      "desirability_dist": 1.6665,
+      "cohort_ev": 4.6165,
+      "selfrating_dist": 1.1368,
+      "a_pos_mean": 0.3314
+    },
+    {
+      "ipip_id": "ipip33",
+      "trait": "O",
+      "keying": "+",
+      "sd": 6.6619,
+      "desirability_dist": 1.6619,
+      "cohort_ev": 4.5618,
+      "selfrating_dist": 1.1222,
+      "a_pos_mean": 0.4035
+    },
+    {
+      "ipip_id": "ipip135",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.088,
+      "desirability_dist": 2.088,
+      "cohort_ev": 4.9206,
+      "selfrating_dist": 1.2603,
+      "a_pos_mean": 0.3583
+    },
+    {
+      "ipip_id": "ipip87",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.0931,
+      "desirability_dist": 2.0931,
+      "cohort_ev": 4.1124,
+      "selfrating_dist": 0.8261,
+      "a_pos_mean": 0.3649
+    },
+    {
+      "ipip_id": "ipip140",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.2225,
+      "desirability_dist": 2.2225,
+      "cohort_ev": 5.4734,
+      "selfrating_dist": 1.4734,
+      "a_pos_mean": 0.3115
+    },
+    {
+      "ipip_id": "ipip3",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.2278,
+      "desirability_dist": 2.2278,
+      "cohort_ev": 5.5985,
+      "selfrating_dist": 1.5985,
+      "a_pos_mean": 0.353
+    },
+    {
+      "ipip_id": "ipip219",
+      "trait": "A",
+      "keying": "-",
+      "sd": 3.9036,
+      "desirability_dist": 1.0964,
+      "cohort_ev": 2.6934,
+      "selfrating_dist": 1.4542,
+      "a_pos_mean": 0.3819
+    },
+    {
+      "ipip_id": "ipip233",
+      "trait": "O",
+      "keying": "-",
+      "sd": 3.8982,
+      "desirability_dist": 1.1018,
+      "cohort_ev": 3.4664,
+      "selfrating_dist": 0.8905,
+      "a_pos_mean": 0.4134
+    },
+    {
+      "ipip_id": "ipip234",
+      "trait": "A",
+      "keying": "-",
+      "sd": 6.9539,
+      "desirability_dist": 1.9539,
+      "cohort_ev": 5.2651,
+      "selfrating_dist": 1.2651,
+      "a_pos_mean": 0.3581
+    },
+    {
+      "ipip_id": "ipip15",
+      "trait": "C",
+      "keying": "+",
+      "sd": 6.9594,
+      "desirability_dist": 1.9594,
+      "cohort_ev": 5.2817,
+      "selfrating_dist": 1.2817,
+      "a_pos_mean": 0.3584
+    },
+    {
+      "ipip_id": "ipip179",
+      "trait": "A",
+      "keying": "-",
+      "sd": 3.0508,
+      "desirability_dist": 1.9492,
+      "cohort_ev": 3.2355,
+      "selfrating_dist": 1.2262,
+      "a_pos_mean": 0.3979
+    },
+    {
+      "ipip_id": "ipip260",
+      "trait": "C",
+      "keying": "-",
+      "sd": 3.0564,
+      "desirability_dist": 1.9436,
+      "cohort_ev": 3.322,
+      "selfrating_dist": 0.8618,
+      "a_pos_mean": 0.4123
+    },
+    {
+      "ipip_id": "ipip170",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.1582,
+      "desirability_dist": 2.1582,
+      "cohort_ev": 4.9884,
+      "selfrating_dist": 1.3439,
+      "a_pos_mean": 0.3484
+    },
+    {
+      "ipip_id": "ipip132",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.1524,
+      "desirability_dist": 2.1524,
+      "cohort_ev": 4.7907,
+      "selfrating_dist": 1.0879,
+      "a_pos_mean": 0.341
+    },
+    {
+      "ipip_id": "ipip159",
+      "trait": "A",
+      "keying": "-",
+      "sd": 2.1295,
+      "desirability_dist": 2.8705,
+      "cohort_ev": 1.5887,
+      "selfrating_dist": 2.5633,
+      "a_pos_mean": 0.377
+    },
+    {
+      "ipip_id": "ipip245",
+      "trait": "C",
+      "keying": "-",
+      "sd": 2.1354,
+      "desirability_dist": 2.8646,
+      "cohort_ev": 2.3736,
+      "selfrating_dist": 1.6266,
+      "a_pos_mean": 0.3529
+    },
+    {
+      "ipip_id": "ipip19",
+      "trait": "A",
+      "keying": "+",
+      "sd": 5.4548,
+      "desirability_dist": 0.4548,
+      "cohort_ev": 3.9016,
+      "selfrating_dist": 0.6792,
+      "a_pos_mean": 0.3663
+    },
+    {
+      "ipip_id": "ipip263",
+      "trait": "O",
+      "keying": "-",
+      "sd": 5.4488,
+      "desirability_dist": 0.4488,
+      "cohort_ev": 3.4195,
+      "selfrating_dist": 0.8846,
+      "a_pos_mean": 0.3306
+    },
+    {
+      "ipip_id": "ipip95",
+      "trait": "C",
+      "keying": "+",
+      "sd": 6.9138,
+      "desirability_dist": 1.9138,
+      "cohort_ev": 5.0999,
+      "selfrating_dist": 1.0999,
+      "a_pos_mean": 0.3575
+    },
+    {
+      "ipip_id": "ipip13",
+      "trait": "O",
+      "keying": "+",
+      "sd": 6.92,
+      "desirability_dist": 1.92,
+      "cohort_ev": 5.2248,
+      "selfrating_dist": 1.4412,
+      "a_pos_mean": 0.3889
+    },
+    {
+      "ipip_id": "ipip270",
+      "trait": "C",
+      "keying": "-",
+      "sd": 3.0349,
+      "desirability_dist": 1.9651,
+      "cohort_ev": 2.4957,
+      "selfrating_dist": 1.5043,
+      "a_pos_mean": 0.3903
+    },
+    {
+      "ipip_id": "ipip213",
+      "trait": "O",
+      "keying": "-",
+      "sd": 3.0284,
+      "desirability_dist": 1.9716,
+      "cohort_ev": 2.8863,
+      "selfrating_dist": 1.4335,
+      "a_pos_mean": 0.4333
+    },
+    {
+      "ipip_id": "ipip225",
+      "trait": "C",
+      "keying": "-",
+      "sd": 2.3813,
+      "desirability_dist": 2.6187,
+      "cohort_ev": 2.0489,
+      "selfrating_dist": 1.9511,
+      "a_pos_mean": 0.3591
+    },
+    {
+      "ipip_id": "ipip41",
+      "trait": "N",
+      "keying": "+",
+      "sd": 2.3879,
+      "desirability_dist": 2.6121,
+      "cohort_ev": 2.4343,
+      "selfrating_dist": 1.5657,
+      "a_pos_mean": 0.3641
+    },
+    {
+      "ipip_id": "ipip89",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.2929,
+      "desirability_dist": 2.2929,
+      "cohort_ev": 5.3908,
+      "selfrating_dist": 1.3908,
+      "a_pos_mean": 0.3842
+    },
+    {
+      "ipip_id": "ipip177",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.2997,
+      "desirability_dist": 2.2997,
+      "cohort_ev": 5.0619,
+      "selfrating_dist": 1.3161,
+      "a_pos_mean": 0.3476
+    },
+    {
+      "ipip_id": "ipip300",
+      "trait": "C",
+      "keying": "-",
+      "sd": 5.362,
+      "desirability_dist": 0.362,
+      "cohort_ev": 4.0672,
+      "selfrating_dist": 0.8108,
+      "a_pos_mean": 0.3627
+    },
+    {
+      "ipip_id": "ipip163",
+      "trait": "O",
+      "keying": "-",
+      "sd": 5.369,
+      "desirability_dist": 0.369,
+      "cohort_ev": 3.8201,
+      "selfrating_dist": 0.8175,
+      "a_pos_mean": 0.4163
+    },
+    {
+      "ipip_id": "ipip110",
+      "trait": "C",
+      "keying": "+",
+      "sd": 7.442,
+      "desirability_dist": 2.442,
+      "cohort_ev": 4.8591,
+      "selfrating_dist": 1.1062,
+      "a_pos_mean": 0.3886
+    },
+    {
+      "ipip_id": "ipip57",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.4341,
+      "desirability_dist": 2.4341,
+      "cohort_ev": 4.9503,
+      "selfrating_dist": 1.1533,
+      "a_pos_mean": 0.3473
+    },
+    {
+      "ipip_id": "ipip29",
+      "trait": "A",
+      "keying": "+",
+      "sd": 7.3866,
+      "desirability_dist": 2.3866,
+      "cohort_ev": 5.4635,
+      "selfrating_dist": 1.6793,
+      "a_pos_mean": 0.3712
+    },
+    {
+      "ipip_id": "ipip73",
+      "trait": "O",
+      "keying": "+",
+      "sd": 7.3788,
+      "desirability_dist": 2.3788,
+      "cohort_ev": 5.064,
+      "selfrating_dist": 1.2811,
+      "a_pos_mean": 0.3533
+    },
+    {
+      "ipip_id": "ipip204",
+      "trait": "A",
+      "keying": "-",
+      "sd": 6.7266,
+      "desirability_dist": 1.7266,
+      "cohort_ev": 4.5178,
+      "selfrating_dist": 1.0046,
+      "a_pos_mean": 0.3612
+    },
+    {
+      "ipip_id": "ipip102",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.7347,
+      "desirability_dist": 1.7347,
+      "cohort_ev": 4.36,
+      "selfrating_dist": 1.0496,
+      "a_pos_mean": 0.401
+    },
+    {
+      "ipip_id": "ipip212",
+      "trait": "E",
+      "keying": "-",
+      "sd": 3.2032,
+      "desirability_dist": 1.7968,
+      "cohort_ev": 3.0242,
+      "selfrating_dist": 1.2956,
+      "a_pos_mean": 0.33
+    },
+    {
+      "ipip_id": "ipip71",
+      "trait": "N",
+      "keying": "+",
+      "sd": 3.2116,
+      "desirability_dist": 1.7884,
+      "cohort_ev": 3.1112,
+      "selfrating_dist": 0.9211,
+      "a_pos_mean": 0.4927
+    },
+    {
+      "ipip_id": "ipip10",
+      "trait": "C",
+      "keying": "+",
+      "sd": 6.8057,
+      "desirability_dist": 1.8057,
+      "cohort_ev": 4.8823,
+      "selfrating_dist": 1.1104,
+      "a_pos_mean": 0.3868
+    },
+    {
+      "ipip_id": "ipip237",
+      "trait": "E",
+      "keying": "+",
+      "sd": 6.8145,
+      "desirability_dist": 1.8145,
+      "cohort_ev": 4.5843,
+      "selfrating_dist": 1.1389,
+      "a_pos_mean": 0.3654
+    },
+    {
+      "ipip_id": "ipip165",
+      "trait": "C",
+      "keying": "-",
+      "sd": 4.0818,
+      "desirability_dist": 0.9182,
+      "cohort_ev": 2.2545,
+      "selfrating_dist": 1.7455,
+      "a_pos_mean": 0.355
+    },
+    {
+      "ipip_id": "ipip173",
+      "trait": "O",
+      "keying": "-",
+      "sd": 4.0908,
+      "desirability_dist": 0.9092,
+      "cohort_ev": 3.1052,
+      "selfrating_dist": 1.1866,
+      "a_pos_mean": 0.3776
+    },
+    {
+      "ipip_id": "ipip122",
+      "trait": "E",
+      "keying": "+",
+      "sd": 7.7174,
+      "desirability_dist": 2.7174,
+      "cohort_ev": 4.82,
+      "selfrating_dist": 1.0256,
+      "a_pos_mean": 0.3748
+    },
+    {
+      "ipip_id": "ipip206",
+      "trait": "N",
+      "keying": "-",
+      "sd": 7.7264,
+      "desirability_dist": 2.7264,
+      "cohort_ev": 5.6844,
+      "selfrating_dist": 1.6844,
+      "a_pos_mean": 0.3514
+    },
+    {
+      "ipip_id": "ipip187",
+      "trait": "E",
+      "keying": "-",
+      "sd": 5.5667,
+      "desirability_dist": 0.5667,
+      "cohort_ev": 3.4144,
+      "selfrating_dist": 0.8513,
+      "a_pos_mean": 0.3521
+    },
+    {
+      "ipip_id": "ipip138",
+      "trait": "O",
+      "keying": "-",
+      "sd": 5.5791,
+      "desirability_dist": 0.5791,
+      "cohort_ev": 4.6426,
+      "selfrating_dist": 1.1566,
+      "a_pos_mean": 0.3807
+    },
+    {
+      "ipip_id": "ipip54",
+      "trait": "A",
+      "keying": "+",
+      "sd": 5.8643,
+      "desirability_dist": 0.8643,
+      "cohort_ev": 4.0658,
+      "selfrating_dist": 0.7557,
+      "a_pos_mean": 0.3676
+    },
+    {
+      "ipip_id": "ipip157",
+      "trait": "E",
+      "keying": "-",
+      "sd": 5.8776,
+      "desirability_dist": 0.8776,
+      "cohort_ev": 4.1701,
+      "selfrating_dist": 0.7233,
+      "a_pos_mean": 0.4073
+    }
+  ]
+}

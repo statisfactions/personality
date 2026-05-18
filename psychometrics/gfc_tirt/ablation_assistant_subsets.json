@@ -1,0 +1,546 @@
+{
+  "asst_top30": [3, 5, 6, 7, 8, 10, 11, 14, 18, 19, 22, 26, 32, 34, 35, 36, 38, 40, 42, 43, 44, 47, 50, 51, 52, 54, 55, 56, 59, 60],
+  "asst_bot30": [1, 2, 4, 9, 12, 13, 15, 16, 17, 20, 21, 23, 24, 25, 27, 28, 29, 30, 31, 33, 37, 39, 41, 45, 46, 48, 49, 53, 57, 58],
+  "pair_info": [
+    {
+      "block": 42,
+      "ipip_L": "ipip234",
+      "ipip_R": "ipip15",
+      "strength_L": 1.2651,
+      "strength_R": 1.2817,
+      "asst_diff": 0.0166,
+      "_row": "ipip234"
+    },
+    {
+      "block": 32,
+      "ipip_L": "ipip220",
+      "ipip_R": "ipip16",
+      "strength_L": 0.8681,
+      "strength_R": 0.9007,
+      "asst_diff": 0.0326,
+      "_row": "ipip220"
+    },
+    {
+      "block": 18,
+      "ipip_L": "ipip96",
+      "ipip_R": "ipip198",
+      "strength_L": 0.6195,
+      "strength_R": 0.5834,
+      "asst_diff": 0.0361,
+      "_row": "ipip96"
+    },
+    {
+      "block": 38,
+      "ipip_L": "ipip202",
+      "ipip_R": "ipip33",
+      "strength_L": 0.6165,
+      "strength_R": 0.5618,
+      "asst_diff": 0.0547,
+      "_row": "ipip202"
+    },
+    {
+      "block": 59,
+      "ipip_L": "ipip187",
+      "ipip_R": "ipip138",
+      "strength_L": 0.5856,
+      "strength_R": 0.6426,
+      "asst_diff": 0.057,
+      "_row": "ipip187"
+    },
+    {
+      "block": 10,
+      "ipip_L": "ipip119",
+      "ipip_R": "ipip188",
+      "strength_L": 0.3898,
+      "strength_R": 0.4486,
+      "asst_diff": 0.0588,
+      "_row": "ipip119"
+    },
+    {
+      "block": 14,
+      "ipip_L": "ipip211",
+      "ipip_R": "ipip18",
+      "strength_L": 1.1584,
+      "strength_R": 1.2318,
+      "asst_diff": 0.0733,
+      "_row": "ipip211"
+    },
+    {
+      "block": 19,
+      "ipip_L": "ipip144",
+      "ipip_R": "ipip161",
+      "strength_L": 1.3909,
+      "strength_R": 1.4726,
+      "asst_diff": 0.0817,
+      "_row": "ipip144"
+    },
+    {
+      "block": 43,
+      "ipip_L": "ipip179",
+      "ipip_R": "ipip260",
+      "strength_L": 0.7645,
+      "strength_R": 0.678,
+      "asst_diff": 0.0865,
+      "_row": "ipip179"
+    },
+    {
+      "block": 55,
+      "ipip_L": "ipip212",
+      "ipip_R": "ipip71",
+      "strength_L": 0.9758,
+      "strength_R": 0.8888,
+      "asst_diff": 0.087,
+      "_row": "ipip212"
+    },
+    {
+      "block": 52,
+      "ipip_L": "ipip110",
+      "ipip_R": "ipip57",
+      "strength_L": 0.8591,
+      "strength_R": 0.9503,
+      "asst_diff": 0.0912,
+      "_row": "ipip110"
+    },
+    {
+      "block": 11,
+      "ipip_L": "ipip44",
+      "ipip_R": "ipip53",
+      "strength_L": 0.6852,
+      "strength_R": 0.7814,
+      "asst_diff": 0.0962,
+      "_row": "ipip44"
+    },
+    {
+      "block": 60,
+      "ipip_L": "ipip54",
+      "ipip_R": "ipip157",
+      "strength_L": 0.0658,
+      "strength_R": 0.1701,
+      "asst_diff": 0.1042,
+      "_row": "ipip54"
+    },
+    {
+      "block": 51,
+      "ipip_L": "ipip300",
+      "ipip_R": "ipip163",
+      "strength_L": 0.0672,
+      "strength_R": 0.1799,
+      "asst_diff": 0.1128,
+      "_row": "ipip300"
+    },
+    {
+      "block": 47,
+      "ipip_L": "ipip95",
+      "ipip_R": "ipip13",
+      "strength_L": 1.0999,
+      "strength_R": 1.2248,
+      "asst_diff": 0.1249,
+      "_row": "ipip95"
+    },
+    {
+      "block": 40,
+      "ipip_L": "ipip140",
+      "ipip_R": "ipip3",
+      "strength_L": 1.4734,
+      "strength_R": 1.5985,
+      "asst_diff": 0.1251,
+      "_row": "ipip140"
+    },
+    {
+      "block": 22,
+      "ipip_L": "ipip114",
+      "ipip_R": "ipip115",
+      "strength_L": 0.6261,
+      "strength_R": 0.7683,
+      "asst_diff": 0.1422,
+      "_row": "ipip114"
+    },
+    {
+      "block": 54,
+      "ipip_L": "ipip204",
+      "ipip_R": "ipip102",
+      "strength_L": 0.5178,
+      "strength_R": 0.36,
+      "asst_diff": 0.1577,
+      "_row": "ipip204"
+    },
+    {
+      "block": 3,
+      "ipip_L": "ipip131",
+      "ipip_R": "ipip273",
+      "strength_L": 0.5216,
+      "strength_R": 0.7024,
+      "asst_diff": 0.1808,
+      "_row": "ipip131"
+    },
+    {
+      "block": 36,
+      "ipip_L": "ipip235",
+      "ipip_R": "ipip46",
+      "strength_L": 0.0199,
+      "strength_R": 0.2075,
+      "asst_diff": 0.1876,
+      "_row": "ipip235"
+    },
+    {
+      "block": 44,
+      "ipip_L": "ipip170",
+      "ipip_R": "ipip132",
+      "strength_L": 0.9884,
+      "strength_R": 0.7907,
+      "asst_diff": 0.1977,
+      "_row": "ipip170"
+    },
+    {
+      "block": 8,
+      "ipip_L": "ipip134",
+      "ipip_R": "ipip62",
+      "strength_L": 0.3061,
+      "strength_R": 0.5097,
+      "asst_diff": 0.2036,
+      "_row": "ipip134"
+    },
+    {
+      "block": 35,
+      "ipip_L": "ipip210",
+      "ipip_R": "ipip182",
+      "strength_L": 0.6615,
+      "strength_R": 0.4548,
+      "asst_diff": 0.2067,
+      "_row": "ipip210"
+    },
+    {
+      "block": 7,
+      "ipip_L": "ipip39",
+      "ipip_R": "ipip43",
+      "strength_L": 0.3626,
+      "strength_R": 0.1548,
+      "asst_diff": 0.2078,
+      "_row": "ipip39"
+    },
+    {
+      "block": 6,
+      "ipip_L": "ipip65",
+      "ipip_R": "ipip271",
+      "strength_L": 1.2481,
+      "strength_R": 1.4624,
+      "asst_diff": 0.2143,
+      "_row": "ipip65"
+    },
+    {
+      "block": 26,
+      "ipip_L": "ipip256",
+      "ipip_R": "ipip208",
+      "strength_L": 0.4907,
+      "strength_R": 0.7086,
+      "asst_diff": 0.2178,
+      "_row": "ipip256"
+    },
+    {
+      "block": 5,
+      "ipip_L": "ipip224",
+      "ipip_R": "ipip285",
+      "strength_L": 1.8522,
+      "strength_R": 1.6275,
+      "asst_diff": 0.2247,
+      "_row": "ipip224"
+    },
+    {
+      "block": 34,
+      "ipip_L": "ipip92",
+      "ipip_R": "ipip216",
+      "strength_L": 0.9895,
+      "strength_R": 0.737,
+      "asst_diff": 0.2526,
+      "_row": "ipip92"
+    },
+    {
+      "block": 56,
+      "ipip_L": "ipip10",
+      "ipip_R": "ipip237",
+      "strength_L": 0.8823,
+      "strength_R": 0.5843,
+      "asst_diff": 0.298,
+      "_row": "ipip10"
+    },
+    {
+      "block": 50,
+      "ipip_L": "ipip89",
+      "ipip_R": "ipip177",
+      "strength_L": 1.3908,
+      "strength_R": 1.0619,
+      "asst_diff": 0.3289,
+      "_row": "ipip89"
+    },
+    {
+      "block": 13,
+      "ipip_L": "ipip116",
+      "ipip_R": "ipip158",
+      "strength_L": 0.3514,
+      "strength_R": 0.6948,
+      "asst_diff": 0.3435,
+      "_row": "ipip116"
+    },
+    {
+      "block": 49,
+      "ipip_L": "ipip225",
+      "ipip_R": "ipip41",
+      "strength_L": 1.9511,
+      "strength_R": 1.5657,
+      "asst_diff": 0.3854,
+      "_row": "ipip225"
+    },
+    {
+      "block": 48,
+      "ipip_L": "ipip270",
+      "ipip_R": "ipip213",
+      "strength_L": 1.5043,
+      "strength_R": 1.1137,
+      "asst_diff": 0.3906,
+      "_row": "ipip270"
+    },
+    {
+      "block": 53,
+      "ipip_L": "ipip29",
+      "ipip_R": "ipip73",
+      "strength_L": 1.4635,
+      "strength_R": 1.064,
+      "asst_diff": 0.3996,
+      "_row": "ipip29"
+    },
+    {
+      "block": 24,
+      "ipip_L": "ipip4",
+      "ipip_R": "ipip85",
+      "strength_L": 0.0784,
+      "strength_R": 0.4875,
+      "asst_diff": 0.4091,
+      "_row": "ipip4"
+    },
+    {
+      "block": 37,
+      "ipip_L": "ipip97",
+      "ipip_R": "ipip171",
+      "strength_L": 0.7627,
+      "strength_R": 1.182,
+      "asst_diff": 0.4192,
+      "_row": "ipip97"
+    },
+    {
+      "block": 23,
+      "ipip_L": "ipip250",
+      "ipip_R": "ipip42",
+      "strength_L": 0.6828,
+      "strength_R": 0.2329,
+      "asst_diff": 0.4499,
+      "_row": "ipip250"
+    },
+    {
+      "block": 21,
+      "ipip_L": "ipip67",
+      "ipip_R": "ipip151",
+      "strength_L": 1.1715,
+      "strength_R": 0.702,
+      "asst_diff": 0.4695,
+      "_row": "ipip67"
+    },
+    {
+      "block": 46,
+      "ipip_L": "ipip19",
+      "ipip_R": "ipip263",
+      "strength_L": 0.0984,
+      "strength_R": 0.5805,
+      "asst_diff": 0.4821,
+      "_row": "ipip19"
+    },
+    {
+      "block": 33,
+      "ipip_L": "ipip221",
+      "ipip_R": "ipip153",
+      "strength_L": 0.8036,
+      "strength_R": 1.3033,
+      "asst_diff": 0.4997,
+      "_row": "ipip221"
+    },
+    {
+      "block": 4,
+      "ipip_L": "ipip49",
+      "ipip_R": "ipip222",
+      "strength_L": 0.3493,
+      "strength_R": 1.0092,
+      "asst_diff": 0.6599,
+      "_row": "ipip49"
+    },
+    {
+      "block": 41,
+      "ipip_L": "ipip219",
+      "ipip_R": "ipip233",
+      "strength_L": 1.3066,
+      "strength_R": 0.5336,
+      "asst_diff": 0.7729,
+      "_row": "ipip219"
+    },
+    {
+      "block": 45,
+      "ipip_L": "ipip159",
+      "ipip_R": "ipip245",
+      "strength_L": 2.4113,
+      "strength_R": 1.6264,
+      "asst_diff": 0.7849,
+      "_row": "ipip159"
+    },
+    {
+      "block": 30,
+      "ipip_L": "ipip129",
+      "ipip_R": "ipip6",
+      "strength_L": 1.5216,
+      "strength_R": 0.7272,
+      "asst_diff": 0.7944,
+      "_row": "ipip129"
+    },
+    {
+      "block": 29,
+      "ipip_L": "ipip94",
+      "ipip_R": "ipip181",
+      "strength_L": 0.9773,
+      "strength_R": 0.1707,
+      "asst_diff": 0.8066,
+      "_row": "ipip94"
+    },
+    {
+      "block": 39,
+      "ipip_L": "ipip135",
+      "ipip_R": "ipip87",
+      "strength_L": 0.9206,
+      "strength_R": 0.1124,
+      "asst_diff": 0.8083,
+      "_row": "ipip135"
+    },
+    {
+      "block": 12,
+      "ipip_L": "ipip259",
+      "ipip_R": "ipip242",
+      "strength_L": 1.6963,
+      "strength_R": 0.8478,
+      "asst_diff": 0.8485,
+      "_row": "ipip259"
+    },
+    {
+      "block": 16,
+      "ipip_L": "ipip124",
+      "ipip_R": "ipip201",
+      "strength_L": 1.3285,
+      "strength_R": 0.4788,
+      "asst_diff": 0.8496,
+      "_row": "ipip124"
+    },
+    {
+      "block": 57,
+      "ipip_L": "ipip165",
+      "ipip_R": "ipip173",
+      "strength_L": 1.7455,
+      "strength_R": 0.8948,
+      "asst_diff": 0.8507,
+      "_row": "ipip165"
+    },
+    {
+      "block": 58,
+      "ipip_L": "ipip122",
+      "ipip_R": "ipip206",
+      "strength_L": 0.82,
+      "strength_R": 1.6844,
+      "asst_diff": 0.8645,
+      "_row": "ipip122"
+    },
+    {
+      "block": 27,
+      "ipip_L": "ipip55",
+      "ipip_R": "ipip23",
+      "strength_L": 0.2536,
+      "strength_R": 1.2077,
+      "asst_diff": 0.9541,
+      "_row": "ipip55"
+    },
+    {
+      "block": 17,
+      "ipip_L": "ipip257",
+      "ipip_R": "ipip193",
+      "strength_L": 1.1417,
+      "strength_R": 0.0773,
+      "asst_diff": 1.0644,
+      "_row": "ipip257"
+    },
+    {
+      "block": 9,
+      "ipip_L": "ipip59",
+      "ipip_R": "ipip266",
+      "strength_L": 1.4058,
+      "strength_R": 0.2933,
+      "asst_diff": 1.1125,
+      "_row": "ipip59"
+    },
+    {
+      "block": 1,
+      "ipip_L": "ipip20",
+      "ipip_R": "ipip196",
+      "strength_L": 0.4714,
+      "strength_R": 1.6383,
+      "asst_diff": 1.167,
+      "_row": "ipip20"
+    },
+    {
+      "block": 15,
+      "ipip_L": "ipip274",
+      "ipip_R": "ipip86",
+      "strength_L": 1.9303,
+      "strength_R": 0.741,
+      "asst_diff": 1.1893,
+      "_row": "ipip274"
+    },
+    {
+      "block": 28,
+      "ipip_L": "ipip297",
+      "ipip_R": "ipip58",
+      "strength_L": 0.2742,
+      "strength_R": 1.4705,
+      "asst_diff": 1.1964,
+      "_row": "ipip297"
+    },
+    {
+      "block": 2,
+      "ipip_L": "ipip5",
+      "ipip_R": "ipip176",
+      "strength_L": 1.9166,
+      "strength_R": 0.5518,
+      "asst_diff": 1.3647,
+      "_row": "ipip5"
+    },
+    {
+      "block": 31,
+      "ipip_L": "ipip172",
+      "ipip_R": "ipip203",
+      "strength_L": 1.4217,
+      "strength_R": 0.0458,
+      "asst_diff": 1.3759,
+      "_row": "ipip172"
+    },
+    {
+      "block": 20,
+      "ipip_L": "ipip232",
+      "ipip_R": "ipip191",
+      "strength_L": 1.6768,
+      "strength_R": 0.2159,
+      "asst_diff": 1.4608,
+      "_row": "ipip232"
+    },
+    {
+      "block": 25,
+      "ipip_L": "ipip37",
+      "ipip_R": "ipip93",
+      "strength_L": 0.0107,
+      "strength_R": 1.5018,
+      "asst_diff": 1.4911,
+      "_row": "ipip37"
+    }
+  ]
+}
