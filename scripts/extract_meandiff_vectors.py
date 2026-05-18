@@ -71,23 +71,30 @@ def load_model(model_name, device="mps", dtype="bfloat16"):
     return model, tokenizer
 
 
-def _tokenize(tokenizer, text, chat_template):
+def _tokenize(tokenizer, text, chat_template, system_content=""):
     """Tokenize with or without chat-template wrapping.
 
-    When chat_template=True the text is wrapped as a user turn with empty
-    system message and no generation prompt, so hidden states reflect the
-    model reading the text as user input inside its deployed chat context.
+    When chat_template=True the text is wrapped as a user turn (with an
+    optional system message via `system_content`) and no generation prompt,
+    so hidden states reflect the model reading the text as user input inside
+    its deployed chat context. system_content="" matches the original
+    no-system behavior; pass FG-instruction text to extract trait directions
+    while the model is in an FG mindset (W12 §5d rotation test).
     """
     if chat_template:
+        messages = []
+        if system_content:
+            messages.append({"role": "system", "content": system_content})
+        messages.append({"role": "user", "content": text})
         wrapped = tokenizer.apply_chat_template(
-            [{"role": "user", "content": text}],
-            tokenize=False, add_generation_prompt=False,
+            messages, tokenize=False, add_generation_prompt=False,
         )
         return tokenizer(wrapped, return_tensors="pt")
     return tokenizer(text, return_tensors="pt")
 
 
-def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None, chat_template=False):
+def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None,
+                            chat_template=False, system_content=""):
     """Run text through model; return hidden states averaged over response tokens.
 
     If split_prefix is provided, the response-token span is everything after
@@ -95,10 +102,12 @@ def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None, ch
     Otherwise, all tokens are averaged (with position 0 skipped).
 
     chat_template=True wraps the text as a user turn before tokenizing.
+    Pass system_content (with chat_template=True) to also include a system
+    message — used for W12 §5d FG-direction extraction.
 
     Returns: tensor of shape (n_layers+1, hidden_dim), dtype float32 on CPU.
     """
-    inputs = _tokenize(tokenizer, text, chat_template).to(device)
+    inputs = _tokenize(tokenizer, text, chat_template, system_content).to(device)
     n_total = inputs["input_ids"].shape[1]
 
     if split_prefix is not None and split_prefix != "":

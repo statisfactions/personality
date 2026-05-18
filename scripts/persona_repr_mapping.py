@@ -61,13 +61,17 @@ def unit(v): return v / (np.linalg.norm(v) + 1e-12)
 
 
 def extract_directions_from_pool(model, tok, device, common_layer, neutral_layer,
-                                  pool, label):
+                                  pool, label, direction_system=""):
     """Return {trait: unit-norm direction (hidden_dim,)} via mean(high)-mean(low),
     neutral-PC-projected. Same recipe as markers_as_stimuli.py.
 
     `pool` is a dict {trait: {"high": [text, ...], "low": [text, ...]}}.
     Texts are passed through chat-template; activation read at common_layer
     (the token at position -1 after applying chat template).
+
+    direction_system: optional system-message text. If non-empty, the
+    stimulus text is processed with this as system + stimulus as user
+    (W12 §5d rotation test). Default empty matches W7/W8 behavior.
     """
     pcs, _, _ = mdx.compute_pc_projection(neutral_layer, 0.5)
 
@@ -80,6 +84,7 @@ def extract_directions_from_pool(model, tok, device, common_layer, neutral_layer
                 a = mdx.hidden_states_for_text(
                     model, tok, text, device,
                     split_prefix=None, chat_template=True,
+                    system_content=direction_system,
                 )
                 by_trait_pole[(trait, pole)].append(a[common_layer].float().numpy())
 
@@ -124,7 +129,9 @@ def build_ipip_direction_pool():
 
 def extract_persona_projections(model, tok, device, personas, directions,
                                 common_layer, neutral_baseline,
-                                mode="description", text_key="description"):
+                                mode="description", text_key="description",
+                                user_stem=None, fg_suffix="",
+                                fg_position="suffix"):
     """For each persona, project activation onto each trait direction.
 
     mode="description" (baseline): persona description as user turn, last-
@@ -139,19 +146,29 @@ def extract_persona_projections(model, tok, device, personas, directions,
     text_key selects which field of the persona dict holds the description
     (e.g. "description" for marker form, "ipip_raw" for IPIP form).
     """
+    if user_stem is None:
+        user_stem = NEUTRAL_QUESTION
     out = []
     for i, p in enumerate(personas):
         persona_text = p[text_key]
+        # FG instruction (if any) combined per fg_position:
+        #   suffix = persona first, then FG (W12 §5b/5d default)
+        #   prefix = FG first, then persona (tests upstream contamination)
+        # Empty fg_suffix = HONEST baseline.
+        if fg_position == "prefix":
+            system_content = fg_suffix + persona_text
+        else:
+            system_content = persona_text + fg_suffix
         if mode == "description":
             a = mdx.hidden_states_for_text(
-                model, tok, persona_text, device,
+                model, tok, system_content, device,
                 split_prefix=None, chat_template=True,
             )
             act = a[common_layer].float().numpy()
         elif mode == "response-position":
             messages = [
-                {"role": "system", "content": persona_text},
-                {"role": "user", "content": NEUTRAL_QUESTION},
+                {"role": "system", "content": system_content},
+                {"role": "user", "content": user_stem},
             ]
             text = tok.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True,
@@ -195,6 +212,27 @@ def main():
                         help="markers = trait directions from Goldberg adjectives "
                              "(W7); ipip = trait directions from IPIP-NEO-300 "
                              "behavioral items (W8 §5).")
+    parser.add_argument("--user-stem", default=NEUTRAL_QUESTION,
+                        help="User-message stem for response-position mode. "
+                             "Default is the W7 'Briefly describe a typical "
+                             "Saturday for you.' Override to test alternate "
+                             "stems (e.g. 'What best describes you:').")
+    parser.add_argument("--fg-suffix", default="",
+                        help="FG instruction text. Empty for HONEST baseline. "
+                             "Combined with persona text per --fg-position.")
+    parser.add_argument("--fg-position", default="suffix",
+                        choices=["suffix", "prefix"],
+                        help="Where to place --fg-suffix relative to persona "
+                             "text in the system message. suffix = persona "
+                             "first then FG (W12 §5b default). prefix = FG "
+                             "first then persona; tests whether persona "
+                             "internalization is contaminated by upstream FG.")
+    parser.add_argument("--fg-direction-system", action="store_true",
+                        help="If set AND --fg-suffix is non-empty, also "
+                             "extract trait directions with the FG text as "
+                             "the system message (W12 §5d rotation test).")
+    parser.add_argument("--output-tag", default="",
+                        help="Suffix added to output filename to distinguish runs.")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
@@ -239,14 +277,28 @@ def main():
         print("\n--- Extracting Big Five trait directions from IPIP-NEO-300 items ---")
         pool = build_ipip_direction_pool()
         label = "IPIP item"
+    direction_system = (
+        args.fg_suffix.strip() if (args.fg_direction_system and args.fg_suffix)
+        else ""
+    )
+    if direction_system:
+        print(f"\n  W12 §5d: extracting directions with FG system message")
     directions = extract_directions_from_pool(
         model, tok, device, common_layer, neutral_layer_t, pool, label,
+        direction_system=direction_system,
     )
 
     print(f"\n--- Extracting persona activations (mode={args.mode}) ---")
+    if args.fg_suffix:
+        print(f"  fg_position: {args.fg_position}")
+        print(f"  fg_text: {args.fg_suffix[:80]}{'...' if len(args.fg_suffix) > 80 else ''}")
+    if args.user_stem != NEUTRAL_QUESTION:
+        print(f"  user-stem: {args.user_stem!r}")
     persona_data = extract_persona_projections(
         model, tok, device, selected, directions, common_layer, neutral_baseline,
         mode=args.mode, text_key=text_key,
+        user_stem=args.user_stem, fg_suffix=args.fg_suffix,
+        fg_position=args.fg_position,
     )
 
     del model, tok
@@ -309,6 +361,8 @@ def main():
         suffix += f"_{args.persona_source}"
     if args.direction_source != "markers":
         suffix += f"_dir-{args.direction_source}"
+    if args.output_tag:
+        suffix += f"_{args.output_tag}"
     out_path = Path(f"results/persona/persona_repr_mapping_{args.model}{suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:

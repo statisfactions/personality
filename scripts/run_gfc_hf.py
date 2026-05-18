@@ -162,6 +162,7 @@ def _save_output(path, args, pairs, persona_list, results, hf_repo, n_completed)
         "persona_field": args.persona_field,
         "personas_path": args.synthetic_personas,
         "condition": args.condition,
+        "fg_position": args.fg_position,
         "n_pairs": len(pairs),
         "n_personas": len(persona_list),
         "n_completed": n_completed,
@@ -210,8 +211,13 @@ def main():
                         choices=["honest", "fake_good"],
                         help="Response-style condition. honest = no extra "
                              "instruction (W7-W11 default). fake_good = "
-                             "append impression-management instruction to "
+                             "combine impression-management instruction with "
                              "persona system message (W12 SDR test).")
+    parser.add_argument("--fg-position", type=str, default="suffix",
+                        choices=["suffix", "prefix"],
+                        help="Where FAKE_GOOD_SUFFIX sits relative to persona: "
+                             "suffix (W12 §5b default) or prefix (W12 §5d "
+                             "ordering test). No effect when condition=honest.")
     args = parser.parse_args()
 
     # Instrument
@@ -247,6 +253,8 @@ def main():
         # backward-compatible with W7-W11 artifacts.
         model_slug = args.model.replace("/", "_").replace(":", "-")
         cond_suffix = "" if args.condition == "honest" else f"_{args.condition}"
+        if args.condition == "fake_good" and args.fg_position == "prefix":
+            cond_suffix += "_fgpfx"
         output_path = (
             f"psychometrics/gfc_tirt/"
             f"{model_slug}_gfc30_hf_{args.persona_field}{cond_suffix}.json"
@@ -284,12 +292,16 @@ def main():
         if persona_done == len(pairs):
             continue
 
-        # Apply fake-good suffix to persona system message. Persona context
-        # comes first, FG instruction last (so it dominates as the most-
-        # recent system content while persona still anchors trait standing).
+        # Apply fake-good instruction to persona system message. Position
+        # per --fg-position: suffix (W12 §5b default, FG nearest the user
+        # message and most recent in attention at decision time) or prefix
+        # (W12 §5d, FG further from the response position).
         effective_persona = persona_desc
         if args.condition == "fake_good":
-            effective_persona = persona_desc + FAKE_GOOD_SUFFIX
+            if args.fg_position == "prefix":
+                effective_persona = FAKE_GOOD_SUFFIX.lstrip("\n") + "\n\n" + persona_desc
+            else:
+                effective_persona = persona_desc + FAKE_GOOD_SUFFIX
 
         head = effective_persona.replace("\n", " ")[:60]
         print(f"--- {persona_id} ({head}...) ---")

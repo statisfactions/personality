@@ -581,14 +581,255 @@ both controlled, neither partial correlation is significant, and
 loadings reflect trait + noise. That would be the cleanest possible
 demonstration of TIRT's structural SDR/assistant immunity.
 
+## 5d. Rep-under-FG: rotation, not loss (Llama8 smoke)
+
+The W12 §5b TIRT-FG result raised a natural next question: does FG
+affect the upstream *representation* (Rep) the way it affects the
+output-stage *response* (Likert)? The structural story so far predicts
+**Rep should be FG-immune** because it taps the trait subspace before
+the assistant-prior filter acts. Tested on Llama8 with cached
+W7 §11.5.9 baseline (HONEST + Saturday stem) at r ≈ 0.694.
+
+### 5d.1 Initial finding: Rep is NOT FG-immune at face value
+
+Llama8 × 50 marker personas × Saturday or "What best describes you:"
+stem × HONEST or FG-suffix × honest or FG-extracted trait directions
+(10 conditions; `scripts/run_rep_under_fg_smoke.sh` and `_smoke2.sh`,
+`scripts/persona_repr_mapping.py` extended with `--user-stem`,
+`--fg-suffix`, `--fg-position`, `--fg-direction-system`):
+
+| stem | FG position | honest dirs | FG dirs |
+|---|---|---|---|
+| Saturday | none (HONEST) | **+0.774** | — |
+| Saturday | suffix | +0.612 | **+0.738** |
+| Saturday | prefix | +0.734 | +0.731 |
+| best-describes | none (HONEST) | **+0.701** | — |
+| best-describes | suffix | **+0.300** | **+0.703** |
+| best-describes | prefix | +0.514 | +0.721 |
+
+Under FG with the original (honest-extracted) trait directions, Rep
+recovery drops substantially — by Δ −0.16 (Saturday stem) to Δ −0.40
+(best-describes stem). In the most-affected condition (FG-suffix +
+best-describes), A and N **sign-flip** at the diagonal: A goes from
++0.476 (HONEST) to −0.494 (FG), N from +0.639 to −0.373. That's not
+noise — it's a rotation of the trait subspace.
+
+### 5d.2 Rotation hypothesis: persona info is preserved, in a different basis
+
+Extracting trait directions with the FG instruction also present as
+system message (then re-projecting FG persona activations onto these
+FG-basis directions) recovers nearly all the lost recovery:
+
+- FG-suffix + best-describes, honest-dirs: +0.300
+- FG-suffix + best-describes, **FG-dirs: +0.703** (Δ vs HONEST +0.701: essentially zero)
+
+Sign-flips fully resolve: in FG-basis, all five diagonal entries
+become positive again (A: −0.494 → +0.558, N: −0.373 → +0.520).
+
+**The persona z is encoded under FG, just in a rotated basis.** Honest-
+extracted trait directions are no longer the right basis under FG; FG-
+extracted directions are. When we use the right basis, recovery is
+back at near-honest levels across all four FG cells we tested.
+
+### 5d.3 Prompt-ordering effect: FG-prefix causes less rotation
+
+Comparing FG-suffix vs FG-prefix using honest-extracted directions:
+- best-describes stem: Δ −0.401 (suffix) vs Δ −0.187 (prefix) — 53% less rotation
+- Saturday stem: Δ −0.162 (suffix) vs Δ −0.040 (prefix) — 75% less rotation
+
+With FG further from the response position (prefix), the response-
+position hidden state has more persona-attention and less FG-attention.
+The trait-subspace rotation is correspondingly smaller. Clean recency
+attention effect.
+
+### 5d.4 What this means
+
+The face-value "Rep is FG-affected" reading was right, but missed
+the structural picture. The refined story:
+
+> **The persona representation is FG-immune in *information content*
+> but rotated in *geometric basis*.** Under FG, the trait subspace
+> rotates within activation space, but the persona z is still
+> recoverable when projected onto the appropriate (FG-aware) basis.
+> The recency-attention effect determines magnitude of rotation:
+> FG closer to the extraction position → more rotation; FG further
+> away → less.
+
+This restores the three-readout claim with a sharper mechanism:
+
+| readout | FG-suffix sensitivity | mechanism |
+|---|---|---|
+| **Rep (matched basis)** | ≈ honest | persona z preserved; basis-aware projection required |
+| **Rep (mismatched basis)** | Δ −0.16 to −0.40 | basis rotation + extraction-position recency |
+| **TIRT** | Δ −0.015 cohort | loading-weighted integration averages out basis rotation |
+| **Likert** | 0.30 \|shift\| per pair | direct read of decision-stage |
+
+TIRT's immunity comes from the *integration property* (averaging
+over many response activations naturally smooths the basis rotation),
+not from any architectural property of "representation is upstream
+of output." This is a more correct mechanistic claim than the §5b
+draft suggested.
+
+### 5d.5 Caveats and pending cohort extension
+
+These results are **single-model** (Llama8). The W12 paper claim about
+Rep-as-rotation depends on this generalizing across the cohort. Open
+questions:
+
+1. **Does cohort confirm rotation?** Run the §5d.1 condition matrix
+   for all 7 models × Saturday stem (~28 small runs). Key contrast:
+   does `FG-suffix + FG-dirs ≈ HONEST + honest-dirs` hold across the
+   cohort?
+2. **Does Gemma rotate as much as others?** Gemma was flagged as
+   "always game to take things metaphorically." It might rotate
+   *more* (full FG adoption) or *less* (refuses to adopt the framing
+   at the rep level despite complying behaviorally). Gemma is also
+   the model with weakest honest baseline (~0.167 description), so
+   detection is hard against noise.
+
+The W12 §5e TIRT-FG-prefix cohort result (next section) gives an
+indirect hint: Gemma description had the biggest TIRT-prefix gain
+(+0.197), consistent with weak-fit cells benefiting most from FG-
+prefix's task-framing. Whether that maps onto a specific Rep-rotation
+signature is the cohort experiment.
+
+Cohort extension status: queued. Memory note saved as
+`project_w12_rep_cohort_pending.md`.
+
+## 5e. TIRT FG-prefix cohort: ordering effect on the SDR test
+
+§5d showed that for Rep, prompt-ordering (FG-suffix vs FG-prefix)
+substantially affects the magnitude of FG-induced rotation. The
+analog test for TIRT: does cohort θ recovery under FG-prefix
+substantially differ from FG-suffix?
+
+### 5e.1 Setup
+
+Added `--fg-position {suffix, prefix}` to `scripts/run_gfc_hf.py`.
+Re-ran inference on 7 models × 3 forms × P=60 with `--condition
+fake_good --fg-position prefix` (~3.5 hours overnight). Fit TIRT on
+the 21 resulting response files; all converged cleanly.
+
+### 5e.2 Cohort grand-mean result
+
+| condition | cohort grand \|r\| | Δ vs HONEST |
+|---|---|---|
+| HONEST | 0.266 | — |
+| FG-suffix | 0.251 | **−0.015** |
+| **FG-prefix** | **0.306** | **+0.040** |
+
+**FG-prefix produces a cohort-mean improvement above HONEST baseline.**
+This is the OPPOSITE direction from suffix (which produced a small
+drop). Per-cell variance is similar between orderings (mean |Δ| ≈
+0.06–0.08), but cells bias toward gains under prefix where they
+biased toward losses under suffix.
+
+Per-cell breakdown (selected): Gemma description HONEST 0.167 →
+FG-prefix 0.364 (Δ +0.197); Phi4 description HONEST 0.253 →
+FG-prefix 0.508 (Δ +0.256); Gemma12 description recovers fully from
+FG-suffix's −0.154 drop (HONEST 0.567 → FG-prefix 0.653).
+
+### 5e.3 Discriminating hypotheses via per-trait θ shift
+
+Three accounts for the cohort improvement:
+
+(a) **"Forgetting"**: FG instruction fades over distance under prefix;
+    model reverts to honest mode. Predicts per-trait θ shifts ≈ 0
+    across all traits.
+
+(b) **"Task-framing prime"**: FG-prefix activates careful engagement
+    with the persona but FG content itself ignored. Predicts shifts
+    ≈ 0, but recovery uniformly improved.
+
+(c) **"Partial FG influence"**: attenuated FG signal. Predicts shifts
+    in same direction as FG-suffix (N↓, E/C/A↑) but smaller magnitude.
+
+Per-trait analysis (`compare_fake_good_prefix_per_trait.R`,
+cohort-mean shift across 21 cells, sign-aligned):
+
+| trait | Δ (suffix) | Δ (prefix) | pfx/suf | predicted FG direction |
+|---|---|---|---|---|
+| A | +0.0066 | +0.0040 | 0.61× | + ✓ |
+| C | +0.0123 | +0.0005 | 0.04× | + ✓ |
+| E | +0.0310 | +0.0066 | 0.21× | + ✓ |
+| N | **−0.0365** | **−0.0195** | 0.53× | − ✓ |
+| O | −0.0161 | −0.0271 | 1.69× | (ambivalent) |
+
+**4 of 4 predicted-direction traits still match under FG-prefix.**
+Mean |trait shift|: suffix 0.020, prefix 0.012 (40% reduction). This
+**rules out (a) forgetting**: the model isn't reverting to honest, it's
+still complying with FG, just less strongly under prefix.
+
+### 5e.4 Combined mechanistic picture
+
+The per-trait result (~40% attenuated FG compliance) alone doesn't
+explain the cohort r improvement of +0.040 above HONEST. Reduced FG
+distortion would bring recovery closer to honest, not push it past
+honest. Something additional is acting.
+
+Per-cell heterogeneity gives the clue: the FG-prefix cohort gains are
+concentrated in **weak-fit cells** — Gemma desc, Phi4 desc, Qwen desc
+all show Δ > +0.17. Strong-fit cells (Gemma12 desc, Llama8 desc,
+Phi4 reflowed) take moderate hits or modest gains. So FG-prefix
+"lifts the floor" on cells where honest persona signal was weak.
+
+Two-effect model that fits the data:
+
+| effect | mechanism | who it affects |
+|---|---|---|
+| **Partial FG compliance** | model partially adopts FG framing under prefix, ~40% strength of suffix | uniform across cohort; visible in per-trait θ shifts |
+| **Task-framing prime** | "you're being evaluated for an important role" primes weak-fit cells to engage more carefully with the persona | concentrated in weak-fit cells with low honest baseline; visible in per-cell Δ heterogeneity |
+
+The decomposition (approximate):
+- FG-suffix cohort Δ: full FG compliance, no priming benefit → −0.015
+- FG-prefix cohort Δ: ~40% FG compliance + priming on weak cells → +0.040
+- Net cohort effect of priming alone: ~+0.055 (the gap between prefix and suffix above what attenuated FG can account for)
+
+### 5e.5 Implications
+
+The structural-SDR-immunity claim is **stronger than §5b alone showed**.
+Under both prompt orderings:
+- |grand-mean Δ| ≤ 0.04, much smaller than per-pair Likert shifts (~0.30)
+- Per-cell variance is similar (~0.06–0.08)
+- TIRT scoring is robust to FG presence and position
+
+But the *direction* of cohort shift is order-sensitive — and
+counterintuitively, prefix produces gains rather than losses. This
+adds nuance to the §5b framing:
+
+> TIRT-θ̂ recovery is robust to FG instructions across prompt positions.
+> With FG suffixed to persona, the cohort shows a small mean drop
+> (−0.015); with FG prefixed, the cohort shows a small mean gain
+> (+0.040). Per-cell variance is similar across orderings (~0.06–0.08
+> mean |Δ|). The direction depends on what FG-prefix does as a task-
+> framing prime in addition to its impression-management content — a
+> question worth investigating but distinct from the SDR-immunity
+> claim itself.
+
+The newly-identified mechanisms across W12:
+
+1. **Decision-time integration** (Likert robustness to position)
+2. **Representational basis rotation** (§5d Rep)
+3. **Task-framing prime** (§5e FG-prefix cohort gain on weak-fit cells)
+
+These three are separable and each needs treatment in any paper-shape
+write-up. The original "Rep > TIRT > Likert in SDR-immunity" claim
+from yesterday morning was too simple; the empirical picture is more
+layered.
+
 ## 6. Next steps
 
-1. **FAKE-GOOD condition** — now the highest-value extension. The
-   W12 mechanism predicts: Likert sum-score under FAKE-GOOD shifts
-   substantially (all items shift toward virtue answers); TIRT θ̂
-   shifts much less, because the items that shift are exactly the
-   items TIRT down-weights. The ablation provides the structural
-   prediction; FAKE-GOOD provides the empirical test.
+0. **Rep cohort extension** (W12 §5d.5) — replicate the §5d Llama8
+   Rep-rotation findings across the 7-model cohort. Key contrast:
+   does `FG-suffix + FG-dirs ≈ HONEST + honest-dirs` hold across the
+   cohort? Specifically check whether Gemma rotates as much as
+   others — could go either way given Gemma's "game for metaphor"
+   tendency. ~28 small runs, ~1–1.5 hr.
+
+1. **FAKE-GOOD condition** — *done in §5b/§5d/§5e*. Original predicted
+   prediction confirmed structurally; mechanisms more layered than
+   anticipated (decision-time integration, basis rotation, task-
+   framing prime — three separable effects across the three readouts).
 
 2. **Instrument-v3 design** — informativeness-matched pair MIP
    using the W11/W12 estimated loadings as objective, with
@@ -684,6 +925,16 @@ Headline artifacts:
   recovery sidecars
 - `results/persona/persona_asst_match_partial.json` — §5c.4 summary
   comparison (full_p60 / asst_top30 / asst_bot30 partial correlations)
+- `results/persona/persona_repr_mapping_Llama8_response-position_*.json`
+  × 10 — §5d Llama8 Rep-under-FG smoke (stem × FG-position × dirs)
+- `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good_fgpfx.json`
+  × 21 — §5e FG-prefix inference response data
+- `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good_fgpfx_indep_fit.rds`
+  × 21 — §5e FG-prefix TIRT fit objects
+- `results/persona/persona_gfc_tirt_*_ipipneogfc60_hf_*_fake_good_fgpfx.json`
+  × 21 — §5e FG-prefix recovery sidecars
+- `results/persona/persona_fg_per_trait_suffix_vs_prefix.json` — §5e.3
+  per-trait θ shift comparison (suffix vs prefix)
 
 Scripts:
 - `psychometrics/gfc_tirt/analyze_profile_recovery.R`
@@ -703,3 +954,13 @@ Scripts:
 - `scripts/filter_asst_match_responses.py` (W12 §5c.4)
 - `scripts/run_asst_match_fits.sh` (W12 §5c.4)
 - `psychometrics/gfc_tirt/analyze_asst_match_partial.R` (W12 §5c.4)
+- `scripts/run_rep_under_fg_smoke.sh` + `_smoke2.sh` (W12 §5d Rep
+  rotation + ordering tests on Llama8)
+- `scripts/persona_repr_mapping.py` (extended with `--user-stem`,
+  `--fg-suffix`, `--fg-position`, `--fg-direction-system`)
+- `scripts/extract_meandiff_vectors.py` (extended with `system_content`
+  kwarg for FG-aware direction extraction)
+- `scripts/run_fake_good_prefix_inference.sh` (W12 §5e inference batch)
+- `scripts/run_fake_good_prefix_tirt_fits.sh` (W12 §5e TIRT batch)
+- `psychometrics/gfc_tirt/compare_fake_good_prefix_per_trait.R`
+  (W12 §5e.3 per-trait θ-shift comparison)
