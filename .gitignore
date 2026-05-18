@@ -60,6 +60,7 @@ psychometrics/gfc_tirt/asst_match_fits.log
 psychometrics/gfc_tirt/fake_good_prefix_inference.log
 psychometrics/gfc_tirt/fake_good_prefix_tirt_fits.log
 psychometrics/gfc_tirt/fg_prefix_smoke.log
+psychometrics/gfc_tirt/rep_under_fg_cohort.log
 
 # Local data (copyrighted instruments, raw results)
 data/

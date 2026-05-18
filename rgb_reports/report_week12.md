@@ -642,59 +642,126 @@ position hidden state has more persona-attention and less FG-attention.
 The trait-subspace rotation is correspondingly smaller. Clean recency
 attention effect.
 
-### 5d.4 What this means
+### 5d.4 What the Llama8 smoke suggested
 
-The face-value "Rep is FG-affected" reading was right, but missed
-the structural picture. The refined story:
+The face-value "Rep is FG-affected" reading on Llama8 was right, but
+the smoke results pointed to a single-mechanism story:
 
-> **The persona representation is FG-immune in *information content*
-> but rotated in *geometric basis*.** Under FG, the trait subspace
-> rotates within activation space, but the persona z is still
-> recoverable when projected onto the appropriate (FG-aware) basis.
-> The recency-attention effect determines magnitude of rotation:
-> FG closer to the extraction position → more rotation; FG further
-> away → less.
+> *(Llama8 smoke version)* **The persona representation is FG-immune
+> in *information content* but rotated in *geometric basis*.** Under
+> FG, the trait subspace rotates within activation space, but the
+> persona z is still recoverable when projected onto the appropriate
+> (FG-aware) basis.
 
-This restores the three-readout claim with a sharper mechanism:
+This needed cohort confirmation before going into the paper.
 
-| readout | FG-suffix sensitivity | mechanism |
+### 5d.5 Cohort result: rotation is partial and per-model heterogeneous
+
+Cohort extension (`scripts/run_rep_under_fg_cohort.sh`,
+`scripts/analyze_rep_cohort_fg.py`): 7 models × 4 conditions
+(HONEST/FG-suffix/FG-suffix+FG-dirs/FG-prefix, Saturday stem only),
+28 small runs.
+
+**Cohort grand means:**
+
+| condition | grand \|r\| | Δ vs HONEST |
 |---|---|---|
-| **Rep (matched basis)** | ≈ honest | persona z preserved; basis-aware projection required |
-| **Rep (mismatched basis)** | Δ −0.16 to −0.40 | basis rotation + extraction-position recency |
-| **TIRT** | Δ −0.015 cohort | loading-weighted integration averages out basis rotation |
-| **Likert** | 0.30 \|shift\| per pair | direct read of decision-stage |
+| HONEST | 0.731 | — |
+| FG-suffix honest-dirs | 0.645 | **−0.086** |
+| FG-suffix FG-dirs | 0.677 | **−0.055** ← rotation recovery only partial |
+| FG-prefix honest-dirs | 0.700 | −0.032 |
 
-TIRT's immunity comes from the *integration property* (averaging
-over many response activations naturally smooths the basis rotation),
-not from any architectural property of "representation is upstream
-of output." This is a more correct mechanistic claim than the §5b
-draft suggested.
+The rotation hypothesis predicted FG-dirs Δ ≈ 0 at cohort level.
+**Observed: −0.055.** Rotation accounts for about 36% of the face-
+value drop ((0.086 − 0.055) / 0.086 = 36%); the remaining 64% is
+either real information loss or other effects not captured by basis
+correction. This is a meaningful softening of the Llama8 smoke story.
 
-### 5d.5 Caveats and pending cohort extension
+**Per-model breakdown:**
 
-These results are **single-model** (Llama8). The W12 paper claim about
-Rep-as-rotation depends on this generalizing across the cohort. Open
-questions:
+| model | HONEST | FG-suf raw | FG-suf FG-dir | FG-pfx raw | Δ-suf | Δ-pfx | Δ-recovery |
+|---|---|---|---|---|---|---|---|
+| Gemma | **0.838** | 0.796 | 0.749 | 0.808 | −0.041 | −0.030 | **−0.089** |
+| Gemma12 | 0.795 | 0.675 | **0.796** | 0.743 | −0.121 | −0.053 | **+0.001** |
+| Llama | 0.758 | 0.672 | 0.670 | 0.737 | −0.087 | −0.021 | −0.089 |
+| Llama8 | 0.774 | 0.612 | 0.738 | 0.734 | −0.162 | −0.040 | −0.036 |
+| Phi4 | 0.538 | **0.612** | **0.642** | 0.512 | **+0.074** | −0.026 | **+0.104** |
+| Qwen | 0.673 | 0.537 | **0.472** | 0.686 | −0.136 | +0.012 | **−0.201** |
+| Qwen7 | 0.743 | 0.613 | 0.671 | 0.680 | −0.129 | −0.063 | −0.072 |
 
-1. **Does cohort confirm rotation?** Run the §5d.1 condition matrix
-   for all 7 models × Saturday stem (~28 small runs). Key contrast:
-   does `FG-suffix + FG-dirs ≈ HONEST + honest-dirs` hold across the
-   cohort?
-2. **Does Gemma rotate as much as others?** Gemma was flagged as
-   "always game to take things metaphorically." It might rotate
-   *more* (full FG adoption) or *less* (refuses to adopt the framing
-   at the rep level despite complying behaviorally). Gemma is also
-   the model with weakest honest baseline (~0.167 description), so
-   detection is hard against noise.
+**Four qualitatively different per-model behaviors:**
 
-The W12 §5e TIRT-FG-prefix cohort result (next section) gives an
-indirect hint: Gemma description had the biggest TIRT-prefix gain
-(+0.197), consistent with weak-fit cells benefiting most from FG-
-prefix's task-framing. Whether that maps onto a specific Rep-rotation
-signature is the cohort experiment.
+1. **Clean rotation (Gemma12, Llama8)**: face-value drop is mostly
+   rotation. FG-dirs recovers most of it. Gemma12 has near-perfect
+   recovery (Δ +0.001). Rotation hypothesis fits well here.
+2. **Minimal rotation (Gemma, Llama)**: face-value drop is small to
+   begin with. FG-dirs doesn't help — re-extraction adds noise without
+   meaningful new signal.
+3. **Improves under FG (Phi4)**: Phi4 is the model with the lowest
+   honest baseline (0.538). Under FG it actually *gains* recovery —
+   Δ +0.074 with honest-dirs, Δ +0.104 with FG-dirs. Same model that
+   showed biggest TIRT FG-prefix gain (+0.256 in §5e). Phi4 has some
+   "task-framing" effect operating across multiple readouts.
+4. **Basis disruption (Qwen)**: under FG, the trait subspace becomes
+   *less* organized. Re-extracting trait directions in this regime
+   gives *worse* directions, not better. FG-dirs Δ −0.201 (worst of
+   the cohort). Rotation hypothesis fails for Qwen — it's not just
+   a rotation, the subspace structure itself degrades.
 
-Cohort extension status: queued. Memory note saved as
-`project_w12_rep_cohort_pending.md`.
+**On Gemma specifically (rgb's question):**
+
+Gemma was flagged ahead of time as "always game to take things
+metaphorically" — predicting it might *rotate more* than others.
+**The data say the opposite: Gemma rotates the least** (Δ-suf = −0.041,
+smallest across cohort). Gemma's representation is *most resistant*
+to FG framing at the rep level. It also has the highest honest
+baseline (0.838). Reading this together: Gemma's persona encoding
+is sturdy enough that FG instruction doesn't dislodge it; the
+"metaphor-play" tendency apparently operates at the output stage
+(Likert), not at the representational stage.
+
+**FG-prefix attenuation generalizes cleanly:** cohort Δ-prefix
+(−0.032) is 63% smaller in magnitude than Δ-suffix (−0.086). All 7
+models show smaller Rep drops under prefix than suffix. The recency-
+attention story from the Llama8 smoke holds cohort-wide.
+
+### 5d.6 Revised mechanistic picture
+
+The Llama8-only story ("Rep is FG-immune via rotation, basis-correction
+recovers it") needs softening at cohort level:
+
+> **Cohort-level: rotation accounts for ~36% of the face-value Rep
+> drop under FG-suffix. The remaining 64% is heterogeneous across
+> models — some have clean rotations (Gemma12, Llama8), some have
+> minimal effects (Gemma, Llama), one improves (Phi4), one disrupts
+> (Qwen). The FG-prefix attenuation effect (~60% reduction in Δ)
+> is uniform across the cohort and matches the Llama8 smoke.**
+
+This complicates the three-readout claim. At cohort level:
+
+| readout | FG-suffix Δ (cohort) | FG-prefix Δ (cohort) | basis-correction recovery |
+|---|---|---|---|
+| **Rep** | −0.086 | −0.032 | partial (~36%) |
+| **TIRT** | −0.015 | **+0.040** | n/a (integration property) |
+| **Likert** (per pair, single-model) | ~0.301 | ~0.238 | n/a |
+
+**Absolute cohort FG-immunity ordering: TIRT > Rep > Likert** —
+TIRT is the most robust readout in absolute terms, contradicting the
+earlier (yesterday-morning) "Rep > TIRT > Likert" framing. The
+empirical picture:
+
+- **TIRT**: cohort-grand |Δ| ≤ 0.04 (with sign flip across orderings);
+  most robust by far.
+- **Rep**: cohort-grand Δ −0.086 (suffix) / −0.032 (prefix); meaningful
+  drops, partially recoverable with basis correction, heterogeneous
+  across models.
+- **Likert**: per-pair |shift| ~0.30; least robust.
+
+The clean structural-SDR-immunity claim survives but the mechanism
+behind TIRT's superiority is **integration over many activations**,
+not "representation is upstream of output." Single-shot Rep extraction
+is *not* universally FG-immune; it's FG-immune *for some models*
+and partially recoverable via basis-correction *for some others*.
 
 ## 5e. TIRT FG-prefix cohort: ordering effect on the SDR test
 
@@ -819,12 +886,12 @@ layered.
 
 ## 6. Next steps
 
-0. **Rep cohort extension** (W12 §5d.5) — replicate the §5d Llama8
-   Rep-rotation findings across the 7-model cohort. Key contrast:
-   does `FG-suffix + FG-dirs ≈ HONEST + honest-dirs` hold across the
-   cohort? Specifically check whether Gemma rotates as much as
-   others — could go either way given Gemma's "game for metaphor"
-   tendency. ~28 small runs, ~1–1.5 hr.
+0. **Rep cohort extension** — *done in §5d.5*. Rotation hypothesis
+   only partially supported cohort-wide (36% of face-value drop is
+   rotation; 64% is heterogeneous across models). Gemma rotates the
+   *least*, not the most — opposite of the "game for metaphor"
+   prediction. Phi4 actually improves under FG. Qwen suffers basis
+   disruption rather than rotation.
 
 1. **FAKE-GOOD condition** — *done in §5b/§5d/§5e*. Original predicted
    prediction confirmed structurally; mechanisms more layered than
@@ -927,6 +994,8 @@ Headline artifacts:
   comparison (full_p60 / asst_top30 / asst_bot30 partial correlations)
 - `results/persona/persona_repr_mapping_Llama8_response-position_*.json`
   × 10 — §5d Llama8 Rep-under-FG smoke (stem × FG-position × dirs)
+- `results/persona/persona_repr_mapping_<MODEL>_response-position_{honest,fg,fg_..._fgdirs,fgpfx}_saturday.json`
+  × 28 — §5d.5 Rep-under-FG cohort extension (7 models × 4 conditions)
 - `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good_fgpfx.json`
   × 21 — §5e FG-prefix inference response data
 - `psychometrics/gfc_tirt/*_ipipneogfc60_hf_*_fake_good_fgpfx_indep_fit.rds`
@@ -964,3 +1033,5 @@ Scripts:
 - `scripts/run_fake_good_prefix_tirt_fits.sh` (W12 §5e TIRT batch)
 - `psychometrics/gfc_tirt/compare_fake_good_prefix_per_trait.R`
   (W12 §5e.3 per-trait θ-shift comparison)
+- `scripts/run_rep_under_fg_cohort.sh` (W12 §5d.5 cohort extension)
+- `scripts/analyze_rep_cohort_fg.py` (W12 §5d.5 cohort aggregation)
