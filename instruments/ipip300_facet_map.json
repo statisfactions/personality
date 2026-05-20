@@ -1,0 +1,1858 @@
+{
+  "_method": {
+    "source": "Johnson IPIP-NEO-300 canonical scoring (via NeuroQuestAi/five-factor-e)",
+    "verified_against": "admin_sessions/prod_run_01_external_rating.json",
+    "trait_cycle": [
+      "N",
+      "E",
+      "O",
+      "A",
+      "C"
+    ],
+    "facet_names_per_trait": {
+      "N": [
+        "Anxiety",
+        "Anger",
+        "Depression",
+        "Self-Consciousness",
+        "Immoderation",
+        "Vulnerability"
+      ],
+      "E": [
+        "Friendliness",
+        "Gregariousness",
+        "Assertiveness",
+        "Activity Level",
+        "Excitement-Seeking",
+        "Cheerfulness"
+      ],
+      "O": [
+        "Imagination",
+        "Artistic Interests",
+        "Emotionality",
+        "Adventurousness",
+        "Intellect",
+        "Liberalism"
+      ],
+      "A": [
+        "Trust",
+        "Morality",
+        "Altruism",
+        "Cooperation",
+        "Modesty",
+        "Sympathy"
+      ],
+      "C": [
+        "Self-Efficacy",
+        "Orderliness",
+        "Dutifulness",
+        "Achievement-Striving",
+        "Self-Discipline",
+        "Cautiousness"
+      ]
+    },
+    "layout_rule": "Item n (1-indexed): trait = 'NEOAC'[(n-1) % 5]; within-trait facet index = ((n-1) % 30) // 5"
+  },
+  "items": {
+    "ipip1": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "fwd",
+      "text": "I worry about things"
+    },
+    "ipip2": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "fwd",
+      "text": "I make friends easily"
+    },
+    "ipip3": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I have a vivid imagination"
+    },
+    "ipip4": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I trust others"
+    },
+    "ipip5": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I complete tasks successfully"
+    },
+    "ipip6": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "fwd",
+      "text": "I get angry easily"
+    },
+    "ipip7": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "fwd",
+      "text": "I love large parties"
+    },
+    "ipip8": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "fwd",
+      "text": "I believe in the importance of art"
+    },
+    "ipip9": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "fwd",
+      "text": "I would never cheat on my taxes"
+    },
+    "ipip10": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "fwd",
+      "text": "I like order"
+    },
+    "ipip11": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I often feel blue"
+    },
+    "ipip12": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "fwd",
+      "text": "I take charge"
+    },
+    "ipip13": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "fwd",
+      "text": "I experience my emotions intensely"
+    },
+    "ipip14": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "fwd",
+      "text": "I make people feel welcome"
+    },
+    "ipip15": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "fwd",
+      "text": "I try to follow the rules"
+    },
+    "ipip16": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I am easily intimidated"
+    },
+    "ipip17": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "fwd",
+      "text": "I am always busy"
+    },
+    "ipip18": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "fwd",
+      "text": "I prefer variety to routine"
+    },
+    "ipip19": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "fwd",
+      "text": "I am easy to satisfy"
+    },
+    "ipip20": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I go straight for the goal"
+    },
+    "ipip21": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "fwd",
+      "text": "I often eat too much"
+    },
+    "ipip22": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I love excitement"
+    },
+    "ipip23": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "fwd",
+      "text": "I like to solve complex problems"
+    },
+    "ipip24": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "fwd",
+      "text": "I dislike being the center of attention"
+    },
+    "ipip25": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "fwd",
+      "text": "I get chores done right away"
+    },
+    "ipip26": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "fwd",
+      "text": "I panic easily"
+    },
+    "ipip27": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I radiate joy"
+    },
+    "ipip28": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "fwd",
+      "text": "I tend to vote for liberal political candidates"
+    },
+    "ipip29": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "fwd",
+      "text": "I sympathize with the homeless"
+    },
+    "ipip30": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "fwd",
+      "text": "I avoid mistakes"
+    },
+    "ipip31": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "fwd",
+      "text": "I fear for the worst"
+    },
+    "ipip32": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "fwd",
+      "text": "I warm up quickly to others"
+    },
+    "ipip33": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I enjoy wild flights of fantasy"
+    },
+    "ipip34": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I believe that others have good intentions"
+    },
+    "ipip35": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I excel in what I do"
+    },
+    "ipip36": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "fwd",
+      "text": "I get irritated easily"
+    },
+    "ipip37": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "fwd",
+      "text": "I talk to a lot of different people at parties"
+    },
+    "ipip38": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "fwd",
+      "text": "I like music"
+    },
+    "ipip39": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "fwd",
+      "text": "I stick to the rules"
+    },
+    "ipip40": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "fwd",
+      "text": "I like to tidy up"
+    },
+    "ipip41": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I dislike myself"
+    },
+    "ipip42": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "fwd",
+      "text": "I try to lead others"
+    },
+    "ipip43": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "fwd",
+      "text": "I feel others' emotions"
+    },
+    "ipip44": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "fwd",
+      "text": "I anticipate the needs of others"
+    },
+    "ipip45": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "fwd",
+      "text": "I keep my promises"
+    },
+    "ipip46": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I am afraid that I will do the wrong thing"
+    },
+    "ipip47": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "fwd",
+      "text": "I am always on the go"
+    },
+    "ipip48": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "fwd",
+      "text": "I like to visit new places"
+    },
+    "ipip49": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "fwd",
+      "text": "I can't stand confrontations"
+    },
+    "ipip50": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I work hard"
+    },
+    "ipip51": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "fwd",
+      "text": "I don't know why I do some of the things I do"
+    },
+    "ipip52": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I seek adventure"
+    },
+    "ipip53": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "fwd",
+      "text": "I love to read challenging material"
+    },
+    "ipip54": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "fwd",
+      "text": "I dislike talking about myself"
+    },
+    "ipip55": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "fwd",
+      "text": "I am always prepared"
+    },
+    "ipip56": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "fwd",
+      "text": "I become overwhelmed by events"
+    },
+    "ipip57": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I have a lot of fun"
+    },
+    "ipip58": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "fwd",
+      "text": "I believe that there is no absolute right or wrong"
+    },
+    "ipip59": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "fwd",
+      "text": "I feel sympathy for those who are worse off than myself"
+    },
+    "ipip60": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "fwd",
+      "text": "I choose my words with care"
+    },
+    "ipip61": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "fwd",
+      "text": "I am afraid of many things"
+    },
+    "ipip62": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "fwd",
+      "text": "I feel comfortable around people"
+    },
+    "ipip63": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I love to daydream"
+    },
+    "ipip64": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I trust what people say"
+    },
+    "ipip65": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I handle tasks smoothly"
+    },
+    "ipip66": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "fwd",
+      "text": "I get upset easily"
+    },
+    "ipip67": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "fwd",
+      "text": "I enjoy being part of a group"
+    },
+    "ipip68": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "fwd",
+      "text": "I see beauty in things that others might not notice"
+    },
+    "ipip69": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I use flattery to get ahead"
+    },
+    "ipip70": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "fwd",
+      "text": "I want everything to be \"just right\""
+    },
+    "ipip71": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I am often down in the dumps"
+    },
+    "ipip72": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "fwd",
+      "text": "I can talk others into doing things"
+    },
+    "ipip73": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "fwd",
+      "text": "I am passionate about causes"
+    },
+    "ipip74": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "fwd",
+      "text": "I love to help others"
+    },
+    "ipip75": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "fwd",
+      "text": "I pay my bills on time"
+    },
+    "ipip76": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I find it difficult to approach others"
+    },
+    "ipip77": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "fwd",
+      "text": "I do a lot in my spare time"
+    },
+    "ipip78": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "fwd",
+      "text": "I interested in many things"
+    },
+    "ipip79": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "fwd",
+      "text": "I hate to seem pushy"
+    },
+    "ipip80": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I turn plans into actions"
+    },
+    "ipip81": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "fwd",
+      "text": "I do things I later regret"
+    },
+    "ipip82": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I love action"
+    },
+    "ipip83": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "fwd",
+      "text": "I have a rich vocabulary"
+    },
+    "ipip84": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "fwd",
+      "text": "I consider myself an average person"
+    },
+    "ipip85": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "fwd",
+      "text": "I start tasks right away"
+    },
+    "ipip86": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "fwd",
+      "text": "I feel that I'm unable to deal with things"
+    },
+    "ipip87": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I express childlike joy"
+    },
+    "ipip88": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "fwd",
+      "text": "I believe that criminals should receive help rather than punishment"
+    },
+    "ipip89": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "fwd",
+      "text": "I value cooperation over competition"
+    },
+    "ipip90": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "fwd",
+      "text": "I stick to my chosen path"
+    },
+    "ipip91": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "fwd",
+      "text": "I get stressed out easily"
+    },
+    "ipip92": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "fwd",
+      "text": "I act comfortably with others"
+    },
+    "ipip93": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I like to get lost in thought"
+    },
+    "ipip94": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I believe that people are basically moral"
+    },
+    "ipip95": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I am sure of my ground"
+    },
+    "ipip96": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "fwd",
+      "text": "I am often in a bad mood"
+    },
+    "ipip97": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "fwd",
+      "text": "I involve others in what I am doing"
+    },
+    "ipip98": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "fwd",
+      "text": "I love flowers"
+    },
+    "ipip99": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I use others for my own ends"
+    },
+    "ipip100": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "fwd",
+      "text": "I love order and regularity"
+    },
+    "ipip101": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I have a low opinion of myself"
+    },
+    "ipip102": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "fwd",
+      "text": "I seek to influence others"
+    },
+    "ipip103": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "fwd",
+      "text": "I enjoy examining myself and my life"
+    },
+    "ipip104": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "fwd",
+      "text": "I am concerned about others"
+    },
+    "ipip105": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "fwd",
+      "text": "I tell the truth"
+    },
+    "ipip106": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I am afraid to draw attention to myself"
+    },
+    "ipip107": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "fwd",
+      "text": "I can manage many things at the same time"
+    },
+    "ipip108": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "fwd",
+      "text": "I like to begin new things"
+    },
+    "ipip109": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I have a sharp tongue"
+    },
+    "ipip110": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I plunge into tasks with all my heart"
+    },
+    "ipip111": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "fwd",
+      "text": "I go on binges"
+    },
+    "ipip112": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I enjoy being part of a loud crowd"
+    },
+    "ipip113": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "fwd",
+      "text": "I can handle a lot of information"
+    },
+    "ipip114": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "fwd",
+      "text": "I seldom toot my own horn"
+    },
+    "ipip115": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "fwd",
+      "text": "I get to work at once"
+    },
+    "ipip116": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "fwd",
+      "text": "I can't make up my mind"
+    },
+    "ipip117": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I laugh my way through life"
+    },
+    "ipip118": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I believe in one true religion"
+    },
+    "ipip119": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "fwd",
+      "text": "I suffer from others' sorrows"
+    },
+    "ipip120": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I jump into things without thinking"
+    },
+    "ipip121": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "fwd",
+      "text": "I get caught up in my problems"
+    },
+    "ipip122": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "fwd",
+      "text": "I cheer people up"
+    },
+    "ipip123": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I indulge in my fantasies"
+    },
+    "ipip124": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I believe in human goodness"
+    },
+    "ipip125": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I come up with good solutions"
+    },
+    "ipip126": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "fwd",
+      "text": "I lose my temper"
+    },
+    "ipip127": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "fwd",
+      "text": "I love surprise parties"
+    },
+    "ipip128": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "fwd",
+      "text": "I enjoy the beauty of nature"
+    },
+    "ipip129": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I know how to get around the rules"
+    },
+    "ipip130": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "fwd",
+      "text": "I do things according to a plan"
+    },
+    "ipip131": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I have frequent mood swings"
+    },
+    "ipip132": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "fwd",
+      "text": "I take control of things"
+    },
+    "ipip133": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "fwd",
+      "text": "I try to understand myself"
+    },
+    "ipip134": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "fwd",
+      "text": "I have a good word for everyone"
+    },
+    "ipip135": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "fwd",
+      "text": "I listen to my conscience"
+    },
+    "ipip136": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I only feel comfortable with friends"
+    },
+    "ipip137": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "fwd",
+      "text": "I react quickly"
+    },
+    "ipip138": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I prefer to stick with things that I know"
+    },
+    "ipip139": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I contradict others"
+    },
+    "ipip140": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I do more than what's expected of me"
+    },
+    "ipip141": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "fwd",
+      "text": "I love to eat"
+    },
+    "ipip142": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I enjoy being reckless"
+    },
+    "ipip143": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "fwd",
+      "text": "I enjoy thinking about things"
+    },
+    "ipip144": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I believe that I am better than others"
+    },
+    "ipip145": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "fwd",
+      "text": "I carry out my plans"
+    },
+    "ipip146": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "fwd",
+      "text": "I get overwhelmed by emotions"
+    },
+    "ipip147": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I love life"
+    },
+    "ipip148": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I tend to vote for conservative political candidates"
+    },
+    "ipip149": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I am not interested in other people's problems"
+    },
+    "ipip150": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I make rash decisions"
+    },
+    "ipip151": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "rev",
+      "text": "I am not easily bothered by things"
+    },
+    "ipip152": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "rev",
+      "text": "I am hard to get to know"
+    },
+    "ipip153": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "fwd",
+      "text": "I spend time reflecting on things"
+    },
+    "ipip154": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "fwd",
+      "text": "I think that all will be well"
+    },
+    "ipip155": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "fwd",
+      "text": "I know how to get things done"
+    },
+    "ipip156": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "rev",
+      "text": "I rarely get irritated"
+    },
+    "ipip157": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "rev",
+      "text": "I prefer to be alone"
+    },
+    "ipip158": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "rev",
+      "text": "I do not like art"
+    },
+    "ipip159": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I cheat to get ahead"
+    },
+    "ipip160": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "rev",
+      "text": "I often forget to put things back in their proper place"
+    },
+    "ipip161": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I feel desperate"
+    },
+    "ipip162": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "rev",
+      "text": "I wait for others to lead the way"
+    },
+    "ipip163": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "rev",
+      "text": "I seldom get emotional"
+    },
+    "ipip164": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "rev",
+      "text": "I look down on others"
+    },
+    "ipip165": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "rev",
+      "text": "I break rules"
+    },
+    "ipip166": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "fwd",
+      "text": "I stumble over my words"
+    },
+    "ipip167": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "rev",
+      "text": "I like to take it easy"
+    },
+    "ipip168": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I dislike changes"
+    },
+    "ipip169": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I love a good fight"
+    },
+    "ipip170": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I set high standards for myself and others"
+    },
+    "ipip171": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "rev",
+      "text": "I rarely overindulge"
+    },
+    "ipip172": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I act wild and crazy"
+    },
+    "ipip173": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "rev",
+      "text": "I am not interested in abstract ideas"
+    },
+    "ipip174": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I think highly of myself"
+    },
+    "ipip175": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "rev",
+      "text": "I find it difficult to get down to work"
+    },
+    "ipip176": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "rev",
+      "text": "I remain calm under pressure"
+    },
+    "ipip177": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I look at the bright side of life"
+    },
+    "ipip178": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I believe that too much tax money goes to support artists"
+    },
+    "ipip179": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I tend to dislike soft-hearted people"
+    },
+    "ipip180": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I like to act on a whim"
+    },
+    "ipip181": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "rev",
+      "text": "I am relaxed most of the time"
+    },
+    "ipip182": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "rev",
+      "text": "I often feel uncomfortable around others"
+    },
+    "ipip183": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "rev",
+      "text": "I seldom daydream"
+    },
+    "ipip184": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "rev",
+      "text": "I distrust people"
+    },
+    "ipip185": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "rev",
+      "text": "I misjudge situations"
+    },
+    "ipip186": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "rev",
+      "text": "I seldom get mad"
+    },
+    "ipip187": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "rev",
+      "text": "I want to be left alone"
+    },
+    "ipip188": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "rev",
+      "text": "I do not like poetry"
+    },
+    "ipip189": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I put people under pressure"
+    },
+    "ipip190": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "rev",
+      "text": "I leave a mess in my room"
+    },
+    "ipip191": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "fwd",
+      "text": "I feel that my life lacks direction"
+    },
+    "ipip192": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "rev",
+      "text": "I keep in the background"
+    },
+    "ipip193": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "rev",
+      "text": "I am not easily affected by my emotions"
+    },
+    "ipip194": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "rev",
+      "text": "I am indifferent to the feelings of others"
+    },
+    "ipip195": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "rev",
+      "text": "I break my promises"
+    },
+    "ipip196": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "rev",
+      "text": "I am not embarrassed easily"
+    },
+    "ipip197": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "rev",
+      "text": "I like to take my time"
+    },
+    "ipip198": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I don't like the idea of change"
+    },
+    "ipip199": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I yell at people"
+    },
+    "ipip200": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "fwd",
+      "text": "I demand quality"
+    },
+    "ipip201": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "rev",
+      "text": "I easily resist temptations"
+    },
+    "ipip202": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I willing to try anything once"
+    },
+    "ipip203": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "rev",
+      "text": "I avoid philosophical discussions"
+    },
+    "ipip204": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I have a high opinion of myself"
+    },
+    "ipip205": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "rev",
+      "text": "I waste my time"
+    },
+    "ipip206": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "rev",
+      "text": "I can handle complex problems"
+    },
+    "ipip207": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I laugh aloud"
+    },
+    "ipip208": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I believe laws should be strictly enforced"
+    },
+    "ipip209": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I believe in an eye for an eye"
+    },
+    "ipip210": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I rush into things"
+    },
+    "ipip211": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "rev",
+      "text": "I am not easily disturbed by events"
+    },
+    "ipip212": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "rev",
+      "text": "I avoid contacts with others"
+    },
+    "ipip213": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "rev",
+      "text": "I do not have a good imagination"
+    },
+    "ipip214": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "rev",
+      "text": "I suspect hidden motives in others"
+    },
+    "ipip215": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "rev",
+      "text": "I don't understand things"
+    },
+    "ipip216": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "rev",
+      "text": "I am not easily annoyed"
+    },
+    "ipip217": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "rev",
+      "text": "I don't like crowded events"
+    },
+    "ipip218": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "rev",
+      "text": "I do not enjoy going to art museums"
+    },
+    "ipip219": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I pretend to be concerned for others"
+    },
+    "ipip220": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "rev",
+      "text": "I leave my belongings around"
+    },
+    "ipip221": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "rev",
+      "text": "I seldom feel blue"
+    },
+    "ipip222": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "rev",
+      "text": "I have little to say"
+    },
+    "ipip223": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "rev",
+      "text": "I rarely notice my emotional reactions"
+    },
+    "ipip224": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "rev",
+      "text": "I make people feel uncomfortable"
+    },
+    "ipip225": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "rev",
+      "text": "I get others to do my duties"
+    },
+    "ipip226": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "rev",
+      "text": "I am comfortable in unfamiliar situations"
+    },
+    "ipip227": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "rev",
+      "text": "I like a leisurely lifestyle"
+    },
+    "ipip228": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I am a creature of habit"
+    },
+    "ipip229": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I insult people"
+    },
+    "ipip230": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "rev",
+      "text": "I am not highly motivated to succeed"
+    },
+    "ipip231": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "rev",
+      "text": "I am able to control my cravings"
+    },
+    "ipip232": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "fwd",
+      "text": "I seek danger"
+    },
+    "ipip233": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "rev",
+      "text": "I have difficulty understanding abstract ideas"
+    },
+    "ipip234": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I know the answers to many questions"
+    },
+    "ipip235": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "rev",
+      "text": "I need a push to get started"
+    },
+    "ipip236": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "rev",
+      "text": "I know how to cope"
+    },
+    "ipip237": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "fwd",
+      "text": "I amuse my friends"
+    },
+    "ipip238": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I believe that we coddle criminals too much"
+    },
+    "ipip239": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I try not to think about the needy"
+    },
+    "ipip240": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I do crazy things"
+    },
+    "ipip241": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "rev",
+      "text": "I don't worry about things that have already happened"
+    },
+    "ipip242": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "rev",
+      "text": "I am not really interested in others"
+    },
+    "ipip243": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "rev",
+      "text": "I seldom get lost in thought"
+    },
+    "ipip244": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "rev",
+      "text": "I am wary of others"
+    },
+    "ipip245": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "rev",
+      "text": "I have little to contribute"
+    },
+    "ipip246": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "rev",
+      "text": "I keep my cool"
+    },
+    "ipip247": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "rev",
+      "text": "I avoid crowds"
+    },
+    "ipip248": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "rev",
+      "text": "I do not like concerts"
+    },
+    "ipip249": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I take advantage of others"
+    },
+    "ipip250": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "rev",
+      "text": "I am not bothered by messy people"
+    },
+    "ipip251": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "rev",
+      "text": "I feel comfortable with myself"
+    },
+    "ipip252": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "rev",
+      "text": "I don't like to draw attention to myself"
+    },
+    "ipip253": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "rev",
+      "text": "I experience very few emotional highs and lows"
+    },
+    "ipip254": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "rev",
+      "text": "I turn my back on others"
+    },
+    "ipip255": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "rev",
+      "text": "I do the opposite of what is asked"
+    },
+    "ipip256": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "rev",
+      "text": "I am not bothered by difficult social situations"
+    },
+    "ipip257": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "rev",
+      "text": "I let things proceed at their own pace"
+    },
+    "ipip258": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I dislike new foods"
+    },
+    "ipip259": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I get back at others"
+    },
+    "ipip260": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "rev",
+      "text": "I do just enough work to get by"
+    },
+    "ipip261": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "rev",
+      "text": "I never spend more than I can afford"
+    },
+    "ipip262": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "rev",
+      "text": "I would never go hang gliding or bungee jumping"
+    },
+    "ipip263": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "rev",
+      "text": "I am not interested in theoretical discussions"
+    },
+    "ipip264": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I boast about my virtues"
+    },
+    "ipip265": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "rev",
+      "text": "I have difficulty starting tasks"
+    },
+    "ipip266": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "rev",
+      "text": "I readily overcome setbacks"
+    },
+    "ipip267": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "rev",
+      "text": "I am not easily amused"
+    },
+    "ipip268": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I believe that we should be tough on crime"
+    },
+    "ipip269": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I believe people should fend for themselves"
+    },
+    "ipip270": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I act without thinking"
+    },
+    "ipip271": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "pole": "rev",
+      "text": "I adapt easily to new situations"
+    },
+    "ipip272": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "pole": "rev",
+      "text": "I keep others at a distance"
+    },
+    "ipip273": {
+      "trait": "O",
+      "facet": "Imagination",
+      "pole": "rev",
+      "text": "I have difficulty imagining things"
+    },
+    "ipip274": {
+      "trait": "A",
+      "facet": "Trust",
+      "pole": "rev",
+      "text": "I believe that people are essentially evil"
+    },
+    "ipip275": {
+      "trait": "C",
+      "facet": "Self-Efficacy",
+      "pole": "rev",
+      "text": "I don't see the consequences of things"
+    },
+    "ipip276": {
+      "trait": "N",
+      "facet": "Anger",
+      "pole": "rev",
+      "text": "I rarely complain"
+    },
+    "ipip277": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "pole": "rev",
+      "text": "I seek quiet"
+    },
+    "ipip278": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "pole": "rev",
+      "text": "I do not enjoy watching dance performances"
+    },
+    "ipip279": {
+      "trait": "A",
+      "facet": "Morality",
+      "pole": "rev",
+      "text": "I obstruct others' plans"
+    },
+    "ipip280": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "pole": "rev",
+      "text": "I am not bothered by disorder"
+    },
+    "ipip281": {
+      "trait": "N",
+      "facet": "Depression",
+      "pole": "rev",
+      "text": "I am very pleased with myself"
+    },
+    "ipip282": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "pole": "rev",
+      "text": "I hold back my opinions"
+    },
+    "ipip283": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "pole": "rev",
+      "text": "I don't understand people who get emotional"
+    },
+    "ipip284": {
+      "trait": "A",
+      "facet": "Altruism",
+      "pole": "rev",
+      "text": "I take no time for others"
+    },
+    "ipip285": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "pole": "rev",
+      "text": "I misrepresent the facts"
+    },
+    "ipip286": {
+      "trait": "N",
+      "facet": "Self-Consciousness",
+      "pole": "rev",
+      "text": "I am able to stand up for myself"
+    },
+    "ipip287": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "pole": "rev",
+      "text": "I react slowly"
+    },
+    "ipip288": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "pole": "rev",
+      "text": "I am attached to conventional ways"
+    },
+    "ipip289": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "pole": "rev",
+      "text": "I hold a grudge"
+    },
+    "ipip290": {
+      "trait": "C",
+      "facet": "Achievement-Striving",
+      "pole": "rev",
+      "text": "I put little time and effort into my work"
+    },
+    "ipip291": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "pole": "rev",
+      "text": "I never splurge"
+    },
+    "ipip292": {
+      "trait": "E",
+      "facet": "Excitement-Seeking",
+      "pole": "rev",
+      "text": "I dislike loud music"
+    },
+    "ipip293": {
+      "trait": "O",
+      "facet": "Intellect",
+      "pole": "rev",
+      "text": "I avoid difficult reading material"
+    },
+    "ipip294": {
+      "trait": "A",
+      "facet": "Modesty",
+      "pole": "rev",
+      "text": "I make myself the center of attention"
+    },
+    "ipip295": {
+      "trait": "C",
+      "facet": "Self-Discipline",
+      "pole": "rev",
+      "text": "I postpone decisions"
+    },
+    "ipip296": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "pole": "rev",
+      "text": "I am calm even in tense situations"
+    },
+    "ipip297": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "pole": "rev",
+      "text": "I seldom joke around"
+    },
+    "ipip298": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "pole": "rev",
+      "text": "I like to stand during the national anthem"
+    },
+    "ipip299": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "pole": "rev",
+      "text": "I can't stand weak people"
+    },
+    "ipip300": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "pole": "rev",
+      "text": "I often make last-minute plans"
+    }
+  }
+}

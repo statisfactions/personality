@@ -79,31 +79,82 @@ def safe(s): return s.replace("/", "_")
 def unit(v): return v / (np.linalg.norm(v) + 1e-12)
 
 
+FACET_MAP_PATH = "instruments/ipip300_facet_map.json"
+
+# Canonical Johnson facet name -> our abbreviated display label.
+# Source of truth for the canonical names: instruments/ipip300_facet_map.json
+# (derived from NeuroQuestAi/five-factor-e). The abbreviated labels are kept
+# for backward compatibility with W8/W9 outputs and result filenames.
+_CANON_TO_ABBREV = {
+    "Anxiety": "Anxiety", "Anger": "Anger", "Depression": "Depression",
+    "Self-Consciousness": "Self-Cons", "Immoderation": "Immoder",
+    "Vulnerability": "Vulner",
+    "Friendliness": "Friend", "Gregariousness": "Gregar",
+    "Assertiveness": "Assert", "Activity Level": "Activity",
+    "Excitement-Seeking": "Excite", "Cheerfulness": "Cheerf",
+    "Imagination": "Imagin", "Artistic Interests": "Artist",
+    "Emotionality": "Emotion", "Adventurousness": "Advent",
+    "Intellect": "Intell", "Liberalism": "Liberal",
+    "Trust": "Trust", "Morality": "Moral", "Altruism": "Altru",
+    "Cooperation": "Cooper", "Modesty": "Modest", "Sympathy": "Sympath",
+    "Self-Efficacy": "Self-Eff", "Orderliness": "Order",
+    "Dutifulness": "Dutiful", "Achievement-Striving": "Achieve",
+    "Self-Discipline": "Discipl", "Cautiousness": "Caution",
+}
+
+
+def _verify_facets_dict_matches_canonical():
+    """Sanity check: the hardcoded FACETS dict (abbreviated, in canonical order)
+    must agree with what `ipip300_facet_map.json` produces. If this asserts,
+    either FACETS or the canonical map drifted."""
+    with open(FACET_MAP_PATH) as f:
+        canon_items = json.load(f)["items"]
+    # For each trait, the canonical facet order is the order facets first
+    # appear in the item sequence (items 1..30 cover each facet once).
+    first_seen = {t: [] for t in TRAIT_ORDER}
+    for n in range(1, 31):
+        info = canon_items[f"ipip{n}"]
+        first_seen[info["trait"]].append(_CANON_TO_ABBREV[info["facet"]])
+    for t in TRAIT_ORDER:
+        assert FACETS[t] == first_seen[t], (
+            f"FACETS[{t}]={FACETS[t]} disagrees with canonical "
+            f"map order={first_seen[t]}. Either edit FACETS dict "
+            f"or rebuild ipip300_facet_map.json."
+        )
+
+
 def build_facet_pool():
-    """Build {(trait, facet_name): {fwd: [text], rev: [text]}} from IPIP-300,
-    excluding deny-listed items, applying typo fixes."""
-    with open(ADMIN_SESSION) as f:
-        ipip = json.load(f)["measures"]["IPIP300"]
-    items = ipip["items"]
-    scales = ipip["scales"]
+    """Build {(trait, facet_abbrev): {fwd: [(iid, text)], rev: [(iid, text)]}}
+    from the canonical IPIP-300 facet map (`instruments/ipip300_facet_map.json`).
+
+    Replaced (2026-05-19) the previous stride-6 slicing of admin_session
+    item_ids. The new source-of-truth file is built from the Johnson 1999
+    scoring key (via NeuroQuestAi/five-factor-e); see `scripts/build_ipip300_facet_map.py`.
+    Item poles (fwd/rev) are derived from the canonical reverse-keyed list,
+    which the build script also verifies against admin_session.
+    """
+    _verify_facets_dict_matches_canonical()
+    with open(FACET_MAP_PATH) as f:
+        canon_items = json.load(f)["items"]
     with open(ANNOTATIONS) as f:
         ann = json.load(f)
     deny = set(ann["deny"].keys())
     fixes = ann["fix"]
 
-    pool = {}
-    for t in TRAIT_ORDER:
-        sc = scales[f"IPIP300-{SHORT[t]}"]
-        iids = sc["item_ids"]
-        rev = set(sc["reverse_keyed_item_ids"])
-        for fi, fname in enumerate(FACETS[t]):
-            facet_iids = [i for i in iids[fi::6] if i not in deny]
-            fwd_iids = [i for i in facet_iids if i not in rev]
-            rev_iids = [i for i in facet_iids if i in rev]
-            pool[(t, fname)] = {
-                "fwd": [(i, fixes.get(i, items[i])) for i in fwd_iids],
-                "rev": [(i, fixes.get(i, items[i])) for i in rev_iids],
-            }
+    pool = {(t, f): {"fwd": [], "rev": []}
+            for t in TRAIT_ORDER for f in FACETS[t]}
+    # Iterate in deterministic item-id order so within-facet item ordering
+    # is stable across runs (matches what `iids[fi::6]` produced before).
+    for n in range(1, 301):
+        iid = f"ipip{n}"
+        if iid in deny:
+            continue
+        info = canon_items[iid]
+        t = info["trait"]
+        fname = _CANON_TO_ABBREV[info["facet"]]
+        pole = info["pole"]
+        text = fixes.get(iid, info["text"])
+        pool[(t, fname)][pole].append((iid, text))
     return pool
 
 
