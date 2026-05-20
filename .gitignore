@@ -60,6 +60,11 @@ psychometrics/gfc_tirt/asst_match_fits.log
 psychometrics/gfc_tirt/fake_good_prefix_inference.log
 psychometrics/gfc_tirt/fake_good_prefix_tirt_fits.log
 psychometrics/gfc_tirt/fg_prefix_smoke.log
+# W12 §6 scaleup cohort run log (regenerable)
+psychometrics/gfc_tirt/scaleup_cohort.log
+# W9 §7.5 IPIP source-validation artifacts (re-downloadable from PsychArchives / NeuroQuestAi)
+data/kajonius_johnson_2019/
+data/neuroquest_ipip/
 psychometrics/gfc_tirt/rep_under_fg_cohort.log
 
 # Local data (copyrighted instruments, raw results)
