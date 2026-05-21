@@ -66,6 +66,8 @@ psychometrics/gfc_tirt/scaleup_cohort.log
 data/kajonius_johnson_2019/
 data/neuroquest_ipip/
 psychometrics/gfc_tirt/rep_under_fg_cohort.log
+# W12 scaleup recovery: phase_b cache build for new big models
+psychometrics/gfc_tirt/phase_b_cache_build.log
 
 # Local data (copyrighted instruments, raw results)
 data/

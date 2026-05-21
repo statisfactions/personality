@@ -9,7 +9,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7)
+MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7 Gemma27 Qwen32 Gemma4)
 FORMS=(description ipip_raw ipip_reflowed)
 INSTRUMENT="instruments/ipip_neo_gfc_P60.json"
 
@@ -33,6 +33,10 @@ for m in "${MODELS[@]}"; do
     # convention); the script's default hardcodes "gfc30_hf" regardless
     # of which instrument is loaded.
     OUT="psychometrics/gfc_tirt/${m}_ipipneogfc60_hf_${f}_fake_good.json"
+    if [[ -f "$OUT" ]]; then
+      echo "[$i/$total] SKIP $m / $f (already done)" | tee -a "$LOG_FILE"
+      continue
+    fi
     echo "[$i/$total] $m / $f / fake_good (personas=$PERSONAS → $OUT)" | tee -a "$LOG_FILE"
     PYTHONPATH=scripts .venv/bin/python scripts/run_gfc_hf.py \
       --model "$m" \

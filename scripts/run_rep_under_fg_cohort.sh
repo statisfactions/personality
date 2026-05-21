@@ -6,7 +6,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7)
+MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7 Gemma27 Qwen32 Gemma4)
 N=50
 
 FG='

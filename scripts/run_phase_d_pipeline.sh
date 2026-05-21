@@ -15,7 +15,7 @@ cd /Users/rgb/src/personality
 INSTRUMENT="instruments/ipip_neo_gfc_P60.json"
 INSTRUMENT_TAG="ipipneogfc60"
 
-MODELS=(Gemma Llama Phi4 Qwen Gemma12 Llama8 Qwen7)
+MODELS=(Gemma Llama Phi4 Qwen Gemma12 Llama8 Qwen7 Gemma27 Qwen32 Gemma4)
 FORMS=(description ipip_raw ipip_reflowed)
 N_PERSONAS=50
 

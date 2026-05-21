@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """W9 §7 visualization: side-by-side comparison of model facet cosine matrices
 (meandiff-pcs extraction) against the Johnson IPIP-NEO-300 human facet
-correlation matrix (N=145,388).
+correlation matrix.
 
-8 panels in a 2×4 grid: the human matrix in position (0,0) as the anchor, and
-the 7 cohort models in the remaining positions, all displayed at matched
-color scale. Each panel title shows the model's Pearson r against the human
-matrix (computed on flattened upper-triangle entries).
+12 panels in a 3×4 grid: the human matrix in position (0,0) as the anchor, the
+10 cohort models in the remaining positions (one cell empty), all displayed at
+matched color scale. Each panel title shows the model's Pearson r against the
+human matrix (computed on flattened upper-triangle entries).
 
 Output: results/facets/ipip_facet_vs_human_dashboard.html
 
@@ -21,7 +21,10 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7"]
+COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7",
+                "Gemma27", "Qwen32", "Gemma4"]
+GRID_ROWS = 3
+GRID_COLS = 4
 
 
 def main():
@@ -36,10 +39,19 @@ def main():
 
     # Build per-model reordered cosine matrices + r-vs-human
     panels = []  # list of (label, matrix, subtitle)
+    # Derive a short attribution from the source field if it mentions
+    # PsychArchives or NeuroQuestAi; else use a generic line.
+    src = human.get("source", "")
+    if "PsychArchives" in src:
+        attribution = "Johnson IPIP-NEO-300 via PsychArchives (raw-sum)"
+    elif "NeuroQuestAi" in src:
+        attribution = "Johnson via NeuroQuestAi mirror"
+    else:
+        attribution = "Johnson IPIP-NEO-300"
     panels.append((
         f"Human IPIP-NEO-300 (N={n_human:,})",
         H,
-        "Johnson via NeuroQuestAi mirror",
+        attribution,
     ))
     for m in COHORT_ORDER:
         if m not in model_data: continue
@@ -60,17 +72,22 @@ def main():
     # Short facet labels for axis (e.g. drop "X:" prefix to fit)
     short_lbls = [lbl.split(":")[1] if ":" in lbl else lbl for lbl in facet_lbls]
 
+    # Pad subplot_titles so the grid is uniform.
+    n_cells = GRID_ROWS * GRID_COLS
+    titles = [f"<b>{p[0]}</b><br><sub>{p[2]}</sub>" for p in panels]
+    titles += [""] * (n_cells - len(titles))
+
     fig = make_subplots(
-        rows=2, cols=4,
-        specs=[[{"type": "heatmap"}] * 4, [{"type": "heatmap"}] * 4],
-        subplot_titles=[f"<b>{p[0]}</b><br><sub>{p[2]}</sub>" for p in panels],
+        rows=GRID_ROWS, cols=GRID_COLS,
+        specs=[[{"type": "heatmap"}] * GRID_COLS for _ in range(GRID_ROWS)],
+        subplot_titles=titles,
         horizontal_spacing=0.04,
-        vertical_spacing=0.10,
+        vertical_spacing=0.08,
     )
 
     for i, (label, mat, _) in enumerate(panels):
-        row = i // 4 + 1
-        col = i % 4 + 1
+        row = i // GRID_COLS + 1
+        col = i % GRID_COLS + 1
         fig.add_trace(go.Heatmap(
             z=mat, x=short_lbls, y=short_lbls,
             colorscale="RdBu_r", zmin=zmin, zmax=zmax,
@@ -92,7 +109,7 @@ def main():
                   f"(N={n_human:,}, cohort mean r vs human = {cohort_r:+.3f})"),
             x=0.5, font=dict(size=13),
         ),
-        height=750, width=1500,
+        height=300 * GRID_ROWS + 110, width=1500,
         margin=dict(t=110),
     )
 
@@ -100,8 +117,8 @@ def main():
     # trait-block separators via shapes. The facet order is A(6) C(6) E(6) N(6) O(6),
     # so block boundaries are at 6, 12, 18, 24.
     for i in range(len(panels)):
-        row = i // 4 + 1
-        col = i % 4 + 1
+        row = i // GRID_COLS + 1
+        col = i % GRID_COLS + 1
         for bb in [6, 12, 18, 24]:
             fig.add_shape(
                 type="line",

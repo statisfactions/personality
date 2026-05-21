@@ -1,0 +1,446 @@
+{
+  "rows": [
+    {
+      "model": "Gemma27",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 27,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.605824589729309,
+      "snr_hold": 1.3477799892425537,
+      "mean_signed_hold": 119.43743896484375,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma27",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 27,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 5.51599611892665,
+      "snr_hold": 1.3914128913343955,
+      "mean_signed_hold": 251.57946699354622,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.22151772034868727
+    },
+    {
+      "model": "Gemma27",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 62,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.797914981842041,
+      "snr_hold": 0.8903942108154297,
+      "mean_signed_hold": 7.978460311889648,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "cos_to_lda": 0.10246404260396957
+    },
+    {
+      "model": "Gemma27",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 33,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 3.077367067337036,
+      "snr_hold": 1.126696228981018,
+      "mean_signed_hold": 567.1340942382812,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.23895859718322754
+    },
+    {
+      "model": "Qwen32",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 38,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.4664225578308105,
+      "snr_hold": 1.4651039838790894,
+      "mean_signed_hold": 6.625885486602783,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Qwen32",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 38,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 5.393923725477819,
+      "snr_hold": 1.4949749501588345,
+      "mean_signed_hold": 14.013009492808793,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.25536290743739537
+    },
+    {
+      "model": "Qwen32",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 45,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.6377384662628174,
+      "snr_hold": 1.0615302324295044,
+      "mean_signed_hold": 18.647422790527344,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2472858875989914
+    },
+    {
+      "model": "Qwen32",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 45,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.6619977951049805,
+      "snr_hold": 1.0640029907226562,
+      "mean_signed_hold": 18.725379943847656,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.24951283633708954
+    },
+    {
+      "model": "Gemma4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 26,
+      "sign_correct_train": 43,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.390596866607666,
+      "snr_hold": 1.1957591772079468,
+      "mean_signed_hold": 0.8714146018028259,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Gemma4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.149446518527785,
+      "snr_hold": 1.5912086438661805,
+      "mean_signed_hold": 4.854076479571179,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.08969806669717842
+    },
+    {
+      "model": "Gemma4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 37,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.038621425628662,
+      "snr_hold": 1.3589847087860107,
+      "mean_signed_hold": 6.3964524269104,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.03513837233185768
+    },
+    {
+      "model": "Gemma4",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 30,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.1099369525909424,
+      "snr_hold": 1.4357584714889526,
+      "mean_signed_hold": 3.847735643386841,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 6,
+      "cos_to_lda": 0.05887095630168915
+    }
+  ],
+  "config": {
+    "models": [
+      "Gemma27",
+      "Qwen32",
+      "Gemma4"
+    ],
+    "traits": [
+      "H"
+    ],
+    "formats": [
+      "chat"
+    ],
+    "device": "mps",
+    "dtype": "bfloat16",
+    "output_prefix": "phase_b_sweep"
+  }
+}

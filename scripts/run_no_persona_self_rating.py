@@ -19,7 +19,8 @@ import torch
 sys.path.insert(0, str(Path(__file__).parent))
 from hf_logprobs import load_model, likert_distribution, resolve
 
-COHORT = ["Gemma", "Gemma12", "Llama", "Llama8", "Phi4", "Qwen", "Qwen7"]
+COHORT = ["Gemma", "Gemma12", "Llama", "Llama8", "Phi4", "Qwen", "Qwen7",
+          "Gemma27", "Qwen32", "Gemma4"]
 INSTRUMENT = "instruments/ipip_neo_gfc_P60.json"
 OUT_PATH = "results/persona/cohort_self_rating_P60.json"
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
@@ -106,6 +107,8 @@ def main():
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
 
     print(f"\nDone. Wrote {OUT_PATH}")
 

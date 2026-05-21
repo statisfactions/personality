@@ -37,6 +37,11 @@ MODELS: Dict[str, str] = {
     "Gemma27":  "google/gemma-3-27b-it",
     "Llama8":   "meta-llama/Llama-3.1-8B-Instruct",
     "Qwen7":    "Qwen/Qwen2.5-7B-Instruct",
+    # W12 §6 cohort scale-up (M5 Max 128GB).
+    "Qwen32":   "Qwen/Qwen2.5-32B-Instruct",
+    "Gemma4":   "google/gemma-4-31B-it",         # needs transformers >= 5.5
+    "Gemma4MoE": "google/gemma-4-26B-A4B-it",    # MoE, MPS untested
+    "Qwen36":   "Qwen/Qwen3.6-35B-A3B",          # MoE, thinking-mode default-on
 }
 
 

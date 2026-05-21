@@ -58,6 +58,10 @@ MODELS = {
     "Llama8":  "meta-llama/Llama-3.1-8B-Instruct",
     "Gemma12": "google/gemma-3-12b-it",
     "Qwen7":   "Qwen/Qwen2.5-7B-Instruct",
+    # W12 scaleup (added 2026-05-20 to unblock Stages F/G/H on big models).
+    "Gemma27": "google/gemma-3-27b-it",
+    "Qwen32":  "Qwen/Qwen2.5-32B-Instruct",
+    "Gemma4":  "google/gemma-4-31B-it",
 }
 
 TRAITS = ["H", "E", "X", "A", "C", "O"]

@@ -7,6 +7,7 @@
   "persona_field": "ipip_reflowed",
   "personas_path": "instruments/synthetic_personas_ipip.json",
   "condition": "fake_good",
+  "fg_position": "suffix",
   "n_pairs": 60,
   "n_personas": 50,
   "n_completed": 3000,

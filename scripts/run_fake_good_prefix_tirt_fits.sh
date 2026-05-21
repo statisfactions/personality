@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7)
+MODELS=(Gemma Gemma12 Llama Llama8 Phi4 Qwen Qwen7 Gemma27 Qwen32 Gemma4)
 FORMS=(description ipip_raw ipip_reflowed)
 
 LOG_FILE="psychometrics/gfc_tirt/fake_good_prefix_tirt_fits.log"
