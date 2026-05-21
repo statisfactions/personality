@@ -7,6 +7,18 @@ the primary-source larger-N version. Same instrument (IPIP-NEO-300),
 same Johnson 1999 facet scoring, same 30 facets — just a different
 sampling of Johnson's accumulated dataset.
 
+IMPORTANT — PA .por convention: the IPIP300.por file in this deposit
+stores responses with REVERSE-KEYED ITEMS ALREADY REVERSED. The Excel
+"Sign" column ("+C1", "-C4") indicates the item's theoretical pole but
+should NOT be re-applied to the stored values. We confirmed this
+empirically: within each facet, raw inter-item correlations among
+items marked "fwd" and "rev" in the canonical Johnson key are all
+positive (~0.2-0.6); double-reversing flips half of them and breaks
+internal consistency (e.g., Achievement-Striving alpha → -0.99).
+Apply NO additional reverse-keying. Without this fix the within-trait
+mean was +0.167 (the W9 §7.5 saga); with the fix it is +0.418, which
+matches both the NQ pre-scored mirror (+0.405) and K&J 2019 Figure 1.
+
 Output: instruments/ipip300_human_facet_correlations.json
 """
 
@@ -64,7 +76,8 @@ def main():
     for k, v in buckets.items():
         assert len(v) == 10, f"bucket {k} has {len(v)} items, expected 10"
 
-    # Score facets per participant: sum over fwd items + sum over (6 - rev items)
+    # Score facets per participant: simple sum across items (data is pre-reversed
+    # in the .por file — see module docstring; do NOT apply reverse-keying here).
     # Each item is 1-5 Likert, so per-facet scores in [10, 50] before missing-handling.
     # IMPORTANT: Johnson IPIP-NEO-300 uses 0 to indicate MISSING (per DAT300.doc).
     items = df.loc[:, [f"I{n}" for n in range(1, 301)]].to_numpy(dtype="float64")
@@ -94,12 +107,9 @@ def main():
                     facets_for_trait.append(f_abbrev)
         for f_abbrev in facets_for_trait:
             facet_names.append(f"{t}:{f_abbrev}")
-            for item_idx, pole in buckets[(t, f_abbrev)]:
-                col = items[:, item_idx - 1]  # I-th item, 1-indexed
-                if pole == "fwd":
-                    facet_scores[:, j] += col
-                else:  # rev
-                    facet_scores[:, j] += (6.0 - col)
+            for item_idx, _pole in buckets[(t, f_abbrev)]:
+                # No reverse-keying: .por data is pre-reversed (see module docstring).
+                facet_scores[:, j] += items[:, item_idx - 1]
             j += 1
     assert j == 30
 
@@ -154,9 +164,12 @@ def main():
                    "(Kajonius & Johnson 2019 supplementary materials; "
                    "raw item-level data for both IPIP-NEO-300 and "
                    "IPIP-NEO-120 are included in that deposit)"),
+        "scoring": ("simple sum of 10 items per facet on 1-5 Likert; "
+                    "data in .por file is pre-reversed for reverse-keyed "
+                    "items, so NO reverse-keying is applied here"),
         "n_raw": n_raw,
         "n": n_complete,
-        "complete_case_policy": "any-NaN-row dropped",
+        "complete_case_policy": "drop rows with any 0-coded missing or NaN",
         "facet_order": facet_names,
         "correlation_matrix": corr.tolist(),
         "within_mean": float(np.mean(within_pairs)),

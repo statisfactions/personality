@@ -302,6 +302,83 @@ Artifacts from this investigation:
 - `scripts/build_ipip_human_correlations_psycharchives.py`: the
   raw-sum Pearson computation from PsychArchives, ready to use
 
+### 7.5.1. Resolution: the PA .por files are pre-reversed (followup, 2026-05-20)
+
+The "+0.405 is irreproducible" conclusion above was wrong. The bug was on
+our side: **the PsychArchives IPIP300.por and IPIP120.por files store
+responses with reverse-keyed items already reversed**. The Excel
+`IPIP-NEO-ItemKey.xls` "Sign" column ("+C1", "-C4") indicates each
+item's *theoretical pole*, but it is not a flag to apply 6−x to the
+stored values — Johnson cleaned the data at acquisition. Our PA
+build script was re-applying the flip, halving within-trait
+correlations and breaking internal consistency on facets with
+mixed-pole items (Achievement-Striving 4-item α went from +0.80 under
+no-reverse to −0.99 under double-reverse on the 120; the 300 facets
+have the same pattern in less extreme form because the 10-item facets
+have more forward items to dilute the damage).
+
+The triggering observation was rgb noticing that K&J 2019 Figure 1
+showed cor(C1 Self-Eff, C4 Achieve) ≈ 0.68. Within-facet raw
+item-item correlations in IPIP300.por turned out to all be positive
+(+0.2 to +0.6) even between items marked as opposite-pole — which is
+only possible if the stored data are already in canonical direction.
+
+#### Corrected numbers (no reverse-keying applied)
+
+| computation on the same complete-case N=145,388 | within | across | cor(C1, C4) | C4 α |
+|---|---|---|---|---|
+| K&J 2019 Figure 1 (visual reference) | strong diagonal | ~0 | ~0.68 | — |
+| PA IPIP-300, no-reverse (corrected) | **+0.418** | −0.013 | **+0.676** | high |
+| PA IPIP-120, no-reverse (N=410,376 complete) | +0.342 | −0.012 | +0.614 | **+0.800** |
+| NQ pre-scored "300" (prior file) | +0.405 | −0.021 | +0.661 | — |
+| PA IPIP-300, double-reversed (the W9 §7.5 bug) | +0.167 | +0.116 | +0.378 | — |
+
+Pattern correlation between the corrected PA 300 and the NQ pre-scored
+off-diagonals is r=0.997 (max |Δ| any pair = 0.08). Pattern
+correlation between PA 300 and PA 120 (different instruments, same
+deposit) is r=0.956. Everything is mutually consistent and matches
+K&J Figure 1.
+
+The small residual gap (PA-corrected +0.418 vs NQ pre-scored +0.405)
+is within plausible scoring-detail noise (complete-case definition,
+T-score residualization in NQ's prior pipeline). It does *not* require
+the cubic / age-band / sex-band machinery we chased in §7.5: those
+were red herrings.
+
+#### Updated current state
+
+- `instruments/ipip300_human_facet_correlations.json` now contains
+  the corrected PA-derived raw-sum matrix (within +0.418, source =
+  PsychArchives N=145,388 complete cases). The prior NQ-derived
+  version is overwritten.
+- `instruments/ipip120_human_facet_correlations.json` (new) contains
+  the matched IPIP-NEO-120 raw-sum matrix from PA (within +0.342,
+  N=410,376).
+- `scripts/build_ipip_human_correlations_psycharchives.py` is fixed
+  (does not re-reverse). Its module docstring now documents the
+  pre-reversed PA convention prominently. Same for the new
+  `scripts/build_ipip120_human_correlations_psycharchives.py`.
+- The W9 §7 "+0.564 cohort r against human" headline should now be
+  ~unchanged because the corrected matrix off-diagonals correlate
+  at r=0.997 with the NQ-pre-scored matrix that produced the
+  original number. A formal recompute is cheap and worth doing
+  before paper time, but the conclusion will not move materially.
+
+#### What we kept from the rabbit hole
+
+- Confirmed the canonical Johnson stride-6 layout (W8/W9 facet
+  results are unaffected) and committed an explicit
+  `instruments/ipip300_facet_map.json` as the source of truth.
+- Got rid of the unjustifiable five-factor-e cubic + sex×age-band
+  T-score pipeline as the "reference" — corrected reference is
+  PA raw-sum, one-sentence methodology, no library version
+  dependencies, no demographic regularization to argue about.
+- Located the primary source (PsychArchives deposit) and pulled the
+  K&J 2019 supplementary materials into the project locally.
+- Identified the IPIP-NEO-120 counterpart and confirmed its facet
+  structure aligns with the 300 at r=0.956 — useful if we ever want
+  a shorter human reference instrument.
+
 ## 8. Implications for the superposition-vs-embedding question
 
 Both views co-exist at different scales:
