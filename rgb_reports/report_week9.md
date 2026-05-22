@@ -379,6 +379,178 @@ were red herrings.
   structure aligns with the 300 at r=0.956 — useful if we ever want
   a shorter human reference instrument.
 
+### 7.6. Per-facet row correlations: where model geometry differs from human, and why (followup, 2026-05-21)
+
+Once the human reference was corrected, the next question is *which*
+facets contribute to the cohort-vs-human r=+0.569, and where the model
+geometry diverges. Aggregate r treats all 30 facets equally and hides
+where the action is. The per-facet diagnostic:
+
+  For facet F, compute Pearson(H[F, ¬F], M[F, ¬F]) — i.e. the
+  correlation between F's row of human off-diagonal correlations and
+  F's row of model cosines, with the self-cosine excluded. Aggregate
+  across the 10 cohort models.
+
+Code lives in the work session for now (not committed as a script);
+the numbers below are reproducible from
+`instruments/ipip300_human_facet_correlations.json` and
+`results/facets/ipip_facet_cluster.json`.
+
+#### Per-facet recovery ranking (mean across 10 models)
+
+Top tier — relationships strongly preserved across the cohort:
+
+| facet | mean r | SD | comment |
+|---|---|---|---|
+| N:Vulner | +0.866 | 0.028 | tightest cohort agreement |
+| N:Depression | +0.802 | 0.078 |  |
+| A:Moral | +0.768 | 0.042 |  |
+| N:Anger | +0.758 | 0.089 |  |
+| C:Self-Eff | +0.752 | 0.113 |  |
+| N:Immoder | +0.751 | 0.098 |  |
+
+The N-cluster dominates the top — six of the eight highest-r facets are
+N facets, with the seventh (C:Self-Eff) historically loading on a
+"low-N" composite anyway. Within-N relationships are the most
+faithfully recovered structure in the model representation.
+
+Bottom tier — relationships poorly preserved or actively inverted:
+
+| facet | mean r | SD | comment |
+|---|---|---|---|
+| A:Sympath | **−0.163** | 0.076 | flat-negative across all models |
+| O:Liberal | **−0.159** | 0.115 | negative on 9/10 models |
+| C:Order | −0.033 | 0.115 | near zero |
+| E:Cheerf | +0.199 | 0.101 | low across cohort |
+| E:Activity | +0.297 | 0.165 | low + highest cross-model SD |
+| O:Emotion | +0.386 | 0.063 |  |
+| A:Altru | +0.411 | 0.141 | low + high SD |
+
+Cohort grand mean per-row r: +0.544 (vs +0.569 grand cohort r —
+slight gap because mean-of-rows ≠ mean-of-cells, but same story).
+
+#### Case study 1: Cheerfulness — the affect-axis story
+
+For each non-N facet, mean cosine with the 6 N facets ("N-affinity"):
+
+| facet | model μ N-aff | human r N | Δ μ vs human |
+|---|---|---|---|
+| **E:Cheerf** | +0.179 | −0.291 | **+0.470** (sign flip) |
+| O:Emotion | +0.116 | +0.245 | −0.13 (correctly N-aligned) |
+| O:Imagin | +0.097 | +0.103 | matched |
+| A:Sympath | +0.068 | +0.032 | +0.04 |
+| **O:Advent** | +0.021 | −0.299 | **+0.320** (sign flip) |
+| **E:Gregar** | +0.021 | −0.230 | **+0.251** (sign flip) |
+| E:Activity | +0.009 | −0.186 | +0.195 (sign flip) |
+| O:Intell | +0.009 | −0.182 | +0.190 (sign flip) |
+| C:Achieve | −0.013 | −0.285 | +0.271 (weak/sign flip) |
+
+Median Δ across non-N facets: +0.124. Across virtually every non-N
+facet the cohort's N-affinity is *higher* than the human pattern shows.
+
+The cleanest reading: **the model's N cluster represents "affect /
+emotional content" rather than "negative affect specifically."**
+Cheerfulness — a positive-affect adjective — gets pulled toward N
+because both Cheerf and N are about *mood*, not because the model is
+confused about Cheerfulness.
+
+Humans split affective content along positive/negative valence:
+cheerfulness → E (the "sociable + positive" pole), anxiety/depression
+→ N. Models drop that valence split and represent both poles under one
+"this-is-emotionally-charged" axis. The consistency across the 10
+cohort models (Cheerf SD only 0.033) makes this hard to read as noise.
+
+Same sign-flip pattern shows up for Adventurousness, Gregariousness,
+Activity, Intellect, Achievement — humans encode these as "low-N"
+(non-neurotic, positive trait); models put them near zero with N. This
+is consistent: humans have a "good outcomes correlate with low N"
+association strong in self-report data that models don't seem to have
+inherited. The model space lacks the valence-mood entanglement that
+gives human N its directionality.
+
+This is the substantive finding of W9 §7.6. It survives the WEIRD
+critique (case 2 below) because the cross-cultural affect literature
+treats positive/negative affect as a robust dimensional structure
+that's not Western-survey-bound.
+
+#### Case study 2: Liberalism — the instrument validity story
+
+Models' top O:Liberal neighbors (mean cosine across cohort):
+
+  A:Trust (+0.114), A:Cooper (+0.071), O:Artist (+0.048)
+
+Humans' top O:Liberal neighbors (Pearson):
+
+  A:Sympath (+0.265), O:Intell (+0.262), O:Advent (+0.245),
+  O:Artist (+0.234), O:Imagin (+0.228), O:Emotion (+0.157)
+
+Humans organize Liberalism around the *Openness-as-intellectual-
+curiosity* axis with one strong A connection (Sympath). Models put it
+next to *Agreeableness-as-trust-and-cooperation*. The one shared
+neighbor is O:Artist.
+
+The IPIP-NEO-300 Liberalism items themselves are explicitly US-political:
+
+- "I tend to vote for liberal political candidates"
+- "I tend to vote for conservative political candidates" (reverse)
+- "I believe that we should be tough on crime" (reverse)
+- "I believe that we coddle criminals too much" (reverse)
+- "I believe that criminals should receive help rather than punishment"
+- "I believe laws should be strictly enforced" (reverse)
+- "I believe in one true religion" (reverse)
+- "I like to stand during the national anthem" (reverse)
+- "I believe that too much tax money goes to support artists" (reverse)
+- "I believe that there is no absolute right or wrong"
+
+Only the last is even arguably about openness-to-ideas. The rest are
+policy preferences from a specific historical moment (US, 1990s) in a
+specific country with a specific two-party framing. The human O:Liberal
+loadings on O:Intell and O:Advent reflect who-shows-up-on-American-
+surveys covariance, not a psychological link between political ideology
+and intellectual curiosity.
+
+So the re-reading: **the Liberal "anomaly" is mostly an artifact of the
+items.** Models put it in A-space because the literal content of items
+like "criminals should receive help rather than punishment" or "we
+should be tough on crime" is about *trust/cooperation/sympathy
+attitudes* — which is A-cluster territory. Arguably the models are
+*more* psychometrically defensible here than the human factor structure,
+which is conflating US political ideology with the broader O construct.
+
+Caveats compounding the issue:
+
+- Even within US English speakers, the items' construct validity has
+  drifted since 1999 (Clinton 1994 crime bill complicates "tough on
+  crime" partisan signal; Kaepernick-era anthem politics flipped some
+  scripts; NEA-arts funding left the live political conversation).
+- "Liberal" outside the US-political context means various things
+  (UK Liberal Party = center-right; classical liberal = free-market;
+  generous-tolerant = original semantic root). Models trained on
+  global text reflect this broader semantic field.
+
+#### Implication for cohort-r-vs-human framing
+
+The +0.569 cohort-r headline (W9 §7, post-correction §7.5.1) inherits
+the cultural specificity of the K&J 2019 reference data. Per-facet
+breakdown lets us distinguish robust geometric findings (Cheerf/N
+merge — substantive) from instrument-bound divergences (Liberal —
+artifact). Worth flagging in any external citation; the row-level
+diagnostic is the right granularity for that.
+
+#### Reframe: "different geometry" not "errors"
+
+The pattern across all non-N facets shifting toward the N cluster, and
+Liberal moving into A-space, doesn't read as noise — it reads as the
+model space organized around a different but coherent latent dimension:
+*affect / emotional content*, rather than human Big Five's *valence-
+split E vs N*. The W9 §8 superposition-vs-embedding question (next
+section) gets a sharper version here: even within the trait-distinctive
+subspace where embedding-style clustering works, models and humans
+agree on the trait labels but cut the dimensional structure
+differently. The cross-architecture preservation r=+0.94 we celebrated
+in W7 §8.4 is preserved precisely because all 10 models share this
+common cut — it's an axis-of-the-models, not an axis-of-the-domain.
+
 ## 8. Implications for the superposition-vs-embedding question
 
 Both views co-exist at different scales:
