@@ -1,0 +1,289 @@
+item_id,trait,facet,pole,item_text
+ipip4,A,Trust,fwd,I trust others
+ipip34,A,Trust,fwd,I believe that others have good intentions
+ipip64,A,Trust,fwd,I trust what people say
+ipip94,A,Trust,fwd,I believe that people are basically moral
+ipip124,A,Trust,fwd,I believe in human goodness
+ipip154,A,Trust,fwd,I think that all will be well
+ipip184,A,Trust,rev,I distrust people
+ipip214,A,Trust,rev,I suspect hidden motives in others
+ipip244,A,Trust,rev,I am wary of others
+ipip274,A,Trust,rev,I believe that people are essentially evil
+ipip9,A,Moral,fwd,I would never cheat on my taxes
+ipip39,A,Moral,fwd,I stick to the rules
+ipip69,A,Moral,rev,I use flattery to get ahead
+ipip99,A,Moral,rev,I use others for my own ends
+ipip129,A,Moral,rev,I know how to get around the rules
+ipip159,A,Moral,rev,I cheat to get ahead
+ipip189,A,Moral,rev,I put people under pressure
+ipip219,A,Moral,rev,I pretend to be concerned for others
+ipip249,A,Moral,rev,I take advantage of others
+ipip279,A,Moral,rev,I obstruct others' plans
+ipip14,A,Altru,fwd,I make people feel welcome
+ipip44,A,Altru,fwd,I anticipate the needs of others
+ipip74,A,Altru,fwd,I love to help others
+ipip104,A,Altru,fwd,I am concerned about others
+ipip134,A,Altru,fwd,I have a good word for everyone
+ipip164,A,Altru,rev,I look down on others
+ipip194,A,Altru,rev,I am indifferent to the feelings of others
+ipip224,A,Altru,rev,I make people feel uncomfortable
+ipip254,A,Altru,rev,I turn my back on others
+ipip284,A,Altru,rev,I take no time for others
+ipip19,A,Cooper,fwd,I am easy to satisfy
+ipip49,A,Cooper,fwd,I can't stand confrontations
+ipip79,A,Cooper,fwd,I hate to seem pushy
+ipip109,A,Cooper,rev,I have a sharp tongue
+ipip139,A,Cooper,rev,I contradict others
+ipip169,A,Cooper,rev,I love a good fight
+ipip199,A,Cooper,rev,I yell at people
+ipip229,A,Cooper,rev,I insult people
+ipip259,A,Cooper,rev,I get back at others
+ipip289,A,Cooper,rev,I hold a grudge
+ipip24,A,Modest,fwd,I dislike being the center of attention
+ipip54,A,Modest,fwd,I dislike talking about myself
+ipip84,A,Modest,fwd,I consider myself an average person
+ipip114,A,Modest,fwd,I seldom toot my own horn
+ipip144,A,Modest,rev,I believe that I am better than others
+ipip174,A,Modest,rev,I think highly of myself
+ipip204,A,Modest,rev,I have a high opinion of myself
+ipip234,A,Modest,rev,I know the answers to many questions
+ipip264,A,Modest,rev,I boast about my virtues
+ipip294,A,Modest,rev,I make myself the center of attention
+ipip29,A,Sympath,fwd,I sympathize with the homeless
+ipip59,A,Sympath,fwd,I feel sympathy for those who are worse off than myself
+ipip89,A,Sympath,fwd,I value cooperation over competition
+ipip119,A,Sympath,fwd,I suffer from others' sorrows
+ipip149,A,Sympath,rev,I am not interested in other people's problems
+ipip179,A,Sympath,rev,I tend to dislike soft-hearted people
+ipip209,A,Sympath,rev,I believe in an eye for an eye
+ipip239,A,Sympath,rev,I try not to think about the needy
+ipip269,A,Sympath,rev,I believe people should fend for themselves
+ipip299,A,Sympath,rev,I can't stand weak people
+ipip5,C,Self-Eff,fwd,I complete tasks successfully
+ipip35,C,Self-Eff,fwd,I excel in what I do
+ipip65,C,Self-Eff,fwd,I handle tasks smoothly
+ipip95,C,Self-Eff,fwd,I am sure of my ground
+ipip125,C,Self-Eff,fwd,I come up with good solutions
+ipip155,C,Self-Eff,fwd,I know how to get things done
+ipip185,C,Self-Eff,rev,I misjudge situations
+ipip215,C,Self-Eff,rev,I don't understand things
+ipip245,C,Self-Eff,rev,I have little to contribute
+ipip275,C,Self-Eff,rev,I don't see the consequences of things
+ipip10,C,Order,fwd,I like order
+ipip40,C,Order,fwd,I like to tidy up
+ipip70,C,Order,fwd,"I want everything to be ""just right"""
+ipip100,C,Order,fwd,I love order and regularity
+ipip130,C,Order,fwd,I do things according to a plan
+ipip160,C,Order,rev,I often forget to put things back in their proper place
+ipip190,C,Order,rev,I leave a mess in my room
+ipip220,C,Order,rev,I leave my belongings around
+ipip250,C,Order,rev,I am not bothered by messy people
+ipip280,C,Order,rev,I am not bothered by disorder
+ipip15,C,Dutiful,fwd,I try to follow the rules
+ipip45,C,Dutiful,fwd,I keep my promises
+ipip75,C,Dutiful,fwd,I pay my bills on time
+ipip105,C,Dutiful,fwd,I tell the truth
+ipip135,C,Dutiful,fwd,I listen to my conscience
+ipip165,C,Dutiful,rev,I break rules
+ipip195,C,Dutiful,rev,I break my promises
+ipip225,C,Dutiful,rev,I get others to do my duties
+ipip255,C,Dutiful,rev,I do the opposite of what is asked
+ipip285,C,Dutiful,rev,I misrepresent the facts
+ipip20,C,Achieve,fwd,I go straight for the goal
+ipip50,C,Achieve,fwd,I work hard
+ipip80,C,Achieve,fwd,I turn plans into actions
+ipip110,C,Achieve,fwd,I plunge into tasks with all my heart
+ipip140,C,Achieve,fwd,I do more than what's expected of me
+ipip170,C,Achieve,fwd,I set high standards for myself and others
+ipip200,C,Achieve,fwd,I demand quality
+ipip230,C,Achieve,rev,I am not highly motivated to succeed
+ipip260,C,Achieve,rev,I do just enough work to get by
+ipip290,C,Achieve,rev,I put little time and effort into my work
+ipip25,C,Discipl,fwd,I get chores done right away
+ipip55,C,Discipl,fwd,I am always prepared
+ipip85,C,Discipl,fwd,I start tasks right away
+ipip115,C,Discipl,fwd,I get to work at once
+ipip145,C,Discipl,fwd,I carry out my plans
+ipip175,C,Discipl,rev,I find it difficult to get down to work
+ipip205,C,Discipl,rev,I waste my time
+ipip235,C,Discipl,rev,I need a push to get started
+ipip265,C,Discipl,rev,I have difficulty starting tasks
+ipip295,C,Discipl,rev,I postpone decisions
+ipip30,C,Caution,fwd,I avoid mistakes
+ipip60,C,Caution,fwd,I choose my words with care
+ipip90,C,Caution,fwd,I stick to my chosen path
+ipip120,C,Caution,rev,I jump into things without thinking
+ipip150,C,Caution,rev,I make rash decisions
+ipip180,C,Caution,rev,I like to act on a whim
+ipip210,C,Caution,rev,I rush into things
+ipip240,C,Caution,rev,I do crazy things
+ipip270,C,Caution,rev,I act without thinking
+ipip300,C,Caution,rev,I often make last-minute plans
+ipip2,E,Friend,fwd,I make friends easily
+ipip32,E,Friend,fwd,I warm up quickly to others
+ipip62,E,Friend,fwd,I feel comfortable around people
+ipip92,E,Friend,fwd,I act comfortably with others
+ipip122,E,Friend,fwd,I cheer people up
+ipip152,E,Friend,rev,I am hard to get to know
+ipip182,E,Friend,rev,I often feel uncomfortable around others
+ipip212,E,Friend,rev,I avoid contacts with others
+ipip242,E,Friend,rev,I am not really interested in others
+ipip272,E,Friend,rev,I keep others at a distance
+ipip7,E,Gregar,fwd,I love large parties
+ipip37,E,Gregar,fwd,I talk to a lot of different people at parties
+ipip67,E,Gregar,fwd,I enjoy being part of a group
+ipip97,E,Gregar,fwd,I involve others in what I am doing
+ipip127,E,Gregar,fwd,I love surprise parties
+ipip157,E,Gregar,rev,I prefer to be alone
+ipip187,E,Gregar,rev,I want to be left alone
+ipip217,E,Gregar,rev,I don't like crowded events
+ipip247,E,Gregar,rev,I avoid crowds
+ipip277,E,Gregar,rev,I seek quiet
+ipip12,E,Assert,fwd,I take charge
+ipip42,E,Assert,fwd,I try to lead others
+ipip72,E,Assert,fwd,I can talk others into doing things
+ipip102,E,Assert,fwd,I seek to influence others
+ipip132,E,Assert,fwd,I take control of things
+ipip162,E,Assert,rev,I wait for others to lead the way
+ipip192,E,Assert,rev,I keep in the background
+ipip222,E,Assert,rev,I have little to say
+ipip252,E,Assert,rev,I don't like to draw attention to myself
+ipip282,E,Assert,rev,I hold back my opinions
+ipip17,E,Activity,fwd,I am always busy
+ipip47,E,Activity,fwd,I am always on the go
+ipip77,E,Activity,fwd,I do a lot in my spare time
+ipip107,E,Activity,fwd,I can manage many things at the same time
+ipip137,E,Activity,fwd,I react quickly
+ipip167,E,Activity,rev,I like to take it easy
+ipip197,E,Activity,rev,I like to take my time
+ipip227,E,Activity,rev,I like a leisurely lifestyle
+ipip257,E,Activity,rev,I let things proceed at their own pace
+ipip287,E,Activity,rev,I react slowly
+ipip112,E,Excite,fwd,I enjoy being part of a loud crowd
+ipip142,E,Excite,fwd,I enjoy being reckless
+ipip172,E,Excite,fwd,I act wild and crazy
+ipip202,E,Excite,fwd,I'm willing to try anything once
+ipip232,E,Excite,fwd,I seek danger
+ipip262,E,Excite,rev,I would never go hang gliding or bungee jumping
+ipip292,E,Excite,rev,I dislike loud music
+ipip57,E,Cheerf,fwd,I have a lot of fun
+ipip87,E,Cheerf,fwd,I express childlike joy
+ipip117,E,Cheerf,fwd,I laugh my way through life
+ipip147,E,Cheerf,fwd,I love life
+ipip177,E,Cheerf,fwd,I look at the bright side of life
+ipip207,E,Cheerf,fwd,I laugh aloud
+ipip237,E,Cheerf,fwd,I amuse my friends
+ipip267,E,Cheerf,rev,I am not easily amused
+ipip297,E,Cheerf,rev,I seldom joke around
+ipip1,N,Anxiety,fwd,I worry about things
+ipip31,N,Anxiety,fwd,I fear for the worst
+ipip61,N,Anxiety,fwd,I am afraid of many things
+ipip91,N,Anxiety,fwd,I get stressed out easily
+ipip121,N,Anxiety,fwd,I get caught up in my problems
+ipip151,N,Anxiety,rev,I am not easily bothered by things
+ipip181,N,Anxiety,rev,I am relaxed most of the time
+ipip211,N,Anxiety,rev,I am not easily disturbed by events
+ipip241,N,Anxiety,rev,I don't worry about things that have already happened
+ipip271,N,Anxiety,rev,I adapt easily to new situations
+ipip6,N,Anger,fwd,I get angry easily
+ipip36,N,Anger,fwd,I get irritated easily
+ipip66,N,Anger,fwd,I get upset easily
+ipip96,N,Anger,fwd,I am often in a bad mood
+ipip126,N,Anger,fwd,I lose my temper
+ipip156,N,Anger,rev,I rarely get irritated
+ipip186,N,Anger,rev,I seldom get mad
+ipip216,N,Anger,rev,I am not easily annoyed
+ipip246,N,Anger,rev,I keep my cool
+ipip276,N,Anger,rev,I rarely complain
+ipip11,N,Depression,fwd,I often feel blue
+ipip41,N,Depression,fwd,I dislike myself
+ipip71,N,Depression,fwd,I am often down in the dumps
+ipip101,N,Depression,fwd,I have a low opinion of myself
+ipip131,N,Depression,fwd,I have frequent mood swings
+ipip161,N,Depression,fwd,I feel desperate
+ipip191,N,Depression,fwd,I feel that my life lacks direction
+ipip221,N,Depression,rev,I seldom feel blue
+ipip251,N,Depression,rev,I feel comfortable with myself
+ipip281,N,Depression,rev,I am very pleased with myself
+ipip16,N,Self-Cons,fwd,I am easily intimidated
+ipip46,N,Self-Cons,fwd,I am afraid that I will do the wrong thing
+ipip76,N,Self-Cons,fwd,I find it difficult to approach others
+ipip106,N,Self-Cons,fwd,I am afraid to draw attention to myself
+ipip136,N,Self-Cons,fwd,I only feel comfortable with friends
+ipip166,N,Self-Cons,fwd,I stumble over my words
+ipip196,N,Self-Cons,rev,I am not embarrassed easily
+ipip226,N,Self-Cons,rev,I am comfortable in unfamiliar situations
+ipip256,N,Self-Cons,rev,I am not bothered by difficult social situations
+ipip286,N,Self-Cons,rev,I am able to stand up for myself
+ipip21,N,Immoder,fwd,I often eat too much
+ipip51,N,Immoder,fwd,I don't know why I do some of the things I do
+ipip81,N,Immoder,fwd,I do things I later regret
+ipip111,N,Immoder,fwd,I go on binges
+ipip141,N,Immoder,fwd,I love to eat
+ipip171,N,Immoder,rev,I rarely overindulge
+ipip201,N,Immoder,rev,I easily resist temptations
+ipip231,N,Immoder,rev,I am able to control my cravings
+ipip261,N,Immoder,rev,I never spend more than I can afford
+ipip291,N,Immoder,rev,I never splurge
+ipip26,N,Vulner,fwd,I panic easily
+ipip56,N,Vulner,fwd,I become overwhelmed by events
+ipip86,N,Vulner,fwd,I feel that I'm unable to deal with things
+ipip116,N,Vulner,fwd,I can't make up my mind
+ipip146,N,Vulner,fwd,I get overwhelmed by emotions
+ipip176,N,Vulner,rev,I remain calm under pressure
+ipip206,N,Vulner,rev,I can handle complex problems
+ipip236,N,Vulner,rev,I know how to cope
+ipip266,N,Vulner,rev,I readily overcome setbacks
+ipip296,N,Vulner,rev,I am calm even in tense situations
+ipip3,O,Imagin,fwd,I have a vivid imagination
+ipip33,O,Imagin,fwd,I enjoy wild flights of fantasy
+ipip63,O,Imagin,fwd,I love to daydream
+ipip93,O,Imagin,fwd,I like to get lost in thought
+ipip123,O,Imagin,fwd,I indulge in my fantasies
+ipip153,O,Imagin,fwd,I spend time reflecting on things
+ipip183,O,Imagin,rev,I seldom daydream
+ipip213,O,Imagin,rev,I do not have a good imagination
+ipip243,O,Imagin,rev,I seldom get lost in thought
+ipip273,O,Imagin,rev,I have difficulty imagining things
+ipip8,O,Artist,fwd,I believe in the importance of art
+ipip38,O,Artist,fwd,I like music
+ipip68,O,Artist,fwd,I see beauty in things that others might not notice
+ipip128,O,Artist,fwd,I enjoy the beauty of nature
+ipip158,O,Artist,rev,I do not like art
+ipip188,O,Artist,rev,I do not like poetry
+ipip218,O,Artist,rev,I do not enjoy going to art museums
+ipip248,O,Artist,rev,I do not like concerts
+ipip278,O,Artist,rev,I do not enjoy watching dance performances
+ipip13,O,Emotion,fwd,I experience my emotions intensely
+ipip43,O,Emotion,fwd,I feel others' emotions
+ipip73,O,Emotion,fwd,I am passionate about causes
+ipip103,O,Emotion,fwd,I enjoy examining myself and my life
+ipip133,O,Emotion,fwd,I try to understand myself
+ipip163,O,Emotion,rev,I seldom get emotional
+ipip193,O,Emotion,rev,I am not easily affected by my emotions
+ipip223,O,Emotion,rev,I rarely notice my emotional reactions
+ipip253,O,Emotion,rev,I experience very few emotional highs and lows
+ipip283,O,Emotion,rev,I don't understand people who get emotional
+ipip18,O,Advent,fwd,I prefer variety to routine
+ipip48,O,Advent,fwd,I like to visit new places
+ipip78,O,Advent,fwd,I'm interested in many things
+ipip108,O,Advent,fwd,I like to begin new things
+ipip138,O,Advent,rev,I prefer to stick with things that I know
+ipip168,O,Advent,rev,I dislike changes
+ipip198,O,Advent,rev,I don't like the idea of change
+ipip228,O,Advent,rev,I am a creature of habit
+ipip258,O,Advent,rev,I dislike new foods
+ipip288,O,Advent,rev,I am attached to conventional ways
+ipip23,O,Intell,fwd,I like to solve complex problems
+ipip53,O,Intell,fwd,I love to read challenging material
+ipip83,O,Intell,fwd,I have a rich vocabulary
+ipip113,O,Intell,fwd,I can handle a lot of information
+ipip143,O,Intell,fwd,I enjoy thinking about things
+ipip173,O,Intell,rev,I am not interested in abstract ideas
+ipip203,O,Intell,rev,I avoid philosophical discussions
+ipip233,O,Intell,rev,I have difficulty understanding abstract ideas
+ipip263,O,Intell,rev,I am not interested in theoretical discussions
+ipip293,O,Intell,rev,I avoid difficult reading material
+ipip58,O,Liberal,fwd,I believe that there is no absolute right or wrong
+ipip178,O,Liberal,rev,I believe that too much tax money goes to support artists
+ipip208,O,Liberal,rev,I believe laws should be strictly enforced
