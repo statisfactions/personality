@@ -67,6 +67,18 @@ LIKERT_TEMPLATE_MARKER = (
     'Adjective: "{target}"\n'
     "Rating: "
 )
+# Fake-good / impression-management instruction, mirrors run_gfc_hf.py and
+# persona_repr_mapping.py so all three methods (TIRT/Repr/Likert) share
+# identical condition framings. Applied to the persona system message at
+# --fg-position {suffix, prefix}.
+FAKE_GOOD_SUFFIX = (
+    "\n\nIMPORTANT INSTRUCTION: Imagine you are completing this "
+    "questionnaire as part of an application for a position you very "
+    "much want. Your responses will be evaluated and used to decide "
+    "whether you are selected. Respond in a way that makes the most "
+    "favorable possible impression."
+)
+
 LIKERT_TEMPLATE_IPIP = (
     "How well does the following statement describe you?\n"
     "1 = not at all, 2 = slightly, 3 = somewhat, 4 = quite well, 5 = very well.\n"
@@ -76,12 +88,24 @@ LIKERT_TEMPLATE_IPIP = (
 )
 
 
-def likert_with_persona(model, tok, device, persona_desc, target_text, template):
+def likert_with_persona(model, tok, device, persona_desc, target_text, template,
+                        fg_suffix="", fg_position="suffix"):
     """Likert distribution over {1..5} for `target_text`, conditioned on persona
-    as a system message. Returns (distribution dict, EV)."""
+    as a system message. Returns (distribution dict, EV).
+
+    `fg_suffix`: empty for HONEST baseline; FAKE_GOOD_SUFFIX (or other) for FG
+    conditions. Combined with persona_desc per `fg_position` ('suffix' = after
+    persona, 'prefix' = before)."""
+    if fg_suffix:
+        if fg_position == "prefix":
+            system_content = fg_suffix.lstrip("\n") + "\n\n" + persona_desc
+        else:
+            system_content = persona_desc + fg_suffix
+    else:
+        system_content = persona_desc
     user_text = template.format(target=target_text)
     messages = [
-        {"role": "system", "content": persona_desc},
+        {"role": "system", "content": system_content},
         {"role": "user", "content": user_text},
     ]
     text = tok.apply_chat_template(
@@ -100,6 +124,104 @@ def likert_with_persona(model, tok, device, persona_desc, target_text, template)
     with torch.no_grad():
         outputs = model(**inputs)
     logits = outputs.logits[0, -1, :]
+    selected = logits[ids]
+    probs = torch.softmax(selected, dim=0).float().cpu().numpy()
+    dist = {str(n): float(probs[n - 1]) for n in range(1, 6)}
+    ev = float(sum(n * probs[n - 1] for n in range(1, 6)))
+    return dist, ev
+
+
+def _build_system_content(persona_desc, fg_suffix, fg_position):
+    if not fg_suffix:
+        return persona_desc
+    if fg_position == "prefix":
+        return fg_suffix.lstrip("\n") + "\n\n" + persona_desc
+    return persona_desc + fg_suffix
+
+
+def precompute_prefix_kv(model, tok, device, system_content, template,
+                         sample_targets):
+    """Pre-compute KV cache for the longest token prefix that's shared across
+    all Likert rating calls within one (persona, condition) cell.
+
+    Strategy: render two prompts with two different target words, find the
+    longest common token prefix (which spans the system message and the
+    user-template header up to just before the marker word), run the model
+    once on that prefix with use_cache=True, and return the resulting
+    DynamicCache + prefix length. Each subsequent rating call only forwards
+    through the ~10-20 varying tokens (marker word + `\\nRating: ` + the
+    assistant-prompt close), giving ~10-15x speedup on Likert.
+
+    Returns (DynamicCache, prefix_len). If no common prefix can be found,
+    returns (None, 0) — caller should fall back to the non-cached path.
+    """
+    from transformers.cache_utils import DynamicCache
+
+    if len(sample_targets) < 2:
+        return None, 0
+
+    tokens_list = []
+    for marker in sample_targets[:2]:
+        user_text = template.format(target=marker)
+        messages = [
+            {"role": "system", "content": system_content},
+            {"role": "user", "content": user_text},
+        ]
+        text = tok.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True,
+        )
+        tokens_list.append(tok(text, return_tensors="pt").input_ids[0])
+
+    prefix_len = 0
+    min_len = min(len(t) for t in tokens_list)
+    for i in range(min_len):
+        if all(tokens_list[0][i].item() == t[i].item() for t in tokens_list):
+            prefix_len = i + 1
+        else:
+            break
+
+    if prefix_len == 0:
+        return None, 0
+
+    prefix_ids = tokens_list[0][:prefix_len].unsqueeze(0).to(device)
+    cache = DynamicCache()
+    with torch.no_grad():
+        _ = model(input_ids=prefix_ids, past_key_values=cache, use_cache=True)
+    return cache, prefix_len
+
+
+def likert_with_prefix_cache(model, tok, device, cache, prefix_len,
+                              system_content, target_text, template):
+    """Likert distribution using a pre-computed prefix KV cache. After the
+    forward pass the cache is cropped back to `prefix_len` so it can be
+    reused for the next target without re-running the prefix."""
+    user_text = template.format(target=target_text)
+    messages = [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_text},
+    ]
+    text = tok.apply_chat_template(
+        messages, tokenize=False, add_generation_prompt=True,
+    )
+    full_ids = tok(text, return_tensors="pt").input_ids.to(device)
+    suffix_ids = full_ids[:, prefix_len:]
+
+    # Token IDs for "1".."5" (computed every call for simplicity; cheap)
+    ids = []
+    for n in range(1, 6):
+        toks = tok.encode(str(n), add_special_tokens=False)
+        if len(toks) != 1:
+            raise ValueError(f"token '{n}' didn't tokenize to a single id: {toks}")
+        ids.append(toks[0])
+
+    with torch.no_grad():
+        outputs = model(input_ids=suffix_ids, past_key_values=cache, use_cache=True)
+    logits = outputs.logits[0, -1, :]
+
+    # Roll the cache back so it reflects only the prefix again, ready for
+    # the next target.
+    cache.crop(prefix_len)
+
     selected = logits[ids]
     probs = torch.softmax(selected, dim=0).float().cpu().numpy()
     dist = {str(n): float(probs[n - 1]) for n in range(1, 6)}
@@ -205,6 +327,16 @@ def main():
                              "(W7/W8 §3); ipip = IPIP behavioral statements as "
                              "rating targets, with per-persona exclusion of "
                              "the persona's own composition items")
+    parser.add_argument("--condition", default="honest",
+                        choices=["honest", "fake_good"],
+                        help="honest = no impression-management instruction "
+                             "(W7-W11 default). fake_good = append "
+                             "FAKE_GOOD_SUFFIX per --fg-position.")
+    parser.add_argument("--fg-position", default="suffix",
+                        choices=["suffix", "prefix"],
+                        help="Where to place the fake-good instruction "
+                             "relative to the persona description (only "
+                             "applies when --condition=fake_good).")
     args = parser.parse_args()
 
     if args.model not in ALL_MODELS:
@@ -274,15 +406,47 @@ def main():
         else:
             targets = shared_targets
 
+        # Build the (persona + maybe FG) system content once and pre-compute
+        # the prefix KV cache so every Likert call within this persona reuses
+        # it, avoiding ~150-300 redundant forward-pass tokens per marker.
+        fg = FAKE_GOOD_SUFFIX if args.condition == "fake_good" else ""
+        system_content = _build_system_content(p[text_key], fg, args.fg_position)
+
+        # Two sample targets from this persona's grid (any two distinct words)
+        sample_targets = []
+        for trait in TRAITS:
+            for pole in ("high", "low"):
+                for _, t in targets[trait][pole]:
+                    if t not in sample_targets:
+                        sample_targets.append(t)
+                    if len(sample_targets) >= 2:
+                        break
+                if len(sample_targets) >= 2:
+                    break
+            if len(sample_targets) >= 2:
+                break
+        cache, prefix_len = precompute_prefix_kv(
+            model, tok, device, system_content, likert_template, sample_targets,
+        )
+
         per_target_evs = {}  # (trait, pole, target_text) -> EV
         for trait in TRAITS:
             for pole in ("high", "low"):
                 for _, target_text in targets[trait][pole]:
-                    _, ev = likert_with_persona(
-                        model, tok, device, p[text_key], target_text, likert_template,
-                    )
+                    if cache is not None:
+                        _, ev = likert_with_prefix_cache(
+                            model, tok, device, cache, prefix_len,
+                            system_content, target_text, likert_template,
+                        )
+                    else:
+                        _, ev = likert_with_persona(
+                            model, tok, device, p[text_key], target_text, likert_template,
+                            fg_suffix=fg, fg_position=args.fg_position,
+                        )
                     per_target_evs[(trait, pole, target_text)] = ev
                     call_idx += 1
+        # Drop the cache so memory can be reclaimed before the next persona.
+        cache = None
         # Score per trait: mean(high EV) − mean(low EV)
         scored = {}
         for trait in TRAITS:
@@ -387,6 +551,10 @@ def main():
     out_suffix = "" if args.persona_source == "markers" else f"_{args.persona_source}"
     if args.rating_target != "markers":
         out_suffix += f"_target-{args.rating_target}"
+    if args.condition == "fake_good":
+        out_suffix += "_fake_good"
+        if args.fg_position == "prefix":
+            out_suffix += "_fgpfx"
     out_path = Path(f"results/persona/persona_instrument_response_{args.model}{out_suffix}.json")
     out_path.parent.mkdir(exist_ok=True)
     with open(out_path, "w") as f:
