@@ -39,7 +39,7 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError
 
 INSTRUMENT_PATH = "instruments/okada_gfc30.json"
-ADMIN_SESSION_PATH = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION_PATH = "instruments/ipip300.json"
 GFC_TOKENS = ["1", "2", "3", "4", "5", "6", "7"]
 BINARY_TOKENS = ["A", "B"]
 MAX_ENTROPY = math.log(len(GFC_TOKENS))  # ln(7) ≈ 1.946

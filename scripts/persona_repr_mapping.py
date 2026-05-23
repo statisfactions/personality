@@ -105,8 +105,8 @@ def build_ipip_direction_pool():
     """IPIP-NEO-300 pool: per trait, forward-keyed item texts as 'high',
     reverse-keyed as 'low'. Excludes deny-listed items. Applies typo fixes."""
     SHORT = {"A": "AGR", "C": "CON", "E": "EXT", "N": "NEU", "O": "OPE"}
-    with open("admin_sessions/prod_run_01_external_rating.json") as f:
-        ipip = json.load(f)["measures"]["IPIP300"]
+    with open("instruments/ipip300.json") as f:
+        ipip = json.load(f)
     items = ipip["items"]
     scales = ipip["scales"]
     with open("instruments/ipip300_annotations.json") as f:

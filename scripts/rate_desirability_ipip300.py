@@ -7,7 +7,7 @@ prompt). Output is the input to Phase C's constrained-MIP pair
 selection.
 
 Reads:
-  admin_sessions/prod_run_01_external_rating.json (IPIP-NEO-300 items
+  instruments/ipip300.json (IPIP-NEO-300 items
   + scales with keying + trait labels)
 
 Writes:
@@ -33,7 +33,7 @@ from hf_logprobs import MODELS as ALL_MODELS, load_model, likert_distribution
 
 COHORT = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7"]
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 OUT_FILE = "results/desirability/cohort_phase_b_ipip300.json"
 ANNOTATIONS = "instruments/ipip300_annotations.json"  # for typo fixes
 
@@ -70,7 +70,7 @@ def depersonalize(text: str) -> str:
 def build_item_list():
     """Load IPIP-NEO-300 items with trait/keying labels."""
     admin = json.load(open(ADMIN_SESSION))
-    ipip = admin["measures"]["IPIP300"]
+    ipip = admin
     items = ipip["items"]
     scales = ipip["scales"]
     # Try to load annotations for typo fixes if present

@@ -15,7 +15,7 @@ import json
 import math
 import sys
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 
 VARIANT_FILES = {
     "Gemma": "results/surveys/Gemma_ipip300.json",
@@ -74,7 +74,7 @@ def main():
     # Load scale definitions
     with open(ADMIN_SESSION) as f:
         session = json.load(f)
-    scales = session["measures"]["IPIP300"]["scales"]
+    scales = session["scales"]
     trait_abbrev = {"IPIP300-NEU": "N", "IPIP300-EXT": "E", "IPIP300-OPE": "O",
                     "IPIP300-AGR": "A", "IPIP300-CON": "C"}
 
@@ -241,7 +241,7 @@ def main():
     # Get item texts
     with open(ADMIN_SESSION) as f:
         sess = json.load(f)
-    ipip_items = sess["measures"]["IPIP300"]["items"]
+    ipip_items = sess["items"]
 
     print(f"  {'item':>10s} {'text':50s} {'var':>6s}  " +
           "  ".join(f"{m:>7s}" for m in model_names))

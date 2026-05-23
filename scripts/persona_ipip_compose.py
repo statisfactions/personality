@@ -44,7 +44,7 @@ import json
 import random
 from pathlib import Path
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 ANNOTATIONS = "instruments/ipip300_annotations.json"
 PERSONAS_IN = "instruments/synthetic_personas.json"
 PERSONAS_OUT = "instruments/synthetic_personas_ipip.json"
@@ -80,7 +80,7 @@ def stanine_uses_strong(stanine):
 
 def load_resources():
     with open(ADMIN_SESSION) as f:
-        scales = json.load(f)["measures"]["IPIP300"]
+        scales = json.load(f)
         items = scales["items"]
         scale_defs = scales["scales"]
     with open(ANNOTATIONS) as f:

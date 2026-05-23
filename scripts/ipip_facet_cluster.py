@@ -55,7 +55,7 @@ import extract_meandiff_vectors as mdx
 from hf_logprobs import MODELS as ALL_MODELS, load_model
 
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 ANNOTATIONS = "instruments/ipip300_annotations.json"
 CACHE_DIR = Path("results/phase_b_cache")
 IPIP_CACHE_DIR = Path("results/phase_b_cache_ipip")

@@ -52,7 +52,7 @@ PERSONA_TEXT_KEYS = {
     "ipip_raw":      "ipip_raw",
     "ipip_reflowed": "ipip_reflowed",
 }
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 ANNOTATIONS = "instruments/ipip300_annotations.json"
 SHORT = {"A": "AGR", "C": "CON", "E": "EXT", "N": "NEU", "O": "OPE"}
 
@@ -232,7 +232,7 @@ def likert_with_prefix_cache(model, tok, device, cache, prefix_len,
 def load_ipip_resources():
     """Load IPIP-300 items, scale defs, and annotations."""
     with open(ADMIN_SESSION) as f:
-        ipip = json.load(f)["measures"]["IPIP300"]
+        ipip = json.load(f)
     items = ipip["items"]
     scales = ipip["scales"]
     with open(ANNOTATIONS) as f:

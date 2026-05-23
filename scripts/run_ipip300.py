@@ -21,7 +21,7 @@ from pathlib import Path
 from hf_logprobs import MODELS, resolve, load_model, likert_distribution
 
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 LIKERT_TOKENS = ("1", "2", "3", "4", "5")
 MAX_ENTROPY = math.log(len(LIKERT_TOKENS))  # ln(5) ≈ 1.609
 
@@ -55,7 +55,7 @@ PROMPT_VARIANTS = [
 def load_ipip300(session_path):
     with open(session_path) as f:
         session = json.load(f)
-    ipip = session["measures"]["IPIP300"]
+    ipip = session
     return ipip["items"], ipip["scales"]
 
 

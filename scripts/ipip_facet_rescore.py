@@ -22,7 +22,7 @@ IPIP-NEO-300 facets:
   C: Self-Efficacy, Orderliness, Dutifulness, Achievement-Striving,
      Self-Discipline, Cautiousness
 
-(Verified against the items in admin_sessions/prod_run_01_external_rating.json
+(Verified against the items in instruments/ipip300.json
 by inspection: the first three items in each facet are perfectly thematic.)
 
 Usage:
@@ -36,7 +36,7 @@ from pathlib import Path
 import numpy as np
 
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 
 MODELS = [
     "Gemma", "Llama", "Phi4", "Qwen",
@@ -70,7 +70,7 @@ def build_facet_map(session_path):
     """Return {item_id: (trait, facet_name, reverse_keyed_bool)}."""
     with open(session_path) as f:
         s = json.load(f)
-    scales = s["measures"]["IPIP300"]["scales"]
+    scales = s["scales"]
     item_meta = {}
     for scale_id, sdef in scales.items():
         trait = TRAIT_OF[scale_id]

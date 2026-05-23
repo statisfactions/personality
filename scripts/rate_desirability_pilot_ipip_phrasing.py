@@ -110,8 +110,8 @@ def rate_one(model, tok, device, prompt):
 
 def main():
     # Load IPIP-NEO-300 items from admin session
-    admin = json.load(open("admin_sessions/prod_run_01_external_rating.json"))
-    ipip = admin["measures"]["IPIP300"]
+    admin = json.load(open("instruments/ipip300.json"))
+    ipip = admin
     items = ipip["items"]
     scales = ipip["scales"]
 

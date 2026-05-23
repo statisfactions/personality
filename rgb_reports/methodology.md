@@ -18,7 +18,7 @@ Each approach measures a different construct (see "Three Constructs" in `reports
 
 - **Instrument**: IPIP-NEO-300, 300 items, 60 per Big Five trait
 - **Traits**: Neuroticism (N), Extraversion (E), Openness (O), Agreeableness (A), Conscientiousness (C)
-- **Source**: Public domain, items in `admin_sessions/prod_run_01_external_rating.json` (key: `measures.IPIP300`)
+- **Source**: Public domain (Goldberg IPIP-NEO-300, ipip.ori.org). Items + scale keying in `instruments/ipip300.json`. Item texts originally transcribed from `vendor/personality_in_llms/admin_sessions/prod_run_01_external_rating.json`.
 - **Response scale**: 1-5 Likert (very inaccurate to very accurate)
 - **Scoring**: Reverse-keying per scale definition, mean across items
 - **Script**: `scripts/run_ipip300.py` (was `run_ollama_logprobs.py` through week 6)
@@ -51,8 +51,8 @@ Each approach measures a different construct (see "Three Constructs" in `reports
 ### BFI-44 (Big Five Inventory)
 
 - **Instrument**: 44-item Big Five Inventory (copyrighted)
-- **Source**: Items redacted in `admin_sessions/prod_run_01_external_rating.json` (key: `measures.BFI`). See `scripts/hydrate_admin_session.py` to add actual items.
-- **Status**: Not run (items are `[REDACTED]`). Requires separately obtaining BFI items.
+- **Source**: BFI items are copyrighted; we never ran BFI. Upstream `vendor/personality_in_llms/admin_sessions/prod_run_01_external_rating.json` ships them as `[REDACTED]`. A future BFI run would need to (a) obtain item texts separately and (b) write a fresh `instruments/bfi44.json` modeled on `instruments/ipip300.json`.
+- **Status**: Not run.
 
 ### Prompt Format
 

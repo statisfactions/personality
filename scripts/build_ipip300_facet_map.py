@@ -18,7 +18,7 @@ After writing the map, this script verifies:
 import json
 from pathlib import Path
 
-ADMIN_SESSION = "admin_sessions/prod_run_01_external_rating.json"
+ADMIN_SESSION = "instruments/ipip300.json"
 OUT = "instruments/ipip300_facet_map.json"
 
 # Canonical Johnson IPIP-NEO-300 facet names per trait (from
@@ -61,7 +61,7 @@ def main():
 
     # Verify against admin_session
     with open(ADMIN_SESSION) as f:
-        ipip = json.load(f)["measures"]["IPIP300"]
+        ipip = json.load(f)
     scales = ipip["scales"]
     items = ipip["items"]
     short = {"A": "AGR", "C": "CON", "E": "EXT", "N": "NEU", "O": "OPE"}
