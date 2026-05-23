@@ -170,11 +170,11 @@ Note on terminology: we use "binary choice" for our single-trait A/B scenarios t
 - **Input**: Variant result files (mean across prompt phrasings as denoised estimate)
 - **Output**: Variance decomposition (shared assistant + genuine unique + noise), inter-model correlations, residual personality profiles
 
-### Existing PsyBORGS Infrastructure
+### Existing PsyBORGS Infrastructure (vendored, unused by our scripts)
 
-- **Original paper code**: `psyborgs/survey_bench_lib.py` (session administration), `psyborgs/score_calculation.py` (scoring)
-- **Inference scripts**: `inference_scripts/run_gpt_inference.py` (OpenAI API), `inference_scripts/run_hf_inference.py` (HuggingFace/vLLM)
-- **Admin sessions**: `admin_sessions/` — JSON configs for BFI, IPIP-300, PANAS, etc. with 50 PersonaChat biographical preambles
+- **Original paper code**: `vendor/personality_in_llms/psyborgs/survey_bench_lib.py` (session administration), `vendor/personality_in_llms/psyborgs/score_calculation.py` (scoring)
+- **Inference scripts**: `vendor/personality_in_llms/inference_scripts/run_gpt_inference.py` (OpenAI API), `vendor/personality_in_llms/inference_scripts/run_hf_inference.py` (HuggingFace/vLLM)
+- **Admin sessions**: `vendor/personality_in_llms/admin_sessions/` — JSON configs for BFI, IPIP-300, PANAS, etc. with 50 PersonaChat biographical preambles. IPIP-300 items extracted to `instruments/ipip300.json`.
 
 ---
 
