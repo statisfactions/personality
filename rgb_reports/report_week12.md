@@ -1035,3 +1035,97 @@ Scripts:
   (W12 §5e.3 per-trait θ-shift comparison)
 - `scripts/run_rep_under_fg_cohort.sh` (W12 §5d.5 cohort extension)
 - `scripts/analyze_rep_cohort_fg.py` (W12 §5d.5 cohort aggregation)
+
+## 8. Post-cube follow-ups (queued, 2026-05-23)
+
+After W12 §6 (10-model scaleup) and §7 (270-cube fill + dashboard +
+W9 §7.6 row-correlation analysis), the dust settled into a list of
+things worth doing next. Pre-compaction notes from the 2026-05-23
+session so they don't fall on the floor.
+
+### 8.1. Item-level migration analysis (handoff)
+
+The R stub `scripts/item_level_recluster_stub.R` and matched CSV
+matrices in `results/item_level/` are ready for someone to run.
+**Concretely the question is: do the Cheerfulness items literally
+migrate to the N factor in model EFA loadings, and do the Liberalism
+items migrate to A?** That would close the loop from W9 §7.6's
+row-correlation evidence ("Cheerf relates more to N than humans
+predict") to item-level confirmation ("specifically these 4 cheer
+items load on F-N in model EFA, not on F-E").
+
+- **1a. Factor analysis side: hand off to statisfactions + his Claude.**
+  The export is designed to be R-native (`psych::fa()` workflow). The
+  stub includes the "extract one extra factor than expected" handling
+  for the model-side anisotropy (W9 §3 caveat).
+- **1b. Row-correlation viz: do locally.** The W9 §7.6 row-correlation
+  diagnostic is currently a table in the report; a 30-facet × 10-model
+  heatmap (or 30-facet bar chart with cross-cohort error bars) would
+  make the affect-axis claim citable at a glance. Cheap, ~hour task.
+
+### 8.2. "Axis-of-the-models, not axis-of-the-domain" hypothesis test
+
+The cohort cross-architecture r=+0.94 from W7 §8.4 may be mostly
+training-data overlap making all 10 models adopt the same affect-axis
+cut, not a deep representational universal. Test: run the same Repr
+pipeline on a model trained on radically different text — code-heavy
+(StarCoder?), non-English (Aya?), or Anthropic-trained (would need to
+be behavioral-only since we can't get Repr on closed-weight models).
+
+One outlier that *doesn't* match the cohort affect axis would be a
+strong claim. Negative result (still matches) tells us the affect-axis
+cut is more deeply baked than training-data-overlap explains. Either
+way it's publishable. Real compute investment.
+
+### 8.3. The FG-prefix-exceeds-honest puzzle (TIRT markers)
+
+In the cube data, TIRT markers cohort means: HONEST 0.403, FG-suffix
+0.317, FG-prefix 0.448. **The fake-good instruction *helps* persona
+recovery in this specific cell.** Not subtle (+0.045 cohort-mean
+gain), and it's the W12 §5e finding now confirmed at cohort scale.
+
+Single-model deep dive worth doing on Gemma27 or Gemma4 (largest
+effects). Controls to disentangle hypotheses:
+- Neutral "answer carefully" prefix vs FG prefix: is it FG-specific
+  or any compliance-mode prefix?
+- Mid-position FG vs prefix vs suffix: does the effect scale with
+  distance from the response position?
+- FG-prefix with neutral persona: does FG instruction prime
+  attention-to-context generally, or specifically attention-to-
+  persona?
+
+Hypothesis: FG-prefix induces a "compliance mode" that makes context
+content more salient in attention, paradoxically boosting persona
+adherence at the moment of choice. Mechanism is hand-wavy until we
+probe it. ~2 days of focused work; self-contained mini-study.
+
+### 8.4. W12 §5d.5 rotation hypothesis re-fit with cube data
+
+The original §5d.5 cohort result said partial rotation explains ~36%
+of the face-value cohort effect. With the full 270-cube, we have 9×
+more data per model to fit a per-model rotation strength k. Question:
+**does each model's FG behavior fit as a fixed rotation strength k,
+or is the deviation from honest non-rotational?** Maps cleanly to a
+mechanistic claim if k is stable per model.
+
+Also: is the FG-suffix vs FG-prefix Δ consistent with a Δk? That
+would let us state "FG-prefix corresponds to rotation strength 0.6 ×
+FG-suffix's rotation strength" or similar.
+
+### 8.5. Priority ranking for next session
+
+If forced to pick one for actual work in the next 1-2 sessions:
+**8.1 (item migration analysis)** has the fastest payoff, builds on
+already-exported data, and the item-level evidence is what makes the
+affect-axis claim solid rather than evocative.
+
+Of the bigger questions, **8.2 (axis-of-the-models)** is the most
+scientifically interesting but needs compute we may not have lined up;
+**8.3 (FG-prefix puzzle)** is the cleanest single-finding mini-study;
+**8.4 (rotation re-fit)** is the cheapest leveraged use of existing
+data.
+
+W9 §7.6 viz (8.1b) is the "if you have spare cycles" win that should
+not be left undone — the row-correlation diagnostic is the strongest
+evidence we have for the affect-axis claim and currently lives only
+in a table.
