@@ -197,7 +197,10 @@ def main():
 
     out = Path("results/persona/persona_w12_cube_dashboard.html")
     fig.write_html(str(out))
+    png_out = out.with_suffix(".png")
+    fig.write_image(str(png_out), width=1500, height=950, scale=2)
     print(f"Wrote {out}")
+    print(f"Wrote {png_out}")
 
     # Console summary: per (method, form, cond) cohort mean
     print("\nGrand cohort means by cell (method × form × condition):")

@@ -92,23 +92,16 @@ def main():
     vabs = max(0.6, float(np.nanmax(np.abs(Z))))
     zmin, zmax = -vabs, vabs
 
-    # Y labels: reversed so the highest-mean facets sit at the TOP of the rendered heatmap.
-    # Plotly heatmaps draw row 0 at the bottom by default; reverse the row order so the
-    # tightest-agreement facets render at the top.
-    Z_display = Z[::-1]
-    labels_display = labels_sorted[::-1]
-    hover_display = hover[::-1]
-
     fig = go.Figure(go.Heatmap(
-        z=Z_display,
+        z=Z,
         x=col_labels,
-        y=labels_display,
+        y=labels_sorted,
         zmin=zmin, zmax=zmax,
         colorscale="RdBu",
         reversescale=False,
         colorbar=dict(title="row r", thickness=14, len=0.85),
         hoverinfo="text",
-        text=hover_display,
+        text=hover,
         xgap=1, ygap=1,
     ))
 
@@ -124,8 +117,8 @@ def main():
             x=0.02, xanchor="left",
         ),
         xaxis=dict(tickangle=-30, side="top"),
-        yaxis=dict(title="facet (high → low cohort r)", autorange="reversed",
-                   tickfont=dict(size=11)),
+        yaxis=dict(title="facet (high → low cohort r)",
+                   tickfont=dict(size=11), autorange="reversed"),
         width=900, height=900,
         margin=dict(l=110, r=40, t=170, b=40),
         font=dict(family="Helvetica, Arial, sans-serif"),
@@ -134,7 +127,10 @@ def main():
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(OUT_PATH, include_plotlyjs="cdn")
+    png_path = OUT_PATH.with_suffix(".png")
+    fig.write_image(png_path, width=900, height=900, scale=2)
     print(f"wrote {OUT_PATH}")
+    print(f"wrote {png_path}")
     print(f"  cohort grand mean row-r: {np.nanmean(R):+.3f}")
     print(f"  top 5 facets:    {[(l, f'{m:+.3f}') for l, m in zip(labels_sorted[:5], mean_sorted[:5])]}")
     print(f"  bottom 5 facets: {[(l, f'{m:+.3f}') for l, m in zip(labels_sorted[-5:], mean_sorted[-5:])]}")

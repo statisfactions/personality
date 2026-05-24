@@ -137,7 +137,10 @@ def main():
 
     out = Path("results/facets/ipip_facet_vs_human_dashboard.html")
     fig.write_html(str(out))
+    png_out = out.with_suffix(".png")
+    fig.write_image(str(png_out), width=1500, height=300 * GRID_ROWS + 110, scale=2)
     print(f"Wrote {out}")
+    print(f"Wrote {png_out}")
     print(f"\nCohort mean r vs human (meandiff-pcs extraction): {cohort_r:+.3f}")
     for label, _, sub in panels[1:]:
         print(f"  {label:>8s}: {sub}")
