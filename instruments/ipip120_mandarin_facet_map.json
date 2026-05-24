@@ -1,0 +1,1016 @@
+{
+  "_method": {
+    "source": "Johnson IPIP-NEO-120 canonical scoring (Admin 120 sheet, https://osf.io/ycvdk/). Mandarin item texts: Xu (n.d.) on IPIP.",
+    "trait_cycle": [
+      "N",
+      "E",
+      "O",
+      "A",
+      "C"
+    ],
+    "facet_names_per_trait": {
+      "N": [
+        "Anxiety",
+        "Anger",
+        "Depression",
+        "Self-consciousness",
+        "Immoderation",
+        "Vulnerability"
+      ],
+      "E": [
+        "Friendliness",
+        "Gregariousness",
+        "Assertiveness",
+        "Activity Level",
+        "Excitement-seeking",
+        "Cheerfulness"
+      ],
+      "O": [
+        "Imagination",
+        "Artistic Interests",
+        "Emotionality",
+        "Adventurousness",
+        "Intellect",
+        "Liberalism"
+      ],
+      "A": [
+        "Trust",
+        "Morality",
+        "Altruism",
+        "Cooperation",
+        "Modesty",
+        "Sympathy"
+      ],
+      "C": [
+        "Self-efficacy",
+        "Orderliness",
+        "Dutifulness",
+        "Achievement-striving",
+        "Self-discipline",
+        "Cautiousness"
+      ]
+    }
+  },
+  "items": {
+    "ipip120m_1": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "facet_code": "N1",
+      "pole": "fwd",
+      "text": "为很多事情感到担心",
+      "text_en": "Worry about things"
+    },
+    "ipip120m_2": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "facet_code": "E1",
+      "pole": "fwd",
+      "text": "很容易交到朋友",
+      "text_en": "Make friends easily"
+    },
+    "ipip120m_3": {
+      "trait": "O",
+      "facet": "Imagination",
+      "facet_code": "O1",
+      "pole": "fwd",
+      "text": "有丰富的想象力",
+      "text_en": "Have a vivid imagination"
+    },
+    "ipip120m_4": {
+      "trait": "A",
+      "facet": "Trust",
+      "facet_code": "A1",
+      "pole": "fwd",
+      "text": "信任其他人",
+      "text_en": "Trust others"
+    },
+    "ipip120m_5": {
+      "trait": "C",
+      "facet": "Self-efficacy",
+      "facet_code": "C1",
+      "pole": "fwd",
+      "text": "能成功完成任务",
+      "text_en": "Complete tasks successfully"
+    },
+    "ipip120m_6": {
+      "trait": "N",
+      "facet": "Anger",
+      "facet_code": "N2",
+      "pole": "fwd",
+      "text": "很容易生气",
+      "text_en": "Get angry easily"
+    },
+    "ipip120m_7": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "facet_code": "E2",
+      "pole": "fwd",
+      "text": "喜欢参加大型聚会",
+      "text_en": "Love large parties"
+    },
+    "ipip120m_8": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "facet_code": "O2",
+      "pole": "fwd",
+      "text": "认为艺术是很重要的",
+      "text_en": "Believe in the importance of art"
+    },
+    "ipip120m_9": {
+      "trait": "A",
+      "facet": "Morality",
+      "facet_code": "A2",
+      "pole": "rev",
+      "text": "会利用他人来达成自己的目的",
+      "text_en": "Use others for my own ends"
+    },
+    "ipip120m_10": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "facet_code": "C2",
+      "pole": "fwd",
+      "text": "喜欢整洁",
+      "text_en": "Like to tidy up"
+    },
+    "ipip120m_11": {
+      "trait": "N",
+      "facet": "Depression",
+      "facet_code": "N3",
+      "pole": "fwd",
+      "text": "时常感到忧郁",
+      "text_en": "Often feel blue"
+    },
+    "ipip120m_12": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "facet_code": "E3",
+      "pole": "fwd",
+      "text": "承担责任",
+      "text_en": "Take charge"
+    },
+    "ipip120m_13": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "facet_code": "O3",
+      "pole": "fwd",
+      "text": "能强烈感受到自己的情绪",
+      "text_en": "Experience my emotions intensely"
+    },
+    "ipip120m_14": {
+      "trait": "A",
+      "facet": "Altruism",
+      "facet_code": "A3",
+      "pole": "fwd",
+      "text": "乐于帮助他人",
+      "text_en": "Love to help others"
+    },
+    "ipip120m_15": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "facet_code": "C3",
+      "pole": "fwd",
+      "text": "信守承诺",
+      "text_en": "Keep my promises"
+    },
+    "ipip120m_16": {
+      "trait": "N",
+      "facet": "Self-consciousness",
+      "facet_code": "N4",
+      "pole": "fwd",
+      "text": "感觉自己很难接近别人",
+      "text_en": "Find it difficult to approach others"
+    },
+    "ipip120m_17": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "facet_code": "E4",
+      "pole": "fwd",
+      "text": "总是很忙碌",
+      "text_en": "Am always busy"
+    },
+    "ipip120m_18": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "facet_code": "O4",
+      "pole": "fwd",
+      "text": "相比墨守成规，我更喜欢有变化。",
+      "text_en": "Prefer variety to routine"
+    },
+    "ipip120m_19": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "facet_code": "A4",
+      "pole": "rev",
+      "text": "喜欢和别人比试",
+      "text_en": "Love a good fight"
+    },
+    "ipip120m_20": {
+      "trait": "C",
+      "facet": "Achievement-striving",
+      "facet_code": "C4",
+      "pole": "fwd",
+      "text": "工作努力",
+      "text_en": "Work hard"
+    },
+    "ipip120m_21": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "facet_code": "N5",
+      "pole": "fwd",
+      "text": "大吃大喝寻欢作乐",
+      "text_en": "Go on binges"
+    },
+    "ipip120m_22": {
+      "trait": "E",
+      "facet": "Excitement-seeking",
+      "facet_code": "E5",
+      "pole": "fwd",
+      "text": "喜欢追求刺激",
+      "text_en": "Love excitement"
+    },
+    "ipip120m_23": {
+      "trait": "O",
+      "facet": "Intellect",
+      "facet_code": "O5",
+      "pole": "fwd",
+      "text": "喜欢阅读有挑战性的材料",
+      "text_en": "Love to read challenging material"
+    },
+    "ipip120m_24": {
+      "trait": "A",
+      "facet": "Modesty",
+      "facet_code": "A5",
+      "pole": "rev",
+      "text": "相信自己比别人更好",
+      "text_en": "Believe that I am better than others"
+    },
+    "ipip120m_25": {
+      "trait": "C",
+      "facet": "Self-discipline",
+      "facet_code": "C5",
+      "pole": "fwd",
+      "text": "我总是有所准备",
+      "text_en": "Am always prepared"
+    },
+    "ipip120m_26": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "facet_code": "N6",
+      "pole": "fwd",
+      "text": "容易慌张",
+      "text_en": "Panic easily"
+    },
+    "ipip120m_27": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "facet_code": "E6",
+      "pole": "fwd",
+      "text": "我的快乐会感染周围的人",
+      "text_en": "Radiate joy"
+    },
+    "ipip120m_28": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "facet_code": "O6",
+      "pole": "fwd",
+      "text": "认为自己在政治方面非常自由开放",
+      "text_en": "Tend to vote for liberal political candidates"
+    },
+    "ipip120m_29": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "facet_code": "A6",
+      "pole": "fwd",
+      "text": "同情流浪汉",
+      "text_en": "Sympathize with the homeless"
+    },
+    "ipip120m_30": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "facet_code": "C6",
+      "pole": "rev",
+      "text": "会不经过思考就开始行动",
+      "text_en": "Jump into things without thinking"
+    },
+    "ipip120m_31": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "facet_code": "N1",
+      "pole": "fwd",
+      "text": "担心会发生最糟糕的情况",
+      "text_en": "Fear for the worst"
+    },
+    "ipip120m_32": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "facet_code": "E1",
+      "pole": "fwd",
+      "text": "和其他人待在一起时，我觉得很自在",
+      "text_en": "Feel comfortable around other people"
+    },
+    "ipip120m_33": {
+      "trait": "O",
+      "facet": "Imagination",
+      "facet_code": "O1",
+      "pole": "fwd",
+      "text": "喜欢天马行空地幻想",
+      "text_en": "Enjoy wild flights of fancy"
+    },
+    "ipip120m_34": {
+      "trait": "A",
+      "facet": "Trust",
+      "facet_code": "A1",
+      "pole": "fwd",
+      "text": "相信他人的出发点是好的",
+      "text_en": "Believe that others have good intentions"
+    },
+    "ipip120m_35": {
+      "trait": "C",
+      "facet": "Self-efficacy",
+      "facet_code": "C1",
+      "pole": "fwd",
+      "text": "在自己所从事的领域出类拔萃",
+      "text_en": "Excel in what I do"
+    },
+    "ipip120m_36": {
+      "trait": "N",
+      "facet": "Anger",
+      "facet_code": "N2",
+      "pole": "fwd",
+      "text": "容易被激怒",
+      "text_en": "Get irritated easily"
+    },
+    "ipip120m_37": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "facet_code": "E2",
+      "pole": "fwd",
+      "text": "在聚会上，我会和很多不同的人交谈",
+      "text_en": "Talk to a lot of different people at parties"
+    },
+    "ipip120m_38": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "facet_code": "O2",
+      "pole": "fwd",
+      "text": "我能发现别人看不到的美",
+      "text_en": "See beauty in things that others might not notice"
+    },
+    "ipip120m_39": {
+      "trait": "A",
+      "facet": "Morality",
+      "facet_code": "A2",
+      "pole": "rev",
+      "text": "为了领先别人，我会采用作弊的方式",
+      "text_en": "Cheat to get ahead"
+    },
+    "ipip120m_40": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "facet_code": "C2",
+      "pole": "rev",
+      "text": "经常忘记把东西放回原处",
+      "text_en": "Often forget to put things back in their proper place"
+    },
+    "ipip120m_41": {
+      "trait": "N",
+      "facet": "Depression",
+      "facet_code": "N3",
+      "pole": "fwd",
+      "text": "不喜欢自己",
+      "text_en": "Dislike myself"
+    },
+    "ipip120m_42": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "facet_code": "E3",
+      "pole": "fwd",
+      "text": "我会尝试去领导他人",
+      "text_en": "Try to lead others"
+    },
+    "ipip120m_43": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "facet_code": "O3",
+      "pole": "fwd",
+      "text": "能感受到他人的情绪",
+      "text_en": "Feel others' emotions"
+    },
+    "ipip120m_44": {
+      "trait": "A",
+      "facet": "Altruism",
+      "facet_code": "A3",
+      "pole": "fwd",
+      "text": "关心他人",
+      "text_en": "Am concerned about others"
+    },
+    "ipip120m_45": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "facet_code": "C3",
+      "pole": "fwd",
+      "text": "我会实话实说",
+      "text_en": "Tell the truth"
+    },
+    "ipip120m_46": {
+      "trait": "N",
+      "facet": "Self-consciousness",
+      "facet_code": "N4",
+      "pole": "fwd",
+      "text": "害怕引起他人的注意",
+      "text_en": "Am afraid to draw attention to myself"
+    },
+    "ipip120m_47": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "facet_code": "E4",
+      "pole": "fwd",
+      "text": "总是在奔波",
+      "text_en": "Am always on the go"
+    },
+    "ipip120m_48": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "facet_code": "O4",
+      "pole": "rev",
+      "text": "我更喜欢做自己熟悉的事情",
+      "text_en": "Prefer to stick with things that I know"
+    },
+    "ipip120m_49": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "facet_code": "A4",
+      "pole": "rev",
+      "text": "会冲人大喊大叫",
+      "text_en": "Yell at people"
+    },
+    "ipip120m_50": {
+      "trait": "C",
+      "facet": "Achievement-striving",
+      "facet_code": "C4",
+      "pole": "fwd",
+      "text": "我会超出预期地完成任务或工作",
+      "text_en": "Do more than what's expected of me"
+    },
+    "ipip120m_51": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "facet_code": "N5",
+      "pole": "rev",
+      "text": "很少过度放纵自己",
+      "text_en": "Rarely overindulge"
+    },
+    "ipip120m_52": {
+      "trait": "E",
+      "facet": "Excitement-seeking",
+      "facet_code": "E5",
+      "pole": "fwd",
+      "text": "喜欢冒险",
+      "text_en": "Seek adventure"
+    },
+    "ipip120m_53": {
+      "trait": "O",
+      "facet": "Intellect",
+      "facet_code": "O5",
+      "pole": "rev",
+      "text": "会避免参与关于哲学的讨论",
+      "text_en": "Avoid philosophical discussions"
+    },
+    "ipip120m_54": {
+      "trait": "A",
+      "facet": "Modesty",
+      "facet_code": "A5",
+      "pole": "rev",
+      "text": "觉得自己很了不起",
+      "text_en": "Think highly of myself"
+    },
+    "ipip120m_55": {
+      "trait": "C",
+      "facet": "Self-discipline",
+      "facet_code": "C5",
+      "pole": "fwd",
+      "text": "能执行自己制定的计划",
+      "text_en": "Carry out my plans"
+    },
+    "ipip120m_56": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "facet_code": "N6",
+      "pole": "fwd",
+      "text": "感到被各种事情压得喘不过气来",
+      "text_en": "Become overwhelmed by events"
+    },
+    "ipip120m_57": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "facet_code": "E6",
+      "pole": "fwd",
+      "text": "我的生活很快乐",
+      "text_en": "Have a lot of fun"
+    },
+    "ipip120m_58": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "facet_code": "O6",
+      "pole": "fwd",
+      "text": "相信没有绝对的对错之分",
+      "text_en": "Believe that there is no absolute right or wrong"
+    },
+    "ipip120m_59": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "facet_code": "A6",
+      "pole": "fwd",
+      "text": "我同情那些处境不如自己的人",
+      "text_en": "Feel sympathy for those who are worse off than myself"
+    },
+    "ipip120m_60": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "facet_code": "C6",
+      "pole": "rev",
+      "text": "会做出草率的决定",
+      "text_en": "Make rash decisions"
+    },
+    "ipip120m_61": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "facet_code": "N1",
+      "pole": "fwd",
+      "text": "对很多事情感到害怕",
+      "text_en": "Am afraid of many things"
+    },
+    "ipip120m_62": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "facet_code": "E1",
+      "pole": "rev",
+      "text": "避免和他人接触",
+      "text_en": "Avoid contacts with others"
+    },
+    "ipip120m_63": {
+      "trait": "O",
+      "facet": "Imagination",
+      "facet_code": "O1",
+      "pole": "fwd",
+      "text": "喜欢做白日梦",
+      "text_en": "Love to daydream"
+    },
+    "ipip120m_64": {
+      "trait": "A",
+      "facet": "Trust",
+      "facet_code": "A1",
+      "pole": "fwd",
+      "text": "相信他人说的话",
+      "text_en": "Trust what people say"
+    },
+    "ipip120m_65": {
+      "trait": "C",
+      "facet": "Self-efficacy",
+      "facet_code": "C1",
+      "pole": "fwd",
+      "text": "能轻松完成任务",
+      "text_en": "Handle tasks smoothly"
+    },
+    "ipip120m_66": {
+      "trait": "N",
+      "facet": "Anger",
+      "facet_code": "N2",
+      "pole": "fwd",
+      "text": "发脾气",
+      "text_en": "Lose my temper"
+    },
+    "ipip120m_67": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "facet_code": "E2",
+      "pole": "rev",
+      "text": "更喜欢一个人独处",
+      "text_en": "Prefer to be alone"
+    },
+    "ipip120m_68": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "facet_code": "O2",
+      "pole": "rev",
+      "text": "不喜欢诗歌",
+      "text_en": "Do not like poetry"
+    },
+    "ipip120m_69": {
+      "trait": "A",
+      "facet": "Morality",
+      "facet_code": "A2",
+      "pole": "rev",
+      "text": "占别人的便宜",
+      "text_en": "Take advantage of others"
+    },
+    "ipip120m_70": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "facet_code": "C2",
+      "pole": "rev",
+      "text": "我的房间很乱",
+      "text_en": "Leave a mess in my room"
+    },
+    "ipip120m_71": {
+      "trait": "N",
+      "facet": "Depression",
+      "facet_code": "N3",
+      "pole": "fwd",
+      "text": "经常情绪低落",
+      "text_en": "Am often down in the dumps"
+    },
+    "ipip120m_72": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "facet_code": "E3",
+      "pole": "fwd",
+      "text": "掌控局面",
+      "text_en": "Take control of things"
+    },
+    "ipip120m_73": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "facet_code": "O3",
+      "pole": "rev",
+      "text": "很少察觉到自己的情绪反应",
+      "text_en": "Rarely notice my emotional reactions"
+    },
+    "ipip120m_74": {
+      "trait": "A",
+      "facet": "Altruism",
+      "facet_code": "A3",
+      "pole": "rev",
+      "text": "对他人的感受漠不关心",
+      "text_en": "Am indifferent to the feelings of others"
+    },
+    "ipip120m_75": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "facet_code": "C3",
+      "pole": "rev",
+      "text": "破坏规则",
+      "text_en": "Break rules"
+    },
+    "ipip120m_76": {
+      "trait": "N",
+      "facet": "Self-consciousness",
+      "facet_code": "N4",
+      "pole": "fwd",
+      "text": "只有和朋友在一起的时候我才会感到自在",
+      "text_en": "Only feel comfortable with friends"
+    },
+    "ipip120m_77": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "facet_code": "E4",
+      "pole": "fwd",
+      "text": "我的闲暇时间非常充实",
+      "text_en": "Do a lot in my spare time"
+    },
+    "ipip120m_78": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "facet_code": "O4",
+      "pole": "rev",
+      "text": "不喜欢改变",
+      "text_en": "Dislike changes"
+    },
+    "ipip120m_79": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "facet_code": "A4",
+      "pole": "rev",
+      "text": "侮辱他人",
+      "text_en": "Insult people"
+    },
+    "ipip120m_80": {
+      "trait": "C",
+      "facet": "Achievement-striving",
+      "facet_code": "C4",
+      "pole": "rev",
+      "text": "在工作或学习上，我不会多做，过得去就行",
+      "text_en": "Do just enough work to get by"
+    },
+    "ipip120m_81": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "facet_code": "N5",
+      "pole": "rev",
+      "text": "能轻松抵御诱惑",
+      "text_en": "Easily resist temptations"
+    },
+    "ipip120m_82": {
+      "trait": "E",
+      "facet": "Excitement-seeking",
+      "facet_code": "E5",
+      "pole": "fwd",
+      "text": "喜欢不计后果地行事",
+      "text_en": "Enjoy being reckless"
+    },
+    "ipip120m_83": {
+      "trait": "O",
+      "facet": "Intellect",
+      "facet_code": "O5",
+      "pole": "rev",
+      "text": "理解抽象概念对我来说有些困难",
+      "text_en": "Have difficulty understanding abstract ideas"
+    },
+    "ipip120m_84": {
+      "trait": "A",
+      "facet": "Modesty",
+      "facet_code": "A5",
+      "pole": "rev",
+      "text": "对自己的评价很高",
+      "text_en": "Have a high opinion of myself"
+    },
+    "ipip120m_85": {
+      "trait": "C",
+      "facet": "Self-discipline",
+      "facet_code": "C5",
+      "pole": "rev",
+      "text": "浪费时间",
+      "text_en": "Waste my time"
+    },
+    "ipip120m_86": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "facet_code": "N6",
+      "pole": "fwd",
+      "text": "感觉自己处理事情力不从心",
+      "text_en": "Feel that I'm unable to deal with things"
+    },
+    "ipip120m_87": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "facet_code": "E6",
+      "pole": "fwd",
+      "text": "热爱生活",
+      "text_en": "Love life"
+    },
+    "ipip120m_88": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "facet_code": "O6",
+      "pole": "rev",
+      "text": "我在政治上比较保守",
+      "text_en": "Tend to vote for conservative political candidates"
+    },
+    "ipip120m_89": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "facet_code": "A6",
+      "pole": "rev",
+      "text": "对别人遇到的麻烦事不感兴趣",
+      "text_en": "Am not interested in other people's problems"
+    },
+    "ipip120m_90": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "facet_code": "C6",
+      "pole": "rev",
+      "text": "仓促行事",
+      "text_en": "Rush into things"
+    },
+    "ipip120m_91": {
+      "trait": "N",
+      "facet": "Anxiety",
+      "facet_code": "N1",
+      "pole": "fwd",
+      "text": "我很容易觉得压力大",
+      "text_en": "Get stressed out easily"
+    },
+    "ipip120m_92": {
+      "trait": "E",
+      "facet": "Friendliness",
+      "facet_code": "E1",
+      "pole": "rev",
+      "text": "和他人保持距离",
+      "text_en": "Keep others at a distance"
+    },
+    "ipip120m_93": {
+      "trait": "O",
+      "facet": "Imagination",
+      "facet_code": "O1",
+      "pole": "fwd",
+      "text": "喜欢陷入沉思",
+      "text_en": "Like to get lost in thought"
+    },
+    "ipip120m_94": {
+      "trait": "A",
+      "facet": "Trust",
+      "facet_code": "A1",
+      "pole": "rev",
+      "text": "不相信别人",
+      "text_en": "Distrust people"
+    },
+    "ipip120m_95": {
+      "trait": "C",
+      "facet": "Self-efficacy",
+      "facet_code": "C1",
+      "pole": "fwd",
+      "text": "知道如何完成任务",
+      "text_en": "Know how to get things done"
+    },
+    "ipip120m_96": {
+      "trait": "N",
+      "facet": "Anger",
+      "facet_code": "N2",
+      "pole": "rev",
+      "text": "不会轻易被惹恼",
+      "text_en": "Am not easily annoyed"
+    },
+    "ipip120m_97": {
+      "trait": "E",
+      "facet": "Gregariousness",
+      "facet_code": "E2",
+      "pole": "rev",
+      "text": "避开人多的地方",
+      "text_en": "Avoid crowds"
+    },
+    "ipip120m_98": {
+      "trait": "O",
+      "facet": "Artistic Interests",
+      "facet_code": "O2",
+      "pole": "rev",
+      "text": "不喜欢去美术馆",
+      "text_en": "Do not enjoy going to art museums"
+    },
+    "ipip120m_99": {
+      "trait": "A",
+      "facet": "Morality",
+      "facet_code": "A2",
+      "pole": "rev",
+      "text": "给别人使坏",
+      "text_en": "Obstruct others' plans"
+    },
+    "ipip120m_100": {
+      "trait": "C",
+      "facet": "Orderliness",
+      "facet_code": "C2",
+      "pole": "rev",
+      "text": "我的东西放得到处都是",
+      "text_en": "Leave my belongings around"
+    },
+    "ipip120m_101": {
+      "trait": "N",
+      "facet": "Depression",
+      "facet_code": "N3",
+      "pole": "rev",
+      "text": "对自己感到满意",
+      "text_en": "Feel comfortable with myself"
+    },
+    "ipip120m_102": {
+      "trait": "E",
+      "facet": "Assertiveness",
+      "facet_code": "E3",
+      "pole": "rev",
+      "text": "等着别人来带头",
+      "text_en": "Wait for others to lead the way"
+    },
+    "ipip120m_103": {
+      "trait": "O",
+      "facet": "Emotionality",
+      "facet_code": "O3",
+      "pole": "rev",
+      "text": "不理解那些情绪化的人",
+      "text_en": "Don't understand people who get emotional"
+    },
+    "ipip120m_104": {
+      "trait": "A",
+      "facet": "Altruism",
+      "facet_code": "A3",
+      "pole": "rev",
+      "text": "不愿为他人花费时间",
+      "text_en": "Take no time for others"
+    },
+    "ipip120m_105": {
+      "trait": "C",
+      "facet": "Dutifulness",
+      "facet_code": "C3",
+      "pole": "rev",
+      "text": "违背自己的承诺",
+      "text_en": "Break my promises"
+    },
+    "ipip120m_106": {
+      "trait": "N",
+      "facet": "Self-consciousness",
+      "facet_code": "N4",
+      "pole": "rev",
+      "text": "不会被复杂的社交情境所困扰",
+      "text_en": "Am not bothered by difficult social situations"
+    },
+    "ipip120m_107": {
+      "trait": "E",
+      "facet": "Activity Level",
+      "facet_code": "E4",
+      "pole": "rev",
+      "text": "喜欢慢慢来",
+      "text_en": "Like to take it easy"
+    },
+    "ipip120m_108": {
+      "trait": "O",
+      "facet": "Adventurousness",
+      "facet_code": "O4",
+      "pole": "rev",
+      "text": "我喜欢传统的方式",
+      "text_en": "Am attached to conventional ways"
+    },
+    "ipip120m_109": {
+      "trait": "A",
+      "facet": "Cooperation",
+      "facet_code": "A4",
+      "pole": "rev",
+      "text": "报复别人",
+      "text_en": "Get back at others"
+    },
+    "ipip120m_110": {
+      "trait": "C",
+      "facet": "Achievement-striving",
+      "facet_code": "C4",
+      "pole": "rev",
+      "text": "对工作或学业不怎么投入时间和精力",
+      "text_en": "Put little time and effort into my work"
+    },
+    "ipip120m_111": {
+      "trait": "N",
+      "facet": "Immoderation",
+      "facet_code": "N5",
+      "pole": "rev",
+      "text": "可以控制自己的欲望",
+      "text_en": "Am able to control my cravings"
+    },
+    "ipip120m_112": {
+      "trait": "E",
+      "facet": "Excitement-seeking",
+      "facet_code": "E5",
+      "pole": "fwd",
+      "text": "我的行为狂放不羁",
+      "text_en": "Act wild and crazy"
+    },
+    "ipip120m_113": {
+      "trait": "O",
+      "facet": "Intellect",
+      "facet_code": "O5",
+      "pole": "rev",
+      "text": "对理论性的讨论不感兴趣",
+      "text_en": "Am not interested in theoretical discussions"
+    },
+    "ipip120m_114": {
+      "trait": "A",
+      "facet": "Modesty",
+      "facet_code": "A5",
+      "pole": "rev",
+      "text": "吹嘘自己的美德",
+      "text_en": "Boast about my virtues"
+    },
+    "ipip120m_115": {
+      "trait": "C",
+      "facet": "Self-discipline",
+      "facet_code": "C5",
+      "pole": "rev",
+      "text": "拖很久才开始做一件事",
+      "text_en": "Have difficulty starting tasks"
+    },
+    "ipip120m_116": {
+      "trait": "N",
+      "facet": "Vulnerability",
+      "facet_code": "N6",
+      "pole": "rev",
+      "text": "在压力下能保持冷静",
+      "text_en": "Remain calm under pressure"
+    },
+    "ipip120m_117": {
+      "trait": "E",
+      "facet": "Cheerfulness",
+      "facet_code": "E6",
+      "pole": "fwd",
+      "text": "看到生活中好的一面",
+      "text_en": "Look at the bright side of life"
+    },
+    "ipip120m_118": {
+      "trait": "O",
+      "facet": "Liberalism",
+      "facet_code": "O6",
+      "pole": "rev",
+      "text": "认为我们应该严惩犯罪",
+      "text_en": "Believe that we should be tough on crime"
+    },
+    "ipip120m_119": {
+      "trait": "A",
+      "facet": "Sympathy",
+      "facet_code": "A6",
+      "pole": "rev",
+      "text": "我尽量不去想那些需要帮助的人",
+      "text_en": "Try not to think about the needy"
+    },
+    "ipip120m_120": {
+      "trait": "C",
+      "facet": "Cautiousness",
+      "facet_code": "C6",
+      "pole": "rev",
+      "text": "做事不经过思考",
+      "text_en": "Act without thinking"
+    }
+  }
+}
