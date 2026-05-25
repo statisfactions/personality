@@ -22,8 +22,10 @@ from plotly.subplots import make_subplots
 
 
 COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7",
-                "Gemma27", "Qwen32", "Gemma4"]
-GRID_ROWS = 3
+                "Gemma27", "Qwen32", "Gemma4",
+                # W13 §8.2 outlier models
+                "Aya", "FalconMamba"]
+GRID_ROWS = 4
 GRID_COLS = 4
 
 

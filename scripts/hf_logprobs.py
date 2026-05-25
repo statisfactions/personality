@@ -42,6 +42,10 @@ MODELS: Dict[str, str] = {
     "Gemma4":   "google/gemma-4-31B-it",         # needs transformers >= 5.5
     "Gemma4MoE": "google/gemma-4-26B-A4B-it",    # MoE, MPS untested
     "Qwen36":   "Qwen/Qwen3.6-35B-A3B",          # MoE, thinking-mode default-on
+    # W13 §8.2 outlier models (axis-of-the-models hypothesis test).
+    "Aya":         "CohereLabs/aya-expanse-8b",            # multilingual SFT, 23 langs
+    "FalconMamba": "tiiuae/falcon-mamba-7b-instruct",      # pure SSM, no attention
+    "Chatterbox":  "tventurella/mr_chatterbox_model",      # Nanochat-format, needs custom loader
 }
 
 

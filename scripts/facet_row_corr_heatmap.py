@@ -31,6 +31,9 @@ import plotly.graph_objects as go
 
 COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7",
                 "Gemma27", "Qwen32", "Gemma4"]
+# W13 §8.2 axis-of-the-models outliers — rendered to the right of the cohort
+# mean separator so they don't dilute the cohort baseline statistics.
+EXTRA_MODELS = ["Aya", "FalconMamba"]
 
 OUT_PATH = Path("results/facets/facet_row_corr_heatmap.html")
 
@@ -52,29 +55,37 @@ def main():
 
     model_data = json.load(open("results/facets/ipip_facet_cluster.json"))
 
-    # rows = facets, cols = models; values = row-correlation
+    def row_corrs(model_short):
+        """Return per-facet row correlations for model, in facet_lbls order."""
+        model_lbls = model_data[model_short]["facet_names"]
+        reorder = [model_lbls.index(lbl) for lbl in facet_lbls]
+        M = np.array(model_data[model_short]["cosine_matrix"])[np.ix_(reorder, reorder)]
+        return np.array([row_correlation(H, M, i) for i in range(n_facets)])
+
+    # rows = facets, cols = cohort models
     R = np.full((n_facets, len(COHORT_ORDER)), np.nan)
     for j, m in enumerate(COHORT_ORDER):
-        if m not in model_data:
-            continue
-        model_lbls = model_data[m]["facet_names"]
-        reorder = [model_lbls.index(lbl) for lbl in facet_lbls]
-        M = np.array(model_data[m]["cosine_matrix"])[np.ix_(reorder, reorder)]
-        for i in range(n_facets):
-            R[i, j] = row_correlation(H, M, i)
+        if m in model_data:
+            R[:, j] = row_corrs(m)
 
-    row_mean = np.nanmean(R, axis=1)
+    # Extra models (not part of cohort mean). NaN-fill if missing.
+    extra_present = [m for m in EXTRA_MODELS if m in model_data]
+    R_extra = (np.full((n_facets, len(extra_present)), np.nan) if not extra_present
+               else np.column_stack([row_corrs(m) for m in extra_present]))
+
+    row_mean = np.nanmean(R, axis=1)              # cohort-only mean
     row_sd = np.nanstd(R, axis=1)
-    order = np.argsort(-row_mean)  # descending
+    order = np.argsort(-row_mean)
 
     R_sorted = R[order]
+    R_extra_sorted = R_extra[order]
     mean_sorted = row_mean[order]
     sd_sorted = row_sd[order]
     labels_sorted = [facet_lbls[i] for i in order]
 
-    # Append the row-mean as an eleventh column for visual ranking.
-    Z = np.column_stack([R_sorted, mean_sorted])
-    col_labels = list(COHORT_ORDER) + ["mean"]
+    # Layout: [10 cohort cols | cohort mean | 2 extra cols].
+    Z = np.column_stack([R_sorted, mean_sorted, R_extra_sorted])
+    col_labels = list(COHORT_ORDER) + ["mean"] + extra_present
 
     # Hover text per cell.
     hover = []
@@ -84,6 +95,8 @@ def main():
             v = Z[ri, ci]
             if m == "mean":
                 row_h.append(f"{lbl}<br>cohort mean: {v:+.3f}<br>SD: {sd_sorted[ri]:.3f}")
+            elif m in extra_present:
+                row_h.append(f"{lbl} @ {m} (§8.2 outlier)<br>row r: {v:+.3f}")
             else:
                 row_h.append(f"{lbl} @ {m}<br>row r: {v:+.3f}")
         hover.append(row_h)
@@ -105,8 +118,10 @@ def main():
         xgap=1, ygap=1,
     ))
 
-    # Vertical separator before the "mean" column.
+    # Vertical separators: before the "mean" column AND before §8.2 outliers.
     fig.add_vline(x=len(COHORT_ORDER) - 0.5, line_width=2, line_color="white")
+    if extra_present:
+        fig.add_vline(x=len(COHORT_ORDER) + 0.5, line_width=2, line_color="white")
 
     fig.update_layout(
         title=dict(

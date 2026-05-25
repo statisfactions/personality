@@ -404,9 +404,25 @@ def main():
     Path("results/facets").mkdir(parents=True, exist_ok=True)
     for method, results in per_method_results.items():
         out_path = output_path(method)
+        # Merge new results into existing file rather than overwriting — the
+        # script is normally invoked on a subset of --models, and silently
+        # replacing the file with only that subset has wiped the cohort more
+        # than once.
+        existing = {}
+        if out_path.exists():
+            try:
+                with open(out_path) as f:
+                    existing = json.load(f)
+            except Exception as e:
+                print(f"  WARN: existing {out_path} unreadable ({e}); will overwrite")
+                existing = {}
+        merged = {**existing, **results}
         with open(out_path, "w") as f:
-            json.dump(results, f, indent=2)
-        print(f"\nSaved {out_path}")
+            json.dump(merged, f, indent=2)
+        n_new = len(set(results) - set(existing))
+        n_updated = len(set(results) & set(existing))
+        n_preserved = len(set(existing) - set(results))
+        print(f"\nSaved {out_path}  (+{n_new} new, ~{n_updated} updated, ={n_preserved} preserved)")
 
     # Cross-method summary if multiple methods run
     if len(methods) > 1 and per_method_results[methods[0]]:

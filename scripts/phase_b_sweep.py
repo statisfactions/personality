@@ -62,6 +62,9 @@ MODELS = {
     "Gemma27": "google/gemma-3-27b-it",
     "Qwen32":  "Qwen/Qwen2.5-32B-Instruct",
     "Gemma4":  "google/gemma-4-31B-it",
+    # W13 §8.2 outlier models (axis-of-the-models hypothesis test).
+    "Aya":         "CohereLabs/aya-expanse-8b",
+    "FalconMamba": "tiiuae/falcon-mamba-7b-instruct",
 }
 
 TRAITS = ["H", "E", "X", "A", "C", "O"]

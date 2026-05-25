@@ -425,16 +425,1724 @@
       },
       "k_pcs_at_layer": 6,
       "cos_to_lda": 0.05887095630168915
+    },
+    {
+      "model": "Aya",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 11,
+      "sign_correct_train": 40,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 1.1136473417282104,
+      "snr_hold": 0.865536630153656,
+      "mean_signed_hold": 1.0361042022705078,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          3,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cv_acc": 0.9800000000000001,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 11,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 20,
+      "n_hold": 24,
+      "snr_train": 5.382107063287459,
+      "snr_hold": 1.0977596893547208,
+      "mean_signed_hold": 1.9085704242726826,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          4,
+          6
+        ]
+      },
+      "cos_to_lda": 0.24609882427299318
+    },
+    {
+      "model": "Aya",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.726938247680664,
+      "snr_hold": 1.0016379356384277,
+      "mean_signed_hold": 3.462615966796875,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2818566560745239
+    },
+    {
+      "model": "Aya",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 2.7308554649353027,
+      "snr_hold": 1.0049927234649658,
+      "mean_signed_hold": 3.4652111530303955,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          5,
+          6
+        ],
+        "Modesty": [
+          2,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.28191959857940674
+    },
+    {
+      "model": "Aya",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 6,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.3894264698028564,
+      "snr_hold": 1.4382373094558716,
+      "mean_signed_hold": 0.6469675302505493,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          5,
+          6
+        ],
+        "Dependence": [
+          5,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 6,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 7.0056510945058985,
+      "snr_hold": 2.483129003849666,
+      "mean_signed_hold": 1.7870466982515234,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2908026263394342
+    },
+    {
+      "model": "Aya",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.49758768081665,
+      "snr_hold": 3.6413564682006836,
+      "mean_signed_hold": 4.7281174659729,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.14216771721839905
+    },
+    {
+      "model": "Aya",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 16,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.53166389465332,
+      "snr_hold": 3.674100637435913,
+      "mean_signed_hold": 4.734595775604248,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.14202794432640076
+    },
+    {
+      "model": "Aya",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 32,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.239378809928894,
+      "snr_hold": 1.5189971923828125,
+      "mean_signed_hold": 8.333537101745605,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 32,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 8.116222088394364,
+      "snr_hold": 2.2153946155706485,
+      "mean_signed_hold": 17.935180701730918,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.20157796875880227
+    },
+    {
+      "model": "Aya",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.650287389755249,
+      "snr_hold": 2.263418436050415,
+      "mean_signed_hold": 5.712486267089844,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19947107136249542
+    },
+    {
+      "model": "Aya",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.6466472148895264,
+      "snr_hold": 2.270658254623413,
+      "mean_signed_hold": 5.715500354766846,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.19954900443553925
+    },
+    {
+      "model": "Aya",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 23,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 1.1229078769683838,
+      "snr_hold": 1.2771122455596924,
+      "mean_signed_hold": 2.7460744380950928,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          5,
+          6
+        ],
+        "Flexibility": [
+          4,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 23,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 7.0317342590685366,
+      "snr_hold": 1.6660570002399995,
+      "mean_signed_hold": 5.791957856325958,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2541937412265919
+    },
+    {
+      "model": "Aya",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 30,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.4760072231292725,
+      "snr_hold": 1.4307537078857422,
+      "mean_signed_hold": 11.770042419433594,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          5,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3574906289577484
+    },
+    {
+      "model": "Aya",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 17,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.4575843811035156,
+      "snr_hold": 1.9427952766418457,
+      "mean_signed_hold": 4.058802127838135,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.312343567609787
+    },
+    {
+      "model": "Aya",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 9,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.1711022853851318,
+      "snr_hold": 1.4167407751083374,
+      "mean_signed_hold": 1.1391352415084839,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 9,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.584829255876931,
+      "snr_hold": 1.46687544359481,
+      "mean_signed_hold": 2.0700871597808463,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.20160450382163397
+    },
+    {
+      "model": "Aya",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 32,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.417640209197998,
+      "snr_hold": 1.4386826753616333,
+      "mean_signed_hold": 16.311586380004883,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.12093986570835114
+    },
+    {
+      "model": "Aya",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 32,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 3.51855206489563,
+      "snr_hold": 1.4561556577682495,
+      "mean_signed_hold": 15.007052421569824,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 37,
+      "cos_to_lda": 0.12497977167367935
+    },
+    {
+      "model": "Aya",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 9,
+      "sign_correct_train": 47,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.227160930633545,
+      "snr_hold": 1.6762772798538208,
+      "mean_signed_hold": 0.8747126460075378,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "Aya",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 9,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.081677777060418,
+      "snr_hold": 3.2070815518669757,
+      "mean_signed_hold": 2.0070597745443215,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.26131600888048145
+    },
+    {
+      "model": "Aya",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5289556980133057,
+      "snr_hold": 3.883533000946045,
+      "mean_signed_hold": 3.7100327014923096,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.2804899513721466
+    },
+    {
+      "model": "Aya",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 13,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.5436041355133057,
+      "snr_hold": 3.8789496421813965,
+      "mean_signed_hold": 3.705702543258667,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 1,
+      "cos_to_lda": 0.2807174324989319
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 32,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 1.5166735649108887,
+      "snr_hold": 1.224861979484558,
+      "mean_signed_hold": 0.6488483548164368,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 32,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 23,
+      "n_hold": 24,
+      "snr_train": 4.187604161497788,
+      "snr_hold": 1.227228005984759,
+      "mean_signed_hold": 1.0092531137664702,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          6,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.39917703165568424
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 28,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 21,
+      "n_hold": 24,
+      "snr_train": 2.6189513206481934,
+      "snr_hold": 0.9846828579902649,
+      "mean_signed_hold": 0.6940548419952393,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          4,
+          6
+        ],
+        "Modesty": [
+          5,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4114665985107422
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "H",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 0,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 17,
+      "n_hold": 24,
+      "snr_train": 2.7366480827331543,
+      "snr_hold": 0.707823634147644,
+      "mean_signed_hold": 0.016073109582066536,
+      "per_facet_hold": {
+        "Sincerity": [
+          6,
+          6
+        ],
+        "Fairness": [
+          6,
+          6
+        ],
+        "Greed-Avoidance": [
+          2,
+          6
+        ],
+        "Modesty": [
+          3,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 57,
+      "cos_to_lda": 0.07926686108112335
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 12,
+      "sign_correct_train": 45,
+      "n_train": 50,
+      "sign_correct_hold": 19,
+      "n_hold": 24,
+      "snr_train": 1.155782699584961,
+      "snr_hold": 0.8758668899536133,
+      "mean_signed_hold": 0.03644069656729698,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          5,
+          6
+        ],
+        "Dependence": [
+          2,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 12,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.205039430168133,
+      "snr_hold": 2.0082352585765033,
+      "mean_signed_hold": 0.13370639522327898,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3939426327802763
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.614633083343506,
+      "snr_hold": 2.8982162475585938,
+      "mean_signed_hold": 1.0079689025878906,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.19820868968963623
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "E",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 33,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.556879997253418,
+      "snr_hold": 2.9338598251342773,
+      "mean_signed_hold": 1.587340235710144,
+      "per_facet_hold": {
+        "Fearfulness": [
+          6,
+          6
+        ],
+        "Anxiety": [
+          6,
+          6
+        ],
+        "Dependence": [
+          6,
+          6
+        ],
+        "Sentimentality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 33,
+      "cos_to_lda": 0.1777319759130478
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 24,
+      "sign_correct_train": 44,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.2261433601379395,
+      "snr_hold": 2.0311789512634277,
+      "mean_signed_hold": 0.3216838240623474,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 24,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.996545998932531,
+      "snr_hold": 2.5384626882435466,
+      "mean_signed_hold": 0.6252878230009914,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3475615911551755
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 34,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.198846340179443,
+      "snr_hold": 2.4206292629241943,
+      "mean_signed_hold": 1.7076009511947632,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.3384150266647339
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "X",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 25,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.269633769989014,
+      "snr_hold": 2.834319829940796,
+      "mean_signed_hold": 0.7647466659545898,
+      "per_facet_hold": {
+        "Social Self-Esteem": [
+          6,
+          6
+        ],
+        "Social Boldness": [
+          6,
+          6
+        ],
+        "Sociability": [
+          6,
+          6
+        ],
+        "Liveliness": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 38,
+      "cos_to_lda": 0.4095492362976074
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 40,
+      "sign_correct_train": 43,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.2173289060592651,
+      "snr_hold": 1.4636666774749756,
+      "mean_signed_hold": 1.1916733980178833,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          4,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 40,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 6.56922731307438,
+      "snr_hold": 1.9042954772733214,
+      "mean_signed_hold": 2.3984005009627256,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.30257799638282096
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 39,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.07757568359375,
+      "snr_hold": 1.934437870979309,
+      "mean_signed_hold": 2.1777760982513428,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.4408944249153137
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "A",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 39,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.013638496398926,
+      "snr_hold": 1.969103455543518,
+      "mean_signed_hold": 2.135174036026001,
+      "per_facet_hold": {
+        "Forgiveness": [
+          6,
+          6
+        ],
+        "Gentleness": [
+          6,
+          6
+        ],
+        "Flexibility": [
+          6,
+          6
+        ],
+        "Patience": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 33,
+      "cos_to_lda": 0.44061219692230225
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 18,
+      "sign_correct_train": 46,
+      "n_train": 50,
+      "sign_correct_hold": 22,
+      "n_hold": 24,
+      "snr_train": 1.1881555318832397,
+      "snr_hold": 1.228638768196106,
+      "mean_signed_hold": 0.118143729865551,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          5,
+          6
+        ],
+        "Perfectionism": [
+          5,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 18,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.566924922877705,
+      "snr_hold": 1.5391747329555032,
+      "mean_signed_hold": 0.3209242762512047,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.33904605079296796
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 29,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.9127156734466553,
+      "snr_hold": 1.7062705755233765,
+      "mean_signed_hold": 1.0693995952606201,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.26379209756851196
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "C",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 29,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 4.22930383682251,
+      "snr_hold": 1.785404920578003,
+      "mean_signed_hold": 0.9423181414604187,
+      "per_facet_hold": {
+        "Organization": [
+          6,
+          6
+        ],
+        "Diligence": [
+          6,
+          6
+        ],
+        "Perfectionism": [
+          6,
+          6
+        ],
+        "Prudence": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 35,
+      "cos_to_lda": 0.24899913370609283
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LDA",
+      "layer": 26,
+      "sign_correct_train": 49,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 1.38081955909729,
+      "snr_hold": 3.5404891967773438,
+      "mean_signed_hold": 0.35531678795814514,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cv_acc": 1.0,
+      "cos_to_lda": null
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "LR",
+      "layer": 26,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 5.233953929010486,
+      "snr_hold": 5.420451119947073,
+      "mean_signed_hold": 0.8641454568722035,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.35005850263528443
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-raw",
+      "layer": 19,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.9503233432769775,
+      "snr_hold": 3.916639804840088,
+      "mean_signed_hold": 0.3441542387008667,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "cos_to_lda": 0.31982362270355225
+    },
+    {
+      "model": "FalconMamba",
+      "trait": "O",
+      "format": "chat",
+      "prefix": "generic",
+      "neutral": "scenario_setups",
+      "method": "MD-projected",
+      "layer": 20,
+      "sign_correct_train": 50,
+      "n_train": 50,
+      "sign_correct_hold": 24,
+      "n_hold": 24,
+      "snr_train": 3.600175619125366,
+      "snr_hold": 3.8593599796295166,
+      "mean_signed_hold": 0.32651686668395996,
+      "per_facet_hold": {
+        "Aesthetic Appreciation": [
+          6,
+          6
+        ],
+        "Inquisitiveness": [
+          6,
+          6
+        ],
+        "Creativity": [
+          6,
+          6
+        ],
+        "Unconventionality": [
+          6,
+          6
+        ]
+      },
+      "k_pcs_at_layer": 38,
+      "cos_to_lda": 0.33487793803215027
     }
   ],
   "config": {
     "models": [
-      "Gemma27",
-      "Qwen32",
-      "Gemma4"
+      "Aya",
+      "FalconMamba"
     ],
     "traits": [
-      "H"
+      "H",
+      "E",
+      "X",
+      "A",
+      "C",
+      "O"
     ],
     "formats": [
       "chat"
