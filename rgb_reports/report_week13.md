@@ -21,7 +21,14 @@ simplified (§3.7) — meandiff now projects out the **top PC of the items
 themselves** (the content-free anisotropy axis) rather than the PCs of a
 separate English neutral corpus, which a sensitivity sweep showed is
 comparable-or-better (+0.007 cohort mean), robust by construction, and drops the
-scenario corpus + variance-threshold knob from the method.
+scenario corpus + variance-threshold knob from the method. Finally, the **repr
+layer** (§3.8): cross-language facet *geometry* is language-invariant at the
+120-form's coarse resolution (item-count floor r≈0.54 — so the invariance is
+underpowered, not proven), the genuine drift that clears the floor is in
+**social-warmth facets** (Sympathy, Friendliness), most visibly in the big
+Gemmas, and the pre-registered O:Liberalism political bright-line is a
+controlled **non-finding** (unstable in every condition, drift within noise) —
+the behavioral item-level collapse (§3.3) does not propagate to geometry.
 
 ## 1. Setup
 
@@ -104,6 +111,35 @@ in the outliers (+0.26).
 
 (Details in commit `d7c31eb`; first-pass interpretation in
 `memory/project_w13_82_first_pass.md`.)
+
+### 2.1 N-block coherence scales with size
+
+Reordering the facet-vs-human dashboard by parameter count (so panel position
+tracks scale) made a gradient legible: the **Neuroticism block tightens with
+model size**. Per-model mean pairwise cosine among the 6 N facets ("within-N"):
+
+| model | params | within-N | | model | params | within-N |
+|---|---|---|---|---|---|---|
+| Qwen | 3.1B | 0.369 | | Aya | 8B | 0.305 |
+| Llama | 3.2B | 0.284 | | Llama8 | 8B | 0.300 |
+| Phi4 | 3.8B | 0.232 | | Gemma12 | 12B | 0.391 |
+| Gemma | 4.3B | 0.373 | | Gemma27 | 27B | 0.366 |
+| FalconMamba | 7.3B | **0.197** | | Gemma4 | 31B | 0.390 |
+| Qwen7 | 7.6B | 0.401 | | Qwen32 | 32B | **0.422** |
+
+corr(log-params, within-N) = **+0.50**; small (<12B) mean 0.308 vs big (≥12B)
+mean 0.392 (~27% tighter). N is the dimension whose recovery most visibly
+sharpens with scale — consistent with W9 §7.6 (the N cluster is the most
+faithfully recovered structure cohort-wide) and now with a scale gradient on top.
+
+The trend is real but family/architecture-modulated, not pure scale: Qwen7
+(7.6B) clusters N as tightly as the 31B models (0.401), while Phi4 (0.232) and
+**FalconMamba (0.197, the cohort floor)** are weak-N regardless of size. This
+recontextualizes the §2 FalconMamba read: on the size-mixed dashboard its loose
+N-block *looked* like a representational anomaly because it sat beside the tight
+blocks of the 27–32B models, but it is simply weak-N like the other small/less-
+anisotropic models (Phi4, Llama), not an outlier of a different kind. The
+param-sorted dashboard places it among its 7–8B peers, where it reads correctly.
 
 ## 3. Cross-language: Mandarin IPIP-120
 
@@ -264,16 +300,120 @@ Mandarin this resolves the language-mismatch worry outright: the projected-out
 axis is the language-agnostic anisotropy direction, computed from whichever
 language's items you're scoring.
 
+### 3.8 Cross-language facet geometry: invariance is underpowered, social warmth drifts
+
+Ran the repr layer (`scripts/repr_crosslang.py`, meandiff-itempc1) on the
+English and Mandarin IPIP-120 items for 11 models and compared the 30×30 facet
+cosine geometry across languages. Headline: **at the resolution the 120-item
+form permits, geometry is largely language-invariant — but that resolution is
+coarse, so the invariance is an underpowered null, not a proof.**
+
+**The 4-item form has a hard resolution ceiling (~0.54).** The IPIP-120 puts 4
+items in each facet; for the 9/30 facets that are single-pole in the short form
+(Johnson balanced keying at the trait level, not the facet level — §3.8 footnote)
+the meandiff is undefined and we fall back to facet-mean-minus-item-centroid,
+while the 21 dual-pole facets get a 2-vs-2 meandiff. Both are noisy. We measured
+the cost directly two ways:
+- EN-120 vs EN-300 (same model, same language, different form): cohort mean
+  r = 0.56.
+- The *pure item-count effect* — subset the cached IPIP-300 activations to just
+  the 120 Johnson items and rebuild directions from the **same run** — cohort
+  mean r = **0.539**, nearly identical.
+
+So the form gap is almost entirely the item-count effect, not administration or
+instrument-validity noise: dropping from 10 items/facet to 4 discards ~46% of
+the facet geometry even within the identical activation run. (This answers the
+natural worry that "the two English instruments disagree too much to trust
+either" — they disagree by exactly the amount 4-vs-10 items costs, which is a
+known property of short forms, not a validity failure. It does, however, cap
+the precision of anything built on the 120-form geometry.)
+
+**Counterintuitively, dual-pole facets match *worse* across languages than
+single-pole ones** (cohort EN↔ZH row-r: dual 0.43 vs single 0.56, every model),
+because at 4 items the dual-pole meandiff is only 2-vs-2 while the single-pole
+centroid reference effectively uses all 4 items against a stable origin. The
+paired facets are the noisy part, not the clean part.
+
+**Per-model: 8/11 are language-invariant at this resolution** — EN↔ZH whole-
+matrix r within 0.05 of (or above) the within-language form floor:
+
+| Model | EN↔ZH | form floor | verdict |
+|---|---|---|---|
+| Qwen / Qwen7 / Qwen32 | .560/.601/.604 | .576/.608/.623 | invariant |
+| Aya | .550 | .498 | invariant (exceeds floor) |
+| Gemma / Gemma12 | .523/.607 | .558/.612 | invariant |
+| Phi4 | .426 | .425 | invariant |
+| Llama | .465 | .444 | invariant |
+| Llama8 | .412 | .464 | drifts +0.05 (borderline) |
+| **Gemma27** | **.284** | .460 | **drifts +0.18** |
+| **Gemma4** | **.370** | .591 | **drifts +0.22** |
+
+Because EN↔ZH sits right at the item-count floor for the invariant models, "we
+cannot detect a language effect" is the honest statement — any drift below ~46%
+geometry loss is invisible. The *positive* drifts that exceed the floor are the
+trustworthy signal.
+
+**The genuine cross-language drift is in social-warmth facets, not politics.**
+Computing each facet's language drift against its **own** per-facet form floor
+(genuine = EN↔ZH row-r − EN120-vs-EN300 row-r; negative = drifts beyond form
+noise), the dual-pole facets (method-fair floor) rank:
+
+| facet | EN↔ZH | floor | genuine |
+|---|---|---|---|
+| A:Sympathy | 0.19 | 0.65 | **−0.46** |
+| E:Friendliness | 0.21 | 0.65 | **−0.44** |
+| N:Vulnerability | 0.37 | 0.73 | −0.35 |
+| C:Dutifulness | 0.36 | 0.68 | −0.32 |
+| … | | | |
+| O:Liberalism | 0.16 | 0.29 | −0.14 (middling) |
+
+Sympathy and Friendliness drift far beyond their (high) form floors — models
+rearrange how social warmth relates to the rest of trait space in Mandarin.
+This is the *same facet set* the two big Gemmas drift on at the whole-matrix
+level, so the model-level and facet-level stories coincide: **the cross-language
+geometric effect is social warmth, most visibly in the large Gemmas.**
+
+**The pre-registered O:Liberalism bright-line is *not* supported at the geometry
+level.** O:Liberal had the lowest raw EN↔ZH row-r (0.16), which is why it topped
+the naive drift ranking — but its form floor is also rock-bottom (0.29): it is an
+unstable facet *everywhere*, even within-language across forms (the US-political
+items don't cohere as an Openness facet in any condition — cf. W9 §7.6). Its
+language-*specific* drift (−0.14) is middling, tied with A:Altruism. The item-
+level political-neutrality collapse (§3.3) is real, but it does not propagate
+into a standout facet-geometry drift once per-facet form-noise is controlled.
+This is a clean case where the form floor changed the conclusion: on raw numbers
+O:Liberalism looked like the headline; under control it's a non-finding, and
+Sympathy/Friendliness are the headline instead.
+
+**Repr/behavior dissociation.** Phi4 and Llama collapse to near-uniform Likert in
+Mandarin (§3.1 — no coherent self-*rating*), yet their facet *geometry* is as
+language-stable as their (low) form floor (Phi4 .426 vs .425). The representation
+is language-invariant even where the rating behavior breaks down — the same
+read/write theme as the steering work (representation ≠ enacted behavior).
+
+**Limitation / next.** The powered version of this test needs a Mandarin
+IPIP-300 (10 items/facet) to lift the resolution ceiling from ~0.54 toward the
+~0.95 the full form reaches within-language; only the 120 exists in validated
+translation (Xu). Until then the cross-language claims are: invariance is
+underpowered (true at coarse resolution), the social-warmth drift is robust
+(exceeds the floor), and O:Liberalism is a controlled non-finding.
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
   meandiff-itempc1). Mr. Chatterbox pending the Nanochat loader.
-- Mandarin §3: behavioral (self-rating) layer done for 11 models, both
-  languages. **Repr layer not yet run**, but the method fork is now resolved
-  (§3.7): meandiff-itempc1, top-1 item PC, run per-language on its own items. No
-  neutral corpus, no language mismatch. Ready to wire up.
-- The political-item neutrality collapse (§3.3) is the cleanest single
-  cross-language finding and the most defensible against the neutrality-regression
-  caveat (the *spread* collapses, which is direction-free). Worth foregrounding.
+- Mandarin §3: behavioral (self-rating, §3.1–3.6) and repr (§3.8) layers both
+  done for 11 models, both languages.
+- **Repr headline (§3.8)**: geometry is language-invariant at the 120-form's
+  coarse resolution (item-count floor ~0.54, so invariance is underpowered not
+  proven); the genuine drift that exceeds the floor is in social-warmth facets
+  (Sympathy, Friendliness), most visibly in the big Gemmas; O:Liberalism is a
+  controlled non-finding (unstable everywhere, drift within noise).
+- The **clean powered cross-language repr test is blocked on a Mandarin
+  IPIP-300** (10 items/facet); only the 120 exists in validated translation. A
+  bespoke 300-item translation is the unlock but carries its own
+  translation-validity burden.
+- Item-level political-neutrality collapse (§3.3) is still the cleanest single
+  *behavioral* cross-language finding; it just doesn't propagate to geometry.
 - Widen the language-vs-format control (§3.5) beyond Qwen7 by running bare-text
   on 2–3 more models.
