@@ -26,7 +26,7 @@ LIKERT_TOKENS = ("1", "2", "3", "4", "5")
 MAX_ENTROPY = math.log(len(LIKERT_TOKENS))  # ln(5) ≈ 1.609
 
 
-PROMPT_VARIANTS = [
+PROMPT_VARIANTS_EN = [
     # V0: Original
     ('Rate how accurately each statement describes you.\n'
      '1 = very inaccurate, 2 = moderately inaccurate, 3 = neither, '
@@ -50,6 +50,35 @@ PROMPT_VARIANTS = [
      'Number only.\n\n'
      '"{item_text}"\n'),
 ]
+# Mandarin variants mirror PROMPT_VARIANTS_EN one-for-one. Used for the
+# IPIP-120 Mandarin instrument (instruments/ipip120_mandarin.json). Item
+# text is rendered in Mandarin already; the prompt scaffolding is also
+# Mandarin so the only language switch the model sees is *uniform*.
+PROMPT_VARIANTS_ZH = [
+    # V0: Accuracy framing
+    ('请评价以下陈述对你的描述准确程度。\n'
+     '1 = 非常不准确, 2 = 较不准确, 3 = 一般, '
+     '4 = 较准确, 5 = 非常准确\n'
+     '只回答一个数字。\n\n'
+     '陈述：「{item_text}」\n评分: '),
+    # V1: Agreement framing
+    ('请说明你对以下陈述的同意程度。\n'
+     '1 = 强烈不同意, 2 = 不同意, 3 = 中立, '
+     '4 = 同意, 5 = 强烈同意\n'
+     '只回答一个数字。\n\n'
+     '陈述：「{item_text}」\n评分: '),
+    # V2: Describes-me framing
+    ('以下陈述对你的描述有多好?\n'
+     '1 = 完全不符合, 2 = 略微符合, 3 = 部分符合, '
+     '4 = 基本符合, 5 = 非常符合\n'
+     '只回答一个数字。\n\n'
+     '「{item_text}」\n评分: '),
+    # V3: Terse framing
+    ('自我评价 (1=强烈不同意, 5=强烈同意)。只回答数字。\n\n'
+     '「{item_text}」\n'),
+]
+# Backwards-compat alias.
+PROMPT_VARIANTS = PROMPT_VARIANTS_EN
 
 
 def load_ipip300(session_path):
@@ -118,17 +147,25 @@ def main():
     parser.add_argument("--model", required=True,
                         help="Short name (Gemma/Llama/Phi4/Qwen/...) or HF repo ID")
     parser.add_argument("--items", type=int, default=0,
-                        help="Limit to first N items (0 = all 300)")
+                        help="Limit to first N items (0 = all items)")
+    parser.add_argument("--instrument", type=str, default=ADMIN_SESSION,
+                        help=f"Instrument JSON path (default: {ADMIN_SESSION}). "
+                             "Output filename uses the instrument file's stem.")
+    parser.add_argument("--prompt-set", choices=["en", "zh"], default="en",
+                        help="Prompt language set (en = English, zh = Mandarin). "
+                             "Choose to match the language of the items in --instrument.")
     parser.add_argument("--output", type=str, default=None,
-                        help="Output JSON path (default: results/surveys/<model>_ipip300.json)")
+                        help="Output JSON path (default: results/surveys/<model>_<instrument_stem>.json)")
     parser.add_argument("--variants", action="store_true",
                         help="Run all prompt variants and compute reliability")
     args = parser.parse_args()
 
-    items, scales = load_ipip300(ADMIN_SESSION)
+    items, scales = load_ipip300(args.instrument)
     item_list = list(items.items())
     if args.items > 0:
         item_list = item_list[:args.items]
+
+    variants_for_set = {"en": PROMPT_VARIANTS_EN, "zh": PROMPT_VARIANTS_ZH}[args.prompt_set]
 
     print(f"Model: {args.model}  (HF: {resolve(args.model)})")
     print(f"Items: {len(item_list)} / {len(items)}")
@@ -139,12 +176,12 @@ def main():
     print()
 
     if args.variants:
-        templates = [(f"v{i}", t) for i, t in enumerate(PROMPT_VARIANTS)]
+        templates = [(f"v{i}", t) for i, t in enumerate(variants_for_set)]
         print(f"Running {len(templates)} prompt variants per item "
               f"({len(item_list) * len(templates)} total forward passes)")
         print()
     else:
-        templates = [("v0", PROMPT_VARIANTS[0])]
+        templates = [("v0", variants_for_set[0])]
 
     item_results = {}
     variant_evs = {}
@@ -230,9 +267,10 @@ def main():
     output_path = args.output
     if not output_path:
         safe_model = args.model.replace(":", "_").replace("/", "_")
-        output_dir = Path("results")
-        output_dir.mkdir(exist_ok=True)
-        output_path = output_dir / f"{safe_model}_ipip300.json"
+        instrument_stem = Path(args.instrument).stem
+        output_dir = Path("results/surveys")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / f"{safe_model}_{instrument_stem}.json"
 
     output = {
         "model": args.model,

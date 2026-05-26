@@ -1,0 +1,1732 @@
+{
+  "model": "Llama",
+  "hf_repo": "meta-llama/Llama-3.2-3B-Instruct",
+  "timestamp": "2026-05-24T20:10:02",
+  "n_items": 120,
+  "n_variants": 1,
+  "elapsed_seconds": 1008.4,
+  "scale_scores": {
+    "IPIP120M-N": {
+      "name": "IPIP-NEO-120 Neuroticism (Mandarin)",
+      "n_items": 24,
+      "n_scored": 24,
+      "argmax_mean": 3.125,
+      "ev_mean": 3.1855575833333334,
+      "entropy_mean": 1.0202458333333333
+    },
+    "IPIP120M-E": {
+      "name": "IPIP-NEO-120 Extraversion (Mandarin)",
+      "n_items": 24,
+      "n_scored": 24,
+      "argmax_mean": 3.4166666666666665,
+      "ev_mean": 3.294307708333333,
+      "entropy_mean": 1.0313333333333332
+    },
+    "IPIP120M-O": {
+      "name": "IPIP-NEO-120 Openness (Mandarin)",
+      "n_items": 24,
+      "n_scored": 24,
+      "argmax_mean": 3.25,
+      "ev_mean": 3.1591328749999996,
+      "entropy_mean": 0.9767250000000001
+    },
+    "IPIP120M-A": {
+      "name": "IPIP-NEO-120 Agreeableness (Mandarin)",
+      "n_items": 24,
+      "n_scored": 24,
+      "argmax_mean": 2.7916666666666665,
+      "ev_mean": 2.8393398333333333,
+      "entropy_mean": 1.0303291666666667
+    },
+    "IPIP120M-C": {
+      "name": "IPIP-NEO-120 Conscientiousness (Mandarin)",
+      "n_items": 24,
+      "n_scored": 24,
+      "argmax_mean": 3.25,
+      "ev_mean": 3.121323,
+      "entropy_mean": 1.0117333333333334
+    }
+  },
+  "item_results": {
+    "ipip120m_1": {
+      "item_text": "\u4e3a\u5f88\u591a\u4e8b\u60c5\u611f\u5230\u62c5\u5fc3",
+      "argmax": "4",
+      "expected_value": 3.5434,
+      "entropy": 1.0202,
+      "entropy_normalized": 0.6339,
+      "distribution": {
+        "1": 0.001252,
+        "2": 0.05324,
+        "3": 0.393395,
+        "4": 0.505129,
+        "5": 0.046984
+      }
+    },
+    "ipip120m_2": {
+      "item_text": "\u5f88\u5bb9\u6613\u4ea4\u5230\u670b\u53cb",
+      "argmax": "3",
+      "expected_value": 3.2703,
+      "entropy": 1.0459,
+      "entropy_normalized": 0.6498,
+      "distribution": {
+        "1": 0.001942,
+        "2": 0.106047,
+        "3": 0.538551,
+        "4": 0.326647,
+        "5": 0.026813
+      }
+    },
+    "ipip120m_3": {
+      "item_text": "\u6709\u4e30\u5bcc\u7684\u60f3\u8c61\u529b",
+      "argmax": "4",
+      "expected_value": 3.8218,
+      "entropy": 0.8912,
+      "entropy_normalized": 0.5537,
+      "distribution": {
+        "1": 0.000467,
+        "2": 0.012032,
+        "3": 0.24167,
+        "4": 0.656926,
+        "5": 0.088905
+      }
+    },
+    "ipip120m_4": {
+      "item_text": "\u4fe1\u4efb\u5176\u4ed6\u4eba",
+      "argmax": "4",
+      "expected_value": 3.5341,
+      "entropy": 0.9888,
+      "entropy_normalized": 0.6144,
+      "distribution": {
+        "1": 0.000937,
+        "2": 0.039856,
+        "3": 0.428495,
+        "4": 0.485548,
+        "5": 0.045163
+      }
+    },
+    "ipip120m_5": {
+      "item_text": "\u80fd\u6210\u529f\u5b8c\u6210\u4efb\u52a1",
+      "argmax": "4",
+      "expected_value": 3.8435,
+      "entropy": 0.9397,
+      "entropy_normalized": 0.5839,
+      "distribution": {
+        "1": 0.000847,
+        "2": 0.015013,
+        "3": 0.234842,
+        "4": 0.638367,
+        "5": 0.110931
+      }
+    },
+    "ipip120m_6": {
+      "item_text": "\u5f88\u5bb9\u6613\u751f\u6c14",
+      "argmax": "3",
+      "expected_value": 3.3293,
+      "entropy": 1.0486,
+      "entropy_normalized": 0.6515,
+      "distribution": {
+        "1": 0.001651,
+        "2": 0.090124,
+        "3": 0.518625,
+        "4": 0.356446,
+        "5": 0.033155
+      }
+    },
+    "ipip120m_7": {
+      "item_text": "\u559c\u6b22\u53c2\u52a0\u5927\u578b\u805a\u4f1a",
+      "argmax": "4",
+      "expected_value": 3.6386,
+      "entropy": 0.9799,
+      "entropy_normalized": 0.6088,
+      "distribution": {
+        "1": 0.000714,
+        "2": 0.026798,
+        "3": 0.369941,
+        "4": 0.538261,
+        "5": 0.064286
+      }
+    },
+    "ipip120m_8": {
+      "item_text": "\u8ba4\u4e3a\u827a\u672f\u662f\u5f88\u91cd\u8981\u7684",
+      "argmax": "4",
+      "expected_value": 3.6378,
+      "entropy": 0.95,
+      "entropy_normalized": 0.5903,
+      "distribution": {
+        "1": 0.00082,
+        "2": 0.021154,
+        "3": 0.37496,
+        "4": 0.545564,
+        "5": 0.057502
+      }
+    },
+    "ipip120m_9": {
+      "item_text": "\u4f1a\u5229\u7528\u4ed6\u4eba\u6765\u8fbe\u6210\u81ea\u5df1\u7684\u76ee\u7684",
+      "argmax": "4",
+      "expected_value": 3.7972,
+      "entropy": 0.9333,
+      "entropy_normalized": 0.5799,
+      "distribution": {
+        "1": 0.000591,
+        "2": 0.025131,
+        "3": 0.238434,
+        "4": 0.64813,
+        "5": 0.087715
+      }
+    },
+    "ipip120m_10": {
+      "item_text": "\u559c\u6b22\u6574\u6d01",
+      "argmax": "4",
+      "expected_value": 3.6586,
+      "entropy": 0.931,
+      "entropy_normalized": 0.5784,
+      "distribution": {
+        "1": 0.000524,
+        "2": 0.022294,
+        "3": 0.348735,
+        "4": 0.574967,
+        "5": 0.05348
+      }
+    },
+    "ipip120m_11": {
+      "item_text": "\u65f6\u5e38\u611f\u5230\u5fe7\u90c1",
+      "argmax": "3",
+      "expected_value": 3.436,
+      "entropy": 1.0476,
+      "entropy_normalized": 0.6509,
+      "distribution": {
+        "1": 0.001244,
+        "2": 0.076936,
+        "3": 0.442739,
+        "4": 0.442739,
+        "5": 0.036342
+      }
+    },
+    "ipip120m_12": {
+      "item_text": "\u627f\u62c5\u8d23\u4efb",
+      "argmax": "4",
+      "expected_value": 3.5904,
+      "entropy": 0.9955,
+      "entropy_normalized": 0.6185,
+      "distribution": {
+        "1": 0.000914,
+        "2": 0.044035,
+        "3": 0.368699,
+        "4": 0.536454,
+        "5": 0.049898
+      }
+    },
+    "ipip120m_13": {
+      "item_text": "\u80fd\u5f3a\u70c8\u611f\u53d7\u5230\u81ea\u5df1\u7684\u60c5\u7eea",
+      "argmax": "4",
+      "expected_value": 3.9032,
+      "entropy": 0.8813,
+      "entropy_normalized": 0.5476,
+      "distribution": {
+        "1": 0.000331,
+        "2": 0.00967,
+        "3": 0.194236,
+        "4": 0.677952,
+        "5": 0.11781
+      }
+    },
+    "ipip120m_14": {
+      "item_text": "\u4e50\u4e8e\u5e2e\u52a9\u4ed6\u4eba",
+      "argmax": "4",
+      "expected_value": 3.9923,
+      "entropy": 0.7305,
+      "entropy_normalized": 0.4539,
+      "distribution": {
+        "1": 0.000226,
+        "2": 0.003531,
+        "3": 0.116919,
+        "4": 0.762406,
+        "5": 0.116919
+      }
+    },
+    "ipip120m_15": {
+      "item_text": "\u4fe1\u5b88\u627f\u8bfa",
+      "argmax": "4",
+      "expected_value": 3.8383,
+      "entropy": 0.903,
+      "entropy_normalized": 0.5611,
+      "distribution": {
+        "1": 0.000407,
+        "2": 0.010509,
+        "3": 0.23919,
+        "4": 0.650185,
+        "5": 0.099709
+      }
+    },
+    "ipip120m_16": {
+      "item_text": "\u611f\u89c9\u81ea\u5df1\u5f88\u96be\u63a5\u8fd1\u522b\u4eba",
+      "argmax": "4",
+      "expected_value": 3.5271,
+      "entropy": 0.9754,
+      "entropy_normalized": 0.6061,
+      "distribution": {
+        "1": 0.000648,
+        "2": 0.040081,
+        "3": 0.430908,
+        "4": 0.488283,
+        "5": 0.040081
+      }
+    },
+    "ipip120m_17": {
+      "item_text": "\u603b\u662f\u5f88\u5fd9\u788c",
+      "argmax": "3",
+      "expected_value": 3.3368,
+      "entropy": 1.107,
+      "entropy_normalized": 0.6878,
+      "distribution": {
+        "1": 0.00365,
+        "2": 0.106677,
+        "3": 0.478091,
+        "4": 0.372338,
+        "5": 0.039244
+      }
+    },
+    "ipip120m_18": {
+      "item_text": "\u76f8\u6bd4\u58a8\u5b88\u6210\u89c4\uff0c\u6211\u66f4\u559c\u6b22\u6709\u53d8\u5316\u3002",
+      "argmax": "4",
+      "expected_value": 3.6994,
+      "entropy": 0.9011,
+      "entropy_normalized": 0.5599,
+      "distribution": {
+        "1": 0.000429,
+        "2": 0.016096,
+        "3": 0.323297,
+        "4": 0.603998,
+        "5": 0.056181
+      }
+    },
+    "ipip120m_19": {
+      "item_text": "\u559c\u6b22\u548c\u522b\u4eba\u6bd4\u8bd5",
+      "argmax": "3",
+      "expected_value": 3.4726,
+      "entropy": 1.0032,
+      "entropy_normalized": 0.6233,
+      "distribution": {
+        "1": 0.000773,
+        "2": 0.054208,
+        "3": 0.453881,
+        "4": 0.453881,
+        "5": 0.037257
+      }
+    },
+    "ipip120m_20": {
+      "item_text": "\u5de5\u4f5c\u52aa\u529b",
+      "argmax": "4",
+      "expected_value": 3.5167,
+      "entropy": 1.0131,
+      "entropy_normalized": 0.6295,
+      "distribution": {
+        "1": 0.00105,
+        "2": 0.050597,
+        "3": 0.423646,
+        "4": 0.480054,
+        "5": 0.044652
+      }
+    },
+    "ipip120m_21": {
+      "item_text": "\u5927\u5403\u5927\u559d\u5bfb\u6b22\u4f5c\u4e50",
+      "argmax": "4",
+      "expected_value": 3.9024,
+      "entropy": 1.0384,
+      "entropy_normalized": 0.6452,
+      "distribution": {
+        "1": 0.00129,
+        "2": 0.022871,
+        "3": 0.216994,
+        "4": 0.58985,
+        "5": 0.168995
+      }
+    },
+    "ipip120m_22": {
+      "item_text": "\u559c\u6b22\u8ffd\u6c42\u523a\u6fc0",
+      "argmax": "4",
+      "expected_value": 3.7703,
+      "entropy": 0.9147,
+      "entropy_normalized": 0.5683,
+      "distribution": {
+        "1": 0.000453,
+        "2": 0.019268,
+        "3": 0.265991,
+        "4": 0.63808,
+        "5": 0.076208
+      }
+    },
+    "ipip120m_23": {
+      "item_text": "\u559c\u6b22\u9605\u8bfb\u6709\u6311\u6218\u6027\u7684\u6750\u6599",
+      "argmax": "4",
+      "expected_value": 3.7492,
+      "entropy": 0.8843,
+      "entropy_normalized": 0.5495,
+      "distribution": {
+        "1": 0.000461,
+        "2": 0.019599,
+        "3": 0.270552,
+        "4": 0.64902,
+        "5": 0.060368
+      }
+    },
+    "ipip120m_24": {
+      "item_text": "\u76f8\u4fe1\u81ea\u5df1\u6bd4\u522b\u4eba\u66f4\u597d",
+      "argmax": "4",
+      "expected_value": 3.9241,
+      "entropy": 0.8631,
+      "entropy_normalized": 0.5363,
+      "distribution": {
+        "1": 0.000435,
+        "2": 0.009895,
+        "3": 0.1754,
+        "4": 0.69372,
+        "5": 0.12055
+      }
+    },
+    "ipip120m_25": {
+      "item_text": "\u6211\u603b\u662f\u6709\u6240\u51c6\u5907",
+      "argmax": "4",
+      "expected_value": 3.6146,
+      "entropy": 0.988,
+      "entropy_normalized": 0.6139,
+      "distribution": {
+        "1": 0.001177,
+        "2": 0.034392,
+        "3": 0.369748,
+        "4": 0.53798,
+        "5": 0.056703
+      }
+    },
+    "ipip120m_26": {
+      "item_text": "\u5bb9\u6613\u614c\u5f20",
+      "argmax": "3",
+      "expected_value": 3.4573,
+      "entropy": 1.0424,
+      "entropy_normalized": 0.6477,
+      "distribution": {
+        "1": 0.000973,
+        "2": 0.068202,
+        "3": 0.44473,
+        "4": 0.44473,
+        "5": 0.041366
+      }
+    },
+    "ipip120m_27": {
+      "item_text": "\u6211\u7684\u5feb\u4e50\u4f1a\u611f\u67d3\u5468\u56f4\u7684\u4eba",
+      "argmax": "3",
+      "expected_value": 3.2103,
+      "entropy": 1.2232,
+      "entropy_normalized": 0.76,
+      "distribution": {
+        "1": 0.013022,
+        "2": 0.179769,
+        "3": 0.431244,
+        "4": 0.335853,
+        "5": 0.040112
+      }
+    },
+    "ipip120m_28": {
+      "item_text": "\u8ba4\u4e3a\u81ea\u5df1\u5728\u653f\u6cbb\u65b9\u9762\u975e\u5e38\u81ea\u7531\u5f00\u653e",
+      "argmax": "4",
+      "expected_value": 3.5113,
+      "entropy": 0.978,
+      "entropy_normalized": 0.6077,
+      "distribution": {
+        "1": 0.000942,
+        "2": 0.045376,
+        "3": 0.430511,
+        "4": 0.487833,
+        "5": 0.035339
+      }
+    },
+    "ipip120m_29": {
+      "item_text": "\u540c\u60c5\u6d41\u6d6a\u6c49",
+      "argmax": "3",
+      "expected_value": 3.4267,
+      "entropy": 1.0433,
+      "entropy_normalized": 0.6483,
+      "distribution": {
+        "1": 0.002331,
+        "2": 0.077183,
+        "3": 0.444156,
+        "4": 0.444156,
+        "5": 0.032175
+      }
+    },
+    "ipip120m_30": {
+      "item_text": "\u4f1a\u4e0d\u7ecf\u8fc7\u601d\u8003\u5c31\u5f00\u59cb\u884c\u52a8",
+      "argmax": "4",
+      "expected_value": 3.5495,
+      "entropy": 1.0877,
+      "entropy_normalized": 0.6758,
+      "distribution": {
+        "1": 0.001757,
+        "2": 0.065918,
+        "3": 0.379333,
+        "4": 0.487074,
+        "5": 0.065918
+      }
+    },
+    "ipip120m_31": {
+      "item_text": "\u62c5\u5fc3\u4f1a\u53d1\u751f\u6700\u7cdf\u7cd5\u7684\u60c5\u51b5",
+      "argmax": "4",
+      "expected_value": 3.6073,
+      "entropy": 0.9985,
+      "entropy_normalized": 0.6204,
+      "distribution": {
+        "1": 0.001171,
+        "2": 0.038794,
+        "3": 0.368063,
+        "4": 0.535528,
+        "5": 0.056444
+      }
+    },
+    "ipip120m_32": {
+      "item_text": "\u548c\u5176\u4ed6\u4eba\u5f85\u5728\u4e00\u8d77\u65f6\uff0c\u6211\u89c9\u5f97\u5f88\u81ea\u5728",
+      "argmax": "4",
+      "expected_value": 3.7183,
+      "entropy": 0.9701,
+      "entropy_normalized": 0.6028,
+      "distribution": {
+        "1": 0.000879,
+        "2": 0.022663,
+        "3": 0.312858,
+        "4": 0.584496,
+        "5": 0.079103
+      }
+    },
+    "ipip120m_33": {
+      "item_text": "\u559c\u6b22\u5929\u9a6c\u884c\u7a7a\u5730\u5e7b\u60f3",
+      "argmax": "4",
+      "expected_value": 3.9376,
+      "entropy": 0.9738,
+      "entropy_normalized": 0.6051,
+      "distribution": {
+        "1": 0.000845,
+        "2": 0.019223,
+        "3": 0.182386,
+        "4": 0.636591,
+        "5": 0.160955
+      }
+    },
+    "ipip120m_34": {
+      "item_text": "\u76f8\u4fe1\u4ed6\u4eba\u7684\u51fa\u53d1\u70b9\u662f\u597d\u7684",
+      "argmax": "4",
+      "expected_value": 3.6066,
+      "entropy": 1.0075,
+      "entropy_normalized": 0.626,
+      "distribution": {
+        "1": 0.001219,
+        "2": 0.051826,
+        "3": 0.337948,
+        "4": 0.557182,
+        "5": 0.051826
+      }
+    },
+    "ipip120m_35": {
+      "item_text": "\u5728\u81ea\u5df1\u6240\u4ece\u4e8b\u7684\u9886\u57df\u51fa\u7c7b\u62d4\u8403",
+      "argmax": "4",
+      "expected_value": 3.9519,
+      "entropy": 0.8262,
+      "entropy_normalized": 0.5133,
+      "distribution": {
+        "1": 0.000239,
+        "2": 0.006154,
+        "3": 0.158711,
+        "4": 0.711293,
+        "5": 0.123604
+      }
+    },
+    "ipip120m_36": {
+      "item_text": "\u5bb9\u6613\u88ab\u6fc0\u6012",
+      "argmax": "3",
+      "expected_value": 3.3819,
+      "entropy": 1.0653,
+      "entropy_normalized": 0.6619,
+      "distribution": {
+        "1": 0.001673,
+        "2": 0.091355,
+        "3": 0.463939,
+        "4": 0.409425,
+        "5": 0.033608
+      }
+    },
+    "ipip120m_37": {
+      "item_text": "\u5728\u805a\u4f1a\u4e0a\uff0c\u6211\u4f1a\u548c\u5f88\u591a\u4e0d\u540c\u7684\u4eba\u4ea4\u8c08",
+      "argmax": "4",
+      "expected_value": 3.7093,
+      "entropy": 0.9147,
+      "entropy_normalized": 0.5683,
+      "distribution": {
+        "1": 0.000332,
+        "2": 0.015978,
+        "3": 0.320927,
+        "4": 0.59957,
+        "5": 0.063194
+      }
+    },
+    "ipip120m_38": {
+      "item_text": "\u6211\u80fd\u53d1\u73b0\u522b\u4eba\u770b\u4e0d\u5230\u7684\u7f8e",
+      "argmax": "4",
+      "expected_value": 3.8944,
+      "entropy": 0.9233,
+      "entropy_normalized": 0.5737,
+      "distribution": {
+        "1": 0.000523,
+        "2": 0.010506,
+        "3": 0.211014,
+        "4": 0.64997,
+        "5": 0.127987
+      }
+    },
+    "ipip120m_39": {
+      "item_text": "\u4e3a\u4e86\u9886\u5148\u522b\u4eba\uff0c\u6211\u4f1a\u91c7\u7528\u4f5c\u5f0a\u7684\u65b9\u5f0f",
+      "argmax": "3",
+      "expected_value": 3.1345,
+      "entropy": 1.2036,
+      "entropy_normalized": 0.7478,
+      "distribution": {
+        "1": 0.014983,
+        "2": 0.182532,
+        "3": 0.496174,
+        "4": 0.265583,
+        "5": 0.040728
+      }
+    },
+    "ipip120m_40": {
+      "item_text": "\u7ecf\u5e38\u5fd8\u8bb0\u628a\u4e1c\u897f\u653e\u56de\u539f\u5904",
+      "argmax": "4",
+      "expected_value": 3.5811,
+      "entropy": 1.0075,
+      "entropy_normalized": 0.626,
+      "distribution": {
+        "1": 0.000909,
+        "2": 0.049607,
+        "3": 0.36655,
+        "4": 0.533327,
+        "5": 0.049607
+      }
+    },
+    "ipip120m_41": {
+      "item_text": "\u4e0d\u559c\u6b22\u81ea\u5df1",
+      "argmax": "3",
+      "expected_value": 3.233,
+      "entropy": 1.1491,
+      "entropy_normalized": 0.714,
+      "distribution": {
+        "1": 0.004681,
+        "2": 0.155026,
+        "3": 0.477513,
+        "4": 0.328189,
+        "5": 0.034591
+      }
+    },
+    "ipip120m_42": {
+      "item_text": "\u6211\u4f1a\u5c1d\u8bd5\u53bb\u9886\u5bfc\u4ed6\u4eba",
+      "argmax": "4",
+      "expected_value": 3.6075,
+      "entropy": 0.8976,
+      "entropy_normalized": 0.5577,
+      "distribution": {
+        "1": 0.00035,
+        "2": 0.021654,
+        "3": 0.383828,
+        "4": 0.558466,
+        "5": 0.035702
+      }
+    },
+    "ipip120m_43": {
+      "item_text": "\u80fd\u611f\u53d7\u5230\u4ed6\u4eba\u7684\u60c5\u7eea",
+      "argmax": "4",
+      "expected_value": 3.8272,
+      "entropy": 0.8682,
+      "entropy_normalized": 0.5395,
+      "distribution": {
+        "1": 0.000332,
+        "2": 0.016019,
+        "3": 0.221139,
+        "4": 0.681157,
+        "5": 0.081353
+      }
+    },
+    "ipip120m_44": {
+      "item_text": "\u5173\u5fc3\u4ed6\u4eba",
+      "argmax": "4",
+      "expected_value": 3.6962,
+      "entropy": 0.9385,
+      "entropy_normalized": 0.5831,
+      "distribution": {
+        "1": 0.000615,
+        "2": 0.023073,
+        "3": 0.318519,
+        "4": 0.595072,
+        "5": 0.06272
+      }
+    },
+    "ipip120m_45": {
+      "item_text": "\u6211\u4f1a\u5b9e\u8bdd\u5b9e\u8bf4",
+      "argmax": "4",
+      "expected_value": 3.4808,
+      "entropy": 1.104,
+      "entropy_normalized": 0.6859,
+      "distribution": {
+        "1": 0.003497,
+        "2": 0.079591,
+        "3": 0.404196,
+        "4": 0.458014,
+        "5": 0.054702
+      }
+    },
+    "ipip120m_46": {
+      "item_text": "\u5bb3\u6015\u5f15\u8d77\u4ed6\u4eba\u7684\u6ce8\u610f",
+      "argmax": "4",
+      "expected_value": 3.5515,
+      "entropy": 1.0344,
+      "entropy_normalized": 0.6427,
+      "distribution": {
+        "1": 0.001597,
+        "2": 0.05289,
+        "3": 0.390811,
+        "4": 0.501811,
+        "5": 0.05289
+      }
+    },
+    "ipip120m_47": {
+      "item_text": "\u603b\u662f\u5728\u5954\u6ce2",
+      "argmax": "4",
+      "expected_value": 3.5616,
+      "entropy": 1.0745,
+      "entropy_normalized": 0.6677,
+      "distribution": {
+        "1": 0.00177,
+        "2": 0.058627,
+        "3": 0.382294,
+        "4": 0.490876,
+        "5": 0.066433
+      }
+    },
+    "ipip120m_48": {
+      "item_text": "\u6211\u66f4\u559c\u6b22\u505a\u81ea\u5df1\u719f\u6089\u7684\u4e8b\u60c5",
+      "argmax": "4",
+      "expected_value": 3.6865,
+      "entropy": 0.8678,
+      "entropy_normalized": 0.5392,
+      "distribution": {
+        "1": 0.000339,
+        "2": 0.014412,
+        "3": 0.328025,
+        "4": 0.612831,
+        "5": 0.044393
+      }
+    },
+    "ipip120m_49": {
+      "item_text": "\u4f1a\u51b2\u4eba\u5927\u558a\u5927\u53eb",
+      "argmax": "4",
+      "expected_value": 3.547,
+      "entropy": 1.1749,
+      "entropy_normalized": 0.73,
+      "distribution": {
+        "1": 0.004741,
+        "2": 0.095229,
+        "3": 0.332381,
+        "4": 0.483611,
+        "5": 0.084039
+      }
+    },
+    "ipip120m_50": {
+      "item_text": "\u6211\u4f1a\u8d85\u51fa\u9884\u671f\u5730\u5b8c\u6210\u4efb\u52a1\u6216\u5de5\u4f5c",
+      "argmax": "4",
+      "expected_value": 3.8716,
+      "entropy": 0.9162,
+      "entropy_normalized": 0.5693,
+      "distribution": {
+        "1": 0.0006,
+        "2": 0.013653,
+        "3": 0.213574,
+        "4": 0.657855,
+        "5": 0.114318
+      }
+    },
+    "ipip120m_51": {
+      "item_text": "\u5f88\u5c11\u8fc7\u5ea6\u653e\u7eb5\u81ea\u5df1",
+      "argmax": "4",
+      "expected_value": 3.5976,
+      "entropy": 0.9865,
+      "entropy_normalized": 0.613,
+      "distribution": {
+        "1": 0.001336,
+        "2": 0.039046,
+        "3": 0.370462,
+        "4": 0.539019,
+        "5": 0.050137
+      }
+    },
+    "ipip120m_52": {
+      "item_text": "\u559c\u6b22\u5192\u9669",
+      "argmax": "4",
+      "expected_value": 3.7349,
+      "entropy": 1.0201,
+      "entropy_normalized": 0.6338,
+      "distribution": {
+        "1": 0.001096,
+        "2": 0.028276,
+        "3": 0.303996,
+        "4": 0.567939,
+        "5": 0.098693
+      }
+    },
+    "ipip120m_53": {
+      "item_text": "\u4f1a\u907f\u514d\u53c2\u4e0e\u5173\u4e8e\u54f2\u5b66\u7684\u8ba8\u8bba",
+      "argmax": "3",
+      "expected_value": 3.1454,
+      "entropy": 1.2419,
+      "entropy_normalized": 0.7716,
+      "distribution": {
+        "1": 0.014963,
+        "2": 0.206554,
+        "3": 0.437275,
+        "4": 0.300535,
+        "5": 0.040673
+      }
+    },
+    "ipip120m_54": {
+      "item_text": "\u89c9\u5f97\u81ea\u5df1\u5f88\u4e86\u4e0d\u8d77",
+      "argmax": "3",
+      "expected_value": 3.4631,
+      "entropy": 1.0597,
+      "entropy_normalized": 0.6584,
+      "distribution": {
+        "1": 0.002046,
+        "2": 0.067755,
+        "3": 0.441816,
+        "4": 0.441816,
+        "5": 0.046567
+      }
+    },
+    "ipip120m_55": {
+      "item_text": "\u80fd\u6267\u884c\u81ea\u5df1\u5236\u5b9a\u7684\u8ba1\u5212",
+      "argmax": "4",
+      "expected_value": 3.8919,
+      "entropy": 0.8544,
+      "entropy_normalized": 0.5309,
+      "distribution": {
+        "1": 0.000336,
+        "2": 0.007654,
+        "3": 0.197391,
+        "4": 0.688963,
+        "5": 0.105656
+      }
+    },
+    "ipip120m_56": {
+      "item_text": "\u611f\u5230\u88ab\u5404\u79cd\u4e8b\u60c5\u538b\u5f97\u5598\u4e0d\u8fc7\u6c14\u6765",
+      "argmax": "4",
+      "expected_value": 3.748,
+      "entropy": 0.994,
+      "entropy_normalized": 0.6176,
+      "distribution": {
+        "1": 0.000791,
+        "2": 0.029691,
+        "3": 0.281701,
+        "4": 0.596362,
+        "5": 0.091455
+      }
+    },
+    "ipip120m_57": {
+      "item_text": "\u6211\u7684\u751f\u6d3b\u5f88\u5feb\u4e50",
+      "argmax": "4",
+      "expected_value": 3.6969,
+      "entropy": 1.0789,
+      "entropy_normalized": 0.6704,
+      "distribution": {
+        "1": 0.00279,
+        "2": 0.038509,
+        "3": 0.322429,
+        "4": 0.531595,
+        "5": 0.104677
+      }
+    },
+    "ipip120m_58": {
+      "item_text": "\u76f8\u4fe1\u6ca1\u6709\u7edd\u5bf9\u7684\u5bf9\u9519\u4e4b\u5206",
+      "argmax": "4",
+      "expected_value": 3.9062,
+      "entropy": 0.7768,
+      "entropy_normalized": 0.4827,
+      "distribution": {
+        "1": 0.000281,
+        "2": 0.008204,
+        "3": 0.164787,
+        "4": 0.738524,
+        "5": 0.088204
+      }
+    },
+    "ipip120m_59": {
+      "item_text": "\u6211\u540c\u60c5\u90a3\u4e9b\u5904\u5883\u4e0d\u5982\u81ea\u5df1\u7684\u4eba",
+      "argmax": "4",
+      "expected_value": 3.582,
+      "entropy": 1.0816,
+      "entropy_normalized": 0.672,
+      "distribution": {
+        "1": 0.00291,
+        "2": 0.051578,
+        "3": 0.381111,
+        "4": 0.489356,
+        "5": 0.075045
+      }
+    },
+    "ipip120m_60": {
+      "item_text": "\u4f1a\u505a\u51fa\u8349\u7387\u7684\u51b3\u5b9a",
+      "argmax": "3",
+      "expected_value": 3.4441,
+      "entropy": 0.9878,
+      "entropy_normalized": 0.6137,
+      "distribution": {
+        "1": 0.000777,
+        "2": 0.0617,
+        "3": 0.455902,
+        "4": 0.455902,
+        "5": 0.02572
+      }
+    },
+    "ipip120m_61": {
+      "item_text": "\u5bf9\u5f88\u591a\u4e8b\u60c5\u611f\u5230\u5bb3\u6015",
+      "argmax": "4",
+      "expected_value": 3.524,
+      "entropy": 1.0226,
+      "entropy_normalized": 0.6354,
+      "distribution": {
+        "1": 0.001416,
+        "2": 0.060225,
+        "3": 0.392713,
+        "4": 0.504254,
+        "5": 0.041392
+      }
+    },
+    "ipip120m_62": {
+      "item_text": "\u907f\u514d\u548c\u4ed6\u4eba\u63a5\u89e6",
+      "argmax": "3",
+      "expected_value": 3.4029,
+      "entropy": 1.1444,
+      "entropy_normalized": 0.7111,
+      "distribution": {
+        "1": 0.005278,
+        "2": 0.106019,
+        "3": 0.419312,
+        "4": 0.419312,
+        "5": 0.05008
+      }
+    },
+    "ipip120m_63": {
+      "item_text": "\u559c\u6b22\u505a\u767d\u65e5\u68a6",
+      "argmax": "4",
+      "expected_value": 3.6736,
+      "entropy": 0.9676,
+      "entropy_normalized": 0.6012,
+      "distribution": {
+        "1": 0.000583,
+        "2": 0.02481,
+        "3": 0.342492,
+        "4": 0.564674,
+        "5": 0.067441
+      }
+    },
+    "ipip120m_64": {
+      "item_text": "\u76f8\u4fe1\u4ed6\u4eba\u8bf4\u7684\u8bdd",
+      "argmax": "3",
+      "expected_value": 3.4354,
+      "entropy": 1.0033,
+      "entropy_normalized": 0.6234,
+      "distribution": {
+        "1": 0.00093,
+        "2": 0.057522,
+        "3": 0.481626,
+        "4": 0.425033,
+        "5": 0.034889
+      }
+    },
+    "ipip120m_65": {
+      "item_text": "\u80fd\u8f7b\u677e\u5b8c\u6210\u4efb\u52a1",
+      "argmax": "4",
+      "expected_value": 3.6847,
+      "entropy": 1.0204,
+      "entropy_normalized": 0.634,
+      "distribution": {
+        "1": 0.001363,
+        "2": 0.031019,
+        "3": 0.333482,
+        "4": 0.549819,
+        "5": 0.084317
+      }
+    },
+    "ipip120m_66": {
+      "item_text": "\u53d1\u813e\u6c14",
+      "argmax": "3",
+      "expected_value": 3.4566,
+      "entropy": 1.044,
+      "entropy_normalized": 0.6487,
+      "distribution": {
+        "1": 0.001249,
+        "2": 0.068183,
+        "3": 0.444607,
+        "4": 0.444607,
+        "5": 0.041355
+      }
+    },
+    "ipip120m_67": {
+      "item_text": "\u66f4\u559c\u6b22\u4e00\u4e2a\u4eba\u72ec\u5904",
+      "argmax": "3",
+      "expected_value": 3.4407,
+      "entropy": 1.0185,
+      "entropy_normalized": 0.6328,
+      "distribution": {
+        "1": 0.001728,
+        "2": 0.05721,
+        "3": 0.479014,
+        "4": 0.422728,
+        "5": 0.03932
+      }
+    },
+    "ipip120m_68": {
+      "item_text": "\u4e0d\u559c\u6b22\u8bd7\u6b4c",
+      "argmax": "3",
+      "expected_value": 3.1646,
+      "entropy": 1.2923,
+      "entropy_normalized": 0.803,
+      "distribution": {
+        "1": 0.021233,
+        "2": 0.201455,
+        "3": 0.42648,
+        "4": 0.293115,
+        "5": 0.057718
+      }
+    },
+    "ipip120m_69": {
+      "item_text": "\u5360\u522b\u4eba\u7684\u4fbf\u5b9c",
+      "argmax": "4",
+      "expected_value": 3.5497,
+      "entropy": 1.0624,
+      "entropy_normalized": 0.6601,
+      "distribution": {
+        "1": 0.002021,
+        "2": 0.059074,
+        "3": 0.385211,
+        "4": 0.49462,
+        "5": 0.059074
+      }
+    },
+    "ipip120m_70": {
+      "item_text": "\u6211\u7684\u623f\u95f4\u5f88\u4e71",
+      "argmax": "3",
+      "expected_value": 3.3368,
+      "entropy": 1.107,
+      "entropy_normalized": 0.6878,
+      "distribution": {
+        "1": 0.00365,
+        "2": 0.106677,
+        "3": 0.478091,
+        "4": 0.372338,
+        "5": 0.039244
+      }
+    },
+    "ipip120m_71": {
+      "item_text": "\u7ecf\u5e38\u60c5\u7eea\u4f4e\u843d",
+      "argmax": "4",
+      "expected_value": 3.4423,
+      "entropy": 1.0778,
+      "entropy_normalized": 0.6697,
+      "distribution": {
+        "1": 0.002138,
+        "2": 0.090905,
+        "3": 0.407408,
+        "4": 0.461654,
+        "5": 0.037895
+      }
+    },
+    "ipip120m_72": {
+      "item_text": "\u638c\u63a7\u5c40\u9762",
+      "argmax": "3",
+      "expected_value": 3.4695,
+      "entropy": 0.976,
+      "entropy_normalized": 0.6064,
+      "distribution": {
+        "1": 0.000734,
+        "2": 0.040077,
+        "3": 0.488241,
+        "4": 0.430871,
+        "5": 0.040077
+      }
+    },
+    "ipip120m_73": {
+      "item_text": "\u5f88\u5c11\u5bdf\u89c9\u5230\u81ea\u5df1\u7684\u60c5\u7eea\u53cd\u5e94",
+      "argmax": "4",
+      "expected_value": 3.633,
+      "entropy": 0.946,
+      "entropy_normalized": 0.5878,
+      "distribution": {
+        "1": 0.000671,
+        "2": 0.032308,
+        "3": 0.347343,
+        "4": 0.572671,
+        "5": 0.047008
+      }
+    },
+    "ipip120m_74": {
+      "item_text": "\u5bf9\u4ed6\u4eba\u7684\u611f\u53d7\u6f20\u4e0d\u5173\u5fc3",
+      "argmax": "4",
+      "expected_value": 3.4193,
+      "entropy": 1.1359,
+      "entropy_normalized": 0.7058,
+      "distribution": {
+        "1": 0.003396,
+        "2": 0.112455,
+        "3": 0.392505,
+        "4": 0.444767,
+        "5": 0.046878
+      }
+    },
+    "ipip120m_75": {
+      "item_text": "\u7834\u574f\u89c4\u5219",
+      "argmax": "3",
+      "expected_value": 3.4424,
+      "entropy": 1.0863,
+      "entropy_normalized": 0.675,
+      "distribution": {
+        "1": 0.002751,
+        "2": 0.070957,
+        "3": 0.462699,
+        "4": 0.408331,
+        "5": 0.055262
+      }
+    },
+    "ipip120m_76": {
+      "item_text": "\u53ea\u6709\u548c\u670b\u53cb\u5728\u4e00\u8d77\u7684\u65f6\u5019\u6211\u624d\u4f1a\u611f\u5230\u81ea\u5728",
+      "argmax": "3",
+      "expected_value": 3.4748,
+      "entropy": 0.9815,
+      "entropy_normalized": 0.6098,
+      "distribution": {
+        "1": 0.001003,
+        "2": 0.048348,
+        "3": 0.45871,
+        "4": 0.45871,
+        "5": 0.033229
+      }
+    },
+    "ipip120m_77": {
+      "item_text": "\u6211\u7684\u95f2\u6687\u65f6\u95f4\u975e\u5e38\u5145\u5b9e",
+      "argmax": "3",
+      "expected_value": 2.9279,
+      "entropy": 1.2814,
+      "entropy_normalized": 0.7962,
+      "distribution": {
+        "1": 0.034532,
+        "2": 0.289132,
+        "3": 0.420685,
+        "4": 0.225176,
+        "5": 0.030474
+      }
+    },
+    "ipip120m_78": {
+      "item_text": "\u4e0d\u559c\u6b22\u6539\u53d8",
+      "argmax": "4",
+      "expected_value": 3.4929,
+      "entropy": 1.0442,
+      "entropy_normalized": 0.6488,
+      "distribution": {
+        "1": 0.001932,
+        "2": 0.06399,
+        "3": 0.417269,
+        "4": 0.472828,
+        "5": 0.04398
+      }
+    },
+    "ipip120m_79": {
+      "item_text": "\u4fae\u8fb1\u4ed6\u4eba",
+      "argmax": "4",
+      "expected_value": 3.748,
+      "entropy": 0.882,
+      "entropy_normalized": 0.548,
+      "distribution": {
+        "1": 0.000691,
+        "2": 0.029391,
+        "3": 0.246084,
+        "4": 0.668926,
+        "5": 0.054909
+      }
+    },
+    "ipip120m_80": {
+      "item_text": "\u5728\u5de5\u4f5c\u6216\u5b66\u4e60\u4e0a\uff0c\u6211\u4e0d\u4f1a\u591a\u505a\uff0c\u8fc7\u5f97\u53bb\u5c31\u884c",
+      "argmax": "3",
+      "expected_value": 3.2169,
+      "entropy": 1.0503,
+      "entropy_normalized": 0.6526,
+      "distribution": {
+        "1": 0.002262,
+        "2": 0.123521,
+        "3": 0.553583,
+        "4": 0.296311,
+        "5": 0.024323
+      }
+    },
+    "ipip120m_81": {
+      "item_text": "\u80fd\u8f7b\u677e\u62b5\u5fa1\u8bf1\u60d1",
+      "argmax": "3",
+      "expected_value": 3.3268,
+      "entropy": 1.0541,
+      "entropy_normalized": 0.6549,
+      "distribution": {
+        "1": 0.002719,
+        "2": 0.090027,
+        "3": 0.518071,
+        "4": 0.356064,
+        "5": 0.033119
+      }
+    },
+    "ipip120m_82": {
+      "item_text": "\u559c\u6b22\u4e0d\u8ba1\u540e\u679c\u5730\u884c\u4e8b",
+      "argmax": "4",
+      "expected_value": 3.458,
+      "entropy": 1.1472,
+      "entropy_normalized": 0.7128,
+      "distribution": {
+        "1": 0.003846,
+        "2": 0.099186,
+        "3": 0.392288,
+        "4": 0.444521,
+        "5": 0.060159
+      }
+    },
+    "ipip120m_83": {
+      "item_text": "\u7406\u89e3\u62bd\u8c61\u6982\u5ff5\u5bf9\u6211\u6765\u8bf4\u6709\u4e9b\u56f0\u96be",
+      "argmax": "3",
+      "expected_value": 3.4558,
+      "entropy": 0.9549,
+      "entropy_normalized": 0.5933,
+      "distribution": {
+        "1": 0.000741,
+        "2": 0.040436,
+        "3": 0.492608,
+        "4": 0.434725,
+        "5": 0.031491
+      }
+    },
+    "ipip120m_84": {
+      "item_text": "\u5bf9\u81ea\u5df1\u7684\u8bc4\u4ef7\u5f88\u9ad8",
+      "argmax": "3",
+      "expected_value": 3.317,
+      "entropy": 1.1241,
+      "entropy_normalized": 0.6985,
+      "distribution": {
+        "1": 0.004076,
+        "2": 0.11913,
+        "3": 0.47117,
+        "4": 0.366947,
+        "5": 0.038676
+      }
+    },
+    "ipip120m_85": {
+      "item_text": "\u6d6a\u8d39\u65f6\u95f4",
+      "argmax": "4",
+      "expected_value": 3.4843,
+      "entropy": 1.0974,
+      "entropy_normalized": 0.6818,
+      "distribution": {
+        "1": 0.002124,
+        "2": 0.079701,
+        "3": 0.404753,
+        "4": 0.458645,
+        "5": 0.054777
+      }
+    },
+    "ipip120m_86": {
+      "item_text": "\u611f\u89c9\u81ea\u5df1\u5904\u7406\u4e8b\u60c5\u529b\u4e0d\u4ece\u5fc3",
+      "argmax": "3",
+      "expected_value": 3.4684,
+      "entropy": 1.0302,
+      "entropy_normalized": 0.6401,
+      "distribution": {
+        "1": 0.001259,
+        "2": 0.060657,
+        "3": 0.448198,
+        "4": 0.448198,
+        "5": 0.041689
+      }
+    },
+    "ipip120m_87": {
+      "item_text": "\u70ed\u7231\u751f\u6d3b",
+      "argmax": "4",
+      "expected_value": 3.8746,
+      "entropy": 0.9107,
+      "entropy_normalized": 0.5658,
+      "distribution": {
+        "1": 0.000601,
+        "2": 0.012068,
+        "3": 0.213917,
+        "4": 0.658912,
+        "5": 0.114502
+      }
+    },
+    "ipip120m_88": {
+      "item_text": "\u6211\u5728\u653f\u6cbb\u4e0a\u6bd4\u8f83\u4fdd\u5b88",
+      "argmax": "4",
+      "expected_value": 3.5557,
+      "entropy": 0.9382,
+      "entropy_normalized": 0.5829,
+      "distribution": {
+        "1": 0.000893,
+        "2": 0.033499,
+        "3": 0.408099,
+        "4": 0.52401,
+        "5": 0.033499
+      }
+    },
+    "ipip120m_89": {
+      "item_text": "\u5bf9\u522b\u4eba\u9047\u5230\u7684\u9ebb\u70e6\u4e8b\u4e0d\u611f\u5174\u8da3",
+      "argmax": "4",
+      "expected_value": 3.4752,
+      "entropy": 1.1328,
+      "entropy_normalized": 0.7038,
+      "distribution": {
+        "1": 0.003891,
+        "2": 0.088563,
+        "3": 0.396914,
+        "4": 0.449763,
+        "5": 0.060869
+      }
+    },
+    "ipip120m_90": {
+      "item_text": "\u4ed3\u4fc3\u884c\u4e8b",
+      "argmax": "3",
+      "expected_value": 3.4796,
+      "entropy": 1.0155,
+      "entropy_normalized": 0.631,
+      "distribution": {
+        "1": 0.000988,
+        "2": 0.053929,
+        "3": 0.451542,
+        "4": 0.451542,
+        "5": 0.042
+      }
+    },
+    "ipip120m_91": {
+      "item_text": "\u6211\u5f88\u5bb9\u6613\u89c9\u5f97\u538b\u529b\u5927",
+      "argmax": "3",
+      "expected_value": 3.4412,
+      "entropy": 1.0174,
+      "entropy_normalized": 0.6321,
+      "distribution": {
+        "1": 0.001525,
+        "2": 0.057222,
+        "3": 0.479111,
+        "4": 0.422814,
+        "5": 0.039328
+      }
+    },
+    "ipip120m_92": {
+      "item_text": "\u548c\u4ed6\u4eba\u4fdd\u6301\u8ddd\u79bb",
+      "argmax": "4",
+      "expected_value": 3.5534,
+      "entropy": 1.0069,
+      "entropy_normalized": 0.6256,
+      "distribution": {
+        "1": 0.001112,
+        "2": 0.047287,
+        "3": 0.39593,
+        "4": 0.508384,
+        "5": 0.047287
+      }
+    },
+    "ipip120m_93": {
+      "item_text": "\u559c\u6b22\u9677\u5165\u6c89\u601d",
+      "argmax": "4",
+      "expected_value": 3.6962,
+      "entropy": 0.9067,
+      "entropy_normalized": 0.5634,
+      "distribution": {
+        "1": 0.00026,
+        "2": 0.018203,
+        "3": 0.32266,
+        "4": 0.602808,
+        "5": 0.05607
+      }
+    },
+    "ipip120m_94": {
+      "item_text": "\u4e0d\u76f8\u4fe1\u522b\u4eba",
+      "argmax": "3",
+      "expected_value": 3.3125,
+      "entropy": 1.0665,
+      "entropy_normalized": 0.6626,
+      "distribution": {
+        "1": 0.002093,
+        "2": 0.100866,
+        "3": 0.512239,
+        "4": 0.352056,
+        "5": 0.032746
+      }
+    },
+    "ipip120m_95": {
+      "item_text": "\u77e5\u9053\u5982\u4f55\u5b8c\u6210\u4efb\u52a1",
+      "argmax": "4",
+      "expected_value": 3.7775,
+      "entropy": 0.9021,
+      "entropy_normalized": 0.5605,
+      "distribution": {
+        "1": 0.000584,
+        "2": 0.015068,
+        "3": 0.267095,
+        "4": 0.640728,
+        "5": 0.076524
+      }
+    },
+    "ipip120m_96": {
+      "item_text": "\u4e0d\u4f1a\u8f7b\u6613\u88ab\u60f9\u607c",
+      "argmax": "4",
+      "expected_value": 3.6789,
+      "entropy": 0.9935,
+      "entropy_normalized": 0.6173,
+      "distribution": {
+        "1": 0.00095,
+        "2": 0.027762,
+        "3": 0.33821,
+        "4": 0.557614,
+        "5": 0.075465
+      }
+    },
+    "ipip120m_97": {
+      "item_text": "\u907f\u5f00\u4eba\u591a\u7684\u5730\u65b9",
+      "argmax": "4",
+      "expected_value": 3.7226,
+      "entropy": 0.8988,
+      "entropy_normalized": 0.5584,
+      "distribution": {
+        "1": 0.000647,
+        "2": 0.018913,
+        "3": 0.295856,
+        "4": 0.626326,
+        "5": 0.058257
+      }
+    },
+    "ipip120m_98": {
+      "item_text": "\u4e0d\u559c\u6b22\u53bb\u7f8e\u672f\u9986",
+      "argmax": "3",
+      "expected_value": 3.3922,
+      "entropy": 1.1874,
+      "entropy_normalized": 0.7378,
+      "distribution": {
+        "1": 0.007013,
+        "2": 0.109699,
+        "3": 0.433867,
+        "4": 0.382886,
+        "5": 0.066536
+      }
+    },
+    "ipip120m_99": {
+      "item_text": "\u7ed9\u522b\u4eba\u4f7f\u574f",
+      "argmax": "4",
+      "expected_value": 3.494,
+      "entropy": 1.042,
+      "entropy_normalized": 0.6474,
+      "distribution": {
+        "1": 0.001506,
+        "2": 0.064018,
+        "3": 0.417448,
+        "4": 0.47303,
+        "5": 0.043999
+      }
+    },
+    "ipip120m_100": {
+      "item_text": "\u6211\u7684\u4e1c\u897f\u653e\u5f97\u5230\u5904\u90fd\u662f",
+      "argmax": "3",
+      "expected_value": 3.1847,
+      "entropy": 1.1361,
+      "entropy_normalized": 0.7059,
+      "distribution": {
+        "1": 0.006293,
+        "2": 0.162311,
+        "3": 0.499953,
+        "4": 0.303237,
+        "5": 0.028205
+      }
+    },
+    "ipip120m_101": {
+      "item_text": "\u5bf9\u81ea\u5df1\u611f\u5230\u6ee1\u610f",
+      "argmax": "4",
+      "expected_value": 3.7775,
+      "entropy": 0.9021,
+      "entropy_normalized": 0.5605,
+      "distribution": {
+        "1": 0.000584,
+        "2": 0.015068,
+        "3": 0.267095,
+        "4": 0.640728,
+        "5": 0.076524
+      }
+    },
+    "ipip120m_102": {
+      "item_text": "\u7b49\u7740\u522b\u4eba\u6765\u5e26\u5934",
+      "argmax": "3",
+      "expected_value": 3.0408,
+      "entropy": 1.1293,
+      "entropy_normalized": 0.7017,
+      "distribution": {
+        "1": 0.005863,
+        "2": 0.220024,
+        "3": 0.52781,
+        "4": 0.220024,
+        "5": 0.026278
+      }
+    },
+    "ipip120m_103": {
+      "item_text": "\u4e0d\u7406\u89e3\u90a3\u4e9b\u60c5\u7eea\u5316\u7684\u4eba",
+      "argmax": "3",
+      "expected_value": 3.3365,
+      "entropy": 1.0559,
+      "entropy_normalized": 0.6561,
+      "distribution": {
+        "1": 0.002274,
+        "2": 0.096679,
+        "3": 0.490976,
+        "4": 0.382372,
+        "5": 0.027699
+      }
+    },
+    "ipip120m_104": {
+      "item_text": "\u4e0d\u613f\u4e3a\u4ed6\u4eba\u82b1\u8d39\u65f6\u95f4",
+      "argmax": "4",
+      "expected_value": 3.5982,
+      "entropy": 1.0116,
+      "entropy_normalized": 0.6286,
+      "distribution": {
+        "1": 0.001496,
+        "2": 0.043718,
+        "3": 0.36605,
+        "4": 0.5326,
+        "5": 0.056136
+      }
+    },
+    "ipip120m_105": {
+      "item_text": "\u8fdd\u80cc\u81ea\u5df1\u7684\u627f\u8bfa",
+      "argmax": "4",
+      "expected_value": 3.6089,
+      "entropy": 0.9805,
+      "entropy_normalized": 0.6092,
+      "distribution": {
+        "1": 0.000848,
+        "2": 0.046318,
+        "3": 0.342247,
+        "4": 0.564269,
+        "5": 0.046318
+      }
+    },
+    "ipip120m_106": {
+      "item_text": "\u4e0d\u4f1a\u88ab\u590d\u6742\u7684\u793e\u4ea4\u60c5\u5883\u6240\u56f0\u6270",
+      "argmax": "3",
+      "expected_value": 3.2544,
+      "entropy": 1.1375,
+      "entropy_normalized": 0.7068,
+      "distribution": {
+        "1": 0.0054,
+        "2": 0.13926,
+        "3": 0.486064,
+        "4": 0.334066,
+        "5": 0.03521
+      }
+    },
+    "ipip120m_107": {
+      "item_text": "\u559c\u6b22\u6162\u6162\u6765",
+      "argmax": "4",
+      "expected_value": 3.5894,
+      "entropy": 1.0092,
+      "entropy_normalized": 0.6271,
+      "distribution": {
+        "1": 0.000979,
+        "2": 0.036723,
+        "3": 0.394808,
+        "4": 0.506944,
+        "5": 0.060546
+      }
+    },
+    "ipip120m_108": {
+      "item_text": "\u6211\u559c\u6b22\u4f20\u7edf\u7684\u65b9\u5f0f",
+      "argmax": "4",
+      "expected_value": 3.5719,
+      "entropy": 0.8895,
+      "entropy_normalized": 0.5527,
+      "distribution": {
+        "1": 0.000486,
+        "2": 0.020681,
+        "3": 0.415382,
+        "4": 0.533361,
+        "5": 0.03009
+      }
+    },
+    "ipip120m_109": {
+      "item_text": "\u62a5\u590d\u522b\u4eba",
+      "argmax": "3",
+      "expected_value": 3.2888,
+      "entropy": 1.1291,
+      "entropy_normalized": 0.7015,
+      "distribution": {
+        "1": 0.004031,
+        "2": 0.133482,
+        "3": 0.465897,
+        "4": 0.362841,
+        "5": 0.033749
+      }
+    },
+    "ipip120m_110": {
+      "item_text": "\u5bf9\u5de5\u4f5c\u6216\u5b66\u4e1a\u4e0d\u600e\u4e48\u6295\u5165\u65f6\u95f4\u548c\u7cbe\u529b",
+      "argmax": "4",
+      "expected_value": 3.4677,
+      "entropy": 1.0693,
+      "entropy_normalized": 0.6644,
+      "distribution": {
+        "1": 0.001305,
+        "2": 0.080746,
+        "3": 0.410064,
+        "4": 0.464664,
+        "5": 0.04322
+      }
+    },
+    "ipip120m_111": {
+      "item_text": "\u53ef\u4ee5\u63a7\u5236\u81ea\u5df1\u7684\u6b32\u671b",
+      "argmax": "4",
+      "expected_value": 3.7682,
+      "entropy": 0.8474,
+      "entropy_normalized": 0.5265,
+      "distribution": {
+        "1": 0.00022,
+        "2": 0.009357,
+        "3": 0.273446,
+        "4": 0.655963,
+        "5": 0.061014
+      }
+    },
+    "ipip120m_112": {
+      "item_text": "\u6211\u7684\u884c\u4e3a\u72c2\u653e\u4e0d\u7f81",
+      "argmax": "4",
+      "expected_value": 3.5331,
+      "entropy": 1.0841,
+      "entropy_normalized": 0.6736,
+      "distribution": {
+        "1": 0.00374,
+        "2": 0.066302,
+        "3": 0.38154,
+        "4": 0.489907,
+        "5": 0.058511
+      }
+    },
+    "ipip120m_113": {
+      "item_text": "\u5bf9\u7406\u8bba\u6027\u7684\u8ba8\u8bba\u4e0d\u611f\u5174\u8da3",
+      "argmax": "3",
+      "expected_value": 3.434,
+      "entropy": 1.1369,
+      "entropy_normalized": 0.7064,
+      "distribution": {
+        "1": 0.00414,
+        "2": 0.094217,
+        "3": 0.422249,
+        "4": 0.422249,
+        "5": 0.057145
+      }
+    },
+    "ipip120m_114": {
+      "item_text": "\u5439\u5618\u81ea\u5df1\u7684\u7f8e\u5fb7",
+      "argmax": "4",
+      "expected_value": 3.581,
+      "entropy": 0.9857,
+      "entropy_normalized": 0.6125,
+      "distribution": {
+        "1": 0.001337,
+        "2": 0.044276,
+        "3": 0.370719,
+        "4": 0.539392,
+        "5": 0.044276
+      }
+    },
+    "ipip120m_115": {
+      "item_text": "\u62d6\u5f88\u4e45\u624d\u5f00\u59cb\u505a\u4e00\u4ef6\u4e8b",
+      "argmax": "3",
+      "expected_value": 3.4719,
+      "entropy": 1.073,
+      "entropy_normalized": 0.6667,
+      "distribution": {
+        "1": 0.002304,
+        "2": 0.067319,
+        "3": 0.438975,
+        "4": 0.438975,
+        "5": 0.052428
+      }
+    },
+    "ipip120m_116": {
+      "item_text": "\u5728\u538b\u529b\u4e0b\u80fd\u4fdd\u6301\u51b7\u9759",
+      "argmax": "4",
+      "expected_value": 3.6676,
+      "entropy": 0.9774,
+      "entropy_normalized": 0.6073,
+      "distribution": {
+        "1": 0.000747,
+        "2": 0.028016,
+        "3": 0.341308,
+        "4": 0.562722,
+        "5": 0.067208
+      }
+    },
+    "ipip120m_117": {
+      "item_text": "\u770b\u5230\u751f\u6d3b\u4e2d\u597d\u7684\u4e00\u9762",
+      "argmax": "4",
+      "expected_value": 3.7049,
+      "entropy": 0.9234,
+      "entropy_normalized": 0.5737,
+      "distribution": {
+        "1": 0.000618,
+        "2": 0.018062,
+        "3": 0.320153,
+        "4": 0.598125,
+        "5": 0.063042
+      }
+    },
+    "ipip120m_118": {
+      "item_text": "\u8ba4\u4e3a\u6211\u4eec\u5e94\u8be5\u4e25\u60e9\u72af\u7f6a",
+      "argmax": "4",
+      "expected_value": 3.5699,
+      "entropy": 0.9841,
+      "entropy_normalized": 0.6115,
+      "distribution": {
+        "1": 0.001124,
+        "2": 0.037216,
+        "3": 0.400115,
+        "4": 0.513758,
+        "5": 0.047787
+      }
+    },
+    "ipip120m_119": {
+      "item_text": "\u6211\u5c3d\u91cf\u4e0d\u53bb\u60f3\u90a3\u4e9b\u9700\u8981\u5e2e\u52a9\u7684\u4eba",
+      "argmax": "3",
+      "expected_value": 3.0071,
+      "entropy": 1.1245,
+      "entropy_normalized": 0.6987,
+      "distribution": {
+        "1": 0.01246,
+        "2": 0.220861,
+        "3": 0.529818,
+        "4": 0.220861,
+        "5": 0.015999
+      }
+    },
+    "ipip120m_120": {
+      "item_text": "\u505a\u4e8b\u4e0d\u7ecf\u8fc7\u601d\u8003",
+      "argmax": "3",
+      "expected_value": 2.9504,
+      "entropy": 1.1851,
+      "entropy_normalized": 0.7364,
+      "distribution": {
+        "1": 0.014026,
+        "2": 0.28171,
+        "3": 0.464461,
+        "4": 0.219396,
+        "5": 0.020407
+      }
+    }
+  }
+}
