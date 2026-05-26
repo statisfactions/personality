@@ -66,7 +66,7 @@ def pick_device() -> str:
     return "cpu"
 
 
-def load_model(name_or_repo: str, device: str = None, dtype=None):
+def load_model(name_or_repo: str, device: str | None = None, dtype=None):
     device = device or pick_device()
     dtype = dtype if dtype is not None else torch.bfloat16
     repo = resolve(name_or_repo)
@@ -159,7 +159,7 @@ def likert_distribution(
     else:
         logits = _final_position_logits(model, tok, prompt, device)
     dist = _prob_per_label(logits, ids_map)
-    argmax = max(dist, key=dist.get)
+    argmax = max(dist, key=lambda k: dist[k])
     h = -sum(p * math.log(p) for p in dist.values() if p > 0)
     return dist, argmax, h
 
