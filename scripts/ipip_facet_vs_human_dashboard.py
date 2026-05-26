@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """W9 §7 visualization: side-by-side comparison of model facet cosine matrices
-(meandiff-pcs extraction) against the Johnson IPIP-NEO-300 human facet
+(meandiff-itempc1 extraction; top-1 item PC) against the Johnson IPIP-NEO-300 human facet
 correlation matrix.
 
-12 panels in a 3×4 grid: the human matrix in position (0,0) as the anchor, the
-10 cohort models in the remaining positions (one cell empty), all displayed at
-matched color scale. Each panel title shows the model's Pearson r against the
-human matrix (computed on flattened upper-triangle entries).
+13 panels in a 4×4 grid: the human matrix in position (0,0) as the anchor, the
+10 cohort models + 2 W13 §8.2 outliers (Aya, FalconMamba) in the remaining
+positions (three cells empty), all displayed at matched color scale. Each panel
+title shows the model's Pearson r against the human matrix (flattened
+upper-triangle).
 
 Output: results/facets/ipip_facet_vs_human_dashboard.html
 
@@ -21,10 +22,12 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7",
-                "Gemma27", "Qwen32", "Gemma4",
-                # W13 §8.2 outlier models
-                "Aya", "FalconMamba"]
+# Ordered by parameter count (ascending) so panel position tracks scale; the
+# W13 §8.2 outliers (Aya 8B, FalconMamba 7B) sit among the 7–8B models rather
+# than next to the 27–32B ones.
+COHORT_ORDER = ["Qwen", "Llama", "Phi4", "Gemma",        # 3–4B
+                "FalconMamba", "Qwen7", "Aya", "Llama8",  # 7–8B
+                "Gemma12", "Gemma27", "Gemma4", "Qwen32"] # 12–32B
 GRID_ROWS = 4
 GRID_COLS = 4
 
@@ -107,7 +110,7 @@ def main():
 
     fig.update_layout(
         title=dict(
-            text=(f"W9 §7: Model facet cosine geometry (meandiff-pcs) vs human IPIP-NEO-300 facet correlations "
+            text=(f"W9 §7: Model facet cosine geometry (meandiff-itempc1) vs human IPIP-NEO-300 facet correlations "
                   f"(N={n_human:,}, cohort mean r vs human = {cohort_r:+.3f})"),
             x=0.5, font=dict(size=13),
         ),
@@ -143,7 +146,7 @@ def main():
     fig.write_image(str(png_out), width=1500, height=300 * GRID_ROWS + 110, scale=2)
     print(f"Wrote {out}")
     print(f"Wrote {png_out}")
-    print(f"\nCohort mean r vs human (meandiff-pcs extraction): {cohort_r:+.3f}")
+    print(f"\nCohort mean r vs human (meandiff-itempc1): {cohort_r:+.3f}")
     for label, _, sub in panels[1:]:
         print(f"  {label:>8s}: {sub}")
 

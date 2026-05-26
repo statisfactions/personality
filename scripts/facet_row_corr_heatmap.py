@@ -29,11 +29,16 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-COHORT_ORDER = ["Gemma", "Llama", "Phi4", "Qwen", "Gemma12", "Llama8", "Qwen7",
-                "Gemma27", "Qwen32", "Gemma4"]
-# W13 §8.2 axis-of-the-models outliers — rendered to the right of the cohort
-# mean separator so they don't dilute the cohort baseline statistics.
-EXTRA_MODELS = ["Aya", "FalconMamba"]
+# Display order: all 12 models by parameter count (ascending) so column
+# position tracks scale. The two W13 §8.2 outliers (Aya, FalconMamba) sit
+# among the 7–8B models and are marked with "*"; they are EXCLUDED from the
+# cohort-mean column so they don't dilute the baseline.
+DISPLAY_ORDER = ["Qwen", "Llama", "Phi4", "Gemma",         # 3–4B
+                 "FalconMamba", "Qwen7", "Aya", "Llama8",   # 7–8B
+                 "Gemma12", "Gemma27", "Gemma4", "Qwen32"]  # 12–32B
+COHORT_FOR_MEAN = ["Qwen", "Llama", "Phi4", "Gemma", "Qwen7", "Llama8",
+                   "Gemma12", "Gemma27", "Gemma4", "Qwen32"]   # the original 10
+OUTLIERS = {"Aya", "FalconMamba"}
 
 OUT_PATH = Path("results/facets/facet_row_corr_heatmap.html")
 
@@ -62,41 +67,34 @@ def main():
         M = np.array(model_data[model_short]["cosine_matrix"])[np.ix_(reorder, reorder)]
         return np.array([row_correlation(H, M, i) for i in range(n_facets)])
 
-    # rows = facets, cols = cohort models
-    R = np.full((n_facets, len(COHORT_ORDER)), np.nan)
-    for j, m in enumerate(COHORT_ORDER):
-        if m in model_data:
-            R[:, j] = row_corrs(m)
+    # rows = facets, cols = all 12 models (param-sorted display order)
+    present = [m for m in DISPLAY_ORDER if m in model_data]
+    R_all = np.column_stack([row_corrs(m) for m in present])  # (30, n_models)
 
-    # Extra models (not part of cohort mean). NaN-fill if missing.
-    extra_present = [m for m in EXTRA_MODELS if m in model_data]
-    R_extra = (np.full((n_facets, len(extra_present)), np.nan) if not extra_present
-               else np.column_stack([row_corrs(m) for m in extra_present]))
-
-    row_mean = np.nanmean(R, axis=1)              # cohort-only mean
-    row_sd = np.nanstd(R, axis=1)
+    # Cohort mean/SD computed from the original 10 only (outliers excluded).
+    cohort_cols = [j for j, m in enumerate(present) if m in COHORT_FOR_MEAN]
+    row_mean = np.nanmean(R_all[:, cohort_cols], axis=1)
+    row_sd = np.nanstd(R_all[:, cohort_cols], axis=1)
     order = np.argsort(-row_mean)
 
-    R_sorted = R[order]
-    R_extra_sorted = R_extra[order]
+    R_sorted = R_all[order]
     mean_sorted = row_mean[order]
     sd_sorted = row_sd[order]
     labels_sorted = [facet_lbls[i] for i in order]
 
-    # Layout: [10 cohort cols | cohort mean | 2 extra cols].
-    Z = np.column_stack([R_sorted, mean_sorted, R_extra_sorted])
-    col_labels = list(COHORT_ORDER) + ["mean"] + extra_present
+    # Layout: [12 model cols (param-sorted) | cohort mean]. Outliers marked "*".
+    Z = np.column_stack([R_sorted, mean_sorted])
+    col_labels = [m + ("*" if m in OUTLIERS else "") for m in present] + ["mean"]
 
-    # Hover text per cell.
     hover = []
     for ri, lbl in enumerate(labels_sorted):
         row_h = []
-        for ci, m in enumerate(col_labels):
+        for ci, m in enumerate(present + ["mean"]):
             v = Z[ri, ci]
             if m == "mean":
-                row_h.append(f"{lbl}<br>cohort mean: {v:+.3f}<br>SD: {sd_sorted[ri]:.3f}")
-            elif m in extra_present:
-                row_h.append(f"{lbl} @ {m} (§8.2 outlier)<br>row r: {v:+.3f}")
+                row_h.append(f"{lbl}<br>cohort mean (n=10): {v:+.3f}<br>SD: {sd_sorted[ri]:.3f}")
+            elif m in OUTLIERS:
+                row_h.append(f"{lbl} @ {m} (§8.2 outlier, excl. from mean)<br>row r: {v:+.3f}")
             else:
                 row_h.append(f"{lbl} @ {m}<br>row r: {v:+.3f}")
         hover.append(row_h)
@@ -118,17 +116,15 @@ def main():
         xgap=1, ygap=1,
     ))
 
-    # Vertical separators: before the "mean" column AND before §8.2 outliers.
-    fig.add_vline(x=len(COHORT_ORDER) - 0.5, line_width=2, line_color="white")
-    if extra_present:
-        fig.add_vline(x=len(COHORT_ORDER) + 0.5, line_width=2, line_color="white")
+    # Vertical separator before the "mean" column.
+    fig.add_vline(x=len(present) - 0.5, line_width=2, line_color="white")
 
     fig.update_layout(
         title=dict(
             text=(f"<b>Per-facet row correlation: model cosines vs human (N={n_human:,})</b>"
                   f"<br><sub>For each facet F, Pearson(H[F,¬F], M[F,¬F]) — self-cell excluded. "
-                  f"Rows sorted by cohort mean. Cohort grand mean = {np.nanmean(R):+.3f}."
-                  f"</sub>"),
+                  f"Models ordered by size. Cohort grand mean (n=10) = "
+                  f"{np.nanmean(row_mean):+.3f}. * = §8.2 outlier (excl. from mean).</sub>"),
             x=0.02, xanchor="left",
         ),
         xaxis=dict(tickangle=-30, side="top"),
@@ -146,7 +142,7 @@ def main():
     fig.write_image(png_path, width=900, height=900, scale=2)
     print(f"wrote {OUT_PATH}")
     print(f"wrote {png_path}")
-    print(f"  cohort grand mean row-r: {np.nanmean(R):+.3f}")
+    print(f"  cohort grand mean row-r (n=10): {np.nanmean(row_mean):+.3f}")
     print(f"  top 5 facets:    {[(l, f'{m:+.3f}') for l, m in zip(labels_sorted[:5], mean_sorted[:5])]}")
     print(f"  bottom 5 facets: {[(l, f'{m:+.3f}') for l, m in zip(labels_sorted[-5:], mean_sorted[-5:])]}")
 

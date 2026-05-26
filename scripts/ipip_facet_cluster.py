@@ -72,7 +72,17 @@ FACETS = {
     "C": ["Self-Eff", "Order", "Dutiful", "Achieve", "Discipl",
           "Caution"],
 }
-EXTRACTION_METHODS = ["meandiff-pcs", "single-zero", "single-neutral", "single-pcs", "single-ipip-mean"]
+EXTRACTION_METHODS = ["meandiff-itempc1", "meandiff-pcs", "single-zero",
+                      "single-neutral", "single-pcs", "single-ipip-mean"]
+# meandiff-itempc1 (W13 §3.7, the canonical default as of 2026-05-25):
+#   d_facet = unit(project_out_pcs(mean(fwd) - mean(rev), top-1 PC of item acts))
+# Removes ONLY the single dominant PC (the content-free anisotropy/norm axis),
+# computed from the IPIP item activations themselves — so no neutral corpus and
+# no variance-threshold knob. The W13 §3.7 sweep showed the geometry is
+# insensitive to neutral choice once k=1, and that variable-k over-projects on
+# low-anisotropy models (Phi4/FalconMamba), so this is comparable-or-better
+# (+0.007 cohort-mean r vs human) AND robust by construction. The older
+# meandiff-pcs (neutral PCs, 50%-variance threshold) is kept for back-compat.
 
 
 def safe(s): return s.replace("/", "_")
@@ -240,10 +250,12 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
     needs_neutral_mean = extraction == "single-neutral"
     needs_pcs = extraction in ("meandiff-pcs", "single-pcs")
     needs_ipip_mean = extraction == "single-ipip-mean"
+    needs_item_pc1 = extraction == "meandiff-itempc1"
 
     neutral_mean = None
     pcs = None
     ipip_mean = None
+    item_pc1 = None
     if needs_neutral_mean:
         neutral_mean = neutral_np[:, common_layer, :].mean(axis=0)
     if needs_pcs:
@@ -251,6 +263,13 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
         pcs, _, _ = mdx.compute_pc_projection(neutral_layer_t, 0.5)
     if needs_ipip_mean:
         ipip_mean = acts[:, common_layer, :].mean(axis=0)
+    if needs_item_pc1:
+        # Top-1 PC of the item activations themselves — the dominant
+        # anisotropy axis. compute_pc_projection returns PCs sorted by
+        # variance, so [:1] is the top component regardless of threshold.
+        item_layer_t = torch.from_numpy(acts[:, common_layer, :])
+        all_pcs, _, _ = mdx.compute_pc_projection(item_layer_t, 0.5)
+        item_pc1 = all_pcs[:1]
 
     facet_names = []
     dir_rows = []
@@ -269,6 +288,12 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
                     continue
                 rev_mean = np.mean(polled["rev"], axis=0)
                 d = unit(mdx.project_out_pcs(fwd_mean - rev_mean, pcs))
+            elif extraction == "meandiff-itempc1":
+                if not polled["rev"]:
+                    print(f"  WARNING: facet {t}.{fname} missing reverse items for contrast, skipping")
+                    continue
+                rev_mean = np.mean(polled["rev"], axis=0)
+                d = unit(mdx.project_out_pcs(fwd_mean - rev_mean, item_pc1))
             elif extraction == "single-zero":
                 d = unit(fwd_mean)
             elif extraction == "single-neutral":
@@ -356,8 +381,10 @@ def analyze(model_name, extraction, facet_names, D, common_layer):
 
 
 def output_path(extraction):
-    """Default 'meandiff-pcs' lands at the W8 §9 path; others get a tag."""
-    if extraction == "meandiff-pcs":
+    """The canonical default method lands at the unsuffixed path (consumed by
+    the dashboards); every other method (including the legacy meandiff-pcs)
+    gets a tagged path."""
+    if extraction == "meandiff-itempc1":
         return Path("results/facets/ipip_facet_cluster.json")
     return Path(f"results/facets/ipip_facet_cluster_{extraction}.json")
 
@@ -366,10 +393,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--models", nargs="+", default=["Qwen7"],
                         help="Model names from hf_logprobs.MODELS. Default: Qwen7.")
-    parser.add_argument("--extraction", nargs="+", default=["meandiff-pcs"],
+    parser.add_argument("--extraction", nargs="+", default=["meandiff-itempc1"],
                         choices=EXTRACTION_METHODS + ["all"],
-                        help="One or more extraction methods. 'all' runs all four. "
-                             "Default: meandiff-pcs (W8 §9 behavior).")
+                        help="One or more extraction methods. 'all' runs all of them. "
+                             "Default: meandiff-itempc1 (W13 §3.7; top-1 item PC, "
+                             "no neutral corpus). Legacy: meandiff-pcs.")
     args = parser.parse_args()
 
     methods = EXTRACTION_METHODS if "all" in args.extraction else args.extraction
@@ -390,11 +418,17 @@ def main():
         common_layer = int(round(n_layers * 2 / 3))
         print(f"  Common layer: {common_layer}/{n_layers}")
 
-        try:
-            neutral_np = load_neutral(model)
-        except Exception as e:
-            print(f"  ERROR loading neutral cache for {model}: {e}")
-            continue
+        # Only the neutral-PC / neutral-mean methods need the neutral cache;
+        # meandiff-itempc1, single-zero, single-ipip-mean are self-contained.
+        needs_neutral = any(m in ("meandiff-pcs", "single-neutral", "single-pcs")
+                            for m in methods)
+        neutral_np = None
+        if needs_neutral:
+            try:
+                neutral_np = load_neutral(model)
+            except Exception as e:
+                print(f"  ERROR loading neutral cache for {model}: {e}")
+                continue
 
         for method in methods:
             facet_names, D = build_directions(acts, meta, common_layer, method, neutral_np)
