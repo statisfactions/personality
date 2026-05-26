@@ -45,7 +45,11 @@ MODELS: Dict[str, str] = {
     # W13 §8.2 outlier models (axis-of-the-models hypothesis test).
     "Aya":         "CohereLabs/aya-expanse-8b",            # multilingual SFT, 23 langs
     "FalconMamba": "tiiuae/falcon-mamba-7b-instruct",      # pure SSM, no attention
-    "Chatterbox":  "tventurella/mr_chatterbox_model",      # Nanochat-format, needs custom loader
+    # Mr. Chatterbox (tventurella/mr_chatterbox_model) was the third §8.2 outlier
+    # candidate — a 340M nanochat GPT trained from scratch on 1837–1899 British
+    # text. Struck: the repo ships only the checkpoint, not the custom 32768-vocab
+    # BPE it was trained with, so it's unrunnable as published (token IDs would be
+    # meaningless). Not a loader-effort problem.
 }
 
 

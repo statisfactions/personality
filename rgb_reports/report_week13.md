@@ -401,7 +401,11 @@ underpowered (true at coarse resolution), the social-warmth drift is robust
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
-  meandiff-itempc1). Mr. Chatterbox pending the Nanochat loader.
+  meandiff-itempc1). Mr. Chatterbox struck — the HF repo ships only the
+  nanochat checkpoint, not the custom 32768-vocab BPE it was trained on, so it's
+  unrunnable as published (no tokenizer → meaningless token IDs). Blocked on a
+  missing artifact, not loader effort. Still want an *English* out-of-corpus
+  model for the §8.2 distribution-outlier slot; Chatterbox was the candidate.
 - Mandarin §3: behavioral (self-rating, §3.1–3.6) and repr (§3.8) layers both
   done for 11 models, both languages.
 - **Repr headline (§3.8)**: geometry is language-invariant at the 120-form's
