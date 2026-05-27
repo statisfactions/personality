@@ -480,6 +480,27 @@ lexical structure of the instrument, and our W9 §7 recovery number should be
 read as a measure of *item-set quality*, not of model fidelity. Results in
 `results/facets/embedding_facet_baseline.json`.
 
+**The progenitor and the break point of the lexical hypothesis.** This line
+starts with Cutler & Condon (2022, "Deep Lexical Hypothesis," arXiv:2203.02092)
+— three years before Wulff & Mata and Milano — who recover the survey factor
+structure from transformer representations over psycholexical *adjectives*
+(first three factors congruent at 0.89/0.79/0.79) with one crucial caveat in
+their abstract: **"Neuroticism and Openness are only weakly and inconsistently
+recovered."** That caveat is the same wedge our §3.9 finds from the other side.
+C&C name the strong claim they lean on — "it is the essence of the lexical
+hypothesis that these [semantic vs behavioral] structures are the same" — and
+report N/O as where it fails. Our Cheerf↔N result is a direct counterexample to
+that identity claim at N: the human (behavioral) correlation is **−0.29**, the
+semantic one is positive, and the LLMs side with the semantics. Two independent
+methods land on **N as the break point of the strong lexical hypothesis** —
+which is exactly why the project's stance (the rep/behavior gap is signal, not
+the ~37% "unexplained" variance a pooled recovery-r averages away) is the
+load-bearing one. A per-trait *within-block* check on the §3.9 matrices did not
+cleanly reproduce the N/O deficit (N recovers fine here; C is the soft spot),
+but that measures within-trait facet shape, not C&C's between-trait factor
+congruence — the proper adjective-vs-item adjudication (per-trait cluster
+separability) is unrun.
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
