@@ -501,6 +501,67 @@ but that measures within-trait facet shape, not C&C's between-trait factor
 congruence — the proper adjective-vs-item adjudication (per-trait cluster
 separability) is unrun.
 
+### 3.10 Is the geometry in the token embeddings? (logit-lens) — weak lexical seed, amplified by depth
+
+If §3.9 is right that the facet geometry is item semantics "so close to the
+textual level," a logit-lens intuition (rgb) predicts it should already be in
+the LLM's *token embeddings* — readable before the transformer stack does any
+work. Two tests, both reading existing artifacts.
+
+**Depth sweep on items (`scripts/facet_geometry_layer_sweep.py`).** Rebuilding
+the meandiff-itempc1 facet matrix at *every* layer from the cached IPIP
+activations (layer 0 = HF `hidden_states[0]` = embedding-layer output), then
+correlating each layer's 30×30 matrix to the human matrix:
+
+| | layer 0 | peak | peak layer | 2/3-depth (canonical) |
+|---|---|---|---|---|
+| cohort mean r-to-human | **0.110** | **0.652** | (mid–late) | 0.561 |
+
+Layer 0 is near-floor (0.11); the geometry is *built up with depth*, peaking
+mid-to-late, and the peak layer scales with model size (Phi4/Llama ~12–14,
+Qwen32 ~45, Gemma27 ~62 — bigger models build it deeper). Not a projection
+artifact (raw, no-PC1, is equally low at layer 0). **But this is a sentence-
+composition result, not a test of the prediction:** IPIP items are multi-token,
+mean-pooled, and ~75% diluted by identical chat-template tokens, so layer 0 here
+is a bag-of-token-embeddings of a *sentence* — exactly the representation that
+needs depth to compose. The prediction is about *single tokens*.
+
+**Single-token marker test (`scripts/marker_embedding_geometry.py`).** Read the
+input embedding matrix W_E directly (no forward pass; embedding tensor pulled
+from cached safetensors, fine for the 32B) and look up single-token Big Five
+adjective markers — Saucier (1994) Mini-Markers (Table 2, 40 items; keyed by
+loading sign) and Goldberg (1992) transparent bipolar markers (Appendix B, 35
+pairs). Cohort:
+
+| set | within−across cos | NN-purity | 5-cluster purity | trait-dir \|off-diag\| |
+|---|---|---|---|---|
+| Saucier | +0.038 | 0.66 | 0.53 | 0.054 |
+| Goldberg | +0.032 | 0.67 | 0.42 | 0.090 |
+
+Same-trait markers cluster in W_E in **all 24 model×set cells** (within > across
+everywhere), and a 500-draw label-permutation null confirms it is real and
+significant (w−a several SDs above null; NN-purity 0.46–0.78 vs chance ~0.19;
+p<0.01 even for Qwen7, the weakest). The meandiff trait directions come out
+near-orthogonal, like human Big Five axes. **So the prediction is directionally
+confirmed:** the trait geometry *is* present in the static token embeddings —
+the lexical seed is there, before any composition. But it is **coarse** —
+NN-purity ~0.66, 5-cluster purity ~0.45, far from the clean ~1.0 you'd want, and
+far below the depth-composed geometry (r≈0.65 to the human facet matrix). (Phi4
+is the outlier: its W_E is so anisotropic that everything sits at cosine ~0.81,
+leaving the trait signal a thin +0.02 sliver — consistent with Phi4's other
+peculiarities. Model size does not monotonically help: Qwen32 has the *weakest*
+clustering.)
+
+**Reconciliation.** All three results fit together: the facet geometry is item
+semantics (§3.9); a *seed* of the trait structure is already in the per-token
+embeddings (§3.10 markers, above chance); but turning a multi-token *item* into
+the sharp, human-matching facet geometry requires the transformer stack
+(§3.10 sweep, peaks mid–late). rgb's logit-lens intuition was right in origin —
+the structure starts lexically — and the earlier negative layer-0-on-items
+result was indeed a composition artifact (single tokens show the structure that
+pooled sentences hid). The honest one-liner: **weak lexical seed in W_E,
+substantially amplified by depth.**
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
@@ -532,3 +593,11 @@ separability) is unrun.
   independent). Reframe W9 §7 r as a measure of *item-set quality*, not model
   fidelity. Projecting out PC1 is architecture-specific (harmful for encoders,
   −0.23 on bge). `scripts/embedding_facet_baseline.py`.
+- **Logit-lens / token-embedding test (§3.10) — done.** Facet geometry is
+  near-floor at layer 0 for multi-token items (r=0.11), built up with depth
+  (peak 0.65, deeper for bigger models) — but that's sentence composition. The
+  pure single-token-marker W_E test (Saucier + Goldberg) shows the trait seed
+  IS in the static embeddings (within>across in all 24 cells, p<0.01 vs a
+  permutation null) but coarse (NN-purity ~0.66). Verdict: weak lexical seed,
+  amplified by depth. `scripts/marker_embedding_geometry.py`,
+  `scripts/facet_geometry_layer_sweep.py`.
