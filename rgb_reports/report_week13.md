@@ -398,6 +398,88 @@ translation (Xu). Until then the cross-language claims are: invariance is
 underpowered (true at coarse resolution), the social-warmth drift is robust
 (exceeds the floor), and O:Liberalism is a controlled non-finding.
 
+### 3.9 Embedding baseline: the facet-geometry recovery is item semantics, not model representation
+
+The W9 §7 result — our cohort's 30×30 facet cosine matrix recovers the human
+IPIP-NEO facet *correlation* matrix at cohort-mean r≈0.59 (range 0.40 Phi4 →
+0.64 Qwen32) — has always carried an unstated assumption: that this recovery
+reflects something the *model* represents. Wulff & Mata (2025, *Nat. Hum.
+Behav.*) and Milano et al. (2025, *CRBS*) supply the control it needs: the human
+factor/correlation structure is recoverable from item *text alone* via sentence
+embeddings. So the question (`to_try.md` §19) is whether the model's geometry is
+**excess over an embedding baseline** built the same way.
+
+It is not. `scripts/embedding_facet_baseline.py` embeds the 288 keyed IPIP-300
+items with three encoders, builds a per-facet direction the same way the model
+side does, and correlates the resulting 30×30 cosine matrix against the human
+matrix:
+
+| encoder | r to human | note |
+|---|---|---|
+| **bge-large-en-v1.5** (raw) | **+0.686** | honest; beats every model |
+| Qwen32 (best model) | +0.642 | |
+| **cohort-mean model** | **+0.592** | |
+| **all-mpnet-base-v2** (raw) | **+0.580** | honest; mid-cohort |
+| *dwulff/mpnet-personality* (raw) | *+0.845* | **contaminated** — see below |
+
+A generic retrieval encoder with no personality training (bge-large) recovers
+the human facet covariance from item wording **better than any of our 12
+models**; out-of-the-box MPNet lands mid-cohort. The excess of the model over
+the honest baseline is ≈0 (−0.011 vs MPNet, and negative vs bge). The facet
+geometry the cohort recovers is **in the instrument's wording**, inherited by
+any competent reader of the items — it is not a fingerprint of the LM.
+
+**On projection — a methodological correction (h/t rgb).** The instinct to
+mirror `meandiff-itempc1` and project out the top item-PC is *wrong for
+encoders*. PC1 var-fraction is 0.057 (MPNet) / 0.079 (bge) — distributed and
+content-bearing — nothing like our pre-norm transformers where PC1 ≈ all
+variance with r=1.0 to activation norm (finding #3). Projection is an
+*architecture-specific* denoiser for the norm artifact; applied to bge it
+deletes signal (r-to-human +0.686 raw → +0.459 projected, −0.23). The raw
+(no-projection) baseline is the method-appropriate one for cosine-trained
+encoders. (The numbers above are raw.)
+
+**dwulff is an upper *reference*, not a baseline.** It is `all-mpnet-base-v2`
+fine-tuned with CosineSimilarityLoss on the unsigned empirical correlations of
+200k personality-item pairs — i.e. trained *directly on the target* — so its
++0.845 is contamination, not representation. Two diagnostics confirm the
+mechanism: (a) out-of-the-box MPNet already gets +0.580 with zero personality
+training, so the fine-tune adds +0.26 of *fit to the empirical matrix*, not
+recovery the encoder lacked; (b) the loss is direction-independent (negation-
+blind), and it shows — under keyed-diff (forward−reverse) dwulff's E:Cheerf↔N
+collapses to ≈0 because it cannot distinguish an item from its negation.
+
+**Two pre-registered divergence-matching predictions (rgb, called pre-run) —
+both confirmed.** The sharp test isn't "do embeddings match humans" but "do
+embeddings reproduce the ways our *model* diverges from humans":
+
+- **E:Cheerfulness ↔ N facets.** Humans: **−0.291** (cheerful people are
+  *low*-neuroticism — a behavioral fact). Our cohort: **+0.180** (the W9 §7.6
+  affect-axis merge). Embeddings land **positive** too — mean-pool strongly
+  (MPNet +0.56, bge +0.84), keyed-diff weakly-positive-to-zero. The encoders
+  reproduce the model's *sign flip away from humans*. Reading: the positive
+  Cheerf↔N is a **semantic** adjacency (cheerful/emotional words co-occur) that
+  both the LM and the encoders inherit from text; the human *negative* is a
+  behavioral fact that lives only in response data and is invisible to any text
+  encoder. The model isn't wrong in a model-specific way here — it's reading the
+  lexicon, same as the encoders.
+- **O:Liberalism independence.** Humans 0.124, cohort 0.048, embeddings
+  0.060/0.066 (keyed-diff). Liberalism is an island in the embeddings exactly as
+  it is in the model — consistent with §3.8's controlled non-finding and W9
+  §7.6's "US-political items don't cohere as an Openness facet anywhere."
+
+**What this means for superposition vs embedding geometry** (the project's
+standing question). This is the strongest evidence yet for the embedding-
+geometry side — and for the precise reason: the structure is recoverable
+**across objectives** (autoregressive+alignment LM *and* contrastive encoder
+both land on it), so it lives in the item semantics both consume, not in
+anything alignment-specific. Crucially it is a **model-vs-model null, not
+model-vs-nothing**: it does not say the LM represents nothing, it says the facet
+*covariance geometry* is not a property of the LM specifically — it is in the
+lexical structure of the instrument, and our W9 §7 recovery number should be
+read as a measure of *item-set quality*, not of model fidelity. Results in
+`results/facets/embedding_facet_baseline.json`.
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
@@ -421,3 +503,11 @@ underpowered (true at coarse resolution), the social-warmth drift is robust
   *behavioral* cross-language finding; it just doesn't propagate to geometry.
 - Widen the language-vs-format control (§3.5) beyond Qwen7 by running bare-text
   on 2–3 more models.
+- **Embedding baseline (§3.9) — done.** The W9 §7 facet-geometry recovery
+  (r≈0.59) is fully accounted for by an item-semantics baseline: a generic
+  retrieval encoder (bge-large, +0.686) beats every model; honest MPNet (+0.580)
+  is mid-cohort; excess of model over baseline ≈0. Both pre-registered
+  divergence-matching predictions confirmed (Cheerf↔N positive, Liberalism
+  independent). Reframe W9 §7 r as a measure of *item-set quality*, not model
+  fidelity. Projecting out PC1 is architecture-specific (harmful for encoders,
+  −0.23 on bge). `scripts/embedding_facet_baseline.py`.
