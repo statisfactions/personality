@@ -596,8 +596,25 @@ margin** (mid w−a 0.310 vs 0.089): after centering, the markers' *own* top PC 
 partly trait variance, so removing it over-corrects, whereas the independent
 neutral anisotropy axis removes only the shared junk. This is the W9 `single-pcs`
 lesson reproduced at the single-token scale, and one neutral PC does nearly all
-the work (nPC1 ≈ nPCs50). Gemma recovers fully under centering (mid w−a 0.134 /
-NN 0.70); the lone weak model is Gemma-4-31B (w−a 0.007).
+the work (nPC1 ≈ nPCs50). Gemma-3 recovers fully under centering (mid w−a 0.134 /
+NN 0.70).
+
+**Gemma-4-31B is the diagnostic exception — and it vindicates the neutral axis.**
+Under self-PC1 it looks like a weak outlier (mid w−a 0.007), but that is a method
+artifact, not a model defect. Gemma-4 has **no massive activation** (top mid dim
+|val| 139 vs Gemma-3's ~116,000; zero dims >300) and its anisotropy is
+*distributed* — the neutral mid PC1 explains only **10%** of variance vs Gemma-3's
+**80%**. With no dominant axis, the markers' *own* top PC isn't the anisotropy
+direction (it's trait or noise), so self-PC1 both misses the junk and eats
+signal. The 80%-on-one-axis Gemma-3 models get away with self-PC1 because it
+accidentally grabs the right axis; Gemma-4 doesn't. Switch to the *neutral* axis
+and Gemma-4 falls back in range (Saucier mid_nPC1 w−a 0.092 / NN 0.53). And on
+items — our actual instrument — Gemma-4 is among the *better* models (meandiff
+r=0.616 to human, NN 0.57, purity 0.60, layer-sweep peak 0.706), so the newest
+Gemma is healthy and, by shedding the massive-activation pathology, arguably
+*cleaner* for representation work than Gemma-3. (Residual: Gemma-4's noisier
+Goldberg markers stay weak even under neutral-PC1, 0.012 — distributed anisotropy
+wanting more than one PC for that set.)
 
 **Practical takeaway (for any future neutral/unipolar extraction):
 center + neutral-PC1 is a reasonable first try** — it de-anisotropizes
@@ -605,7 +622,10 @@ massive-activation and rogue-dimension models alike (subtraction handles the
 constant offsets, the neutral axis handles the shared direction without eating
 trait signal), and it reproduces single-token trait geometry from the middle
 layers where naive single-pole extraction (W9 single-zero/-neutral) was
-degenerate.
+degenerate. Caveat: where anisotropy is *distributed* rather than rank-1
+(Gemma-4: PC1 only 10% of variance), one PC under-cleans and meandiff/more PCs
+may be needed — the single-token bare-stimulus probe stresses this, but item
+meandiff is unaffected.
 
 ## 4. Status / next
 
