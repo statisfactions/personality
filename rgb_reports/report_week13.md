@@ -562,6 +562,51 @@ result was indeed a composition artifact (single tokens show the structure that
 pooled sentences hid). The honest one-liner: **weak lexical seed in W_E,
 substantially amplified by depth.**
 
+**Matched W_E-vs-mid test, and a massive-activation trap
+(`scripts/marker_layer_compare.py`).** To pin "depth amplifies" on matched
+stimuli, we ran the *same* single-token markers through each model and computed
+the clustering metrics at W_E vs the 2/3-depth layer (marker run bare,
+BOS+token, reading the marker position — no chat template). This surfaced a trap
+worth recording. **Gemma-class models carry massive activations**: Gemma-3-12B's
+mid-layer hidden states have one dimension (2339) with mean magnitude ~116,679
+against a median of ~45 — and 4 dims over 1,000. This single near-constant
+offset saturates raw cosine to ~1.0 between *every* pair — items and single
+tokens alike (raw item within 1.000 / across 0.999). The cure is **subtraction,
+not projection**: meandiff (fwd−rev) cancels the shared offset exactly, which is
+why item `meandiff-itempc1` was always immune; but PC-projection alone does
+*not* remove a near-constant dimension (low variance → not in the top PCs, yet it
+dominates the norm). Mean-centering the vector set before the PC step reproduces
+the canonical Gemma geometry (centered + top-1 PC: within 0.132 / across −0.008,
+matching `meandiff-itempc1`'s 0.178 / 0.024). A first pass of the matched test
+that projected without centering produced a spurious "bare tokens collapse at
+depth" result for the massive-activation models — corrected here.
+
+With centering applied, the matched comparison is clean and confirms the
+depth-amplification claim on identical stimuli (cohort, Saucier):
+
+| location (centered) | within | across | w−a | NN-purity | 5cl-purity |
+|---|---|---|---|---|---|
+| W_E, self-PC1 | −0.015 | −0.042 | +0.027 | 0.49 | 0.54 |
+| mid, self-PC1 | 0.073 | −0.016 | +0.089 | 0.58 | 0.54 |
+| mid, **neutral-PC1** | 0.406 | 0.095 | **+0.310** | **0.64** | 0.54 |
+
+Same method top-to-bottom (center + self-PC1), the trait geometry sharpens with
+depth (W_E w−a 0.027 → mid 0.089). And **neutral-PC1 beats self-PC1 by a wide
+margin** (mid w−a 0.310 vs 0.089): after centering, the markers' *own* top PC is
+partly trait variance, so removing it over-corrects, whereas the independent
+neutral anisotropy axis removes only the shared junk. This is the W9 `single-pcs`
+lesson reproduced at the single-token scale, and one neutral PC does nearly all
+the work (nPC1 ≈ nPCs50). Gemma recovers fully under centering (mid w−a 0.134 /
+NN 0.70); the lone weak model is Gemma-4-31B (w−a 0.007).
+
+**Practical takeaway (for any future neutral/unipolar extraction):
+center + neutral-PC1 is a reasonable first try** — it de-anisotropizes
+massive-activation and rogue-dimension models alike (subtraction handles the
+constant offsets, the neutral axis handles the shared direction without eating
+trait signal), and it reproduces single-token trait geometry from the middle
+layers where naive single-pole extraction (W9 single-zero/-neutral) was
+degenerate.
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
@@ -598,6 +643,13 @@ substantially amplified by depth.**
   (peak 0.65, deeper for bigger models) — but that's sentence composition. The
   pure single-token-marker W_E test (Saucier + Goldberg) shows the trait seed
   IS in the static embeddings (within>across in all 24 cells, p<0.01 vs a
-  permutation null) but coarse (NN-purity ~0.66). Verdict: weak lexical seed,
-  amplified by depth. `scripts/marker_embedding_geometry.py`,
-  `scripts/facet_geometry_layer_sweep.py`.
+  permutation null) but coarse (NN-purity ~0.66). Matched W_E-vs-mid test
+  confirms depth sharpens it (cohort w−a 0.027→0.089 same method). **Massive-
+  activation trap found (h/t rgb):** Gemma dim 2339 ≈116k vs median 45 saturates
+  raw cosine to ~1.0 for items and tokens alike — cure is subtraction/centering
+  (meandiff is immune), not PC-projection. After centering, **center +
+  neutral-PC1** is the best single-token extractor (cohort w−a 0.310, NN 0.64)
+  and the recommended first-try neutral/unipolar de-anisotropizer. Verdict: weak
+  lexical seed, amplified by depth; subtract before you project.
+  `scripts/marker_embedding_geometry.py`, `scripts/facet_geometry_layer_sweep.py`,
+  `scripts/marker_layer_compare.py`.
