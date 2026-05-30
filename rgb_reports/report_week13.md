@@ -501,6 +501,40 @@ but that measures within-trait facet shape, not C&C's between-trait factor
 congruence — the proper adjective-vs-item adjudication (per-trait cluster
 separability) is unrun.
 
+**Direct LLM↔encoder distance — the encoder is nearly just another model.**
+The §3.9 framing above is "does the LLM beat the encoder at recovering humans"
+(no). The sharper question is how close the LLM's own facet matrix is to the
+*encoder's* facet matrix, compared to humans and to another LLM. Cohort means
+(upper-tri Pearson r, encoders in their honest raw mode, model side canonical
+meandiff-itempc1; `scripts/llm_vs_embedding_geometry.py`):
+
+| neighbor | cohort-mean r |
+|---|---|
+| LLM ↔ LLM (cross-model) | **+0.906** |
+| LLM ↔ encoder (mpnet/bge avg) | **+0.840** |
+| encoder ↔ human (bge / mpnet) | +0.686 / +0.580 |
+| LLM ↔ human | **+0.561** |
+
+Every model is closer to the encoder than to humans, by **+0.279 cohort-mean**
+(smallest Gemma4 +0.20, largest Llama8 +0.32). And the encoder is almost as
+close to the LLM as another LLM is: LLM↔LLM 0.906 vs LLM↔encoder 0.840, gap
+**0.066** — that 0.066 is the entire LLM-distinctive-and-shared-across-LLMs
+residual; the other ~0.84 of cross-LLM agreement is item semantics that any
+text model recovers. Bidirectional contrastive encoding (mpnet mean-pool,
+bge CLS) lands on the same facet covariance as autoregressive+alignment LMs at
+r≈0.84 — and recovers humans *better* than the LMs do — without ever having
+attended causally or seen RLHF. (Caveat on the absolutes: the model/encoder
+matrices share the gross within>across block structure that inflates all these
+r's; the human matrix is the one with genuinely different fine structure, which
+is most of why the human row is lower. The *ordering* is what matters and it is
+unambiguous.) Mechanism-wise: for the embedding/word-geometry view the result
+nails down the "what's the LLM-specific part?" residual at ≤7 r-points off a
+contrastive encoder, ≤16 off a generic one — small enough that the §3.9
+relabeling of the W9 §7 number as item-set quality stands, and small enough
+that the project's positive claim has to live in the deviations (RepE/BC/free-
+text dissociation, persona internalization, the read/write gap), not in this
+geometry.
+
 ### 3.10 Is the geometry in the token embeddings? (logit-lens) — weak lexical seed, amplified by depth
 
 If §3.9 is right that the facet geometry is item semantics "so close to the
