@@ -779,10 +779,44 @@ a thin LLM-specific amplification on the shared lexical axis, echoing the facet-
 LLM>encoder affect residual. Encoders also out-recover LLMs overall (full r +0.59 vs
 +0.48), consistent with §3.9. 4-panel figure: `results/adjectives/affect_human_vs_model.png`.
 
-**Caveat.** The affect centroid is defined from a hand-picked emotion-word set, so
-the recovery is a *confirmatory probe*, not unsupervised. The clean version derives
-the affect axis without the seed set (e.g. the dominant axis along which pos/neg
-affect merge) — unrun.
+**Caveat on the projection.** The affect centroid is defined from a hand-picked
+emotion-word set, *and* projection is the wrong tool: it is cardinality-biased
+(an imbalanced 6-pos/12-neg centroid leans negative and destroys the negative
+block's coherence, wNeg 0.26→0.01) and it can only *lower* cosines, so it cannot
+manufacture the human's high within-block coherence (best balanced projection
+reaches cross −0.18 / within 0.11 vs human cross −0.28 / within 0.47). Removing
+the affect-subspace PC1 makes the merge *worse* (PC1 is ≈valence, sign-consistency
+0.11, not presence) — so presence ≈ the balanced centroid, valence ≈ the contrast.
+
+**Principled version — RSA decomposition (`scripts/affect_rsa.py`).** Drop the
+projection; *decompose* the affect-block similarities (12 pos + 12 neg, balanced)
+onto two template RDMs: presence (`+1` every pair) and valence (`+1` same-pole,
+`−1` cross). Fit `sim ≈ a·presence + b·valence`: **`a` = block elevation (the
+uniform "all emotional" merge), `b` = pos/neg opposition, R² = valence's share of
+the block variance.** Composition-robust, no knob, no direction to hand-remove.
+
+| | presence a | valence b | R² |
+|---|---|---|---|
+| **Human 525-PDA** | +0.079 | **+0.368** | **0.93** |
+| **LLM cohort mean** | +0.135 | +0.108 | 0.35 |
+| bge-large / mpnet | +0.151 / +0.198 | +0.176 / +0.133 | 0.58 / 0.39 |
+| gemma-3-12b (most human-like) | +0.135 | +0.184 | 0.65 |
+| Qwen32 (extreme) | +0.164 | +0.037 | 0.06 |
+
+The merge is **both directions at once**: every text model sits the block *higher*
+(a 0.14 > human 0.08 — more uniformly merged) *and* carries ~3× *weaker* valence
+(b 0.11 vs 0.37), with most of its block variance neither presence nor valence
+(R² 0.35 vs human 0.93 — the model's affect geometry is flatter and noisier, not
+merely rotated). This sharpens "valence masked, not absent": valence is **present**
+(b>0 for all 12) but **weak and buried in residual** — which is precisely why no
+single projection surfaces it cleanly. A real family gradient: Gemmas most
+human-like (valence-leaning, high R²), **Qwen32 the worst** (near-pure presence +
+noise) — bigger ≠ more human. Encoders sit in the model range, not the human range
+— the presence-dominance is lexical, shared across text models, none reaching human
+valence-dominance. Figure: `results/adjectives/affect_presence_vs_valence.png`
+(humans alone up-left; every text model collapsed toward the diagonal). The one
+remaining unsupervised step: recover the valence/presence axes without the pos/neg
+seed labels (RSA still uses them to build the templates).
 
 ## 4. Status / next
 
