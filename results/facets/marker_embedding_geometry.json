@@ -1,0 +1,1735 @@
+{
+  "sets": {
+    "saucier": [
+      "talkative",
+      "extroverted",
+      "bold",
+      "energetic",
+      "shy",
+      "quiet",
+      "bashful",
+      "withdrawn",
+      "sympathetic",
+      "warm",
+      "kind",
+      "cooperative",
+      "cold",
+      "unsympathetic",
+      "rude",
+      "harsh",
+      "organized",
+      "efficient",
+      "systematic",
+      "practical",
+      "disorganized",
+      "sloppy",
+      "inefficient",
+      "careless",
+      "moody",
+      "jealous",
+      "temperamental",
+      "envious",
+      "touchy",
+      "fretful",
+      "unenvious",
+      "relaxed",
+      "creative",
+      "imaginative",
+      "philosophical",
+      "intellectual",
+      "complex",
+      "deep",
+      "uncreative",
+      "unintellectual"
+    ],
+    "goldberg": [
+      "extraverted",
+      "introverted",
+      "energetic",
+      "unenergetic",
+      "talkative",
+      "silent",
+      "bold",
+      "timid",
+      "active",
+      "inactive",
+      "assertive",
+      "unassertive",
+      "adventurous",
+      "unadventurous",
+      "warm",
+      "cold",
+      "kind",
+      "unkind",
+      "cooperative",
+      "uncooperative",
+      "unselfish",
+      "selfish",
+      "agreeable",
+      "disagreeable",
+      "trustful",
+      "distrustful",
+      "generous",
+      "stingy",
+      "organized",
+      "disorganized",
+      "responsible",
+      "irresponsible",
+      "conscientious",
+      "negligent",
+      "practical",
+      "impractical",
+      "thorough",
+      "careless",
+      "hardworking",
+      "lazy",
+      "thrifty",
+      "extravagant",
+      "calm",
+      "angry",
+      "relaxed",
+      "tense",
+      "at ease",
+      "nervous",
+      "not envious",
+      "envious",
+      "stable",
+      "unstable",
+      "contented",
+      "discontented",
+      "unemotional",
+      "emotional",
+      "intelligent",
+      "unintelligent",
+      "analytical",
+      "unanalytical",
+      "reflective",
+      "unreflective",
+      "curious",
+      "uninquisitive",
+      "imaginative",
+      "unimaginative",
+      "creative",
+      "uncreative",
+      "sophisticated",
+      "unsophisticated"
+    ]
+  },
+  "models": {
+    "Gemma": {
+      "repo": "google/gemma-3-4b-it",
+      "embed_key": "language_model.model.embed_tokens.weight",
+      "vocab": 262208,
+      "hidden": 2560,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 30,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "temperamental",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.1495082825422287,
+          "across_mean": 0.08583152294158936,
+          "within_minus_across": 0.06367675960063934,
+          "nn_purity": 0.7,
+          "cluster5_purity": 0.43333333333333335,
+          "trait_dir_offdiag_abs_mean": 0.05898565053939819,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              -0.04767490178346634,
+              0.030655592679977417,
+              -0.006545979995280504
+            ],
+            [
+              -0.04767490178346634,
+              0.9999998807907104,
+              0.15305906534194946,
+              -0.08228172361850739
+            ],
+            [
+              0.030655592679977417,
+              0.15305906534194946,
+              1.0000001192092896,
+              -0.03369666635990143
+            ],
+            [
+              -0.006545979995280504,
+              -0.08228172361850739,
+              -0.03369666635990143,
+              1.0000001192092896
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 47,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "unassertive",
+            "unadventurous",
+            "uncooperative",
+            "unselfish",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.14918579161167145,
+          "across_mean": 0.09998993575572968,
+          "within_minus_across": 0.04919585585594177,
+          "nn_purity": 0.7659574468085106,
+          "cluster5_purity": 0.3829787234042553,
+          "trait_dir_offdiag_abs_mean": 0.13068018853664398,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0000001192092896,
+              0.10826314240694046,
+              0.11623433232307434,
+              0.03206585720181465
+            ],
+            [
+              0.10826314240694046,
+              1.0,
+              0.2067117989063263,
+              -0.17881785333156586
+            ],
+            [
+              0.11623433232307434,
+              0.2067117989063263,
+              1.0000001192092896,
+              -0.14198815822601318
+            ],
+            [
+              0.03206585720181465,
+              -0.17881785333156586,
+              -0.14198815822601318,
+              1.0000001192092896
+            ]
+          ]
+        }
+      }
+    },
+    "Gemma12": {
+      "repo": "google/gemma-3-12b-it",
+      "embed_key": "language_model.model.embed_tokens.weight",
+      "vocab": 262208,
+      "hidden": 3840,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 30,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "temperamental",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.15733282268047333,
+          "across_mean": 0.09894146025180817,
+          "within_minus_across": 0.05839136242866516,
+          "nn_purity": 0.7,
+          "cluster5_purity": 0.5666666666666667,
+          "trait_dir_offdiag_abs_mean": 0.05585464462637901,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0000001192092896,
+              -0.03208871930837631,
+              0.0468185730278492,
+              0.029748741537332535
+            ],
+            [
+              -0.03208871930837631,
+              0.9999998807907104,
+              0.14174491167068481,
+              -0.060283057391643524
+            ],
+            [
+              0.0468185730278492,
+              0.14174491167068481,
+              1.0,
+              -0.024443842470645905
+            ],
+            [
+              0.029748741537332535,
+              -0.060283057391643524,
+              -0.024443842470645905,
+              0.9999998211860657
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 47,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "unassertive",
+            "unadventurous",
+            "uncooperative",
+            "unselfish",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.1492612212896347,
+          "across_mean": 0.10679201781749725,
+          "within_minus_across": 0.04246920347213745,
+          "nn_purity": 0.7659574468085106,
+          "cluster5_purity": 0.46808510638297873,
+          "trait_dir_offdiag_abs_mean": 0.1259128600358963,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0000001192092896,
+              0.11436494439840317,
+              0.1158413365483284,
+              0.05085030943155289
+            ],
+            [
+              0.11436494439840317,
+              1.0,
+              0.19470736384391785,
+              -0.16148468852043152
+            ],
+            [
+              0.1158413365483284,
+              0.19470736384391785,
+              1.0,
+              -0.11822856962680817
+            ],
+            [
+              0.05085030943155289,
+              -0.16148468852043152,
+              -0.11822856962680817,
+              1.0
+            ]
+          ]
+        }
+      }
+    },
+    "Gemma27": {
+      "repo": "google/gemma-3-27b-it",
+      "embed_key": "language_model.model.embed_tokens.weight",
+      "vocab": 262208,
+      "hidden": 5376,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 30,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "temperamental",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.13886193931102753,
+          "across_mean": 0.08866170793771744,
+          "within_minus_across": 0.05020023137331009,
+          "nn_purity": 0.7,
+          "cluster5_purity": 0.6333333333333333,
+          "trait_dir_offdiag_abs_mean": 0.04297250881791115,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0,
+              -0.01602865383028984,
+              0.026350967586040497,
+              0.02977723442018032
+            ],
+            [
+              -0.01602865383028984,
+              1.0,
+              0.10017328709363937,
+              -0.04942662641406059
+            ],
+            [
+              0.026350967586040497,
+              0.10017328709363937,
+              1.0,
+              -0.036078281700611115
+            ],
+            [
+              0.02977723442018032,
+              -0.04942662641406059,
+              -0.036078281700611115,
+              0.9999998807907104
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 47,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "unassertive",
+            "unadventurous",
+            "uncooperative",
+            "unselfish",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.12709234654903412,
+          "across_mean": 0.09050852805376053,
+          "within_minus_across": 0.03658381849527359,
+          "nn_purity": 0.7659574468085106,
+          "cluster5_purity": 0.40425531914893614,
+          "trait_dir_offdiag_abs_mean": 0.11045843362808228,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              0.1017884761095047,
+              0.1244044154882431,
+              0.03849305212497711
+            ],
+            [
+              0.1017884761095047,
+              1.0000001192092896,
+              0.16049432754516602,
+              -0.12180289626121521
+            ],
+            [
+              0.1244044154882431,
+              0.16049432754516602,
+              1.0,
+              -0.11576750874519348
+            ],
+            [
+              0.03849305212497711,
+              -0.12180289626121521,
+              -0.11576750874519348,
+              1.0000001192092896
+            ]
+          ]
+        }
+      }
+    },
+    "Gemma4": {
+      "repo": "google/gemma-4-31B-it",
+      "embed_key": "model.language_model.embed_tokens.weight",
+      "vocab": 262144,
+      "hidden": 5376,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 30,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "temperamental",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.11440496146678925,
+          "across_mean": 0.07018338143825531,
+          "within_minus_across": 0.044221580028533936,
+          "nn_purity": 0.7,
+          "cluster5_purity": 0.6,
+          "trait_dir_offdiag_abs_mean": 0.03059331513941288,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              -0.048089466989040375,
+              0.04098986089229584,
+              0.013908721506595612
+            ],
+            [
+              -0.048089466989040375,
+              1.0000001192092896,
+              0.04614062234759331,
+              -0.023474151268601418
+            ],
+            [
+              0.04098986089229584,
+              0.04614062234759331,
+              0.9999999403953552,
+              -0.010957062244415283
+            ],
+            [
+              0.013908721506595612,
+              -0.023474151268601418,
+              -0.010957062244415283,
+              1.0000001192092896
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 47,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "unassertive",
+            "unadventurous",
+            "uncooperative",
+            "unselfish",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.10139390081167221,
+          "across_mean": 0.0714496299624443,
+          "within_minus_across": 0.029944270849227905,
+          "nn_purity": 0.723404255319149,
+          "cluster5_purity": 0.3829787234042553,
+          "trait_dir_offdiag_abs_mean": 0.07029441744089127,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0,
+              0.09920203685760498,
+              0.08157069981098175,
+              0.04062046483159065
+            ],
+            [
+              0.09920203685760498,
+              1.000000238418579,
+              0.09027139097452164,
+              -0.052735891193151474
+            ],
+            [
+              0.08157069981098175,
+              0.09027139097452164,
+              0.9999998211860657,
+              -0.0573660209774971
+            ],
+            [
+              0.04062046483159065,
+              -0.052735891193151474,
+              -0.0573660209774971,
+              1.0000001192092896
+            ]
+          ]
+        }
+      }
+    },
+    "Llama": {
+      "repo": "meta-llama/Llama-3.2-3B-Instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 128256,
+      "hidden": 3072,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.123653843998909,
+          "across_mean": 0.08067385107278824,
+          "within_minus_across": 0.04297999292612076,
+          "nn_purity": 0.7037037037037037,
+          "cluster5_purity": 0.48148148148148145,
+          "trait_dir_offdiag_abs_mean": 0.04741103574633598,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998211860657,
+              -0.028102299198508263,
+              0.03367023169994354,
+              -0.009329835884273052
+            ],
+            [
+              -0.028102299198508263,
+              0.9999999403953552,
+              0.11391278356313705,
+              -0.060906462371349335
+            ],
+            [
+              0.03367023169994354,
+              0.11391278356313705,
+              1.0,
+              -0.03854459151625633
+            ],
+            [
+              -0.009329835884273052,
+              -0.060906462371349335,
+              -0.03854459151625633,
+              1.0
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 37,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "agreeable",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "conscientious",
+            "impractical",
+            "hardworking",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.14456084370613098,
+          "across_mean": 0.0963660478591919,
+          "within_minus_across": 0.04819479584693909,
+          "nn_purity": 0.6216216216216216,
+          "cluster5_purity": 0.3783783783783784,
+          "trait_dir_offdiag_abs_mean": 0.07480800151824951,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999996423721313,
+              0.08041509240865707,
+              0.1138228327035904,
+              0.04738025739789009
+            ],
+            [
+              0.08041509240865707,
+              0.9999998807907104,
+              0.05555441603064537,
+              -0.05970069393515587
+            ],
+            [
+              0.1138228327035904,
+              0.05555441603064537,
+              1.0,
+              -0.09197472035884857
+            ],
+            [
+              0.04738025739789009,
+              -0.05970069393515587,
+              -0.09197472035884857,
+              1.0
+            ]
+          ]
+        }
+      }
+    },
+    "Llama8": {
+      "repo": "meta-llama/Llama-3.1-8B-Instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 128256,
+      "hidden": 4096,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.08059708029031754,
+          "across_mean": 0.05782196670770645,
+          "within_minus_across": 0.022775113582611084,
+          "nn_purity": 0.6296296296296297,
+          "cluster5_purity": 0.5185185185185185,
+          "trait_dir_offdiag_abs_mean": 0.03196576610207558,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0,
+              0.01390044391155243,
+              0.020374860614538193,
+              0.016903499141335487
+            ],
+            [
+              0.01390044391155243,
+              1.0,
+              0.09611725062131882,
+              -0.02792562171816826
+            ],
+            [
+              0.020374860614538193,
+              0.09611725062131882,
+              1.0,
+              -0.016572926193475723
+            ],
+            [
+              0.016903499141335487,
+              -0.02792562171816826,
+              -0.016572926193475723,
+              1.0000001192092896
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 37,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "agreeable",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "conscientious",
+            "impractical",
+            "hardworking",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.08100059628486633,
+          "across_mean": 0.06038055568933487,
+          "within_minus_across": 0.020620040595531464,
+          "nn_purity": 0.6216216216216216,
+          "cluster5_purity": 0.4594594594594595,
+          "trait_dir_offdiag_abs_mean": 0.033240750432014465,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0000001192092896,
+              0.0348709300160408,
+              0.0709116980433464,
+              0.011105858720839024
+            ],
+            [
+              0.0348709300160408,
+              1.0000001192092896,
+              0.055337559431791306,
+              -0.020746078342199326
+            ],
+            [
+              0.0709116980433464,
+              0.055337559431791306,
+              0.9999999403953552,
+              0.006472377106547356
+            ],
+            [
+              0.011105858720839024,
+              -0.020746078342199326,
+              0.006472377106547356,
+              1.0000001192092896
+            ]
+          ]
+        }
+      }
+    },
+    "Phi4": {
+      "repo": "microsoft/Phi-4-mini-instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 200064,
+      "hidden": 3072,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.8092746138572693,
+          "across_mean": 0.7871374487876892,
+          "within_minus_across": 0.022137165069580078,
+          "nn_purity": 0.6666666666666666,
+          "cluster5_purity": 0.4444444444444444,
+          "trait_dir_offdiag_abs_mean": 0.1917887181043625,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              0.01577739417552948,
+              0.1840328425168991,
+              -0.006105254404246807
+            ],
+            [
+              0.01577739417552948,
+              1.0,
+              0.44806376099586487,
+              -0.24706241488456726
+            ],
+            [
+              0.1840328425168991,
+              0.44806376099586487,
+              1.0000001192092896,
+              -0.24969066679477692
+            ],
+            [
+              -0.006105254404246807,
+              -0.24706241488456726,
+              -0.24969066679477692,
+              0.9999999403953552
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 40,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "impractical",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.802629292011261,
+          "across_mean": 0.7890041470527649,
+          "within_minus_across": 0.013625144958496094,
+          "nn_purity": 0.6,
+          "cluster5_purity": 0.325,
+          "trait_dir_offdiag_abs_mean": 0.2609046995639801,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              0.23690678179264069,
+              0.2259129136800766,
+              0.06861992180347443
+            ],
+            [
+              0.23690678179264069,
+              0.9999999403953552,
+              0.3900039792060852,
+              -0.31724050641059875
+            ],
+            [
+              0.2259129136800766,
+              0.3900039792060852,
+              1.0,
+              -0.3267441689968109
+            ],
+            [
+              0.06861992180347443,
+              -0.31724050641059875,
+              -0.3267441689968109,
+              1.0
+            ]
+          ]
+        }
+      }
+    },
+    "Qwen": {
+      "repo": "Qwen/Qwen2.5-3B-Instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 151936,
+      "hidden": 2048,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.09730014950037003,
+          "across_mean": 0.04915393143892288,
+          "within_minus_across": 0.048146218061447144,
+          "nn_purity": 0.6296296296296297,
+          "cluster5_purity": 0.5925925925925926,
+          "trait_dir_offdiag_abs_mean": 0.04446311295032501,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0,
+              -0.045158665627241135,
+              0.026315120980143547,
+              -0.014339279383420944
+            ],
+            [
+              -0.045158665627241135,
+              1.0,
+              0.12327581644058228,
+              -0.042622897773981094
+            ],
+            [
+              0.026315120980143547,
+              0.12327581644058228,
+              1.000000238418579,
+              -0.015066901221871376
+            ],
+            [
+              -0.014339279383420944,
+              -0.042622897773981094,
+              -0.015066901221871376,
+              1.0000001192092896
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 37,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "agreeable",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "conscientious",
+            "impractical",
+            "hardworking",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.1160675585269928,
+          "across_mean": 0.06460197269916534,
+          "within_minus_across": 0.051465585827827454,
+          "nn_purity": 0.7027027027027027,
+          "cluster5_purity": 0.3783783783783784,
+          "trait_dir_offdiag_abs_mean": 0.06924646347761154,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0000001192092896,
+              0.08799086511135101,
+              0.08979622274637222,
+              0.0694800391793251
+            ],
+            [
+              0.08799086511135101,
+              1.0000001192092896,
+              0.05005154013633728,
+              -0.052749503403902054
+            ],
+            [
+              0.08979622274637222,
+              0.05005154013633728,
+              0.9999999403953552,
+              -0.06541061401367188
+            ],
+            [
+              0.0694800391793251,
+              -0.052749503403902054,
+              -0.06541061401367188,
+              0.9999999403953552
+            ]
+          ]
+        }
+      }
+    },
+    "Qwen7": {
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 152064,
+      "hidden": 3584,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.07170149683952332,
+          "across_mean": 0.056164007633924484,
+          "within_minus_across": 0.015537489205598831,
+          "nn_purity": 0.48148148148148145,
+          "cluster5_purity": 0.5185185185185185,
+          "trait_dir_offdiag_abs_mean": 0.041129156947135925,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998807907104,
+              -0.03125286102294922,
+              0.026226097717881203,
+              0.014176839031279087
+            ],
+            [
+              -0.03125286102294922,
+              1.0,
+              0.07414496690034866,
+              -0.04288741201162338
+            ],
+            [
+              0.026226097717881203,
+              0.07414496690034866,
+              0.9999998807907104,
+              -0.05808674544095993
+            ],
+            [
+              0.014176839031279087,
+              -0.04288741201162338,
+              -0.05808674544095993,
+              1.0
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 37,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "agreeable",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "conscientious",
+            "impractical",
+            "hardworking",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.08009742945432663,
+          "across_mean": 0.05968286469578743,
+          "within_minus_across": 0.0204145647585392,
+          "nn_purity": 0.4594594594594595,
+          "cluster5_purity": 0.43243243243243246,
+          "trait_dir_offdiag_abs_mean": 0.050707925111055374,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998211860657,
+              0.05188910290598869,
+              0.07805048674345016,
+              0.0023121186532080173
+            ],
+            [
+              0.05188910290598869,
+              0.9999999403953552,
+              0.06467769294977188,
+              -0.039878372102975845
+            ],
+            [
+              0.07805048674345016,
+              0.06467769294977188,
+              1.0000001192092896,
+              -0.06743980199098587
+            ],
+            [
+              0.0023121186532080173,
+              -0.039878372102975845,
+              -0.06743980199098587,
+              0.9999999403953552
+            ]
+          ]
+        }
+      }
+    },
+    "Qwen32": {
+      "repo": "Qwen/Qwen2.5-32B-Instruct",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 152064,
+      "hidden": 5120,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.048975422978401184,
+          "across_mean": 0.028951866552233696,
+          "within_minus_across": 0.020023556426167488,
+          "nn_purity": 0.48148148148148145,
+          "cluster5_purity": 0.5185185185185185,
+          "trait_dir_offdiag_abs_mean": 0.02271128259599209,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998807907104,
+              0.0023964233696460724,
+              0.025818267837166786,
+              0.02820434421300888
+            ],
+            [
+              0.0023964233696460724,
+              0.9999999403953552,
+              0.0380348339676857,
+              0.00865910667926073
+            ],
+            [
+              0.025818267837166786,
+              0.0380348339676857,
+              1.0,
+              -0.03315470740199089
+            ],
+            [
+              0.02820434421300888,
+              0.00865910667926073,
+              -0.03315470740199089,
+              0.9999998211860657
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 37,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "agreeable",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "conscientious",
+            "impractical",
+            "hardworking",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.04516713321208954,
+          "across_mean": 0.0307423435151577,
+          "within_minus_across": 0.014424789696931839,
+          "nn_purity": 0.5135135135135135,
+          "cluster5_purity": 0.40540540540540543,
+          "trait_dir_offdiag_abs_mean": 0.03520733490586281,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998807907104,
+              0.030219070613384247,
+              0.056511469185352325,
+              0.013359982520341873
+            ],
+            [
+              0.030219070613384247,
+              1.0,
+              0.027477866038680077,
+              -0.05333241820335388
+            ],
+            [
+              0.056511469185352325,
+              0.027477866038680077,
+              1.0,
+              -0.03034321591258049
+            ],
+            [
+              0.013359982520341873,
+              -0.05333241820335388,
+              -0.03034321591258049,
+              0.9999998807907104
+            ]
+          ]
+        }
+      }
+    },
+    "Aya": {
+      "repo": "CohereLabs/aya-expanse-8b",
+      "embed_key": "model.embed_tokens.weight",
+      "vocab": 256000,
+      "hidden": 4096,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 28,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.21445010602474213,
+          "across_mean": 0.17807884514331818,
+          "within_minus_across": 0.03637126088142395,
+          "nn_purity": 0.7142857142857143,
+          "cluster5_purity": 0.42857142857142855,
+          "trait_dir_offdiag_abs_mean": 0.056042253971099854,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.0,
+              -0.017163053154945374,
+              0.06919731944799423,
+              0.006814916618168354
+            ],
+            [
+              -0.017163053154945374,
+              1.000000238418579,
+              0.09727894514799118,
+              -0.10013388842344284
+            ],
+            [
+              0.06919731944799423,
+              0.09727894514799118,
+              0.9999999403953552,
+              -0.045665375888347626
+            ],
+            [
+              0.006814916618168354,
+              -0.10013388842344284,
+              -0.045665375888347626,
+              1.0
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 42,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.20593290030956268,
+          "across_mean": 0.1785864531993866,
+          "within_minus_across": 0.027346447110176086,
+          "nn_purity": 0.7619047619047619,
+          "cluster5_purity": 0.5,
+          "trait_dir_offdiag_abs_mean": 0.08207760006189346,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999998807907104,
+              0.06867051124572754,
+              0.09222151339054108,
+              0.03691888228058815
+            ],
+            [
+              0.06867051124572754,
+              1.0000001192092896,
+              0.09494045376777649,
+              -0.08894375711679459
+            ],
+            [
+              0.09222151339054108,
+              0.09494045376777649,
+              1.0000001192092896,
+              -0.11077047884464264
+            ],
+            [
+              0.03691888228058815,
+              -0.08894375711679459,
+              -0.11077047884464264,
+              0.9999998211860657
+            ]
+          ]
+        }
+      }
+    },
+    "FalconMamba": {
+      "repo": "tiiuae/falcon-mamba-7b-instruct",
+      "embed_key": "backbone.embeddings.weight",
+      "vocab": 65024,
+      "hidden": 4096,
+      "sets": {
+        "saucier": {
+          "n_markers_kept": 27,
+          "missed": [
+            "talkative",
+            "extroverted",
+            "bashful",
+            "unsympathetic",
+            "disorganized",
+            "moody",
+            "temperamental",
+            "envious",
+            "touchy",
+            "fretful",
+            "unenvious",
+            "uncreative",
+            "unintellectual"
+          ],
+          "within_mean": 0.061919935047626495,
+          "across_mean": 0.029449112713336945,
+          "within_minus_across": 0.03247082233428955,
+          "nn_purity": 0.7777777777777778,
+          "cluster5_purity": 0.6296296296296297,
+          "trait_dir_offdiag_abs_mean": 0.027348393574357033,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              1.000000238418579,
+              -0.027629200369119644,
+              0.026089375838637352,
+              0.016264615580439568
+            ],
+            [
+              -0.027629200369119644,
+              0.9999999403953552,
+              0.05638032406568527,
+              -0.009974599815905094
+            ],
+            [
+              0.026089375838637352,
+              0.05638032406568527,
+              0.9999999403953552,
+              -0.02775224857032299
+            ],
+            [
+              0.016264615580439568,
+              -0.009974599815905094,
+              -0.02775224857032299,
+              1.0000001192092896
+            ]
+          ]
+        },
+        "goldberg": {
+          "n_markers_kept": 41,
+          "missed": [
+            "extraverted",
+            "introverted",
+            "unenergetic",
+            "talkative",
+            "assertive",
+            "unassertive",
+            "unadventurous",
+            "unkind",
+            "uncooperative",
+            "unselfish",
+            "disagreeable",
+            "trustful",
+            "distrustful",
+            "stingy",
+            "disorganized",
+            "thrifty",
+            "at ease",
+            "not envious",
+            "envious",
+            "contented",
+            "discontented",
+            "unemotional",
+            "unintelligent",
+            "unanalytical",
+            "unreflective",
+            "uninquisitive",
+            "unimaginative",
+            "uncreative",
+            "unsophisticated"
+          ],
+          "within_mean": 0.06201064959168434,
+          "across_mean": 0.03219395503401756,
+          "within_minus_across": 0.02981669455766678,
+          "nn_purity": 0.7073170731707317,
+          "cluster5_purity": 0.5609756097560976,
+          "trait_dir_offdiag_abs_mean": 0.03734290972352028,
+          "traits_with_dir": [
+            "E",
+            "A",
+            "C",
+            "N"
+          ],
+          "trait_dir_cos": [
+            [
+              0.9999999403953552,
+              0.05880701541900635,
+              0.030849797651171684,
+              0.016210924834012985
+            ],
+            [
+              0.05880701541900635,
+              0.9999998211860657,
+              0.055629875510931015,
+              -0.02701697312295437
+            ],
+            [
+              0.030849797651171684,
+              0.055629875510931015,
+              1.0,
+              -0.03554287552833557
+            ],
+            [
+              0.016210924834012985,
+              -0.02701697312295437,
+              -0.03554287552833557,
+              0.9999998211860657
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

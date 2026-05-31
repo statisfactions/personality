@@ -535,6 +535,42 @@ that the project's positive claim has to live in the deviations (RepE/BC/free-
 text dissociation, persona internalization, the read/write gap), not in this
 geometry.
 
+**Projection-robustness control (notes only; `scripts/facet_projection_sweep.py`).**
+Two worries about the per-facet row-correlation finding (A:Sympath *inverts* vs
+human, E:Cheerf/O:Liberal fail): is it an artifact of (a) the fwd−rev contrast
+still carrying anisotropy, or (b) the *specific* top-1 item-PC projection
+(`meandiff-itempc1`)? Sweeping the number of projected item PCs k∈{0,1,2,3}
+(k=0 = raw meandiff, no projection; k=1 = canonical), cohort-mean row-r vs human:
+
+| facet | k=0 (raw) | k=1 | k=2 | k=3 |
+|---|---|---|---|---|
+| A:Sympath | −0.111 | **−0.180** | −0.150 | −0.119 |
+| E:Cheerf | +0.022 | +0.208 | +0.156 | +0.096 |
+| O:Liberal | +0.030 | −0.232 | −0.219 | −0.195 |
+| C:Order | +0.122 | −0.054 | −0.069 | −0.034 |
+| O:Emotion | +0.115 | +0.375 | +0.411 | +0.443 |
+| N:Anger | +0.313 | +0.765 | +0.763 | +0.739 |
+| A:Altru | +0.253 | +0.395 | +0.405 | +0.368 |
+| **[full matrix]** | **+0.257** | **+0.569** | +0.576 | +0.566 |
+
+Two readings. **(a) Raw (k=0) is anisotropy-degraded — rgb's prior confirmed.**
+Full-matrix r drops to +0.257, but the cohort mean hides the two-regime split of
+§3.7: the massive-activation models collapse hardest (Gemma27 +0.060, Qwen32
++0.130 — near-nonsense), while Gemma-4 (no massive activation, §3.10) holds at
++0.561. So "raw" is not an architecture-fair comparison point — it is content for
+the clean models and anisotropy for the spiky ones, which is exactly why there is
+no honest "raw model vs raw encoder" control (the encoder's raw PC1 is
+content-bearing; the transformer's is the norm artifact). The projection
+asymmetry is forced, not a confound. **(b) The divergences are robust to k=1–3.**
+Sympath stays inverted (−0.18→−0.12), Cheerf stays weak-positive, Liberal stays
+inverted, full-matrix r is flat (.569/.576/.566) — none is a knife-edge of the
+top-1 choice. The Sympath inversion is the sturdiest: it is negative even at k=0
+(−0.111), whereas Liberal/Order only invert once the anisotropy axis is removed.
+**One exception worth flagging:** Gemma-4 reverses Sympath to *positive* by k=2
+(+0.166) / k=3 (+0.232) — its massive-activation-free residual stream behaves
+differently under projection; the cohort sign holds because the other nine
+dominate. Full results in `results/facets/facet_projection_sweep.json`.
+
 ### 3.10 Is the geometry in the token embeddings? (logit-lens) — weak lexical seed, amplified by depth
 
 If §3.9 is right that the facet geometry is item semantics "so close to the
@@ -660,6 +696,93 @@ degenerate. Caveat: where anisotropy is *distributed* rather than rank-1
 (Gemma-4: PC1 only 10% of variance), one PC under-cleans and meandiff/more PCs
 may be needed — the single-token bare-stimulus probe stresses this, but item
 meandiff is unaffected.
+
+### 3.11 Single-adjective track: the affect-merge is a separable lexical axis
+
+§3.9 established the facet geometry is item semantics shared across text models;
+§3.10 found a weak lexical seed in W_E. This section runs the **adjective-vs-item
+adjudication** C&C named and §3.9 flagged unrun, on a *theory-neutral* human
+substrate, and lands a mechanism: the affect-merge is a separable "affect-presence"
+axis present in encoders and LLMs alike.
+
+**Substrate (`scripts/fetch_external_data.py`, `adjective_corr_cluster.py`).** The
+Johnson IPIP-NEO human matrix is Big-Five-scaffolded (30 facets pre-assigned to 5
+factors), so it cannot show an affect axis cutting *across* the Big Five. Saucier's
+**525-PDA** (Harvard Dataverse, `doi:10.7910/DVN/GHYMEV`) is raw 1–7 self-ratings
+of 525 single adjectives (N=700), no a-priori factor structure — re-clusterable
+from scratch, and in the same single-adjective units the model/encoder geometry
+uses. **Not ipsatized** (unlike C&C's S&G-1996), so we control standardization.
+Two columns are corrupted (data contradicts label) and dropped → **523 adjectives**:
+`Inspirational` behaves like "Inconsiderate" (r +0.53), `Insensitive` like a
+surgency word (+0.25 with Sensitive). Found via `adjective_audit.py` (encoder as
+semantic oracle: a column whose empirical neighbors are semantic opposites of its
+label is suspect, + antonym-pair check). The audit over-flags rare negations /
+bare affect, so flags need per-column adjudication; ~0.4% corruption, not provably
+exhaustive. (cf. the Johnson `.por` pre-reversed-key lesson — published ≠ clean.)
+
+**Human structure is valence-organized.** Factor-then-nearest-factor (PCA+varimax,
+`adjective_factor_heatmap.py`) recovers a clean Big Five even on RAW data (the
+general evaluative axis is the big first PC; varimax distributes it). Hierarchical
+clustering (`adjective_hclust_heatmap.py`) instead bifurcates the space into two
+giant valence blobs (288 positive / 206 negative, anti-correlated) — valence is the
+*primary* cut. Either way Cheerful/Sympathy sit in warmth (F1), Angry/Sad in
+neg-affect (F3), and F1⊥F3 oppose: human Cheerful-Angry −0.36, Cheerful-Sad −0.43.
+
+**LLM extraction (`extract_adjectives.py`).** 12 models × 4 framings × 523
+adjectives, all layers. Carrier ending in the adjective, read the **adjective span
+only** (`split_prefix`) so the rep carries personality context without carrier
+dilution; framings hold read-span fixed and vary context: `self` "I am {adj}",
+`pers` "My personality is {adj}", `desc` "Someone who is {adj}", `bare` "{adj}"
+(floor; whole-prompt read). Gotcha logged: **fp16 overflows Gemma-3's massive
+activations (~1e5 > 65504) to inf** — store fp32. Single adjectives have no fwd/rev
+contrast, so de-anisotropization is **center on the 523-adjective mean + top-1 PC**
+(centering does the work; raw cosines sit at a +0.99 anisotropy floor).
+
+**Framing matters, and "this is personality" helps (rgb's prior, confirmed).**
+Cohort-mean matrix-r to human: **pers +0.40 > self/desc +0.33 > bare +0.28**.
+Explicit personality framing recovers best; bare word worst. Framing-r ≈ 0.75
+(moderate — the three context frames broadly agree). `pers` is canonical going
+forward.
+
+**The affect-merge holds at adjective resolution, cohort-wide.** *No* model
+reproduces the human valence opposition: human Cheerful-Sad −0.43 / Happy-Angry
+−0.42 / Cheerful-Angry −0.36; all 12 models land 0 to +0.46 (Qwen/Llama most merged
++0.2–0.46, Gemmas least, near 0). So the merge is **not** an item-format artifact —
+it survives the items→adjectives change, comparable in magnitude to the facet-level
++0.18. (Correction to a mid-analysis read: an early "adjectives un-merge" claim came
+from Gemma12, which turns out to be the *least*-merged model in the cohort.)
+Sympathy is under-tied to warmth too (human Sympathy-Kind +0.57, model +0.20),
+echoing the facet-level detachment of Sympathy from the prosocial cluster.
+
+**The merge is a separable affect-presence axis — valence is masked, not absent
+(`affect_analysis.py`).** Projecting out the **affect centroid** (unit-mean of
+pos+neg emotion adjectives — the common "is this emotional" component) recovers the
+human opposition: cohort Cheerful-Angry +0.08 → **−0.22**, Cheerful-Sad +0.17 →
+−0.14, affect-block r +0.589 → +0.676 (full-matrix r barely moves, −0.02). So the
+LLM *has* the behavioral valence structure; a dominant affect-presence axis masks it
+in the raw cosines. This is the "associative feature dominating the residual stream"
+prediction of the symbolic-vs-associative frame — "emotional-or-not" is an
+associative magnet outweighing the behavioral valence sign.
+
+**Whose axis is it? Lexical — encoders merge too.** Same analysis on bge+mpnet
+adjective geometry (centered cosine, raw per §3.9): the **encoder also merges**
+(Cheerful-Angry −0.01, Cheerful-Sad +0.10 — not the human −0.36/−0.43) and **also
+recovers under the same affect-center projection, even better** (Cheerful-Angry →
+−0.38 ≈ human −0.36; affect-block r +0.720 → +0.793). A contrastive encoder with no
+RLHF and no causal attention carries the same affect-presence axis and the same
+recoverable valence underneath. So the affect axis is a **lexical** feature both
+text-model types consume — the §3.9 thesis pinned to a specific separable direction,
+and the mechanism behind C&C's "Neuroticism only weakly recovered" N break-point:
+affect words cluster by emotional presence in text, humans by behavioral valence.
+The LLM is *slightly* more merged than the encoder (Cheerful-Angry +0.08 vs −0.01) —
+a thin LLM-specific amplification on the shared lexical axis, echoing the facet-level
+LLM>encoder affect residual. Encoders also out-recover LLMs overall (full r +0.59 vs
++0.48), consistent with §3.9. 4-panel figure: `results/adjectives/affect_human_vs_model.png`.
+
+**Caveat.** The affect centroid is defined from a hand-picked emotion-word set, so
+the recovery is a *confirmatory probe*, not unsupervised. The clean version derives
+the affect axis without the seed set (e.g. the dominant axis along which pos/neg
+affect merge) — unrun.
 
 ## 4. Status / next
 

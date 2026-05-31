@@ -1,0 +1,80 @@
+{
+  "encoder": "BAAI/bge-large-en-v1.5",
+  "agreement_mean": 0.4960985412281384,
+  "agreement_sd": 0.21413846279555224,
+  "flagged_z_lt_-3": [
+    {
+      "adjective": "Inspirational",
+      "agree_r": -0.6206802306213338,
+      "z": -5.215218028886813,
+      "empirical_neighbors": [
+        "Inconsiderate",
+        "Unsympathetic",
+        "Thoughtless",
+        "Unreasonable"
+      ]
+    },
+    {
+      "adjective": "Unenvious",
+      "agree_r": -0.47367022698572847,
+      "z": -4.528699587891174,
+      "empirical_neighbors": [
+        "Well-adjusted",
+        "Secure",
+        "Self-assured",
+        "Calm"
+      ]
+    },
+    {
+      "adjective": "Insensitive",
+      "agree_r": -0.36363851872258973,
+      "z": -4.014865189218988,
+      "empirical_neighbors": [
+        "Exciting",
+        "Remarkable",
+        "Eager",
+        "Extraordinary"
+      ]
+    },
+    {
+      "adjective": "Chubby",
+      "agree_r": -0.305274019563768,
+      "z": -3.7423102339023204,
+      "empirical_neighbors": [
+        "Fat",
+        "Big",
+        "Clumsy",
+        "Unattractive"
+      ]
+    },
+    {
+      "adjective": "Fat",
+      "agree_r": -0.22160143348360747,
+      "z": -3.3515696589125454,
+      "empirical_neighbors": [
+        "Chubby",
+        "Big",
+        "Unattractive",
+        "Clumsy"
+      ]
+    },
+    {
+      "adjective": "Sad",
+      "agree_r": -0.21741551498995682,
+      "z": -3.3320219399320137,
+      "empirical_neighbors": [
+        "Unhappy",
+        "Disappointed",
+        "Troubled",
+        "Depressed"
+      ]
+    }
+  ],
+  "antonym_pair_anomalies": [
+    [
+      "Insensitive",
+      "Sensitive",
+      0.24789
+    ]
+  ]
+}

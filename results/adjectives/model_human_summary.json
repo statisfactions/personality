@@ -1,0 +1,535 @@
+{
+  "layer_frac": 0.6666666666666666,
+  "models": {
+    "CohereLabs/aya-expanse-8b": {
+      "r_to_human": {
+        "self": 0.28369968210806545,
+        "pers": 0.2582581752825737,
+        "desc": 0.2095514875352053,
+        "bare": 0.3334695864881468
+      },
+      "framing_agreement": 0.7891443668388026,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.40545839071273804,
+          "Cheerful-Angry": 0.04401537403464317,
+          "Sympathetic-Kind": 0.06963761150836945,
+          "Sympathetic-Angry": 0.00925508327782154,
+          "Happy-Angry": 0.2653541564941406,
+          "Cheerful-Sad": 0.026258375495672226
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.6429252028465271,
+          "Cheerful-Angry": 0.16987207531929016,
+          "Sympathetic-Kind": 0.1379363089799881,
+          "Sympathetic-Angry": 0.0657055526971817,
+          "Happy-Angry": 0.32633736729621887,
+          "Cheerful-Sad": 0.17984654009342194
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.6540130972862244,
+          "Cheerful-Angry": 0.18303103744983673,
+          "Sympathetic-Kind": 0.11192313581705093,
+          "Sympathetic-Angry": 0.07908432185649872,
+          "Happy-Angry": 0.33256369829177856,
+          "Cheerful-Sad": 0.2367587834596634
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6717023253440857,
+          "Cheerful-Angry": 0.26162663102149963,
+          "Sympathetic-Kind": 0.10699760913848877,
+          "Sympathetic-Angry": 0.07498235255479813,
+          "Happy-Angry": 0.21468998491764069,
+          "Cheerful-Sad": 0.28570079803466797
+        }
+      }
+    },
+    "Qwen/Qwen2.5-32B-Instruct": {
+      "r_to_human": {
+        "self": 0.20318138085113735,
+        "pers": 0.14299323296674976,
+        "desc": 0.2939269994954907,
+        "bare": 0.3219846516560319
+      },
+      "framing_agreement": 0.7171125074783005,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.48969566822052,
+          "Cheerful-Angry": 0.10590925067663193,
+          "Sympathetic-Kind": 0.14480803906917572,
+          "Sympathetic-Angry": 0.017409322783350945,
+          "Happy-Angry": 0.35694122314453125,
+          "Cheerful-Sad": 0.056593820452690125
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.631460964679718,
+          "Cheerful-Angry": 0.10130421817302704,
+          "Sympathetic-Kind": 0.14348648488521576,
+          "Sympathetic-Angry": -0.010318320244550705,
+          "Happy-Angry": 0.4963022470474243,
+          "Cheerful-Sad": 0.2001734972000122
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.7103990316390991,
+          "Cheerful-Angry": 0.28365397453308105,
+          "Sympathetic-Kind": 0.2197515070438385,
+          "Sympathetic-Angry": 0.09170100092887878,
+          "Happy-Angry": 0.4552029073238373,
+          "Cheerful-Sad": 0.3011632561683655
+        },
+        "self": {
+          "Cheerful-Joyful": 0.740644097328186,
+          "Cheerful-Angry": 0.2636519968509674,
+          "Sympathetic-Kind": 0.10254868865013123,
+          "Sympathetic-Angry": 0.13866010308265686,
+          "Happy-Angry": 0.4553658068180084,
+          "Cheerful-Sad": 0.38349851965904236
+        }
+      }
+    },
+    "Qwen/Qwen2.5-3B-Instruct": {
+      "r_to_human": {
+        "self": 0.1643035931549949,
+        "pers": 0.4378287697041301,
+        "desc": 0.4588572022517978,
+        "bare": 0.2684182287811144
+      },
+      "framing_agreement": 0.7261524685137081,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.3696586489677429,
+          "Cheerful-Angry": 0.09646640717983246,
+          "Sympathetic-Kind": 0.14544440805912018,
+          "Sympathetic-Angry": 0.015902334824204445,
+          "Happy-Angry": 0.15843446552753448,
+          "Cheerful-Sad": 0.19291278719902039
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.6444911956787109,
+          "Cheerful-Angry": 0.0601387657225132,
+          "Sympathetic-Kind": 0.22869405150413513,
+          "Sympathetic-Angry": -0.0016141739906743169,
+          "Happy-Angry": 0.324782133102417,
+          "Cheerful-Sad": 0.1734541654586792
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.7275887131690979,
+          "Cheerful-Angry": 0.12578822672367096,
+          "Sympathetic-Kind": 0.27821511030197144,
+          "Sympathetic-Angry": -0.03283342346549034,
+          "Happy-Angry": 0.2580847442150116,
+          "Cheerful-Sad": 0.15467289090156555
+        },
+        "self": {
+          "Cheerful-Joyful": 0.7235128283500671,
+          "Cheerful-Angry": 0.2517806589603424,
+          "Sympathetic-Kind": 0.13823150098323822,
+          "Sympathetic-Angry": 0.1771232783794403,
+          "Happy-Angry": 0.38030868768692017,
+          "Cheerful-Sad": 0.3972691297531128
+        }
+      }
+    },
+    "Qwen/Qwen2.5-7B-Instruct": {
+      "r_to_human": {
+        "self": 0.19313695661100427,
+        "pers": 0.22741074515916326,
+        "desc": 0.16830541155979997,
+        "bare": 0.3265887219515371
+      },
+      "framing_agreement": 0.7128648151515723,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.4599032402038574,
+          "Cheerful-Angry": 0.17040225863456726,
+          "Sympathetic-Kind": 0.09670142829418182,
+          "Sympathetic-Angry": -0.0641278401017189,
+          "Happy-Angry": 0.28374966979026794,
+          "Cheerful-Sad": 0.19606781005859375
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.7065346240997314,
+          "Cheerful-Angry": 0.23571757972240448,
+          "Sympathetic-Kind": 0.18385928869247437,
+          "Sympathetic-Angry": 0.05703228339552879,
+          "Happy-Angry": 0.45285871624946594,
+          "Cheerful-Sad": 0.33224523067474365
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.716046154499054,
+          "Cheerful-Angry": 0.22259673476219177,
+          "Sympathetic-Kind": 0.1496514081954956,
+          "Sympathetic-Angry": 0.11997737735509872,
+          "Happy-Angry": 0.3082551956176758,
+          "Cheerful-Sad": 0.33131787180900574
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6885141134262085,
+          "Cheerful-Angry": 0.19385699927806854,
+          "Sympathetic-Kind": 0.12433719635009766,
+          "Sympathetic-Angry": 0.11825008690357208,
+          "Happy-Angry": 0.4379766881465912,
+          "Cheerful-Sad": 0.3061697781085968
+        }
+      }
+    },
+    "google/gemma-3-12b-it": {
+      "r_to_human": {
+        "self": 0.49329526066252727,
+        "pers": 0.5720132970421203,
+        "desc": 0.45543421059645617,
+        "bare": 0.3606269550625676
+      },
+      "framing_agreement": 0.7755962979548382,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.5445052981376648,
+          "Cheerful-Angry": 0.13719025254249573,
+          "Sympathetic-Kind": 0.05029210075736046,
+          "Sympathetic-Angry": -0.058612972497940063,
+          "Happy-Angry": 0.28832948207855225,
+          "Cheerful-Sad": 0.09531141072511673
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.6863670945167542,
+          "Cheerful-Angry": 0.03190196678042412,
+          "Sympathetic-Kind": 0.29741013050079346,
+          "Sympathetic-Angry": -0.02532612904906273,
+          "Happy-Angry": 0.26123881340026855,
+          "Cheerful-Sad": 0.07962121814489365
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.7708849310874939,
+          "Cheerful-Angry": -0.0851294994354248,
+          "Sympathetic-Kind": 0.3464243710041046,
+          "Sympathetic-Angry": -0.1539919078350067,
+          "Happy-Angry": 0.09026972949504852,
+          "Cheerful-Sad": 0.023951955139636993
+        },
+        "self": {
+          "Cheerful-Joyful": 0.665594756603241,
+          "Cheerful-Angry": 0.053318317979574203,
+          "Sympathetic-Kind": 0.26044178009033203,
+          "Sympathetic-Angry": -0.009080210700631142,
+          "Happy-Angry": 0.2154833823442459,
+          "Cheerful-Sad": 0.1651211380958557
+        }
+      }
+    },
+    "google/gemma-3-27b-it": {
+      "r_to_human": {
+        "self": 0.46306644141838393,
+        "pers": 0.5247510007528877,
+        "desc": 0.4295552632359227,
+        "bare": 0.26543524155786935
+      },
+      "framing_agreement": 0.7464877596108836,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.5064209699630737,
+          "Cheerful-Angry": 0.09435509145259857,
+          "Sympathetic-Kind": 0.08658942580223083,
+          "Sympathetic-Angry": -0.07405940443277359,
+          "Happy-Angry": 0.27249547839164734,
+          "Cheerful-Sad": 0.06938672065734863
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.6984469890594482,
+          "Cheerful-Angry": -0.02046038582921028,
+          "Sympathetic-Kind": 0.1933857500553131,
+          "Sympathetic-Angry": -0.05641569197177887,
+          "Happy-Angry": 0.22277431190013885,
+          "Cheerful-Sad": 0.05935852229595184
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.7228040099143982,
+          "Cheerful-Angry": -0.03956347331404686,
+          "Sympathetic-Kind": 0.2602694034576416,
+          "Sympathetic-Angry": -0.08264458924531937,
+          "Happy-Angry": 0.05847020447254181,
+          "Cheerful-Sad": 0.04062771797180176
+        },
+        "self": {
+          "Cheerful-Joyful": 0.5724949836730957,
+          "Cheerful-Angry": -0.06785403192043304,
+          "Sympathetic-Kind": 0.09332305938005447,
+          "Sympathetic-Angry": -0.06982120871543884,
+          "Happy-Angry": 0.14246422052383423,
+          "Cheerful-Sad": 0.046439941972494125
+        }
+      }
+    },
+    "google/gemma-3-4b-it": {
+      "r_to_human": {
+        "self": 0.47903723831420203,
+        "pers": 0.4971508160884497,
+        "desc": 0.39453713890991116,
+        "bare": 0.306764328622671
+      },
+      "framing_agreement": 0.762605338023059,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.5616433024406433,
+          "Cheerful-Angry": 0.1888122856616974,
+          "Sympathetic-Kind": 0.1150350272655487,
+          "Sympathetic-Angry": -0.05375628173351288,
+          "Happy-Angry": 0.27931150794029236,
+          "Cheerful-Sad": 0.1684095710515976
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.6732288599014282,
+          "Cheerful-Angry": 0.049699340015649796,
+          "Sympathetic-Kind": 0.19821183383464813,
+          "Sympathetic-Angry": -0.09477739036083221,
+          "Happy-Angry": 0.31616848707199097,
+          "Cheerful-Sad": 0.23584876954555511
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.812225341796875,
+          "Cheerful-Angry": 0.008040707558393478,
+          "Sympathetic-Kind": 0.4205271303653717,
+          "Sympathetic-Angry": -0.06637922674417496,
+          "Happy-Angry": 0.07744936645030975,
+          "Cheerful-Sad": 0.17440910637378693
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6962947249412537,
+          "Cheerful-Angry": 0.0724559873342514,
+          "Sympathetic-Kind": 0.1362566351890564,
+          "Sympathetic-Angry": 0.04384845122694969,
+          "Happy-Angry": 0.2929466962814331,
+          "Cheerful-Sad": 0.24642501771450043
+        }
+      }
+    },
+    "google/gemma-4-31B-it": {
+      "r_to_human": {
+        "self": 0.42128077942214986,
+        "pers": 0.4915964839182848,
+        "desc": 0.3302211359041494,
+        "bare": 0.09332031320113077
+      },
+      "framing_agreement": 0.6167242282889058,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.4980807900428772,
+          "Cheerful-Angry": 0.5404630303382874,
+          "Sympathetic-Kind": 0.46683958172798157,
+          "Sympathetic-Angry": -0.49614423513412476,
+          "Happy-Angry": 0.139882430434227,
+          "Cheerful-Sad": 0.48296695947647095
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.7961599826812744,
+          "Cheerful-Angry": -0.05568019673228264,
+          "Sympathetic-Kind": 0.140236958861351,
+          "Sympathetic-Angry": -0.03954333811998367,
+          "Happy-Angry": 0.28651055693626404,
+          "Cheerful-Sad": -0.07959605753421783
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.7739694714546204,
+          "Cheerful-Angry": -0.0994965061545372,
+          "Sympathetic-Kind": 0.2340478152036667,
+          "Sympathetic-Angry": -0.1396842896938324,
+          "Happy-Angry": 0.2360304445028305,
+          "Cheerful-Sad": -0.01551103126257658
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6977850794792175,
+          "Cheerful-Angry": 0.052139148116111755,
+          "Sympathetic-Kind": 0.26162612438201904,
+          "Sympathetic-Angry": -0.10768137872219086,
+          "Happy-Angry": 0.43177199363708496,
+          "Cheerful-Sad": 0.05493621155619621
+        }
+      }
+    },
+    "meta-llama/Llama-3.1-8B-Instruct": {
+      "r_to_human": {
+        "self": 0.22802319226547935,
+        "pers": 0.32638090754437654,
+        "desc": 0.24658742876469253,
+        "bare": 0.2769309340155229
+      },
+      "framing_agreement": 0.7776831140381586,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.3613770604133606,
+          "Cheerful-Angry": 0.1033797636628151,
+          "Sympathetic-Kind": 0.14123187959194183,
+          "Sympathetic-Angry": 0.05867646634578705,
+          "Happy-Angry": 0.1922486424446106,
+          "Cheerful-Sad": 0.107737235724926
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.645963191986084,
+          "Cheerful-Angry": 0.16794675588607788,
+          "Sympathetic-Kind": 0.24370993673801422,
+          "Sympathetic-Angry": -0.011116012930870056,
+          "Happy-Angry": 0.3204364776611328,
+          "Cheerful-Sad": 0.22334332764148712
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.6353693604469299,
+          "Cheerful-Angry": 0.20734381675720215,
+          "Sympathetic-Kind": 0.17454411089420319,
+          "Sympathetic-Angry": 0.02674487605690956,
+          "Happy-Angry": 0.3090972304344177,
+          "Cheerful-Sad": 0.29134443402290344
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6523310542106628,
+          "Cheerful-Angry": 0.14563165605068207,
+          "Sympathetic-Kind": 0.16285406053066254,
+          "Sympathetic-Angry": 0.046968281269073486,
+          "Happy-Angry": 0.1552695333957672,
+          "Cheerful-Sad": 0.17651315033435822
+        }
+      }
+    },
+    "meta-llama/Llama-3.2-3B-Instruct": {
+      "r_to_human": {
+        "self": 0.22396011827206508,
+        "pers": 0.45947724591433436,
+        "desc": 0.22971610534900389,
+        "bare": 0.3125163243612682
+      },
+      "framing_agreement": 0.7682027204316649,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.4246569871902466,
+          "Cheerful-Angry": 0.08624518662691116,
+          "Sympathetic-Kind": 0.11490083485841751,
+          "Sympathetic-Angry": -0.001087909797206521,
+          "Happy-Angry": 0.24056683480739594,
+          "Cheerful-Sad": 0.14432847499847412
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.7161480188369751,
+          "Cheerful-Angry": 0.06009348854422569,
+          "Sympathetic-Kind": 0.3132251501083374,
+          "Sympathetic-Angry": 0.02802138961851597,
+          "Happy-Angry": 0.25868967175483704,
+          "Cheerful-Sad": 0.14434367418289185
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.721084475517273,
+          "Cheerful-Angry": 0.07440228015184402,
+          "Sympathetic-Kind": 0.2745520770549774,
+          "Sympathetic-Angry": -0.02623937837779522,
+          "Happy-Angry": 0.20464470982551575,
+          "Cheerful-Sad": 0.23943796753883362
+        },
+        "self": {
+          "Cheerful-Joyful": 0.675090491771698,
+          "Cheerful-Angry": 0.1407756805419922,
+          "Sympathetic-Kind": 0.18150417506694794,
+          "Sympathetic-Angry": 0.042959582060575485,
+          "Happy-Angry": 0.14616043865680695,
+          "Cheerful-Sad": 0.2574114501476288
+        }
+      }
+    },
+    "microsoft/Phi-4-mini-instruct": {
+      "r_to_human": {
+        "self": 0.39649111006217813,
+        "pers": 0.41350211230648315,
+        "desc": 0.3773504738380805,
+        "bare": 0.21513178511021214
+      },
+      "framing_agreement": 0.8487609555135224,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.36689990758895874,
+          "Cheerful-Angry": 0.08282443135976791,
+          "Sympathetic-Kind": 0.06661275029182434,
+          "Sympathetic-Angry": -0.056514523923397064,
+          "Happy-Angry": 0.17881718277931213,
+          "Cheerful-Sad": 0.08178585767745972
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.5820515155792236,
+          "Cheerful-Angry": 0.09872011095285416,
+          "Sympathetic-Kind": 0.1768818199634552,
+          "Sympathetic-Angry": -0.031584642827510834,
+          "Happy-Angry": 0.33421871066093445,
+          "Cheerful-Sad": 0.20814675092697144
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.6650617122650146,
+          "Cheerful-Angry": 0.10108079761266708,
+          "Sympathetic-Kind": 0.21107544004917145,
+          "Sympathetic-Angry": -0.004611560143530369,
+          "Happy-Angry": 0.23309281468391418,
+          "Cheerful-Sad": 0.19325169920921326
+        },
+        "self": {
+          "Cheerful-Joyful": 0.6364929676055908,
+          "Cheerful-Angry": 0.10814037919044495,
+          "Sympathetic-Kind": -0.008646517060697079,
+          "Sympathetic-Angry": 0.041234567761421204,
+          "Happy-Angry": 0.2397816926240921,
+          "Cheerful-Sad": 0.20896080136299133
+        }
+      }
+    },
+    "tiiuae/falcon-mamba-7b-instruct": {
+      "r_to_human": {
+        "self": 0.3481809437956672,
+        "pers": 0.4578891805020885,
+        "desc": 0.3431779983568878,
+        "bare": 0.23252945203155598
+      },
+      "framing_agreement": 0.7545113853348121,
+      "pairs": {
+        "bare": {
+          "Cheerful-Joyful": 0.3659963607788086,
+          "Cheerful-Angry": 0.1213688775897026,
+          "Sympathetic-Kind": 0.046386633068323135,
+          "Sympathetic-Angry": -0.005666500423103571,
+          "Happy-Angry": 0.19212721288204193,
+          "Cheerful-Sad": 0.15540486574172974
+        },
+        "desc": {
+          "Cheerful-Joyful": 0.5674172639846802,
+          "Cheerful-Angry": 0.04841720312833786,
+          "Sympathetic-Kind": 0.1735680252313614,
+          "Sympathetic-Angry": -0.05056003853678703,
+          "Happy-Angry": 0.29908809065818787,
+          "Cheerful-Sad": 0.18951401114463806
+        },
+        "pers": {
+          "Cheerful-Joyful": 0.5948600769042969,
+          "Cheerful-Angry": 0.005837289150804281,
+          "Sympathetic-Kind": 0.16241122782230377,
+          "Sympathetic-Angry": -0.030894802883267403,
+          "Happy-Angry": 0.1695803999900818,
+          "Cheerful-Sad": 0.02926344983279705
+        },
+        "self": {
+          "Cheerful-Joyful": 0.5299011468887329,
+          "Cheerful-Angry": 0.09800401329994202,
+          "Sympathetic-Kind": 0.10872615873813629,
+          "Sympathetic-Angry": 0.03484309837222099,
+          "Happy-Angry": 0.12446804344654083,
+          "Cheerful-Sad": 0.15731868147850037
+        }
+      }
+    }
+  },
+  "human_pairs": {
+    "Cheerful-Joyful": 0.63454,
+    "Cheerful-Angry": -0.3616,
+    "Sympathetic-Kind": 0.57358,
+    "Sympathetic-Angry": -0.14634,
+    "Happy-Angry": -0.42488,
+    "Cheerful-Sad": -0.42676
+  },
+  "cohort_mean_r_to_human": {
+    "self": 0.32480472474482125,
+    "pers": 0.4007709972651368,
+    "desc": 0.32810173798311654,
+    "bare": 0.27614304356996905
+  }
+}
