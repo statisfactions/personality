@@ -48,7 +48,7 @@ def main():
         (2, 2, "Model: unrotated PCs × own factors", cong(Mphi, Mvar), Mlab, mPC),
     ]
     fig = make_subplots(rows=2, cols=2, subplot_titles=[p[2] for p in panels],
-                        horizontal_spacing=0.13, vertical_spacing=0.13)
+                        horizontal_spacing=0.13, vertical_spacing=0.16)
     for r, c, _, Z, xlab, ylab in panels:
         fig.add_trace(go.Heatmap(
             z=Z, x=xlab, y=ylab, zmin=-1, zmax=1, colorscale="RdBu",
@@ -57,7 +57,7 @@ def main():
             text=np.round(Z, 2), texttemplate="%{text}",
             textfont=dict(size=10)), row=r, col=c)
         fig.update_yaxes(autorange="reversed", row=r, col=c)
-        fig.update_xaxes(side="top", row=r, col=c)
+        fig.update_xaxes(side="bottom", row=r, col=c)
     fig.update_layout(
         title=dict(text="<b>Factor congruence: human vs LLM, unrotated vs varimax</b>"
                    "<br><sub>Tucker congruence (cosine of loadings). Top-right is the "
