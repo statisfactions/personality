@@ -2,7 +2,8 @@
 
 Catalog of every direction-extraction method we've used to recover trait or facet "directions" from residual-stream activations. Each method has a stable name, a concrete formula, the tokens/text it operates on, and a pointer to the script that implements it. New methods get a row; old methods are kept (not deleted) so reports can cite a method by name and the reader can resolve it here.
 
-Last updated: 2026-05-10.
+Last updated: 2026-06-01 (covers through W13 §3.11: the `meandiff-itempc1` facet
+default, the adjective adaptive-denoise regime, and the encoder baseline).
 
 ## Vocabulary
 
@@ -67,7 +68,16 @@ For each method: extraction formula, what it operates on, where it's implemented
 - **Implementation**: `scripts/extract_meandiff_vectors.py`.
 - **Status**: W5 baseline.
 
-### `meandiff-pcs` *(active)* — Mean-difference + neutral-PC projection at facet granularity
+### `meandiff-itempc1` *(active, canonical default since W13 §3.7)* — Mean-difference + top-1 item-PC projection
+
+- **Formula**: `unit(project_out_pcs(mean(a_fwd) − mean(a_rev), item_pc1))` per facet, where `item_pc1` is the single top PC of the IPIP **item** activations themselves (not a neutral corpus).
+- **Stimulus** (IPIP): `ipip-item` grouped by facet (6 facets × 5 traits = 30 directions). Token aggregation: `mean-all-skip0`.
+- **Layer**: `round(n_layers * 2/3)`.
+- **Implementation**: `scripts/ipip_facet_cluster.py --extraction meandiff-itempc1` (the default; `EXTRACTION_METHODS[0]`).
+- **Why it replaced `meandiff-pcs` as default**: removes ONLY the single dominant content-free anisotropy/norm axis, computed from the items themselves — so **no neutral corpus and no variance-threshold knob**. The W13 §3.7 sweep showed (a) facet geometry is insensitive to neutral choice once k=1, and (b) the older variable-k (50%-variance) projection *over*-projects on low-anisotropy models (Phi4, FalconMamba). Net: comparable-or-better (+0.007 cohort-mean r vs human) AND robust by construction.
+- **Output**: `results/facets/ipip_facet_cluster.json` (default path; `meandiff-pcs` and the `single-*` variants write tagged filenames).
+
+### `meandiff-pcs` *(back-compat; was the W8–W12 active default)* — Mean-difference + neutral-PC projection at facet granularity
 
 - **Formula**: `unit(project_out_pcs(mean(a_fwd) − mean(a_rev), neutral_pcs))` per facet, where `neutral_pcs` are the top-50%-variance PCs of neutral-text activations at common layer.
 - **Stimulus** (HEXACO): `hexaco-pair` items grouped by facet (4 facets × 6 traits = 24 facet directions). Token aggregation: `mean-response`.
@@ -111,6 +121,28 @@ For each method: extraction formula, what it operates on, where it's implemented
 - **Implementation**: `scripts/ipip_facet_cluster.py --extraction single-ipip-mean` (W9).
 - **Theoretical use**: the matched-format baseline. Neutral-text mean (used by `single-neutral`) sits on a different point of the anisotropic manifold than chat-wrapped IPIP items, so it can't isolate trait-distinctive structure. Subtracting the IPIP-format centroid captures both anisotropy AND the IPIP-specific "first-person introspection statement" baseline in one operation. Added W9 §1 after pilot showed `single-zero`/`single-neutral`/`single-pcs` are anisotropy-degenerate.
 
+## Adjective-level and encoder methods (W13 §3.9–3.11)
+
+The single-adjective track builds a model's *similarity matrix* over a fixed
+word list (the 523 clean 525-PDA adjectives), not per-facet directions. The unit
+of analysis is the adjective vector; the readout is the adjective×adjective cosine
+matrix, compared against the human inter-adjective correlation matrix.
+
+### `adaptive-denoise` *(active, adjective track)* — IPR-routed centering
+
+- **Formula** (`scripts/adjective_geom.py:adaptive_denoise`): center the adjective matrix `Xc = X − mean(X)`; take PC1 of `Xc`; compute its inverse participation ratio `IPR = 1/Σ vᵢ⁴`. **Remove the top-1 PC only if `IPR < 10`** (PC1 concentrated on a few rogue dims = a massive-activation axis); otherwise center-only. Then unit-normalize rows.
+- **Why regime-dependent**: a uniform center+top-1 deletes *real* signal from the 9 non-Gemma models (their PC1 is a genuine trait contrast, IPR 28–1175) but is *necessary* for the Gemma-3 family, whose centered PC1 IS the massive-activation rogue dim (IPR 1–2). Discovered after a uniform denoise produced two retracted artifacts ("Qwen32 worst / family gradient"; "model space is flat").
+- **Layer**: `round((n_layers−1) * 2/3)` (`LAYER_FRAC = 2/3`), same depth convention as the facet work.
+- **Implementation**: `scripts/adjective_geom.py` (`adaptive_denoise`, `model_matrix`); consumed by `affect_rsa.py`, `adjective_factor_congruence.py`, `intensity_vs_valence.py`, `scree_parallel.py`, `factor_ladder_figure.py`.
+- **Stimulus / framing**: `extract_adjectives.py` caches activations under four framings — `self` ("I am {adj}"), `pers` ("My personality is {adj}", **canonical**), `desc` ("Someone who is {adj}"), `bare` ("{adj}"). `pers` recovers the human matrix best (+0.40 vs self/desc +0.33, bare +0.28). Adjective span read via `split_prefix`; cached fp32 (NOT `.half()` — Gemma-3 fp16 overflows to inf).
+
+### `encoder-baseline` — sentence-embedding directions as a non-causal control
+
+- **Formula**: encode `"someone who is {adj}"` (or the facet/item text) with a frozen sentence encoder, L2-normalize, center, unit-normalize rows → cosine matrix. Same downstream comparison as any model.
+- **Encoders**: `BAAI/bge-large-en-v1.5`, `sentence-transformers/all-mpnet-base-v2`.
+- **Implementation**: `scripts/embedding_facet_baseline.py` (facet geometry, W13 §3.9), and inline in `intensity_vs_valence.py` (adjective blocks).
+- **Role**: a contrastive bidirectional encoder with no RLHF and no causal attention. When it reproduces an LLM "anomaly" (e.g. the affect-merge), that pins the effect as **lexical** rather than decoder-specific. The W13 §3.9 "structure is in the lexicon" thesis rests on this control.
+
 ## Caches
 
 | Cache | Path | Format | Used by |
@@ -119,6 +151,7 @@ For each method: extraction formula, what it operates on, where it's implemented
 | HEXACO contrast pairs (stratified) | `results/phase_b_cache_stratified/<safe_repo>_<trait>_chat_pairs.pt` | same shape | W6 stratified-extraction work |
 | Neutral baseline | `results/phase_b_cache/<safe_repo>_neutral_chat.pt` | tensor (n_neutral_items, n_layers+1, hidden) | both the PC-projection neutral and the W9 single-neutral baseline |
 | IPIP item activations *(W9)* | `results/phase_b_cache_ipip/<safe_repo>_ipip_chat.pt` | dict with `acts` (n_items, n_layers+1, hidden), `meta` (per-item trait/facet/pole/text) | `ipip_facet_cluster.py` for all 4 W9 extraction methods |
+| Adjective activations *(W13)* | `results/adjectives/acts/<model>__<framing>.pt` | dict with `acts` (n_adj, n_layers+1, hidden) fp32, `adjectives` (523 labels); framing ∈ {self, pers, desc, bare} | `adjective_geom.py` and all adjective-track scripts |
 
 ## Conventions for adding a new method
 

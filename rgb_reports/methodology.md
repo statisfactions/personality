@@ -2,13 +2,20 @@
 
 ## Overview
 
-This project measures LLM personality using three complementary approaches:
+This project measures LLM personality using several complementary readouts. The
+first three are the original (W1–W7) core; the rest were added W8–W13.
 
-1. **Likert self-report surveys** — standard psychometric instruments administered via logprobs
-2. **Representation engineering (RepE)** — extracting trait direction vectors from hidden states
-3. **Binary-choice behavioral scenarios** — A/B preference via logprobs (one scenario, two options on the same trait dimension; not "forced-choice" in the Thurstonian/multi-trait sense from the psychometrics literature)
+1. **Likert self-report surveys** (§1) — standard psychometric instruments administered via logprobs
+2. **Representation engineering (RepE)** (§2) — extracting trait/facet direction vectors from hidden states
+3. **Binary-choice behavioral scenarios** (§3) — A/B preference via logprobs (one scenario, two options on the same trait dimension; not "forced-choice" in the Thurstonian/multi-trait sense from the psychometrics literature)
+4. **Natural-persona composition** (§4.5) — first-person personas built from validated IPIP behavioral items, decoupling persona text from extraction vocabulary (W8)
+5. **Graded forced-choice + Thurstonian IRT (GFC/TIRT)** (§5) — desirability-matched item *blocks*; TIRT recovers normative scores from ipsative data (W10–W11). This is the third readout alongside Likert and RepE.
+6. **Cross-language facet geometry** (§6) — the IPIP geometry battery run on English vs Mandarin IPIP-120 (W13)
+7. **Adjective / embedding geometry** (§7) — single-adjective representations vs the human inter-adjective correlation matrix, with sentence-encoder baselines (W13)
 
-Each approach measures a different construct (see "Three Constructs" in `reports/report_week2.md`, Section 10).
+The first three measure *different constructs* (see "Three Constructs" in `report_week2.md`, §10): representation ≠ preference ≠ free-text. **For the extraction-direction methods behind §2/§5/§7 — `meandiff-itempc1`, the `single-*` family, adaptive denoise, encoder baselines — see the companion `representation_vector_methods.md`, which is the source of truth for formulas.** This file covers instruments, scripts, and flags.
+
+> **Coverage note (2026-06-01):** §§1–4 are the mature core. §§5–7 were added to track the W10–W13 work; they summarize pipelines documented in full in the corresponding weekly reports (`report_week10.md`–`report_week13.md`).
 
 ---
 
@@ -133,12 +140,27 @@ Causal attention guarantees the period-token hidden state is identical regardles
 
 ### Models Tested (HuggingFace)
 
+The cohort grew in three waves. Short names and repos are the source of truth in
+`scripts/hf_logprobs.py` (`MODELS` dict); `resolve()` passes unknown strings through.
+
+**Original small cohort (W1–W6), with best RepE layer:**
+
 | Short name | HuggingFace ID | Layers | Hidden dim | Best RepE layer |
 |---|---|---|---|---|
-| gemma3 | google/gemma-3-4b-it | 34 | 2560 | 14 |
-| qwen2.5 | Qwen/Qwen2.5-3B-Instruct | 36 | 2048 | 19 |
-| phi4 | microsoft/Phi-4-mini-instruct | 32 | 3072 | 9 |
-| llama3.2 | meta-llama/Llama-3.2-3B-Instruct | 28 | 3072 | 12 |
+| Gemma (gemma3) | google/gemma-3-4b-it | 34 | 2560 | 14 |
+| Qwen (qwen2.5) | Qwen/Qwen2.5-3B-Instruct | 36 | 2048 | 19 |
+| Phi4 (phi4) | microsoft/Phi-4-mini-instruct | 32 | 3072 | 9 |
+| Llama (llama3.2) | meta-llama/Llama-3.2-3B-Instruct | 28 | 3072 | 12 |
+
+**Phase-1 larger cohort (W7, SAE-covered):** `Gemma12` (gemma-3-12b-it), `Gemma27` (gemma-3-27b-it), `Llama8` (Llama-3.1-8B-Instruct), `Qwen7` (Qwen2.5-7B-Instruct).
+
+**W12 §6 scale-up (M5 Max 128GB):** `Qwen32` (Qwen2.5-32B-Instruct), `Gemma4` (gemma-4-31B-it, needs transformers ≥ 5.5), `Gemma4MoE` (gemma-4-26B-A4B-it), `Qwen36` (Qwen3.6-35B-A3B, thinking-on by default).
+
+**W13 §8.2 distribution/architecture outliers:** `Aya` (CohereLabs/aya-expanse-8b, multilingual SFT) and `FalconMamba` (tiiuae/falcon-mamba-7b-instruct, pure SSM, no attention) — used to test the axis-of-the-models hypothesis. (A third candidate, *Mr. Chatterbox*, was struck: ships a checkpoint without its custom BPE, so unrunnable as published.)
+
+**Sentence encoders (W13 baseline, non-causal control):** `BAAI/bge-large-en-v1.5`, `sentence-transformers/all-mpnet-base-v2`. See §7 and `representation_vector_methods.md` → `encoder-baseline`.
+
+Default dtype is **bfloat16** on MPS for every model (the original float16-NaN issue on Gemma was the reason; bf16 is now universal). The "common layer" for facet/adjective work is `round(n_layers * 2/3)`, not a per-trait swept layer.
 
 ---
 
@@ -153,12 +175,19 @@ Note on terminology: we use "binary choice" for our single-trait A/B scenarios t
 - **Limitation**: Near-ceiling for H, C, O (all models pick prosocial option 17-20/20). Real signal only on E (near chance), A and X (intermediate).
 - **Caveat**: Position bias matters. Scoring a pair in a single A/B ordering mixes content read with position preference; proper evaluation averages across both orderings. See `rgb_reports/report_week5_meandiff.md` §8.
 
-### Trait-Conflict Forced Choice (planned)
+### Graded forced-choice, single-construct (BUILT — W11)
 
-- **Format**: Scenarios where two positive traits conflict (e.g., honesty vs kindness) — this IS forced choice in the literature sense
+A desirability-matched **graded forced-choice** instrument (IPIP-NEO-GFC-60) *was*
+built in W11 and is now the project's third readout — but it is **single-construct
+GFC** (Big Five, desirability-matched blocks), not the trait-vs-trait conflict
+design below. Full pipeline, instruments, and scoring are in §5.
+
+### Trait-Conflict Forced Choice (STILL planned)
+
+- **Format**: Scenarios where two *positive* traits conflict (e.g., honesty vs kindness) — this is the trait-conflict sense, distinct from the desirability-matched GFC-60 of §5.
 - **Instrument**: Not yet built. Design based on HEXACO pairwise combinations (15 trait pairs).
-- **Motivation**: ACL 2025 paper (Decoding LLM Personality: Forced-Choice vs. Likert) confirms forced-choice discriminates LLM personalities better. Validated trait-conflict instruments don't exist for HEXACO (for humans or LLMs).
-- **Scoring**: Will require Thurstonian IRT (Brown & Maydeu-Olivares) to recover normative scores from ipsative pair data.
+- **Motivation**: the ceiling-effect breaker (BC/RepE saturate on H/C/O). Okada et al. (2026) show desirability-matched GFC + TIRT is viable on Big Five (the §5 work replicates this); extending it to HEXACO trait-vs-trait conflicts is the open design problem. See `to_try.md` #1.
+- **Scoring**: Thurstonian IRT (Brown & Maydeu-Olivares) to recover normative scores from ipsative pair data — same machinery as §5, different block construction.
 
 ---
 
@@ -233,9 +262,90 @@ Per persona, per trait:
 
 ---
 
-## 5. Environment
+## 5. Graded Forced-Choice + Thurstonian IRT (W10–W12)
 
-- **Local inference**: HuggingFace Transformers (bf16, MPS). Ollama is no longer used by the survey/BC pipelines as of 2026-04-24 — remains available for the chat UX but not called by any script.
-- **HuggingFace models**: See table above. Requires `HF_TOKEN` authentication for gated models (Gemma, Llama).
-- **Python venv**: `.venv/` with torch, transformers, accelerate, scikit-learn, plotly, numpy
-- **Hardware**: Apple Silicon Mac with MPS backend. Models run in bfloat16.
+The third readout. Where Likert reads self-report and RepE reads the residual
+stream, GFC/TIRT reads *relative preference between desirability-matched items*
+and recovers normative trait scores via Thurstonian IRT — structurally immune to
+the social-desirability "assistant shape" that flattens Likert.
+
+### Instruments
+
+- `instruments/okada_gfc30.json` — Okada et al. (2026) GFC-30 Big Five blocks (the replication target / starting instrument).
+- `instruments/ipip_neo_gfc_P60.json` — our IPIP-NEO-GFC-60, built in W11 from the IPIP-NEO-300 pool (60 desirability-matched forced-choice pairs). `_fp.json` is the first-person-phrased variant (W11 Phase D diagnostic).
+
+### Pipeline (W11 phases)
+
+- **Phase A — `scripts/rate_desirability_cohort.py`**: validate that open cohort models can act as desirability raters (replacing Okada's frontier GPT-5 + Gemini raters).
+- **Phase B — `scripts/rate_desirability_ipip300.py`**: rate all 300 IPIP-NEO items for social desirability with the cohort raters. (`rate_desirability_pilot_ipip_phrasing.py` is the prompt-phrasing pilot.)
+- **Phase C — `scripts/ipip_gfc_pair_mip.py`**: solve Okada Appendix C's two-stage mixed-integer program to pair items into desirability-matched forced-choice blocks → emits the GFC-60.
+- **Phase D**: administer + fit. Surprise *negative* recovery result on the first-person variant (see `report_week11.md` §6).
+
+### Administration
+
+- `scripts/run_gfc_hf.py` — administer GFC via HuggingFace (chat-template) across the cohort.
+- `scripts/run_gfc_anthropic.py` — same via the Anthropic API (Haiku 4.5 etc.).
+- `scripts/run_gfc_ollama.py` — Ollama path.
+
+### TIRT scoring + comparison
+
+- TIRT fitting is done in the vendored R/Stan pipeline under `psychometrics/` (Okada GFC Stan drivers; note the L/R-swap bug fixed in `a007852`). The fitter derives instrument metadata from the response records, not an external file (`1c55281`).
+- `scripts/persona_w11_gfc_comparison.py`, `scripts/persona_w12_gfc_p60_comparison.py` — compare GFC-30 vs GFC-60 TIRT recovery against Rep and Likert.
+- **Headline (W10–W12)**: TIRT recovers persona z's at substantially *lower* magnitude than Rep or Likert (cohort means: Likert 0.75 > Repr 0.49 > TIRT 0.31), and is SDR-immune by construction (W12 §5b). The W12 §2 loading diagnostic found cohort-aggregated `a_pos` pinned at the HalfNormal prior mean — the data are weakly informative per item; per-item *relative* loadings still show a clean assistant-shape pattern.
+
+### The 270-cube (W12 §7)
+
+`scripts/persona_w12_cube_dashboard.py` renders the full **3-method × 3-persona-form × 3-condition × 10-model** cube (method ∈ {Likert, Repr, TIRT}; condition ∈ {neutral, fake-good prefix, fake-good suffix}). Prefix caching fills the cube; see `report_week12.md` §7. The cube is the basis for the "axis-of-the-models" reframe of cross-model agreement.
+
+---
+
+## 6. Cross-Language Facet Geometry (W13 §3.8)
+
+Runs the IPIP facet-geometry battery in two languages to test whether the
+assistant-shape persona and facet structure survive translation.
+
+- **Instruments**: `instruments/ipip120_english.json`, `instruments/ipip120_mandarin.json` (IPIP-NEO-120, EN + ZH), with `*_facet_map.json` companions. `instruments/ipip120_human_facet_correlations.json` is the human comparison target.
+- **Builders**: `scripts/build_ipip120_english.py`, `scripts/build_ipip120_mandarin.py`.
+- **Analysis**: `scripts/repr_crosslang.py` (facet-geometry recovery EN vs ZH at the representation level), `scripts/compare_en_zh_persona.py` (persona induction across languages), `scripts/score_ipip120_subset.py`.
+- **Headline (W13 §3)**: English-dominant models go near-uniform in Mandarin; Anger drops; political items collapse to neutral. **Language perturbation ≫ format perturbation.** See `report_week13.md` §3.
+
+---
+
+## 7. Adjective / Embedding Geometry (W13 §3.9–3.11)
+
+Compares how a model organizes single trait-adjectives against the *human*
+inter-adjective correlation matrix — the cleanest test of "is the model's trait
+geometry lexical (word-embedding-like) or behavioral?" Extraction-direction
+formulas (adaptive denoise, encoder baseline) live in
+`representation_vector_methods.md`; this section is the data + script map.
+
+### Human substrate
+
+- **525-PDA** (Saucier, Harvard Dataverse `doi:10.7910/DVN/GHYMEV`) — 700 respondents rate ~525 personality adjectives on a 1–7 scale; theory-neutral (not Big-Five-scaffolded). We use 523 after dropping 2 corrupted columns.
+- Built matrices: `results/adjectives/escs_525pda_corr_raw.json` (`correlation_matrix` + `labels`). Provenance and the corrupted-column caveat are in `bibliography.md` (525-PDA / 360-PDA entries).
+- **`scripts/fetch_external_data.py`** clones the external sources (525-PDA, 360-PDA, Cutler & Condon) into `data/` so the matrices can be rebuilt.
+
+### Model extraction
+
+- **`scripts/extract_adjectives.py`** — 12 models × 4 framings × 523 adjectives → `results/adjectives/acts/<model>__<framing>.pt` (fp32). Framings: `self`, `pers` (canonical), `desc`, `bare`. `pers` ("My personality is {adj}") recovers the human matrix best.
+- **`scripts/adjective_geom.py`** — shared `adaptive_denoise` (IPR-routed center / center+top-1) and `model_matrix` (load cache at 2/3 depth, align to labels, return cosine matrix). Used by everything below.
+
+### Analyses
+
+- `affect_analysis.py`, `affect_rsa.py` — the affect block: presence-vs-valence RSA. The "affect-merge" (Cheerful ≈ Angry) is a separable lexical axis; valence is present but weak (b > 0 all 12 models, but presence ≈ valence vs human valence ≫ presence).
+- `adjective_factor_congruence.py`, `factor_congruence_grid.py` — Tucker congruence of model varimax factors to human Big Five. A/E/N recover (~0.5–0.6), C weak (0.35), **O essentially absent (0.08)**.
+- `scree_parallel.py` — Horn parallel analysis: 5 is the Big-Five convention, not the elbow (~34 human / ~70 model factors above null).
+- `intensity_vs_valence.py` — capstone: the same presence > valence pattern holds for general *evaluation* (Wonderful ≈ Awful). The model organizes adjectives by **intensity first, sign second**.
+- `factor_ladder_figure.py` — varimax factors k=1→10, human vs model side by side.
+- `embedding_facet_baseline.py` + the encoders — the lexical control (see §2 models table and `representation_vector_methods.md`).
+- Support: `adjective_corr_cluster.py`, `adjective_audit.py` (deny-list QA), `adjective_model_human.py`, `adjective_factor_heatmap.py`, `adjective_hclust_heatmap.py`, `adjective_affect_heatmap.py`, `factor_rotation_compare.py`.
+- **Headline**: Big Five is *not* the LLM's adjective organization — affect / evaluation / interpersonal is, with the Five a thin overlay. Full write-up in `report_week13.md` §3.11.
+
+---
+
+## 8. Environment
+
+- **Local inference**: HuggingFace Transformers (bf16, MPS). Ollama is no longer used by the survey/BC pipelines as of 2026-04-24 — remains available for the chat UX and the `run_gfc_ollama.py` path, but not called by the core measurement scripts.
+- **HuggingFace models**: See §2 table. Requires `HF_TOKEN` authentication for gated models (Gemma, Llama).
+- **Python venv**: `.venv/` with torch, transformers, accelerate, scikit-learn, plotly, numpy, sentence-transformers (encoders), pyreadstat (`.por`/`.sav` human data).
+- **Hardware**: Apple Silicon Mac (M5 Max, 128 GB RAM as of 2026-04-24), MPS backend. All models run in bfloat16; scales run so far span 3B–35B with no quantization. The vendored R/Stan TIRT fitter lives under `psychometrics/`.
