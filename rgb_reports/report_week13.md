@@ -858,6 +858,19 @@ evaluative axis no text model has.) Figure `factor_rotation_compare.png`: human
 varimax = clean Big-Five diagonal blocks; LLM varimax recovers A/E/N blocks but the
 C/O columns wash out.
 
+**Is 5 even the right number? (`scripts/scree_parallel.py`).** No — 5 is the
+Big-Five convention, not a data elbow. Horn parallel analysis (real eigenvalues vs
+structure-destroyed nulls): the **human** adjective space supports **~34** factors,
+the **model ~70** (per-model 54–81); the falloff is gradual in both with no elbow
+at 5. Five factors explain only **34%** of human / **25%** of model variance. Under
+the fair adaptive denoise the model's space is genuinely **flatter and higher-
+dimensional** — PC1 0.082 vs human 0.162, more real factors — but it *does* have a
+dominant PC1 (the earlier "flat / no dominant axis" was the top-1-removal artifact,
+already retracted). Reframe: "does the LLM have the Big Five" asks whether a coarse
+5-D projection aligns — but the Big Five is only a low-D summary of a ~34-factor
+human space, and the model lives in an even higher-D, flatter one. So the C/O
+collapse is "the 5-factor frame captures even less of the model than of the human."
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
