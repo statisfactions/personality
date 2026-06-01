@@ -29,6 +29,8 @@ import torch
 import plotly.graph_objects as go
 from sentence_transformers import SentenceTransformer
 
+from adjective_geom import model_matrix
+
 HUMAN = "results/adjectives/escs_525pda_corr_raw.json"
 POS = ["Cheerful", "Happy", "Joyful", "Glad", "Pleased", "Delightful", "Lively",
        "Optimistic", "Good-humored", "Good-natured", "Positive", "Laughing"]
@@ -74,19 +76,12 @@ def main():
     pts = []  # (name, rsa-dict, kind)
     hd = rsa(H, pi, ni); show("HUMAN 525-PDA", hd); pts.append(("human", hd, "human"))
 
-    # LLM cohort (pers, center+top1)
+    # LLM cohort (pers, adaptive denoise: center; remove top1 only for rogue-PC1)
     PROBES = ("aya", "falcon")
     cohort = []
     for p in sorted(glob.glob("results/adjectives/acts/*__pers.pt")):
-        b = torch.load(p, weights_only=False)
-        A = b["acts"].astype(np.float32); L = round((A.shape[1] - 1) * 2 / 3)
-        adj = b["adjectives"]; re = [adj.index(l) for l in labels]
-        X = A[:, L, :][re]; Xc = X - X.mean(0)
-        _, _, Vt = np.linalg.svd(Xc, full_matrices=False)
-        D = Xc - (Xc @ Vt[:1].T) @ Vt[:1]
-        D /= (np.linalg.norm(D, axis=1, keepdims=True) + 1e-9)
-        name = b["model"].split("/")[-1]
-        cohort.append((name, rsa(D @ D.T, pi, ni)))
+        name, C, removed, ipr = model_matrix(p, labels)
+        cohort.append((name, rsa(C, pi, ni)))
     for name, d in cohort:
         show(name, d)
         kind = "probe" if any(k in name.lower() for k in PROBES) else "llm"
