@@ -838,7 +838,18 @@ O 0.08** (mean 0.41). A/E/N recover moderately; C weakly; **Openness is essentia
 absent, and that O-collapse is the most denoise-stable result (0.11→0.08).** The
 model's *own* varimax factors are interpersonal/affective — warmth, evaluation
 (Wonderful/Amazing/Great), distress, antagonism (Rude/Obnoxious/Arrogant) — with
-**no Conscientiousness or Openness factor**. So the LLM organizes trait-adjectives
+**no Conscientiousness or Openness factor**:
+
+| LLM factor | top adjectives | reading | closest Big Five |
+|---|---|---|---|
+| M1 | Compassionate, Supportive, Considerate, Caring, Respectful | warmth | A (.64) |
+| M2 | Wonderful, Amazing, Impressive, Awesome, Great | evaluation / admiration | E (.44) |
+| M3 | Self-assured, Good-natured, Well-Liked, Self-sufficient | confidence / likability | — (≤.16) |
+| M4 | Disappointed, Ashamed, Upset, Afraid, Worried | distress / anxiety | (neg-affect) |
+| M5 | Annoying, Irritating, Rude, Obnoxious, Arrogant | antagonism | N (.70) |
+
+(cohort-mean varimax; var-frac 0.073/0.061/0.037/0.031/0.027 vs human
+0.159/0.074/0.040/0.030/0.024.) So the LLM organizes trait-adjectives
 by affect/evaluation/interpersonal content, not the full Big Five; A/E/N are there,
 C/O are not. (Caveat: absolute congruences aren't comparable to C&C — different
 human reference/carrier/matching — and the encoders also score ~0.45, so part is
