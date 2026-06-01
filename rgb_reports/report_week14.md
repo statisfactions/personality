@@ -9,9 +9,13 @@ LLM cohort, plus a varimax-convention (Kaiser/SPSS) fix that bites exactly the w
 factors. Verdict: **adjective geometry supports ≤5 dimensions with Openness already
 shaky, and the model collapses that to a ~2-factor evaluative core**; the human's
 data-driven 6th factor (placidity, *not* HEXACO Honesty-Humility) fails resampling
-(recovered 3% of the time). §2 (open) lays out why that "very different factor
-structure" is nonetheless compatible with the W9/W13 r≈0.56 IPIP facet-geometry
-match — same fact, two views.
+(recovered 3% of the time). §2 reconciles that "very different factor structure" with
+the W9/W13 r≈0.56 IPIP facet-geometry match: it's a **metric** difference — under the
+relational (matrix-correlation) lens the adjective geometry matches humans at r≈0.56
+too (= facets = encoder baseline), so the Big-Five relational structure *is* present;
+the "2-factor core" is what the variance-weighted *factor-extraction* lens sees,
+because the model's variance concentrates evaluatively. Thin overlay = low-variance-
+but-present, not absent.
 
 ## 1. Over-extraction: is the adjective Big Five even real?
 
@@ -81,17 +85,63 @@ supports ≤5 dimensions with Openness already shaky; the model collapses that t
 used un-normalized varimax; human-side numbers are safe (robust factors) but the
 model's own factor extraction there should be re-checked under Kaiser.
 
-## 2. Reconciling adjective factor structure with IPIP facet recovery [open]
+## 2. Reconciling adjective factor structure with IPIP facet recovery
 
 The puzzle (rgb): if the model's adjective *factor structure* is so different from
-the human's (2-factor evaluative core, no Openness, no stable 6th), why did the W9 /
-W13 §3.9 **IPIP facet geometry** nonetheless recover the human facet correlation
-matrix *fairly* well (model r≈0.56; encoder baseline r≈0.69)? Not incompatible — but
-it needs laying out. To be filled. Sketch of the argument: the two measure different
-objects at different granularities; the facet-correlation metric is dominated by the
-**evaluative/desirability** structure that is most of the human facet covariance —
-which is exactly the part the model gets right — while it is near-blind to the
-trait-differentiated residual (Big Five separation, O) that the factor analysis
-isolates as the part the model lacks. Empirical check to run: decompose the human
-facet matrix into its general/evaluative component + residual and test whether the
-model's facet geometry matches the general part far better than the residual.
+the human's (2-factor evaluative core, no Openness, no stable 6th — §1, W13 §3.11),
+why did the W9 / W13 §3.9 **IPIP facet geometry** nonetheless recover the human facet
+correlation matrix *fairly* well (model r≈0.56; encoder baseline r≈0.69)? Not
+incompatible — but it had to be laid out. `scripts/reconcile_facet_adjective.py`.
+
+I chased two wrong answers first, which is worth recording because each rules out a
+tempting story:
+
+- **Not a coarse 5-block artifact.** Decomposing the 30×30 human facet matrix into
+  within-trait/across-trait block means + residual: the cohort still tracks the
+  *residual fine structure* at r=0.53 (vs r_full 0.59), and reproduces it both
+  within-trait (0.49) and across-trait (0.54). So the facet match is genuine
+  relational detail, not just "same-trait facets cluster."
+- **Not "Big Five hiding under the evaluative axis."** Removing the top 1–3 eigen-
+  components from the adjective geometry and re-factoring the residual makes Big-Five
+  congruence *worse* (0.36 → 0.22 → 0.22), not better. The Big Five is not a clean
+  rank-5 block sitting beneath the evaluative axis.
+
+**The actual resolution is the metric.** The two analyses use different similarity
+lenses on the *same* representation:
+
+- **Relational** (matrix-correlation of all pairwise similarities to the human
+  matrix — what the facet r is). Under this metric the **adjective** geometry matches
+  the human adjective matrix at **r=0.56 (cohort)** — essentially identical to the
+  **facet** r=0.59, and right at the **encoder baseline** (bge: facet 0.69, adjective
+  0.58). Per-model, facet_r and adj_r track tightly (Phi4 lowest on both; Qwen7 /
+  Qwen32 / Gemma12 highest on both). So there is **no relational contradiction** — the
+  model reproduces the human pairwise structure equally for single words and for
+  behavioral items, at the encoder-baseline level. The Big-Five *relational* structure
+  is present.
+- **Dimensional** (Tucker congruence of extracted varimax factors to the human Big
+  Five — what "2-factor core" came from). Here recovery is uneven: N/E/A/C ≈ 0.42–0.52,
+  **O ≈ 0.10**. Factor extraction is variance-weighted, and the model's variance
+  concentrates on the evaluative axis, so it surfaces evaluation first and the Big
+  Five (lower-variance) loses to it under rotation/over-extraction.
+
+So **"thin Big-Five overlay" means low-variance-but-present, not absent.** The same
+fact reads as "matches humans at r≈0.56" through the relational lens and as
+"2-factor evaluative core, O absent" through the dimensional lens — see
+`reconcile_facet_adjective.png` (panel A relational, high + stimulus-invariant +
+encoder-level; panel B dimensional, O collapses). This also explains why removing the
+top PCs didn't help: the Big-Five structure is diffuse across the relational geometry,
+not concentrated in eigenvectors 3–7, so factor extraction can't cleanly isolate it
+even after deflation.
+
+This folds straight into the §3.9 thesis: model ≈ encoder ≈ baseline for *both*
+stimulus types, so what the model reproduces is the **lexical-semantic correlation
+structure** of the items/words (relationally), which is not the same as *having the
+Big Five as latent dimensions*. The "impressive" facet picture and the "different
+factor structure" are one finding under two metrics.
+
+**Caveat.** The two pipelines aren't identical — facet geometry uses
+`meandiff-itempc1` contrast directions over 10-item facets, the adjective geometry
+uses raw centered cosine over single words, and they compare to different human
+matrices (item-response-derived vs adjective-rating-derived). But both land at ~0.56
+relational / encoder-level, so the metric reconciliation holds across the pipeline
+difference rather than depending on it.
