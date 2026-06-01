@@ -953,3 +953,34 @@ than the affect one. (Caveat: only 5 strong-negative-evaluation adjectives in
   lexical seed, amplified by depth; subtract before you project.
   `scripts/marker_embedding_geometry.py`, `scripts/facet_geometry_layer_sweep.py`,
   `scripts/marker_layer_compare.py`.
+- **Single-adjective track (§3.11) — done.** Theory-neutral 525-PDA substrate;
+  cohort run on 523 adjectives × 4 framings (pers canonical). Affect-merge holds at
+  adjective resolution and is a separable, *lexical* axis (encoders merge too);
+  RSA presence/valence + adaptive (IPR-routed) denoise. The Big Five is not the
+  LLM's organizing scheme: A/E/N recover, C buried to k=10, **O never a factor**;
+  5 is convention not the elbow (parallel analysis ~34 human / ~70 model). Capstone:
+  **the model organizes adjectives by intensity/salience first, sign second** — for
+  affect *and* evaluation (Wonderful≈Awful +0.41) — the symbolic-vs-associative
+  split made concrete. Scripts under `scripts/adjective_*`, `affect_*`, `factor_*`,
+  `intensity_vs_valence.py`, `scree_parallel.py`.
+
+**§3.11 next steps (open):**
+- **Unsupervised intensity/valence axes.** Every result here uses hand-labeled
+  pos/neg seed sets (RSA templates, projection centroid). Recover the
+  intensity-vs-sign decomposition *without* the labels (e.g. the dominant
+  within-affect-block axis vs its residual) to retire the standing caveat.
+- **The decoder-vs-encoder evaluation gap.** For *evaluation* the encoders stay
+  near-human (sign-structured) while decoder LLMs are the intensity-merge outliers
+  (the affect-merge, by contrast, encoders shared). Is the extra merge an
+  autoregressive/RLHF effect? Test on a base (non-instruct) vs instruct pair, and
+  on the encoders under a matched carrier.
+- **Shore up the evaluation block.** Only 5 strong-negative-evaluation adjectives
+  exist in 525-PDA, so that side leans on the direct Wonderful–Awful cosine, not
+  the RSA. Pull the **360-PDA** (already fetched) or a curated negative-evaluation
+  list to power the evaluation RSA properly.
+- **Characterize the next tier of model factors.** With ~70 real dimensions, the
+  top handful are interpersonal/affective; map what organizes the next ~10–20
+  (the C&C "adjective-vs-item adjudication" continues below the Big Five).
+- **C&C DeBERTa cross-check.** `data/cutler_condon_2022/.../study2DeBERTaOutput.csv`
+  is a third, independently-extracted text model on the same 435-adjective axis —
+  run it through the same RSA/congruence pipeline.
