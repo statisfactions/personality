@@ -871,6 +871,42 @@ already retracted). Reframe: "does the LLM have the Big Five" asks whether a coa
 human space, and the model lives in an even higher-D, flatter one. So the C/O
 collapse is "the 5-factor frame captures even less of the model than of the human."
 
+**Capstone — intensity over valence, for affect *and* evaluation
+(`scripts/intensity_vs_valence.py`; factor ladders k=1→10).** Walking the varimax
+solution from k=1 up shows what each geometry is *built on*:
+
+```
+HUMAN  k=1 Well-adjusted/Well-Liked  → k=2 split → k=3 N|E|A → k=4 +C → k=5 +O (Big Five)
+            → k=6-10 appearance / body / introversion / competence split off
+MODEL  k=1 Disgusting/Awful (pure eval) → k=2 GOOD vs BAD → k=3 bad|good|hostile
+            → k=5 eval|warmth|antag|distress|likability → k=6 +pos-affect
+            → C only at k=10 (Firm/Efficient); O never appears
+```
+
+The human general factor is adjustment/likability and differentiates cleanly into
+the Big Five (O last); the **model's** core is **raw evaluation** — k=1 is badness,
+k=2 a good-vs-bad split — and the Big Five is a thin overlay on it: A/E/N as stable
+top factors, **C buried until k=10, Openness never a factor at all** (O is the true
+break-point; cf. §3.9's C&C N/O caveat).
+
+But the model's evaluation factor isn't even bipolar. **Wonderful and Awful have
+cosine +0.41 in the model** (Amazing–Terrible +0.40; pos-eval × neg-eval cross
++0.27) — they are *neighbors*, not antonyms; humans keep them independent
+(Wonderful–Awful −0.08, cross −0.05). So the model's first evaluative axis is
+**extremity / intensity** ("how loaded is this word"), not sign — both Wonderful
+and Awful score high on it. This is the **exact analog of the affect result one
+level up** (Cheerful≈Angry: presence > valence). One unifying principle: *the model
+organizes adjectives by intensity/salience first, sign second*, for emotion and
+evaluation alike. The mechanism is the **symbolic-vs-associative** split — "wonderful"
+and "awful" are distributional twins (identical emphatic/intensifier contexts), so
+the model's associative geometry binds them while their opposite symbolic sign is
+the weak residual. Figure `intensity_vs_valence.png`: humans sit *above* the a=b
+line (sign wins), text models *on/below* it (intensity wins), in both blocks.
+Nuance: for *evaluation* the encoders stay near the human while the **decoder LLMs
+are the extreme outliers** — the evaluative intensity-merge is more decoder-specific
+than the affect one. (Caveat: only 5 strong-negative-evaluation adjectives in
+525-PDA, so the evaluation RSA is thin; the direct +0.41 cosine is the robust number.)
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under
