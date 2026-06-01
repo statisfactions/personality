@@ -907,6 +907,12 @@ are the extreme outliers** — the evaluative intensity-merge is more decoder-sp
 than the affect one. (Caveat: only 5 strong-negative-evaluation adjectives in
 525-PDA, so the evaluation RSA is thin; the direct +0.41 cosine is the robust number.)
 
+**Continued in W14 §1** (`report_week14.md`): three independent over-extraction
+diagnostics (rotation stability, bass-ackwards lineage, respondent bootstrap) run
+C&C-style on the 525-PDA + cohort, plus a varimax-convention (Kaiser/SPSS) fix.
+Verdict: the adjective Big Five is itself an over-extraction (no stable 6th factor;
+Openness already shaky), and the model collapses it to a ~2-factor evaluative core.
+
 ## 4. Status / next
 
 - §8.2: Aya + Falcon Mamba done and committed (numbers in §2 now under

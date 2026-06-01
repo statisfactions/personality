@@ -26,6 +26,7 @@ Treat the labels as stable identifiers, not week numbers.
 | W11 | `report_week11.md` | 05-13 | 8 | Built a desirability-matched graded-forced-choice instrument (IPIP-NEO-GFC-60) via constrained MIP with cohort raters; TIRT is structurally SDR-immune; surprise negative Phase-D recovery result. |
 | W12 | `report_week12.md` | 05-16 → 05-23 | 9 | TIRT loading diagnostic (cohort loadings pinned at the prior mean; per-item relative loadings show clean assistant-shape); the 270-cube (3 method × 3 form × 3 condition × 10 model); axis-of-the-models reframe. |
 | W13 | `report_week13.md` | 05-24 → 06-01 | 9–11 | Axis-of-the-models execution (Aya + Falcon Mamba land on the cohort facet axis); Mandarin IPIP-120 cross-language persona; embedding-baseline scoop → adjective geometry: intensity-over-valence, Big Five a thin overlay. |
+| W14 | `report_week14.md` | 06-01 → … | 11 | Is the adjective Big Five real? Three over-extraction routes (rotation stability, bass-ackwards, respondent bootstrap) + a Kaiser/SPSS varimax fix — no stable 6th factor, model collapses to a 2-factor evaluative core. §2: reconciling that with the r≈0.56 IPIP facet match. |
 
 ## Supporting documents (not week-numbered)
 

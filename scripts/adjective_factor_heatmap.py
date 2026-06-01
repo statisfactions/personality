@@ -27,8 +27,22 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-def varimax(Phi, gamma=1.0, q=50, tol=1e-6):
-    """Kaiser varimax rotation of a (p x k) loading matrix."""
+def varimax(Phi, gamma=1.0, q=50, tol=1e-6, normalize=False):
+    """Varimax rotation of a (p x k) loading matrix (Kaiser's varimax criterion).
+
+    normalize=True additionally applies Kaiser *normalization* (row-scale each
+    variable by its communality before rotating, rescale back after) — the SPSS
+    default, which Cutler & Condon (2022, supp. pp.8-9) matched via Weide &
+    Beauducel (2019). normalize=False (our historical default) rotates the raw
+    loadings. The two diverge most on weakly-defined factors. NB: "Kaiser's
+    varimax criterion" (gamma=1, always on here) is a separate thing from "Kaiser
+    normalization" (the normalize flag); the older docstring conflated them.
+    """
+    Phi = np.asarray(Phi, float)
+    if normalize:
+        h = np.linalg.norm(Phi, axis=1, keepdims=True)
+        h = np.where(h < 1e-9, 1.0, h)
+        return varimax(Phi / h, gamma, q, tol, normalize=False) * h
     p, k = Phi.shape
     R = np.eye(k)
     d = 0.0
