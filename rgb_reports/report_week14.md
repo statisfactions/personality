@@ -223,6 +223,16 @@ congruence −0.83 to mPC1 and |0.42| to mPC2. One human valence axis → two mo
 axes. And that shared evaluative axis is most of the story: it carries **~70% of the
 relational match** — remove the shared PC1 from both matrices and the adjective r
 falls from 0.556 to 0.302. The remaining 0.30 is the genuine (thin) trait residual.
+⚠ **The −0.83 is a cohort-mean fact, not a per-model one (W15 §3 / `adjective_bootstrap.py`).**
+Averaging the 12 cosine matrices first manufactures a cleaner shared evaluative axis
+than most individual models carry: the per-model |human-PC1 · model-PC1| congruence
+runs **0.01, 0.33, 0.39, 0.49, 0.66, 0.66, 0.79, 0.81, 0.82, 0.84, 0.89, 0.90**
+(median 0.73, cohort-mean 0.83). So the big Gemmas/Qwens genuinely share the human
+evaluative axis; a couple of models barely do. The cohort-mean value is robust to
+the *word* sample, though — an 80%-adjective subsample CI is [0.752, 0.885], and it
+is not carried by the extreme pejoratives (drop them → 0.885). (Don't bootstrap the
+12 models for a CI: N is tiny and they're family-correlated; the per-model spread is
+the honest summary, and adjective-resampling is the right stability tool.)
 
 **The poles wear trait clothing, but it's eval underneath.** Signed against the
 human Big Five, mPC1 is +N / −A / −C (the negativity-vs-warmth/competence bundle;
@@ -239,3 +249,33 @@ poles** (vs the human's one bipolar axis), bound by shared-extremity cross-loadi
 which is why opposite-valence extremes read as neighbors. "Intensity over valence"
 named the right *phenomenon* (RSA presence≈valence; Wonderful≈Awful) but the wrong
 mechanism-picture — there is no intensity dimension, only un-anti-correlated poles.
+
+## 5. Adjective-resampling: the model-side stability twin (§1 generalized)
+
+The §1 respondent bootstrap rejected the human 6th factor (placidity recovered ≥.90
+in 3% of refits). The model has one "respondent", so the symmetric stability test
+resamples the dimension we have many of — **adjectives** (rgb). Subsample 80% of the
+523 adjectives (no replacement — with-replacement duplicates words and fabricates
+perfect-correlation pairs), refit varimax, match each full-set factor to its refit.
+`scripts/adjective_bootstrap.py`, `adjective_bootstrap.png`.
+
+**Method validation — the human reproduces the §1 verdict on the *other* axis.** Under
+adjective resampling, the human Big Five hold (F1–F5 mean congruence .88–.99) and the
+data-driven 6th (placidity) is the fragile one (mean .73, ≥.90 in 41%). Two
+independent resampling axes — respondents (§1) and words (here) — give the same
+answer, so adjective-resampling is a sound model-side stability tool.
+
+**Model — no factor as robust as the human Big Five; only the evaluative ones hold.**
+The cohort-mean model's six varimax factors recover at mean .83–.93 (≥.90 in 40–76%):
+the sturdiest are the evaluative factors (~75%), and the warmth factor is its
+"placidity" (.83, 40%). None reach the human Big-Five F1–F4 robustness (.86–.98).
+So the model's adjective organization is *soft* — a continuous evaluative gradient
+more than a set of discrete stable factors, with only the good/bad axes approaching
+realness. This is the §3.11 "Big Five is not the LLM's scheme" result re-derived as a
+stability statement, and it pins down which structure is *real* vs over-extracted.
+
+**Two robustness axes, two tools (the §4 −0.83 caveat above generalizes).** "Is X a
+cohort-mean averaging artifact?" → per-model point estimates (no bootstrap; the spread
+is the answer). "Is X robust to the word sample?" → adjective subsample. Bootstrapping
+the 12 correlated models conflates these and is statistically weak (small N,
+non-independent units); we use neither model-bootstrap.
