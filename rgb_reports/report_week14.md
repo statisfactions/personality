@@ -15,7 +15,11 @@ relational (matrix-correlation) lens the adjective geometry matches humans at r�
 too (= facets = encoder baseline), so the Big-Five relational structure *is* present;
 the "2-factor core" is what the variance-weighted *factor-extraction* lens sees,
 because the model's variance concentrates evaluatively. Thin overlay = low-variance-
-but-present, not absent.
+but-present, not absent. §3 localizes where the two (close) matrices actually
+disagree: agreement rises with evaluative intensity, so the model matches humans on
+charged words (N/A/E/C carry valence) and diverges on the one valence-neutral trait,
+**Openness** (mean row-corr 0.39 vs N 0.60), plus the non-dispositional tail
+(Tall/Fat/Employed) — which is *why* O won't factor.
 
 ## 1. Over-extraction: is the adjective Big Five even real?
 
@@ -145,3 +149,43 @@ uses raw centered cosine over single words, and they compare to different human
 matrices (item-response-derived vs adjective-rating-derived). But both land at ~0.56
 relational / encoder-level, so the metric reconciliation holds across the pipeline
 difference rather than depending on it.
+
+## 3. Where the close matrices disagree: Openness and the non-dispositional tail
+
+rgb's follow-up: if the two matrices are *close* (r≈0.56) yet *factor* very
+differently, the disagreement can't be uniform — it must localize to specific
+adjectives, presumably the ones that define or evade the model's factors. Correct,
+and the localization is sharp (`scripts/adjective_divergence.py`). Per adjective,
+take the correlation of its row in the human matrix vs the cohort-mean model matrix
+(relational agreement), and characterize it.
+
+The intuition was half right, with an instructive inversion. The disagreement is
+**not** at the model's *strong*-factor adjectives — it's the opposite:
+
+- **Highest agreement** (row-corr ~0.78–0.81): evaluatively-charged *dispositional*
+  words — Cruel, Loving, Abusive, Helpful, Obnoxious, Bitter. Agreement rises with
+  the model's evaluative-intensity axis (|PC1|) at **r = 0.58** across all adjectives.
+- **Lowest agreement** (row-corr ≤ 0.1): evaluatively-*flat* words — Openness items
+  (Predictable, Dependent) and the **non-dispositional tail** (Tall, Fat, Chubby,
+  Middle-aged, Employed, Masculine, Left-handed, Short) — the same descriptor cluster
+  the §1 appearance aside flagged ("Slim is weird").
+- **By trait:** mean row-corr is **N 0.60 > A 0.56 > C 0.54 > E 0.51 ≫ O 0.39**.
+
+The mechanism this exposes: the model **gets N/A/E/C "for free" because those traits
+carry valence** (cruel/loving/anxious/reliable are evaluatively loaded), so the
+model's evaluative geometry incidentally reproduces the human trait structure for
+them. **Openness is the one evaluatively-neutral trait** (intelligent/creative/curious
+aren't strongly good-or-bad), so the model — which organizes by evaluation — has no
+handle on it and places O words diffusely. That is *why O won't factor*, stated at
+the adjective level: O is orthogonal to the model's organizing axis.
+
+This also closes the §2 loop on "how can close matrices factor differently": they're
+close on the high-variance *valenced* bulk (shared) and differ on the low-variance
+*valence-neutral* residual (Openness + non-dispositional descriptors). Factor
+analysis of the human matrix surfaces that residual as the 5th (O) factor; the model
+has no coherent residual there, so its 5th-and-beyond factors are evaluative
+sub-splits instead. Small matrix difference, large factor difference, localized to
+the one trait that doesn't carry valence. (Note: for our *decoder* adjective geometry
+it is O specifically that breaks — N recovers best — whereas C&C's encoders had N
+weak too; the §3.9 decoder-vs-encoder distinction again. Cohort-mean M; row-corr is
+one localization metric.) Figure: `adjective_divergence.png`.
