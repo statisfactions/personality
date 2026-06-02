@@ -50,6 +50,18 @@ MODELS: Dict[str, str] = {
     # text. Struck: the repo ships only the checkpoint, not the custom 32768-vocab
     # BPE it was trained with, so it's unrunnable as published (token IDs would be
     # meaningless). Not a loader-effort problem.
+    # W15 §3 base-vs-instruct (training-stage) checkpoints — probe with bare text
+    # (format held constant across stages so the weights are the only variable).
+    "Qwen7Base":  "Qwen/Qwen2.5-7B",                  # base for Qwen7 (Instruct)
+    # OLMo-2 7B: clean base -> SFT -> DPO -> Instruct(=RLVR) ladder, same tokenizer
+    # across stages (AllenAI, Apache-2.0, ungated; verified by W15 §3 agent).
+    "Olmo2Base":  "allenai/OLMo-2-1124-7B",
+    "Olmo2SFT":   "allenai/OLMo-2-1124-7B-SFT",
+    "Olmo2DPO":   "allenai/OLMo-2-1124-7B-DPO",
+    "Olmo2Inst":  "allenai/OLMo-2-1124-7B-Instruct",  # RLVR endpoint
+    # Zephyr SFT-vs-DPO minimal pair (Mistral-7B base; no RLVR confound).
+    "ZephyrSFT":  "alignment-handbook/zephyr-7b-sft-full",
+    "ZephyrDPO":  "alignment-handbook/zephyr-7b-dpo-full",
 }
 
 

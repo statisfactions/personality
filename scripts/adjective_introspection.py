@@ -41,6 +41,11 @@ GROUP_OF = {w: g for g, ws in GROUPS.items() for w in ws}
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
 CACHE = {"semantic": "results/adjectives/introspect",
          "tom": "results/adjectives/introspect_tom"}
+# training-stage checkpoints: probe with bare text so prompt FORMAT is held constant
+# across base/SFT/DPO/RLVR (otherwise "behavior appears at SFT" is confounded with
+# the chat template being introduced at SFT). Base also simply has no chat template.
+BASE_MODELS = {"Qwen7Base", "Olmo2Base", "Olmo2SFT", "Olmo2DPO", "Olmo2Inst",
+               "ZephyrSFT", "ZephyrDPO"}
 
 # semantic = a dictionary task (how alike in meaning); tom = the HUMAN's task
 # (persona = adjective a, rate how well adjective b describes that person —
@@ -63,27 +68,31 @@ def ev(dist):
     return sum(int(k) * v for k, v in dist.items())
 
 
-def elicit(short, mode="semantic", force=False):
+def elicit(short, mode="semantic", force=False, bare=False):
+    bare = bare or short in BASE_MODELS          # base/staged ckpts: always bare text
+    suffix = "_bare" if bare else ""
     os.makedirs(CACHE[mode], exist_ok=True)
-    path = f"{CACHE[mode]}/{short}.json"
+    path = f"{CACHE[mode]}/{short}{suffix}.json"
     if os.path.exists(path) and not force:
         return json.load(open(path))
     model, tok, device = load_model(MODELS[short])
     n = len(ADJ)
     B = np.full((n, n), np.nan)
+    Hent = np.full((n, n), np.nan)
     for i in range(n):
         for j in range(n):
             if i == j:
                 continue
-            d, _, _ = likert_distribution(
+            d, _, h = likert_distribution(
                 model, tok, PROMPT[mode].format(a=ADJ[i].lower(), b=ADJ[j].lower()),
-                device, digits=DIGITS, use_chat_template=True)
-            B[i, j] = ev(d)
-        print(f"  {short}/{mode}: row {i+1}/{n} ({ADJ[i]})", flush=True)
+                device, digits=DIGITS, use_chat_template=not bare)
+            B[i, j] = ev(d); Hent[i, j] = h
+        print(f"  {short}/{mode}{suffix}: row {i+1}/{n} ({ADJ[i]})", flush=True)
     B_raw = B.copy()                                  # keep directional (asymmetry)
     B = np.nanmean(np.stack([B, B.T]), 0)            # symmetrize over order
-    out = {"model": short, "mode": mode, "adjectives": ADJ,
-           "behavioral": B.tolist(), "directional": B_raw.tolist()}
+    out = {"model": short, "mode": mode, "bare": bare, "adjectives": ADJ,
+           "behavioral": B.tolist(), "directional": B_raw.tolist(),
+           "entropy": Hent.tolist(), "mean_entropy": float(np.nanmean(Hent))}
     json.dump(out, open(path, "w"), indent=0)
     import gc
     import torch
@@ -96,6 +105,11 @@ def elicit(short, mode="semantic", force=False):
 
 def offdiag(A):
     iu = np.triu_indices_from(A, 1); return A[iu]
+
+
+def pc1frac(A):                      # single-axis (halo) dominance
+    A = np.nan_to_num(A, nan=np.nanmean(A)); ev = np.sort(np.linalg.eigvalsh(A))[::-1]
+    return float(ev[0] / np.sum(np.abs(ev)))
 
 
 def block_mean(A, ga, gb):
@@ -272,18 +286,44 @@ def figure_tom(rows, h_pn):
     print(f"wrote {out} and .png")
 
 
+def compare_template(models, mode):
+    """Chat vs bare on the SAME instruct weights — decomposes the W15 effect into
+    weights vs context (the chat template = assistant-persona activation). Loads the
+    chat-template cache (<short>.json) and the bare cache (<short>_bare.json)."""
+    human = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
+    H = np.array(human["correlation_matrix"], float); flab = list(human["labels"])
+    idx = [flab.index(w) for w in ADJ]; Hs = H[np.ix_(idx, idx)]
+
+    def pn(A):
+        o = offdiag(A); m, s = np.nanmean(o), np.nanstd(o) + 1e-9
+        return (block_mean(A, "pos_eval", "neg_eval") - m) / s
+    print(f"\n[{mode}] chat vs bare (same weights)   human pos×neg z = {pn(Hs):+.2f}")
+    print(f"{'model':<8} pos×neg z chat/bare | PC1 chat/bare | mean-entropy chat/bare")
+    for short in models:
+        ch = json.load(open(f"{CACHE[mode]}/{short}.json"))
+        ba = json.load(open(f"{CACHE[mode]}/{short}_bare.json"))
+        Bc, Bb = np.array(ch["behavioral"]), np.array(ba["behavioral"])
+        ec = ch.get("mean_entropy", float("nan")); eb = ba.get("mean_entropy", float("nan"))
+        print(f"{short:<8} {pn(Bc):+.2f} / {pn(Bb):+.2f}      | "
+              f"{pc1frac(Bc):.2f} / {pc1frac(Bb):.2f}   | {ec:.2f} / {eb:.2f}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", default="Qwen7")
     ap.add_argument("--mode", default="semantic", choices=["semantic", "tom"])
+    ap.add_argument("--bare", action="store_true",
+                    help="force bare text on instruct models (raw-vs-chat study)")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     models = args.models.split(",")
     behavs = {}
     for short in models:
-        print(f"eliciting {short} ({args.mode}) ...", flush=True)
-        behavs[short] = np.array(elicit(short, args.mode, args.force)["behavioral"])
-    if args.mode == "tom":
+        print(f"eliciting {short} ({args.mode}{'/bare' if args.bare else ''}) ...", flush=True)
+        behavs[short] = np.array(elicit(short, args.mode, args.force, args.bare)["behavioral"])
+    if args.bare:
+        compare_template(models, args.mode)
+    elif args.mode == "tom":
         compare_tom(models)
     else:
         compare(behavs)
