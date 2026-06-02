@@ -16,7 +16,11 @@ geometries, not coherent-vs-noise); and the persona/ToM judgment — the model d
 the human's dispositional task — *also* splits good/bad (resolving the
 semantics-vs-ToM confound in §1's favor), in fact *overshooting* humans with an
 evaluative halo that **scales with size** even though the basic split doesn't.
-`scripts/adjective_introspection.py`.
+§3 (weights vs context): the halo is weight-resident (chat vs bare is a wash), and on
+the Qwen base/instruct pair the read/write gap is **pretrained** — the base both
+merges in representation and splits in judgment; instruction tuning changes
+*confidence* (entropy 1.4→0.5), not the split (single-pair; OLMo ladder is the test).
+`scripts/adjective_introspection.py`, `training_stage_compare.py`.
 
 ## 1. The model judges Wonderful ≠ Awful even though it represents them as neighbors
 
@@ -172,3 +176,57 @@ tuning installs the override; if it splits, the override is pretrained and tunin
 only adds the halo. Then: anchor-wording robustness (§1); the ToM **asymmetry** (we
 kept the directional matrix — is "being cruel ⇒ not kind" stronger than the reverse?);
 per-layer localization of where the antonym signal enters.
+
+## 3. Weights vs context, and base vs instruct: the gap is pretrained
+
+Decomposing the §1/§2 effect along two axes — **context** (chat template vs bare)
+and **weights** (instruct vs base) — with everything probed bare so format is held
+constant. `scripts/adjective_introspection.py --bare`, `training_stage_compare.py`.
+
+**Context: the halo is weight-resident, not chat-summoned.** Same instruct weights,
+chat vs bare, are a wash (Qwen7 ToM pos×neg −0.70/−0.67, Gemma12 −1.24/−1.31; PC1
+near-identical). The chat template does *not* activate the assistant's evaluative
+shape — it's in the weights, present with or without the wrapper. This *shrinks* the
+long-standing chat-template confound (W5 §9 / to_try #11): measuring with the
+template wasn't inflating the assistant signal.
+
+**Weights: base vs instruct (Qwen2.5-7B endpoints — single pair, treat as
+suggestive).** This corrected a wrong prediction (h/t rgb on the entropy confound).
+Probed bare, on the 26-adjective subset:
+
+| | repr merge (z) | good/bad gap (raw 1–7) | entropy |
+|---|---|---|---|
+| **Base** | +1.25 | 2.24 / 2.21 (sem/ToM) | **1.41 / 1.44** |
+| **Instruct** | +0.83 | 2.31 / 2.55 | **0.42 / 0.59** |
+
+Three findings, with the **entropy correction** that makes them honest:
+1. **The merge is pretrained — stronger in the base.** The base's resting geometry
+   represents Wonderful≈Awful *more* than the instruct (z +1.25 vs +0.83); tuning
+   slightly *reduces* it. (Cosine, so entropy-immune.)
+2. **The split is pretrained and already decisive in the base.** In *raw* rating
+   units the base rates antonyms at 1.7 vs within-good 3.9 — a good/bad **gap of 2.24,
+   essentially equal to the instruct's 2.3–2.55.** Tuning does not install the split.
+3. **What tuning changes is confidence, not structure** — entropy collapses 1.4→0.5.
+   The base reaches the same split through a near-uniform distribution; the instruct
+   reaches it decisively. rgb's entropy guess is the operative variable.
+
+So, on this single pair, **the read/write gap (merge-in-representation,
+split-in-judgment) is a pretraining phenomenon, not an alignment artifact** — it is
+open before any post-training, and instruction tuning sharpens the (already-split)
+judgment's confidence rather than creating the split or the merge. Figure
+`training_stage_qwen.png`.
+
+**Methodological caveat this forces.** The z-scored "split"/"collapse" magnitudes
+(§1/§2) are **confounded by decisiveness** when comparing models of different entropy:
+a near-uniform matrix amplifies any residual structure under z-scoring and inflates
+PC1. Within the instruct cohort (all low-entropy) the §1/§2 comparisons hold; but
+base-vs-instruct needs the **raw amplitude + entropy** treatment. The base is a
+genuinely different regime.
+
+**Next — the stage ladder (the real test).** A single base/instruct pair gives only
+endpoints, and single-pair conclusions get revised. The OLMo-2 7B ladder
+(Base → SFT → DPO → Instruct/RLVR, same tokenizer, all probed bare) localizes
+*where* the entropy collapses — and whether the merge/split trajectory is monotone or
+has structure tuning-stage by tuning-stage. `training_stage_compare.py --models
+Olmo2Base,Olmo2SFT,Olmo2DPO,Olmo2Inst` once the weights finish downloading; the
+Zephyr SFT-vs-DPO pair is the minimal cross-check.
