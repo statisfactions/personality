@@ -907,6 +907,16 @@ are the extreme outliers** — the evaluative intensity-merge is more decoder-sp
 than the affect one. (Caveat: only 5 strong-negative-evaluation adjectives in
 525-PDA, so the evaluation RSA is thin; the direct +0.41 cosine is the robust number.)
 
+> **Forward / framing fix (W14 §4).** "Intensity first, sign second" names the right
+> *phenomenon* (the RSA presence≈valence above is the robust evidence) but the wrong
+> *mechanism-picture*. The model has **no intensity factor**: its top-2 adjective
+> components are two near-orthogonal valence **poles** (neg-eval Disgusting/Awful;
+> pos-eval Wonderful/Excellent), and Wonderful≈Awful is a shared-extremity
+> *cross-loading* between them (+0.21 / +0.08 on the other pole), not a common
+> dimension. A true intensity axis is the 45° rotation neither PCA nor varimax picks —
+> only RSA reads it. The human's single bipolar valence axis maps onto *both* model
+> poles (congruence −0.83 / |0.42|). See W14 §4 + `adjective_pc_grid.png`.
+
 **Continued in W14 §1** (`report_week14.md`): three independent over-extraction
 diagnostics (rotation stability, bass-ackwards lineage, respondent bootstrap) run
 C&C-style on the 525-PDA + cohort, plus a varimax-convention (Kaiser/SPSS) fix.
@@ -967,7 +977,9 @@ Openness already shaky), and the model collapses it to a ~2-factor evaluative co
   5 is convention not the elbow (parallel analysis ~34 human / ~70 model). Capstone:
   **the model organizes adjectives by intensity/salience first, sign second** — for
   affect *and* evaluation (Wonderful≈Awful +0.41) — the symbolic-vs-associative
-  split made concrete. Scripts under `scripts/adjective_*`, `affect_*`, `factor_*`,
+  split made concrete. *(Mechanism refined in W14 §4: two near-orthogonal valence
+  poles bound by shared-extremity cross-loadings, not a literal intensity factor.)*
+  Scripts under `scripts/adjective_*`, `affect_*`, `factor_*`,
   `intensity_vs_valence.py`, `scree_parallel.py`.
 
 **§3.11 next steps (open):**

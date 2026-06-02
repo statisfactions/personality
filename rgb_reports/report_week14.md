@@ -189,3 +189,53 @@ the one trait that doesn't carry valence. (Note: for our *decoder* adjective geo
 it is O specifically that breaks — N recovers best — whereas C&C's encoders had N
 weak too; the §3.9 decoder-vs-encoder distinction again. Cohort-mean M; row-corr is
 one localization metric.) Figure: `adjective_divergence.png`.
+
+## 4. The evaluative core is two near-orthogonal valence poles (framing fix)
+
+This **refines the W13 §3.11 capstone**, which glossed the evaluative core as
+"intensity first, sign second." Looking at the actual factor geometry
+(`scripts/adjective_pc_grid.py`), that overstates it — there is no intensity
+*factor*. What there is:
+
+**Varimax gives two valence POLES, not intensity + sign.** Rotating the model's
+top-2 adjective components (Kaiser) yields a negative-evaluation factor (Disgusting,
+Awful, Terrible) and a positive-evaluation factor (Wonderful, Excellent, Amazing) —
+a clean pos/neg split — and the unrotated PCs are essentially the same axes (varimax
+barely rotates them). Neither rotation produces a "both-poles-load-high" intensity
+axis; a true intensity axis exists only as the 45° rotation (pos+neg)/√2 that
+*neither* PCA nor varimax selects. That is why §3.11's intensity result had to come
+from **RSA presence-templates** (which read that diagonal directly) — factor analysis
+structurally can't show it.
+
+**The +0.41 Wonderful≈Awful is a cross-loading, not a shared factor.** In the
+2-factor solution Wonderful loads (+0.21 neg, +0.65 pos) and Awful (+0.65 neg,
++0.08 pos): each extreme word carries a small positive loading on the *other* pole.
+That shared-extremity leakage — not a common dimension — is the whole +0.41. The
+grid (`adjective_pc_grid.png`, adjectives binned by PC1×PC2) makes it visible: the
+neg-eval pole (top-left) and pos-eval pole (mid-left) **stack in the high-PC2
+columns** rather than sitting in opposite corners, and the (extreme-neg ×
+extreme-pos) corner is essentially empty — "Unusual" is its lone, apt resident
+(nothing is both maximally good and maximally bad).
+
+**The two poles are the human's single bipolar valence axis, split.** Human
+unrotated PC1 (the general desirability factor) maps onto BOTH model poles —
+congruence −0.83 to mPC1 and |0.42| to mPC2. One human valence axis → two model
+axes. And that shared evaluative axis is most of the story: it carries **~70% of the
+relational match** — remove the shared PC1 from both matrices and the adjective r
+falls from 0.556 to 0.302. The remaining 0.30 is the genuine (thin) trait residual.
+
+**The poles wear trait clothing, but it's eval underneath.** Signed against the
+human Big Five, mPC1 is +N / −A / −C (the negativity-vs-warmth/competence bundle;
+visually the Agreeableness axis) and mPC2 is +E / −N (admirable-vs-dysregulated; the
+Neuroticism axis). But project the human evaluative axis out of both and *every*
+trait correlation collapses to ≤|0.32|: the model isn't representing A or N as such,
+it's representing two flavors of good/bad that *look* like A and N only because
+those are the most valenced human factors. It also splits "bad" two ways —
+pejorative/moral (Disgusting, Mean: high PC1) vs dysregulation/distress (Anxious,
+Impulsive: low PC2).
+
+**Corrected framing:** the model's evaluative core is **two near-orthogonal valence
+poles** (vs the human's one bipolar axis), bound by shared-extremity cross-loadings,
+which is why opposite-valence extremes read as neighbors. "Intensity over valence"
+named the right *phenomenon* (RSA presence≈valence; Wonderful≈Awful) but the wrong
+mechanism-picture — there is no intensity dimension, only un-anti-correlated poles.
