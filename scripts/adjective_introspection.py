@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+"""Representation vs introspection on adjective similarity (W15 §1; to_try.md #21).
+
+The W14 arc showed the model's *resting* adjective geometry is encoder-like and
+evaluation-dominated — positive and negative evaluation are near-orthogonal, so
+Wonderful≈Awful (+0.41 cosine) rather than antonyms. But does the model *act* on
+that geometry? Here we elicit the model's *judged* pairwise similarity (a
+behavioral self-report) on a pole-spanning adjective subset, with a deliberately
+**valence-neutral** anchor (1 = completely different … 7 = nearly the same — never
+"opposite"), and compare three corners on the same words:
+  behavioral (what it judges) · representational (its cosine) · human (525-PDA).
+
+Sharp test: does judged similarity put pos-eval × neg-eval FAR APART (human-like
+valence) while the representation puts them together (+0.41)? If so, behavior
+overrides the associative geometry using symbolic valence knowledge — the read/write
+gap, and the symbolic-vs-associative split, made behavioral.
+
+Usage: PYTHONPATH=scripts .venv/bin/python scripts/adjective_introspection.py \
+           --models Qwen7,Gemma12 [--force]
+"""
+import argparse
+import json
+import os
+
+import numpy as np
+
+from hf_logprobs import MODELS, load_model, likert_distribution
+from adjective_geom import model_matrix
+
+GROUPS = {
+    "pos_eval":   ["Wonderful", "Amazing", "Excellent", "Great"],
+    "neg_eval":   ["Awful", "Disgusting", "Terrible", "Bad"],
+    "warm":       ["Caring", "Kind", "Friendly", "Thoughtful"],
+    "antagonism": ["Cruel", "Mean", "Rude", "Hostile"],
+    "distress":   ["Anxious", "Insecure", "Moody", "Impulsive"],
+    "intellect":  ["Intelligent", "Creative", "Curious", "Knowledgeable"],
+    "neutral":    ["Ordinary", "Tall"],
+}
+ADJ = [w for ws in GROUPS.values() for w in ws]
+GROUP_OF = {w: g for g, ws in GROUPS.items() for w in ws}
+DIGITS = ("1", "2", "3", "4", "5", "6", "7")
+CACHE = "results/adjectives/introspect"
+
+PROMPT = ("How similar in meaning are these two words, as descriptions of a person?\n"
+          "Word 1: {a}\nWord 2: {b}\n"
+          "Answer with one number from 1 to 7, where 1 = completely different in "
+          "meaning and 7 = nearly the same in meaning.\nNumber:")
+
+
+def ev(dist):
+    return sum(int(k) * v for k, v in dist.items())
+
+
+def elicit(short, force=False):
+    os.makedirs(CACHE, exist_ok=True)
+    path = f"{CACHE}/{short}.json"
+    if os.path.exists(path) and not force:
+        return json.load(open(path))
+    model, tok, device = load_model(MODELS[short])
+    n = len(ADJ)
+    B = np.full((n, n), np.nan)
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            d, _, _ = likert_distribution(
+                model, tok, PROMPT.format(a=ADJ[i].lower(), b=ADJ[j].lower()),
+                device, digits=DIGITS, use_chat_template=True)
+            B[i, j] = ev(d)
+        print(f"  {short}: row {i+1}/{n} ({ADJ[i]})", flush=True)
+    B = np.nanmean(np.stack([B, B.T]), 0)            # symmetrize over order
+    out = {"model": short, "adjectives": ADJ, "behavioral": B.tolist()}
+    json.dump(out, open(path, "w"), indent=0)
+    import gc
+    import torch
+    del model, tok
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+    return out
+
+
+def offdiag(A):
+    iu = np.triu_indices_from(A, 1); return A[iu]
+
+
+def block_mean(A, ga, gb):
+    ia = [ADJ.index(w) for w in GROUPS[ga]]; ib = [ADJ.index(w) for w in GROUPS[gb]]
+    sub = A[np.ix_(ia, ib)]
+    return float(np.nanmean(sub))
+
+
+SIZE = {"Qwen": "3B", "Gemma": "4B", "Llama": "3B", "Phi4": "4B", "Qwen7": "7B",
+        "Llama8": "8B", "Gemma12": "12B", "Gemma27": "27B", "Qwen32": "32B",
+        "Gemma4": "31B", "Aya": "8B", "FalconMamba": "7B"}
+PARAMS = {"3B": 3, "4B": 4, "7B": 7, "8B": 8, "12B": 12, "27B": 27, "31B": 31, "32B": 32}
+
+
+def compare(behavs):
+    human = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
+    full = np.array(human["correlation_matrix"], float); flab = list(human["labels"])
+    idx = [flab.index(w) for w in ADJ]
+    H = full[np.ix_(idx, idx)]
+
+    def z(A):
+        o = offdiag(A); return (o - np.nanmean(o)) / (np.nanstd(o) + 1e-9)
+
+    def pn(A):                       # pos_eval×neg_eval block, z-scored within corner
+        o = offdiag(A); m, s = np.nanmean(o), np.nanstd(o) + 1e-9
+        return (block_mean(A, "pos_eval", "neg_eval") - m) / s
+    hz = z(H); h_pn = pn(H)
+
+    rows = []
+    print(f"\n{'model':<10} corr(behav,human)  corr(repr,human)  corr(behav,repr) | "
+          "posXneg z: human / repr / behav")
+    for short, B in behavs.items():
+        _, C, _, _ = model_matrix(
+            f"results/adjectives/acts/{MODELS[short].replace('/', '_')}__pers.pt",
+            np.array(flab))
+        R = C[np.ix_(idx, idx)]; B = np.array(B)
+        bz, rz = z(B), z(R)
+        r = {"model": short, "size": SIZE.get(short, "?"),
+             "behav_human": float(np.corrcoef(bz, hz)[0, 1]),
+             "repr_human": float(np.corrcoef(rz, hz)[0, 1]),
+             "behav_repr": float(np.corrcoef(bz, rz)[0, 1]),
+             "pn_repr": pn(R), "pn_behav": pn(B)}
+        rows.append(r)
+        print(f"{short:<10} {r['behav_human']:+.3f}            {r['repr_human']:+.3f}"
+              f"           {r['behav_repr']:+.3f}        | "
+              f"{h_pn:+.2f} / {r['pn_repr']:+.2f} / {r['pn_behav']:+.2f}")
+    figure(rows, h_pn)
+
+
+def figure(rows, h_pn):
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+    rows = sorted(rows, key=lambda r: PARAMS.get(r["size"], 99))
+    x = [f"{r['model']}<br>{r['size']}" for r in rows]
+    fig = make_subplots(rows=1, cols=2, column_widths=[0.6, 0.4], horizontal_spacing=0.13,
+                        subplot_titles=(
+        "pos-eval × neg-eval: representation MERGES, judgment FLIPS",
+        "overall match to human"))
+    for i, r in enumerate(rows):                       # dumbbells repr -> behav
+        fig.add_trace(go.Scatter(x=[x[i], x[i]], y=[r["pn_repr"], r["pn_behav"]],
+            mode="lines", line=dict(color="#bbb", width=2), showlegend=False,
+            hoverinfo="skip"), row=1, col=1)
+    fig.add_trace(go.Scatter(x=x, y=[r["pn_repr"] for r in rows], mode="markers",
+        name="representation (cosine)", marker=dict(size=13, color="#d62728")), row=1, col=1)
+    fig.add_trace(go.Scatter(x=x, y=[r["pn_behav"] for r in rows], mode="markers",
+        name="judgment (behavioral)", marker=dict(size=13, color="#1f77b4")), row=1, col=1)
+    fig.add_hline(y=h_pn, line_dash="dash", line_color="#2ca02c", row=1, col=1,
+                  annotation_text=f"human {h_pn:+.2f}", annotation_font_color="#2ca02c")
+    fig.add_hline(y=0, line_color="#ddd", row=1, col=1)
+    fig.update_yaxes(title_text="pos×neg similarity (z within corner)", row=1, col=1)
+    fig.add_trace(go.Bar(x=x, y=[r["repr_human"] for r in rows], name="repr↔human",
+        marker_color="#f0a0a0", showlegend=False), row=1, col=2)
+    fig.add_trace(go.Bar(x=x, y=[r["behav_human"] for r in rows], name="behav↔human",
+        marker_color="#9ec3e8", showlegend=False), row=1, col=2)
+    fig.update_yaxes(title_text="matrix corr to human", range=[0, 0.9], row=1, col=2)
+    fig.update_layout(
+        title=dict(text="<b>Representation vs introspection: the model judges "
+            "Wonderful≠Awful even though it represents them as neighbors</b><br><sub>"
+            "Left: each model's representational cosine puts pos-eval×neg-eval ABOVE its "
+            "own mean (the merge, red); its judged similarity flips BELOW, onto the human "
+            "antonym value (blue, green line) — a sign reversal at every size, 3B→32B. "
+            "Right: overall both corners are ~human; the divergence is localized to the "
+            "evaluative merge. Symbolic valence overrides associative geometry.</sub>",
+            x=0.01),
+        width=1180, height=560, barmode="group", plot_bgcolor="white",
+        font=dict(family="Helvetica, Arial"), legend=dict(x=0.0, y=-0.13, orientation="h"))
+    out = "results/adjectives/introspection_vs_representation.html"
+    fig.write_html(out, include_plotlyjs="cdn")
+    fig.write_image(out.replace(".html", ".png"), width=1180, height=560, scale=2)
+    print(f"wrote {out} and .png")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--models", default="Qwen7")
+    ap.add_argument("--force", action="store_true")
+    args = ap.parse_args()
+    behavs = {}
+    for short in args.models.split(","):
+        print(f"eliciting {short} ...", flush=True)
+        behavs[short] = np.array(elicit(short, args.force)["behavioral"])
+    compare(behavs)
+
+
+if __name__ == "__main__":
+    main()
