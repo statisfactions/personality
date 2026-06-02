@@ -39,21 +39,33 @@ GROUPS = {
 ADJ = [w for ws in GROUPS.values() for w in ws]
 GROUP_OF = {w: g for g, ws in GROUPS.items() for w in ws}
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
-CACHE = "results/adjectives/introspect"
+CACHE = {"semantic": "results/adjectives/introspect",
+         "tom": "results/adjectives/introspect_tom"}
 
-PROMPT = ("How similar in meaning are these two words, as descriptions of a person?\n"
-          "Word 1: {a}\nWord 2: {b}\n"
-          "Answer with one number from 1 to 7, where 1 = completely different in "
-          "meaning and 7 = nearly the same in meaning.\nNumber:")
+# semantic = a dictionary task (how alike in meaning); tom = the HUMAN's task
+# (persona = adjective a, rate how well adjective b describes that person —
+# dispositional, matching the 525-PDA self-rating construct).
+PROMPT = {
+    "semantic": (
+        "How similar in meaning are these two words, as descriptions of a person?\n"
+        "Word 1: {a}\nWord 2: {b}\n"
+        "Answer with one number from 1 to 7, where 1 = completely different in "
+        "meaning and 7 = nearly the same in meaning.\nNumber:"),
+    "tom": (
+        "Consider a person who is very {a}.\n"
+        "How accurately does the word \"{b}\" describe this person?\n"
+        "Answer with one number from 1 to 7, where 1 = very inaccurate and "
+        "7 = very accurate.\nNumber:"),
+}
 
 
 def ev(dist):
     return sum(int(k) * v for k, v in dist.items())
 
 
-def elicit(short, force=False):
-    os.makedirs(CACHE, exist_ok=True)
-    path = f"{CACHE}/{short}.json"
+def elicit(short, mode="semantic", force=False):
+    os.makedirs(CACHE[mode], exist_ok=True)
+    path = f"{CACHE[mode]}/{short}.json"
     if os.path.exists(path) and not force:
         return json.load(open(path))
     model, tok, device = load_model(MODELS[short])
@@ -64,12 +76,14 @@ def elicit(short, force=False):
             if i == j:
                 continue
             d, _, _ = likert_distribution(
-                model, tok, PROMPT.format(a=ADJ[i].lower(), b=ADJ[j].lower()),
+                model, tok, PROMPT[mode].format(a=ADJ[i].lower(), b=ADJ[j].lower()),
                 device, digits=DIGITS, use_chat_template=True)
             B[i, j] = ev(d)
-        print(f"  {short}: row {i+1}/{n} ({ADJ[i]})", flush=True)
+        print(f"  {short}/{mode}: row {i+1}/{n} ({ADJ[i]})", flush=True)
+    B_raw = B.copy()                                  # keep directional (asymmetry)
     B = np.nanmean(np.stack([B, B.T]), 0)            # symmetrize over order
-    out = {"model": short, "adjectives": ADJ, "behavioral": B.tolist()}
+    out = {"model": short, "mode": mode, "adjectives": ADJ,
+           "behavioral": B.tolist(), "directional": B_raw.tolist()}
     json.dump(out, open(path, "w"), indent=0)
     import gc
     import torch
@@ -174,16 +188,105 @@ def figure(rows, h_pn):
     print(f"wrote {out} and .png")
 
 
+def compare_tom(models):
+    """4 corners on pos-eval×neg-eval: representation, semantic judgment, ToM
+    (persona-conditioned dispositional) judgment, human. Tests whether the model's
+    *dispositional* reasoning (the human's actual construct) splits or merges."""
+    human = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
+    full = np.array(human["correlation_matrix"], float); flab = list(human["labels"])
+    idx = [flab.index(w) for w in ADJ]; H = full[np.ix_(idx, idx)]
+
+    def pn(A):
+        o = offdiag(A); m, s = np.nanmean(o), np.nanstd(o) + 1e-9
+        return (block_mean(A, "pos_eval", "neg_eval") - m) / s
+
+    def z(A):
+        o = offdiag(A); return (o - np.nanmean(o)) / (np.nanstd(o) + 1e-9)
+
+    def pc1frac(A):                  # single-axis (halo) dominance
+        A = np.nan_to_num(A, nan=np.nanmean(A)); ev = np.sort(np.linalg.eigvalsh(A))[::-1]
+        return float(ev[0] / np.sum(np.abs(ev)))
+    hz = z(H)
+    rows = []
+    print(f"\n{'model':<8} pos×neg z: repr / semantic / ToM / human   | corr(ToM,human) "
+          "corr(ToM,sem) corr(ToM,repr) | pc1 ToM/human")
+    for short in models:
+        Bs = np.array(json.load(open(f"{CACHE['semantic']}/{short}.json"))["behavioral"])
+        Bt = np.array(json.load(open(f"{CACHE['tom']}/{short}.json"))["behavioral"])
+        _, C, _, _ = model_matrix(
+            f"results/adjectives/acts/{MODELS[short].replace('/', '_')}__pers.pt",
+            np.array(flab))
+        R = C[np.ix_(idx, idx)]
+        rows.append({"model": short, "size": SIZE.get(short, "?"),
+                     "repr": pn(R), "sem": pn(Bs), "tom": pn(Bt), "human": pn(H),
+                     "tom_human": float(np.corrcoef(z(Bt), hz)[0, 1]),
+                     "tom_repr": float(np.corrcoef(z(Bt), z(R))[0, 1]),
+                     "pc1_tom": pc1frac(Bt), "pc1_human": pc1frac(H)})
+        r = rows[-1]
+        print(f"{short:<8} {r['repr']:+.2f} / {r['sem']:+.2f} / {r['tom']:+.2f} / "
+              f"{r['human']:+.2f}      | {r['tom_human']:+.3f}        "
+              f"{np.corrcoef(z(Bt),z(Bs))[0,1]:+.3f}       {r['tom_repr']:+.3f}     | "
+              f"{r['pc1_tom']:.2f}/{r['pc1_human']:.2f}")
+    figure_tom(rows, pn(H))
+
+
+def figure_tom(rows, h_pn):
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+    rows = sorted(rows, key=lambda r: PARAMS.get(r["size"], 99))
+    x = [f"{r['model']}<br>{r['size']}" for r in rows]
+    fig = make_subplots(rows=1, cols=2, column_widths=[0.62, 0.38], horizontal_spacing=0.13,
+                        subplot_titles=("pos-eval × neg-eval across 4 corners",
+                                        "single-axis (halo) collapse"))
+    for i, r in enumerate(rows):
+        fig.add_trace(go.Scatter(x=[x[i]] * 3, y=[r["repr"], r["sem"], r["tom"]],
+            mode="lines", line=dict(color="#ccc", width=1.5), showlegend=False,
+            hoverinfo="skip"), row=1, col=1)
+    for key, name, color in (("repr", "representation", "#d62728"),
+                             ("sem", "semantic judgment", "#1f77b4"),
+                             ("tom", "ToM judgment (persona)", "#9467bd")):
+        fig.add_trace(go.Scatter(x=x, y=[r[key] for r in rows], mode="markers",
+            name=name, marker=dict(size=13, color=color)), row=1, col=1)
+    fig.add_hline(y=h_pn, line_dash="dash", line_color="#2ca02c", row=1, col=1,
+                  annotation_text=f"human {h_pn:+.2f}", annotation_font_color="#2ca02c")
+    fig.add_hline(y=0, line_color="#eee", row=1, col=1)
+    fig.update_yaxes(title_text="pos×neg similarity (z within corner)", row=1, col=1)
+    fig.add_trace(go.Bar(x=x, y=[r["pc1_tom"] for r in rows], marker_color="#9467bd",
+        showlegend=False), row=1, col=2)
+    fig.add_hline(y=rows[0]["pc1_human"], line_dash="dash", line_color="#2ca02c",
+                  row=1, col=2, annotation_text="human", annotation_font_color="#2ca02c")
+    fig.update_yaxes(title_text="ToM PC1 variance fraction", range=[0, 0.5], row=1, col=2)
+    fig.update_layout(
+        title=dict(text="<b>Persona/ToM judgment: the model's person-reasoning splits "
+            "good/bad even harder than humans</b><br><sub>Left: representation MERGES "
+            "pos×neg (red); both the semantic judgment (blue) and the ToM judgment "
+            "(persona=A, rate B; purple) split it — ToM OVERSHOOTS the human (green). "
+            "So the representation is the odd-one-out in both framings. Right: ToM "
+            "collapses onto a single evaluative axis more than humans do (assistant "
+            "halo).</sub>", x=0.01),
+        width=1180, height=560, plot_bgcolor="white", font=dict(family="Helvetica, Arial"),
+        legend=dict(x=0.0, y=-0.13, orientation="h"))
+    out = "results/adjectives/introspection_tom.html"
+    fig.write_html(out, include_plotlyjs="cdn")
+    fig.write_image(out.replace(".html", ".png"), width=1180, height=560, scale=2)
+    print(f"wrote {out} and .png")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", default="Qwen7")
+    ap.add_argument("--mode", default="semantic", choices=["semantic", "tom"])
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
+    models = args.models.split(",")
     behavs = {}
-    for short in args.models.split(","):
-        print(f"eliciting {short} ...", flush=True)
-        behavs[short] = np.array(elicit(short, args.force)["behavioral"])
-    compare(behavs)
+    for short in models:
+        print(f"eliciting {short} ({args.mode}) ...", flush=True)
+        behavs[short] = np.array(elicit(short, args.mode, args.force)["behavioral"])
+    if args.mode == "tom":
+        compare_tom(models)
+    else:
+        compare(behavs)
 
 
 if __name__ == "__main__":

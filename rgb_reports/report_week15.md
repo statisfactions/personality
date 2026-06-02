@@ -11,7 +11,12 @@ words with a valence-neutral anchor and find a **universal sign-flip**: every mo
 antonym value), reversing its own representational merge. The merge is
 associative-geometry-only; symbolic valence is deployed in behavior. A clean,
 localized read/write dissociation — and the symbolic-vs-associative split made
-behavioral. `scripts/adjective_introspection.py`.
+behavioral. §2 (mechanism): the behavioral matrices are near-PSD (two coherent
+geometries, not coherent-vs-noise); and the persona/ToM judgment — the model doing
+the human's dispositional task — *also* splits good/bad (resolving the
+semantics-vs-ToM confound in §1's favor), in fact *overshooting* humans with an
+evaluative halo that **scales with size** even though the basic split doesn't.
+`scripts/adjective_introspection.py`.
 
 ## 1. The model judges Wonderful ≠ Awful even though it represents them as neighbors
 
@@ -94,3 +99,76 @@ judgment.
   is an alignment/instruction artifact.
 - More of the cohort (Gemma27, Gemma4-31B, Llama, Phi4, Aya, FalconMamba) for the
   full family/size picture; a frontier model as a human-only ceiling.
+
+## 2. Semantics vs ToM, and is the judgment a coherent geometry?
+
+Two probes into the §1 mechanism (rgb). `scripts/adjective_introspection.py`
+`--mode tom`.
+
+**Is the judgment even a coherent geometry? (semidefiniteness).** A pairwise-judgment
+matrix need not embed in any metric space. Double-centering each 26×26 matrix and
+measuring the negative-eigenvalue mass fraction: the representation cosine and human
+correlation are PSD by construction (≈0), and the **behavioral matrices are nearly
+PSD too** — neg-mass 0.1%–3.5%, shrinking with size (Qwen 3B 3.5% → Qwen32 0.1%;
+Qwen7 0.2%, Gemma12 0.8%). So the read/write gap is **not** "coherent representation
+vs incoherent bag of judgments" — it is **two self-consistent geometries that
+disagree on one block.** The judgment is its own valid map, slightly more so with
+scale.
+
+**The semantics-vs-ToM confound, and its resolution.** §1's "human" corner is
+*dispositional* self-report (do people who call themselves wonderful also call
+themselves awful) while the model corner is *semantic* similarity (are the words
+alike in meaning). They agreed on sign, but possibly for different reasons. To
+control it, make the model do the human's task: **persona = adjective A, Likert how
+accurately B describes that person** (`--mode tom`) — a dispositional judgment, same
+construct as the 525-PDA. Four corners on pos-eval × neg-eval (z within corner):
+
+| model | repr | semantic | **ToM** | human | corr(ToM,sem) | corr(ToM,repr) | PC1 ToM/human |
+|---|---|---|---|---|---|---|---|
+| Qwen 3B | +1.09 | −0.40 | **−0.50** | −0.53 | +0.49 | +0.30 | 0.42 / 0.23 |
+| Gemma 4B | +1.11 | −0.78 | **−1.12** | −0.53 | +0.83 | +0.48 | 0.42 / 0.23 |
+| Qwen7 | +0.83 | −0.49 | **−0.70** | −0.53 | +0.90 | +0.71 | 0.35 / 0.23 |
+| Gemma12 | +0.81 | −0.72 | **−1.24** | −0.53 | +0.77 | +0.43 | 0.43 / 0.23 |
+| Qwen32 | +1.05 | −0.49 | **−1.04** | −0.53 | +0.77 | +0.58 | 0.38 / 0.23 |
+
+Three findings:
+
+1. **ToM splits too — so the confound resolves *in favor of* §1.** The model splits
+   good/bad whether asked a semantic question or made to reason dispositionally about
+   a person. The representation is the lone merger in *both* framings; "matches human"
+   was not a construct artifact. ToM tracks the semantic judgment closely
+   (corr 0.49–0.90) and is the channel *furthest* from the representation
+   (corr-to-repr 0.30–0.71, vs semantic's 0.70–0.75 in §1).
+
+2. **ToM overshoots the human — an evaluative halo.** In 4 of 5 models ToM is *more*
+   split than humans (−0.70 to −1.24 vs −0.53); only Qwen 3B lands on the human value
+   (and its ToM is the noisiest, corr-to-human 0.51). Persona-conditioning activates
+   the assistant's coherent good/bad evaluation: a "very wonderful" person is rated
+   extreme-low on every negative. And ToM **over-collapses onto a single axis** —
+   PC1 variance fraction 0.35–0.43 vs human 0.23 — the assistant-shape (the Big-Five
+   E–C r=0.93 collapse) at the lexical level. NB the halo is *spiky, not broad*: it
+   slams the clear-cut evaluative extremes apart, but the human self-report is
+   actually the more *uniformly* valence-consistent matrix (valence-template r 0.82
+   vs ToM ≈0.67–0.69), so ToM's dominant axis is stronger-but-idiosyncratic, not a
+   cleaner human halo.
+
+3. **The basic split isn't size-gated, but the halo scales.** The read/write split is
+   present at every size (§1). The *overshoot* grows with scale within each family:
+   Qwen 3B −0.50 → 7B −0.70 → 32B −1.04; Gemma 4B −1.12 → 12B −1.24. So the symbolic
+   good/bad split is a basic property of an instruct model, but the **dispositional
+   evaluative halo intensifies with size** — bigger models reason about persons with
+   stronger good/bad coherence (and more single-axis collapse).
+
+**Mechanistic synthesis.** There is an associative geometry (the Wonderful≈Awful
+merge) that **no** behavioral channel reads — semantic judgment, dispositional
+judgment, and human all bypass it. On top of that, the model's *person-reasoning*
+specifically adds an evaluative-halo collapse that scales with size. So the W14 §4
+evaluative-core geometry is doubly not-conduct: it doesn't drive word-judgments, it
+doesn't drive person-judgments, and what person-judgments *do* show is the opposite
+distortion (over-separation, not merging). Figure: `introspection_tom.png`.
+
+**Next (sharpest first).** Base vs instruct (#20d) — if a base model's ToM *merges*,
+tuning installs the override; if it splits, the override is pretrained and tuning
+only adds the halo. Then: anchor-wording robustness (§1); the ToM **asymmetry** (we
+kept the directional matrix — is "being cruel ⇒ not kind" stronger than the reverse?);
+per-layer localization of where the antonym signal enters.
