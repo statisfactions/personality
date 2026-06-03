@@ -58,7 +58,8 @@ def beh(short, mode):
 
 def repr_merge(short, flab, idx):
     import os
-    p = f"results/adjectives/acts/{MODELS[short].replace('/', '_')}__pers.pt"
+    base = f"results/adjectives/acts/{MODELS[short].replace('/', '_')}__pers"
+    p = f"{base}_bare.pt" if os.path.exists(f"{base}_bare.pt") else f"{base}.pt"
     if not os.path.exists(p):
         return None
     _, C, _, _ = model_matrix(p, np.array(flab))
@@ -102,16 +103,18 @@ def main():
         fig.add_trace(go.Scatter(x=xs, y=[r[f"ent_{key}"] for r in rows],
             mode="lines+markers", line=dict(color="#9467bd", width=2, dash=dash),
             showlegend=False), row=1, col=3)
-    fig.update_yaxes(title_text="pos×neg cosine (z)", row=1, col=1)
+    fig.update_yaxes(title_text="pos×neg cosine (z)", range=[0.6, 1.85], row=1, col=1)
     fig.update_yaxes(title_text="within-good − pos×neg (1–7)", range=[0, 3], row=1, col=2)
-    fig.update_yaxes(title_text="mean entropy (nats)", range=[0, 1.6], row=1, col=3)
+    fig.update_yaxes(title_text="mean entropy (nats)", range=[0, 2.0], row=1, col=3)
     fig.update_layout(
-        title=dict(text="<b>Across training stages: the read/write gap is there from the "
-            "start; tuning sharpens confidence</b><br><sub>All probed bare (format "
-            "constant). Representation keeps the merge; the good/bad judgment gap is "
-            "flat (split is pretrained); entropy collapses (tuning makes the same "
-            "judgment decisive). Qwen has only two points — single-pair conclusions "
-            "tend to get revised; OLMo's full ladder is the real test.</sub>", x=0.01),
+        title=dict(text="<b>Across training stages: representation merge · behavioral "
+            "split · confidence</b><br><sub>All probed bare (format constant). "
+            "Left: pos×neg cosine z — the Wonderful≈Awful merge (high = merged); a "
+            "pretrained constant. Middle: good/bad judgment gap, raw 1–7 (high = "
+            "decisively split). Right: mean digit-entropy (low = confident; max ≈1.95). "
+            "The merge is fixed at pretraining; what post-training shapes is the "
+            "behavioral split and the confidence — and how it does so is "
+            "family-dependent.</sub>", x=0.01),
         width=1240, height=480, plot_bgcolor="white", font=dict(family="Helvetica, Arial"),
         legend=dict(x=0.34, y=1.0, font=dict(size=9)))
     out = f"results/adjectives/training_stage_{args.out}.html"

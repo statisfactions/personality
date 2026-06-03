@@ -16,11 +16,14 @@ geometries, not coherent-vs-noise); and the persona/ToM judgment — the model d
 the human's dispositional task — *also* splits good/bad (resolving the
 semantics-vs-ToM confound in §1's favor), in fact *overshooting* humans with an
 evaluative halo that **scales with size** even though the basic split doesn't.
-§3 (weights vs context): the halo is weight-resident (chat vs bare is a wash), and on
-the Qwen base/instruct pair the read/write gap is **pretrained** — the base both
-merges in representation and splits in judgment; instruction tuning changes
-*confidence* (entropy 1.4→0.5), not the split (single-pair; OLMo ladder is the test).
-`scripts/adjective_introspection.py`, `training_stage_compare.py`.
+§3 (weights vs context, Qwen + OLMo-2 ladder): the halo is weight-resident (chat≈bare).
+Across families the only robust claim is **the representational merge is a pretrained
+constant** (flat in both, all stages, bare-extracted). The behavioral side is
+family-dependent: Qwen base already voices the split + tuning collapses entropy; OLMo
+base is non-responsive (entropy≈uniform) and the split-voicing is built cumulatively
+across SFT→DPO→RLVR with entropy barely dropping. So the clean Qwen "gap is pretrained,
+tuning sharpens confidence" does **not** generalize — single-model conclusions revised
+four times here. `scripts/adjective_introspection.py`, `training_stage_compare.py`.
 
 ## 1. The model judges Wonderful ≠ Awful even though it represents them as neighbors
 
@@ -190,43 +193,64 @@ shape — it's in the weights, present with or without the wrapper. This *shrink
 long-standing chat-template confound (W5 §9 / to_try #11): measuring with the
 template wasn't inflating the assistant signal.
 
-**Weights: base vs instruct (Qwen2.5-7B endpoints — single pair, treat as
-suggestive).** This corrected a wrong prediction (h/t rgb on the entropy confound).
-Probed bare, on the 26-adjective subset:
+**Weights: base vs instruct, two families (Qwen2.5-7B endpoints + the OLMo-2 7B
+Base→SFT→DPO→RLVR ladder, all probed/extracted bare so format is constant).** This
+went through *four* revisions — a clean demonstration of rgb's "single-model
+conclusions get revised." `training_stage_compare.py`. Representation = pos×neg
+cosine z (merge; entropy-immune); split = raw within-good − pos×neg gap on 1–7
+(decisiveness); confidence = mean digit-entropy.
 
-| | repr merge (z) | good/bad gap (raw 1–7) | entropy |
-|---|---|---|---|
-| **Base** | +1.25 | 2.24 / 2.21 (sem/ToM) | **1.41 / 1.44** |
-| **Instruct** | +0.83 | 2.31 / 2.55 | **0.42 / 0.59** |
+| | repr merge (z) | ToM gap | sem gap | entropy (sem/ToM) |
+|---|---|---|---|---|
+| Qwen Base | 1.61 | 2.21 | 2.24 | 1.41 / 1.44 |
+| Qwen Instruct | 1.58 | 2.55 | 2.31 | **0.42 / 0.59** |
+| OLMo Base | 1.71 | 0.02 | 0.11 | 1.86 / 1.83 |
+| OLMo SFT | 1.70 | 0.74 | 0.14 | 1.83 / 1.78 |
+| OLMo DPO | 1.69 | 1.95 | 0.17 | 1.80 / 1.63 |
+| OLMo RLVR | 1.70 | 2.55 | 0.21 | 1.75 / 1.55 |
 
-Three findings, with the **entropy correction** that makes them honest:
-1. **The merge is pretrained — stronger in the base.** The base's resting geometry
-   represents Wonderful≈Awful *more* than the instruct (z +1.25 vs +0.83); tuning
-   slightly *reduces* it. (Cosine, so entropy-immune.)
-2. **The split is pretrained and already decisive in the base.** In *raw* rating
-   units the base rates antonyms at 1.7 vs within-good 3.9 — a good/bad **gap of 2.24,
-   essentially equal to the instruct's 2.3–2.55.** Tuning does not install the split.
-3. **What tuning changes is confidence, not structure** — entropy collapses 1.4→0.5.
-   The base reaches the same split through a near-uniform distribution; the instruct
-   reaches it decisively. rgb's entropy guess is the operative variable.
+The one robust cross-family claim, and the family-dependent rest:
 
-So, on this single pair, **the read/write gap (merge-in-representation,
-split-in-judgment) is a pretraining phenomenon, not an alignment artifact** — it is
-open before any post-training, and instruction tuning sharpens the (already-split)
-judgment's confidence rather than creating the split or the merge. Figure
-`training_stage_qwen.png`.
+1. **The merge is a pretrained constant — flat across *all* stages, in both families.**
+   Qwen 1.61→1.58, OLMo 1.71→1.70. Post-training does not touch the representational
+   Wonderful≈Awful merge. (This *corrected* an earlier claim that Qwen tuning reduces
+   the merge, +1.25→+0.83 — that slope was a **chat-template extraction artifact**: the
+   chat wrapper slightly de-merges the instruct model's *measured* representation;
+   format-matched bare extraction shows flat. The behavioral chat-vs-bare was a wash,
+   but the *representational* one is not — a small separate context effect.)
+2. **The behavioral split is family/competence-dependent, not simply pretrained.** The
+   Qwen base already voices the split decisively (gap 2.2, entropy 1.4); the OLMo base
+   does **not** (gap 0.02) — but its entropy is 1.86 ≈ uniform, i.e. it is
+   *non-responsive* to the rating format, so this is a detectability floor, not proven
+   absence. The OLMo split-voicing is then **built up cumulatively across SFT→DPO→RLVR**
+   (ToM gap 0.02→0.74→1.95→2.55), biggest jump at DPO. So whether the model can *voice*
+   the split it represents depends on task-competence, which post-training supplies —
+   in OLMo, progressively across every stage.
+3. **"Tuning sharpens confidence" is Qwen-specific.** Qwen entropy collapses 1.4→0.5;
+   OLMo barely moves (1.85→1.55) and reaches a Qwen-sized ToM gap (2.55) while staying
+   high-entropy — it builds the *gap* (different per-pair means) without the
+   *confidence* (per-judgment sharpness). So gap and entropy partly decouple, and the
+   mechanism of "what post-training does" differs by family.
 
-**Methodological caveat this forces.** The z-scored "split"/"collapse" magnitudes
-(§1/§2) are **confounded by decisiveness** when comparing models of different entropy:
-a near-uniform matrix amplifies any residual structure under z-scoring and inflates
-PC1. Within the instruct cohort (all low-entropy) the §1/§2 comparisons hold; but
-base-vs-instruct needs the **raw amplitude + entropy** treatment. The base is a
-genuinely different regime.
+Plus a **probe-robustness** finding: OLMo voices the split on the **ToM/persona** task
+(gap → 2.55) but barely on the **semantic-similarity** task (gap 0.21 even at RLVR) —
+the persona framing is the more family-robust elicitation; "how similar in meaning"
+under-reads OLMo. Figures `training_stage_qwen.png`, `training_stage_olmo.png`.
 
-**Next — the stage ladder (the real test).** A single base/instruct pair gives only
-endpoints, and single-pair conclusions get revised. The OLMo-2 7B ladder
-(Base → SFT → DPO → Instruct/RLVR, same tokenizer, all probed bare) localizes
-*where* the entropy collapses — and whether the merge/split trajectory is monotone or
-has structure tuning-stage by tuning-stage. `training_stage_compare.py --models
-Olmo2Base,Olmo2SFT,Olmo2DPO,Olmo2Inst` once the weights finish downloading; the
-Zephyr SFT-vs-DPO pair is the minimal cross-check.
+**So the honest synthesis:** the only thing that survives across families is the
+representation-level claim — *the Wonderful≈Awful merge is pretrained and fixed.*
+Everything on the behavioral/read side (does the base voice the split, does tuning
+add confidence or gap, which stage, which probe) is **model-dependent**, and the
+clean Qwen "the whole gap is pretrained; tuning just sharpens confidence" does **not**
+generalize. The representation, being responsiveness- and (with bare extraction)
+format-immune, is the load-bearing measurement; the behavioral side needs the cohort
+before any claim.
+
+**Methodological caveats this run forces** (all reading-group-worth): (a) z-scored
+"split"/"collapse" magnitudes are **entropy-confounded** across decisiveness-differing
+models — base-vs-instruct needs raw amplitude + entropy; (b) **chat-vs-bare extraction**
+shifts the *measured* representational merge (use bare for stage comparisons);
+(c) **base non-responsiveness** (entropy → uniform) makes the rating probe blind on raw
+bases — the representation is the tool that sees through it. Open: a forced-choice /
+completion probe to ask whether a non-responsive base *holds* the symbolic split it
+can't rate; the Zephyr SFT-vs-DPO pair as a third family.

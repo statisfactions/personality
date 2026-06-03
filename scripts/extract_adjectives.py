@@ -77,7 +77,10 @@ def main():
                     choices=list(FRAMINGS))
     ap.add_argument("--limit", type=int, default=None,
                     help="only first N adjectives (smoke test)")
+    ap.add_argument("--bare", action="store_true",
+                    help="no chat template (base/staged ckpts w/o one); '_bare' suffix")
     args = ap.parse_args()
+    suf = "_bare" if args.bare else ""
 
     adjectives = load_adjectives()
     if args.limit:
@@ -92,7 +95,7 @@ def main():
             continue
         # Skip model entirely if all its framing caches exist.
         todo = [f for f in args.framings
-                if not (OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{f}.pt").exists()
+                if not (OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{f}{suf}.pt").exists()
                 or args.limit]
         if not todo:
             print(f"[skip] {model_name}: all framings cached")
@@ -102,17 +105,18 @@ def main():
         model, tok, device = load_model(model_name)
         for framing in todo:
             template, prefix = FRAMINGS[framing]
-            out = OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{framing}.pt"
+            out = OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{framing}{suf}.pt"
             if out.exists() and not args.limit:
                 print(f"  [have] {framing}")
                 continue
-            print(f"  {framing}: {template!r} (read span after {prefix!r})")
+            print(f"  {framing}: {template!r} (read span after {prefix!r}), "
+                  f"chat_template={not args.bare}")
             acts = []
             for adj in adjectives:
                 text = template.format(adj=adj.lower())
                 a = mdx.hidden_states_for_text(
                     model, tok, text, device,
-                    split_prefix=prefix, chat_template=True)
+                    split_prefix=prefix, chat_template=not args.bare)
                 # fp32 (already returned by hidden_states_for_text). NOT fp16:
                 # Gemma-3's massive activations (~1e5, §3.10) overflow fp16's
                 # 65504 ceiling to inf, corrupting the whole cache.

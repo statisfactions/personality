@@ -321,12 +321,15 @@ def main():
     for short in models:
         print(f"eliciting {short} ({args.mode}{'/bare' if args.bare else ''}) ...", flush=True)
         behavs[short] = np.array(elicit(short, args.mode, args.force, args.bare)["behavioral"])
-    if args.bare:
-        compare_template(models, args.mode)
-    elif args.mode == "tom":
-        compare_tom(models)
-    else:
-        compare(behavs)
+    try:                                  # base/staged models lack the compare inputs
+        if args.bare:
+            compare_template(models, args.mode)
+        elif args.mode == "tom":
+            compare_tom(models)
+        else:
+            compare(behavs)
+    except FileNotFoundError as e:
+        print(f"(elicited + cached; skipping built-in compare — {e})")
 
 
 if __name__ == "__main__":
