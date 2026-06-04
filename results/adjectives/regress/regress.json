@@ -1,0 +1,58 @@
+[
+  {
+    "stratum": "LLM-judge",
+    "kind": "behavior",
+    "synonym_z": 2.9760629788008153,
+    "antonym_z": -0.49278676645684105,
+    "crossdim_z": -0.1231040520367547
+  },
+  {
+    "stratum": "LLM-repr",
+    "kind": "llm",
+    "synonym_z": 3.321605920791626,
+    "antonym_z": 1.58437180519104,
+    "crossdim_z": -0.7882457375526428
+  },
+  {
+    "stratum": "bge-large",
+    "kind": "encoder",
+    "synonym_z": 3.6051494014413925,
+    "antonym_z": 0.16404588600854453,
+    "crossdim_z": -0.445879327216394
+  },
+  {
+    "stratum": "mpnet-base",
+    "kind": "encoder",
+    "synonym_z": 3.7927790970619912,
+    "antonym_z": 0.5126756725578157,
+    "crossdim_z": -0.6900050766725382
+  },
+  {
+    "stratum": "glove.840B",
+    "kind": "static",
+    "synonym_z": 3.012503684715995,
+    "antonym_z": 0.2420828239071206,
+    "crossdim_z": -0.4512867452019704
+  },
+  {
+    "stratum": "glove.6B",
+    "kind": "static",
+    "synonym_z": 3.053869974013918,
+    "antonym_z": 0.7074974273881285,
+    "crossdim_z": -0.4475267909653997
+  },
+  {
+    "stratum": "komninos",
+    "kind": "static",
+    "synonym_z": 3.033966133078959,
+    "antonym_z": 1.1780368907329062,
+    "crossdim_z": -0.1251079096914695
+  },
+  {
+    "stratum": "human",
+    "kind": "human",
+    "synonym_z": 2.37949645776096,
+    "antonym_z": -0.5270568973171735,
+    "crossdim_z": -0.014213602492271035
+  }
+]

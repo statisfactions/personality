@@ -72,8 +72,16 @@ FACETS = {
     "C": ["Self-Eff", "Order", "Dutiful", "Achieve", "Discipl",
           "Caution"],
 }
-EXTRACTION_METHODS = ["meandiff-itempc1", "meandiff-pcs", "single-zero",
-                      "single-neutral", "single-pcs", "single-ipip-mean"]
+EXTRACTION_METHODS = ["meandiff-itempc1", "meandiff-adaptive", "meandiff-pcs",
+                      "single-zero", "single-neutral", "single-pcs",
+                      "single-ipip-mean"]
+# meandiff-adaptive (diagnostic, W16): identical to meandiff-itempc1 EXCEPT the
+# item-PC1 removal is GATED on the same IPR test the unpaired adjective pipeline
+# uses (adjective_geom.adaptive_denoise) — remove PC1 only when it is a
+# concentrated rogue dim (IPR < threshold ≈ Gemma massive activations), else keep
+# the bare meandiff. Tests whether unifying the denoise rule across the paired and
+# unpaired pipelines costs anything. Writes a tagged JSON; canonical is unchanged.
+ADAPTIVE_IPR_THRESHOLD = 10.0   # matches adjective_geom.IPR_THRESHOLD
 # meandiff-itempc1 (W13 §3.7, the canonical default as of 2026-05-25):
 #   d_facet = unit(project_out_pcs(mean(fwd) - mean(rev), top-1 PC of item acts))
 # Removes ONLY the single dominant PC (the content-free anisotropy/norm axis),
@@ -250,12 +258,13 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
     needs_neutral_mean = extraction == "single-neutral"
     needs_pcs = extraction in ("meandiff-pcs", "single-pcs")
     needs_ipip_mean = extraction == "single-ipip-mean"
-    needs_item_pc1 = extraction == "meandiff-itempc1"
+    needs_item_pc1 = extraction in ("meandiff-itempc1", "meandiff-adaptive")
 
     neutral_mean = None
     pcs = None
     ipip_mean = None
     item_pc1 = None
+    adaptive_remove = True   # meandiff-adaptive sets this from the IPR gate
     if needs_neutral_mean:
         neutral_mean = neutral_np[:, common_layer, :].mean(axis=0)
     if needs_pcs:
@@ -270,6 +279,14 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
         item_layer_t = torch.from_numpy(acts[:, common_layer, :])
         all_pcs, _, _ = mdx.compute_pc_projection(item_layer_t, 0.5)
         item_pc1 = all_pcs[:1]
+        # IPR of the (unit) top PC = 1/sum(v^4); low = concentrated rogue dim
+        # (Gemma massive activations). Same gate as adjective_geom.adaptive_denoise.
+        v = item_pc1[0] / (np.linalg.norm(item_pc1[0]) + 1e-12)
+        pc1_ipr = float(1.0 / np.sum(v ** 4))
+        if extraction == "meandiff-adaptive":
+            adaptive_remove = pc1_ipr < ADAPTIVE_IPR_THRESHOLD
+            print(f"  [adaptive] item-PC1 IPR={pc1_ipr:.1f} -> "
+                  f"{'REMOVE (spike)' if adaptive_remove else 'KEEP (distributed)'}")
 
     facet_names = []
     dir_rows = []
@@ -294,6 +311,13 @@ def build_directions(acts, meta, common_layer, extraction, neutral_np):
                     continue
                 rev_mean = np.mean(polled["rev"], axis=0)
                 d = unit(mdx.project_out_pcs(fwd_mean - rev_mean, item_pc1))
+            elif extraction == "meandiff-adaptive":
+                if not polled["rev"]:
+                    print(f"  WARNING: facet {t}.{fname} missing reverse items for contrast, skipping")
+                    continue
+                rev_mean = np.mean(polled["rev"], axis=0)
+                md = fwd_mean - rev_mean
+                d = unit(mdx.project_out_pcs(md, item_pc1) if adaptive_remove else md)
             elif extraction == "single-zero":
                 d = unit(fwd_mean)
             elif extraction == "single-neutral":
