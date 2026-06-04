@@ -242,26 +242,79 @@ human 525-PDA *correlational* structure better than semantic or representation? 
 same backbone as the W9/W13 facet comparison, the dispositional channel being the
 construct the human data actually measures.
 
-**Directional asymmetry (both-directions `tom_likely`).** P(neg|very-pos) >
-P(pos|very-neg) in both models (Qwen 2.47 vs 1.69; Gemma 4.11 vs 3.00): a wonderful
-person being awful is judged likelier than the reverse. The *direction* is the safe
-claim; it has (at least) **two undisentangled accounts** — (a) valence /
-negativity-dominance (the negative pole is structurally more exclusionary), vs (b)
-**variance/evidence** (good people carry wider behavioral variance so their tail
-includes bad; "bad person" may require more evidence → tighter posterior → little
-room for good). The EV (mean) conflates these — the variance lives in the *second
-moment* (spread/entropy) we're discarding, so do NOT summarize by mean alone and do
-NOT symmetrize. First disentangling step (existing data): compare the spread/entropy
-of good-conditioned vs bad-conditioned rows; then a direct
-predictability-elicitation prompt + a base-rate control.
+### Anatomy of the directional asymmetry (Hodge decomposition)
 
-**Gemma's dispositional leniency — SPECULATIVE.** Gemma rates `tom_likely` higher
-overall (mean EV 4.29 vs Qwen 3.63) and splits antonyms more gently (29th vs 10th
-pct). This is confounded with plain **scale calibration** (Gemma may just use the
-upper half of the scale); we have no within-model calibration control and no sharp
-hypothesis, so record as an *observation*, not a finding. The cross-model *magnitude*
-ranking of the asymmetry rides on the same confound; only the within-model direction
-is safe.
+The both-directions `tom_likely` matrix is asymmetric (P(B|A) ≠ P(A|B)); we took it
+apart. Scripts: `adjective_very_test.py`, `adjective_anchor_entropy.py`,
+`adjective_asymmetry_dims.py`, `adjective_cycles.py`, `adjective_dispositional_curl.py`.
+
+**1. Robust one-directional exclusion.** P(neg|very-pos) > P(pos|very-neg) in both
+models (Qwen 2.47>1.69, Gemma 4.11>3.00). It survives **base-rate control** — positive
+traits have a much higher ascription base rate (Qwen col-means: pos 3.97 vs neg 2.64),
+and after subtracting it the residual gap *grows* to ~2.1–2.5 (cross-family) — and it
+survives **dropping "very"** (the raw gap shrinks ~35% for Qwen, but the base-rate-
+controlled gap is invariant; for Gemma even the raw gap barely moves). Precise form:
+a *bad* anchor strongly suppresses the good target (well below its base rate); a *good*
+anchor leaves the bad target *at* its base rate. **Bad excludes good; good tolerates
+bad.**
+
+**2. Valence, not variance (mechanism).** Two accounts for that exclusion: valence/
+structural vs variance-evidence (good people carry wider behavioral variance → less
+reliably ascribable; or "bad person" needs more evidence → tighter posterior). The
+clean test is the model's own posterior width = the per-judgment **entropy** of
+P(B|X) — the "how predictable is a person who is X" question answered *without* a
+verbal probe (which would only re-measure the target word's denotation). Level-
+controlled (entropy is an inverted-U in EV, and positivity bias gives good anchors
+higher EV), good anchors are **not** more uncertain than bad at matched EV (Qwen
+slightly *less*; Gemma flat). So variance/evidence gets **no support**; the exclusion
+is structural valence.
+
+**3. But valence is NOT the primary dimension.** Treat the asymmetry as an
+antisymmetric **flow** D[A,B] = P(B|A) − P(A|B) on the trait graph. Helmholtz–Hodge:
+D = gradient (a single transitive potential, curl-free, carrying all the divergence) +
+curl (divergence-free cycles). Only **~40–50%** is gradient, and that gradient is
+**prevalence / ascription-readiness** (universally-ascribed traits like Awake, Normal,
+Employed are "sinks"; rare traits are "sources"), correlating **r²≈0.01 with valence**
+— robust even on a hand-curated **411-word dispositional subset** (drops physical/
+demographic/status/state/markedness words; prevalence still r≈−0.82, valence still ~0,
+and the gradient fraction *falls* — dispositional traits are *more* cyclic). So the
+dominant rankable axis is the trivial Bayes direction; valence is a base-rate-
+controlled, **subdominant** effect that lives in the curl, which is exactly why the
+base-rate control was load-bearing to see it at all.
+
+**4. The secondary dimensions are person-perception axes.** SVD of the curl (each
+degenerate singular pair = a rotational *plane*; individual axes within a plane are
+not unique, so read clusters not axes) resolves into the classic social-perception
+dimensions: **warmth/likeability, competence, dominance, morality (=valence),
+neuroticism.** Valence is *one* co-equal thread, not the driver. The cycles are
+interpretable: the **warmth×morality** plane circulates Likeable→Evil→Cold→Ethical→
+Likeable (circulation +6.19), and it's a *cycle* rather than a single good/bad ranking
+precisely because the model holds the off-diagonal archetypes — the **charming villain**
+(likeable-but-evil) and the **cold saint** (cold-but-ethical) — as asymmetrically
+conceivable. The **confidence×competence** plane clusters *Confident / Self-assured*
+with *Foolish / Stupid* opposite *Modest* — i.e. the geometry encodes **Dunning–Kruger**
+(unwarranted confidence sits with folly, not competence). The one-directional exclusion
+reappears inside this structure as the Likeable→Evil leg (evil excludes likeable;
+likeable tolerates evil).
+
+**5. Reframe.** This *de-centers* our own valence story: the Wonderful≈Awful read/write
+split is real and specific to the evaluative pole, but it is **not "what the asymmetry
+is about."** Globally the asymmetry is prevalence (primary, ~half, trivial) + a basket
+of person-perception dimensions (secondary curl), with valence as one strand.
+
+**6. Instrument caveat — "also be" ⇒ "become".** `tom_likely`'s "how likely to *also
+be* B" is ambiguous between *co-occurrence* and *temporal succession*. For developmental/
+state traits the model reads "become": Gemma's strongest cycle is Young→Middle-aged→
+Elderly→Young — pure life-course progression, no valence. For a clean dispositional
+reading, exclude developmental/state traits (as the §3 subset does) or split "is also"
+from "will become."
+
+**7. Gemma leniency — SPECULATIVE.** Gemma rates `tom_likely` higher overall (mean EV
+4.29 vs 3.63) and splits antonyms more gently (judge 29th vs 10th pct) — confounded with
+plain **scale calibration** (it may just use the upper half of the scale); no within-
+model calibration control, no sharp hypothesis → record as *observation*, not finding.
+Only the within-model direction of any asymmetry is safe; cross-model *magnitudes* ride
+on the calibration confound.
 
 ## Open / next
 
