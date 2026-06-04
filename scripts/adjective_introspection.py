@@ -61,6 +61,15 @@ PROMPT = {
         "How accurately does the word \"{b}\" describe this person?\n"
         "Answer with one number from 1 to 7, where 1 = very inaccurate and "
         "7 = very accurate.\nNumber:"),
+    # W16 question-form sweep winner — robust across capable AND unsure models
+    # (the midpoint comes from the semantics of probability, not an explicit
+    # anchor a near-uniform model can't parse). DIRECTIONAL: P(b | very-a person)
+    # != P(a | very-b person), so the full run must do both directions.
+    "tom_likely": (
+        "Consider a person who is very {a}.\n"
+        "How likely is this person to also be {b}?\n"
+        "Answer with one number from 1 to 7, where 1 = very unlikely and "
+        "7 = very likely.\nNumber:"),
 }
 
 

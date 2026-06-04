@@ -1,0 +1,10 @@
+{
+  "model": "Qwen7",
+  "floor_frac": 0.8583327838948595,
+  "spearman_agreement": 0.3543282652820103,
+  "antonym_pct_read": 98.06812853929951,
+  "antonym_pct_write": 10.847243284030386,
+  "antonym_split_pctpts": 87.22088525526912,
+  "warp_top_mode": 0.055312658142624774,
+  "warp_eval_alignment": 0.9803881727006974
+}
