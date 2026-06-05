@@ -53,6 +53,8 @@ def match(M, Href):
 def repr_matrix(short):
     base = f"results/adjectives/acts/{MODELS[short].replace('/', '_')}__pers"
     p = f"{base}_bare.pt" if os.path.exists(f"{base}_bare.pt") else f"{base}.pt"
+    if not os.path.exists(p):
+        return None
     _, C, _, _ = model_matrix(p, np.array(LABELS))
     return C
 
@@ -73,17 +75,23 @@ def judge_matrix(short, mode):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--models", nargs="+", default=["Qwen7", "Gemma12"])
+    args = ap.parse_args()
     Hdc = double_center_off(HUMAN)
-    print(f"{'model':<9}{'readout':<14}{'raw r':>9}{'corrected r':>13}{'Δ (prevalence)':>16}")
-    print("-" * 61)
-    for short in ("Qwen7", "Gemma12"):
+    print(f"{'model':<11}{'readout':<14}{'raw r':>9}{'corrected r':>13}{'Δ (prevalence)':>16}")
+    print("-" * 63)
+    for short in args.models:
         mats = {"representation": repr_matrix(short),
                 "semantic": judge_matrix(short, "semantic"),
                 "tom_likely": judge_matrix(short, "tom_likely")}
         for name, M in mats.items():
+            if M is None:
+                continue                      # readout not computed yet for this model
             raw = match(M, HUMAN)
             cor = match(double_center_off(M), Hdc)
-            print(f"{short:<9}{name:<14}{raw:>9.3f}{cor:>13.3f}{cor-raw:>+16.3f}")
+            print(f"{short:<11}{name:<14}{raw:>9.3f}{cor:>13.3f}{cor-raw:>+16.3f}")
         print()
     print("corrected = both sides off-diagonal double-centered (prevalence stripped).")
     print("hypothesis: tom_likely (dispositional co-occurrence) matches human best.")
