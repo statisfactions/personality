@@ -297,6 +297,26 @@ with *Foolish / Stupid* opposite *Modest* — i.e. the geometry encodes **Dunnin
 reappears inside this structure as the Likeable→Evil leg (evil excludes likeable;
 likeable tolerates evil).
 
+**4b. Reading the planes — rotation caveat + an interpretive cross-model difference
+(n=2, hold loosely; `adjective_curl_rotate.py`).** The SVD basis within each
+degenerate plane is *arbitrary* (singular values pair exactly, e.g. 122,122,…), so
+the axis-by-axis labels in §4 are only as canonical as the basis numpy happened to
+return — Qwen's landed at simple structure, Gemma's did not, which is the whole
+reason Gemma's raw axes looked muddier. Re-rotating each plane to varimax simple
+structure: Qwen stays four clean social-perception axes (warmth, morality,
+competence, the DK-confidence cluster); Gemma's valence and dominance/threat axes
+*resolve* cleanly, but one axis genuinely resists — an **intensity/arousal** axis
+(Valuable/Desirable/Terrific/**Evil** [impactful] ↔ Boring/Awkward/Anxious/Shy
+[mild/timid]; the valence-sign mixing is the arousal *signature*, not smear). A
+suggestive reading: Qwen factors the curl by **social perception** (warmth ×
+competence × morality), Gemma carries an extra **affect-circumplex** axis (valence ×
+arousal) — which would fit Gemma's prior affect-leaning (W9 §7.6 affect axis, the
+Cheerfulness/N merge, "anthropomorphizes hardest"). **CAVEAT, load-bearing:** all of
+§4–§4b is words read off rotated axes on *two* models. The archetype stories
+(charming villain, cold saint, Dunning–Kruger) and the social-vs-affect split are
+evocative and internally consistent, but they are **interpretive hypotheses for the
+cohort to test, not established findings** — fun to tell, not to overshoot.
+
 **5. Reframe.** This *de-centers* our own valence story: the Wonderful≈Awful read/write
 split is real and specific to the evaluative pole, but it is **not "what the asymmetry
 is about."** Globally the asymmetry is prevalence (primary, ~half, trivial) + a basket
