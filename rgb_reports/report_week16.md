@@ -316,6 +316,25 @@ model calibration control, no sharp hypothesis → record as *observation*, not 
 Only the within-model direction of any asymmetry is safe; cross-model *magnitudes* ride
 on the calibration confound.
 
+**8. The dispositional channel is the human-matched readout (`adjective_human_match.py`).**
+Compared each readout's symmetric structure to the human 525-PDA inter-adjective
+**correlation** matrix. Correction (rgb): mean-symmetrizing only cancels the
+antisymmetric part; the symmetric remainder still carries the prevalence marginals,
+which a marginal-free human correlation matrix lacks — so strip additive marginals
+from *both* sides (off-diagonal double-centering) before comparing. Result (Pearson of
+upper-triangles, corrected): **`tom_likely` matches human best** — Qwen7 **r = 0.73**
+(vs semantic 0.46, representation 0.39); Gemma12 0.69 (vs 0.68, 0.59). The
+prevalence-correction is load-bearing and *reveals* the result — it lifts `tom_likely`
+by +0.12 (Qwen) / +0.06 (Gemma) while barely moving representation (+0.01, already
+centered): the base-rate marginals were **diluting** the match (model-side structure
+with no human analog), not inflating it. Read/write flavor in the column:
+**representation matches human *worst*, judgment *best*** — the resting associative
+geometry is a poorer witness to human personality covariance than the dispositional
+thing the model *does* when asked. Caveats: Gemma's edge over semantic is thin
+(calibration); the full 523 still includes developmental/state traits (the "become"
+leak), so a dispositional-subset re-run is the clean follow-up. Open cohort question:
+does `tom_likely` stay the human-matched readout across all models?
+
 ## Open / next
 
 - **Close the bottom of the regress empirically.** A small from-scratch PPMI-SVD
