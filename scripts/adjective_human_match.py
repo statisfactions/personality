@@ -58,8 +58,15 @@ def repr_matrix(short):
 
 
 def judge_matrix(short, mode):
-    suf = "" if mode == "semantic" else "_tom_likely_dir"
-    z = np.load(f"results/adjectives/introspect_full/{short}{suf}.npz", allow_pickle=True)
+    base = "results/adjectives/introspect_full"
+    if mode == "semantic":
+        cands = [f"{base}/{short}.npz"]
+    else:  # both-directions deep-dive file, else upper-triangle cohort file
+        cands = [f"{base}/{short}_tom_likely_dir.npz", f"{base}/{short}_tom_likely.npz"]
+    path = next((p for p in cands if os.path.exists(p)), None)
+    if path is None:
+        return None
+    z = np.load(path, allow_pickle=True)
     adj = list(z["adjectives"]); B = z["B"].astype(float)
     ri = [adj.index(w) for w in LABELS]; B = B[np.ix_(ri, ri)]
     return (B + B.T) / 2.0          # symmetrize (cancels the directional part)
