@@ -262,3 +262,10 @@ The behavioral bridge the W14 arc lacks: we showed the model's *resting* adjecti
 - **Size axis:** run across cohort sizes — do larger models diverge more (symbolic override as a scaling capability)? Optional frontier model as a human-only ceiling.
 - **Cautions:** neutral-anchor wording is load-bearing (one word leaks valence); "judged similar" can just re-invoke the representation, so only a *positive* divergence is informative; depth note — the merge sits at ~2/3 stream depth yet behavior may still diverge in the last third (read/write in spatial terms).
 - Links #3 (read/write dissociation), the symbolic-vs-associative memory, and #8 / §20(d).
+
+## Raw ESCS 525-PDA ratings as empirical personas (W16 byproduct)
+
+Pulled the raw Saucier 525-PDA item responses (Harvard Dataverse `doi:10.7910/DVN/GHYMEV`, Eugene-Springfield Community Sample, N=700, 1–7 scale) to `results/adjectives/raw/525_PDA.tab` (gitignored) while sanity-checking the human morality pole (it's real graded self-criticism — Evil mean 1.30, 8% give a 2; not lizardman). Persona-track uses worth a look:
+- **Real personas instead of synthetic z's:** condition on actual respondent profiles (700 real people) vs sampled-z vectors — does inducing a *real* person's adjective profile behave differently / more coherently?
+- **Persona-induction validation target:** does an induced persona's self-rating pattern resemble a real ESCS respondent's (nearest-neighbor in the 525-d profile space, or distributional realism)?
+- Clean human anchor already in hand for any future adjective work (the correlation matrix is the reduced form we've used; raw is here if we need item distributions / robust recomputes).
