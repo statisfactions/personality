@@ -355,6 +355,24 @@ thing the model *does* when asked. Caveats: Gemma's edge over semantic is thin
 leak), so a dispositional-subset re-run is the clean follow-up. Open cohort question:
 does `tom_likely` stay the human-matched readout across all models?
 
+**8b. Aggregation — the right comparison object is the *ensemble* (cohort partial,
+8 of 12; `adjective_human_match_viz.py --model cohort`).** The human matrix
+aggregates over hundreds of people, each integrating many interactions; the model
+gives one judgment per pair (rgb). Averaging the 8 completed models' double-centered
+matrices (an "8-judge aggregate") shows two things: (1) **wisdom of crowds** — the
+aggregate matches human at **r = 0.815, above every single model** (best 0.789); and
+(2) the aggregate's value distribution **normalizes to human shape** — excess kurtosis
+**−0.28** vs human −0.35, against the leptokurtic *single-judge* outliers (Qwen7 +1.24,
+Llama-3B +1.45) whose "washed-out mid-tones" prompted this. The 2-fold both-directions
+average barely dents the spike (1.37→1.24), so it takes *many* judges, matching the
+human-aggregates-over-people picture. Two honest qualifiers: (a) the per-judge
+leptokurtosis is **idiosyncratic** — only Qwen7 and Llama-3B; most models already sit
+near the human kurtosis (−0.45…+0.08) — so "the model is categorical about
+co-occurrence" is false as a general claim; (b) the cohort aggregates over *models*
+while the human matrix aggregates over *people* — a persona-aggregate *within* one
+model would be the tighter analogue. Figure: `human_match_cohort.png` (the aggregate's
+mids fill in and blocks sharpen vs any single model). Will firm up at the full 12.
+
 ## Open / next
 
 - **Close the bottom of the regress empirically.** A small from-scratch PPMI-SVD

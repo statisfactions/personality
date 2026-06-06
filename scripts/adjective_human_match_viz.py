@@ -59,8 +59,19 @@ def main():
         sel += list(o[:args.per_pole]) + list(o[-args.per_pole:])
     sel = list(dict.fromkeys(sel))
 
+    if args.model == "cohort":          # average all COMPLETED judges (double-centered)
+        import glob
+        names = []
+        for p in sorted(glob.glob("results/adjectives/introspect_full/*_tom_likely_dir.npz")):
+            z = np.load(p, allow_pickle=True)
+            if int(z["done"]) >= int(z["n_pairs"]):     # skip in-progress checkpoints
+                names.append(os.path.basename(p).replace("_tom_likely_dir.npz", ""))
+        Mdc = np.nanmean([dc_off(judge(n)) for n in names], 0)
+        mlabel = f"cohort-mean ({len(names)}-judge aggregate)"
+    else:
+        Mdc = dc_off(judge(args.model)); mlabel = args.model
     Hs = HUMAN[np.ix_(sel, sel)]
-    Ms = dc_off(judge(args.model))[np.ix_(sel, sel)]
+    Ms = Mdc[np.ix_(sel, sel)]
     # cluster on the human subset
     d = 1 - Hs; np.fill_diagonal(d, 0.0); d = (d + d.T) / 2
     leaf = leaves_list(linkage(squareform(d, checks=False), "average"))
@@ -73,7 +84,7 @@ def main():
 
     fig = make_subplots(1, 2, horizontal_spacing=0.12, subplot_titles=(
         "HUMAN — 525-PDA self-report correlations",
-        f"{args.model} — tom_likely (prevalence-corrected)"))
+        f"{mlabel} — tom_likely (prevalence-corrected)"))
     for col, M in ((1, Hz), (2, Mz)):
         fig.add_trace(go.Heatmap(z=M, x=labs, y=labs, colorscale="RdBu_r", zmid=0,
             zmin=-2.5, zmax=2.5, showscale=(col == 2),
@@ -85,8 +96,8 @@ def main():
         title=dict(text=f"<b>The model's implicit personality covariance matches the "
             f"human one</b><br><sub>Top-loading adjectives on the leading human PCs, "
             f"ordered by HUMAN cluster structure (same order both panels). Matching blocks "
-            f"= shared covariance. Subset corrected-match r = {r:.2f} "
-            f"(full-set {args.model} tom_likely r≈0.73).</sub>", x=0.01),
+            f"= shared covariance. Right panel: {mlabel}. Subset corrected-match "
+            f"r = {r:.2f}.</sub>", x=0.01),
         width=1500, height=760, font=dict(family="Helvetica, Arial"))
     out = f"results/adjectives/introspect_full/human_match_{args.model}.png"
     fig.write_html(out.replace(".png", ".html"), include_plotlyjs="cdn")
