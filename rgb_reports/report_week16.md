@@ -350,28 +350,66 @@ centered): the base-rate marginals were **diluting** the match (model-side struc
 with no human analog), not inflating it. Read/write flavor in the column:
 **representation matches human *worst*, judgment *best*** — the resting associative
 geometry is a poorer witness to human personality covariance than the dispositional
-thing the model *does* when asked. Caveats: Gemma's edge over semantic is thin
-(calibration); the full 523 still includes developmental/state traits (the "become"
-leak), so a dispositional-subset re-run is the clean follow-up. Open cohort question:
-does `tom_likely` stay the human-matched readout across all models?
+thing the model *does* when asked.
 
-**8b. Aggregation — the right comparison object is the *ensemble* (cohort partial,
-8 of 12; `adjective_human_match_viz.py --model cohort`).** The human matrix
-aggregates over hundreds of people, each integrating many interactions; the model
-gives one judgment per pair (rgb). Averaging the 8 completed models' double-centered
-matrices (an "8-judge aggregate") shows two things: (1) **wisdom of crowds** — the
-aggregate matches human at **r = 0.815, above every single model** (best 0.789); and
-(2) the aggregate's value distribution **normalizes to human shape** — excess kurtosis
-**−0.28** vs human −0.35, against the leptokurtic *single-judge* outliers (Qwen7 +1.24,
-Llama-3B +1.45) whose "washed-out mid-tones" prompted this. The 2-fold both-directions
-average barely dents the spike (1.37→1.24), so it takes *many* judges, matching the
-human-aggregates-over-people picture. Two honest qualifiers: (a) the per-judge
-leptokurtosis is **idiosyncratic** — only Qwen7 and Llama-3B; most models already sit
-near the human kurtosis (−0.45…+0.08) — so "the model is categorical about
-co-occurrence" is false as a general claim; (b) the cohort aggregates over *models*
-while the human matrix aggregates over *people* — a persona-aggregate *within* one
-model would be the tighter analogue. Figure: `human_match_cohort.png` (the aggregate's
-mids fill in and blocks sharpen vs any single model). Will firm up at the full 12.
+**8a. The full 12-model cohort (`tom_likely`, both-directions, 273k pairs each;
+`fig_cohort_humanmatch.py`).** The single-pair question generalizes across the whole
+cohort. Sorted by write-side (judgment) human-match:
+
+| model | read (repr) | write (`tom_likely`) | gap |
+|---|---|---|---|
+| **Falcon-Mamba-7B (SSM)** | 0.410 | **0.802** | **+0.392** |
+| Qwen2.5-3B | 0.533 | 0.789 | +0.256 |
+| Phi-4-mini (3.8B) | 0.433 | 0.783 | +0.351 |
+| Llama-3.1-8B | 0.493 | 0.779 | +0.286 |
+| Llama-3.2-3B | 0.477 | 0.740 | +0.263 |
+| Qwen2.5-7B | 0.386 | 0.730 | +0.344 |
+| Aya-expanse-8B | 0.548 | 0.729 | +0.181 |
+| Gemma-3-12B | 0.589 | 0.692 | +0.103 |
+| Gemma-3-4B | 0.511 | 0.688 | +0.177 |
+| Gemma-3-27B | 0.541 | 0.684 | +0.143 |
+| Qwen2.5-32B | 0.574 | 0.664 | +0.090 |
+| Gemma-4-31B | 0.466 | 0.555 | +0.089 |
+
+Four things hold cohort-wide (figure `fig_cohort_readwrite.png` — the read→write
+dumbbell): (1) **judgment beats representation for every model** (the gap column is
+positive throughout) — the read/write dissociation is universal, not Qwen/Gemma-
+specific. (2) **The headline result is Falcon-Mamba**: a *non-transformer* (Mamba
+state-space) model posts the cohort's *highest* write-match (0.802) and *lowest*
+read-match (0.410) — the widest read/write gap of all. So "dispositional judgment
+reconstructs human personality covariance while the resting geometry merges it" is
+**not a transformer artifact** — it survives an architecture with no attention at all.
+(3) **Family ≫ size.** The top tier spans three families and 3–8B; there is no global
+scaling direction (Qwen *decreases* monotonically with scale 0.789→0.730→0.664; Llama
+*increases* 3B→8B; Gemma is flat). (4) **Gemma is the cohort floor**, and its small
+read/write gaps locate the deficit on the *write* side — Gemma's resting geometry is
+mid-pack (read 0.47–0.59, like Qwen) but its judgment barely lifts above it, so the
+shortfall is **behavioral/post-training, not weird-pretraining-geometry** (consistent
+with §6). Gemma-4-31B is the lone true outlier (0.555); the Gemma-3 ladder sits flat at
+~0.68–0.69 across a 4× scale range. Caveats unchanged: the full 523 still includes
+developmental/state traits (the "become" leak), so a dispositional-subset re-run is the
+clean confirmation; cross-model *magnitude* comparisons ride on Gemma's scale-
+calibration confound (only within-model direction is clean).
+
+**8b. Aggregation — the right comparison object is the *ensemble* (full 12-judge
+cohort; `adjective_human_match_viz.py --model cohort`).** The human matrix aggregates
+over hundreds of people, each integrating many interactions; the model gives one
+judgment per pair (rgb). Averaging the 12 models' double-centered matrices (a "12-judge
+aggregate") shows two things: (1) **wisdom of crowds** — the aggregate matches human
+**above every single model** (full-set r ≈ 0.815, best single 0.802; readable 47-word
+subset 0.806 — see figure); the ensemble integrates out per-model idiosyncrasy. (2) the
+aggregate's value distribution **normalizes to human shape** — excess kurtosis ≈ **−0.28**
+vs human −0.35, against the leptokurtic *single-judge* outliers (Qwen7 +1.24, Llama-3B
++1.45) whose "washed-out mid-tones" prompted this. The 2-fold both-directions average
+barely dents the spike (1.37→1.24), so it takes *many* judges, matching the human-
+aggregates-over-people picture. Two honest qualifiers: (a) the per-judge leptokurtosis
+is **idiosyncratic** — only Qwen7 and Llama-3B; most models already sit near the human
+kurtosis (−0.45…+0.08) — so "the model is categorical about co-occurrence" is false as a
+general claim; (b) the cohort aggregates over *models* while the human matrix aggregates
+over *people* — a persona-aggregate *within* one model would be the tighter analogue.
+Figure: `human_match_cohort.png` (HUMAN left vs 12-judge aggregate right, same human-
+clustered ordering — the shared warm diagonal blocks are visibly co-located; the
+aggregate's mids fill in and blocks sharpen vs any single model).
 
 ## §6 — RLVR and model character (exploratory thread)
 
@@ -414,10 +452,15 @@ make the model *more certain* about its dispositional judgments" (apparently yes
 than the full residual-from-cohort measure; OLMo's *verifiable-reward* RLVR is one
 specific implementation — it rules out *generic* RLVR-flattening, not Gemma-4's unknown
 recipe; single lineage. *Levers to pull it further:* the full OLMo judgment ladder
-(precise per-stage human-match + the decisiveness curve at full resolution), the incoming
-**Qwen-3.6-35B-A3B** (a second, independent RLVR/reasoning judge — and an MPS-MoE speed
-test), and ideally a frontier RLVR model as a ceiling. Marked exploratory; the
-decisiveness finding is the part to build on.
+(precise per-stage human-match + the decisiveness curve at full resolution), and
+**Qwen-3.6-35B-A3B** as a second, independent RLVR/reasoning judge. The latter is now
+**validated and ready** (`qwen36_smoke.py` / `qwen36_speed.py`): the MoE loads on MPS in
+~30 s, `enable_thinking=False` holds (raw digit-mass 0.997, no `<think>` leak), it
+discriminates cleanly (synonym EV 6.98 / antonym 1.0–1.05 — and it *splits* wonderful~awful
+at 1.05, the write side again), and — answering the MoE-on-MPS speed worry — it runs
+**9.5 pair/s steady-state** (no Falcon-Mamba-style routing cliff; full both-dir run ~8 h,
+upper-triangle ~4 h). A frontier RLVR model as a ceiling would be the remaining want.
+Marked exploratory; the decisiveness finding is the part to build on.
 
 ## Open / next
 
