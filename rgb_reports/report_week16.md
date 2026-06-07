@@ -373,6 +373,52 @@ while the human matrix aggregates over *people* — a persona-aggregate *within*
 model would be the tighter analogue. Figure: `human_match_cohort.png` (the aggregate's
 mids fill in and blocks sharpen vs any single model). Will firm up at the full 12.
 
+## §6 — RLVR and model character (exploratory thread)
+
+*Context worth flagging:* there is live external suspicion that RLVR (RL with
+verifiable rewards — the reasoning-model post-training paradigm) is doing *something*
+to the "character" of frontier models. Our cohort handed us a hook: across the
+`tom_likely` human-match, **Gemma-4-31B is the lone true cohort outlier** (corrected
+r 0.555 vs the field's 0.69–0.79, and the only model whose deviation survives a
+leave-family-out check), and its bias is *partly distinct* from the Gemma-3 family
+(residual corr 0.22–0.34). Gemma-4, as the newest model, is the plausible lone heavy-RL
+member of an otherwise RLHF/SFT/DPO-era cohort — so: does RLVR reshape the dispositional
+structure, and is that what makes Gemma-4 diverge?
+
+**The clean within-lineage probe is the OLMo-2 ladder** (base → SFT → DPO → **RLVR**;
+the Instruct endpoint *is* the RLVR stage, same model throughout). The judging stages
+comply with the rating format (digit-mass ~1.0, unlike base), so a sampled `tom_likely`
+across SFT/DPO/RLVR is interpretable. Result:
+
+| stage | valence-congruence (same − opp) | entropy | digit-mass |
+|---|---|---|---|
+| SFT  | 1.97 | 1.41 | 0.95 |
+| DPO  | 2.05 | 0.95 | 0.97 |
+| **RLVR** | **2.15** | **0.90** | 1.00 |
+
+**RLVR does not flatten valence — it slightly *sharpens* it** (the same-vs-opposite gap
+*grows* through DPO and RLVR; RLVR has the largest). So the tempting "RLVR de-emphasizes
+the soft social/desirability priors → flattens the human covariance" mechanism is **not
+supported** in OLMo, and **Gemma-4's valence-flattening is not a generic RLVR effect.**
+
+**What post-training *does* do, and the thread to pull:** it raises **decisiveness** —
+digit-entropy collapses 1.41 → 0.90 (and format compliance climbs to 1.0) across the
+stages, while the *structure* is preserved. That's a real, measurable "character" shift
+— the model becomes more *confident*, not differently-organized. So if RLVR is changing
+character, our handle on it is **calibration/decisiveness**, not the trait-covariance
+geometry. That reframes the external question into something we can actually measure: not
+"does RLVR scramble what the model thinks goes with what" (apparently no) but "does RLVR
+make the model *more certain* about its dispositional judgments" (apparently yes).
+
+*Caveats (this is a first look):* sampled, and "valence-congruence" is a coarser proxy
+than the full residual-from-cohort measure; OLMo's *verifiable-reward* RLVR is one
+specific implementation — it rules out *generic* RLVR-flattening, not Gemma-4's unknown
+recipe; single lineage. *Levers to pull it further:* the full OLMo judgment ladder
+(precise per-stage human-match + the decisiveness curve at full resolution), the incoming
+**Qwen-3.6-35B-A3B** (a second, independent RLVR/reasoning judge — and an MPS-MoE speed
+test), and ideally a frontier RLVR model as a ceiling. Marked exploratory; the
+decisiveness finding is the part to build on.
+
 ## Open / next
 
 - **Close the bottom of the regress empirically.** A small from-scratch PPMI-SVD
