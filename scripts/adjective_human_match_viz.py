@@ -19,6 +19,8 @@ from plotly.subplots import make_subplots
 from scipy.cluster.hierarchy import linkage, leaves_list
 from scipy.spatial.distance import squareform
 
+from adjective_human_match import repr_matrix     # adaptive_denoise cosine, LABELS order
+
 H = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
 LABELS = list(H["labels"])
 HUMAN = np.nan_to_num(np.array(H["correlation_matrix"], float))
@@ -66,43 +68,60 @@ def main():
             z = np.load(p, allow_pickle=True)
             if int(z["done"]) >= int(z["n_pairs"]):     # skip in-progress checkpoints
                 names.append(os.path.basename(p).replace("_tom_likely_dir.npz", ""))
-        Mdc = np.nanmean([dc_off(judge(n)) for n in names], 0)
-        mlabel = f"cohort-mean ({len(names)}-judge aggregate)"
+        Wdc = np.nanmean([dc_off(judge(n)) for n in names], 0)        # write (judgment)
+        reprs = [repr_matrix(n) for n in names]
+        rnames = [n for n, R in zip(names, reprs) if R is not None]
+        Rdc = np.nanmean([dc_off(R) for R in reprs if R is not None], 0)  # read (repr)
+        wlabel = f"cohort-mean ({len(names)}-judge)"
+        rlabel = f"cohort-mean ({len(rnames)}-model)"
     else:
-        Mdc = dc_off(judge(args.model)); mlabel = args.model
+        Wdc = dc_off(judge(args.model)); wlabel = args.model
+        R = repr_matrix(args.model)
+        Rdc = dc_off(R) if R is not None else None
+        rlabel = args.model
+
     Hs = HUMAN[np.ix_(sel, sel)]
-    Ms = Mdc[np.ix_(sel, sel)]
-    # cluster on the human subset
+    # cluster on the human subset (shared ordering for all panels)
     d = 1 - Hs; np.fill_diagonal(d, 0.0); d = (d + d.T) / 2
     leaf = leaves_list(linkage(squareform(d, checks=False), "average"))
     labs = [LABELS[sel[i]] for i in leaf]
-    Hz = z_off(Hs)[np.ix_(leaf, leaf)]
-    Mz = z_off(Ms)[np.ix_(leaf, leaf)]
-    # match r on this subset (corrected)
     iu = np.triu_indices(len(leaf), 1)
-    r = np.corrcoef(Hz[iu], Mz[iu])[0, 1]
 
-    fig = make_subplots(1, 2, horizontal_spacing=0.12, subplot_titles=(
-        "HUMAN — 525-PDA self-report correlations",
-        f"{mlabel} — tom_likely (prevalence-corrected)"))
-    for col, M in ((1, Hz), (2, Mz)):
+    def disp(Mfull):
+        return z_off(Mfull[np.ix_(sel, sel)])[np.ix_(leaf, leaf)]
+
+    Hz = disp(HUMAN)
+    Wz = disp(Wdc)
+    Rz = disp(Rdc) if Rdc is not None else None
+    rW = np.corrcoef(Hz[iu], Wz[iu])[0, 1]
+    rR = np.corrcoef(Hz[iu], Rz[iu])[0, 1] if Rz is not None else float("nan")
+
+    # three panels: HUMAN | representation (read) | tom_likely judgment (write)
+    panels = [("HUMAN — 525-PDA self-report correlations", Hz, None),
+              (f"{rlabel} — representation / READ (r = {rR:.2f})", Rz, rR),
+              (f"{wlabel} — tom_likely judgment / WRITE (r = {rW:.2f})", Wz, rW)]
+    panels = [p for p in panels if p[1] is not None]
+    fig = make_subplots(1, len(panels), horizontal_spacing=0.07,
+                        subplot_titles=[p[0] for p in panels])
+    for col, (_, M, _) in enumerate(panels, 1):
         fig.add_trace(go.Heatmap(z=M, x=labs, y=labs, colorscale="RdBu_r", zmid=0,
-            zmin=-2.5, zmax=2.5, showscale=(col == 2),
+            zmin=-2.5, zmax=2.5, showscale=(col == len(panels)),
             colorbar=dict(title="z", len=0.9)), row=1, col=col)
-    for c in (1, 2):
-        fig.update_xaxes(tickfont=dict(size=7), tickangle=90, row=1, col=c)
-        fig.update_yaxes(tickfont=dict(size=7), autorange="reversed", row=1, col=c)
+        fig.update_xaxes(tickfont=dict(size=6), tickangle=90, row=1, col=col)
+        fig.update_yaxes(tickfont=dict(size=6), autorange="reversed",
+                         showticklabels=(col == 1), row=1, col=col)
     fig.update_layout(
-        title=dict(text=f"<b>The model's implicit personality covariance matches the "
-            f"human one</b><br><sub>Top-loading adjectives on the leading human PCs, "
-            f"ordered by HUMAN cluster structure (same order both panels). Matching blocks "
-            f"= shared covariance. Right panel: {mlabel}. Subset corrected-match "
-            f"r = {r:.2f}.</sub>", x=0.01),
-        width=1500, height=760, font=dict(family="Helvetica, Arial"))
+        title=dict(text=f"<b>The model REPRESENTS personality structure weakly but "
+            f"JUDGES it like a human</b><br><sub>Top-loading adjectives on the leading "
+            f"human PCs, ordered by HUMAN cluster structure (same order all panels). "
+            f"Read (representation cosine) washes the blocks out; write (tom_likely "
+            f"judgment) recovers them. Prevalence-corrected; subset match r in titles. "
+            f"Read {rR:.2f} → write {rW:.2f}.</sub>", x=0.01),
+        width=1850, height=720, font=dict(family="Helvetica, Arial"))
     out = f"results/adjectives/introspect_full/human_match_{args.model}.png"
     fig.write_html(out.replace(".png", ".html"), include_plotlyjs="cdn")
-    fig.write_image(out, width=1500, height=760, scale=2)
-    print(f"subset {len(leaf)} words, corrected-match r={r:.3f}; wrote {out}")
+    fig.write_image(out, width=1850, height=720, scale=2)
+    print(f"subset {len(leaf)} words; read r={rR:.3f} write r={rW:.3f}; wrote {out}")
 
 
 if __name__ == "__main__":

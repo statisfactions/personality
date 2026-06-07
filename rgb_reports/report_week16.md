@@ -407,9 +407,12 @@ is **idiosyncratic** — only Qwen7 and Llama-3B; most models already sit near t
 kurtosis (−0.45…+0.08) — so "the model is categorical about co-occurrence" is false as a
 general claim; (b) the cohort aggregates over *models* while the human matrix aggregates
 over *people* — a persona-aggregate *within* one model would be the tighter analogue.
-Figure: `human_match_cohort.png` (HUMAN left vs 12-judge aggregate right, same human-
-clustered ordering — the shared warm diagonal blocks are visibly co-located; the
-aggregate's mids fill in and blocks sharpen vs any single model).
+Figure: `human_match_cohort.png` — now **three panels** under one human-clustered
+ordering: HUMAN (left, strong warm diagonal blocks), the **cohort representation /
+read** aggregate (middle, washed out — subset r = 0.50), and the **cohort `tom_likely`
+judgment / write** aggregate (right, blocks recovered — subset r = 0.81). The read→write
+contrast is now *visible as a heatmap*: the resting geometry blurs the personality
+block structure the human matrix has; the dispositional judgment puts it back.
 
 ## §6 — RLVR and model character (exploratory thread)
 
