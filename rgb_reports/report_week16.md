@@ -414,6 +414,66 @@ judgment / write** aggregate (right, blocks recovered — subset r = 0.81). The 
 contrast is now *visible as a heatmap*: the resting geometry blurs the personality
 block structure the human matrix has; the dispositional judgment puts it back.
 
+**9. The judgment's *factor structure* is human-like; the representation's is goofy
+(`adjective_judge_factor.py`, figs `fig_judge_factor_scree.png` /
+`fig_varimax_simple_structure.png`).** W14 found the *representation* collapses to a
+2-factor evaluative core with degenerate varimax. The judgment does not. Two results:
+(a) **General factor.** Under one uniform profile-correlation transform (applied to all
+three so the comparison is apples-to-apples — see the method note below), the
+PC1/PC2 ratio is HUMAN **5.15**, judgment **4.76**, representation **1.35**: human and
+judgment both have a single dominant evaluative general factor then a ladder of
+differentiated trait factors; the representation has *no* general factor — co-equal
+pos-eval/neg-eval poles (the W14 core). The scree of the judgment tracks the human's;
+the representation is flat. (b) **Rotation.** Kaiser-varimax at k=6 rotates the judgment
+to clean, nameable trait factors — **Agreeableness/morality, Conscientiousness,
+Extraversion, Openness/Intellect, Neuroticism, + a physical-attractiveness axis** —
+*robustly across both the profile-correlation and the conservative diag→1
+constructions*. The representation smears evaluation across everything and leaks
+demographics (unrotated PCs surface Skinny/Young/Slim, Wealthy/Well-to-do). Aligning each
+readout's factors to the human's (Hungarian, Tucker congruence), **mean factor-congruence
+to human is 0.65 (judgment) vs 0.39 (representation)**, and the representation *collapses*
+on the weak factors (F6 congruence 0.06) — that collapse is the goofiness. The sharpest
+contrast: the judgment cleanly recovers an **Openness/Intellect** factor that W14 found
+*absent* in the representation (and in the human variance-weighted extraction) — so the
+read/write gap shows up in factor structure, not just in the human-match r. *Method note
+(load-bearing):* the 1–7 judgment matrix is not a correlation matrix and has no
+meaningful diagonal, so it must be *constructed* into one. Profile-correlation (correlate
+each adjective's co-occurrence profile) is the natural route — and arguably the most
+human-commensurable, since the human matrix is itself a profile correlation over people —
+but it is a second-order, general-factor-*amplifying* transform, not a neutral rescaling.
+Hence the two guardrails: hold the transform constant across all three readouts for any
+cross-readout number (the 5.15/4.76/1.35 ordering survives precisely because the
+transform inflates all three but preserves order), and cross-check the "clean varimax"
+claim on the diag→1 construction that does no profile smoothing (it does — the A/C/E/O/N
+factors are there too).
+
+**10. Which human trait-associations does the judgment refuse to reproduce?
+(`adjective_human_residuals.py`).** rgb's spot-checks suggested the judgment-vs-human
+*differences* land where human behaviour is surprising. Ranking the residual (both
+matrices prevalence-corrected and z-scored off-diagonal, cohort-mean judgment,
+dispositional 411-word subset) shows it is honestly a **mix of three themes**, and only
+one is "the human is weird":
+- **The "Proud" valence flip (the dominant axis).** Humans encode *proud* as
+  positive/dignified — they link it to Polite, Lovable, Gracious, Pleasing, Likeable
+  (r ≈ 0.25–0.35). The model encodes *proud* as arrogance — it judges proud↛polite and
+  over-links Proud~Arrogant/Rude/Snobbish/Selfish/Stuck-up (where humans sit at r ≈ 0).
+  Here the *model* imposes a negativity reading on a valence-ambiguous word; the human is
+  the sensible one.
+- **Dunning–Kruger, against the human criterion.** The model over-links *Certain/Confident*
+  with Incompetent, Arrogant, Narrow-minded, Unreasonable (humans: r ≈ −0.3…0), and
+  Agreeable~Wishy-washy. The confidence→folly cycle from the curl planes (§5 anatomy),
+  now confirmed against humans, who carry no such prior.
+- **The model enforces trait-coherence where humans allow messy cross-links** (the actual
+  "surprising human" cases). Humans mildly link Informal~Conscientious/Careful,
+  Carefree~Ambitious, Cheerful~Concerned (r 0.10–0.33); the model breaks them because the
+  trait-logic ("informal → not conscientious") is too clean to violate. It also
+  *under-weights* very strong human links — Intelligent~Interested (human r 0.56, one of
+  the strongest in the matrix) gets only mild model endorsement. The model's implicit
+  personality theory is **tidier, more valence-polarized, and more logically rigid** than
+  the messy human one; the divergences are where that tidiness either imposes a negativity
+  bias or refuses the genuine looseness of human co-occurrence. *Caveat:* cohort-mean, so
+  the "Proud" flip is robust in aggregate but not yet checked for universal-vs-subset.
+
 ## §6 — RLVR and model character (exploratory thread)
 
 *Context worth flagging:* there is live external suspicion that RLVR (RL with
