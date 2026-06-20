@@ -1,0 +1,136 @@
+{
+ "model": "phi4",
+ "represent_info": {
+  "pc1_removed": false,
+  "pc1_ipr": 27.61422348022461
+ },
+ "main": {
+  "n_cells": 136503,
+  "pairs": {
+   "HUMAN|REPRESENT": {
+    "raw": {
+     "spearman": 0.40811527036175954,
+     "pearson": 0.42509764587642923
+    },
+    "pc1_removed": {
+     "spearman": 0.1777684487697769,
+     "pearson": 0.25247386144749095
+    },
+    "double_centered": {
+     "spearman": 0.4261233677051004,
+     "pearson": 0.4326215049239246
+    }
+   },
+   "HUMAN|JUDGE": {
+    "raw": {
+     "spearman": 0.6532406034823283,
+     "pearson": 0.6397106948305509
+    },
+    "pc1_removed": {
+     "spearman": 0.20105791801069992,
+     "pearson": 0.24333779461408594
+    },
+    "double_centered": {
+     "spearman": 0.7614097574103642,
+     "pearson": 0.7438493069325595
+    }
+   },
+   "HUMAN|ENACT": {
+    "raw": {
+     "spearman": 0.6316892347476077,
+     "pearson": 0.6325866249303643
+    },
+    "pc1_removed": {
+     "spearman": 0.33572435344533746,
+     "pearson": 0.3857127001801954
+    },
+    "double_centered": {
+     "spearman": 0.6489990942265206,
+     "pearson": 0.6526420018404447
+    }
+   },
+   "REPRESENT|JUDGE": {
+    "raw": {
+     "spearman": 0.29541365723279384,
+     "pearson": 0.2754628682589326
+    },
+    "pc1_removed": {
+     "spearman": 0.1362826301426215,
+     "pearson": 0.15029169871199838
+    },
+    "double_centered": {
+     "spearman": 0.3608365182695629,
+     "pearson": 0.3313513666293896
+    }
+   },
+   "REPRESENT|ENACT": {
+    "raw": {
+     "spearman": 0.38322842269374846,
+     "pearson": 0.39377852550165704
+    },
+    "pc1_removed": {
+     "spearman": 0.27072061043440604,
+     "pearson": 0.3178696310493535
+    },
+    "double_centered": {
+     "spearman": 0.3909853052018034,
+     "pearson": 0.40004137841763465
+    }
+   },
+   "JUDGE|ENACT": {
+    "raw": {
+     "spearman": 0.5511351129215712,
+     "pearson": 0.5364288103740085
+    },
+    "pc1_removed": {
+     "spearman": 0.25668141268346567,
+     "pearson": 0.28688202817839253
+    },
+    "double_centered": {
+     "spearman": 0.6153870771409763,
+     "pearson": 0.6044763256975546
+    }
+   }
+  },
+  "antonym_block_pct": {
+   "HUMAN": 0.3094391698350952,
+   "REPRESENT": 0.9692584595210361,
+   "JUDGE": 0.06892476722123322,
+   "ENACT": 0.0969076686959261
+  }
+ },
+ "enact_variants": {
+  "raw_nonablated": {
+   "n_cells": 136503,
+   "HUMAN|ENACT": {
+    "spearman": 0.6364968799439604,
+    "pearson": 0.6364752266637239
+   },
+   "REPRESENT|ENACT": {
+    "spearman": 0.38474728539581066,
+    "pearson": 0.394368807514228
+   },
+   "JUDGE|ENACT": {
+    "spearman": 0.5543971027918851,
+    "pearson": 0.5391997834083653
+   },
+   "antonym_block_pct_enact": 0.09181666337003583
+  },
+  "leak_filtered": {
+   "n_cells": 60378,
+   "HUMAN|ENACT": {
+    "spearman": 0.6505630374957957,
+    "pearson": 0.6517666440610418
+   },
+   "REPRESENT|ENACT": {
+    "spearman": 0.3843586311891327,
+    "pearson": 0.4006934214275105
+   },
+   "JUDGE|ENACT": {
+    "spearman": 0.4794033745274439,
+    "pearson": 0.4841733484488284
+   },
+   "antonym_block_pct_enact": 0.08698532578091357
+  }
+ }
+}

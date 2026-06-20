@@ -1,0 +1,102 @@
+{
+ "model": "Qwen7",
+ "represent_info": {
+  "pc1_removed": false,
+  "pc1_ipr": 252.3623046875
+ },
+ "main": {
+  "n_cells": 136503,
+  "pairs": {
+   "HUMAN|REPRESENT": {
+    "raw": {
+     "spearman": 0.5669622039354254,
+     "pearson": 0.576302699837894
+    },
+    "pc1_removed": {
+     "spearman": 0.22707254765470444,
+     "pearson": 0.2897313196326874
+    },
+    "double_centered": {
+     "spearman": 0.5839032947240758,
+     "pearson": 0.5921663751853812
+    }
+   },
+   "HUMAN|JUDGE": {
+    "raw": {
+     "spearman": 0.5734106507956799,
+     "pearson": 0.5454687446488062
+    },
+    "pc1_removed": {
+     "spearman": 0.2298085098289008,
+     "pearson": 0.2714887847419063
+    },
+    "double_centered": {
+     "spearman": 0.6763123416298813,
+     "pearson": 0.6578636007036143
+    }
+   },
+   "HUMAN|ENACT": {
+    "raw": {
+     "spearman": 0.6564864822491613,
+     "pearson": 0.6544144233695046
+    },
+    "pc1_removed": {
+     "spearman": 0.3432186002669979,
+     "pearson": 0.38431492734651396
+    },
+    "double_centered": {
+     "spearman": 0.6677899859218702,
+     "pearson": 0.6710727541775007
+    }
+   },
+   "REPRESENT|JUDGE": {
+    "raw": {
+     "spearman": 0.36900549370758384,
+     "pearson": 0.36297309837411185
+    },
+    "pc1_removed": {
+     "spearman": 0.17320629192709058,
+     "pearson": 0.20186900823885814
+    },
+    "double_centered": {
+     "spearman": 0.4926461516739348,
+     "pearson": 0.4818161960389115
+    }
+   },
+   "REPRESENT|ENACT": {
+    "raw": {
+     "spearman": 0.5072775707285307,
+     "pearson": 0.5142195529291593
+    },
+    "pc1_removed": {
+     "spearman": 0.336968809442779,
+     "pearson": 0.3710436059120005
+    },
+    "double_centered": {
+     "spearman": 0.5134317419985895,
+     "pearson": 0.5249053683660146
+    }
+   },
+   "JUDGE|ENACT": {
+    "raw": {
+     "spearman": 0.49603663647378926,
+     "pearson": 0.4781625891838272
+    },
+    "pc1_removed": {
+     "spearman": 0.24981626956361183,
+     "pearson": 0.28288985206502526
+    },
+    "double_centered": {
+     "spearman": 0.5883651191295033,
+     "pearson": 0.5663173627245819
+    }
+   }
+  },
+  "antonym_block_pct": {
+   "HUMAN": 0.3094391698350952,
+   "REPRESENT": 0.9192471960323216,
+   "JUDGE": 0.1309023428056526,
+   "ENACT": 0.06706446012175557
+  }
+ }
+}

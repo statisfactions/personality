@@ -1,0 +1,12 @@
+model,instrument,effdim_doublecentered,effdim_profilecorr,neg_mass
+HUMAN,-,28.1,2.2,-
+llama3.2,REPRESENT,70.7,11.3,-
+llama3.2,JUDGE,56.3,4.7,0.1
+qwen2.5,REPRESENT,42.1,6.8,-
+qwen2.5,JUDGE,23.4,3.2,0.29
+Llama8,REPRESENT,72.0,10.4,-
+Llama8,JUDGE,26.3,3.6,0.2
+Qwen7,REPRESENT,33.8,5.1,-
+Qwen7,JUDGE,41.1,3.3,0.22
+Gemma12,REPRESENT,50.2,6.2,-
+Gemma12,JUDGE,33.8,5.5,0.33

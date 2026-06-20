@@ -1,0 +1,8 @@
+model,instrument,eff_dim,neg_mass
+HUMAN,-,28.1,-
+llama3.2,REPRESENT,70.7,-
+llama3.2,JUDGE,56.3,0.1
+llama3.2,ENACT,10.1,-
+qwen2.5,REPRESENT,42.1,-
+qwen2.5,JUDGE,23.4,0.29
+qwen2.5,ENACT,4.8,-

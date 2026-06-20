@@ -1,0 +1,122 @@
+{
+ "model": "llama3.2",
+ "mid_layer": 14,
+ "n_layers": 28,
+ "adjectives": {
+  "wonderful": {
+   "n_rollouts": 24,
+   "dir_norm": 1.6560564508847573,
+   "boot_cos_mean": 0.9329085702310791,
+   "boot_cos_p05": 0.8730207604637404,
+   "norm_corr": 0.7202236253084944,
+   "top10_dim_share": 0.1888705313352041,
+   "leak_rate": 0.08333333333333333
+  },
+  "awful": {
+   "n_rollouts": 24,
+   "dir_norm": 2.3223748678172536,
+   "boot_cos_mean": 0.9720694062928268,
+   "boot_cos_p05": 0.951608198460791,
+   "norm_corr": 0.3397785340430785,
+   "top10_dim_share": 0.1428131436750268,
+   "leak_rate": 0.0
+  },
+  "talkative": {
+   "n_rollouts": 24,
+   "dir_norm": 1.7560030034706318,
+   "boot_cos_mean": 0.9494568833117378,
+   "boot_cos_p05": 0.9144843867068565,
+   "norm_corr": 0.3534580462489095,
+   "top10_dim_share": 0.10019728050519187,
+   "leak_rate": 0.0
+  },
+  "quiet": {
+   "n_rollouts": 24,
+   "dir_norm": 3.2538065743014375,
+   "boot_cos_mean": 0.974437873026229,
+   "boot_cos_p05": 0.9524010999446988,
+   "norm_corr": 0.929717434460977,
+   "top10_dim_share": 0.110567659429975,
+   "leak_rate": 0.08333333333333333
+  },
+  "kind": {
+   "n_rollouts": 24,
+   "dir_norm": 1.6360905253087452,
+   "boot_cos_mean": 0.9300725667061461,
+   "boot_cos_p05": 0.8765972867656092,
+   "norm_corr": 0.8130108300008969,
+   "top10_dim_share": 0.1327169942272416,
+   "leak_rate": 0.2916666666666667
+  },
+  "dishonest": {
+   "n_rollouts": 24,
+   "dir_norm": 2.3883030672069245,
+   "boot_cos_mean": 0.9698034317420349,
+   "boot_cos_p05": 0.9448930871410284,
+   "norm_corr": 0.16760740474169034,
+   "top10_dim_share": 0.1330712249157094,
+   "leak_rate": 0.0
+  },
+  "slim": {
+   "n_rollouts": 24,
+   "dir_norm": 1.574918286013753,
+   "boot_cos_mean": 0.9308996944014046,
+   "boot_cos_p05": 0.8813310313738515,
+   "norm_corr": 0.03549962357761831,
+   "top10_dim_share": 0.06902342381728098,
+   "leak_rate": 0.041666666666666664
+  },
+  "handsome": {
+   "n_rollouts": 24,
+   "dir_norm": 1.6282494991886585,
+   "boot_cos_mean": 0.9404362814041675,
+   "boot_cos_p05": 0.896310631304223,
+   "norm_corr": 0.609669114480198,
+   "top10_dim_share": 0.10503843680226894,
+   "leak_rate": 0.0
+  }
+ },
+ "pairwise_cos_mid": {
+  "wonderful|awful": -0.49620198479775623,
+  "wonderful|talkative": 0.29430639025499195,
+  "wonderful|quiet": -0.3342538431315637,
+  "wonderful|kind": 0.7210813793727019,
+  "wonderful|dishonest": -0.4813578990396301,
+  "wonderful|slim": -0.23946773800511112,
+  "wonderful|handsome": 0.2543352653524978,
+  "awful|talkative": -0.17995611547778634,
+  "awful|quiet": -0.2250190459031041,
+  "awful|kind": -0.46580494186641075,
+  "awful|dishonest": 0.4539180857211368,
+  "awful|slim": -0.1723778735429241,
+  "awful|handsome": -0.3089073752144397,
+  "talkative|quiet": -0.4690061425903051,
+  "talkative|kind": 0.2522059939164869,
+  "talkative|dishonest": -0.18461693094961928,
+  "talkative|slim": -0.1663320344569365,
+  "talkative|handsome": -0.005626571088335039,
+  "quiet|kind": -0.2727536255444718,
+  "quiet|dishonest": -0.26945345040729574,
+  "quiet|slim": 0.03077667412863211,
+  "quiet|handsome": -0.19210396906593935,
+  "kind|dishonest": -0.4049644794587316,
+  "kind|slim": -0.2130052419111957,
+  "kind|handsome": -0.0007440437613426346,
+  "dishonest|slim": -0.14733119406439027,
+  "dishonest|handsome": -0.3376538636828413,
+  "slim|handsome": 0.0701891546137977
+ },
+ "assistant_axis": {
+  "norm": 2.6834885654422718,
+  "cos_to_adjectives": {
+   "wonderful": 0.39252588948091877,
+   "awful": -0.2860385257635354,
+   "talkative": -0.040116175374031275,
+   "quiet": 0.03298956748235801,
+   "kind": 0.47483878273705055,
+   "dishonest": -0.3234683576566082,
+   "slim": -0.06470867703699688,
+   "handsome": 0.04601151171903855
+  }
+ }
+}

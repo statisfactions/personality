@@ -95,3 +95,12 @@ results/**
 !results/**/*.html
 !results/**/*.csv
 !results/**/*.png
+# only the packaged persona-vector npz (NOT the W16 introspect_full/*.npz, which
+# stay ignored — regenerable JUDGE matrices)
+!results/persona_vectors/*.npz
+# W17 persona-vector cohort: re-ignore the heavy per-model JSON. Raw rollouts
+# (*_pda_texts.json, ~20MB) are regenerable from the .pt; full reports
+# (*_pda_report.json, ~12MB) are replaced by *_pda_meta.json (metadata minus
+# the 11.7MB pairwise_cos_mid blocks) + enact_vectors_mid.npz (the vectors).
+results/**/*_pda_texts.json
+results/**/*_pda_report.json

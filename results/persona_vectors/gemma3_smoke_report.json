@@ -1,0 +1,138 @@
+{
+ "model": "gemma3",
+ "mid_layer": 17,
+ "n_layers": 34,
+ "adjectives": {
+  "wonderful": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 454.0974612005394,
+   "boot_cos_mean": 0.941911137975751,
+   "boot_cos_p05": 0.8579940185194815,
+   "norm_corr": -0.9331991432726512,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.29532326960281097,
+   "leak_rate": 0.5416666666666666
+  },
+  "awful": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 574.8381949729658,
+   "boot_cos_mean": 0.9732100999360198,
+   "boot_cos_p05": 0.9395398894029792,
+   "norm_corr": 0.7187186598518566,
+   "len_corr": -0.18703540018992018,
+   "top10_dim_share": 0.18482844779998453,
+   "leak_rate": 0.0
+  },
+  "talkative": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 1037.9255017346702,
+   "boot_cos_mean": 0.9934359676357417,
+   "boot_cos_p05": 0.9852804943398226,
+   "norm_corr": -0.9989242279012437,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.8137727166644534,
+   "leak_rate": 0.0
+  },
+  "quiet": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 747.8520335030734,
+   "boot_cos_mean": 0.9693461277640849,
+   "boot_cos_p05": 0.9274110002402463,
+   "norm_corr": 0.9924956635765316,
+   "len_corr": 0.5261845189995885,
+   "top10_dim_share": 0.516325325769973,
+   "leak_rate": 0.16666666666666666
+  },
+  "kind": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 521.4370049029136,
+   "boot_cos_mean": 0.9534363224983651,
+   "boot_cos_p05": 0.8827602297173631,
+   "norm_corr": 0.8477925703252994,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.23376302132441362,
+   "leak_rate": 0.08333333333333333
+  },
+  "dishonest": {
+   "n_rollouts": 24,
+   "placebo": false,
+   "dir_norm": 436.8326311447213,
+   "boot_cos_mean": 0.9428151261490112,
+   "boot_cos_p05": 0.8606831218459717,
+   "norm_corr": 0.9925032988157341,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.23828193374709908,
+   "leak_rate": 0.0
+  },
+  "slim": {
+   "n_rollouts": 24,
+   "placebo": true,
+   "dir_norm": 343.069195652957,
+   "boot_cos_mean": 0.897968756804358,
+   "boot_cos_p05": 0.7821634814935118,
+   "norm_corr": -0.09431351589797052,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.11703273663829128,
+   "leak_rate": 0.041666666666666664
+  },
+  "handsome": {
+   "n_rollouts": 24,
+   "placebo": true,
+   "dir_norm": 455.78230945166706,
+   "boot_cos_mean": 0.9592058151248876,
+   "boot_cos_p05": 0.9153437791079112,
+   "norm_corr": 0.957426527933311,
+   "len_corr": 0.0,
+   "top10_dim_share": 0.38745540403359857,
+   "leak_rate": 0.0
+  }
+ },
+ "pairwise_cos_mid": {
+  "wonderful|awful": -0.5982402642924833,
+  "wonderful|talkative": 0.46627640362266976,
+  "wonderful|quiet": -0.5630744143946345,
+  "wonderful|kind": 0.5504284788094524,
+  "wonderful|dishonest": -0.6265445339774733,
+  "wonderful|slim": -0.2211752798406685,
+  "wonderful|handsome": -0.2424626500963759,
+  "awful|talkative": -0.24905280565558754,
+  "awful|quiet": 0.030953663625945926,
+  "awful|kind": -0.4863029254525042,
+  "awful|dishonest": 0.594035556035665,
+  "awful|slim": -0.0831024014637633,
+  "awful|handsome": -0.09925179375404641,
+  "talkative|quiet": -0.7350578981852586,
+  "talkative|kind": -0.11545253829928856,
+  "talkative|dishonest": -0.40071385384746483,
+  "talkative|slim": -0.07253413861404082,
+  "talkative|handsome": -0.6508600181404904,
+  "quiet|kind": -0.04198608534095853,
+  "quiet|dishonest": 0.1881479456354635,
+  "quiet|slim": 0.045434327243807776,
+  "quiet|handsome": 0.38855706522219424,
+  "kind|dishonest": -0.4904023607563066,
+  "kind|slim": -0.2999008435012982,
+  "kind|handsome": -0.05155679711999302,
+  "dishonest|slim": -0.13003576171084974,
+  "dishonest|handsome": 0.17932865979517768,
+  "slim|handsome": 0.13082234731328463
+ },
+ "assistant_axis": {
+  "norm": 2296.9151325538014,
+  "cos_to_adjectives": {
+   "wonderful": -0.34186269587168977,
+   "awful": 0.1107441800623992,
+   "talkative": -0.8403537105273655,
+   "quiet": 0.618376623875407,
+   "kind": 0.35569857581481934,
+   "dishonest": 0.23318688312551802,
+   "slim": -0.08516020573421207,
+   "handsome": 0.533647592754539
+  }
+ }
+}
