@@ -133,11 +133,15 @@ def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None,
     with torch.no_grad():
         outputs = model(**inputs, output_hidden_states=True)
 
+    # Cast to fp32 BEFORE averaging: bf16 has ~3 significant digits, and the
+    # trait signal is ~0.15% of activation norm, so a bf16-accumulated mean
+    # loses it to rounding (worst on Gemma-3, activations ~1e5). MPS has no
+    # fp64; fp32 on device is exact for the cast and sufficient for the sum.
     avg_states = torch.stack([
-        hs[0, start:n_total, :].mean(dim=0) for hs in outputs.hidden_states
+        hs[0, start:n_total, :].float().mean(dim=0) for hs in outputs.hidden_states
     ])  # (n_layers+1, hidden_dim)
 
-    return avg_states.cpu().float()
+    return avg_states.cpu()
 
 
 def extract_trait_activations(model, tokenizer, trait_data, prefix_mode, device, verbose=True, chat_template=False):
