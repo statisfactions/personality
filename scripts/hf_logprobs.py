@@ -70,6 +70,36 @@ def resolve(name_or_repo: str) -> str:
     return MODELS.get(name_or_repo, name_or_repo)
 
 
+# Canonical display names: {family}{version}-{size}, SIZE ALWAYS EXPLICIT.
+# The short names hide scale confusingly ("qwen2.5" is the 3B; "Qwen7" the 7B),
+# so use display() for all charts/tables/reports. Nicknames in comments.
+DISPLAY = {
+    "llama3.2": "Llama3.2-3B",  "Llama":   "Llama3.2-3B",
+    "Llama8":   "Llama3.1-8B",
+    "qwen2.5":  "Qwen2.5-3B",   "Qwen":    "Qwen2.5-3B",
+    "Qwen7":    "Qwen2.5-7B",
+    "Qwen32":   "Qwen2.5-32B",
+    "gemma3":   "Gemma3-4B",    "Gemma":   "Gemma3-4B",
+    "Gemma12":  "Gemma3-12B",
+    "Gemma27":  "Gemma3-27B",
+    "Gemma4":   "Gemma4-31B",
+    "Gemma4MoE": "Gemma4-26B-A4B",
+    "phi4":     "Phi4-3.8B",    "Phi4":    "Phi4-3.8B",   # Phi-4-mini
+    "Aya":      "Aya-8B",                                  # aya-expanse-8b
+    "FalconMamba": "FalconMamba-7B",
+    "Qwen36":   "Qwen3.6-35B-A3B",
+    "Qwen7Base": "Qwen2.5-7B-base",
+    "Olmo2Base": "OLMo2-7B-base", "Olmo2SFT": "OLMo2-7B-SFT",
+    "Olmo2DPO": "OLMo2-7B-DPO",   "Olmo2Inst": "OLMo2-7B-RLVR",
+    "ZephyrSFT": "Zephyr-7B-SFT", "ZephyrDPO": "Zephyr-7B-DPO",
+}
+
+
+def display(name: str) -> str:
+    """Short name → canonical {family}{version}-{size} label; unknown → as-is."""
+    return DISPLAY.get(name, name)
+
+
 def pick_device() -> str:
     if torch.cuda.is_available():
         return "cuda"

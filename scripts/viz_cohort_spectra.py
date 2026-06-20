@@ -30,6 +30,7 @@ import plotly.colors as pc
 import plotly.graph_objects as go
 
 import four_grid_compare as fg
+from hf_logprobs import display
 
 OUT = Path("results/persona_vectors/figs")
 ENACT_DIR = Path("results/persona_vectors")
@@ -159,7 +160,7 @@ def main():
     # Model proxies: the clickable legend entries (toggle their group).
     for m in models:
         fig.add_trace(go.Scatter(
-            x=[None], y=[None], mode="lines", name=m, legendgroup=m,
+            x=[None], y=[None], mode="lines", name=display(m), legendgroup=m,
             line=dict(color=color_for(m), width=3),
             legendgrouptitle_text="Model (click to toggle)"))
         inst_of.append("_proxy")
