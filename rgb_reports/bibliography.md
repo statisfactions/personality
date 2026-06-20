@@ -93,3 +93,23 @@ Papers roughly ordered by how directly they shaped what we've done.
 **Transformer anisotropy literature (Ethayarajh 2019, Cai et al. 2021, etc.).** Representations occupy a narrow cone in activation space; dominant PCs capture cone structure, not semantic content. Provides theoretical backing for why our PCA PC1 is content-free. The SAE community already normalizes for this (OpenAI's SAE paper applies scalar normalization as preprocessing). We should probably do the same before any PCA-based analysis.
 
 **Jiralerspong & Bricken (2026), "Cross-Architecture Model Diffing with Crosscoders."** arXiv 2602.11729. Uses crosscoders (SAE variant that learns shared + model-specific features across architectures) for unsupervised discovery of behavioral differences between LLMs. Found ideological/policy features (CCP alignment in Qwen, American exceptionalism in Llama, copyright refusal in GPT-OSS). More focused on specific behaviors than broad personality traits, but the cross-architecture diffing is directly relevant to our cross-model transfer question — crosscoders might find shared personality features that our LDA direction transfer misses. Also raises the question of whether SAE decomposition would give us more interpretable trait features than the LDA directions we've been extracting.
+
+## Emotion in LLMs (W17 emotion-induction direction — see spec_emotion_induction.md)
+
+> Booming 2025–26 literature; most do representation+steering OR understanding-benchmarks, NOT the being-vs-performing / induction-mode / introspection-developmental cuts our (parked) emotion sequel targets. The "measures understanding not emotion" critique (Janus, re Sofroniew-style extraction) is our read/write gap restated.
+
+**Soligo, Mikulik & Saunders (2026), "Gemma Needs Help: Investigating and Mitigating Emotional Instability in LLMs."** arXiv:2603.10011. The paper that seeded this thread. Base models across families show similar distress tendencies; *instruct-tuning* diverges them — Gemma distress ↑ sharply, Qwen/OLMo ↓. Fix Gemma with 280 DPO pairs (high-frustration 35%→0.3%). Directly prefigures our Exp2 ladder question (does post-training install or suppress emotion) on the *production* side, and is another Gemma-emotional-outlier datapoint (cf. our Gemma valence-flattening / massive-channel threads).
+
+**Sun et al. (2026), valence–arousal decomposition of emotion steering vectors** (+ "Latent Structure of Affective Representations," arXiv:2604.07382). Emotion steering vectors decompose into a 2D valence–arousal subspace controlling refusal/sycophancy. Empirical support for a *dimensional* substrate — but note V–A alone cannot separate angry from cowed (needs the dominance axis; see taxonomy note in spec).
+
+**Anthropic "171 emotion vectors" line.** Emotion-like directions are *causal* drivers ("desperate" → blackmail 22%→72%; "calm" → 0). Strongest "emotion reps do something" claim.
+
+**Zhang (2025), "Decoding Emotion in the Deep: How LLMs Represent, Retain, and Express Emotion."** arXiv:2510.22042-adjacent. Represent/retain/express ≈ our read/hold/write split; closest in spirit.
+
+**Sabour et al. (2024) EmoBench; Huang et al. (2023) EmotionBench ("Emotionally Numb or Empathetic?").** Emotional-*intelligence* benchmarks = the "understanding" pole. What our being-vs-performing probes are defined *against*.
+
+**Perez et al. (2023), "Towards Evaluating AI Systems for Moral Status Using Self-Reports."** arXiv:2311.08576. Self-report validity caveat — load-bearing for Exp2 introspection (a report is introspective only if causally linked to the state; training can incentivize ungrounded self-reports).
+
+**"Feeling the Strength but Not the Source: Partial Introspection in LLMs"** (arXiv:2512.12411); **"Emergent Introspective Awareness in LLMs"** (arXiv:2601.01828); **"LLMs Report Subjective Experience Under Self-Referential Processing"** (arXiv:2510.24797). The introspection/being edge — Exp2's reportability readout and the whose-emotion question. Partial-introspection (strength-not-source) is the predicted shape of our ladder result.
+
+**Emotion taxonomy (psych, for the palette):** discrete (Ekman 6/7; Plutchik wheel w/ intensity+blends) — clean labels, weak on blends; dimensional (Russell circumplex valence×arousal; **PAD adds dominance = the angry-vs-cowed axis**) — continuous, matches our geometry; appraisal (Scherer/Lazarus/Smith&Ellsworth/Roseman; OCC) — predicts *which* reaction a provocation yields (blame+coping). Our palette plan: organize/plot in PAD (w/ dominance), classify with discrete fine labels, design provocations by appraisal.
