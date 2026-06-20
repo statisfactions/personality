@@ -460,6 +460,42 @@ pooled); (B) backprop-δ on the cluster with leave-one-adjective-out validation
 + Likert (cross-channel; the BC-moves/Likert-doesn't asymmetry IS the read/write
 result). REPRESENT directions as the negative control (should not steer BC).
 
+### Gemma two-axis ENACT: denoising robustness + why the massive channels aren't trait signal
+
+**The finding** (PC1-vs-PC2 / general-factor shape, `viz_pc12_shape.py`): every
+model's ablated ENACT collapses onto one dominant axis (λ1/λ2 ≈ 2.8–4.1) EXCEPT
+Gemma-3, which spreads over two comparable axes (λ1/λ2 ≈ 1.2). REPRESENT (λ1/λ2
+≈ 1.2, diffuse) and JUDGE (≈ 2.7, ≈ HUMAN 3.0) shapes are model-invariant; only
+ENACT's varies, and Gemma is the outlier.
+
+**Robust to denoising method** (sweep, gemma3 vs qwen2.5 control): Gemma ENACT
+λ1/λ2 = 1.2 under zero-top-1-var, zero-top-{4,16,64}, per-dim z-score, AND the
+default massive-dim ablation — flat across all. The ONLY value showing single-
+axis is **raw (2.8)**, where the artifact is still in. Qwen (no massive
+channels) barely moves (4.0 raw → 3.0 aggressive), staying well clear of 1.2.
+So Gemma-two-axis is a property, not an ablation artifact. Caveat: absolute
+λ1/λ2 are denoising-dependent (z-scoring compresses everyone); the robust claim
+is the ordering + Gemma's ≈1.2 plateau, NOT the precise ratios.
+
+**Why we treat raw as the wrong reading — the massive channels aren't trait
+signal** (so removing them is correcting, not cherry-picking):
+1. Known massive-activation / attention-sink channels (Gemma-family quirk; lit:
+   Sun et al.). dim 443 ≈30k, ~2500× median dim.
+2. **Near-constant across adjectives**: the 6 massive dims have CV ≈ 0.076
+   across the 523 adjectives (mean |act| ≈5300, ~7.5% variation) vs 1.07 for
+   typical dims — 14× less relative variation. A dim ~equal for every adjective
+   can't discriminate traits; in a cosine matrix it's a constant offset
+   (anisotropy), not content.
+3. W17 smoke diagnostics: dim 443 = default-vs-persona MODE flag (+~2000 on
+   default over every persona) + tracks response length (r≈0.3); with massive
+   dims in, geometry is degenerate (norm_r ±1.00, 81% var in 10 dims); ablating
+   restores sensible trait geometry.
+4. The handsome-halo false negative: raw Gemma geometry gave a WRONG (sign-
+   flipped) answer that ablated geometry + text-judge corrected.
+5. Convergent denoisers: per-dim z-score (rescales ALL dims, doesn't target the
+   massive ones) agrees with zeroing them (both → 1.2) → the channels act via
+   magnitude, the signature of a scale artifact, not a content direction.
+
 ### Planned re-extraction
 
 All activation data that feeds final analyses gets re-extracted under the
