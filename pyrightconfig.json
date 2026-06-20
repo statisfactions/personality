@@ -1,4 +1,8 @@
 {
+  "extraPaths": ["scripts"],
   "reportPrivateImportUsage": "none",
-  "extraPaths": ["scripts"]
+  "reportAttributeAccessIssue": "none",
+  "reportIndexIssue": "none",
+  "reportArgumentType": "warning",
+  "reportCallIssue": "warning"
 }

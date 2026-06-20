@@ -42,13 +42,14 @@ def main():
         print(f"  {model}: meta {mp.stat().st_size/1e3:.0f} KB, "
               f"vectors {arrays[model].shape}")
 
+    assert ref_adj is not None, "no *_pda.pt files found"
     npz = PV / "enact_vectors_mid.npz"
     payload = {"adjectives": np.array(ref_adj)}
     for m in arrays:
         payload[f"dir__{m}"] = arrays[m]
         payload[f"axis__{m}"] = axes[m]
         payload[f"grand__{m}"] = grands[m]
-    np.savez_compressed(npz, **payload)
+    np.savez_compressed(npz, allow_pickle=False, **payload)
     print(f"\nsaved {npz} ({npz.stat().st_size/1e6:.1f} MB, "
           f"{len(arrays)} models, {len(ref_adj)} adjectives)")
     print("load: z=np.load(...); z['dir__llama3.2'] -> (523, hidden); "
