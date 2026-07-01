@@ -17,7 +17,8 @@ from hf_logprobs import display
 
 FIG = Path("results/persona_vectors/figs")
 COLOR = {"REPRESENT": "#4C78A8", "JUDGE": "#F58518", "ENACT": "#E45756"}
-MODELS = ["llama3.2", "Llama8", "qwen2.5", "Qwen7", "gemma3", "phi4", "Aya"]
+MODELS = ["llama3.2", "Llama8", "qwen2.5", "Qwen7", "gemma3", "Gemma12",
+          "Gemma27", "phi4", "Aya"]
 
 
 def pc12(M, diag):
