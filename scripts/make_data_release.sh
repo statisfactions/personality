@@ -83,6 +83,7 @@ if [ "$DO_COPY" = 1 ]; then
   fi
   run "mkdir -p '$DEST'"
   run "cp -v '$STAGE'/*_$STAMP.tar '$STAGE'/*_$STAMP.tar.gz '$STAGE/MANIFEST_$STAMP.sha256' '$STAGE/RELEASE_$STAMP.txt' '$DEST/'"
+  run "cp -v rgb_reports/data_release_readme.md '$DEST/README.md'"
   say "done — Drive for Desktop will upload in the background. Verify sync in the Drive UI, then the local $STAGE copies can be removed."
 else
   say "DO_COPY=0 — tarballs left in $STAGE (not copied to Drive)"
