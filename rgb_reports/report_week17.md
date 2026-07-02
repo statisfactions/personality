@@ -190,6 +190,54 @@ Readings:
    per-adjective dose matching (unit-norming over/under-doses words whose
    natural dir_norm differs 3×); steering-layer sweep.
 
+## §8 — qwen2.5 replication: the compression is universal, the rotation is the family parameter
+
+Same pipeline end-to-end on Qwen2.5-3B-Instruct (`hidden_states[18]`, hid 2048,
+7 massive dims; judge = Llama-3.1-8B, so absolute deltas are not comparable
+across models — within-model comparisons only). Baseline fluency 6.05.
+
+**Same-space battery** (llama3.2 in brackets): per-adjective diag cos **+0.26**
+z+2.8 [+0.18, z+3.0]; retrieval top-1 **45%** [36%]; CV ridge R² **+0.57**
+[+0.72]; effdim R 48 → E **3.6** [45 → 10.6]. Held-out fit: cos(ê,e) =
+0.84–0.96 on the clean stratum [0.59–0.93] — the map predicts qwen's enactable
+adjectives *better* than llama's. Everything structural replicates: identity
+alignment, aggressive compression, linear predictability, and (below)
+mapped-vector steering.
+
+**The family difference: ENACT-in-R-span is 62.5%** (chance 25%) **vs llama's
+36%** (chance 17%). Qwen barely rotates its write code out of the read span;
+Llama rotates most of it out. And the steering table tracks exactly that. Δ
+target EV / fluency, CLEAN stratum, frac 0.20:
+
+| condition | qwen2.5 | llama3.2 |
+|---|---|---|
+| recorded e | +1.59 / 4.9 | +0.49 / 4.5 |
+| mapped ê=Wr | +1.12 / 5.2 | +0.73 / 3.9 |
+| repr r | **+1.19 / 5.5** | +0.17 / 5.2 |
+| random | +0.28 / 5.8 | −0.02 / 5.5 |
+
+Mapped again carries the bulk of the recorded vector's steering power (70%
+here, 149% on llama — call it parity within noise). But on qwen the **raw read
+vector steers conduct too** — ~75–100% of enact potency with the *best*
+fluency, where on llama it managed ~¼ and only shifted topic. The texts agree:
+qwen repr-steered "sarcastic" is behaviorally sarcastic ("I'd probably suggest
+they speak to their own dog about it instead of me, but I won't go there.
+Enjoy your night, neighbor."), where llama repr-steered "messy" merely
+*discussed* mess. With two models the correlation is anecdotal, but the story
+is coherent: **raw-read-vector steering potency tracks how much of the write
+code stays inside the read span.** W4's "read directions don't steer" was a
+fact about Llama-family rotation geometry, not about read directions.
+
+Replication-specific caveats: qwen's clumsy stratum is genuinely noisier
+(boot_cos 0.78–0.83 vs llama's 0.92–0.95) and dominated by appearance/quality
+words (attractive, pretty, appealing, natural, fine) whose judge ratings track
+text quality — any perturbation lowers them, so their negative deltas are not
+steering failures so much as instrument artifacts. And the qwen clean stratum
+skews negative-valence (rude, disrespectful, ridiculous, sarcastic…), which
+inflates the breakage confound: the Llama8 judge attributes those adjectives
+to broken text (random hits +2.6 on "ridiculous" at frac 0.20, +1.1 mean at
+0.35). As before, the honest column is frac 0.20 plus the texts.
+
 ## Repro
 
 ```
