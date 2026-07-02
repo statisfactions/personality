@@ -273,6 +273,34 @@ decides everything:
   inf/nan). Gemma held-out fit: clean-stratum cos(ê,e) = 0.91–0.99, clumsy
   0.04–0.88. Steering run queued behind the Qwen32 cohort extraction.
 
+**§9.5 — What the massive dims actually are (Sun et al. token hypothesis).**
+rgb's conjecture: the channel inconsistency isn't read-vs-write but *which
+tokens get averaged* — REPRESENT is one content token, ENACT is a mean over
+~60 response tokens. Confirmed, with the mechanism differing by dim (per-token
+CPU forward passes at layer 17 + per-adjective regression of direction
+coordinates on rollout text statistics, n=523):
+
+| dims | mechanism | evidence |
+|---|---|---|
+| 443 | classic Sun-et-al: constant ~35k plateau on every token + colossal BOS spike (+247k) | plateau matches repr-acts max; R² 0.56 from stats |
+| 1365, 1698 | **position-ramping channels**: magnitude grows −199→−344 (−313→−516) over the response window, so the window mean encodes response length | dim 1365 direction coord corr **−0.92** with mean response length; CV R² **0.89** from formatting stats |
+| 404, 1980 | content-composition: track asterisk density (stage-directions) and list markers | corr ~0.43–0.46 with asterisks; R² 0.42/0.58 |
+
+So the massive-dim content of Gemma's ENACT directions is largely
+**verbosity/format statistics** — real *conduct* (a "quiet" persona answering
+briefly is behavior), but low-level register rather than trait semantics, and
+structurally absent from the single-token read side. This reinterprets
+"Gemma's persona axis lives in the massive channels": the assistant axis (87%
+massive) is substantially the default assistant's length/format signature vs
+the personas'. It also explains why the map predicts the massive coordinates
+well (raw R² 0.65): concept → verbosity/format propensity is learnable.
+Registered predictions for the Gemma steering run: `recorded_abl` (massive
+zeroed) should preserve semantic persona steering while muting the
+verbosity/format shift; full `recorded` should visibly change response
+length/formatting. (avg_window=60 was designed to cap the position confound;
+within-window ramping still leaks length for shorter responses — a future
+extraction could subtract the per-position mean profile before averaging.)
+
 ## Repro
 
 ```
