@@ -37,7 +37,9 @@ OUT_DIR = "results/steer_map"
 PDA_DIR = "results/persona_vectors"
 ACTS_DIR = "results/adjectives/acts"
 EVAL_QUESTIONS = QUESTIONS[6:10]  # held out from extraction (which used [:6])
-CONDS = ("recorded", "mapped", "repr", "random")
+# recorded_abl (massive dims zeroed) only exists for zscore-scheme bundles;
+# generate/analyze take conditions from the vector bundle, not this constant.
+CONDS = ("recorded", "recorded_abl", "mapped", "repr", "random")
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
 N_STRATUM = 12   # test adjectives per stratum (lowest / highest boot_cos)
 RIDGE_K = 200    # REPRESENT PCs fed to the ridge map
@@ -76,7 +78,16 @@ def _decoder_layers(model):
 
 def phase_fit(args):
     """Hold out the N lowest/highest-boot_cos adjectives, fit ridge
-    W: REPRESENT -> ENACT on the rest, save test-set vector bundles."""
+    W: REPRESENT -> ENACT on the rest, save test-set vector bundles.
+
+    --denoise ablate: zero massive dims in both channels before fitting
+      (fine for Llama/Qwen where they carry ~nothing; deletes 55-76% of
+      centered variance on Gemma — do not use there).
+    --denoise zscore: per-dim standardize both channels (train stats), fit in
+      z-space, de-standardize predictions back to raw space. Keeps the
+      massive-channel content (which on Gemma is most of the signal) without
+      letting a 1000x-median dim dominate the least squares. Saved vectors
+      are raw-space either way; steering happens in raw activation space."""
     from sklearn.linear_model import Ridge
 
     d = torch.load(f"{PDA_DIR}/{args.model}_pda.pt", map_location="cpu",
@@ -88,13 +99,14 @@ def phase_fit(args):
     boot = np.array([rep[a]["boot_cos_mean"] for a in adjs])
 
     E = np.stack([d["directions"][a][mid] for a in adjs]).astype(np.float64)
-    E[:, massive] = 0.0
     dr = torch.load(_acts_path(args.model), map_location="cpu",
                     weights_only=False)
     adjR = [str(a).lower() for a in dr["adjectives"]]
     R = np.asarray(dr["acts"])[:, mid, :].astype(np.float64)
     R = R[[adjR.index(a) for a in adjs]]
-    R[:, massive] = 0.0
+    if args.denoise == "ablate":
+        E[:, massive] = 0.0
+        R[:, massive] = 0.0
 
     o = np.argsort(boot)
     test_names = [adjs[i] for i in o[:N_STRATUM]] + \
@@ -103,10 +115,16 @@ def phase_fit(args):
     tr = np.array([i for i in range(len(adjs)) if i not in set(te)])
 
     Rmu, Emu = R[tr].mean(0), E[tr].mean(0)
-    _, _, Vt = np.linalg.svd(R[tr] - Rmu, full_matrices=False)
-    feats = lambda X: (X - Rmu) @ Vt[:RIDGE_K].T
-    ridge = Ridge(alpha=RIDGE_ALPHA).fit(feats(R[tr]), E[tr] - Emu)
-    Ehat = ridge.predict(feats(R[te])) + Emu
+    if args.denoise == "zscore":
+        sR = R[tr].std(0) + 1e-8
+        sE = E[tr].std(0) + 1e-8
+    else:
+        sR = np.ones(R.shape[1])
+        sE = np.ones(E.shape[1])
+    _, _, Vt = np.linalg.svd((R[tr] - Rmu) / sR, full_matrices=False)
+    feats = lambda X: ((X - Rmu) / sR) @ Vt[:RIDGE_K].T
+    ridge = Ridge(alpha=RIDGE_ALPHA).fit(feats(R[tr]), (E[tr] - Emu) / sE)
+    Ehat = ridge.predict(feats(R[te])) * sE + Emu
 
     def cos(a, b):
         return float(a @ b / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
@@ -120,21 +138,30 @@ def phase_fit(args):
              E=np.stack([E[adjs.index(a)] for a in test_names]),
              Rc=np.stack([R[adjs.index(a)] - Rmu for a in test_names]),
              boot=np.array([boot[adjs.index(a)] for a in test_names]),
-             massive=np.array(massive), mid=mid)
-    print(f"wrote {_vec_path(args.model)}")
+             massive=np.array(massive), mid=mid,
+             scheme=np.array(args.denoise))
+    print(f"wrote {_vec_path(args.model)} (denoise={args.denoise})")
 
 
 def load_vectors(model_name):
     z = np.load(_vec_path(model_name), allow_pickle=True)
     adjs = [str(a) for a in z["adjs"]]
+    massive = list(z["massive"]) if "massive" in z.files else []
+    scheme = str(z["scheme"]) if "scheme" in z.files else "ablate"
     rng = np.random.default_rng(0)
     vecs = {}
     for j, a in enumerate(adjs):
-        raw = {"recorded": z["E"][j], "mapped": z["Ehat"][j],
-               "repr": z["Rc"][j],
+        e_abl = z["E"][j].copy()
+        e_abl[massive] = 0.0  # no-op for legacy ablate-scheme bundles
+        raw = {"recorded": z["E"][j], "recorded_abl": e_abl,
+               "mapped": z["Ehat"][j], "repr": z["Rc"][j],
                "random": rng.standard_normal(z["E"].shape[1])}
         vecs[a] = {k: (v / np.linalg.norm(v)).astype(np.float32)
                    for k, v in raw.items()}
+    if scheme == "ablate":
+        # recorded is already massive-ablated; the _abl condition is identical
+        for a in vecs:
+            vecs[a].pop("recorded_abl")
     return adjs, vecs, int(z["mid"]), list(z["boot"])
 
 
@@ -210,10 +237,11 @@ def phase_generate(args):
     print(f"alpha = {args.frac} * {rn:.1f} = {alpha:.2f}")
     steer = Steerer(model, mid, device, torch.bfloat16)
     gens = []
-    n_total = len(adjs) * len(CONDS) * len(EVAL_QUESTIONS) * args.rollouts
+    conds = [c for c in CONDS if c in vecs[adjs[0]]]
+    n_total = len(adjs) * len(conds) * len(EVAL_QUESTIONS) * args.rollouts
     done = 0
     for adj in adjs:
-        for cond in CONDS:
+        for cond in conds:
             steer.set(vecs[adj][cond], alpha)
             for qi, q in enumerate(EVAL_QUESTIONS):
                 for r in range(args.rollouts):
@@ -291,7 +319,8 @@ def phase_analyze(args):
     data = json.load(open(
         _gens_path(args.model, args.frac).replace("_gens_", "_judged_")))
     gens = data["gens"]
-    adjs, _, _, boot = load_vectors(args.model)
+    adjs, vecs, _, boot = load_vectors(args.model)
+    conds = [c for c in CONDS if c in vecs[adjs[0]]]
     base = [g for g in gens if g["cond"] == "baseline"]
     base_ev = {a: np.mean([g["target_ev"][a] for g in base]) for a in adjs}
     base_flu = np.mean([g["fluency"] for g in base])
@@ -299,14 +328,14 @@ def phase_analyze(args):
     rows = {}
     for a in adjs:
         rows[a] = {}
-        for cond in CONDS:
+        for cond in conds:
             sel = [g for g in gens if g["adj"] == a and g["cond"] == cond]
             rows[a][cond] = {
                 "delta": np.mean([g["target_ev"] for g in sel]) - base_ev[a],
                 "fluency": np.mean([g["fluency"] for g in sel]),
             }
     clumsy, clean = adjs[:N_STRATUM], adjs[N_STRATUM:]
-    hdr = "".join(f"{c:>18}" for c in CONDS)
+    hdr = "".join(f"{c:>18}" for c in conds)
     print(f"\n{'adj':>16} {'boot':>5}" + hdr + "   (delta target EV / fluency)")
     for grp, name in ((clumsy, "CLUMSY"), (clean, "CLEAN")):
         print(f"--- {name} ---")
@@ -314,9 +343,9 @@ def phase_analyze(args):
             b = boot[adjs.index(a)]
             cells = "".join(
                 f"  {rows[a][c]['delta']:+5.2f}/{rows[a][c]['fluency']:4.1f}   "
-                for c in CONDS)
+                for c in conds)
             print(f"{a:>16} {b:5.2f}" + cells)
-        for c in CONDS:
+        for c in conds:
             dd = np.mean([rows[a][c]["delta"] for a in grp])
             fl = np.mean([rows[a][c]["fluency"] for a in grp])
             print(f"{name + ' mean ' + c:>40}: delta {dd:+.2f}  fluency {fl:.2f}")
@@ -336,6 +365,10 @@ def main():
                     help="steered model (hf_logprobs short name)")
     ap.add_argument("--judge", default="Qwen7",
                     help="judge model — use a different family than --model")
+    ap.add_argument("--denoise", default="zscore",
+                    choices=["ablate", "zscore"],
+                    help="fit-phase massive-dim handling (zscore keeps their "
+                         "content; mandatory for Gemma)")
     ap.add_argument("--frac", type=float, default=0.20,
                     help="steering norm as fraction of mean residual norm")
     ap.add_argument("--rollouts", type=int, default=2,

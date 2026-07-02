@@ -238,6 +238,41 @@ inflates the breakage confound: the Llama8 judge attributes those adjectives
 to broken text (random hits +2.6 on "ridiculous" at frac 0.20, +1.1 mean at
 0.35). As before, the honest column is frac 0.20 plus the texts.
 
+## §9 — Gemma groundwork: denoising scheme, and the rotation metric caveat
+
+Before running Gemma (third family point), we checked whether the massive-dim
+handling is consistent across the two channels. It is not, and on Gemma it
+decides everything:
+
+- **The pipelines disagree about which dims are massive.** ENACT (rollout
+  responses) flags {19, 404, 443, 1365, 1698, 1980}; the repr prompt states by
+  the same ≥20×-median rule flag only {19, 443, 1365, 1698} — 404/1980 are
+  massive *only during generation* (condition-dependent, as W17 extraction
+  already noted for Gemma).
+- **Ablation deletes the signal on Gemma.** Those 6 of 2560 dims carry 55% of
+  centered ENACT variance and 76% of centered REPRESENT variance (87% of the
+  assistant axis; dim 1365 runs at 1530× median). Raw is no better as a metric:
+  effdim collapses to ~2 and per-adjective identity drowns (retrieval 13%,
+  z +0.3) — every raw cosine is just dim-1365 agreement.
+- **Per-dim z-scoring (fit in z-space, de-standardize predictions) wins**:
+  best identity signal on all three models (retrieval llama 42% / qwen 57% /
+  gemma 40%, z ≈ +3.4–3.7), sane effdims, and the de-standardized predictions
+  recover the massive-dim components (raw-space R² +0.63 overall, +0.65 on the
+  massive dims themselves; raw cos(pred, truth) mean 0.80). Steering vectors
+  keep their massive-channel content. `--denoise zscore` is now the fit-phase
+  default; Gemma's bundle adds a `recorded_abl` steering condition
+  (massive dims zeroed) to test *causally* whether that content matters.
+- **Honest caveat for §8's rotation story: the in-span parameter is
+  metric-dependent.** Under z-scoring, qwen's in-span advantage over llama
+  (62% vs 36% raw) shrinks to 40% vs 31% — the excess overlap lives in
+  high-variance dims. Steering acts in raw activation space, so the raw
+  fraction remains the steering-relevant parameter, but "rotation size" should
+  be read as a property of the raw (scale-weighted) geometry, not of the
+  z-metric.
+- Repr acts are stored fp32 (max |act| 63k — would have clipped in fp16; no
+  inf/nan). Gemma held-out fit: clean-stratum cos(ê,e) = 0.91–0.99, clumsy
+  0.04–0.88. Steering run queued behind the Qwen32 cohort extraction.
+
 ## Repro
 
 ```
