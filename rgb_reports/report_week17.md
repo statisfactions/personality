@@ -349,6 +349,50 @@ residual norm makes the llama/qwen fracs overdose ~10×; the portable anchor is
    dose is 0.04. Gemma's clumsy stratum (terrific/fine/well/genuine…) is
    text-quality-adjacent and moves ~nothing at the sane dose, as on qwen.
 
+## §11 — Opening W up: amplify-and-rebase, and a selector claim that died
+
+With the map validated on three families, we interrogated the fitted W itself
+(full-data ridge per model; offline).
+
+**The valence re-signing mechanism (the find).** W maps merged inputs
+(wonderful≈awful) to opposed outputs. Being linear it must amplify some small
+input difference — extract it directly: u\* = Wᵀ·v_E (the input direction whose
+activation produces valence output). Across all three models, u\* aligns with
+the *read-side* valence axis v_R at 2–3× the alignment of the output axes, and
+it is a high-gain direction of the map:
+
+| model | cos(u\*, v_R) | cos(v_E, v_R) (output axes) | gain(u\*) vs median PC |
+|---|---|---|---|
+| llama3.2 | **+0.63** | +0.19 | 4.2× |
+| qwen2.5 | +0.38 | +0.24 | 8.1× |
+| gemma3 | +0.41 | +0.13 | 3.6× |
+
+This **revises §1's reading**. "Enaction doesn't turn up the read-side valence
+axis; it builds its own elsewhere" was wrong in an instructive way: the map
+*does* listen substantially through the read-side antonym axis — the masked,
+small-variance valence residual of W15/W16 — and amplifies it 4–8× before
+emitting along new output-basis directions. The mechanism is
+**amplify-and-rebase**, not build-anew: cos(v_E, v_R)≈0.2 measured output
+against input; the input side was aligned all along. Symbolic-overrides-
+associative, linear-algebra edition: the write readout is a high-gain
+amplifier wired to exactly the input direction the read geometry almost hides.
+(Interpolating r between wonderful and awful swings the valence output
+linearly through zero at t≈0.42 — guaranteed by linearity, noted for
+completeness.) A crude affect-presence check (u\* vs the mean of 16 affect-word
+repr states) came back null (−0.06), consistent with the discriminator being
+the good–bad antonym axis rather than the W9 state-vs-trait affect axis.
+
+**The selector claim died at the control.** The tempting version of the
+compression story — "W selectively transmits human-matched read directions" —
+shows raw spearman +0.78 between per-PC transmission gain and |human-match|
+(top 60 R-PCs), but residualizing both on PC rank and log singular value
+leaves **+0.01 (permutation p=0.95)**. Transmission follows the variance/rank
+profile; ENACT's human match is inherited from the fact that the top of the
+read spectrum (PC1, human-match 0.62) *is* the human-matched part — not from
+any per-direction selectivity in W. The honest compression story: W keeps the
+top of the read spectrum and rebases it; the evaluative character of what
+survives was already ordered that way in REPRESENT.
+
 ## Repro
 
 ```
