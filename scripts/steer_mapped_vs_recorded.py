@@ -215,8 +215,9 @@ def phase_calibrate(args):
     rn = residual_norm(model, tok, device, mid)
     print(f"mean residual norm at hidden_states[{mid}]: {rn:.1f}")
     steer = Steerer(model, mid, device, torch.bfloat16)
+    fracs = [float(x) for x in args.fracs.split(",")]
     for adj in (adjs[-7], adjs[5]):  # one clean, one clumsy
-        for frac in (0.15, 0.3, 0.6):
+        for frac in fracs:
             steer.set(vecs[adj]["recorded"], frac * rn)
             for qi in (0, 1):
                 text = generate_one(model, tok, device, EVAL_QUESTIONS[qi],
@@ -365,6 +366,12 @@ def main():
                     help="steered model (hf_logprobs short name)")
     ap.add_argument("--judge", default="Qwen7",
                     help="judge model — use a different family than --model")
+    ap.add_argument("--fracs", default="0.15,0.3,0.6",
+                    help="calibrate-phase dose sweep (comma-separated fracs). "
+                         "NB: 'frac of residual norm' is not portable across "
+                         "families — Gemma's residual norm is inflated ~25x "
+                         "by the dim-443 plateau; anchor on ~2-5x the natural "
+                         "dir_norm/residual ratio instead")
     ap.add_argument("--denoise", default="zscore",
                     choices=["ablate", "zscore"],
                     help="fit-phase massive-dim handling (zscore keeps their "
