@@ -301,6 +301,54 @@ length/formatting. (avg_window=60 was designed to cap the position confound;
 within-window ramping still leaks length for shorter responses — a future
 extraction could subtract the per-position mean profile before averaging.)
 
+## §10 — Gemma steering: three-for-three on the map; the massive dims are readout, not carrier
+
+Full pipeline on gemma3-4B (zscore-fit map, judge Qwen2.5-7B, doses frac
+0.04/0.08 of residual norm — recalibrated because Gemma's plateau-inflated
+residual norm makes the llama/qwen fracs overdose ~10×; the portable anchor is
+~2–5× the natural dir_norm ratio, which is 1.7% here). Baseline fluency 5.59.
+Δ target EV / fluency, CLEAN stratum, frac 0.04:
+
+| condition | Δ / fluency |
+|---|---|
+| recorded e | +0.78 / 4.9 |
+| recorded_abl (massive zeroed) | **+1.41 / 3.5** |
+| mapped ê=Wr | **+0.81 / 5.0** |
+| repr r | +0.29 / 5.0 |
+| random | −0.02 / 4.8 |
+
+1. **Mapped = recorded, exactly** (+0.81 vs +0.78 at identical fluency) — the
+   third family, and the first with the zscore-fit map. The core W17 claim is
+   three-for-three.
+2. **Massive dims contribute ~nothing to judged trait expression.**
+   recorded_abl out-steers recorded at the same α — partly a dose effect
+   (recorded spends 38% of its unit norm on massive dims, so ablation
+   reallocates ~1.27× energy to semantic dims) — but it also beats recorded at
+   *double* dose (+1.19/3.9 at frac 0.08), so per unit semantic energy the
+   massive content adds trait-nothing. Trait semantics live in the non-massive
+   subspace.
+3. **The registered §9.5 prediction was wrong, informatively.** The format
+   test (steered length shift vs each adjective's natural verbosity signature,
+   n=24): recorded transmits the signature at **corr 0.69** (random 0.01) — so
+   persona vectors do causally carry the register channel — but recorded_abl
+   still transmits it at **0.63**. Format/verbosity conduct is *redundantly*
+   encoded; the massive dims are a high-amplitude **readout** of format state,
+   not its sole carrier. (Consistent with §9.5's ramps being position
+   *integrators* of a distributed format policy rather than the policy itself.)
+4. **The map transmits trait but smooths register**: mapped preserves judged
+   trait expression yet transmits the length signature at only 0.27 — ridge
+   shrinkage flattens the format axis while keeping semantics.
+5. **The rotation→repr-potency ordering is now monotone across three
+   families**, using the semantic-space (massive-ablated) in-span fraction:
+   llama 36% → repr at 23% of mapped potency; gemma 47% → 36%; qwen 62% →
+   106%. Three points, one line. Raw-space in-span is the wrong metric here —
+   Gemma's raw 76% is inflated by the trivially-shared massive subspace.
+6. Dose/judge caveats: at frac 0.08 even random destroys Gemma (fluency 1.0),
+   and the judge reads the wreckage as "unusual"/"artificial" (+3.2/+2.7) —
+   the same breakage-attribution artifact as qwen's "ridiculous". The honest
+   dose is 0.04. Gemma's clumsy stratum (terrific/fine/well/genuine…) is
+   text-quality-adjacent and moves ~nothing at the sane dose, as on qwen.
+
 ## Repro
 
 ```
