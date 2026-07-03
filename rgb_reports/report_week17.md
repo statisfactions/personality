@@ -393,6 +393,47 @@ any per-direction selectivity in W. The honest compression story: W keeps the
 top of the read spectrum and rebases it; the evaluative character of what
 survives was already ordered that way in REPRESENT.
 
+## §12 — Reading REPRESENT's murky spectrum through its ENACT images
+
+rgb's idea: REPRESENT's top PCs beyond the valence core were hard to interpret
+from input-side adjective loadings and looked model-idiosyncratic (W9/W14).
+But each R-PC now has an *image* W·v_k in ENACT space, where we have
+behaviorally-grounded coordinates: the valence axis, ENACT's own PCs, the
+assistant axis, and matched-filter axes for verbosity and asterisk/stage-
+direction formatting built from the rollout texts. `scripts/rpc_fingerprints.py`
+fingerprints the top 12 R-PCs per model (gain, axis profile, input-side vs
+output-side adjective alignments); full dump in
+`results/steer_map/rpc_fingerprints.{json,log}`. What the murky dims turn out
+to be doing:
+
+| R-PC (by model) | behavioral reading (via out-adjs + axis profile) |
+|---|---|
+| llama PC0/1, qwen PC0/1/3, gemma PC0/1 | the valence-evaluation core — but behaviorally **fused with register**: positive pole = longer, structured, assistant-like output; negative pole = terse (+ stage-directions on llama). Valence-as-enacted is warmth *and* service effort. |
+| llama PC2 | humor/clowning: hilarious/funny → amusing/obnoxious output vs ordinary/soft-spoken |
+| llama PC4 | playful-youth vs stern-authority (adorable/cute/chubby vs strict/firm/serious) |
+| llama PC5 | gentleness vs drive (innocent/harmless vs impressive/determined/ambitious) |
+| llama PC6 | aggression (outspoken/impolite/rude vs peaceful/graceful) |
+| llama PC7, gemma PC5 | chaos-vs-order / status (confused/incompetent vs proud/dominant; unpredictable/crazy vs respectable/decent) |
+| gemma PC2 | confidence-vs-anxiety (cocky/offensive/bold vs afraid/worried/anxious) |
+| gemma PC6 | **the affect-presence axis** — input pole holds happy *and* sad *and* unhappy together vs consistent/dominant/determined; output delighted/adorable/glad vs strict/competent/capable. The W9 state-vs-trait axis is one of gemma's highest-gain transmitted dims (1.44). |
+| qwen PC5 | cold-mechanical vs warm-joyful (systematic/logical/artificial vs joyful/cheerful) — affect-presence flavored |
+| qwen PC7 | extraversion (exciting/entertaining/colorful vs quiet/private) |
+
+Cross-model reading: the *packaging* varies (qwen bundles valence + assistant
++ verbosity + format into one super-axis across several PCs, matching its
+ENACT effdim 3.6; llama and gemma keep more separation), but the *content
+vocabulary* recurs — an evaluation core, agency/dominance, expressiveness/
+humor, confidence-vs-anxiety, affect-presence, chaos-vs-order. The
+"model-idiosyncratic" top dims look like different rotations/bundlings of a
+shared behavioral repertoire, now nameable because the ENACT side is low-dim
+and text-grounded.
+
+Caveats: the interpretable axes are inter-correlated (valence, E-PC1, and
+verbosity especially), so profiles are fingerprints, not orthogonal
+decompositions; matched-filter axes are built from the same E data they
+describe (descriptive, not held-out); and images inherit the map's ridge
+shrinkage (§10: the register axis is smoothed).
+
 ## Repro
 
 ```
