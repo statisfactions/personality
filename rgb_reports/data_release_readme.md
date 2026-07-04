@@ -39,9 +39,9 @@ adjective i, how strongly also j"; NOT symmetric), `Hent` (523,523) entropy,
 - **`enact_vectors_mid.npz`** — packaged ENACT directions. Per model: `dir__<m>`
   (523, hidden) = mid-layer persona direction per adjective; `axis__<m>` (hidden,)
   = assistant axis; `grand__<m>` (hidden,) = grand mean; `adjectives` (523,).
-  ⚠ currently 7 models (Aya, Llama8, Qwen7, gemma3, llama3.2, phi4, qwen2.5) —
-  Gemma12/27 and Qwen32 were extracted after packaging; ask rgb to refresh.
-- **`<model>_pda_report.json`** (9 models) — extraction report: `mid_layer`,
+  All **10 cohort models** (llama3.2, Llama8, qwen2.5, Qwen7, Qwen32, gemma3,
+  Gemma12, Gemma27, phi4, Aya) as of 2026-07-04.
+- **`<model>_pda_report.json`** (10 models) — extraction report: `mid_layer`,
   `n_layers`, `massive_dims`, per-adjective `adjectives{dir_norm, boot_cos_mean/
   p05, norm_corr(_ablated), len_corr, top10_dim_share, leak_rate, placebo}`,
   `pairwise_cos_mid` (every adjective-pair cosine at the mid layer, raw +
