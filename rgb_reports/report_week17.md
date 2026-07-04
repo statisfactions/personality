@@ -269,6 +269,21 @@ decides everything:
   fraction remains the steering-relevant parameter, but "rotation size" should
   be read as a property of the raw (scale-weighted) geometry, not of the
   z-metric.
+- **§9-addendum (rgb, post-§10): `massive-norm` supersedes zscore as the fit
+  default.** Winsorize *only* the massive dims (rescale each so its
+  per-adjective std equals the max non-massive std), leaving the informative
+  variance ordering of the other dims intact. Four-scheme comparison: it
+  matches or beats ablate on fit R² (llama 0.735, gemma 0.584, and **qwen
+  0.616 vs ablate's 0.573** — the massive dims carry predictable content that
+  ablation discarded), retains massive content for steering like zscore, and
+  avoids zscore's noise-dim upweighting (zscore fit R²: 0.54/0.52/0.29, worst
+  everywhere). It also gives the defensible version of the rotation metric —
+  in massive-norm space the family ordering is llama 37% < gemma 48% < qwen
+  67%, monotone with repr-steering potency, with neither raw's plateau
+  inflation nor z's collapse. zscore remains the best *diagnostic* metric for
+  identity retrieval (equal weighting helps matching); massive-norm is the
+  fitting/geometry space. (The §10 Gemma steering run used the zscore fit;
+  its conclusions are unaffected — mapped=recorded replicates under either.)
 - Repr acts are stored fp32 (max |act| 63k — would have clipped in fp16; no
   inf/nan). Gemma held-out fit: clean-stratum cos(ê,e) = 0.91–0.99, clumsy
   0.04–0.88. Steering run queued behind the Qwen32 cohort extraction.

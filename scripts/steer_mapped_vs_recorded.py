@@ -84,10 +84,14 @@ def phase_fit(args):
       (fine for Llama/Qwen where they carry ~nothing; deletes 55-76% of
       centered variance on Gemma — do not use there).
     --denoise zscore: per-dim standardize both channels (train stats), fit in
-      z-space, de-standardize predictions back to raw space. Keeps the
-      massive-channel content (which on Gemma is most of the signal) without
-      letting a 1000x-median dim dominate the least squares. Saved vectors
-      are raw-space either way; steering happens in raw activation space."""
+      z-space, de-standardize predictions back to raw space. Keeps massive
+      content but upweights ~all low-variance noise dims (worst fit R2).
+    --denoise massive-norm (default, rgb's suggestion): winsorize ONLY the
+      massive dims — rescale each so its per-adjective std equals the max
+      non-massive std — leaving the informative variance ordering of normal
+      dims untouched. Matches/beats ablate on fit R2 (qwen +0.62 vs +0.57)
+      while retaining massive content for steering. Saved vectors are
+      raw-space in every scheme; steering happens in raw activation space."""
     from sklearn.linear_model import Ridge
 
     d = torch.load(f"{PDA_DIR}/{args.model}_pda.pt", map_location="cpu",
@@ -115,12 +119,22 @@ def phase_fit(args):
     tr = np.array([i for i in range(len(adjs)) if i not in set(te)])
 
     Rmu, Emu = R[tr].mean(0), E[tr].mean(0)
+    hid = R.shape[1]
     if args.denoise == "zscore":
         sR = R[tr].std(0) + 1e-8
         sE = E[tr].std(0) + 1e-8
+    elif args.denoise == "massive-norm":
+        sR, sE = np.ones(hid), np.ones(hid)
+        keep = np.setdiff1d(np.arange(hid), massive)
+        for X, sv in ((R[tr], sR), (E[tr], sE)):
+            std = X.std(0)
+            cap = std[keep].max()
+            for m_ in massive:
+                if std[m_] > cap:
+                    sv[m_] = std[m_] / cap
     else:
-        sR = np.ones(R.shape[1])
-        sE = np.ones(E.shape[1])
+        sR = np.ones(hid)
+        sE = np.ones(hid)
     _, _, Vt = np.linalg.svd((R[tr] - Rmu) / sR, full_matrices=False)
     feats = lambda X: ((X - Rmu) / sR) @ Vt[:RIDGE_K].T
     ridge = Ridge(alpha=RIDGE_ALPHA).fit(feats(R[tr]), (E[tr] - Emu) / sE)
@@ -372,10 +386,11 @@ def main():
                          "families — Gemma's residual norm is inflated ~25x "
                          "by the dim-443 plateau; anchor on ~2-5x the natural "
                          "dir_norm/residual ratio instead")
-    ap.add_argument("--denoise", default="zscore",
-                    choices=["ablate", "zscore"],
-                    help="fit-phase massive-dim handling (zscore keeps their "
-                         "content; mandatory for Gemma)")
+    ap.add_argument("--denoise", default="massive-norm",
+                    choices=["ablate", "zscore", "massive-norm"],
+                    help="fit-phase massive-dim handling (massive-norm "
+                         "winsorizes only the massive dims; never ablate "
+                         "on Gemma)")
     ap.add_argument("--frac", type=float, default=0.20,
                     help="steering norm as fraction of mean residual norm")
     ap.add_argument("--rollouts", type=int, default=2,
