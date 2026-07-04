@@ -449,6 +449,33 @@ decompositions; matched-filter axes are built from the same E data they
 describe (descriptive, not held-out); and images inherit the map's ridge
 shrinkage (§10: the register axis is smoothed).
 
+**§12.5 — Validity: does the *map* help, or did we just look harder?**
+(rgb's challenge.) Three tests, massive-norm space, top-12 PCs × 3 models:
+
+1. *Pole coherence* (mean pairwise human-similarity among a pole's top-10
+   adjectives; random-set baseline 0.05): input-side poles average
+   0.13–0.17 with several PCs at baseline mush; image-side poles average
+   0.22–0.27. **But** random spectrum-weighted directions in E-space score
+   0.28–0.30 — the coherence is *donated by ENACT's manifold*, not produced
+   by W. Coherent-looking output is not evidence of a faithful reading.
+2. *R-direct control*: behavioral matched filters (verbosity/format/valence)
+   applied to the R-PCs directly are ~zero beyond the valence core (±0.1)
+   where the images score ±0.4–0.9. Looking harder at REPRESENT alone does
+   not work — the behavioral correlates only become visible after mapping.
+3. *Identity preservation*: image adjective-rankings correlate with input
+   rankings at spearman 0.40–0.64 (llama 0.64, gemma 0.58, qwen 0.40) — W is
+   not a pass-through, but not amnesia either.
+
+Verdict: the fingerprint method works because **E contributes coherence and W
+contributes identity** — random E-directions have coherence without content,
+raw R-PCs have content without coherence, and the map is the bridge. The
+interpretive risk is that *anything* pushed through W lands somewhere
+nameable, so each §12 reading should be trusted in proportion to its
+sp(in,out): llama PC2 humor (0.73) is solid; gemma PC6 affect-presence (0.43)
+is moderate but cross-validated by its independently-readable input pole;
+qwen PC2/PC11 (~0.20) are weak — those images describe E's manifold more than
+the R-PC.
+
 ## Repro
 
 ```
