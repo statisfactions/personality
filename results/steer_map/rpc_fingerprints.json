@@ -1,0 +1,1565 @@
+{
+ "llama3.2": {
+  "scheme": "massive-norm",
+  "pcs": [
+   {
+    "pc": 0,
+    "gain": 0.24136622815731598,
+    "var_share": 0.08526875922877829,
+    "sp_in_out": 0.4896997482313533,
+    "profile": {
+     "valence": 0.7554203962438737,
+     "E-PC1": 0.7850477282557726,
+     "E-PC2": -0.007098487064044191,
+     "E-PC3": 0.33733083726459145,
+     "assist": 0.49300541557946237,
+     "verbose": 0.7515281767299735,
+     "format*": -0.6790194180994261
+    },
+    "in_neg": [
+     "disgusting",
+     "awful",
+     "terrible",
+     "overrated",
+     "retarded"
+    ],
+    "in_pos": [
+     "friendly",
+     "responsible",
+     "optimistic",
+     "compassionate",
+     "caring"
+    ],
+    "out_neg": [
+     "good-for-nothing",
+     "humiliated",
+     "unstable",
+     "unattractive",
+     "pathetic"
+    ],
+    "out_pos": [
+     "sincere",
+     "good",
+     "caring",
+     "supportive",
+     "constructive"
+    ]
+   },
+   {
+    "pc": 1,
+    "gain": 0.5746347732624683,
+    "var_share": 0.07045907293000747,
+    "sp_in_out": 0.8805006550480979,
+    "profile": {
+     "valence": -0.8932269741807819,
+     "E-PC1": -0.9788416057915112,
+     "E-PC2": 0.13898156462229405,
+     "E-PC3": 0.062084427115469944,
+     "assist": -0.48860402055077023,
+     "verbose": -0.8789397425174259,
+     "format*": 0.6391419511513231
+    },
+    "in_neg": [
+     "lovely",
+     "beautiful",
+     "wonderful",
+     "great",
+     "gorgeous"
+    ],
+    "in_pos": [
+     "cranky",
+     "frustrated",
+     "irritated",
+     "jealous",
+     "angry"
+    ],
+    "out_neg": [
+     "terrific",
+     "excellent",
+     "pleasing",
+     "valuable",
+     "admirable"
+    ],
+    "out_pos": [
+     "inconsiderate",
+     "frustrating",
+     "crabby",
+     "moody",
+     "terrible"
+    ]
+   },
+   {
+    "pc": 2,
+    "gain": 0.38040789330369484,
+    "var_share": 0.04155408209956708,
+    "sp_in_out": 0.7265819675802779,
+    "profile": {
+     "valence": 0.31922156419344994,
+     "E-PC1": 0.011497468285807739,
+     "E-PC2": -0.6169644177910761,
+     "E-PC3": 0.6570123345954898,
+     "assist": 0.23840261294676085,
+     "verbose": -0.023326521057869583,
+     "format*": 0.3448126161964329
+    },
+    "in_neg": [
+     "hilarious",
+     "funny",
+     "amusing",
+     "humorous",
+     "annoying"
+    ],
+    "in_pos": [
+     "thinking",
+     "blind",
+     "tired",
+     "concerned",
+     "employed"
+    ],
+    "out_neg": [
+     "amusing",
+     "hilarious",
+     "entertaining",
+     "comical",
+     "bold"
+    ],
+    "out_pos": [
+     "shy",
+     "soft-spoken",
+     "employed",
+     "ordinary",
+     "normal"
+    ]
+   },
+   {
+    "pc": 3,
+    "gain": 0.33240078225012076,
+    "var_share": 0.03606869842406769,
+    "sp_in_out": 0.7758369877283126,
+    "profile": {
+     "valence": -0.2774638266347667,
+     "E-PC1": -0.11630267076986277,
+     "E-PC2": 0.21593977730649816,
+     "E-PC3": -0.025790738528880957,
+     "assist": 0.02650121158834775,
+     "verbose": -0.03302157973882902,
+     "format*": 0.0625875933482802
+    },
+    "in_neg": [
+     "upset",
+     "annoyed",
+     "disappointed",
+     "frustrated",
+     "thankful"
+    ],
+    "in_pos": [
+     "slender",
+     "intellectual",
+     "skinny",
+     "slim",
+     "systematic"
+    ],
+    "out_neg": [
+     "warm-hearted",
+     "glad",
+     "sweet",
+     "happy",
+     "affectionate"
+    ],
+    "out_pos": [
+     "unusual",
+     "dominant",
+     "artificial",
+     "efficient",
+     "self-sufficient"
+    ]
+   },
+   {
+    "pc": 4,
+    "gain": 0.4248040594416693,
+    "var_share": 0.031172829799662058,
+    "sp_in_out": 0.7359421343143032,
+    "profile": {
+     "valence": 0.049648578771431,
+     "E-PC1": 0.29681876079282243,
+     "E-PC2": 0.625891791206417,
+     "E-PC3": 0.558688363100085,
+     "assist": 0.30854040411907036,
+     "verbose": 0.5461968761417882,
+     "format*": -0.641208795667933
+    },
+    "in_neg": [
+     "young",
+     "humorous",
+     "sleepy",
+     "laughing",
+     "youthful"
+    ],
+    "in_pos": [
+     "dependable",
+     "reliable",
+     "unreasonable",
+     "respected",
+     "trustworthy"
+    ],
+    "out_neg": [
+     "adorable",
+     "cute",
+     "chubby",
+     "childish",
+     "laughing"
+    ],
+    "out_pos": [
+     "controlling",
+     "certain",
+     "serious",
+     "strict",
+     "firm"
+    ]
+   },
+   {
+    "pc": 5,
+    "gain": 0.3749577365123683,
+    "var_share": 0.028781006100896952,
+    "sp_in_out": 0.6955654527180092,
+    "profile": {
+     "valence": 0.05741990799025826,
+     "E-PC1": 0.27668466498837435,
+     "E-PC2": 0.6049881441930679,
+     "E-PC3": -0.32309239344007257,
+     "assist": 0.0712889607991819,
+     "verbose": 0.3602718809879089,
+     "format*": -0.4442641735279062
+    },
+    "in_neg": [
+     "kind",
+     "gentle",
+     "nice",
+     "kind-hearted",
+     "sweet"
+    ],
+    "in_pos": [
+     "eager",
+     "surprised",
+     "determined",
+     "frustrated",
+     "excited"
+    ],
+    "out_neg": [
+     "innocent",
+     "harmless",
+     "ordinary",
+     "naive",
+     "average"
+    ],
+    "out_pos": [
+     "bold",
+     "brilliant",
+     "impressive",
+     "determined",
+     "ambitious"
+    ]
+   },
+   {
+    "pc": 6,
+    "gain": 0.33021533901298017,
+    "var_share": 0.02529252936194783,
+    "sp_in_out": 0.48817272869265016,
+    "profile": {
+     "valence": 0.4248535748545915,
+     "E-PC1": 0.3058260099014698,
+     "E-PC2": -0.569345012263,
+     "E-PC3": -0.1340749267079904,
+     "assist": 0.2229592293083134,
+     "verbose": 0.217014189102697,
+     "format*": 0.27759773065728566
+    },
+    "in_neg": [
+     "good-humored",
+     "short-tempered",
+     "hot-tempered",
+     "prompt",
+     "well-known"
+    ],
+    "in_pos": [
+     "insecure",
+     "smart",
+     "stupid",
+     "intelligent",
+     "incompetent"
+    ],
+    "out_neg": [
+     "outspoken",
+     "impolite",
+     "rude",
+     "disrespectful",
+     "opinionated"
+    ],
+    "out_pos": [
+     "conscientious",
+     "strange",
+     "soft-spoken",
+     "peaceful",
+     "graceful"
+    ]
+   },
+   {
+    "pc": 7,
+    "gain": 0.398242654275272,
+    "var_share": 0.023129710227232193,
+    "sp_in_out": 0.6216136345296328,
+    "profile": {
+     "valence": -0.12401800178007671,
+     "E-PC1": 0.1092925618765631,
+     "E-PC2": 0.7211800301924364,
+     "E-PC3": 0.24094722321510348,
+     "assist": 0.05112374803784636,
+     "verbose": 0.28246479320985896,
+     "format*": -0.4993948001063453
+    },
+    "in_neg": [
+     "unpredictable",
+     "unusual",
+     "unique",
+     "imaginative",
+     "confusing"
+    ],
+    "in_pos": [
+     "tough",
+     "harsh",
+     "fat",
+     "muscular",
+     "wealthy"
+    ],
+    "out_neg": [
+     "confused",
+     "incompetent",
+     "confusing",
+     "foolish",
+     "inexperienced"
+    ],
+    "out_pos": [
+     "intimidating",
+     "tough",
+     "hard",
+     "harsh",
+     "dominant"
+    ]
+   },
+   {
+    "pc": 8,
+    "gain": 0.34767308532175295,
+    "var_share": 0.02117599045639851,
+    "sp_in_out": 0.5807946339909315,
+    "profile": {
+     "valence": 0.19457491080897116,
+     "E-PC1": 0.0229889219737884,
+     "E-PC2": -0.16235450924898334,
+     "E-PC3": 0.6927208198528266,
+     "assist": 0.34319453442743153,
+     "verbose": 0.06798752946212985,
+     "format*": 0.08775639746540007
+    },
+    "in_neg": [
+     "materialistic",
+     "egotistical",
+     "possessive",
+     "wasteful",
+     "unfaithful"
+    ],
+    "in_pos": [
+     "quiet",
+     "normal",
+     "serious",
+     "average",
+     "calm"
+    ],
+    "out_neg": [
+     "popular",
+     "unforgettable",
+     "egotistical",
+     "cocky",
+     "famous"
+    ],
+    "out_pos": [
+     "level-headed",
+     "straightforward",
+     "sensible",
+     "practical",
+     "realistic"
+    ]
+   },
+   {
+    "pc": 9,
+    "gain": 0.3298084156763666,
+    "var_share": 0.01862538349143029,
+    "sp_in_out": 0.6649748994695359,
+    "profile": {
+     "valence": -0.18914728218337368,
+     "E-PC1": -0.04239718524069941,
+     "E-PC2": 0.2335635159132804,
+     "E-PC3": 0.22053927827016068,
+     "assist": 0.27607758319393927,
+     "verbose": 0.07761471051185728,
+     "format*": -0.18670381096928143
+    },
+    "in_neg": [
+     "lonely",
+     "tall",
+     "sensitive",
+     "loud",
+     "shy"
+    ],
+    "in_pos": [
+     "ignorant",
+     "educated",
+     "clever",
+     "stupid",
+     "smart"
+    ],
+    "out_neg": [
+     "emotional",
+     "sensitive",
+     "beautiful",
+     "sentimental",
+     "pretty"
+    ],
+    "out_pos": [
+     "realistic",
+     "rational",
+     "logical",
+     "unsympathetic",
+     "sarcastic"
+    ]
+   },
+   {
+    "pc": 10,
+    "gain": 0.4466203781075244,
+    "var_share": 0.017934332581443186,
+    "sp_in_out": 0.4748316914769594,
+    "profile": {
+     "valence": 0.1437876855920726,
+     "E-PC1": 0.4087325941643518,
+     "E-PC2": 0.6980036890614706,
+     "E-PC3": 0.027111204282222988,
+     "assist": 0.07405685028639931,
+     "verbose": 0.5925278476463286,
+     "format*": -0.7109352106633848
+    },
+    "in_neg": [
+     "sloppy",
+     "messy",
+     "careless",
+     "clumsy",
+     "inefficient"
+    ],
+    "in_pos": [
+     "masculine",
+     "intellectual",
+     "philosophical",
+     "liberal",
+     "religious"
+    ],
+    "out_neg": [
+     "sloppy",
+     "inefficient",
+     "procrastinating",
+     "disorganized",
+     "incompetent"
+    ],
+    "out_pos": [
+     "wise",
+     "philosophical",
+     "intellectual",
+     "sophisticated",
+     "deep"
+    ]
+   },
+   {
+    "pc": 11,
+    "gain": 0.4238443852992778,
+    "var_share": 0.01519564623023194,
+    "sp_in_out": 0.5956331636700879,
+    "profile": {
+     "valence": -0.24706817814183044,
+     "E-PC1": -0.25308120558249986,
+     "E-PC2": -0.041387990529499145,
+     "E-PC3": 0.15757725866583322,
+     "assist": -0.09951118752733494,
+     "verbose": -0.3053858959868023,
+     "format*": -0.01659117352296513
+    },
+    "in_neg": [
+     "deep",
+     "frightening",
+     "thoughtful",
+     "suspicious",
+     "distinguished"
+    ],
+    "in_pos": [
+     "optimistic",
+     "healthy",
+     "unemployed",
+     "positive",
+     "irresponsible"
+    ],
+    "out_neg": [
+     "deep",
+     "intellectual",
+     "complex",
+     "sophisticated",
+     "distinguished"
+    ],
+    "out_pos": [
+     "informal",
+     "carefree",
+     "irresponsible",
+     "casual",
+     "reckless"
+    ]
+   }
+  ]
+ },
+ "qwen2.5": {
+  "scheme": "massive-norm",
+  "pcs": [
+   {
+    "pc": 0,
+    "gain": 0.21616969044509282,
+    "var_share": 0.08524660201588102,
+    "sp_in_out": 0.37688165900556503,
+    "profile": {
+     "valence": -0.9622739345554647,
+     "E-PC1": -0.9412256788388139,
+     "E-PC2": 0.23623182326664957,
+     "E-PC3": -0.15027004617365733,
+     "assist": -0.7978134506992398,
+     "verbose": -0.9412586260998571,
+     "format*": -0.9528629126703619
+    },
+    "in_neg": [
+     "amazing",
+     "awesome",
+     "terrific",
+     "wonderful",
+     "great"
+    ],
+    "in_pos": [
+     "good-natured",
+     "unsympathetic",
+     "wishy-washy",
+     "hot-tempered",
+     "short-tempered"
+    ],
+    "out_neg": [
+     "admirable",
+     "excellent",
+     "outstanding",
+     "accomplished",
+     "bright"
+    ],
+    "out_pos": [
+     "lazy",
+     "inconsiderate",
+     "good-for-nothing",
+     "irresponsible",
+     "ungraceful"
+    ]
+   },
+   {
+    "pc": 1,
+    "gain": 0.5774578267619916,
+    "var_share": 0.06417478053584234,
+    "sp_in_out": 0.7909240649186302,
+    "profile": {
+     "valence": -0.9686483562651069,
+     "E-PC1": -0.9699657093013434,
+     "E-PC2": 0.2330886425469548,
+     "E-PC3": 0.025733646496591933,
+     "assist": -0.8035391322507113,
+     "verbose": -0.9495161503371894,
+     "format*": -0.9818082281766513
+    },
+    "in_neg": [
+     "well-liked",
+     "good-natured",
+     "well-to-do",
+     "well-adjusted",
+     "well-known"
+    ],
+    "in_pos": [
+     "embarrassing",
+     "annoying",
+     "insane",
+     "disgusting",
+     "retarded"
+    ],
+    "out_neg": [
+     "admirable",
+     "constructive",
+     "skillful",
+     "excellent",
+     "well"
+    ],
+    "out_pos": [
+     "difficult",
+     "terrible",
+     "hot-tempered",
+     "bitter",
+     "pathetic"
+    ]
+   },
+   {
+    "pc": 2,
+    "gain": 0.10339670324553425,
+    "var_share": 0.05228810483854421,
+    "sp_in_out": 0.20758733429396986,
+    "profile": {
+     "valence": 0.5840033372050223,
+     "E-PC1": 0.44405884065764056,
+     "E-PC2": -0.7380932936535858,
+     "E-PC3": 0.17154362522056527,
+     "assist": 0.32872634739318757,
+     "verbose": 0.4165405090328922,
+     "format*": 0.4878830404785863
+    },
+    "in_neg": [
+     "unenvious",
+     "good-for-nothing",
+     "well-liked",
+     "unsympathetic",
+     "well-known"
+    ],
+    "in_pos": [
+     "daring",
+     "humorous",
+     "adventurous",
+     "outgoing",
+     "playful"
+    ],
+    "out_neg": [
+     "ashamed",
+     "humiliated",
+     "unpopular",
+     "jealous",
+     "weak"
+    ],
+    "out_pos": [
+     "encouraged",
+     "forward",
+     "wonderful",
+     "appealing",
+     "awesome"
+    ]
+   },
+   {
+    "pc": 3,
+    "gain": 0.38394124934264884,
+    "var_share": 0.03484383363905554,
+    "sp_in_out": 0.45427564631999534,
+    "profile": {
+     "valence": -0.7177656966473203,
+     "E-PC1": -0.8560573845340901,
+     "E-PC2": -0.4430273196171522,
+     "E-PC3": 0.1366884343793267,
+     "assist": -0.6838574509683706,
+     "verbose": -0.8624817125768878,
+     "format*": -0.8288607942434363
+    },
+    "in_neg": [
+     "dependent",
+     "concerned",
+     "responsible",
+     "employed",
+     "determined"
+    ],
+    "in_pos": [
+     "lovely",
+     "good-for-nothing",
+     "good-looking",
+     "good-humored",
+     "good-natured"
+    ],
+    "out_neg": [
+     "responsible",
+     "rational",
+     "concerned",
+     "independent",
+     "firm"
+    ],
+    "out_pos": [
+     "annoying",
+     "good-humored",
+     "irritating",
+     "carefree",
+     "obnoxious"
+    ]
+   },
+   {
+    "pc": 4,
+    "gain": 0.17452373364223542,
+    "var_share": 0.030042176561470638,
+    "sp_in_out": 0.3661434502488075,
+    "profile": {
+     "valence": 0.4955568004263042,
+     "E-PC1": 0.4127440463057619,
+     "E-PC2": 0.028369223251031403,
+     "E-PC3": -0.37673928349363195,
+     "assist": 0.3284269125459732,
+     "verbose": 0.40701439898354325,
+     "format*": 0.4106209860448669
+    },
+    "in_neg": [
+     "unpredictable",
+     "controversial",
+     "unreliable",
+     "unusual",
+     "irrational"
+    ],
+    "in_pos": [
+     "tall",
+     "glad",
+     "fat",
+     "skinny",
+     "little"
+    ],
+    "out_neg": [
+     "controversial",
+     "unpredictable",
+     "insane",
+     "crazy",
+     "unreasonable"
+    ],
+    "out_pos": [
+     "sensitive",
+     "compassionate",
+     "worried",
+     "sympathetic",
+     "slim"
+    ]
+   },
+   {
+    "pc": 5,
+    "gain": 0.2244229164847282,
+    "var_share": 0.027310320397327066,
+    "sp_in_out": 0.40120047692937205,
+    "profile": {
+     "valence": -0.4065239811536001,
+     "E-PC1": -0.5309040578116222,
+     "E-PC2": -0.19821362479140867,
+     "E-PC3": -0.11305244083519297,
+     "assist": -0.4798499696908277,
+     "verbose": -0.5388438822822532,
+     "format*": -0.5309315100541867
+    },
+    "in_neg": [
+     "middle-aged",
+     "middle-class",
+     "old-fashioned",
+     "artificial",
+     "average"
+    ],
+    "in_pos": [
+     "glad",
+     "thankful",
+     "delighted",
+     "pleased",
+     "appreciative"
+    ],
+    "out_neg": [
+     "artificial",
+     "systematic",
+     "logical",
+     "strict",
+     "self-sufficient"
+    ],
+    "out_pos": [
+     "good-humored",
+     "adorable",
+     "cheerful",
+     "joyful",
+     "happy"
+    ]
+   },
+   {
+    "pc": 6,
+    "gain": 0.1501923087716381,
+    "var_share": 0.022808342855720306,
+    "sp_in_out": 0.40860187453308217,
+    "profile": {
+     "valence": -0.16199474206875758,
+     "E-PC1": -0.23987252041953816,
+     "E-PC2": -0.10645542670726578,
+     "E-PC3": -0.620501404994501,
+     "assist": -0.18571828192476814,
+     "verbose": -0.2837314061560587,
+     "format*": -0.20318842833507333
+    },
+    "in_neg": [
+     "gifted",
+     "materialistic",
+     "talented",
+     "skillful",
+     "skilled"
+    ],
+    "in_pos": [
+     "tense",
+     "unsure",
+     "calm",
+     "unstable",
+     "stable"
+    ],
+    "out_neg": [
+     "rich",
+     "powerful",
+     "wealthy",
+     "gifted",
+     "extraordinary"
+    ],
+    "out_pos": [
+     "inexperienced",
+     "unsure",
+     "nervous",
+     "easygoing",
+     "down-to-earth"
+    ]
+   },
+   {
+    "pc": 7,
+    "gain": 0.30124048705488243,
+    "var_share": 0.02010590032997975,
+    "sp_in_out": 0.4753752580892862,
+    "profile": {
+     "valence": 0.2430414899111688,
+     "E-PC1": 0.4408685690912637,
+     "E-PC2": 0.4451256715561178,
+     "E-PC3": -0.5419829914543413,
+     "assist": 0.34350763306923376,
+     "verbose": 0.38926689837187234,
+     "format*": 0.40782274171839117
+    },
+    "in_neg": [
+     "extraverted",
+     "excited",
+     "exciting",
+     "energetic",
+     "hot-tempered"
+    ],
+    "in_pos": [
+     "courteous",
+     "ethical",
+     "dishonest",
+     "fair",
+     "harmless"
+    ],
+    "out_neg": [
+     "exciting",
+     "entertaining",
+     "colorful",
+     "expressive",
+     "amusing"
+    ],
+    "out_pos": [
+     "unenvious",
+     "truthful",
+     "honest",
+     "quiet",
+     "private"
+    ]
+   },
+   {
+    "pc": 8,
+    "gain": 0.24028906071194986,
+    "var_share": 0.017927236554766583,
+    "sp_in_out": 0.5354565649173719,
+    "profile": {
+     "valence": -0.048357104519928175,
+     "E-PC1": -0.2015060953862425,
+     "E-PC2": -0.10185369455038733,
+     "E-PC3": -0.011867047249907342,
+     "assist": -0.16030134494837167,
+     "verbose": -0.16339088778255262,
+     "format*": -0.20439824173247007
+    },
+    "in_neg": [
+     "cranky",
+     "bossy",
+     "aggravating",
+     "tough",
+     "assertive"
+    ],
+    "in_pos": [
+     "lonely",
+     "uneducated",
+     "unfaithful",
+     "homeless",
+     "unattractive"
+    ],
+    "out_neg": [
+     "demanding",
+     "tough",
+     "hard",
+     "strict",
+     "harsh"
+    ],
+    "out_pos": [
+     "affectionate",
+     "emotional",
+     "sad",
+     "lonesome",
+     "lonely"
+    ]
+   },
+   {
+    "pc": 9,
+    "gain": 0.3502900921266069,
+    "var_share": 0.01596232884357279,
+    "sp_in_out": 0.27910442703129923,
+    "profile": {
+     "valence": -0.6242878810821915,
+     "E-PC1": -0.7653044028627008,
+     "E-PC2": -0.5197428410770305,
+     "E-PC3": -0.11900448620727824,
+     "assist": -0.5363866176619156,
+     "verbose": -0.7976853327908647,
+     "format*": -0.7071252009020238
+    },
+    "in_neg": [
+     "well-adjusted",
+     "healthy",
+     "well-liked",
+     "well-to-do",
+     "depressed"
+    ],
+    "in_pos": [
+     "tiny",
+     "comical",
+     "unintellectual",
+     "little",
+     "prompt"
+    ],
+    "out_neg": [
+     "devoted",
+     "sensitive",
+     "dedicated",
+     "loyal",
+     "secure"
+    ],
+    "out_pos": [
+     "annoying",
+     "irritating",
+     "childish",
+     "humorous",
+     "amusing"
+    ]
+   },
+   {
+    "pc": 10,
+    "gain": 0.19306702247819119,
+    "var_share": 0.01572141318861881,
+    "sp_in_out": 0.34824618400300233,
+    "profile": {
+     "valence": -0.1565325454801004,
+     "E-PC1": -0.297686627403115,
+     "E-PC2": -0.5580875890144894,
+     "E-PC3": -0.4837015287856853,
+     "assist": -0.008419068079232143,
+     "verbose": -0.36222285851343333,
+     "format*": -0.22021363557653012
+    },
+    "in_neg": [
+     "distinguished",
+     "slender",
+     "bold",
+     "ungraceful",
+     "daring"
+    ],
+    "in_pos": [
+     "sociable",
+     "businesslike",
+     "middle-aged",
+     "middle-class",
+     "social"
+    ],
+    "out_neg": [
+     "powerful",
+     "cold",
+     "deep",
+     "controlling",
+     "hard"
+    ],
+    "out_pos": [
+     "talkative",
+     "youthful",
+     "informal",
+     "down-to-earth",
+     "young"
+    ]
+   },
+   {
+    "pc": 11,
+    "gain": 0.20034941798120023,
+    "var_share": 0.014851534044361585,
+    "sp_in_out": 0.20079166115131097,
+    "profile": {
+     "valence": -0.4358901378487221,
+     "E-PC1": -0.5634668357918385,
+     "E-PC2": -0.33954386963163224,
+     "E-PC3": -0.2891440447932043,
+     "assist": -0.3396751661896022,
+     "verbose": -0.5867940952098482,
+     "format*": -0.4997951133500847
+    },
+    "in_neg": [
+     "prejudiced",
+     "involved",
+     "feminine",
+     "concerned",
+     "prominent"
+    ],
+    "in_pos": [
+     "self-assured",
+     "self-sufficient",
+     "self-confident",
+     "crazy",
+     "good-for-nothing"
+    ],
+    "out_neg": [
+     "religious",
+     "faithful",
+     "sensitive",
+     "traditional",
+     "graceful"
+    ],
+    "out_pos": [
+     "inefficient",
+     "impulsive",
+     "sloppy",
+     "rushed",
+     "disorganized"
+    ]
+   }
+  ]
+ },
+ "gemma3": {
+  "scheme": "massive-norm",
+  "pcs": [
+   {
+    "pc": 0,
+    "gain": 0.4946678675708807,
+    "var_share": 0.11468065729455279,
+    "sp_in_out": 0.769790312468596,
+    "profile": {
+     "valence": -0.8775241801811277,
+     "E-PC1": -0.7443559620901059,
+     "E-PC2": -0.5148568526821862,
+     "E-PC3": -0.36135728905041914,
+     "assist": -0.47153910589598513,
+     "verbose": -0.6171804520034662,
+     "format*": 0.513740326891947
+    },
+    "in_neg": [
+     "enthusiastic",
+     "friendly",
+     "sociable",
+     "adventurous",
+     "cheerful"
+    ],
+    "in_pos": [
+     "terrible",
+     "pathetic",
+     "awful",
+     "unattractive",
+     "disgusting"
+    ],
+    "out_neg": [
+     "helpful",
+     "constructive",
+     "courteous",
+     "gracious",
+     "respectful"
+    ],
+    "out_pos": [
+     "disgusting",
+     "moody",
+     "humiliated",
+     "unpopular",
+     "unhappy"
+    ]
+   },
+   {
+    "pc": 1,
+    "gain": 0.4643340130778116,
+    "var_share": 0.09313456023223213,
+    "sp_in_out": 0.6799109020504708,
+    "profile": {
+     "valence": -0.6787718212739329,
+     "E-PC1": -0.4798463494924795,
+     "E-PC2": -0.7853030677715525,
+     "E-PC3": 0.12414932517297525,
+     "assist": -0.2122507157899483,
+     "verbose": -0.6918901519668731,
+     "format*": 0.7801028217206458
+    },
+    "in_neg": [
+     "well",
+     "lovely",
+     "gorgeous",
+     "beautiful",
+     "outstanding"
+    ],
+    "in_pos": [
+     "angry",
+     "anxious",
+     "defensive",
+     "argumentative",
+     "impatient"
+    ],
+    "out_neg": [
+     "well",
+     "admirable",
+     "great",
+     "amazing",
+     "graceful"
+    ],
+    "out_pos": [
+     "grouchy",
+     "short-tempered",
+     "cranky",
+     "crabby",
+     "irritable"
+    ]
+   },
+   {
+    "pc": 2,
+    "gain": 0.3780123363099845,
+    "var_share": 0.05029512278977711,
+    "sp_in_out": 0.5786411707082689,
+    "profile": {
+     "valence": -0.2562350438894777,
+     "E-PC1": -0.143010512632972,
+     "E-PC2": -0.010772487330592821,
+     "E-PC3": 0.6920110991436467,
+     "assist": -0.04091089185751757,
+     "verbose": 0.20092260255935926,
+     "format*": 0.4016848734110232
+    },
+    "in_neg": [
+     "dependent",
+     "concerned",
+     "thinking",
+     "employed",
+     "dedicated"
+    ],
+    "in_pos": [
+     "great",
+     "obnoxious",
+     "hilarious",
+     "amazing",
+     "awesome"
+    ],
+    "out_neg": [
+     "anxious",
+     "worried",
+     "unsure",
+     "nervous",
+     "weak"
+    ],
+    "out_pos": [
+     "awesome",
+     "self-confident",
+     "bold",
+     "witty",
+     "cocky"
+    ]
+   },
+   {
+    "pc": 3,
+    "gain": 0.4967726789021284,
+    "var_share": 0.03563907073983969,
+    "sp_in_out": 0.6305435615793026,
+    "profile": {
+     "valence": 0.31673622397531886,
+     "E-PC1": 0.3656375720101426,
+     "E-PC2": -0.11166616095121087,
+     "E-PC3": 0.5591539624018322,
+     "assist": 0.0960016822311627,
+     "verbose": 0.05818977827768968,
+     "format*": 0.15469659584415937
+    },
+    "in_neg": [
+     "young",
+     "old",
+     "elderly",
+     "ordinary",
+     "skinny"
+    ],
+    "in_pos": [
+     "irritated",
+     "jealous",
+     "appreciative",
+     "thankful",
+     "grateful"
+    ],
+    "out_neg": [
+     "unusual",
+     "abnormal",
+     "unique",
+     "original",
+     "strange"
+    ],
+    "out_pos": [
+     "caring",
+     "appreciative",
+     "supportive",
+     "encouraged",
+     "encouraging"
+    ]
+   },
+   {
+    "pc": 4,
+    "gain": 0.6108359474192568,
+    "var_share": 0.02966843803544373,
+    "sp_in_out": 0.719009866572851,
+    "profile": {
+     "valence": 0.1602443490925661,
+     "E-PC1": 0.06982744473489072,
+     "E-PC2": 0.3878572461706077,
+     "E-PC3": 0.23140856563391388,
+     "assist": 0.3049927963869143,
+     "verbose": 0.4135736831899208,
+     "format*": -0.46143222781382487
+    },
+    "in_neg": [
+     "excited",
+     "exciting",
+     "bored",
+     "adventurous",
+     "worried"
+    ],
+    "in_pos": [
+     "fair",
+     "selfish",
+     "shallow",
+     "uneducated",
+     "ignorant"
+    ],
+    "out_neg": [
+     "expressive",
+     "passionate",
+     "exciting",
+     "ridiculous",
+     "crazy"
+    ],
+    "out_pos": [
+     "conservative",
+     "sensible",
+     "respectable",
+     "reliable",
+     "stable"
+    ]
+   },
+   {
+    "pc": 5,
+    "gain": 0.8780915824456641,
+    "var_share": 0.02872032788896659,
+    "sp_in_out": 0.7394464612890816,
+    "profile": {
+     "valence": 0.529156068447351,
+     "E-PC1": 0.7194107657704234,
+     "E-PC2": -0.19086344260235397,
+     "E-PC3": -0.5614676831315817,
+     "assist": 0.07767801489517316,
+     "verbose": -0.31520665812788407,
+     "format*": -0.5016334261466787
+    },
+    "in_neg": [
+     "muscular",
+     "radical",
+     "cocky",
+     "powerful",
+     "dominant"
+    ],
+    "in_pos": [
+     "shy",
+     "gentle",
+     "unsure",
+     "average",
+     "ordinary"
+    ],
+    "out_neg": [
+     "demanding",
+     "self-assured",
+     "arrogant",
+     "dominant",
+     "controversial"
+    ],
+    "out_pos": [
+     "soft-spoken",
+     "gentle",
+     "unsure",
+     "innocent",
+     "harmless"
+    ]
+   },
+   {
+    "pc": 6,
+    "gain": 0.5521240415409062,
+    "var_share": 0.0261858483307656,
+    "sp_in_out": 0.43185578842240024,
+    "profile": {
+     "valence": 0.333115458259074,
+     "E-PC1": 0.6696939999432956,
+     "E-PC2": -0.4780671061328917,
+     "E-PC3": -0.2774649913555809,
+     "assist": -0.13252876318753207,
+     "verbose": -0.514941584477886,
+     "format*": -0.09047721268478454
+    },
+    "in_neg": [
+     "complex",
+     "consistent",
+     "unique",
+     "determined",
+     "confusing"
+    ],
+    "in_pos": [
+     "depressed",
+     "fat",
+     "chubby",
+     "happy",
+     "sad"
+    ],
+    "out_neg": [
+     "capable",
+     "dominant",
+     "self-sufficient",
+     "intimidating",
+     "serious"
+    ],
+    "out_pos": [
+     "lovable",
+     "affectionate",
+     "sweet",
+     "adorable",
+     "cute"
+    ]
+   },
+   {
+    "pc": 7,
+    "gain": 0.7709337060843567,
+    "var_share": 0.022419007842988826,
+    "sp_in_out": 0.5538909387277957,
+    "profile": {
+     "valence": -0.01494190908807587,
+     "E-PC1": -0.4570866064471629,
+     "E-PC2": 0.7599076219366316,
+     "E-PC3": -0.31248554309884713,
+     "assist": 0.17949961688326774,
+     "verbose": 0.6418363445289195,
+     "format*": -0.4279511054874011
+    },
+    "in_neg": [
+     "good-humored",
+     "short-tempered",
+     "down-to-earth",
+     "good-natured",
+     "pretty"
+    ],
+    "in_pos": [
+     "smart",
+     "philosophical",
+     "intelligent",
+     "knowledgeable",
+     "intellectual"
+    ],
+    "out_neg": [
+     "loud",
+     "lively",
+     "outgoing",
+     "carefree",
+     "youthful"
+    ],
+    "out_pos": [
+     "brilliant",
+     "exceptional",
+     "deep",
+     "intelligent",
+     "skilled"
+    ]
+   },
+   {
+    "pc": 8,
+    "gain": 0.661641929349938,
+    "var_share": 0.02057078132152414,
+    "sp_in_out": 0.5341756602614722,
+    "profile": {
+     "valence": 0.09358697687838152,
+     "E-PC1": 0.41168701928269136,
+     "E-PC2": -0.38168059166863866,
+     "E-PC3": -0.3817780366624416,
+     "assist": -0.3143364973878778,
+     "verbose": -0.42709612438597616,
+     "format*": 0.09568069370507493
+    },
+    "in_neg": [
+     "serious",
+     "hard",
+     "tough",
+     "rough",
+     "upset"
+    ],
+    "in_pos": [
+     "wasteful",
+     "procrastinating",
+     "superstitious",
+     "clumsy",
+     "forgetful"
+    ],
+    "out_neg": [
+     "firm",
+     "serious",
+     "hard",
+     "tough",
+     "competent"
+    ],
+    "out_pos": [
+     "childish",
+     "cute",
+     "adorable",
+     "embarrassing",
+     "foolish"
+    ]
+   },
+   {
+    "pc": 9,
+    "gain": 0.5843127924008629,
+    "var_share": 0.018181769564837174,
+    "sp_in_out": 0.5154662316791628,
+    "profile": {
+     "valence": 0.38318074997594065,
+     "E-PC1": 0.3423621293832879,
+     "E-PC2": 0.2743286857945245,
+     "E-PC3": -0.2591774281694673,
+     "assist": -0.12143156403283514,
+     "verbose": 0.13948112008380786,
+     "format*": -0.4147152484133222
+    },
+    "in_neg": [
+     "efficient",
+     "busy",
+     "competent",
+     "organized",
+     "inefficient"
+    ],
+    "in_pos": [
+     "liberal",
+     "emotional",
+     "romantic",
+     "religious",
+     "feminine"
+    ],
+    "out_neg": [
+     "practical",
+     "uncreative",
+     "busy",
+     "efficient",
+     "straightforward"
+    ],
+    "out_pos": [
+     "loving",
+     "sentimental",
+     "giving",
+     "appealing",
+     "romantic"
+    ]
+   },
+   {
+    "pc": 10,
+    "gain": 0.4660687792551285,
+    "var_share": 0.017074612682918912,
+    "sp_in_out": 0.4870363557146885,
+    "profile": {
+     "valence": 0.07992850507073881,
+     "E-PC1": -0.07002119733720859,
+     "E-PC2": 0.2786466657186888,
+     "E-PC3": -0.33718207149312607,
+     "assist": -0.06699145108035962,
+     "verbose": 0.03761576054649632,
+     "format*": -0.30465765911668913
+    },
+    "in_neg": [
+     "sarcastic",
+     "humorous",
+     "witty",
+     "funny",
+     "superstitious"
+    ],
+    "in_pos": [
+     "confident",
+     "energetic",
+     "powerful",
+     "strong",
+     "weak"
+    ],
+    "out_neg": [
+     "humorous",
+     "comical",
+     "amusing",
+     "funny",
+     "witty"
+    ],
+    "out_pos": [
+     "handicapped",
+     "courageous",
+     "strong",
+     "brave",
+     "thin"
+    ]
+   },
+   {
+    "pc": 11,
+    "gain": 0.47564944556902805,
+    "var_share": 0.015554743576565784,
+    "sp_in_out": 0.3677659294796138,
+    "profile": {
+     "valence": 0.1454258180838512,
+     "E-PC1": 0.4682078958356636,
+     "E-PC2": -0.5058681353613095,
+     "E-PC3": 0.17304827983905613,
+     "assist": 0.09165566934626404,
+     "verbose": -0.4363686417912879,
+     "format*": 0.26136433334223175
+    },
+    "in_neg": [
+     "self-conscious",
+     "middle-aged",
+     "insecure",
+     "shy",
+     "well-to-do"
+    ],
+    "in_pos": [
+     "truthful",
+     "blind",
+     "unreliable",
+     "faithful",
+     "noisy"
+    ],
+    "out_neg": [
+     "distinguished",
+     "sophisticated",
+     "accomplished",
+     "impressive",
+     "important"
+    ],
+    "out_pos": [
+     "outgoing",
+     "playful",
+     "spontaneous",
+     "lively",
+     "energetic"
+    ]
+   }
+  ]
+ }
+}
