@@ -520,6 +520,35 @@ word's ENACT geometry on model B from its REPRESENT row using a map trained
 only on model A); (b) the 10-model version — shared fraction as a
 model-pair matrix, does family predict transfer?
 
+### §13.5 — HUMAN as a geometry in the same coordinates (rgb's suggestion)
+
+The 525-PDA human similarity matrix drops straight into the relative-
+coordinate framework. Three tests:
+
+1. **HUMAN as source.** Fitted CV, H-sim rows → each model's E-sim rows:
+   **0.81–0.83** for all three models — human self-report structure predicts a
+   model's *behavioral* geometry at ~92% of the ceiling set by the model's own
+   read geometry (0.88–0.92). Identity baselines confirm E is more
+   human-shaped than read-shaped out of the box (ident(H,E) 0.57–0.69 vs
+   ident(R,E) 0.45–0.62).
+2. **HUMAN as read-proxy.** The llama-trained R→E map applied to *human*
+   input rows beats the H-identity on every target (e.g., →E_llama 0.79 vs
+   0.69; →E_qwen 0.62 vs 0.57): the universal core of the map is partly
+   "translate personality structure — whoever's — onto the enaction
+   manifold."
+3. **HUMAN as target — the twist.** With fitted maps, **R→H (0.82–0.85)
+   slightly beats E→H (0.81–0.84) on every model**, despite E being far
+   closer to H raw. So the read geometry *contains more human-recoverable
+   structure than the behavioral geometry does* — it just stores it latently,
+   needing a readout; ENACT wears human shape on its sleeve but has lost
+   detail to the ~10-dim compression. E is the lossy, human-aligned readout
+   of R — now stated as a prediction inequality rather than an
+   interpretation.
+
+Antonym check: H→E maps preserve the human split (pred −0.96…−1.54 vs true
+−0.87…−1.23; H itself −1.78) — no re-signing needed from human input; the
+§11/§13 re-signing is specifically the read-side correction.
+
 ## Repro
 
 ```
