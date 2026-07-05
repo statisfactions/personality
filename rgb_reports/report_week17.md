@@ -476,6 +476,50 @@ is moderate but cross-validated by its independently-readable input pole;
 qwen PC2/PC11 (~0.20) are weak — those images describe E's manifold more than
 the R-PC.
 
+## §13 — The cross-model map: ~half the read→write transform is universal
+
+Different hidden spaces block direct W transfer, but **adjective-relative
+coordinates** don't: express each channel as its 523×523 similarity matrix
+(massive-norm space, column-standardized), and "predict adjective *a*'s ENACT
+similarity row from its REPRESENT similarity row" is a map in shared
+coordinates — trainable on one model, applicable to another. Score = mean
+per-adjective correlation between predicted and true E-sim rows. Baselines:
+identity (no map; E-geometry ≈ R-geometry for free) and within-model 5-fold CV
+(ceiling). Shared fraction = (cross − identity)/(ceiling − identity).
+
+| | identity | within-CV ceiling | pooled LOMO transfer | shared fraction |
+|---|---|---|---|---|
+| →llama3.2 | 0.616 | 0.923 | 0.770 | **+50%** |
+| →qwen2.5 | 0.445 | 0.878 | 0.678 | **+54%** |
+| →gemma3 | 0.551 | 0.881 | 0.716 | **+50%** |
+
+Pairwise transfer runs 14–54%: llama is the best teacher (54% to both), qwen
+the worst (14–20%) — qwen's own map is the most idiosyncratic, consistent with
+its collapsed/low-faithfulness profile everywhere else in this report, yet
+qwen as *student* receives the universal structure fine (54%).
+
+**The valence re-signing transfers essentially completely.** A llama-trained
+map applied to qwen's read geometry predicts the eval-antonym E-similarity at
+**−0.73 z (true −0.87)** from an input where those pairs sit at **+2.61 z
+(merged)**; on gemma, −1.11 predicted vs −1.23 true from +0.72. The
+amplify-and-rebase mechanism (§11) is not model-specific tuning — it is a
+universal component of the read→write transform, learnable from one family
+and executable on another.
+
+Reading: the read→write transform decomposes into a **universal core (~half
+of the learnable structure, including the antonym re-signing and presumably
+the evaluative-register bundle)** plus a model-specific remainder (basis
+quirks, bundling patterns — largest for qwen). Caveats: three models;
+relative-coordinate maps are geometry→geometry (they say nothing about
+activation bases); the identity baseline is strong so the shared-fraction
+denominator is conservative in spirit but the antonym case shows the map is
+doing real work far beyond identity (identity predicts +2.6, truth is −0.9).
+Next steps: (a) strict novel-adjective version — hold adjectives out of the
+*training model* too, giving a cross-model zero-rollout recipe (predict a new
+word's ENACT geometry on model B from its REPRESENT row using a map trained
+only on model A); (b) the 10-model version — shared fraction as a
+model-pair matrix, does family predict transfer?
+
 ## Repro
 
 ```
