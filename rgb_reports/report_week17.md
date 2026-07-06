@@ -549,6 +549,30 @@ Antonym check: H→E maps preserve the human split (pred −0.96…−1.54 vs tr
 −0.87…−1.23; H itself −1.78) — no re-signing needed from human input; the
 §11/§13 re-signing is specifically the read-side correction.
 
+## §14 — Raw-repr steerability is not prompt-dependent
+
+Is qwen's repr-steers / llama's repr-doesn't a property of the extraction
+prompt? We have four framings on disk (`pers` "My personality is {adj}",
+`self` "I am {adj}", `desc` "Someone who is {adj}", `bare` "{adj}").
+Offline geometry predicted invariance: ENACT-in-span moves <5 points across
+framings within a model (llama 33–38%, qwen 67–68%, gemma 46–51%) — the
+rotation is a model property, not a prompt property. Causal test
+(`steer_repr_framings.py`: 12 clean held-out adjectives × 4 framings, frac
+0.20, same judge protocol):
+
+| mean Δ target EV / fluency | pers | self | desc | bare |
+|---|---|---|---|---|
+| llama3.2 (base flu 5.76) | +0.10 / 5.2 | +0.10 / 5.2 | +0.12 / 5.3 | +0.07 / 5.2 |
+| qwen2.5 (base flu 6.05) | +1.07 / 5.6 | +0.99 / 5.5 | +0.92 / 5.4 | +0.74 / 5.8 |
+
+**Confirmed: framing-invariant.** No prompt rescues llama's read vectors
+(+0.07…+0.12, all inert), and every framing steers qwen — even the bare
+token's activation steers conduct at ~70% of the pers framing (+0.74, ~7×
+llama's best). The within-qwen ordering (pers ≈ self > desc > bare) tracks
+the framings' per-adjective alignment (bare has the weakest diag everywhere —
+a lone token carries less personality context). The read→write rotation is
+family wiring, not phrasing luck.
+
 ## Repro
 
 ```
