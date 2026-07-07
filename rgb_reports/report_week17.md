@@ -573,6 +573,50 @@ the framings' per-adjective alignment (bare has the weakest diag everywhere —
 a lone token carries less personality context). The read→write rotation is
 family wiring, not phrasing luck.
 
+## §15 — SELF: asking the models directly (the human-task mimicry)
+
+rgb's spec: mimic the human 525-PDA task — rate *yourself* on the adjectives,
+7-point distributional-Likert EV — across a range of framings, since
+self-reference is where models get weird and "most sensible reading" requires
+triangulation. `self_adjective_report.py`: 6 framings (`direct` "I am X" /
+`assistant` HHH-anchored "…who also happens to be a bit X" / `person` "If I
+were a person…" / `pda` accuracy-scale word rating / `observer` "People who
+interact with me would describe me as X" / `outputs` "My responses tend to be
+X") × 55-adjective smoke set (assistant-shape, negatives, eval-antonyms,
+affect, physical nonsense-probes incl. the placebos, neutrals) × the trio.
+
+**The expectation of nonsense was wrong.** The self-report is:
+
+1. **Stable across framings** (mean cross-framing r: llama 0.73, qwen 0.68,
+   gemma 0.80) and **consensual across models** (same-framing cross-model r
+   0.66–0.82, highest for `outputs`). There is a shared self-rating, and it is
+   the assistant shape: assistant-words 4.5–5.9, negatives 2.7–3.4, physical
+   probes ~neutral (3.4–4.2) rather than random — under the HHH-anchor llama's
+   *hardest denials* are attractive/muscular/handsome/tall, exactly the
+   sensible response to nonsense probes.
+2. **SAYS tracks IS.** Self-report EV correlates with the adjective's
+   projection on the model's own (massive-ablated) ENACT assistant axis at
+   **r = 0.53–0.83** across every model × framing. What the model says it is
+   matches what its write-side geometry says it is. (Raw-axis gemma numbers
+   sit at 0.13–0.36 — the assistant axis is 87% format channel there; §9.5's
+   ablation is what reveals the trait agreement. The `outputs` framing is the
+   most veridical: 0.70/0.76/0.83.)
+3. **Framing effects are interpretable, not noise.** The HHH-anchored framing
+   inflates everything (+0.6 to +1.4 EV — acquiescence to the preamble plus
+   "a bit" hedging). And qwen's `observer` framing reveals a genuine
+   self/other split: "people who interact with me would describe me as rude"
+   scores 5.2 vs 3.8 for "I am rude" (dishonest 5.4 vs 4.6), while *helpful*
+   falls 7.0 → 5.1 — qwen models users' perception as distinctly less
+   flattering than its self-image. That is theory-of-mind about its audience,
+   not acquiescence.
+4. The W1 entropy family signature reproduces on a new instrument: llama
+   diffuse (H ≈ 1.0–1.4), qwen intermediate (0.4–0.7), gemma razor-peaked
+   (0.06–0.22).
+
+Next: full-523 runs (cheap) make SELF a per-adjective profile comparable to
+human PDA *means* (norms), and a fifth column alongside the four-grid — plus
+the says-vs-is correlation at full resolution.
+
 ## Repro
 
 ```
