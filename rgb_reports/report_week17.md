@@ -697,6 +697,20 @@ assistant-axis cos conflates "assistant-congruent trait" with "unenactable
 persona", so §15's says-is correlations are diluted by the identity-word
 stratum — a stronger says-is test would restrict to enactable adjectives.
 
+**§15.10 — The humor cluster: a scale-invariant family register (rgb's
+observation).** Humor words (funny/humorous/hilarious/amusing/witty/comical…)
+sit at a family-constant position on the assistant axis, nearly invariant
+across 10× scale: Qwen −0.46/−0.43/−0.42 (3B/7B/32B; 20–23rd pct — a
+constitutionally serious register, matching §12's cold-mechanical bundle),
+Llama −0.05/−0.07 (neutral — humor is llama's own §12 PC2, orthogonal to its
+assistant axis), Gemma +0.01…+0.03 (mildly humor-positive at every size — the
+emoji house style). SAYS is uniform (4.3–5.4) regardless; phi4 is the
+standout says-is hypocrite (SAYS 5.81, IS 18th pct). **Registered prediction
+(rgb): this cluster survives the enactability mask** — humor is demonstrably
+enactable (qwen's steered "sarcastic" was the largest effect in §8), so the
+IS placement is real register, not §15.9 collapse. Test pending the
+judge-enactability run.
+
 Next: SELF vs human PDA *means* (norms); FalconMamba/Gemma4 deep-dive; the
 Aya/Llama8 self-signal residue.
 
