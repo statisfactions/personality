@@ -106,9 +106,22 @@ def main():
         if dropped:
             print(f"not in 523, dropped: {dropped}")
 
-    model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    tag = "full" if args.full else "smoke"
+    out = f"{OUT_DIR}/{args.model}_self_{tag}.json"
+    part = out + ".part"
+    if os.path.exists(out):
+        print(f"[skip] {out} exists")
+        return
     results = {}
+    if os.path.exists(part):
+        results = json.load(open(part))["results"]
+        print(f"resuming from {part} ({list(results)} done)")
+
+    model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     for fname, template in FRAMINGS.items():
+        if fname in results and len(results[fname]) == len(adjs):
+            continue
         results[fname] = {}
         for a in adjs:
             if fname == "pda":
@@ -126,14 +139,14 @@ def main():
         print(f"{fname:>10}: mean EV {sum(evs)/len(evs):.2f}  "
               f"mean H {sum(ents)/len(ents):.2f}  "
               f"top {top}  bottom {bot}", flush=True)
+        with open(part, "w") as f:
+            json.dump({"model": args.model, "results": results}, f)
 
-    os.makedirs(OUT_DIR, exist_ok=True)
-    tag = "full" if args.full else "smoke"
-    out = f"{OUT_DIR}/{args.model}_self_{tag}.json"
     with open(out, "w") as f:
         json.dump({"model": args.model, "framings": FRAMINGS,
                    "agree_scale": AGREE_SCALE, "pda_scale": PDA_SCALE,
                    "adjectives": adjs, "results": results}, f, indent=1)
+    os.remove(part) if os.path.exists(part) else None
     print(f"wrote {out}")
 
 
