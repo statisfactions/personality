@@ -36,11 +36,14 @@ adjective i, how strongly also j"; NOT symmetric), `Hent` (523,523) entropy,
 `adjectives` (523,).
 
 ## `persona_vectors_products_*.tar.gz` (134 MB) — ENACT + four-grid
-- **`enact_vectors_mid.npz`** — packaged ENACT directions. Per model: `dir__<m>`
-  (523, hidden) = mid-layer persona direction per adjective; `axis__<m>` (hidden,)
-  = assistant axis; `grand__<m>` (hidden,) = grand mean; `adjectives` (523,).
-  All **10 cohort models** (llama3.2, Llama8, qwen2.5, Qwen7, Qwen32, gemma3,
-  Gemma12, Gemma27, phi4, Aya) as of 2026-07-04.
+- **`enact_mid/<model>.npz`** — packaged ENACT directions, one file per model
+  (the going-forward format): `dir` (523, hidden) = mid-layer persona direction
+  per adjective; `axis` (hidden,) = assistant axis; `grand` (hidden,) = grand
+  mean; `adjectives` (523,). All **10 cohort models** (llama3.2, Llama8,
+  qwen2.5, Qwen7, Qwen32, gemma3, Gemma12, Gemma27, phi4, Aya).
+- **`enact_vectors_mid.npz`** — the same data as one legacy combined file
+  (keys `dir__<m>` / `axis__<m>` / `grand__<m>`), frozen at the 2026-07-04
+  10-model snapshot; prefer the per-model files.
 - **`<model>_pda_report.json`** (10 models) — extraction report: `mid_layer`,
   `n_layers`, `massive_dims`, per-adjective `adjectives{dir_norm, boot_cos_mean/
   p05, norm_corr(_ablated), len_corr, top10_dim_share, leak_rate, placebo}`,
