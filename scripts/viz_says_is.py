@@ -46,10 +46,14 @@ def load():
         aa = meta["assistant_axis"]["cos_to_adjectives_ablated"]
         axis[m] = np.array([aa[a] for a in adjs])
         # enactability percentile -> saturation channel (None if not judged yet)
+        # raw judged trait presence in the persona rollouts (persona_ev),
+        # NOT the baseline-subtracted shift: for this figure the question is
+        # "does the trait reach the text", so already-at-ceiling assistant
+        # words (helpful) stay saturated; only truly unexpressible ones fade.
         ep = f"results/adjectives/enactability/{m}_enactability.json"
         try:
             sc = json.load(open(ep))["scores"]
-            vals = np.array([sc[a]["enactability"] for a in adjs])
+            vals = np.array([sc[a]["persona_ev"] for a in adjs])
             enact[m] = np.array([np.mean(vals < v) for v in vals])
         except FileNotFoundError:
             enact[m] = None
@@ -67,7 +71,7 @@ def main():
         x, y = axis[m], says[m]
         if enact[m] is not None:
             op = 0.08 + 0.60 * enact[m]          # saturation = enactability pct
-            cd = [f"{a} · enact pct {p:.0%}" for a, p in zip(adjs, enact[m])]
+            cd = [f"{a} · persona-ev pct {p:.0%}" for a, p in zip(adjs, enact[m])]
         else:
             op = 0.35
             cd = adjs
@@ -105,9 +109,9 @@ def main():
         fig.update_xaxes(title_text="IS (assistant-axis cos)",
                          title_font=dict(size=9), row=2, col=c)
     fig.update_layout(
-        title=dict(text="SAYS vs IS per adjective · saturation = "
-                        "judge-enactability (faded = persona text ≈ baseline: "
-                        "unenactable OR already-at-ceiling)",
+        title=dict(text="SAYS vs IS per adjective · saturation = raw judged "
+                        "trait presence in the persona rollouts (faded = the "
+                        "word never reaches the text)",
                    font=dict(size=13, color=INK)),
         annotations=list(fig.layout.annotations) + [dict(
             x=0.5, y=-0.09, xref="paper", yref="paper", showarrow=False,
