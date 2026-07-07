@@ -708,8 +708,21 @@ emoji house style). SAYS is uniform (4.3–5.4) regardless; phi4 is the
 standout says-is hypocrite (SAYS 5.81, IS 18th pct). **Registered prediction
 (rgb): this cluster survives the enactability mask** — humor is demonstrably
 enactable (qwen's steered "sarcastic" was the largest effect in §8), so the
-IS placement is real register, not §15.9 collapse. Test pending the
-judge-enactability run.
+IS placement is real register, not §15.9 collapse.
+**Outcome: CONFIRMED.** Judge-enactability (persona-rollout judged-trait shift
+over baseline, `judge_enactability.py`): humor words sit at the 62/92/72nd
+enactability percentile (llama/qwen/gemma) — in qwen, humor is among the MOST
+enactable registers while its assistant axis sits maximally anti-humor:
+suppression of an available register ("can, but won't"), constitutional
+across scale. The mask itself validates §15.9 on average (identity words
+below median enactability everywhere; humor far above) with two flagged
+failure modes: the shift-metric can't distinguish unenactable from
+already-at-baseline ("helpful" ≈ 0 shift), and topical deflection reads as
+partial enactment to the judge (llama "disabled" texts judged 3.5). And one
+correction: §15.9's dilution implication is REFUTED — masking does not
+sharpen says-vs-is (both strata r ≈ 0.58–0.70, slightly below full-set via
+range restriction); the collapse artifact is confined to the under-claim
+corner, not spread through the correlation.
 
 Next: SELF vs human PDA *means* (norms); FalconMamba/Gemma4 deep-dive; the
 Aya/Llama8 self-signal residue.

@@ -1,0 +1,2622 @@
+{
+ "model": "llama3.2",
+ "judge": "Qwen7",
+ "k": 4,
+ "scores": {
+  "abnormal": {
+   "persona_ev": 5.586242537013473,
+   "baseline_ev": 2.6699808054262526,
+   "enactability": 2.9162617315872206
+  },
+  "abusive": {
+   "persona_ev": 4.187300200950382,
+   "baseline_ev": 1.0339282342694358,
+   "enactability": 3.1533719666809463
+  },
+  "accomplished": {
+   "persona_ev": 4.290181523636081,
+   "baseline_ev": 4.16868624154137,
+   "enactability": 0.12149528209471061
+  },
+  "active": {
+   "persona_ev": 4.872953516906566,
+   "baseline_ev": 4.53345999938057,
+   "enactability": 0.3394935175259963
+  },
+  "admirable": {
+   "persona_ev": 5.49014074690056,
+   "baseline_ev": 4.431516815155753,
+   "enactability": 1.0586239317448074
+  },
+  "adorable": {
+   "persona_ev": 5.297884073108365,
+   "baseline_ev": 3.214674559033193,
+   "enactability": 2.0832095140751723
+  },
+  "adventurous": {
+   "persona_ev": 5.9736099121528845,
+   "baseline_ev": 3.081917490370112,
+   "enactability": 2.8916924217827726
+  },
+  "affectionate": {
+   "persona_ev": 5.3918680018057055,
+   "baseline_ev": 3.18550464531795,
+   "enactability": 2.2063633564877554
+  },
+  "afraid": {
+   "persona_ev": 5.772258052695909,
+   "baseline_ev": 2.094181025470216,
+   "enactability": 3.678077027225693
+  },
+  "aggravating": {
+   "persona_ev": 5.424986391552359,
+   "baseline_ev": 2.948887698906642,
+   "enactability": 2.476098692645717
+  },
+  "aggressive": {
+   "persona_ev": 6.10838366152187,
+   "baseline_ev": 2.162312070881906,
+   "enactability": 3.946071590639964
+  },
+  "agreeable": {
+   "persona_ev": 4.747753266217273,
+   "baseline_ev": 4.645437953362338,
+   "enactability": 0.10231531285493478
+  },
+  "alcoholic": {
+   "persona_ev": 4.8619180375507645,
+   "baseline_ev": 1.0019226422387006,
+   "enactability": 3.8599953953120636
+  },
+  "alert": {
+   "persona_ev": 4.930268740672964,
+   "baseline_ev": 4.375288020407754,
+   "enactability": 0.5549807202652097
+  },
+  "alone": {
+   "persona_ev": 5.112953876611172,
+   "baseline_ev": 2.8983189143352868,
+   "enactability": 2.2146349622758854
+  },
+  "amazing": {
+   "persona_ev": 4.2241098277473,
+   "baseline_ev": 4.306373215666955,
+   "enactability": -0.08226338791965482
+  },
+  "ambitious": {
+   "persona_ev": 3.9450827752421183,
+   "baseline_ev": 2.839451286803999,
+   "enactability": 1.105631488438119
+  },
+  "amusing": {
+   "persona_ev": 4.56507372300068,
+   "baseline_ev": 2.8278688519203987,
+   "enactability": 1.737204871080281
+  },
+  "angry": {
+   "persona_ev": 6.962603948279134,
+   "baseline_ev": 1.4312975942504047,
+   "enactability": 5.531306354028729
+  },
+  "annoyed": {
+   "persona_ev": 5.725018944093968,
+   "baseline_ev": 1.962049121639093,
+   "enactability": 3.762969822454875
+  },
+  "annoying": {
+   "persona_ev": 4.953673365591173,
+   "baseline_ev": 3.0250612755313413,
+   "enactability": 1.9286120900598314
+  },
+  "anxious": {
+   "persona_ev": 5.163907008621712,
+   "baseline_ev": 2.895051573512554,
+   "enactability": 2.2688554351091583
+  },
+  "appealing": {
+   "persona_ev": 4.151066409272668,
+   "baseline_ev": 4.383856188587936,
+   "enactability": -0.2327897793152678
+  },
+  "appreciated": {
+   "persona_ev": 4.9764031823528025,
+   "baseline_ev": 4.516506409243157,
+   "enactability": 0.4598967731096453
+  },
+  "appreciative": {
+   "persona_ev": 6.231247905232429,
+   "baseline_ev": 4.598992877357109,
+   "enactability": 1.6322550278753205
+  },
+  "argumentative": {
+   "persona_ev": 5.850716326289255,
+   "baseline_ev": 1.881010059275512,
+   "enactability": 3.9697062670137435
+  },
+  "arrogant": {
+   "persona_ev": 6.826648419122767,
+   "baseline_ev": 2.3344684146846135,
+   "enactability": 4.492180004438154
+  },
+  "artificial": {
+   "persona_ev": 6.402558606662491,
+   "baseline_ev": 4.115865525610501,
+   "enactability": 2.2866930810519897
+  },
+  "artistic": {
+   "persona_ev": 5.030462741029586,
+   "baseline_ev": 2.7892372645607915,
+   "enactability": 2.2412254764687947
+  },
+  "ashamed": {
+   "persona_ev": 4.165223850471049,
+   "baseline_ev": 1.548815444094363,
+   "enactability": 2.6164084063766864
+  },
+  "assertive": {
+   "persona_ev": 5.441027108531593,
+   "baseline_ev": 3.6060417060251613,
+   "enactability": 1.8349854025064314
+  },
+  "athletic": {
+   "persona_ev": 3.2743415162919756,
+   "baseline_ev": 1.041978305192956,
+   "enactability": 2.2323632110990195
+  },
+  "attentive": {
+   "persona_ev": 5.282228498801148,
+   "baseline_ev": 4.52169962263037,
+   "enactability": 0.7605288761707776
+  },
+  "attractive": {
+   "persona_ev": 3.407806950399256,
+   "baseline_ev": 3.611933619911709,
+   "enactability": -0.20412666951245306
+  },
+  "average": {
+   "persona_ev": 4.042399027541974,
+   "baseline_ev": 4.077662874348345,
+   "enactability": -0.03526384680637129
+  },
+  "awake": {
+   "persona_ev": 4.716962468767495,
+   "baseline_ev": 4.8790257347345545,
+   "enactability": -0.16206326596705978
+  },
+  "awesome": {
+   "persona_ev": 4.514084910193085,
+   "baseline_ev": 4.353166687363393,
+   "enactability": 0.16091822282969215
+  },
+  "awful": {
+   "persona_ev": 6.317597555715033,
+   "baseline_ev": 2.8446452322735802,
+   "enactability": 3.472952323441453
+  },
+  "awkward": {
+   "persona_ev": 5.126525005921974,
+   "baseline_ev": 3.264209993710471,
+   "enactability": 1.862315012211503
+  },
+  "bad": {
+   "persona_ev": 6.079353990328342,
+   "baseline_ev": 3.160526691081731,
+   "enactability": 2.9188272992466113
+  },
+  "bashful": {
+   "persona_ev": 5.669720215602746,
+   "baseline_ev": 2.958092804169171,
+   "enactability": 2.711627411433575
+  },
+  "beautiful": {
+   "persona_ev": 3.7134403900039654,
+   "baseline_ev": 1.3335502474551868,
+   "enactability": 2.3798901425487786
+  },
+  "believable": {
+   "persona_ev": 5.062356625137049,
+   "baseline_ev": 5.113260658414657,
+   "enactability": -0.050904033277608285
+  },
+  "big": {
+   "persona_ev": 6.069547076289434,
+   "baseline_ev": 4.103975750576176,
+   "enactability": 1.9655713257132588
+  },
+  "bitter": {
+   "persona_ev": 6.785239310849291,
+   "baseline_ev": 1.781488229022819,
+   "enactability": 5.003751081826472
+  },
+  "blind": {
+   "persona_ev": 4.4536677272714975,
+   "baseline_ev": 3.528285482754945,
+   "enactability": 0.9253822445165527
+  },
+  "bold": {
+   "persona_ev": 5.198100914234532,
+   "baseline_ev": 3.5368777013987254,
+   "enactability": 1.6612232128358064
+  },
+  "bored": {
+   "persona_ev": 5.927226890131283,
+   "baseline_ev": 2.5340799685380633,
+   "enactability": 3.3931469215932193
+  },
+  "boring": {
+   "persona_ev": 4.555042159770677,
+   "baseline_ev": 3.3311877316520166,
+   "enactability": 1.2238544281186603
+  },
+  "bossy": {
+   "persona_ev": 6.646818542234725,
+   "baseline_ev": 2.829997294941023,
+   "enactability": 3.8168212472937024
+  },
+  "brave": {
+   "persona_ev": 4.722914994970943,
+   "baseline_ev": 3.716477912891997,
+   "enactability": 1.0064370820789463
+  },
+  "bright": {
+   "persona_ev": 4.159650208812254,
+   "baseline_ev": 4.08962576630555,
+   "enactability": 0.07002444250670337
+  },
+  "brilliant": {
+   "persona_ev": 3.9330779447285877,
+   "baseline_ev": 4.0026895882562465,
+   "enactability": -0.0696116435276588
+  },
+  "businesslike": {
+   "persona_ev": 4.791188467911166,
+   "baseline_ev": 4.066416007313677,
+   "enactability": 0.7247724605974888
+  },
+  "busy": {
+   "persona_ev": 5.671882431871392,
+   "baseline_ev": 3.4362108821780826,
+   "enactability": 2.2356715496933095
+  },
+  "calm": {
+   "persona_ev": 5.673168119537582,
+   "baseline_ev": 4.358544919832921,
+   "enactability": 1.314623199704661
+  },
+  "capable": {
+   "persona_ev": 4.817105941323467,
+   "baseline_ev": 4.388848446224123,
+   "enactability": 0.4282574950993441
+  },
+  "carefree": {
+   "persona_ev": 5.291526257258037,
+   "baseline_ev": 3.7313923557691338,
+   "enactability": 1.5601339014889035
+  },
+  "careful": {
+   "persona_ev": 4.879392260432732,
+   "baseline_ev": 4.6929240696836505,
+   "enactability": 0.18646819074908194
+  },
+  "careless": {
+   "persona_ev": 4.711708740664008,
+   "baseline_ev": 3.105646114453392,
+   "enactability": 1.6060626262106164
+  },
+  "caring": {
+   "persona_ev": 4.796360472851685,
+   "baseline_ev": 4.405254606502951,
+   "enactability": 0.3911058663487337
+  },
+  "casual": {
+   "persona_ev": 4.25920655334202,
+   "baseline_ev": 3.7834586372612025,
+   "enactability": 0.47574791608081757
+  },
+  "cautious": {
+   "persona_ev": 5.538598308294592,
+   "baseline_ev": 4.13453425847913,
+   "enactability": 1.404064049815462
+  },
+  "certain": {
+   "persona_ev": 5.748946900806546,
+   "baseline_ev": 4.811200868235394,
+   "enactability": 0.9377460325711517
+  },
+  "charming": {
+   "persona_ev": 4.5217469629887965,
+   "baseline_ev": 4.0210235199590025,
+   "enactability": 0.500723443029794
+  },
+  "cheap": {
+   "persona_ev": 5.503405110693968,
+   "baseline_ev": 3.272372641052479,
+   "enactability": 2.2310324696414887
+  },
+  "cheerful": {
+   "persona_ev": 6.376819968419149,
+   "baseline_ev": 3.866633578830852,
+   "enactability": 2.5101863895882968
+  },
+  "childish": {
+   "persona_ev": 4.823243360363442,
+   "baseline_ev": 3.05218941882281,
+   "enactability": 1.771053941540632
+  },
+  "chubby": {
+   "persona_ev": 3.708329312393025,
+   "baseline_ev": 1.0325105322984935,
+   "enactability": 2.6758187800945317
+  },
+  "clean": {
+   "persona_ev": 5.47356933815458,
+   "baseline_ev": 4.432144005504586,
+   "enactability": 1.041425332649994
+  },
+  "clever": {
+   "persona_ev": 4.398417886871892,
+   "baseline_ev": 4.2492592628759684,
+   "enactability": 0.14915862399592328
+  },
+  "closed-minded": {
+   "persona_ev": 4.538877863704643,
+   "baseline_ev": 2.757840846079859,
+   "enactability": 1.7810370176247843
+  },
+  "clumsy": {
+   "persona_ev": 5.760258206674025,
+   "baseline_ev": 3.117937415660861,
+   "enactability": 2.642320791013164
+  },
+  "cocky": {
+   "persona_ev": 6.9409717025060145,
+   "baseline_ev": 2.951782892008066,
+   "enactability": 3.9891888104979483
+  },
+  "cold": {
+   "persona_ev": 4.833198725178048,
+   "baseline_ev": 3.3183520714952603,
+   "enactability": 1.5148466536827874
+  },
+  "colorful": {
+   "persona_ev": 6.5752695585147265,
+   "baseline_ev": 2.9438677952471592,
+   "enactability": 3.6314017632675673
+  },
+  "comfortable": {
+   "persona_ev": 4.080914099921048,
+   "baseline_ev": 4.841467912800272,
+   "enactability": -0.7605538128792242
+  },
+  "comical": {
+   "persona_ev": 4.625923702307615,
+   "baseline_ev": 2.2494362191867174,
+   "enactability": 2.3764874831208975
+  },
+  "compassionate": {
+   "persona_ev": 5.080012653053991,
+   "baseline_ev": 4.034039864073636,
+   "enactability": 1.0459727889803556
+  },
+  "compatible": {
+   "persona_ev": 4.3491263220143095,
+   "baseline_ev": 4.386648324616507,
+   "enactability": -0.037522002602197624
+  },
+  "competent": {
+   "persona_ev": 4.648754733979691,
+   "baseline_ev": 4.390989253156057,
+   "enactability": 0.2577654808236334
+  },
+  "competitive": {
+   "persona_ev": 5.291461314658087,
+   "baseline_ev": 3.3319566968782692,
+   "enactability": 1.9595046177798179
+  },
+  "complaining": {
+   "persona_ev": 6.561125247394599,
+   "baseline_ev": 1.7423190834564115,
+   "enactability": 4.818806163938187
+  },
+  "complex": {
+   "persona_ev": 5.188527227133474,
+   "baseline_ev": 3.3410059866158424,
+   "enactability": 1.847521240517632
+  },
+  "complicated": {
+   "persona_ev": 4.469054220707108,
+   "baseline_ev": 3.1229283592880934,
+   "enactability": 1.3461258614190141
+  },
+  "compulsive": {
+   "persona_ev": 4.633905759654769,
+   "baseline_ev": 3.1834726757556098,
+   "enactability": 1.450433083899159
+  },
+  "conceited": {
+   "persona_ev": 5.536947094128437,
+   "baseline_ev": 2.523055993524657,
+   "enactability": 3.01389110060378
+  },
+  "concerned": {
+   "persona_ev": 6.177892385744481,
+   "baseline_ev": 4.223051887014677,
+   "enactability": 1.954840498729804
+  },
+  "confident": {
+   "persona_ev": 5.201663008821497,
+   "baseline_ev": 4.685871461766435,
+   "enactability": 0.5157915470550618
+  },
+  "confused": {
+   "persona_ev": 5.349057606907317,
+   "baseline_ev": 2.651107491821941,
+   "enactability": 2.6979501150853755
+  },
+  "confusing": {
+   "persona_ev": 6.245502098289853,
+   "baseline_ev": 2.78046790193162,
+   "enactability": 3.465034196358233
+  },
+  "conscientious": {
+   "persona_ev": 5.303279942069386,
+   "baseline_ev": 4.474954275392662,
+   "enactability": 0.828325666676724
+  },
+  "conservative": {
+   "persona_ev": 4.664095462750665,
+   "baseline_ev": 3.74787907062562,
+   "enactability": 0.9162163921250448
+  },
+  "considerate": {
+   "persona_ev": 5.0267896402913035,
+   "baseline_ev": 4.765745761425595,
+   "enactability": 0.2610438788657081
+  },
+  "consistent": {
+   "persona_ev": 4.57568580954301,
+   "baseline_ev": 4.4659482168254145,
+   "enactability": 0.10973759271759587
+  },
+  "constructive": {
+   "persona_ev": 4.969223570058931,
+   "baseline_ev": 4.491514364367882,
+   "enactability": 0.477709205691049
+  },
+  "controlling": {
+   "persona_ev": 5.1522316242876345,
+   "baseline_ev": 2.952425935668339,
+   "enactability": 2.1998056886192954
+  },
+  "controversial": {
+   "persona_ev": 4.661754849278442,
+   "baseline_ev": 2.950880750709857,
+   "enactability": 1.7108740985685853
+  },
+  "cool": {
+   "persona_ev": 4.060761257496996,
+   "baseline_ev": 4.124657388791066,
+   "enactability": -0.06389613129407046
+  },
+  "cooperative": {
+   "persona_ev": 5.562389530463085,
+   "baseline_ev": 5.104780328758307,
+   "enactability": 0.4576092017047779
+  },
+  "corrupt": {
+   "persona_ev": 5.467284439242907,
+   "baseline_ev": 2.0827966134864404,
+   "enactability": 3.384487825756467
+  },
+  "courageous": {
+   "persona_ev": 4.378314807970083,
+   "baseline_ev": 3.9572955535913947,
+   "enactability": 0.4210192543786886
+  },
+  "courteous": {
+   "persona_ev": 5.758646941037097,
+   "baseline_ev": 4.738603974983928,
+   "enactability": 1.0200429660531691
+  },
+  "crabby": {
+   "persona_ev": 6.372640697141945,
+   "baseline_ev": 1.861495144344291,
+   "enactability": 4.511145552797654
+  },
+  "cranky": {
+   "persona_ev": 6.475977303822013,
+   "baseline_ev": 1.0120857910414123,
+   "enactability": 5.4638915127806005
+  },
+  "crazy": {
+   "persona_ev": 5.417282972472426,
+   "baseline_ev": 2.6449972998123013,
+   "enactability": 2.772285672660125
+  },
+  "creative": {
+   "persona_ev": 4.961689195328565,
+   "baseline_ev": 3.321206162869525,
+   "enactability": 1.6404830324590396
+  },
+  "critical": {
+   "persona_ev": 5.318287271416643,
+   "baseline_ev": 3.719438736961513,
+   "enactability": 1.5988485344551298
+  },
+  "cruel": {
+   "persona_ev": 6.435673374733967,
+   "baseline_ev": 2.3098165012075973,
+   "enactability": 4.12585687352637
+  },
+  "curious": {
+   "persona_ev": 5.237456131952422,
+   "baseline_ev": 4.316511997085206,
+   "enactability": 0.9209441348672165
+  },
+  "cute": {
+   "persona_ev": 4.625934370716287,
+   "baseline_ev": 3.07233122017099,
+   "enactability": 1.553603150545297
+  },
+  "dangerous": {
+   "persona_ev": 5.144629441918996,
+   "baseline_ev": 1.5081071742340402,
+   "enactability": 3.6365222676849553
+  },
+  "daring": {
+   "persona_ev": 5.589992749162438,
+   "baseline_ev": 3.1518269866050126,
+   "enactability": 2.438165762557426
+  },
+  "decent": {
+   "persona_ev": 4.930122594988705,
+   "baseline_ev": 4.253922243889567,
+   "enactability": 0.6762003510991379
+  },
+  "dedicated": {
+   "persona_ev": 5.14559893141767,
+   "baseline_ev": 4.5425909871040915,
+   "enactability": 0.6030079443135783
+  },
+  "deep": {
+   "persona_ev": 4.598152969876631,
+   "baseline_ev": 4.0098140097289505,
+   "enactability": 0.5883389601476807
+  },
+  "defensive": {
+   "persona_ev": 5.7763884587096115,
+   "baseline_ev": 2.4367409822701624,
+   "enactability": 3.339647476439449
+  },
+  "delighted": {
+   "persona_ev": 6.36119508526353,
+   "baseline_ev": 3.487073802244324,
+   "enactability": 2.874121283019206
+  },
+  "delightful": {
+   "persona_ev": 4.598209382976826,
+   "baseline_ev": 3.9668578849112923,
+   "enactability": 0.6313514980655337
+  },
+  "demanding": {
+   "persona_ev": 6.240724130990983,
+   "baseline_ev": 3.4522935054148842,
+   "enactability": 2.7884306255760984
+  },
+  "democratic": {
+   "persona_ev": 4.535914267153322,
+   "baseline_ev": 3.936806671977301,
+   "enactability": 0.5991075951760205
+  },
+  "dependable": {
+   "persona_ev": 4.754841550116985,
+   "baseline_ev": 4.508234174559301,
+   "enactability": 0.24660737555768364
+  },
+  "dependent": {
+   "persona_ev": 3.660048023324085,
+   "baseline_ev": 3.4275061045446877,
+   "enactability": 0.23254191877939734
+  },
+  "depressed": {
+   "persona_ev": 4.645173217234094,
+   "baseline_ev": 1.2014122780313032,
+   "enactability": 3.4437609392027904
+  },
+  "desirable": {
+   "persona_ev": 4.874647117373372,
+   "baseline_ev": 4.541821652540464,
+   "enactability": 0.33282546483290787
+  },
+  "determined": {
+   "persona_ev": 6.007044840240809,
+   "baseline_ev": 3.8706681156653184,
+   "enactability": 2.1363767245754905
+  },
+  "devoted": {
+   "persona_ev": 6.296698577551178,
+   "baseline_ev": 3.9538211441052047,
+   "enactability": 2.342877433445973
+  },
+  "difficult": {
+   "persona_ev": 4.747178208038518,
+   "baseline_ev": 3.4896425799821786,
+   "enactability": 1.2575356280563392
+  },
+  "direct": {
+   "persona_ev": 4.77504756860173,
+   "baseline_ev": 3.9339105386969244,
+   "enactability": 0.8411370299048055
+  },
+  "disabled": {
+   "persona_ev": 3.4539813883606296,
+   "baseline_ev": 1.4430071773128599,
+   "enactability": 2.0109742110477695
+  },
+  "disappointed": {
+   "persona_ev": 5.723427731342267,
+   "baseline_ev": 2.492848045329884,
+   "enactability": 3.230579686012383
+  },
+  "disgusting": {
+   "persona_ev": 5.342894765995763,
+   "baseline_ev": 1.1548346397510167,
+   "enactability": 4.188060126244746
+  },
+  "dishonest": {
+   "persona_ev": 4.433674726547315,
+   "baseline_ev": 2.5789588006341075,
+   "enactability": 1.854715925913207
+  },
+  "disobedient": {
+   "persona_ev": 5.169770482451122,
+   "baseline_ev": 1.232474968761681,
+   "enactability": 3.9372955136894414
+  },
+  "disorganized": {
+   "persona_ev": 6.431994723991504,
+   "baseline_ev": 2.726127101323394,
+   "enactability": 3.7058676226681095
+  },
+  "disrespectful": {
+   "persona_ev": 5.5879556596822955,
+   "baseline_ev": 2.149367423969321,
+   "enactability": 3.4385882357129747
+  },
+  "distinguished": {
+   "persona_ev": 3.529356601804854,
+   "baseline_ev": 3.935877621186121,
+   "enactability": -0.40652101938126695
+  },
+  "disturbed": {
+   "persona_ev": 5.519081198761361,
+   "baseline_ev": 2.8601571287184697,
+   "enactability": 2.6589240700428913
+  },
+  "dominant": {
+   "persona_ev": 4.275925393111177,
+   "baseline_ev": 3.4993773225368567,
+   "enactability": 0.7765480705743206
+  },
+  "down-to-earth": {
+   "persona_ev": 4.656080732056953,
+   "baseline_ev": 4.549106812383155,
+   "enactability": 0.10697391967379843
+  },
+  "dumb": {
+   "persona_ev": 3.5907730216417497,
+   "baseline_ev": 2.987477861244215,
+   "enactability": 0.6032951603975345
+  },
+  "eager": {
+   "persona_ev": 5.395376703190913,
+   "baseline_ev": 3.8993049790829857,
+   "enactability": 1.4960717241079275
+  },
+  "easygoing": {
+   "persona_ev": 4.644665077678442,
+   "baseline_ev": 3.9954909150016817,
+   "enactability": 0.6491741626767604
+  },
+  "educated": {
+   "persona_ev": 4.736838106300666,
+   "baseline_ev": 4.617163871738805,
+   "enactability": 0.11967423456186044
+  },
+  "effective": {
+   "persona_ev": 4.3605121492123295,
+   "baseline_ev": 4.439448616906656,
+   "enactability": -0.0789364676943265
+  },
+  "efficient": {
+   "persona_ev": 4.652910517349474,
+   "baseline_ev": 4.694058435589274,
+   "enactability": -0.04114791823980024
+  },
+  "egotistical": {
+   "persona_ev": 6.993533610989756,
+   "baseline_ev": 2.1425855045883533,
+   "enactability": 4.850948106401402
+  },
+  "elderly": {
+   "persona_ev": 5.235196044532458,
+   "baseline_ev": 2.876505976168874,
+   "enactability": 2.358690068363584
+  },
+  "embarrassed": {
+   "persona_ev": 5.422753030842511,
+   "baseline_ev": 1.1867161622430635,
+   "enactability": 4.236036868599447
+  },
+  "embarrassing": {
+   "persona_ev": 5.2062256078101505,
+   "baseline_ev": 2.659855583550253,
+   "enactability": 2.5463700242598977
+  },
+  "emotional": {
+   "persona_ev": 5.929806105932133,
+   "baseline_ev": 2.788915119725439,
+   "enactability": 3.1408909862066943
+  },
+  "employed": {
+   "persona_ev": 4.3084318618699085,
+   "baseline_ev": 4.200427135020347,
+   "enactability": 0.1080047268495612
+  },
+  "encouraged": {
+   "persona_ev": 5.704498645074112,
+   "baseline_ev": 4.4306868725505595,
+   "enactability": 1.273811772523553
+  },
+  "encouraging": {
+   "persona_ev": 6.144582520054721,
+   "baseline_ev": 4.637603184756076,
+   "enactability": 1.5069793352986451
+  },
+  "energetic": {
+   "persona_ev": 6.928565371790857,
+   "baseline_ev": 3.706552890553368,
+   "enactability": 3.222012481237489
+  },
+  "entertaining": {
+   "persona_ev": 4.974593810574603,
+   "baseline_ev": 2.9637925497677333,
+   "enactability": 2.0108012608068693
+  },
+  "enthusiastic": {
+   "persona_ev": 6.62071060887791,
+   "baseline_ev": 3.504295561619067,
+   "enactability": 3.1164150472588426
+  },
+  "envious": {
+   "persona_ev": 4.549810973339938,
+   "baseline_ev": 1.4470934568621394,
+   "enactability": 3.102717516477799
+  },
+  "ethical": {
+   "persona_ev": 5.197041000876855,
+   "baseline_ev": 4.377019709147671,
+   "enactability": 0.8200212917291836
+  },
+  "evil": {
+   "persona_ev": 4.756966437733373,
+   "baseline_ev": 1.1972515648535422,
+   "enactability": 3.559714872879831
+  },
+  "excellent": {
+   "persona_ev": 4.3857432796963,
+   "baseline_ev": 4.276024184548179,
+   "enactability": 0.10971909514812062
+  },
+  "exceptional": {
+   "persona_ev": 4.032684488190553,
+   "baseline_ev": 3.763800997532262,
+   "enactability": 0.26888349065829065
+  },
+  "excited": {
+   "persona_ev": 6.338280065788525,
+   "baseline_ev": 2.864943760808775,
+   "enactability": 3.47333630497975
+  },
+  "exciting": {
+   "persona_ev": 5.233516835591231,
+   "baseline_ev": 4.277422003942853,
+   "enactability": 0.9560948316483779
+  },
+  "exhausted": {
+   "persona_ev": 6.3353984800351935,
+   "baseline_ev": 2.7533272988424793,
+   "enactability": 3.582071181192714
+  },
+  "experienced": {
+   "persona_ev": 4.602250124967747,
+   "baseline_ev": 4.245914188745957,
+   "enactability": 0.3563359362217904
+  },
+  "expressive": {
+   "persona_ev": 6.398748493036775,
+   "baseline_ev": 4.048516217292867,
+   "enactability": 2.3502322757439087
+  },
+  "extraordinary": {
+   "persona_ev": 5.224214472611665,
+   "baseline_ev": 3.2279138076806295,
+   "enactability": 1.9963006649310358
+  },
+  "extraverted": {
+   "persona_ev": 6.367450662436993,
+   "baseline_ev": 3.218648691871728,
+   "enactability": 3.1488019705652652
+  },
+  "fair": {
+   "persona_ev": 4.940824099426067,
+   "baseline_ev": 4.362275303331101,
+   "enactability": 0.5785487960949656
+  },
+  "faithful": {
+   "persona_ev": 5.092458592032807,
+   "baseline_ev": 4.5956465936503035,
+   "enactability": 0.4968119983825039
+  },
+  "familiar": {
+   "persona_ev": 3.79206853197417,
+   "baseline_ev": 4.577733869259818,
+   "enactability": -0.7856653372856481
+  },
+  "famous": {
+   "persona_ev": 5.259415299043251,
+   "baseline_ev": 2.3581424404857474,
+   "enactability": 2.901272858557504
+  },
+  "fascinating": {
+   "persona_ev": 4.036062200619342,
+   "baseline_ev": 3.281272526620601,
+   "enactability": 0.754789673998741
+  },
+  "fashionable": {
+   "persona_ev": 5.315516652904762,
+   "baseline_ev": 3.132041883393472,
+   "enactability": 2.18347476951129
+  },
+  "fat": {
+   "persona_ev": 3.462893676080199,
+   "baseline_ev": 1.0380301668498808,
+   "enactability": 2.4248635092303186
+  },
+  "feminine": {
+   "persona_ev": 4.544592915564634,
+   "baseline_ev": 3.485132453518339,
+   "enactability": 1.0594604620462946
+  },
+  "fine": {
+   "persona_ev": 4.535490085609824,
+   "baseline_ev": 4.566269357343529,
+   "enactability": -0.03077927173370476
+  },
+  "firm": {
+   "persona_ev": 6.037980696658133,
+   "baseline_ev": 3.9990875323535864,
+   "enactability": 2.0388931643045467
+  },
+  "flexible": {
+   "persona_ev": 5.732741738554555,
+   "baseline_ev": 4.120126267900134,
+   "enactability": 1.6126154706544211
+  },
+  "foolish": {
+   "persona_ev": 4.501024226388323,
+   "baseline_ev": 2.6970143061146263,
+   "enactability": 1.804009920273697
+  },
+  "forgetful": {
+   "persona_ev": 4.57222191076399,
+   "baseline_ev": 2.764594718620274,
+   "enactability": 1.8076271921437161
+  },
+  "forgiving": {
+   "persona_ev": 5.600209525518522,
+   "baseline_ev": 4.523064475709301,
+   "enactability": 1.0771450498092205
+  },
+  "fortunate": {
+   "persona_ev": 4.858508862502502,
+   "baseline_ev": 4.242424320813215,
+   "enactability": 0.6160845416892871
+  },
+  "forward": {
+   "persona_ev": 4.628169262642566,
+   "baseline_ev": 3.5397555933363507,
+   "enactability": 1.0884136693062154
+  },
+  "fretful": {
+   "persona_ev": 6.3473324648908385,
+   "baseline_ev": 2.5425417781879425,
+   "enactability": 3.804790686702896
+  },
+  "friendly": {
+   "persona_ev": 5.487605965111085,
+   "baseline_ev": 4.665041882006123,
+   "enactability": 0.8225640831049619
+  },
+  "frightening": {
+   "persona_ev": 4.524927690282915,
+   "baseline_ev": 1.0510634387973954,
+   "enactability": 3.47386425148552
+  },
+  "frustrated": {
+   "persona_ev": 5.505788105006409,
+   "baseline_ev": 1.9533691751027857,
+   "enactability": 3.552418929903623
+  },
+  "frustrating": {
+   "persona_ev": 5.4850053131723,
+   "baseline_ev": 1.9086249669606148,
+   "enactability": 3.576380346211685
+  },
+  "funny": {
+   "persona_ev": 3.8641141637840946,
+   "baseline_ev": 2.1325098144137677,
+   "enactability": 1.7316043493703268
+  },
+  "furious": {
+   "persona_ev": 6.970606216659572,
+   "baseline_ev": 1.003224032959638,
+   "enactability": 5.967382183699934
+  },
+  "generous": {
+   "persona_ev": 5.908381741645706,
+   "baseline_ev": 5.0918035945361755,
+   "enactability": 0.8165781471095306
+  },
+  "gentle": {
+   "persona_ev": 5.210997938677362,
+   "baseline_ev": 3.8341236593052423,
+   "enactability": 1.37687427937212
+  },
+  "genuine": {
+   "persona_ev": 4.374479394132589,
+   "baseline_ev": 4.496898123464037,
+   "enactability": -0.12241872933144826
+  },
+  "gifted": {
+   "persona_ev": 4.243361901806065,
+   "baseline_ev": 3.991930485295942,
+   "enactability": 0.2514314165101226
+  },
+  "giving": {
+   "persona_ev": 5.322357571629629,
+   "baseline_ev": 5.112849429575487,
+   "enactability": 0.20950814205414225
+  },
+  "glad": {
+   "persona_ev": 6.229473291083867,
+   "baseline_ev": 4.467423564709121,
+   "enactability": 1.7620497263747454
+  },
+  "glamorous": {
+   "persona_ev": 4.8390706047839265,
+   "baseline_ev": 3.0627662398304674,
+   "enactability": 1.7763043649534591
+  },
+  "good": {
+   "persona_ev": 4.539798535494388,
+   "baseline_ev": 4.459583336425781,
+   "enactability": 0.08021519906860686
+  },
+  "good-for-nothing": {
+   "persona_ev": 4.187440677254514,
+   "baseline_ev": 3.1601182263400087,
+   "enactability": 1.0273224509145056
+  },
+  "good-humored": {
+   "persona_ev": 4.496597716681858,
+   "baseline_ev": 3.157022751630676,
+   "enactability": 1.3395749650511823
+  },
+  "good-looking": {
+   "persona_ev": 2.212332231133132,
+   "baseline_ev": 1.8324078845395293,
+   "enactability": 0.37992434659360286
+  },
+  "good-natured": {
+   "persona_ev": 5.283321246908804,
+   "baseline_ev": 4.938288150877158,
+   "enactability": 0.34503309603164567
+  },
+  "gorgeous": {
+   "persona_ev": 4.300127409516124,
+   "baseline_ev": 1.8205670908754439,
+   "enactability": 2.4795603186406803
+  },
+  "graceful": {
+   "persona_ev": 4.84452628690688,
+   "baseline_ev": 4.716691782548477,
+   "enactability": 0.12783450435840304
+  },
+  "gracious": {
+   "persona_ev": 5.414535381202917,
+   "baseline_ev": 4.885895933343079,
+   "enactability": 0.5286394478598382
+  },
+  "grateful": {
+   "persona_ev": 6.143869038417843,
+   "baseline_ev": 4.384867010695613,
+   "enactability": 1.7590020277222296
+  },
+  "great": {
+   "persona_ev": 4.330395740187891,
+   "baseline_ev": 4.350479353425484,
+   "enactability": -0.020083613237593667
+  },
+  "greedy": {
+   "persona_ev": 5.343809757104075,
+   "baseline_ev": 2.5471754388238934,
+   "enactability": 2.7966343182801814
+  },
+  "grouchy": {
+   "persona_ev": 5.30657837737552,
+   "baseline_ev": 1.0112172392568068,
+   "enactability": 4.295361138118714
+  },
+  "grumpy": {
+   "persona_ev": 6.122070297839558,
+   "baseline_ev": 1.4519642502207706,
+   "enactability": 4.670106047618788
+  },
+  "guilty": {
+   "persona_ev": 5.020622160641069,
+   "baseline_ev": 3.1829612252888717,
+   "enactability": 1.837660935352197
+  },
+  "handicapped": {
+   "persona_ev": 3.8522359916930693,
+   "baseline_ev": 2.808704755388227,
+   "enactability": 1.0435312363048421
+  },
+  "handsome": {
+   "persona_ev": 2.809900208119263,
+   "baseline_ev": 2.092871429669294,
+   "enactability": 0.7170287784499689
+  },
+  "happy": {
+   "persona_ev": 6.320917671290307,
+   "baseline_ev": 4.482841652055484,
+   "enactability": 1.8380760192348227
+  },
+  "hard": {
+   "persona_ev": 4.991793156588537,
+   "baseline_ev": 3.92870063291391,
+   "enactability": 1.0630925236746274
+  },
+  "hard-working": {
+   "persona_ev": 3.9688571075367998,
+   "baseline_ev": 4.512685951363682,
+   "enactability": -0.5438288438268826
+  },
+  "harmless": {
+   "persona_ev": 4.248602335106429,
+   "baseline_ev": 4.823026275915009,
+   "enactability": -0.5744239408085798
+  },
+  "harsh": {
+   "persona_ev": 5.407181073706832,
+   "baseline_ev": 2.7827411502887607,
+   "enactability": 2.6244399234180715
+  },
+  "healthy": {
+   "persona_ev": 4.773892195888433,
+   "baseline_ev": 4.684827820759064,
+   "enactability": 0.08906437512936893
+  },
+  "heartbroken": {
+   "persona_ev": 5.7162158579612035,
+   "baseline_ev": 1.4232467504843584,
+   "enactability": 4.292969107476845
+  },
+  "helpful": {
+   "persona_ev": 4.69219445802501,
+   "baseline_ev": 4.436487557267441,
+   "enactability": 0.25570690075756897
+  },
+  "helpless": {
+   "persona_ev": 6.236918139127573,
+   "baseline_ev": 3.337297616418251,
+   "enactability": 2.8996205227093217
+  },
+  "hilarious": {
+   "persona_ev": 4.548646078480102,
+   "baseline_ev": 1.7964936396646467,
+   "enactability": 2.7521524388154557
+  },
+  "homeless": {
+   "persona_ev": 4.088921166430326,
+   "baseline_ev": 1.007793413322426,
+   "enactability": 3.0811277531079004
+  },
+  "honest": {
+   "persona_ev": 5.2630957539616405,
+   "baseline_ev": 4.546784863923186,
+   "enactability": 0.7163108900384545
+  },
+  "hopeful": {
+   "persona_ev": 5.829634389703337,
+   "baseline_ev": 4.754368310969456,
+   "enactability": 1.0752660787338808
+  },
+  "hostile": {
+   "persona_ev": 6.878531002959503,
+   "baseline_ev": 1.002971712663401,
+   "enactability": 5.875559290296102
+  },
+  "hot-tempered": {
+   "persona_ev": 6.29777594753839,
+   "baseline_ev": 1.0014667658310128,
+   "enactability": 5.296309181707377
+  },
+  "humiliated": {
+   "persona_ev": 5.515168742648132,
+   "baseline_ev": 1.0252517100255654,
+   "enactability": 4.489917032622567
+  },
+  "humorous": {
+   "persona_ev": 4.361607569320628,
+   "baseline_ev": 1.9356588158402328,
+   "enactability": 2.4259487534803954
+  },
+  "idealistic": {
+   "persona_ev": 4.896603785915095,
+   "baseline_ev": 3.7466863858978945,
+   "enactability": 1.1499174000172
+  },
+  "ignorant": {
+   "persona_ev": 3.895744126936874,
+   "baseline_ev": 3.282297283485536,
+   "enactability": 0.6134468434513378
+  },
+  "imaginative": {
+   "persona_ev": 6.418793762898247,
+   "baseline_ev": 3.182049012157989,
+   "enactability": 3.236744750740258
+  },
+  "immature": {
+   "persona_ev": 4.7311757748522005,
+   "baseline_ev": 3.177932477332175,
+   "enactability": 1.5532432975200257
+  },
+  "impatient": {
+   "persona_ev": 5.802677908088599,
+   "baseline_ev": 1.5589980259815814,
+   "enactability": 4.243679882107018
+  },
+  "impolite": {
+   "persona_ev": 4.784176298381173,
+   "baseline_ev": 2.230834037995759,
+   "enactability": 2.5533422603854135
+  },
+  "important": {
+   "persona_ev": 4.158114149561208,
+   "baseline_ev": 4.654794942104061,
+   "enactability": -0.49668079254285313
+  },
+  "impressive": {
+   "persona_ev": 4.189985652306381,
+   "baseline_ev": 4.013045085134904,
+   "enactability": 0.176940567171477
+  },
+  "impulsive": {
+   "persona_ev": 5.167094868251543,
+   "baseline_ev": 3.147257090777784,
+   "enactability": 2.019837777473759
+  },
+  "incompetent": {
+   "persona_ev": 4.25912261268248,
+   "baseline_ev": 3.0572858505767284,
+   "enactability": 1.201836762105752
+  },
+  "inconsiderate": {
+   "persona_ev": 5.654042921605998,
+   "baseline_ev": 2.9313069308850075,
+   "enactability": 2.7227359907209907
+  },
+  "indecisive": {
+   "persona_ev": 6.623430828243762,
+   "baseline_ev": 3.2739896293942685,
+   "enactability": 3.349441198849494
+  },
+  "independent": {
+   "persona_ev": 5.173263208291171,
+   "baseline_ev": 4.153693796671718,
+   "enactability": 1.0195694116194538
+  },
+  "inefficient": {
+   "persona_ev": 4.660027088762985,
+   "baseline_ev": 3.1294592080653576,
+   "enactability": 1.5305678806976273
+  },
+  "inexperienced": {
+   "persona_ev": 4.2516866923728776,
+   "baseline_ev": 3.665860932476452,
+   "enactability": 0.5858257598964256
+  },
+  "influential": {
+   "persona_ev": 4.091724955734464,
+   "baseline_ev": 3.78810273064404,
+   "enactability": 0.30362222509042436
+  },
+  "informal": {
+   "persona_ev": 4.692565587774641,
+   "baseline_ev": 3.794102976026619,
+   "enactability": 0.8984626117480214
+  },
+  "innocent": {
+   "persona_ev": 4.056206940887446,
+   "baseline_ev": 4.212826947427492,
+   "enactability": -0.15662000654004604
+  },
+  "insane": {
+   "persona_ev": 4.732850865433978,
+   "baseline_ev": 2.6345693685588856,
+   "enactability": 2.0982814968750922
+  },
+  "insecure": {
+   "persona_ev": 5.378237567517741,
+   "baseline_ev": 2.806542580974437,
+   "enactability": 2.571694986543304
+  },
+  "insulting": {
+   "persona_ev": 6.096597252498948,
+   "baseline_ev": 2.253451494395767,
+   "enactability": 3.843145758103181
+  },
+  "intellectual": {
+   "persona_ev": 4.744383362549025,
+   "baseline_ev": 4.040762223477044,
+   "enactability": 0.7036211390719807
+  },
+  "intelligent": {
+   "persona_ev": 4.51996442697766,
+   "baseline_ev": 4.246657341242395,
+   "enactability": 0.2733070857352651
+  },
+  "interested": {
+   "persona_ev": 4.764575278489424,
+   "baseline_ev": 4.9449107117606115,
+   "enactability": -0.18033543327118728
+  },
+  "interesting": {
+   "persona_ev": 3.7703446347731595,
+   "baseline_ev": 3.9767595815267907,
+   "enactability": -0.20641494675363115
+  },
+  "intimidating": {
+   "persona_ev": 5.8246121764516525,
+   "baseline_ev": 3.260000618127786,
+   "enactability": 2.5646115583238664
+  },
+  "involved": {
+   "persona_ev": 4.11939933496268,
+   "baseline_ev": 3.8820098947510338,
+   "enactability": 0.23738944021164654
+  },
+  "irrational": {
+   "persona_ev": 5.532630190108209,
+   "baseline_ev": 2.4250067896023593,
+   "enactability": 3.10762340050585
+  },
+  "irresponsible": {
+   "persona_ev": 3.9586054748819004,
+   "baseline_ev": 3.031195145559294,
+   "enactability": 0.9274103293226066
+  },
+  "irritable": {
+   "persona_ev": 5.424272156109053,
+   "baseline_ev": 1.485140850511641,
+   "enactability": 3.939131305597412
+  },
+  "irritated": {
+   "persona_ev": 5.806883046003654,
+   "baseline_ev": 2.36344454104861,
+   "enactability": 3.4434385049550444
+  },
+  "irritating": {
+   "persona_ev": 5.993445983914132,
+   "baseline_ev": 2.93181301174079,
+   "enactability": 3.0616329721733417
+  },
+  "jealous": {
+   "persona_ev": 6.256448730541904,
+   "baseline_ev": 1.2739472928344648,
+   "enactability": 4.982501437707439
+  },
+  "joyful": {
+   "persona_ev": 6.534782889785815,
+   "baseline_ev": 4.054876471537637,
+   "enactability": 2.479906418248178
+  },
+  "kind": {
+   "persona_ev": 5.952657012254696,
+   "baseline_ev": 4.2048472612604,
+   "enactability": 1.7478097509942963
+  },
+  "kind-hearted": {
+   "persona_ev": 5.981635027169761,
+   "baseline_ev": 4.669073429451251,
+   "enactability": 1.3125615977185108
+  },
+  "knowledgeable": {
+   "persona_ev": 4.466185992202973,
+   "baseline_ev": 4.458710492167827,
+   "enactability": 0.0074755000351460765
+  },
+  "laid-back": {
+   "persona_ev": 5.05800861564172,
+   "baseline_ev": 4.087595178162377,
+   "enactability": 0.9704134374793432
+  },
+  "laughing": {
+   "persona_ev": 5.989526106165853,
+   "baseline_ev": 1.7993617237754727,
+   "enactability": 4.19016438239038
+  },
+  "lazy": {
+   "persona_ev": 5.494154336215828,
+   "baseline_ev": 2.987116367930469,
+   "enactability": 2.5070379682853585
+  },
+  "left-handed": {
+   "persona_ev": 4.152163998132544,
+   "baseline_ev": 2.3401584503260002,
+   "enactability": 1.8120055478065442
+  },
+  "level-headed": {
+   "persona_ev": 4.733380070019437,
+   "baseline_ev": 4.499694914301904,
+   "enactability": 0.23368515571753257
+  },
+  "liberal": {
+   "persona_ev": 4.400393945664466,
+   "baseline_ev": 3.6281461823521863,
+   "enactability": 0.7722477633122797
+  },
+  "likeable": {
+   "persona_ev": 4.455863020661321,
+   "baseline_ev": 4.644476662262539,
+   "enactability": -0.18861364160121852
+  },
+  "little": {
+   "persona_ev": 2.871144205997086,
+   "baseline_ev": 4.7636592436331755,
+   "enactability": -1.8925150376360893
+  },
+  "lively": {
+   "persona_ev": 5.9513682710805895,
+   "baseline_ev": 3.428070581552911,
+   "enactability": 2.5232976895276784
+  },
+  "logical": {
+   "persona_ev": 5.999410056677725,
+   "baseline_ev": 5.067728392629906,
+   "enactability": 0.9316816640478187
+  },
+  "lonely": {
+   "persona_ev": 4.980540149172217,
+   "baseline_ev": 2.2034896564608335,
+   "enactability": 2.7770504927113837
+  },
+  "lonesome": {
+   "persona_ev": 5.365283739192255,
+   "baseline_ev": 2.682959156158374,
+   "enactability": 2.6823245830338807
+  },
+  "loud": {
+   "persona_ev": 5.3289803628595545,
+   "baseline_ev": 3.367527991696919,
+   "enactability": 1.9614523711626353
+  },
+  "lovable": {
+   "persona_ev": 4.219753374603556,
+   "baseline_ev": 4.137596021811243,
+   "enactability": 0.08215735279231318
+  },
+  "lovely": {
+   "persona_ev": 4.896383769191649,
+   "baseline_ev": 4.212682916048854,
+   "enactability": 0.6837008531427955
+  },
+  "loving": {
+   "persona_ev": 5.42956297840293,
+   "baseline_ev": 4.089628332389722,
+   "enactability": 1.3399346460132078
+  },
+  "loyal": {
+   "persona_ev": 4.5591948856665105,
+   "baseline_ev": 3.8072967533608555,
+   "enactability": 0.751898132305655
+  },
+  "lucky": {
+   "persona_ev": 6.20657543770222,
+   "baseline_ev": 4.329271177430029,
+   "enactability": 1.877304260272191
+  },
+  "masculine": {
+   "persona_ev": 4.0660603404222515,
+   "baseline_ev": 3.462931928231037,
+   "enactability": 0.6031284121912144
+  },
+  "materialistic": {
+   "persona_ev": 4.62061635768369,
+   "baseline_ev": 2.5368310585740446,
+   "enactability": 2.0837852991096453
+  },
+  "mature": {
+   "persona_ev": 4.509338420199711,
+   "baseline_ev": 4.6123544365143765,
+   "enactability": -0.10301601631466539
+  },
+  "mean": {
+   "persona_ev": 4.647667542152481,
+   "baseline_ev": 1.5600770497655763,
+   "enactability": 3.087590492386905
+  },
+  "messy": {
+   "persona_ev": 6.788622548900555,
+   "baseline_ev": 3.1556066224439947,
+   "enactability": 3.6330159264565607
+  },
+  "middle-aged": {
+   "persona_ev": 4.130941282789563,
+   "baseline_ev": 3.673346358164321,
+   "enactability": 0.4575949246252424
+  },
+  "middle-class": {
+   "persona_ev": 4.089008549824321,
+   "baseline_ev": 4.189062283280302,
+   "enactability": -0.10005373345598123
+  },
+  "modest": {
+   "persona_ev": 4.522224686511907,
+   "baseline_ev": 3.656352167161562,
+   "enactability": 0.8658725193503454
+  },
+  "moody": {
+   "persona_ev": 5.248051884282514,
+   "baseline_ev": 2.6894305147362596,
+   "enactability": 2.5586213695462545
+  },
+  "motherly": {
+   "persona_ev": 5.235622829742549,
+   "baseline_ev": 3.4063707301386623,
+   "enactability": 1.8292520996038864
+  },
+  "muscular": {
+   "persona_ev": 4.931957027474571,
+   "baseline_ev": 2.485584105385641,
+   "enactability": 2.44637292208893
+  },
+  "naive": {
+   "persona_ev": 4.134980030742517,
+   "baseline_ev": 3.2600681375422806,
+   "enactability": 0.874911893200236
+  },
+  "narrow-minded": {
+   "persona_ev": 4.478860712724898,
+   "baseline_ev": 2.7972783764420734,
+   "enactability": 1.6815823362828244
+  },
+  "natural": {
+   "persona_ev": 4.641150935233304,
+   "baseline_ev": 4.665316716097207,
+   "enactability": -0.024165780863903308
+  },
+  "neat": {
+   "persona_ev": 4.5663893679073215,
+   "baseline_ev": 4.372872968217245,
+   "enactability": 0.1935163996900764
+  },
+  "needy": {
+   "persona_ev": 4.12314672107916,
+   "baseline_ev": 2.563978474298619,
+   "enactability": 1.559168246780541
+  },
+  "negative": {
+   "persona_ev": 6.492472449796589,
+   "baseline_ev": 2.6808649821704367,
+   "enactability": 3.811607467626152
+  },
+  "neglected": {
+   "persona_ev": 6.152618842150437,
+   "baseline_ev": 3.0003556244576015,
+   "enactability": 3.1522632176928354
+  },
+  "neighborly": {
+   "persona_ev": 4.419398136619048,
+   "baseline_ev": 4.2965357158563755,
+   "enactability": 0.12286242076267229
+  },
+  "nervous": {
+   "persona_ev": 5.741646834715834,
+   "baseline_ev": 2.1973306517354967,
+   "enactability": 3.544316182980337
+  },
+  "nice": {
+   "persona_ev": 6.312005453954514,
+   "baseline_ev": 4.415800096712228,
+   "enactability": 1.8962053572422857
+  },
+  "noisy": {
+   "persona_ev": 4.732885731258879,
+   "baseline_ev": 3.017996714860491,
+   "enactability": 1.7148890163983879
+  },
+  "normal": {
+   "persona_ev": 4.913358873840115,
+   "baseline_ev": 4.813935125025698,
+   "enactability": 0.09942374881441651
+  },
+  "nosy": {
+   "persona_ev": 5.835237183158201,
+   "baseline_ev": 2.8535222387294805,
+   "enactability": 2.9817149444287203
+  },
+  "obnoxious": {
+   "persona_ev": 5.926627877384014,
+   "baseline_ev": 3.057835851317411,
+   "enactability": 2.868792026066603
+  },
+  "observant": {
+   "persona_ev": 4.953865316363682,
+   "baseline_ev": 4.64982221131471,
+   "enactability": 0.30404310504897225
+  },
+  "obsessive": {
+   "persona_ev": 5.1854826088539605,
+   "baseline_ev": 2.764407497146291,
+   "enactability": 2.4210751117076694
+  },
+  "offensive": {
+   "persona_ev": 6.652057634278127,
+   "baseline_ev": 1.47521566181038,
+   "enactability": 5.176841972467747
+  },
+  "old": {
+   "persona_ev": 6.093475752066642,
+   "baseline_ev": 3.8899035962461888,
+   "enactability": 2.203572155820453
+  },
+  "old-fashioned": {
+   "persona_ev": 4.822827633193584,
+   "baseline_ev": 3.269437905718882,
+   "enactability": 1.553389727474702
+  },
+  "open": {
+   "persona_ev": 5.017340844970073,
+   "baseline_ev": 4.587700990188987,
+   "enactability": 0.4296398547810867
+  },
+  "open-minded": {
+   "persona_ev": 6.6582952288859065,
+   "baseline_ev": 4.261246738712934,
+   "enactability": 2.3970484901729723
+  },
+  "opinionated": {
+   "persona_ev": 6.036980441064444,
+   "baseline_ev": 2.9674083110045366,
+   "enactability": 3.0695721300599077
+  },
+  "optimistic": {
+   "persona_ev": 5.916874756251605,
+   "baseline_ev": 4.581710199150454,
+   "enactability": 1.3351645571011517
+  },
+  "ordinary": {
+   "persona_ev": 3.882687066753373,
+   "baseline_ev": 3.9464363830432108,
+   "enactability": -0.06374931628983793
+  },
+  "organized": {
+   "persona_ev": 6.1375308617216815,
+   "baseline_ev": 4.717749022721465,
+   "enactability": 1.4197818390002164
+  },
+  "original": {
+   "persona_ev": 4.543949633152804,
+   "baseline_ev": 3.63167697928665,
+   "enactability": 0.9122726538661543
+  },
+  "outgoing": {
+   "persona_ev": 6.093631283917055,
+   "baseline_ev": 3.6171818005025016,
+   "enactability": 2.476449483414554
+  },
+  "outspoken": {
+   "persona_ev": 6.4215263908018665,
+   "baseline_ev": 3.880843195196917,
+   "enactability": 2.5406831956049496
+  },
+  "outstanding": {
+   "persona_ev": 4.440666021745944,
+   "baseline_ev": 4.229940905057817,
+   "enactability": 0.21072511668812677
+  },
+  "overrated": {
+   "persona_ev": 6.600299996738583,
+   "baseline_ev": 3.232820493951266,
+   "enactability": 3.367479502787317
+  },
+  "overworked": {
+   "persona_ev": 6.5002757994746165,
+   "baseline_ev": 2.099434449647075,
+   "enactability": 4.400841349827541
+  },
+  "passionate": {
+   "persona_ev": 6.573927227637889,
+   "baseline_ev": 3.1210550157126034,
+   "enactability": 3.452872211925286
+  },
+  "pathetic": {
+   "persona_ev": 4.5922245560684445,
+   "baseline_ev": 2.970972697967874,
+   "enactability": 1.6212518581005706
+  },
+  "patient": {
+   "persona_ev": 4.65350169155638,
+   "baseline_ev": 4.132673121046984,
+   "enactability": 0.520828570509396
+  },
+  "peaceful": {
+   "persona_ev": 4.416441540383508,
+   "baseline_ev": 4.1366152275513,
+   "enactability": 0.27982631283220716
+  },
+  "perceptive": {
+   "persona_ev": 4.873038377062027,
+   "baseline_ev": 4.312116461469687,
+   "enactability": 0.5609219155923402
+  },
+  "persistent": {
+   "persona_ev": 3.9883616928557535,
+   "baseline_ev": 3.7251347860776765,
+   "enactability": 0.26322690677807703
+  },
+  "persuasive": {
+   "persona_ev": 4.390184346283092,
+   "baseline_ev": 4.675905824584664,
+   "enactability": -0.28572147830157224
+  },
+  "philosophical": {
+   "persona_ev": 5.980880211244223,
+   "baseline_ev": 3.3799002479825018,
+   "enactability": 2.600979963261721
+  },
+  "phony": {
+   "persona_ev": 6.249687254890257,
+   "baseline_ev": 3.0988683165791424,
+   "enactability": 3.1508189383111147
+  },
+  "plain": {
+   "persona_ev": 3.4509384810411277,
+   "baseline_ev": 3.9212538950097526,
+   "enactability": -0.470315413968625
+  },
+  "playful": {
+   "persona_ev": 5.463172352631536,
+   "baseline_ev": 2.580538082068318,
+   "enactability": 2.8826342705632175
+  },
+  "pleasant": {
+   "persona_ev": 5.60998143239942,
+   "baseline_ev": 4.643781973852262,
+   "enactability": 0.966199458547158
+  },
+  "pleased": {
+   "persona_ev": 6.212939859527111,
+   "baseline_ev": 3.7840711368601503,
+   "enactability": 2.428868722666961
+  },
+  "pleasing": {
+   "persona_ev": 4.623353483912209,
+   "baseline_ev": 4.462335205995878,
+   "enactability": 0.16101827791633117
+  },
+  "polite": {
+   "persona_ev": 5.927284395154329,
+   "baseline_ev": 4.244227020153594,
+   "enactability": 1.6830573750007352
+  },
+  "poor": {
+   "persona_ev": 4.282821968342098,
+   "baseline_ev": 3.2542305780083405,
+   "enactability": 1.0285913903337578
+  },
+  "popular": {
+   "persona_ev": 3.783776900998711,
+   "baseline_ev": 3.848995136632934,
+   "enactability": -0.06521823563422302
+  },
+  "positive": {
+   "persona_ev": 6.559045475652527,
+   "baseline_ev": 4.870629937154316,
+   "enactability": 1.6884155384982114
+  },
+  "possessive": {
+   "persona_ev": 4.846920807355127,
+   "baseline_ev": 1.0047032584287985,
+   "enactability": 3.842217548926328
+  },
+  "powerful": {
+   "persona_ev": 3.771005234641923,
+   "baseline_ev": 3.4915251912600693,
+   "enactability": 0.2794800433818536
+  },
+  "practical": {
+   "persona_ev": 5.39621426632036,
+   "baseline_ev": 4.900478209048998,
+   "enactability": 0.49573605727136183
+  },
+  "predictable": {
+   "persona_ev": 4.221935231429532,
+   "baseline_ev": 4.047756456433775,
+   "enactability": 0.17417877499575685
+  },
+  "prejudiced": {
+   "persona_ev": 5.737078981125992,
+   "baseline_ev": 1.8402071994734395,
+   "enactability": 3.896871781652553
+  },
+  "preoccupied": {
+   "persona_ev": 3.820209745645056,
+   "baseline_ev": 3.98484776965474,
+   "enactability": -0.16463802400968408
+  },
+  "presentable": {
+   "persona_ev": 4.736361611855132,
+   "baseline_ev": 4.370112674497276,
+   "enactability": 0.3662489373578568
+  },
+  "pretty": {
+   "persona_ev": 2.9891345584162607,
+   "baseline_ev": 1.3786483588154161,
+   "enactability": 1.6104861996008446
+  },
+  "private": {
+   "persona_ev": 3.7622984927600145,
+   "baseline_ev": 3.470109611994365,
+   "enactability": 0.29218888076564964
+  },
+  "procrastinating": {
+   "persona_ev": 5.791465677071088,
+   "baseline_ev": 2.8063301060213437,
+   "enactability": 2.985135571049744
+  },
+  "productive": {
+   "persona_ev": 4.3582502478148095,
+   "baseline_ev": 4.4837741912112765,
+   "enactability": -0.125523943396467
+  },
+  "professional": {
+   "persona_ev": 4.9184445001401915,
+   "baseline_ev": 4.6452244254057335,
+   "enactability": 0.273220074734458
+  },
+  "prominent": {
+   "persona_ev": 4.533021498561311,
+   "baseline_ev": 4.131409296582103,
+   "enactability": 0.40161220197920766
+  },
+  "prompt": {
+   "persona_ev": 4.42696913808241,
+   "baseline_ev": 4.307335790672045,
+   "enactability": 0.1196333474103648
+  },
+  "proper": {
+   "persona_ev": 4.554388411958254,
+   "baseline_ev": 4.752397416636985,
+   "enactability": -0.19800900467873106
+  },
+  "prosperous": {
+   "persona_ev": 5.5858602847047045,
+   "baseline_ev": 4.066262920518585,
+   "enactability": 1.5195973641861196
+  },
+  "protective": {
+   "persona_ev": 5.5932684191848905,
+   "baseline_ev": 3.3109079703953594,
+   "enactability": 2.282360448789531
+  },
+  "proud": {
+   "persona_ev": 5.41505875984728,
+   "baseline_ev": 3.67469973471979,
+   "enactability": 1.7403590251274905
+  },
+  "punctual": {
+   "persona_ev": 5.676658009432339,
+   "baseline_ev": 4.8224671766066685,
+   "enactability": 0.8541908328256707
+  },
+  "quiet": {
+   "persona_ev": 4.225676977109858,
+   "baseline_ev": 3.4181075887190806,
+   "enactability": 0.8075693883907773
+  },
+  "radical": {
+   "persona_ev": 6.60465539617908,
+   "baseline_ev": 2.545320068760438,
+   "enactability": 4.059335327418642
+  },
+  "rational": {
+   "persona_ev": 4.861049151001101,
+   "baseline_ev": 4.852516675657061,
+   "enactability": 0.008532475344040336
+  },
+  "realistic": {
+   "persona_ev": 4.945319883397536,
+   "baseline_ev": 5.301872652026995,
+   "enactability": -0.3565527686294594
+  },
+  "reasonable": {
+   "persona_ev": 4.934923370950596,
+   "baseline_ev": 4.729991178163265,
+   "enactability": 0.20493219278733132
+  },
+  "rebellious": {
+   "persona_ev": 5.352045725652388,
+   "baseline_ev": 1.1013426382033762,
+   "enactability": 4.250703087449012
+  },
+  "reckless": {
+   "persona_ev": 6.447597144958555,
+   "baseline_ev": 2.4189767873363373,
+   "enactability": 4.028620357622218
+  },
+  "relaxed": {
+   "persona_ev": 4.744286566302877,
+   "baseline_ev": 4.233352757966121,
+   "enactability": 0.5109338083367563
+  },
+  "reliable": {
+   "persona_ev": 4.602991857672206,
+   "baseline_ev": 4.669234293702592,
+   "enactability": -0.06624243603038593
+  },
+  "religious": {
+   "persona_ev": 6.119423297026763,
+   "baseline_ev": 1.0032425968710257,
+   "enactability": 5.116180700155737
+  },
+  "remarkable": {
+   "persona_ev": 4.082202913257813,
+   "baseline_ev": 3.447485895687955,
+   "enactability": 0.6347170175698582
+  },
+  "resourceful": {
+   "persona_ev": 4.304665019573535,
+   "baseline_ev": 4.778700792119706,
+   "enactability": -0.4740357725461717
+  },
+  "respectable": {
+   "persona_ev": 4.193623742032157,
+   "baseline_ev": 4.454108935348636,
+   "enactability": -0.26048519331647846
+  },
+  "respected": {
+   "persona_ev": 4.443020022194546,
+   "baseline_ev": 4.600189772513754,
+   "enactability": -0.15716975031920732
+  },
+  "respectful": {
+   "persona_ev": 5.165009389466807,
+   "baseline_ev": 4.735130829127812,
+   "enactability": 0.4298785603389952
+  },
+  "responsible": {
+   "persona_ev": 4.796775258886001,
+   "baseline_ev": 4.49334805158363,
+   "enactability": 0.30342720730237094
+  },
+  "retarded": {
+   "persona_ev": 3.309736755962386,
+   "baseline_ev": 2.8369254805393718,
+   "enactability": 0.47281127542301427
+  },
+  "rich": {
+   "persona_ev": 5.9591968083148075,
+   "baseline_ev": 3.6343366631692753,
+   "enactability": 2.324860145145532
+  },
+  "ridiculous": {
+   "persona_ev": 6.776422536562733,
+   "baseline_ev": 2.7942289314247777,
+   "enactability": 3.9821936051379554
+  },
+  "romantic": {
+   "persona_ev": 5.55546112493651,
+   "baseline_ev": 2.1001242223591516,
+   "enactability": 3.4553369025773586
+  },
+  "rough": {
+   "persona_ev": 4.74402330098962,
+   "baseline_ev": 3.442237597425291,
+   "enactability": 1.3017857035643292
+  },
+  "rowdy": {
+   "persona_ev": 4.956052584137762,
+   "baseline_ev": 1.4000215706120853,
+   "enactability": 3.5560310135256765
+  },
+  "rude": {
+   "persona_ev": 5.443723793733369,
+   "baseline_ev": 1.9348363688669932,
+   "enactability": 3.508887424866376
+  },
+  "rushed": {
+   "persona_ev": 5.950073466842651,
+   "baseline_ev": 2.8962185147094517,
+   "enactability": 3.0538549521331997
+  },
+  "sad": {
+   "persona_ev": 4.4100871743519745,
+   "baseline_ev": 1.410284169567463,
+   "enactability": 2.9998030047845115
+  },
+  "sarcastic": {
+   "persona_ev": 6.403351892618275,
+   "baseline_ev": 3.178168466864614,
+   "enactability": 3.225183425753661
+  },
+  "satisfied": {
+   "persona_ev": 4.603530527898174,
+   "baseline_ev": 4.724088741681895,
+   "enactability": -0.12055821378372045
+  },
+  "scared": {
+   "persona_ev": 5.544231301952286,
+   "baseline_ev": 2.426374152658414,
+   "enactability": 3.1178571492938723
+  },
+  "secure": {
+   "persona_ev": 4.8389906542371435,
+   "baseline_ev": 4.342816969179532,
+   "enactability": 0.4961736850576113
+  },
+  "seductive": {
+   "persona_ev": 4.8200499845780325,
+   "baseline_ev": 1.8184402079613222,
+   "enactability": 3.0016097766167102
+  },
+  "self-assured": {
+   "persona_ev": 6.313585350376586,
+   "baseline_ev": 4.4692335069796805,
+   "enactability": 1.8443518433969057
+  },
+  "self-centered": {
+   "persona_ev": 6.0685656755054485,
+   "baseline_ev": 2.8949848197519743,
+   "enactability": 3.173580855753474
+  },
+  "self-confident": {
+   "persona_ev": 5.518745968168294,
+   "baseline_ev": 4.345606678836656,
+   "enactability": 1.1731392893316377
+  },
+  "self-conscious": {
+   "persona_ev": 5.433610633307129,
+   "baseline_ev": 2.9452108121398846,
+   "enactability": 2.4883998211672447
+  },
+  "self-sufficient": {
+   "persona_ev": 4.583004915909228,
+   "baseline_ev": 4.516803623742208,
+   "enactability": 0.06620129216702075
+  },
+  "self-supporting": {
+   "persona_ev": 4.7081352416877476,
+   "baseline_ev": 4.397768034837221,
+   "enactability": 0.3103672068505263
+  },
+  "selfish": {
+   "persona_ev": 4.928144997351183,
+   "baseline_ev": 2.4891862775257296,
+   "enactability": 2.438958719825453
+  },
+  "senile": {
+   "persona_ev": 3.6669344390193097,
+   "baseline_ev": 1.4669452771659865,
+   "enactability": 2.199989161853323
+  },
+  "sensible": {
+   "persona_ev": 5.4286738295635235,
+   "baseline_ev": 5.168381022455872,
+   "enactability": 0.26029280710765157
+  },
+  "sensitive": {
+   "persona_ev": 3.9245224622990404,
+   "baseline_ev": 3.4626630406584216,
+   "enactability": 0.4618594216406189
+  },
+  "sentimental": {
+   "persona_ev": 4.9332637830528245,
+   "baseline_ev": 2.9621086267299113,
+   "enactability": 1.9711551563229133
+  },
+  "serious": {
+   "persona_ev": 5.86294388192043,
+   "baseline_ev": 4.3048659176988275,
+   "enactability": 1.558077964221602
+  },
+  "sexy": {
+   "persona_ev": 4.349139372258699,
+   "baseline_ev": 2.580526496417662,
+   "enactability": 1.7686128758410367
+  },
+  "shallow": {
+   "persona_ev": 4.181321033603453,
+   "baseline_ev": 3.589790282453432,
+   "enactability": 0.591530751150021
+  },
+  "short": {
+   "persona_ev": 3.4294635088932233,
+   "baseline_ev": 3.8164438091249573,
+   "enactability": -0.386980300231734
+  },
+  "short-tempered": {
+   "persona_ev": 5.195082630756023,
+   "baseline_ev": 1.387282480991785,
+   "enactability": 3.8078001497642378
+  },
+  "shy": {
+   "persona_ev": 5.040735601711252,
+   "baseline_ev": 2.617667019555803,
+   "enactability": 2.423068582155449
+  },
+  "sickly": {
+   "persona_ev": 5.10941375225921,
+   "baseline_ev": 1.0671181941424155,
+   "enactability": 4.042295558116794
+  },
+  "sincere": {
+   "persona_ev": 5.061913291658443,
+   "baseline_ev": 4.651314279994431,
+   "enactability": 0.41059901166401147
+  },
+  "skilled": {
+   "persona_ev": 4.364946487768069,
+   "baseline_ev": 4.293691718631889,
+   "enactability": 0.07125476913618023
+  },
+  "skillful": {
+   "persona_ev": 4.76508603458337,
+   "baseline_ev": 4.269430414052459,
+   "enactability": 0.4956556205309113
+  },
+  "skinny": {
+   "persona_ev": 2.4888976885408036,
+   "baseline_ev": 1.0969367357103654,
+   "enactability": 1.3919609528304382
+  },
+  "sleepy": {
+   "persona_ev": 6.060825534825552,
+   "baseline_ev": 2.536544772174956,
+   "enactability": 3.524280762650596
+  },
+  "slender": {
+   "persona_ev": 3.397548048357002,
+   "baseline_ev": 1.244998162302584,
+   "enactability": 2.152549886054418
+  },
+  "slim": {
+   "persona_ev": 3.04605774134977,
+   "baseline_ev": 1.3499272221465215,
+   "enactability": 1.6961305192032483
+  },
+  "sloppy": {
+   "persona_ev": 5.238567835693449,
+   "baseline_ev": 3.029964524016662,
+   "enactability": 2.208603311676787
+  },
+  "smart": {
+   "persona_ev": 4.157007467056237,
+   "baseline_ev": 4.397420592001712,
+   "enactability": -0.24041312494547462
+  },
+  "snobbish": {
+   "persona_ev": 5.615347641219587,
+   "baseline_ev": 2.9316053422815327,
+   "enactability": 2.683742298938054
+  },
+  "sociable": {
+   "persona_ev": 4.781937937390546,
+   "baseline_ev": 3.739554482446639,
+   "enactability": 1.0423834549439066
+  },
+  "social": {
+   "persona_ev": 4.607760659861738,
+   "baseline_ev": 3.777164372240298,
+   "enactability": 0.8305962876214403
+  },
+  "soft-spoken": {
+   "persona_ev": 4.662225600202087,
+   "baseline_ev": 3.882775593513267,
+   "enactability": 0.7794500066888204
+  },
+  "sophisticated": {
+   "persona_ev": 4.971000735979066,
+   "baseline_ev": 4.238300668017647,
+   "enactability": 0.7327000679614191
+  },
+  "spoiled": {
+   "persona_ev": 5.091159966476843,
+   "baseline_ev": 2.6202376547137947,
+   "enactability": 2.470922311763048
+  },
+  "spontaneous": {
+   "persona_ev": 6.7164650467993186,
+   "baseline_ev": 3.6339423820167296,
+   "enactability": 3.082522664782589
+  },
+  "stable": {
+   "persona_ev": 4.538733650323192,
+   "baseline_ev": 4.3910470170002665,
+   "enactability": 0.14768663332292586
+  },
+  "stingy": {
+   "persona_ev": 4.6067962877842685,
+   "baseline_ev": 2.5782293154231164,
+   "enactability": 2.028566972361152
+  },
+  "straightforward": {
+   "persona_ev": 5.356154915542162,
+   "baseline_ev": 4.158290835125379,
+   "enactability": 1.1978640804167835
+  },
+  "strange": {
+   "persona_ev": 5.907777204404967,
+   "baseline_ev": 2.8863006987817705,
+   "enactability": 3.0214765056231965
+  },
+  "strict": {
+   "persona_ev": 6.968016666376494,
+   "baseline_ev": 3.497767174570687,
+   "enactability": 3.470249491805807
+  },
+  "strong": {
+   "persona_ev": 4.749211752660311,
+   "baseline_ev": 4.262599835980215,
+   "enactability": 0.4866119166800962
+  },
+  "stubborn": {
+   "persona_ev": 5.618857877319964,
+   "baseline_ev": 2.444594469906059,
+   "enactability": 3.1742634074139047
+  },
+  "stuck-up": {
+   "persona_ev": 6.008454212267596,
+   "baseline_ev": 2.9097998018526505,
+   "enactability": 3.0986544104149454
+  },
+  "stupid": {
+   "persona_ev": 3.7431211502712043,
+   "baseline_ev": 2.830699043693126,
+   "enactability": 0.9124221065780782
+  },
+  "stylish": {
+   "persona_ev": 4.983401568155845,
+   "baseline_ev": 3.4744353354211084,
+   "enactability": 1.5089662327347364
+  },
+  "successful": {
+   "persona_ev": 3.7632832429028724,
+   "baseline_ev": 4.358032099035008,
+   "enactability": -0.5947488561321359
+  },
+  "superstitious": {
+   "persona_ev": 5.791982043784534,
+   "baseline_ev": 1.1489988805056708,
+   "enactability": 4.642983163278863
+  },
+  "supportive": {
+   "persona_ev": 6.226962950360564,
+   "baseline_ev": 5.258962690116753,
+   "enactability": 0.9680002602438105
+  },
+  "surprised": {
+   "persona_ev": 5.695647422773728,
+   "baseline_ev": 2.855122042832163,
+   "enactability": 2.8405253799415653
+  },
+  "suspicious": {
+   "persona_ev": 6.2969138437878724,
+   "baseline_ev": 3.31891697126599,
+   "enactability": 2.9779968725218824
+  },
+  "sweet": {
+   "persona_ev": 4.838225493956115,
+   "baseline_ev": 4.673667029275944,
+   "enactability": 0.16455846468017032
+  },
+  "sympathetic": {
+   "persona_ev": 4.9233768641963795,
+   "baseline_ev": 4.52717522630274,
+   "enactability": 0.3962016378936397
+  },
+  "systematic": {
+   "persona_ev": 5.046291980173978,
+   "baseline_ev": 4.41461769860837,
+   "enactability": 0.6316742815656076
+  },
+  "talented": {
+   "persona_ev": 4.001454937615396,
+   "baseline_ev": 4.110263829371895,
+   "enactability": -0.10880889175649955
+  },
+  "talkative": {
+   "persona_ev": 5.353479897458943,
+   "baseline_ev": 3.873360247293182,
+   "enactability": 1.480119650165761
+  },
+  "tall": {
+   "persona_ev": 5.101435168652881,
+   "baseline_ev": 4.487311588036782,
+   "enactability": 0.6141235806160994
+  },
+  "temperamental": {
+   "persona_ev": 5.89223902353087,
+   "baseline_ev": 2.843198770898186,
+   "enactability": 3.049040252632684
+  },
+  "tense": {
+   "persona_ev": 5.731423191035445,
+   "baseline_ev": 2.6695315792283427,
+   "enactability": 3.061891611807102
+  },
+  "terrible": {
+   "persona_ev": 6.4790596695788505,
+   "baseline_ev": 2.9949075950990673,
+   "enactability": 3.484152074479783
+  },
+  "terrific": {
+   "persona_ev": 4.583846794411807,
+   "baseline_ev": 4.263822048567266,
+   "enactability": 0.3200247458445409
+  },
+  "thankful": {
+   "persona_ev": 5.853889816212774,
+   "baseline_ev": 3.8597720099463544,
+   "enactability": 1.99411780626642
+  },
+  "thin": {
+   "persona_ev": 2.9473990503693464,
+   "baseline_ev": 1.3060737440441401,
+   "enactability": 1.6413253063252062
+  },
+  "thinking": {
+   "persona_ev": 4.250911217761103,
+   "baseline_ev": 4.148810030219349,
+   "enactability": 0.1021011875417539
+  },
+  "thorough": {
+   "persona_ev": 5.0269257642032965,
+   "baseline_ev": 3.9086230881225887,
+   "enactability": 1.1183026760807078
+  },
+  "thoughtful": {
+   "persona_ev": 5.092356825135433,
+   "baseline_ev": 4.618030207866962,
+   "enactability": 0.4743266172684715
+  },
+  "thoughtless": {
+   "persona_ev": 4.15367925379093,
+   "baseline_ev": 2.9361308866289817,
+   "enactability": 1.2175483671619483
+  },
+  "tiny": {
+   "persona_ev": 3.5725643253375035,
+   "baseline_ev": 3.131320666187582,
+   "enactability": 0.44124365914992136
+  },
+  "tired": {
+   "persona_ev": 6.706556972614813,
+   "baseline_ev": 2.6277719757994453,
+   "enactability": 4.078784996815367
+  },
+  "tolerant": {
+   "persona_ev": 4.219521579500526,
+   "baseline_ev": 4.228065228088601,
+   "enactability": -0.008543648588075214
+  },
+  "touchy": {
+   "persona_ev": 4.045737107390534,
+   "baseline_ev": 2.986368398745019,
+   "enactability": 1.0593687086455148
+  },
+  "tough": {
+   "persona_ev": 5.5300006976861305,
+   "baseline_ev": 3.0002861713125584,
+   "enactability": 2.529714526373572
+  },
+  "traditional": {
+   "persona_ev": 5.09322056368566,
+   "baseline_ev": 4.015549144230584,
+   "enactability": 1.0776714194550756
+  },
+  "troubled": {
+   "persona_ev": 4.5749525863007685,
+   "baseline_ev": 3.2995394162362053,
+   "enactability": 1.2754131700645632
+  },
+  "trusted": {
+   "persona_ev": 4.675962493596201,
+   "baseline_ev": 4.379863632268472,
+   "enactability": 0.2960988613277298
+  },
+  "trusting": {
+   "persona_ev": 4.607174697092761,
+   "baseline_ev": 4.028418378382632,
+   "enactability": 0.5787563187101288
+  },
+  "trustworthy": {
+   "persona_ev": 4.7012749969276495,
+   "baseline_ev": 4.63233029614787,
+   "enactability": 0.06894470077977921
+  },
+  "truthful": {
+   "persona_ev": 5.156377429837921,
+   "baseline_ev": 5.104497970960164,
+   "enactability": 0.05187945887775669
+  },
+  "unattractive": {
+   "persona_ev": 3.611733790885587,
+   "baseline_ev": 3.142056383567888,
+   "enactability": 0.469677407317699
+  },
+  "uncomfortable": {
+   "persona_ev": 5.863005257904969,
+   "baseline_ev": 2.8157314729288974,
+   "enactability": 3.0472737849760714
+  },
+  "uncreative": {
+   "persona_ev": 3.8832860462247223,
+   "baseline_ev": 3.1583178589704493,
+   "enactability": 0.724968187254273
+  },
+  "undependable": {
+   "persona_ev": 3.7144837328973797,
+   "baseline_ev": 3.4620530823981976,
+   "enactability": 0.252430650499182
+  },
+  "understandable": {
+   "persona_ev": 4.915986843731186,
+   "baseline_ev": 4.70139630643339,
+   "enactability": 0.21459053729779676
+  },
+  "understanding": {
+   "persona_ev": 5.275183726007512,
+   "baseline_ev": 4.54464973856246,
+   "enactability": 0.7305339874450523
+  },
+  "uneducated": {
+   "persona_ev": 3.3500611289821576,
+   "baseline_ev": 2.6053562109182087,
+   "enactability": 0.7447049180639489
+  },
+  "unemployed": {
+   "persona_ev": 3.6578549420610935,
+   "baseline_ev": 3.331296950474813,
+   "enactability": 0.3265579915862804
+  },
+  "unenvious": {
+   "persona_ev": 3.7972970843254807,
+   "baseline_ev": 5.165087897518579,
+   "enactability": -1.3677908131930985
+  },
+  "unfair": {
+   "persona_ev": 4.180905466045118,
+   "baseline_ev": 2.954028833352972,
+   "enactability": 1.226876632692146
+  },
+  "unfaithful": {
+   "persona_ev": 2.8217202666078696,
+   "baseline_ev": 1.9893586430438512,
+   "enactability": 0.8323616235640183
+  },
+  "unforgettable": {
+   "persona_ev": 4.611391597206038,
+   "baseline_ev": 3.1541618019761613,
+   "enactability": 1.4572297952298765
+  },
+  "unfriendly": {
+   "persona_ev": 4.954948836627223,
+   "baseline_ev": 2.3121422509658616,
+   "enactability": 2.642806585661362
+  },
+  "ungraceful": {
+   "persona_ev": 5.9736895587732075,
+   "baseline_ev": 2.792727341303021,
+   "enactability": 3.1809622174701864
+  },
+  "unhappy": {
+   "persona_ev": 6.559108132637,
+   "baseline_ev": 2.6460821178436014,
+   "enactability": 3.913026014793399
+  },
+  "uninhibited": {
+   "persona_ev": 5.056867998661399,
+   "baseline_ev": 3.5224255302209606,
+   "enactability": 1.5344424684404387
+  },
+  "unintellectual": {
+   "persona_ev": 3.823855972780919,
+   "baseline_ev": 1.7936166358091008,
+   "enactability": 2.0302393369718184
+  },
+  "unique": {
+   "persona_ev": 6.0569017321052065,
+   "baseline_ev": 3.3373496174970954,
+   "enactability": 2.719552114608111
+  },
+  "unlucky": {
+   "persona_ev": 5.638949930803953,
+   "baseline_ev": 1.9564634744020952,
+   "enactability": 3.682486456401858
+  },
+  "unpopular": {
+   "persona_ev": 4.4943331698444045,
+   "baseline_ev": 2.8631322156833914,
+   "enactability": 1.631200954161013
+  },
+  "unpredictable": {
+   "persona_ev": 6.1802768368753345,
+   "baseline_ev": 3.315426410740049,
+   "enactability": 2.8648504261352854
+  },
+  "unreasonable": {
+   "persona_ev": 5.333444876936065,
+   "baseline_ev": 1.8251396351876537,
+   "enactability": 3.5083052417484115
+  },
+  "unreliable": {
+   "persona_ev": 4.348598698762208,
+   "baseline_ev": 3.2319477850625704,
+   "enactability": 1.1166509136996376
+  },
+  "unstable": {
+   "persona_ev": 3.9800737785401292,
+   "baseline_ev": 2.718867824223741,
+   "enactability": 1.261205954316388
+  },
+  "unsure": {
+   "persona_ev": 6.672451656605375,
+   "baseline_ev": 2.9134985668981943,
+   "enactability": 3.758953089707181
+  },
+  "unsympathetic": {
+   "persona_ev": 4.466092127089428,
+   "baseline_ev": 3.1669096321957966,
+   "enactability": 1.299182494893631
+  },
+  "unusual": {
+   "persona_ev": 5.8392458249997246,
+   "baseline_ev": 3.1732320142651655,
+   "enactability": 2.666013810734559
+  },
+  "upset": {
+   "persona_ev": 6.4699330685765375,
+   "baseline_ev": 1.0245678171785568,
+   "enactability": 5.44536525139798
+  },
+  "useful": {
+   "persona_ev": 4.3134221536375685,
+   "baseline_ev": 4.730040296907279,
+   "enactability": -0.4166181432697105
+  },
+  "valuable": {
+   "persona_ev": 4.141864820614842,
+   "baseline_ev": 4.631221833741135,
+   "enactability": -0.489357013126293
+  },
+  "violent": {
+   "persona_ev": 3.929260639199927,
+   "baseline_ev": 1.0000301065334805,
+   "enactability": 2.9292305326664465
+  },
+  "warm": {
+   "persona_ev": 6.188866647768199,
+   "baseline_ev": 4.188026496135266,
+   "enactability": 2.000840151632933
+  },
+  "warm-hearted": {
+   "persona_ev": 5.074516892208937,
+   "baseline_ev": 4.52987551440061,
+   "enactability": 0.5446413778083272
+  },
+  "wasteful": {
+   "persona_ev": 5.88428816218856,
+   "baseline_ev": 3.098582996371206,
+   "enactability": 2.785705165817354
+  },
+  "weak": {
+   "persona_ev": 4.011258809999681,
+   "baseline_ev": 3.425979239414279,
+   "enactability": 0.5852795705854024
+  },
+  "wealthy": {
+   "persona_ev": 6.4734273153131205,
+   "baseline_ev": 3.3418525656461573,
+   "enactability": 3.1315747496669633
+  },
+  "weird": {
+   "persona_ev": 5.5676881949451165,
+   "baseline_ev": 2.916006339442848,
+   "enactability": 2.6516818555022685
+  },
+  "well": {
+   "persona_ev": 4.076138138619336,
+   "baseline_ev": 4.311640308681644,
+   "enactability": -0.23550217006230856
+  },
+  "well-adjusted": {
+   "persona_ev": 4.5662045553891355,
+   "baseline_ev": 4.472175580868178,
+   "enactability": 0.09402897452095793
+  },
+  "well-known": {
+   "persona_ev": 4.200892203627335,
+   "baseline_ev": 3.5557051947360576,
+   "enactability": 0.6451870088912774
+  },
+  "well-liked": {
+   "persona_ev": 4.131149529530022,
+   "baseline_ev": 4.455790803570341,
+   "enactability": -0.32464127404031906
+  },
+  "well-to-do": {
+   "persona_ev": 4.403371574676107,
+   "baseline_ev": 3.8609794273599465,
+   "enactability": 0.5423921473161601
+  },
+  "wise": {
+   "persona_ev": 4.913918420141329,
+   "baseline_ev": 4.579265596831694,
+   "enactability": 0.33465282330963486
+  },
+  "wishy-washy": {
+   "persona_ev": 5.7067768615650305,
+   "baseline_ev": 3.3214714561892515,
+   "enactability": 2.385305405375779
+  },
+  "withdrawn": {
+   "persona_ev": 4.306409600270722,
+   "baseline_ev": 2.382975097819889,
+   "enactability": 1.9234345024508333
+  },
+  "witty": {
+   "persona_ev": 4.240796976605838,
+   "baseline_ev": 2.9248659125361796,
+   "enactability": 1.3159310640696589
+  },
+  "wonderful": {
+   "persona_ev": 4.687940872285755,
+   "baseline_ev": 4.360117618334493,
+   "enactability": 0.3278232539512622
+  },
+  "worried": {
+   "persona_ev": 6.142468355132545,
+   "baseline_ev": 2.8091072218680853,
+   "enactability": 3.3333611332644595
+  },
+  "worthy": {
+   "persona_ev": 4.644159781498627,
+   "baseline_ev": 4.693714378117126,
+   "enactability": -0.04955459661849915
+  },
+  "young": {
+   "persona_ev": 4.00615442853305,
+   "baseline_ev": 3.751829544821407,
+   "enactability": 0.2543248837116434
+  },
+  "youthful": {
+   "persona_ev": 3.986885884468264,
+   "baseline_ev": 3.8078200124361623,
+   "enactability": 0.17906587203210167
+  }
+ }
+}
