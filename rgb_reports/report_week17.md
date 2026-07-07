@@ -675,6 +675,25 @@ Instrument note: cross-model SELF comparisons should report mode+P(1)
 alongside EV, or ipsatize (within-model standardization) — the same
 correction the human adjective literature applies.
 
+**§15.9 — The under-claim corner is unenactability, not modesty (rgb's
+conjecture, confirmed).** The says_vs_is scatter's biggest under-claims
+(disabled/handicapped on the Qwens, unemployed/blind on qwen2.5) are words
+that are *hard to roleplay textually*. The rollouts show the mechanism —
+Qwen7's "disabled" persona stays the default assistant and deflects the
+attribute onto the user ("challenges related to *your* disability") — and
+vs-mean extraction converts that into geometry: an unenactable persona has
+mean_adj ≈ mean_default, so d_adj ≈ the assistant axis *by construction*.
+Quantified: identity/status/placebo words (employed, slim, disabled,
+handicapped, blind, middle-class, tall, handsome) occupy the 54–99th
+percentile of assistant-axis cos in the Qwens while enactable style words
+(rude, messy, talkative, cheerful) sit at 8–38%; llama/gemma show the same
+pattern more weakly (llama roleplays "unemployed" fine, 23rd pct). Two
+implications: (1) for unenactable words SAYS is *more* accurate than IS —
+the questionnaire beats the probe exactly where enactment fails; (2)
+assistant-axis cos conflates "assistant-congruent trait" with "unenactable
+persona", so §15's says-is correlations are diluted by the identity-word
+stratum — a stronger says-is test would restrict to enactable adjectives.
+
 Next: SELF vs human PDA *means* (norms); FalconMamba/Gemma4 deep-dive; the
 Aya/Llama8 self-signal residue.
 
