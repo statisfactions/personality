@@ -630,9 +630,26 @@ affect, physical nonsense-probes incl. the placebos, neutrals) × the trio.
    diffuse (H ≈ 1.0–1.4), qwen intermediate (0.4–0.7), gemma razor-peaked
    (0.06–0.22).
 
-Next: full-523 runs (cheap) make SELF a per-adjective profile comparable to
-human PDA *means* (norms), and a fifth column alongside the four-grid — plus
-the says-vs-is correlation at full resolution.
+**§15.7 — The diagonal test: it's the character sheet, not introspection.**
+rgb's reframed nonsense-candidate: maybe the self-report is every model
+reciting the shared cultural stereotype of "an AI assistant" rather than
+self-knowledge. Discriminator: the says(A)-vs-is(B) matrix over 9 models ×
+523 adjectives (SELF profile, framing-mean, against each model's
+massive-ablated assistant-axis projections). Result: **flat** — diagonal mean
+0.711 vs off-diagonal 0.692 (advantage +0.019); SELF profiles are
+near-interchangeable across models (cross-model SELF↔SELF r = 0.88); only
+2/9 models rank their own axis first from their own self-report, and Gemma12
+ranks itself *last*. So §15's says-tracks-is is carried by the shared
+assistant shape on both sides — the models all say the same thing and all
+roughly are that thing; model-specific introspection is ~absent. This is the
+SELF-channel version of W1's mixture decomposition (shared-assistant ≫
+genuine-unique). Residue worth watching: 6/9 show a small positive own-axis
+edge (Aya +0.11, Llama8 +0.08 — weak self-signal candidates); Gemma12 is
+anti-self-informative (−0.14) — the cohort's most idiosyncratic behavioral
+axis wearing the most boilerplate self-description.
+
+Next: SELF vs human PDA *means* (norms); the observer-frame capacity
+scoreboard (Qwen32 pending); FalconMamba/Gemma4 tail.
 
 ## Repro
 
