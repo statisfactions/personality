@@ -671,9 +671,12 @@ rejection reflex); **phi4 never modes at "1"** (0%, diffuse H≈1.3);
 **gemma3 confidently modes at "2"** (cruel: 0.94 mass on "Disagree", near-zero
 entropy) — a deliberate *non-extreme response style*, the model analog of
 human moderate-vs-extreme responding (the bigger Gemmas switch to extreme).
-Instrument note: cross-model SELF comparisons should report mode+P(1)
-alongside EV, or ipsatize (within-model standardization) — the same
-correction the human adjective literature applies.
+Instrument note (revised per rgb): EV + entropy stay the primary readout —
+the graded "shades" are real signal (gemma's 1.95-vs-1.02 response style IS
+an EV-only finding) and the uncertainty is already carried by the recorded
+entropy. Mode/P(1) are consultation views for the multimodal corners (the
+observer parse-splits), not a replacement; ipsatize when comparing levels
+across models with different response styles.
 
 **§15.9 — The under-claim corner is unenactability, not modesty (rgb's
 conjecture, confirmed).** The says_vs_is scatter's biggest under-claims
