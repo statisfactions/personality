@@ -269,3 +269,14 @@ Pulled the raw Saucier 525-PDA item responses (Harvard Dataverse `doi:10.7910/DV
 - **Real personas instead of synthetic z's:** condition on actual respondent profiles (700 real people) vs sampled-z vectors — does inducing a *real* person's adjective profile behave differently / more coherently?
 - **Persona-induction validation target:** does an induced persona's self-rating pattern resemble a real ESCS respondent's (nearest-neighbor in the 525-d profile space, or distributional realism)?
 - Clean human anchor already in hand for any future adjective work (the correlation matrix is the reduced form we've used; raw is here if we need item distributions / robust recomputes).
+
+## Multi-turn conduct drift vs self-report (W17 §15 follow-up)
+Qwen self-reports rude/sarcastic ~2 points above its judged single-turn conduct
+(and its observer-framing puts 0.58 mass on "users would strongly agree I'm
+rude" — existential parse). rgb's hypothesis: maybe the self-report is not
+miscalibrated but *prophetic* — conduct drifts over extended conversations.
+Test: multi-turn rollouts (20-40 turns, persona-free), judge conduct
+(rude/impatient/sarcastic/helpful) per turn index, cohort-wide. If qwen's
+judged rudeness climbs with turn index while llama/gemma stay flat, the
+self-report tracks the model's *drift disposition* rather than its turn-1
+behavior — which would be a genuinely new kind of says-vs-is validity.

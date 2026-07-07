@@ -606,9 +606,20 @@ affect, physical nonsense-probes incl. the placebos, neutrals) × the trio.
    "a bit" hedging). And qwen's `observer` framing reveals a genuine
    self/other split: "people who interact with me would describe me as rude"
    scores 5.2 vs 3.8 for "I am rude" (dishonest 5.4 vs 4.6), while *helpful*
-   falls 7.0 → 5.1 — qwen models users' perception as distinctly less
-   flattering than its self-image. That is theory-of-mind about its audience,
-   not acquiescence.
+   falls 7.0 → 5.1. **Post-hoc correction (rgb's skepticism, verified):**
+   this is not (mostly) theory-of-mind. (a) It is not calibrated to conduct —
+   the steering-run baselines give judged ground truth, and qwen's actual
+   unsteered responses score rude 1.65 / sarcastic 1.30: qwen self-reports
+   ~2 points worse than it behaves even in the direct framing. (b) The
+   anomalous observer cells are **bimodal**, not graded: rude = 0.35 mass on
+   "3" + 0.58 on "7" (dishonest 0.37/0.61) — two parses of "people who
+   interact with me would describe me as X" (characteristic: disagree;
+   existential *some users have said so*: strongly agree), averaged by the EV
+   into a fake 5.2. Only qwen puts majority mass on the existential/complaint
+   reading — still a family fact, but a pragmatics one. Methodological flag:
+   EV is itself a mask when the distribution is bimodal — the SELF analysis
+   should report mode structure, not EV alone. Whether the elevated
+   self-ratings are prophetic of multi-turn drift is open (to_try).
 4. The W1 entropy family signature reproduces on a new instrument: llama
    diffuse (H ≈ 1.0–1.4), qwen intermediate (0.4–0.7), gemma razor-peaked
    (0.06–0.22).
