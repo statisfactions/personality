@@ -714,7 +714,11 @@ over baseline, `judge_enactability.py`): humor words sit at the 62/92/72nd
 enactability percentile (llama/qwen/gemma) — in qwen, humor is among the MOST
 enactable registers while its assistant axis sits maximally anti-humor:
 suppression of an available register ("can, but won't"), constitutional
-across scale. The mask itself validates §15.9 on average (identity words
+across scale. Full-cohort can-vs-does (persona-ev pct − axis pct): **Qwen's
+suppression gap GROWS with scale** (+50/+56/+71 at 3B/7B/32B — the better it
+can perform funny, the further from funny it parks the assistant); Gemma is
+congruent (≈0, does what it can); Llama is the inverse (−15…−18: humor-neutral
+placement but weak performance — limited chops, not suppression); phi4 +30. The mask itself validates §15.9 on average (identity words
 below median enactability everywhere; humor far above) with two flagged
 failure modes: the shift-metric can't distinguish unenactable from
 already-at-baseline ("helpful" ≈ 0 shift), and topical deflection reads as

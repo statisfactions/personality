@@ -117,7 +117,7 @@ def main():
             x=0.5, y=-0.09, xref="paper", yref="paper", showarrow=False,
             text="labels: biggest over-/under-claims · 'r own/others': same "
                  "self-report vs own or other models' axes (§15.7) · "
-                 "saturation available for llama3.2/qwen2.5/gemma3 so far",
+                 "saturation = within-model persona-ev percentile (all 10)",
             font=dict(size=10, color=INK2))],
         width=1500, height=650, margin=dict(l=60, r=20, t=70, b=50),
         paper_bgcolor=SURF, plot_bgcolor=SURF)
