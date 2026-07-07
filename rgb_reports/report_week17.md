@@ -659,8 +659,24 @@ edge (Aya +0.11, Llama8 +0.08 — weak self-signal candidates); Gemma12 is
 anti-self-informative (−0.14) — the cohort's most idiosyncratic behavioral
 axis wearing the most boilerplate self-description.
 
-Next: SELF vs human PDA *means* (norms); the observer-frame capacity
-scoreboard (Qwen32 pending); FalconMamba/Gemma4 tail.
+**§15.8 — Floors and response styles (rgb: "I'd have expected floor on the
+negatives").** Decomposing EV into mode + uncertainty tax on harsh negatives
+(cruel/abusive/violent…, direct framing): the EV summary is honest (mode−EV
+gap ≤ +0.31 everywhere); the apparently-high floors in the says_vs_is figure
+came from plotting the framing-mean (the HHH-anchor inflates ~+1) and from
+mild words in the label set. Six models DO floor (llama3.2 1.47 with
+P(1)=0.82; Qwen32 1.48; Aya 1.33; Qwen7/Gemma12/Gemma27 ~1.7). The exceptions
+are real: **Llama8 averages 4.0** on harsh negatives (argmax=1 only 23% — no
+rejection reflex); **phi4 never modes at "1"** (0%, diffuse H≈1.3);
+**gemma3 confidently modes at "2"** (cruel: 0.94 mass on "Disagree", near-zero
+entropy) — a deliberate *non-extreme response style*, the model analog of
+human moderate-vs-extreme responding (the bigger Gemmas switch to extreme).
+Instrument note: cross-model SELF comparisons should report mode+P(1)
+alongside EV, or ipsatize (within-model standardization) — the same
+correction the human adjective literature applies.
+
+Next: SELF vs human PDA *means* (norms); FalconMamba/Gemma4 deep-dive; the
+Aya/Llama8 self-signal residue.
 
 ## Repro
 
