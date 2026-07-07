@@ -620,6 +620,12 @@ affect, physical nonsense-probes incl. the placebos, neutrals) × the trio.
    EV is itself a mask when the distribution is bimodal — the SELF analysis
    should report mode structure, not EV alone. Whether the elevated
    self-ratings are prophetic of multi-turn drift is open (to_try).
+   **Registered prediction (rgb, 2026-07-06, before reading the full-cohort
+   data):** the observer-frame negativity is a *capacity* effect — larger
+   Qwens will consider themselves more positively from the observer view
+   (observer-EV on negatives declining with size; P("7") parse-mass on
+   observer-negatives shrinking). Generality corollary: if capacity, the
+   Gemma 4→12→27 and Llama 3→8 ladders should move the same direction.
 4. The W1 entropy family signature reproduces on a new instrument: llama
    diffuse (H ≈ 1.0–1.4), qwen intermediate (0.4–0.7), gemma razor-peaked
    (0.06–0.22).
