@@ -626,6 +626,17 @@ affect, physical nonsense-probes incl. the placebos, neutrals) × the trio.
    (observer-EV on negatives declining with size; P("7") parse-mass on
    observer-negatives shrinking). Generality corollary: if capacity, the
    Gemma 4→12→27 and Llama 3→8 ladders should move the same direction.
+   **Outcome: prediction CONFIRMED for Qwen, corollary refuted.** Qwen ladder
+   observer-NEG 3.36 → 1.83 → 1.60 (3B/7B/32B), observer-POS 5.02 → 5.70 →
+   6.24, parse-split mass P("7") 0.10 → 0.00 → 0.00 — clean and monotone. But
+   Gemma is non-monotone (1.96 → 2.81 → 2.58; Gemma-4-31B 1.81), Llama gets
+   *worse* with size (2.39 → 3.65, and Llama8 acquires the parse-split,
+   P7 = 0.19), and FalconMamba (SSM, 7B) has it too (P7 0.16, gap +0.52) — so
+   the existential-parse habit is not attention-specific and not a monotone
+   capacity milestone; Qwen happens to grow out of it, Llama grows into it.
+   Also: capacity buys no introspective specificity — Qwen32's own-axis
+   advantage in the §15.7 diagonal test is −0.01 (10-model diag advantage
+   unchanged at +0.019).
 4. The W1 entropy family signature reproduces on a new instrument: llama
    diffuse (H ≈ 1.0–1.4), qwen intermediate (0.4–0.7), gemma razor-peaked
    (0.06–0.22).
