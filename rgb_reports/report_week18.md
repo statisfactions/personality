@@ -39,3 +39,27 @@ not as a **binder** — they polarize good-vs-bad harder than humans while
 refusing to fuse the bad into syndromes. Virtues all alike; every vice
 specific.
 
+## §2 — The cohort facet summary, with SELF as a geometry
+
+`adjective_facet_cohort.py` (figs/facet_cohort_summary.*): one row of
+cluster-block panels — HUMAN | SELF | REPRESENT | JUDGE | ENACT, geometry
+channels as 10-model means. SELF gets a real geometry via the human-PDA
+construction applied to models: 60 respondents (10 models × 6 framings), each
+a 523-vector of self-rating EVs, correlated across respondents.
+
+Block-level human match: JUDGE 0.86 > **SELF 0.82** > ENACT 0.80 > REPRESENT
+0.78 (all inflated vs cell-level by block+cohort averaging). The SELF result
+is the interesting one: rgb expected the assistant geometry to be swamped by
+human PC1 — instead it *lands on* it. The panel is two smooth slabs
+(negative×negative red, positive×positive red, off-blocks blue) with almost
+no within-block texture: the desirability/assistant axis organizes all the
+between-respondent variance, and because human block structure is itself
+heavily valence-organized, a pure desirability axis scores 0.82 for free.
+SELF knows good from bad but not funny from brave — coarse human macro-
+structure without facet resolution, consistent with §15.7's null diagonal
+(no model-specific self-knowledge) and the character sheet. Also visible in
+the row: JUDGE's negative-cluster diagonal is paler than HUMAN's (§1's
+disbelief, legible as texture); REPRESENT has the finest diagonal but weakest
+opposition blocks (the merge); ENACT is high-contrast and blocky. Caveat: the
+SELF panel's 60 respondents correlate ~0.88 across models — effective N is
+maybe 5–10, the low-N cousin of the human matrix (700).
