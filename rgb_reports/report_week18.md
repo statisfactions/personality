@@ -106,3 +106,37 @@ it says of itself) compress to ~5 dims, but ENACT's five are human-matched
 bottleneck width, different content. Caveat: 60 highly-correlated
 respondents compress SELF's estimate somewhat (framing-mean n=10 gives 3.7),
 but the two-boulder spectrum is structural.
+
+## §3 — De-collapsing ENACT: the prompt hides a third, the family owns the rest
+
+rgb's push on "why five?": is ENACT's dimensionality a property of the
+extraction prompt? Three variant extractions on qwen2.5 (the most collapsed
+model), 70 cluster-representative adjectives (35 medoids + runners-up,
+`instruments/decollapse_subset.txt`), 60 rollouts each, subset-matched
+baselines (qwen 2.9, llama 8.8). New `--question-set` batteries in
+`extract_persona_vectors.py`: *diverse* (conflict/storytelling/comforting/
+debate/aesthetics — different traits get different stages) and *interview*
+(reaction-and-preference elicitation).
+
+| condition | effdim (split-halves) | cross-half r | r(HUMAN) | leak |
+|---|---|---|---|---|
+| baseline (advice/performance) | 2.9 (3.6/3.0) | 0.94 | 0.55 | 0.26 |
+| **diverse/performance** | **4.0 (4.1/5.1)** | 0.88 | **0.60** | **0.11** |
+| interview/performance | 3.5 (3.8/4.1) | 0.94 | 0.46 | 0.32 |
+| advice/subtleA | 4.3 (7.7/5.6) | **0.73** | 0.39 | 0.01 |
+
+1. **The advice-only battery was hiding real dimensions**: diverse questions
+   lift qwen ~40%, the new dimensions replicate across rollout halves, human
+   match improves, and leakage halves — a strictly better extraction protocol
+   (adopt for future ENACT runs).
+2. **The family bottleneck is constitutional**: best case ~4.5 vs llama's 8.8
+   on the identical subset — the prompt explains at most a third of the
+   collapse.
+3. Decoys: *interview* buys its lift with trait-narration (worst leak,
+   human-match down); *subtleA*'s 4.3 is substantially noise-inflation from
+   weak induction (halves disagree at 0.73, boot 0.65, human-match 0.39) —
+   weak roleplay reveals less persona, less reliably, not more.
+
+Gap-invariance test in flight: llama3.2 under the diverse battery — if it
+also lifts ~40%, the battery effect is protocol-universal and the qwen–llama
+gap is prompt-invariant.
