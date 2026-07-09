@@ -1,0 +1,257 @@
+---
+title: "JUDGE channel — I. Descriptives & response processes"
+subtitle: "Implicit personality theory in 12 LLMs, read as a rating instrument"
+author: "ecb"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+    fig_width: 9
+    fig_height: 5.5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, dpi = 110)
+source("_common.R")
+```
+
+## What this data is, and the stance I take on it
+
+The **JUDGE** channel (rgb's `tom_likely`) asks each model, for every ordered pair of
+523 person-descriptive adjectives *(i, j)*, *"how strongly would a person described as
+**i** also be **j**?"* and reads the answer as an **expected rating on a 1–7 Likert
+scale** from the full log-prob distribution over the rating tokens (not the argmax).
+Each model therefore produces a `523 × 523` matrix **B** of conditional-endorsement
+ratings (row-conditioned, *not* symmetric, diagonal not collected), plus a matching
+matrix **Hent** of the Shannon entropy of each rating distribution — a per-judgment
+uncertainty.
+
+rgb's own analyses of this data (W15–W16) are **geometric and mechanistic**: the
+read/write dissociation, a Helmholtz–Hodge decomposition of the asymmetry, factor
+congruence to the human 525-PDA. This report series takes the **psychometric** view
+the geometry brackets: *if we treat these judgments as measurements, are they sound?*
+The unit I adopt (per ecb's steer) is **models as raters** — 12 judges rating the same
+273,006 ordered pairs. Reliability, validity and response-process questions all follow
+from that frame.
+
+This first report is the descriptive floor: **how does each rater use the scale?**
+Everything downstream (what to do about asymmetry; whether the raters agree; whether the
+structure is interpretable) is conditioned by the response processes documented here.
+
+> **Data caveat, stated once.** We hold the *expected value* `B` and the *entropy*
+> `Hent` of each rating distribution — **not** the raw 7-category histogram. So
+> "category usage" below is the distribution of **rounded expected values** (an
+> *effective* category), not the true modal-response frequency. EV+entropy still pin
+> the response process tightly (entropy≈0 ⇒ all mass on one category ⇒ EV≈that integer),
+> but claims about specific categories are claims about the effective rating.
+
+```{r load}
+summ <- read_csv_("model_summary.csv") %>% as_tibble() %>%
+  mutate(display = factor(display, levels = disp_ord))
+marg <- read_csv_("marginals.csv") %>% as_tibble()
+dir_ev <- fread_gz("dir_ev.csv.gz")     # i,j, <12 models>  (273006 directional EVs)
+dir_h  <- fread_gz("dir_hent.csv.gz")
+# long form for distributional plots
+ev_long <- melt(dir_ev, id.vars = c("i","j"), variable.name = "model", value.name = "ev")
+ev_long[, display := factor(DISPLAY[as.character(model)], levels = disp_ord)]
+ev_long[, family  := FAMILY[as.character(model)]]
+h_long <- melt(dir_h, id.vars = c("i","j"), variable.name = "model", value.name = "hent")
+```
+
+## 1. Scale usage: some raters never leave the middle
+
+The single most consequential descriptive fact is that the 12 models **do not use the
+1–7 scale in remotely the same way.** The table sorts by mean rating (leniency); note
+especially the spread column (`ev_sd`) and the extreme-category fractions.
+
+```{r usage-table}
+tab <- summ %>% arrange(ev_mean) %>%
+  transmute(Model = display, Family = family, `Params (B)` = params_b,
+            `Mean` = round(ev_mean,2), `SD` = round(ev_sd,2),
+            `Skew` = round(ev_skew,2), `Excess kurt.` = round(ev_kurtosis,2),
+            `% ≤2` = round(100*frac_le2,1), `% 3–5` = round(100*frac_mid_3to5,1),
+            `% ≥6` = round(100*frac_ge6,1))
+knitr::kable(tab, caption = "Per-rater location, spread and tail usage of the 1–7 scale.")
+```
+
+```{r cat-usage, fig.height=5}
+catcols <- paste0("cat", 1:7)
+cat_long <- summ %>% select(display, all_of(catcols)) %>%
+  pivot_longer(all_of(catcols), names_to = "cat", values_to = "frac") %>%
+  mutate(cat = factor(as.integer(gsub("cat","",cat))))
+ggplot(cat_long, aes(cat, frac, fill = cat)) +
+  geom_col() + facet_wrap(~display, ncol = 4) +
+  scale_fill_brewer(palette = "RdYlBu", direction = -1, guide = "none") +
+  labs(title = "Effective category usage (fraction of pairs by rounded expected rating)",
+       x = "rounded expected rating (1–7)", y = "fraction of pairs") +
+  theme_judge()
+```
+
+Read this as a **response-style census**:
+
+- **Range-restricted / central responders.** `Llama3.2-3B` puts ~96% of all 273k
+  judgments in categories {4,5} and **never** effectively uses 1, 2, 6 or 7
+  (SD = 0.47). `FalconMamba-7B` lives in {3,4,5} (SD = 0.75). As raters they are close
+  to *non-discriminating*: whatever the pair, the answer is "middling".
+- **Full-range / extreme responders.** `Aya-expanse-8B` and `Phi4-mini` spread across
+  all seven categories and put ~24% of judgments at the ceiling (7) — SD ≈ 1.7–1.9.
+- **Everything in between**, with the Qwen family modal around 3–4 and the Gemma family
+  running higher and more bimodal.
+
+This is exactly the heterogeneity that makes cross-model *magnitude* comparison unsafe
+(rgb's calibration caveat) — but stated in response-style terms it is sharper: **these
+are different rating styles, not just different means.** Range restriction limits how
+much *differentiated information* a rater can carry (it caps the achievable
+between-pair variance) — though, importantly, Report III shows it does **not** make these
+raters disagree with the crowd: a flat rater is low-information, not noisy.
+
+## 2. Location and spread are only loosely coupled
+
+```{r loc-spread}
+ggplot(summ, aes(ev_mean, ev_sd, colour = family, label = display)) +
+  geom_point(size = 3) +
+  ggrepel::geom_text_repel(size = 3, max.overlaps = 20, seed = 1) +
+  scale_colour_manual(values = FAM_PAL, name = NULL) +
+  labs(title = "Rater leniency (mean) vs differentiation (SD)",
+       x = "mean rating (leniency →)", y = "SD of ratings (differentiation →)") +
+  theme_judge()
+```
+
+Leniency (mean 3.63 → 4.83) and differentiation (SD 0.47 → 1.95) vary independently:
+`Llama3.2-3B` is *lenient but flat* (high mean, tiny SD — it agrees warmly with almost
+everything), whereas `Aya` is *lenient and spread*. A high mean does not buy you
+usable variance. For the measurement, **differentiation (SD) is the resource** — a rater
+with SD 0.47 can encode at most a sliver of true between-pair signal.
+
+## 3. Decisiveness: the entropy channel is a second, partly independent axis
+
+Each judgment carries an entropy. Averaged per rater, this is a **decisiveness** index
+that is *not* the same thing as scale spread.
+
+```{r entropy-violin, fig.height=5}
+ggplot(h_long, aes(x = factor(DISPLAY[as.character(model)], levels = disp_ord), y = hent,
+                   fill = FAMILY[as.character(model)])) +
+  geom_violin(scale = "width", linewidth = 0.2) +
+  scale_fill_manual(values = FAM_PAL, name = NULL) +
+  coord_flip() +
+  labs(title = "Per-judgment entropy (uncertainty) by rater",
+       x = NULL, y = "Shannon entropy of the 1–7 rating distribution (nats)") +
+  theme_judge()
+```
+
+```{r ev-entropy-curve, fig.height=4.5}
+# entropy as a function of the rating level: the response-process signature
+set.seed(1)
+samp <- ev_long[sample(.N, 60000)][, .(i,j,model,ev)]
+samp <- merge(samp, h_long[, .(i,j,model,hent)], by = c("i","j","model"))
+samp[, display := factor(DISPLAY[as.character(model)], levels = disp_ord)]
+ggplot(samp, aes(ev, hent)) +
+  geom_hex(bins = 40) + scale_fill_viridis_c(trans = "log10", name = "pairs") +
+  facet_wrap(~display, ncol = 4, scales = "free_y") +
+  labs(title = "Entropy vs expected rating — the graded-in-the-middle signature",
+       x = "expected rating", y = "entropy") +
+  theme_judge() + theme(legend.position = "right")
+```
+
+Two things:
+
+1. **The inverted-U** (entropy peaks at mid-scale, collapses at the extremes) is present
+   for the discriminating raters — a *sensible* response process: the model is certain
+   when it judges a pair clearly (dis)similar and hedges in between.
+2. **The non-responsive raters break it.** `FalconMamba` sits at entropy ≈ 1.66 nats
+   almost everywhere (near the `log(7)=1.95` uniform ceiling) — it is *maximally
+   uncertain on every pair*. `Llama3.2-3B` is similar (never decisive: only 0.002% of
+   judgments have entropy < 0.1). Their narrow EV in §1 is now explained: they are not
+   compressing a confident signal, they are **reporting near-flat distributions whose
+   means happen to sit mid-scale.**
+
+## 4. A response-process typology: two kinds of "uncertain"
+
+Crossing scale differentiation (SD of EV) against decisiveness (mean entropy) separates
+raters that look similar on either axis alone.
+
+```{r typology}
+ggplot(summ, aes(hent_mean, ev_sd, colour = family, label = display)) +
+  geom_point(size = 3) +
+  ggrepel::geom_text_repel(size = 3, max.overlaps = 20, seed = 2) +
+  scale_colour_manual(values = FAM_PAL, name = NULL) +
+  geom_vline(xintercept = median(summ$hent_mean), linetype = 3, colour = "grey60") +
+  geom_hline(yintercept = median(summ$ev_sd), linetype = 3, colour = "grey60") +
+  labs(title = "Response-process typology",
+       subtitle = "up-left = confident differentiator · down-right = diffuse non-discriminator",
+       x = "mean per-judgment entropy (← decisive | diffuse →)",
+       y = "SD of expected ratings (↑ differentiated)") +
+  theme_judge()
+```
+
+- **Confident differentiators** (low entropy, high SD): the Gemma family, esp.
+  `Gemma-4-31B`/`Gemma3-27B`. They commit to graded, spread judgments.
+- **Diffuse non-discriminators** (high entropy, low SD): `FalconMamba-7B`,
+  `Llama3.2-3B`. Little between-pair signal *and* little within-judgment confidence.
+- **Spread-but-hedging** (high entropy, high SD): `Aya`, `Phi4` — they use the whole
+  scale but keep meaningful mass off the modal category.
+
+This typology is the load-bearing setup for reliability — but with a twist that
+Report III makes precise and that is easy to get wrong: a **diffuse non-discriminator
+carries little *differentiated* information** (its between-pair variance is small), yet
+it still **agrees with the consensus** and does not inject noise (its judgments are a
+smooth, prevalence-tracking, compressed image of the crowd's). So the flat raters are
+*low-information*, not *low-quality*; the raters that actually pull away from the
+consensus turn out to be the high-variance *idiosyncratic* models, not the flat ones.
+Weighting/trimming therefore buys much less than the typology first suggests (Report III
+§3, Report V).
+
+## 5. Marginal structure: base rates (prevalence) and anchor generosity
+
+Because the diagonal (self-pairs) was not collected, each rater's matrix has two
+informative margins:
+
+- **column mean** = how strongly adjective *j* is ascribed *given any anchor* — a
+  **base rate / prevalence** ("Awake", "Normal" are ascribed to almost anyone).
+- **row mean** = how generously anchor *i* ascribes *other* traits — anchor-level
+  acquiescence.
+
+```{r marginals, fig.height=4.5}
+mm <- marg %>% mutate(display = factor(DISPLAY[model], levels = disp_ord))
+ggplot(mm, aes(col_mean, fill = FAMILY[model])) +
+  geom_histogram(bins = 40) + facet_wrap(~display, ncol = 4, scales = "free_y") +
+  scale_fill_manual(values = FAM_PAL, guide = "none") +
+  labs(title = "Target base-rate (column-mean) distribution per rater",
+       x = "mean ascription of a target across all anchors (prevalence)", y = "count") +
+  theme_judge()
+```
+
+```{r prevalence-extremes}
+cohort_prev <- mm %>% group_by(adjective) %>% summarise(prev = mean(col_mean)) %>%
+  arrange(desc(prev))
+knitr::kable(
+  bind_cols(
+    cohort_prev %>% slice_head(n = 12) %>% transmute(`Most universally ascribed` = adjective, `μ` = round(prev,2)),
+    cohort_prev %>% slice_tail(n = 12) %>% arrange(prev) %>% transmute(`Least ascribed` = adjective, ` μ` = round(prev,2))
+  ), caption = "Cohort-mean target base rates (prevalence marginals).")
+```
+
+The prevalence marginal is large and structured — and it is precisely what a
+marginal-free human *correlation* matrix does not contain, which is why the reliability
+and validity reports **double-center** (strip additive row/column marginals) before
+treating `B` as a similarity. It is also the primary axis of the asymmetry (Report II).
+
+## Takeaways for the measurement program
+
+1. **Scale use is a rater property, not a constant.** Leniency, differentiation and
+   decisiveness each vary ~4× across the cohort and are only loosely coupled — three
+   separate response-style nuisances to model, not one calibration knob.
+2. **Two raters (`Llama3.2-3B`, `FalconMamba-7B`) are range-restricted / low-information.**
+   They carry little differentiated signal — but Report III shows they still *agree* with
+   the consensus and do not harm it, so exclusion is **not** warranted; the ensemble is
+   robust. (This corrects the tempting "down-weight the flat raters" intuition.)
+3. **The entropy channel is real signal.** The inverted-U response process is sensible
+   for discriminating raters; where it flattens, the rater is guessing. Entropy gives us
+   a per-judgment reliability weight we will use.
+4. **Big additive marginals (prevalence + anchor generosity)** must be removed before
+   `B` is read as a similarity — motivating the symmetrization + double-centering in
+   Reports II–IV.
+```

@@ -1,0 +1,6 @@
+# Heavy derived tables (regenerable via convert_judge.py from rgb's gitignored npz)
+data/*.csv.gz
+data/*.csv
+figs/
+# Knitted reports ARE committed (self-contained HTML); their sidecar dirs are not.
+reports/*_files/

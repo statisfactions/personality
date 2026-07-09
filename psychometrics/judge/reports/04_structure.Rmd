@@ -1,0 +1,231 @@
+---
+title: "JUDGE channel — IV. Internal structure & validity evidence"
+subtitle: "Dimensionality, structural invariance across raters, and what it does (and doesn't) license"
+author: "ecb"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+    fig_width: 9
+    fig_height: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, dpi = 110)
+source("_common.R"); suppressMessages(library(psych))
+```
+
+## Frame, and a caution held throughout
+
+In the Messick / *Standards* sense, **internal-structure evidence** asks whether the
+relationships among the parts of a measure conform to the construct it claims. For the
+JUDGE similarity that is two questions:
+
+1. **Dimensionality & pattern** — does the symmetrized similarity organize into
+   interpretable trait dimensions?
+2. **Structural invariance** — do the 12 raters *agree* on that structure (is it a
+   property of the measurement, not of one model)?
+
+I keep one caution front and center (ecb's steer): **recovering an interpretable — even
+Big-Five-shaped — structure is consistent with measuring personality description, but is
+not by itself proof of validity.** A live alternative is that the model encodes the
+*lexical/evaluative co-occurrence of trait words* (the "concept of personality," not a
+personality; rgb's `representation_not_intention`). Internal structure can establish that
+the instrument is *coherent and reproducible*; it cannot, alone, adjudicate what the
+coherent thing *is*. Criterion evidence against humans is a separate — and, per ecb,
+inferentially weaker — strand, deferred to a follow-up.
+
+The measurement object is the **cohort-consensus** symmetrized similarity (Report III:
+the dependable unit), built over the 10 discriminating raters (the 2 range-restricted
+raters add little *differentiated* structure and, since they agree with the crowd,
+including them shifts the consensus negligibly — Report V), transformed by
+profile-correlation — the same
+second-order transform rgb used, chosen because the human reference matrix is itself a
+profile correlation over people (kept consistent so any later comparison is
+apples-to-apples).
+
+```{r build}
+sym <- fread_gz("sym_ev.csv.gz")
+disc <- setdiff(MODELS, c("Llama","FalconMamba"))
+Sbar <- Reduce(`+`, lapply(disc, function(m) build_matrix(sym, m, "sym"))) / length(disc)
+Rcons <- profile_cor(Sbar)
+pca_load <- function(R, k){
+  e <- eigen(R, symmetric = TRUE)
+  L <- e$vectors[,1:k,drop=FALSE] %*% diag(sqrt(pmax(e$values[1:k],0)), k)
+  stats::varimax(L)$loadings[]
+}
+```
+
+## 1. Dimensionality: one dominant evaluative factor, then a trait ladder
+
+```{r scree, fig.height=4.2}
+ev <- eigen(Rcons, symmetric = TRUE, only.values = TRUE)$values
+scr <- tibble(k = 1:20, eigen = ev[1:20])
+ggplot(scr, aes(k, eigen)) + geom_line(colour="grey60") + geom_point(size=2, colour="#4C72B0") +
+  geom_hline(yintercept = 1, linetype = 3, colour = "grey60") +
+  scale_x_continuous(breaks = seq(0,20,5)) +
+  labs(title = "Consensus JUDGE structure — scree (profile-correlation eigenvalues)",
+       x = "component", y = "eigenvalue") + theme_judge()
+cat(sprintf("PC1 explains %.0f%% of common variance; PC1/PC2 = %.2f. A single strong general factor.\n",
+    100*ev[1]/sum(pmax(ev,0)), ev[1]/ev[2]))
+```
+
+There is a **strong general factor** — PC1 alone accounts for ~53% of common variance,
+3.75× PC2. Substantively this is the model's **evaluative halo**: a good/competent ↔
+bad/incompetent axis that pervades every judgment (rgb W15 §2's "PC1 over-collapse";
+also present, if less dominant, in the human self-report — human PC1/PC2 ≈ 5.15 per rgb
+W16 §9). It is **double-edged for validity**: it is a coherent, reproducible axis (a
+plus), *and* it is a discriminant-validity threat — much of the "personality structure"
+is one evaluative dimension (§4). After PC1 the scree steps down through a small number
+of differentiated factors before a scree tail; a 5-factor solution captures the
+interpretable trait structure.
+
+## 2. The five-factor solution resembles the Big Five (read carefully)
+
+```{r factors}
+Lc <- pca_load(Rcons, 5)
+top_adj <- function(f, n = 10){
+  o <- order(-abs(Lc[,f]))[1:n]
+  paste0(ADJ[o], " (", sprintf("%+.2f", Lc[o,f]), ")", collapse = ", ")
+}
+labs <- c("Competence / evaluation (halo)", "Antagonism  (low Agreeableness)",
+          "Negative affect  (Neuroticism)", "Playful–uninhibited  (low Conscientiousness / Extraversion)",
+          "Traditional–predictable  (low Openness)")
+tibble(Factor = paste0("F", 1:5), `Tentative label` = labs,
+       `Top-loading adjectives` = sapply(1:5, top_adj, n = 7)) %>%
+  knitr::kable(caption = "Varimax(5) of the consensus JUDGE similarity. Labels are interpretive.")
+```
+
+Four of the five differentiated factors map recognizably onto **Agreeableness (reversed:
+antagonism), Neuroticism, Openness (reversed), and a Conscientiousness/Extraversion
+blend**, alongside the dominant **evaluative-competence** factor. This is *internal*
+structure — extracted from the models' own judgments, with no human key imposed — so its
+Big-Five resemblance is meaningful evidence that the JUDGE instrument organizes trait
+words along personality-like lines.
+
+**But note the two hedges the caution demands.** (a) The first and largest factor is
+evaluative, not a clean Big-Five trait — an *implicit-personality-theory* halo, which is
+exactly what a lexical-co-occurrence account also predicts. (b) The C and E poles are
+blended rather than cleanly separated. So "resembles the Big Five" is honest; "recovers
+the Big Five" would overclaim.
+
+## 3. Structural invariance: the raters agree on the structure
+
+The stronger internal-structure evidence is **agreement across raters** — if each model
+independently yields the same factor pattern, the structure is a property of the
+measurement, not an artefact of one model. Aligning each rater's varimax(5) solution to
+the consensus (greedy factor matching, sign-corrected) and taking Tucker's congruence:
+
+```{r invariance, fig.height=4.5}
+align_cong <- function(Lm, Lc){
+  C <- abs(psych::factor.congruence(Lm, Lc))     # 5x5 |congruence|
+  best <- numeric(ncol(Lc)); used <- c()
+  ord <- order(-apply(C,2,max))
+  for(f in ord){ cand <- setdiff(order(-C[,f]), used); pick <- cand[1]; best[f] <- C[pick,f]; used <- c(used,pick) }
+  best
+}
+congmat <- sapply(disc, function(m){
+  Lm <- pca_load(profile_cor(build_matrix(sym, m, "sym")), 5)
+  align_cong(Lm, Lc)
+})
+rownames(congmat) <- paste0("F",1:5)
+per_model <- colMeans(congmat)
+inv <- tibble(model = disc, display = DISPLAY[disc], family = FAMILY[disc],
+              mean_cong = per_model) %>% arrange(desc(mean_cong)) %>%
+  mutate(display = factor(display, levels = rev(display)))
+ggplot(inv, aes(mean_cong, display, colour = family)) +
+  geom_segment(aes(x=0.6, xend=mean_cong, yend=display), colour="grey85") +
+  geom_point(size=3) + scale_colour_manual(values = FAM_PAL, name = NULL) +
+  geom_vline(xintercept = 0.9, linetype = 3, colour="grey55") +
+  labs(title="Structural invariance: congruence of each rater's factor solution to the consensus",
+       x="mean Tucker congruence to consensus (5 factors)", y=NULL) +
+  xlim(0.6, 1) + theme_judge()
+cat(sprintf("Mean congruence to consensus across raters: %.2f (Tucker ≥0.85 conventionally 'fair', ≥0.95 'identical').\n",
+    mean(per_model)))
+```
+
+Mean congruence to the consensus is **0.85** — comfortably in the "fair-to-good"
+structural-agreement band, with the Qwen family, Phi4 and Llama-8B near-identical (≥0.90)
+and Gemma-4-31B the weakest (consistent with its status as rgb's lone cohort outlier).
+**The raters largely agree on the latent structure**, which is genuine
+internal-structure reliability: the five-factor organization is not one model's quirk.
+
+```{r per-factor}
+tibble(Factor = paste0("F",1:5), Label = labs,
+       `Mean congruence` = round(rowMeans(congmat),2),
+       `Min across raters` = round(apply(congmat,1,min),2)) %>%
+  knitr::kable(caption="Which factors replicate across raters. The evaluative/antagonism/affect factors are the most invariant.")
+```
+
+The evaluative, antagonism and negative-affect factors are the most reproducible; the
+low-Openness factor is the least invariant — the same weak-Openness signal rgb found in
+the *representation*, here at the structural-reliability level.
+
+## 4. The general factor as a discriminant-validity threat
+
+How much of the apparent structure is *just* the evaluative halo? Partialling the first
+(general) component out of the consensus and re-extracting shows what differentiated
+trait structure survives:
+
+```{r residual}
+e <- eigen(Rcons, symmetric=TRUE)
+Rres <- Rcons - e$values[1]*tcrossprod(e$vectors[,1])   # remove PC1
+evr <- eigen(Rres, symmetric=TRUE, only.values=TRUE)$values
+Lres <- pca_load(Rres, 4)
+congres <- sapply(disc, function(m){
+  Rm <- profile_cor(build_matrix(sym, m, "sym"))
+  em <- eigen(Rm, symmetric=TRUE); Rmr <- Rm - em$values[1]*tcrossprod(em$vectors[,1])
+  mean(align_cong(pca_load(Rmr,4), Lres))
+})
+cat(sprintf("After removing the general factor: 4 residual factors still replicate across raters at mean congruence %.2f.\n", mean(congres)))
+cat(sprintf("Residual top eigenvalues: %s\n", paste(round(head(evr,5),1), collapse=", ")))
+```
+
+Reassuringly, differentiated trait structure **survives** removing the general factor and
+**still replicates across raters** — so the instrument is not *only* an evaluative halo;
+there is reproducible discriminant structure beneath it. But the halo's dominance (53% of
+common variance) is a real limit on discriminant validity: for any downstream use,
+trait-specific JUDGE scores should be taken **net of the general evaluative factor**, or
+much of what looks like (say) an Agreeableness signal will be halo.
+
+## 5. Response-process evidence (recap)
+
+Internal structure is buttressed by the **response-process** evidence from Report I: for
+the discriminating raters the per-judgment entropy traces a sensible inverted-U in
+similarity (certain at the poles, graded in the middle), and Report III showed
+between-rater disagreement co-locates with within-rater uncertainty. The judgments behave
+like a graded construct measurement, not like noise or a degenerate heuristic — a
+necessary (not sufficient) condition for the structural evidence to mean anything.
+
+## What this establishes — and what it doesn't
+
+**Established (internal-structure + structural-invariance evidence):**
+
+- The consensus JUDGE similarity is **coherent and low-rank** — one dominant evaluative
+  factor plus a small ladder of differentiated trait factors.
+- That structure is **reproducible across raters** (mean congruence 0.85; 0.85 again on
+  the general-factor-removed residual) — it is a property of the *measurement*, not one
+  model. This is real structural reliability, and the strongest validity-relevant claim
+  the internal evidence supports.
+- The differentiated factors **resemble** Agreeableness, Neuroticism, Openness and a
+  C/E blend.
+
+**Not established (and not claimable from this evidence):**
+
+- That the models "have" personalities, or that the structure reflects anything beyond
+  **learned lexical/evaluative co-occurrence of trait descriptors** — the general
+  evaluative factor is equally predicted by that deflationary account.
+- That the structure matches *human* personality structure. That is criterion evidence,
+  handled separately and — per ecb — with care: **a match to humans would be consistent
+  with validity but is not itself validity**, and a mismatch would not by itself
+  disconfirm a coherent, reliable measurement of the models' own implicit personality
+  theory.
+
+The honest headline: **as a measurement of the models' implicit personality theory, the
+JUDGE instrument is internally coherent, low-dimensional, and structurally reliable
+across raters — with an evaluative halo that is simultaneously its strongest factor and
+its main threat to discriminant validity.**
+```

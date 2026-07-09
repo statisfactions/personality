@@ -1,0 +1,218 @@
+---
+title: "JUDGE channel — II. Asymmetry as a measurement problem"
+subtitle: "Is B[i,j] ≠ B[j,i] signal or nuisance, and what do we do about it?"
+author: "ecb"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+    fig_width: 9
+    fig_height: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, dpi = 110)
+source("_common.R")
+```
+
+## The problem
+
+Almost every psychometric use of `B` — as an inter-adjective *similarity*, a proximity
+for factoring or MDS, a covariance analogue — assumes it is **symmetric**. But the raw
+judgment is conditional and directed: `B[i,j]` ("given **i**, how strongly also **j**")
+need not equal `B[j,i]`. Before we symmetrize (as Reports III–IV will), we owe the data
+three questions:
+
+1. **How much** asymmetry is there?
+2. **What is it** — a removable marginal artefact, or substantive directional structure?
+3. **Is it reliable** across raters — reproducible signal, or per-model noise?
+
+The answers decide whether symmetrizing is a free simplification or throws away a
+construct. (rgb's W16 §5 gave this a full Helmholtz–Hodge treatment aimed at *what the
+asymmetry means*; here I ask the narrower measurement question *what to do with it*.)
+
+```{r load}
+summ <- read_csv_("model_summary.csv") %>% as_tibble() %>%
+  mutate(display = factor(display, levels = disp_ord))
+marg <- read_csv_("marginals.csv") %>% as_tibble()
+asy  <- fread_gz("asym_ev.csv.gz")     # i<j : B[i,j]-B[j,i]
+sym  <- fread_gz("sym_ev.csv.gz")      # i<j : (B[i,j]+B[j,i])/2
+n <- nrow(adjectives)
+```
+
+## 1. Magnitude: small against the grand mean, but ~1/5 of the *meaningful* signal
+
+Decomposing each rater's off-diagonal matrix into symmetric + antisymmetric parts, the
+share of squared magnitude in the antisymmetric part depends entirely on the reference —
+and this is a trap worth defusing up front. Measured against the **mean-inclusive**
+sum-of-squares, asymmetry looks negligible; measured against the **centered** variance
+(the part that actually carries similarity information, and all that survives the
+double-centering every downstream use applies), it is substantial.
+
+```{r magnitude}
+dir <- fread_gz("dir_ev.csv.gz")
+frac <- sapply(MODELS, function(m){
+  B <- build_matrix(dir, m, "dir"); off <- !is.na(B); A <- (B - t(B))/2
+  mu <- mean(B[off])
+  c(meaninc = sum(A[off]^2)/sum(B[off]^2),
+    centered = sum(A[off]^2)/sum((B[off]-mu)^2))
+})
+mag <- tibble(Model = DISPLAY[MODELS], Family = FAMILY[MODELS],
+              `Asym % of mean-incl. SS` = round(100*frac["meaninc",],2),
+              `Asym % of *centered* variance` = round(100*frac["centered",],1),
+              `SD of ratings` = round(summ$ev_sd[match(MODELS,summ$model)],2)) %>%
+  arrange(`Asym % of *centered* variance`)
+knitr::kable(mag, caption = "Antisymmetric share against two references. The centered figure is the honest one.")
+```
+
+Against the grand mean (~3.6 Likert), asymmetry is 0.2–3.5% — but that denominator is
+dominated by the mean, so the number is almost meaningless. Against the **centered**
+signal it is **11–26% (median ~21%)**: roughly a fifth of each rater's *differentiated*
+judgment variance is directional. **Symmetrizing is therefore not a free rounding-off** —
+it sets aside a real slice of signal. Note too that the flat rater `Llama3.2-3B` has the
+*smallest* mean-inclusive asymmetry (0.24%) yet the *largest* centered one (24.7%): with
+almost no differentiated variance to begin with, most of what little it has is
+direction-inconsistent — a first sign that for the flat raters the asymmetry is mostly
+noise (§3). The real questions are now sharper: **what is that ~21%, and does it
+replicate?**
+
+## 2. Anatomy: half of the asymmetry is a prevalence gradient
+
+An antisymmetric matrix on a complete graph decomposes (discrete Helmholtz–Hodge) into a
+**gradient** part — a single transitive potential `g`, `D_grad[i,j] = g[i] − g[j]`,
+curl-free and carrying all the "flow" — plus a divergence-free **curl** (genuine
+cycles). The least-squares potential is `g[i] = mean_j D[i,j] = rowmean_i(B) −
+colmean_i(B)` = anchor generosity minus target prevalence.
+
+```{r hodge}
+hodge <- map_dfr(MODELS, function(m) {
+  D <- build_matrix(asy, m, "asym")          # full antisymmetric, NA diag
+  D[is.na(D)] <- 0
+  g <- rowMeans(D)
+  Dg <- outer(g, g, "-")
+  data.frame(model = m,
+             grad_frac = sum(Dg^2) / sum(D^2),
+             # correlate the potential with the prevalence marginal
+             cor_g_prev = cor(g, -marg$col_mean[marg$model == m]),
+             cor_g_gen  = cor(g,  marg$row_mean[marg$model == m]))
+}) %>% mutate(display = factor(DISPLAY[model], levels = disp_ord))
+
+knitr::kable(
+  hodge %>% arrange(desc(grad_frac)) %>%
+    transmute(Model = display,
+              `Gradient % of asym.` = round(100*grad_frac,1),
+              `corr(potential, −prevalence)` = round(cor_g_prev,2),
+              `corr(potential, generosity)`  = round(cor_g_gen,2)),
+  caption = "Gradient (transitive potential) share of the antisymmetric part, and what the potential is."
+)
+cat(sprintf("Mean gradient fraction: %.2f\n", mean(hodge$grad_frac)))
+```
+
+About **half** (mean 0.50) of the already-small asymmetry is a pure gradient, and that
+gradient is essentially the **base-rate / prevalence** structure from Report I §5: the
+flow runs toward universally-ascribed traits (everyone "also is" Awake/Normal; few
+"also are" some rare trait). This half is the *trivial Bayes direction* — a marginal we
+strip anyway by double-centering. The other half is curl: genuine directional
+person-perception cycles (rgb's warmth×morality "charming villain", Dunning–Kruger,
+etc.). So:
+
+> Asymmetry = (≈50% removable prevalence marginal) + (≈50% substantive but small curl).
+
+## 3. Is the asymmetry reliable across raters?
+
+The decisive measurement question. If the antisymmetric part does not replicate across
+models it is rater noise and symmetrizing is pure gain. Mean pairwise Pearson
+correlation across the 12 raters, symmetric vs antisymmetric parts:
+
+```{r reliab-asym}
+mean_pairwise <- function(dt, models) {
+  X <- as.matrix(dt[, ..models]); C <- cor(X)
+  mean(C[upper.tri(C)])
+}
+disc <- setdiff(MODELS, c("Llama","FalconMamba"))
+tab <- tibble(
+  Part = c("Symmetric  (i,j)+(j,i)", "Antisymmetric (i,j)−(j,i)"),
+  `r̄ across all 12` = c(mean_pairwise(sym, MODELS), mean_pairwise(asy, MODELS)),
+  `r̄ across 10 discriminating` = c(mean_pairwise(sym, disc), mean_pairwise(asy, disc))
+) %>% mutate(across(where(is.numeric), ~round(.,3)))
+knitr::kable(tab, caption = "Inter-rater agreement: the symmetric channel is far more reproducible.")
+```
+
+The symmetric similarity is **strongly shared** across raters (r̄ = 0.76); the
+antisymmetric part is **reproducible but much weaker** (r̄ = 0.40). It is *not* noise —
+0.40 is well above zero and survives dropping the non-responsive raters — but it carries
+roughly half the cross-rater signal of the symmetric channel. Splitting the asymmetry
+into its gradient and curl:
+
+```{r reliab-split}
+# build per-rater gradient-potential vectors and curl (i<j) vectors, correlate across raters
+G <- sapply(MODELS, function(m){ D<-build_matrix(asy,m,"asym"); D[is.na(D)]<-0; rowMeans(D) })
+# curl = asym minus gradient reconstruction, evaluated on i<j pairs
+ij <- as.matrix(asy[, .(i,j)]) + 1L
+curlmat <- sapply(MODELS, function(m){
+  D<-build_matrix(asy,m,"asym"); D[is.na(D)]<-0; g<-rowMeans(D)
+  (D - outer(g,g,"-"))[ij]
+})
+r_prev <- { C<-cor(G[, disc]); mean(C[upper.tri(C)]) }
+r_curl <- { C<-cor(curlmat[, disc]); mean(C[upper.tri(C)]) }
+knitr::kable(tibble(
+  Component = c("Prevalence gradient (potential g)", "Curl (directional cycles)"),
+  `r̄ across 10 discriminating raters` = round(c(r_prev, r_curl), 3)),
+  caption = "Where the directional reliability lives.")
+```
+
+As expected, the reliability of the asymmetry is carried by its **prevalence gradient**
+(highly reproducible — base rates are a stable property of the cohort), while the
+**curl** is only weakly shared. So the reproducible part of the asymmetry is precisely
+the part we *remove* as a marginal; the substantive directional theory (curl) is real
+but faint and idiosyncratic.
+
+## 4. What the directional signal looks like (cohort consensus)
+
+The most directionally-asymmetric pairs, averaged over the 12 raters — read as
+"**anchor ⇒ target** is endorsed much more than **target ⇒ anchor**":
+
+```{r top-asym}
+asy_long <- melt(asy, id.vars = c("i","j"), variable.name="model", value.name="d")
+cons <- asy_long[, .(d = mean(d)), by = .(i,j)]
+cons[, `:=`(a_i = ADJ[i+1L], a_j = ADJ[j+1L])]
+top <- cons[order(-abs(d))][1:15]
+top[, `:=`(strong = ifelse(d>0, paste(a_i,"⇒",a_j), paste(a_j,"⇒",a_i)),
+           weak   = ifelse(d>0, paste(a_j,"⇒",a_i), paste(a_i,"⇒",a_j)),
+           gap = round(abs(d),2))]
+knitr::kable(top[, .(`Strongly endorsed direction`=strong,
+                     `Weak reverse`=weak, `Δ (Likert pts)`=gap)],
+             caption = "Largest cohort-consensus directional gaps.")
+```
+
+These are interpretable one-way implications — a specific trait implies a general/
+prevalent one but not vice versa — consistent with the prevalence account (§2) more than
+a valence one. (rgb's curl-plane analysis extracts the subtler person-perception cycles
+from the residual; that is a *substantive* follow-up, not a measurement prerequisite.)
+
+## Measurement verdict
+
+**Symmetrize** — but *not* because the asymmetry is negligible (it is ~21% of the
+centered signal). For the core JUDGE *similarity* (Reports III–IV) the symmetric part
+`(B[i,j]+B[j,i])/2` is the right object on three sounder grounds:
+
+1. **Reliability** — the antisymmetric part is ~2× less reproducible across raters
+   (r̄ 0.40 vs 0.76), i.e. lower-quality signal per unit variance.
+2. **Half is a removable marginal** — ~50% of it is a prevalence gradient (§2) that
+   double-centering strips anyway, and that gradient is where most of its reliability
+   sits; the reproducible remainder (curl) is small.
+3. **It is a different construct** — directionality (A⇒B ≠ B⇒A) is not a *similarity*;
+   it does not belong in a symmetric proximity regardless of its size.
+
+**But do not call the asymmetry "error."** It is ~21% of the centered signal — not
+negligible — and its curl is a weakly-reproducible but non-zero directional construct:
+the model's *implicit-personality-theory* directionality (A implies B more than B implies
+A). It is a legitimate secondary channel for a directional analysis (and the natural
+bridge to rgb's person-perception cycles), just not part of the symmetric *similarity* we
+take forward. Downstream reports therefore use **symmetrized, double-centered** `B` for
+the similarity measurement and treat directionality as a separate, flagged channel worth
+its own study — not a nuisance to be rounded away.
+```
