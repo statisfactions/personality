@@ -63,3 +63,24 @@ disbelief, legible as texture); REPRESENT has the finest diagonal but weakest
 opposition blocks (the merge); ENACT is high-contrast and blocky. Caveat: the
 SELF panel's 60 respondents correlate ~0.88 across models — effective N is
 maybe 5–10, the low-N cousin of the human matrix (700).
+
+**§2.5 — PC1-removed row (rgb: "so much of this hinges on human PC1").**
+Human PC1 is the adjustment/desirability general factor: λ = 82, 14.5% of the
+eigenvalue mass of a 523-variable matrix (2.2× the next component), poles
+unhappy/unpopular/confused ↔ confident/cheerful/well-liked. The figure's
+second row strips the top eigencomponent from every 523×523 matrix
+(four-grid convention) before blocking. Result:
+
+| channel | raw r(HUMAN) | PC1 removed |
+|---|---|---|
+| SELF | 0.82 | **0.21** |
+| REPRESENT | 0.78 | 0.44 |
+| ENACT | 0.80 | 0.62 |
+| JUDGE | 0.86 | **0.80** |
+
+SELF's match was ~all desirability freebie. **JUDGE's was almost none of it**
+— its facet-level human structure survives PC1 removal nearly intact. The
+honest structure ranking, JUDGE ≫ ENACT > REPRESENT ≫ SELF, is monotone in
+the channel's degree of symbolic processing — the sharpest quantitative
+statement of symbolic-over-associative to date. Corollary for all block-level
+human-match numbers: report the PC1-removed value alongside raw, always.
