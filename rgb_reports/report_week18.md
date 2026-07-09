@@ -84,3 +84,14 @@ honest structure ranking, JUDGE ≫ ENACT > REPRESENT ≫ SELF, is monotone in
 the channel's degree of symbolic processing — the sharpest quantitative
 statement of symbolic-over-associative to date. Corollary for all block-level
 human-match numbers: report the PC1-removed value alongside raw, always.
+
+What texture SELF's residual does have is *claim strata*, not traits (rgb
+spotted the central red block): three residual communities — the negative
+band (within-band z +1.54; respondents covary in how much negativity they
+admit), the professional/work-identity band (+1.15; busy, practical,
+competent — IS +0.48, the things all claim), and rgb's central vivid band
+(funny/influential/appealing/brave/outgoing, +0.37; IS +0.13, EV 4.95 — the
+things assistants are *somewhat but not particularly*, all hedged together),
+with vivid×negative at −0.52. Deny / hedge / claim: the residual covariance
+is the character sheet's intensity tiers, which is exactly why it matches
+human facet geometry at only 0.21 despite visible structure.
