@@ -137,6 +137,15 @@ debate/aesthetics — different traits get different stages) and *interview*
    weak induction (halves disagree at 0.73, boot 0.65, human-match 0.39) —
    weak roleplay reveals less persona, less reliably, not more.
 
-Gap-invariance test in flight: llama3.2 under the diverse battery — if it
-also lifts ~40%, the battery effect is protocol-universal and the qwen–llama
-gap is prompt-invariant.
+**Gap-invariance outcome: the battery effect is qwen-specific.** llama3.2
+under the diverse battery: effdim 8.8 → 8.1 (flat; halves 8.5/7.7, cross-half
+r 0.97; human-match unchanged at 0.72). Llama expresses its full ~9-dim
+persona bandwidth on any stage; qwen's bandwidth is lower AND
+situationally-gated — the diverse battery unlocks dimensions qwen won't
+show in advice-register (2.9 → 4.0) but cannot create ones it lacks. Refined
+answer to "why five": each family has a constitutional persona bandwidth
+(prompt-invariant for llama, prompt-gated within a low ceiling for qwen),
+and it survives everything we've thrown at it — extraction framings (§14 of
+W17), question batteries, induction registers, and 10× scale (Qwen 4.8 → 6.4
+across 3B→32B). The diverse battery remains the better protocol (superior
+quality metrics on both families, actively necessary for qwen).
