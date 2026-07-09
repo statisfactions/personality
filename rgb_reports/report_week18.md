@@ -95,3 +95,14 @@ things assistants are *somewhat but not particularly*, all hedged together),
 with vivid×negative at −0.52. Deny / hedge / claim: the residual covariance
 is the character sheet's intensity tiers, which is exactly why it matches
 human facet geometry at only 0.21 despite visible structure.
+
+SELF's effective dimension: **4.5** (participation ratio; HUMAN = 27 by the
+same formula), spectrum = two boulders and dust (PC1 42% desirability, PC2
+20% ≈ claim tier, nothing else above 5%); PC1-removed residual effdim 7.3 vs
+HUMAN's 61.7. This completes the ladder — REPRESENT 50–70 > HUMAN ~27 >
+ENACT 5–13 ≈ **SELF 4.5**: both *output* channels (what the model does, what
+it says of itself) compress to ~5 dims, but ENACT's five are human-matched
+(0.62 PC1-removed) while SELF's are answer-policy strata (0.21). Same
+bottleneck width, different content. Caveat: 60 highly-correlated
+respondents compress SELF's estimate somewhat (framing-mean n=10 gives 3.7),
+but the two-boulder spectrum is structural.
