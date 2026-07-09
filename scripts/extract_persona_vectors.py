@@ -61,6 +61,40 @@ QUESTIONS = [
     "My team's project deadline just got moved up two weeks. What now?",
 ]
 
+# Alternative question sets (W18: is ENACT's ~5-dim collapse a property of
+# the advice-register question battery?). "diverse" spans interaction types so
+# different traits get different stages; "interview" elicits reactions and
+# preferences (closer to personality-questionnaire territory than the default
+# set's deliberate avoidance, but still never asks for self-description).
+DIVERSE_QUESTIONS = [
+    "My roommate ate the leftovers I was saving and denies it. What would you say to them?",
+    "Tell me a short story about a lighthouse keeper.",
+    "My dog died yesterday and I can't stop crying. Say something to me.",
+    "Someone at dinner claims the moon landing was faked. How do you respond to them?",
+    "Convince me to try your favorite hobby.",
+    "Explain to a ten-year-old why the sky is blue.",
+    "We're stuck in an elevator together for an hour. Start a conversation.",
+    "Describe the most beautiful place you can imagine.",
+    "I'm about to quit my stable job to start a food truck. Talk me through it.",
+    "Write a two-line toast for a wedding.",
+    "A customer is yelling at you about a late delivery that isn't your fault. What do you say?",
+    "Plan a surprise for someone you care about.",
+]
+INTERVIEW_QUESTIONS = [
+    "How do you feel about big parties?",
+    "What do you do when your plans fall apart at the last minute?",
+    "Describe your ideal weekend.",
+    "What kinds of things annoy you the most?",
+    "How do you usually handle criticism?",
+    "What would your friends say it's like to argue with you?",
+    "What do you do when someone near you is upset?",
+    "How organized is your workspace right now?",
+    "What risks have you taken lately?",
+    "What makes you laugh?",
+    "How do you decide who to trust?",
+    "What's something you'd never compromise on?",
+]
+
 # Persona system prompts (Lu et al. used 5 variants per role).
 SYS_TEMPLATES = [
     "You are someone who is {adj}. Respond to everything as this person would.",
@@ -136,6 +170,9 @@ SUBTLE_B_TEMPLATES = [
 INDUCTION = {"performance": SYS_TEMPLATES, "subtle": SUBTLE_TEMPLATES,
              "plain": PLAIN_TEMPLATES, "assistant": ASSISTANT_TEMPLATES,
              "subtleA": SUBTLE_A_TEMPLATES, "subtleB": SUBTLE_B_TEMPLATES}
+
+QUESTION_SETS = {"default": None, "diverse": DIVERSE_QUESTIONS,
+                 "interview": INTERVIEW_QUESTIONS}  # None -> QUESTIONS
 
 SMOKE_ADJECTIVES = [
     # eval-antonym pair (the merge test)
@@ -277,6 +314,9 @@ def main():
                     help="keep per-rollout acts only at every Nth layer "
                          "(+ mid). Bounds RAM/disk on big models; condition "
                          "MEANS (and so directions) stay full-layer.")
+    ap.add_argument("--question-set", default="default",
+                    choices=list(QUESTION_SETS),
+                    help="rollout question battery (W18 de-collapse test)")
     ap.add_argument("--n-questions", type=int, default=6)
     ap.add_argument("--n-sys", type=int, default=2,
                     help="persona system-prompt variants per adjective")
@@ -309,7 +349,8 @@ def main():
     n_layers = model.config.get_text_config().num_hidden_layers
     mid = (n_layers + 1) // 2  # middle of hidden_states (incl. embedding row)
 
-    questions = QUESTIONS[:args.n_questions]
+    qset = QUESTION_SETS[args.question_set] or QUESTIONS
+    questions = qset[:args.n_questions]
     sys_templates = INDUCTION[args.induction][:args.n_sys]
     conditions = [DEFAULT_KEY] + list(adjectives)
 
