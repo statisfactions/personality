@@ -59,6 +59,14 @@ z = np.load("enact_vectors_mid.npz", allow_pickle=True)
 D, adj = z["dir__llama3.2"], z["adjectives"]      # (523, 3072), (523,)
 ```
 
+## `judge_dists_medoids_*.tar.gz` (0.5 MB) — JUDGE raw distributions (sample)
+Full 7-digit Likert distributions behind the JUDGE matrix, for the 35
+trait-cluster exemplars x 12 models (`judge_dists/<model>_tom_likely_dists.npz`:
+`dists` (35,35,7), `ev`, `entropy`, `adjectives`, `prompt`). README inside.
+The full 523-set stores only EV+entropy; this sample carries the raw
+distributions (EV can mask bimodality). Other subsets are cheap re-runs
+(`scripts/judge_distributions.py`) — ask.
+
 ## `adjectives_*.tar` (17 GB) — REPRESENT (read side) + JUDGE source
 - **`acts/<repo>__pers.pt`** — REPRESENT residual-stream activations. dict:
   `acts` (523, n_layers+1, hidden) **float16** = per-adjective activation at every
