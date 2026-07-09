@@ -71,3 +71,50 @@ theme_judge <- function() theme_minimal(base_size = 11) +
         legend.position = "bottom")
 
 upper_vec <- function(M) M[upper.tri(M)]
+
+# ---- (EV, entropy) response-shape helpers ----
+# The raw 7-category rating distributions are NOT in the release (rgb's generator
+# computes them but persists only the mean B and entropy Hent). So we characterize
+# each judgment by its two available moments. For a distribution on the integer
+# support {1..7} with a fixed mean mu:
+#   h_min_mean(mu) = MINIMUM possible entropy (mass on the two integers straddling mu)
+#   h_max_mean(mu) = MAXIMUM entropy (the maxent / exponential-family distribution)
+# Any real judgment satisfies h_min <= Hent <= h_max, so
+#   spread_index = (Hent - h_min) / (h_max - h_min)  in [0,1]
+# is a mean-detrended "how diffuse is the underlying distribution" measure:
+# 0 = as concentrated as a distribution with that mean can be; 1 = maximally diffuse.
+# It removes the mechanical drop of entropy near the scale ends (unlike raw entropy).
+.K7 <- 1:7
+# Minimum entropy of a distribution on {1..7} with fixed mean mu. Entropy is concave,
+# so the minimum is at a 2-point (extreme-point) distribution; to minimize it, place the
+# dominant mass on the nearest integer and the tiny remainder at the far extreme (1 or 7)
+# on the side that fixes the mean (this needs the *least* off-integer mass). We take the
+# better of floor/ceil as the dominant atom.
+.hbin <- function(w) ifelse(w <= 0 | w >= 1, 0, -(w * log(w) + (1 - w) * log(1 - w)))
+h_min_mean <- function(mu) {
+  cand <- function(a) {           # dominant atom a; remainder at far extreme
+    b <- ifelse(mu >= a, 7, 1)
+    w <- ifelse(a == b, 0, (mu - a) / (b - a))
+    .hbin(pmin(pmax(w, 0), 1))
+  }
+  lo <- pmin(pmax(floor(mu), 1), 7); hi <- pmin(pmax(ceiling(mu), 1), 7)
+  pmin(cand(lo), cand(hi))
+}
+.hmax_fun <- local({
+  mus <- seq(1, 7, by = 0.02)
+  hm <- vapply(mus, function(mu) {
+    if (abs(mu - 4) < 1e-9) return(log(7))
+    f <- function(lam) sum(.K7 * exp(lam * .K7)) / sum(exp(lam * .K7)) - mu
+    lam <- tryCatch(uniroot(f, c(-25, 25))$root, error = function(e) NA_real_)
+    if (is.na(lam)) return(NA_real_)
+    p <- exp(lam * .K7); p <- p / sum(p); -sum(p * log(p))
+  }, numeric(1))
+  approxfun(mus, hm, rule = 2)
+})
+h_max_mean <- function(mu) .hmax_fun(mu)
+spread_index <- function(mu, H) {
+  hmin <- h_min_mean(mu); hmax <- h_max_mean(mu)
+  s <- (H - hmin) / (hmax - hmin)
+  s[(hmax - hmin) < 1e-3] <- NA_real_          # undefined at the scale ends
+  pmin(pmax(s, 0), 1)
+}

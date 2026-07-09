@@ -41,12 +41,21 @@ This first report is the descriptive floor: **how does each rater use the scale?
 Everything downstream (what to do about asymmetry; whether the raters agree; whether the
 structure is interpretable) is conditioned by the response processes documented here.
 
-> **Data caveat, stated once.** We hold the *expected value* `B` and the *entropy*
-> `Hent` of each rating distribution — **not** the raw 7-category histogram. So
-> "category usage" below is the distribution of **rounded expected values** (an
-> *effective* category), not the true modal-response frequency. EV+entropy still pin
-> the response process tightly (entropy≈0 ⇒ all mass on one category ⇒ EV≈that integer),
-> but claims about specific categories are claims about the effective rating.
+> **Data caveat, stated once — and it shapes the method here.** We hold the *expected
+> value* `B` and the *entropy* `Hent` of each judgment's rating distribution — **not** the
+> raw 7-category probabilities. rgb's generator computes the full distribution but
+> persists only these two moments (`adjective_introspection.py`), so a true category
+> histogram is not recoverable, and *rounding* `B` to a nearest category would be
+> actively misleading (an EV of 4 from "all mass on 4" and from "half on 1, half on 7"
+> are opposite response processes that round identically). I therefore characterize each
+> judgment by **both moments jointly**: the distribution of the expected rating itself
+> (§1A, an honest quantity), and a **spread index** (§1B) that places each judgment's
+> entropy between the minimum and maximum attainable at its mean — the closest proxy to
+> underlying-distribution *shape* that two moments allow. *A request to rgb for the raw
+> per-pair distributions is pending; it would enable true modal-response / floor-ceiling /
+> bimodality analysis and let us validate the spread proxy.* (Aside: ~0.5% of judgments
+> have `Hent` fractionally below the theoretical minimum for their `B`, so the two moments
+> aren't from an identically-normalized support — minor, but another reason to want the raw.)
 
 ```{r load}
 summ <- read_csv_("model_summary.csv") %>% as_tibble() %>%
@@ -65,7 +74,8 @@ h_long <- melt(dir_h, id.vars = c("i","j"), variable.name = "model", value.name 
 
 The single most consequential descriptive fact is that the 12 models **do not use the
 1–7 scale in remotely the same way.** The table sorts by mean rating (leniency); note
-especially the spread column (`ev_sd`) and the extreme-category fractions.
+especially the spread column (`ev_sd`) and the EV tail fractions (share of judgments with
+an expected rating in each band).
 
 ```{r usage-table}
 tab <- summ %>% arrange(ev_mean) %>%
@@ -77,29 +87,66 @@ tab <- summ %>% arrange(ev_mean) %>%
 knitr::kable(tab, caption = "Per-rater location, spread and tail usage of the 1–7 scale.")
 ```
 
-```{r cat-usage, fig.height=5}
-catcols <- paste0("cat", 1:7)
-cat_long <- summ %>% select(display, all_of(catcols)) %>%
-  pivot_longer(all_of(catcols), names_to = "cat", values_to = "frac") %>%
-  mutate(cat = factor(as.integer(gsub("cat","",cat))))
-ggplot(cat_long, aes(cat, frac, fill = cat)) +
-  geom_col() + facet_wrap(~display, ncol = 4) +
-  scale_fill_brewer(palette = "RdYlBu", direction = -1, guide = "none") +
-  labs(title = "Effective category usage (fraction of pairs by rounded expected rating)",
-       x = "rounded expected rating (1–7)", y = "fraction of pairs") +
+### 1A. The distribution of the expected rating
+
+Rather than round `B` into pseudo-categories, plot its actual distribution per rater —
+the density of the expected-rating statistic itself. This shows leniency (location) and
+range restriction (spread) directly and honestly.
+
+```{r ev-density, fig.height=5}
+ggplot(ev_long, aes(ev)) +
+  geom_histogram(aes(y = after_stat(density), fill = family), bins = 60) +
+  facet_wrap(~display, ncol = 4) +
+  scale_fill_manual(values = FAM_PAL, guide = "none") +
+  scale_x_continuous(breaks = 1:7, limits = c(1,7)) +
+  labs(title = "Distribution of the expected rating B, per rater",
+       x = "expected rating (1–7)", y = "density") +
   theme_judge()
 ```
 
-Read this as a **response-style census**:
+Read as a **response-style census**:
 
-- **Range-restricted / central responders.** `Llama3.2-3B` puts ~96% of all 273k
-  judgments in categories {4,5} and **never** effectively uses 1, 2, 6 or 7
-  (SD = 0.47). `FalconMamba-7B` lives in {3,4,5} (SD = 0.75). As raters they are close
-  to *non-discriminating*: whatever the pair, the answer is "middling".
-- **Full-range / extreme responders.** `Aya-expanse-8B` and `Phi4-mini` spread across
-  all seven categories and put ~24% of judgments at the ceiling (7) — SD ≈ 1.7–1.9.
-- **Everything in between**, with the Qwen family modal around 3–4 and the Gemma family
-  running higher and more bimodal.
+- **Range-restricted / central responders.** `Llama3.2-3B`'s expected ratings collapse
+  onto a narrow 4–5 band (SD = 0.47) — whatever the pair, the answer is "middling".
+  `FalconMamba-7B` is similarly compressed into 3–5 (SD = 0.75).
+- **Full-range / bimodal responders.** `Aya-expanse-8B` and `Phi4-mini` spread expected
+  ratings across the whole scale with heavy mass toward the ceiling (SD ≈ 1.7–1.9); the
+  Gemma family is visibly multi-modal.
+- **Qwen family** sits modal around 3–4 with intermediate spread.
+
+### 1B. Spread index: are the *underlying* distributions concentrated or diffuse?
+
+The expected rating hides the shape of the distribution it came from. Since we also hold
+each judgment's entropy, we can recover *how concentrated* the underlying rating
+distribution is, **detrended for its mean** — the raw entropy mechanically falls near the
+scale ends, so a bare entropy comparison confounds concentration with leniency. The
+**spread index** places each judgment's entropy between the minimum and maximum entropy
+attainable at its mean (0 = as concentrated as any distribution with that mean can be;
+1 = maximally diffuse). It is the closest honest proxy to the raw response shape.
+
+```{r spread, fig.height=5}
+ev_long[, spread := spread_index(ev, h_long$hent)]
+sp_summ <- ev_long[, .(mean_spread = mean(spread, na.rm = TRUE)), by = display]
+ggplot(ev_long[!is.na(spread)][sample(.N, 120000)], aes(spread, y = display, fill = after_stat(x))) +
+  ggridges::geom_density_ridges_gradient(scale = 2.2, rel_min_height = 0.01, linewidth = 0.2) +
+  scale_fill_viridis_c(name = "spread", option = "C") +
+  labs(title = "Spread index by rater (mean-detrended concentration of the rating distribution)",
+       subtitle = "left = concentrated / decisive · right = diffuse / hedged",
+       x = "spread index", y = NULL) +
+  theme_judge() + theme(legend.position = "right")
+knitr::kable(
+  sp_summ %>% arrange(mean_spread) %>% transmute(Model = display, `Mean spread` = round(mean_spread,3)),
+  caption = "Mean spread index per rater — a mean-independent response-style axis.")
+```
+
+This **re-sorts the cohort on a genuinely different axis than leniency or SD**: the
+Gemma family produces the most *concentrated* underlying distributions (mean spread
+0.05–0.11 — it commits to sharp judgments) while `Phi4-mini` and `FalconMamba-7B` are the
+most *diffuse* (0.87–0.94 — their judgments are broad even where the expected rating is
+mid-scale). Note this is not the same as the SD of `B`: a rater can produce a wide range
+of expected ratings out of individually *diffuse* distributions (`Phi4`) or a narrow
+range out of *sharp* ones. Concentration and differentiation are distinct response-style
+dimensions — the point §4 formalizes.
 
 This is exactly the heterogeneity that makes cross-model *magnitude* comparison unsafe
 (rgb's calibration caveat) — but stated in response-style terms it is sharper: **these
@@ -170,29 +217,32 @@ Two things:
 
 ## 4. A response-process typology: two kinds of "uncertain"
 
-Crossing scale differentiation (SD of EV) against decisiveness (mean entropy) separates
-raters that look similar on either axis alone.
+Crossing scale differentiation (SD of `B`) against concentration (mean spread index,
+§1B — the mean-detrended decisiveness) separates raters that look similar on either axis
+alone.
 
 ```{r typology}
-ggplot(summ, aes(hent_mean, ev_sd, colour = family, label = display)) +
+typ <- summ %>% left_join(sp_summ, by = "display")
+ggplot(typ, aes(mean_spread, ev_sd, colour = family, label = display)) +
   geom_point(size = 3) +
   ggrepel::geom_text_repel(size = 3, max.overlaps = 20, seed = 2) +
   scale_colour_manual(values = FAM_PAL, name = NULL) +
-  geom_vline(xintercept = median(summ$hent_mean), linetype = 3, colour = "grey60") +
-  geom_hline(yintercept = median(summ$ev_sd), linetype = 3, colour = "grey60") +
+  geom_vline(xintercept = median(typ$mean_spread), linetype = 3, colour = "grey60") +
+  geom_hline(yintercept = median(typ$ev_sd), linetype = 3, colour = "grey60") +
   labs(title = "Response-process typology",
        subtitle = "up-left = confident differentiator · down-right = diffuse non-discriminator",
-       x = "mean per-judgment entropy (← decisive | diffuse →)",
+       x = "mean spread index (← concentrated/decisive | diffuse →)",
        y = "SD of expected ratings (↑ differentiated)") +
   theme_judge()
 ```
 
-- **Confident differentiators** (low entropy, high SD): the Gemma family, esp.
-  `Gemma-4-31B`/`Gemma3-27B`. They commit to graded, spread judgments.
-- **Diffuse non-discriminators** (high entropy, low SD): `FalconMamba-7B`,
-  `Llama3.2-3B`. Little between-pair signal *and* little within-judgment confidence.
-- **Spread-but-hedging** (high entropy, high SD): `Aya`, `Phi4` — they use the whole
-  scale but keep meaningful mass off the modal category.
+- **Confident differentiators** (low spread, high SD): the Gemma family, esp.
+  `Gemma-4-31B`/`Gemma3-27B`. They commit to sharp, well-separated judgments.
+- **Diffuse non-discriminators** (high spread, low SD): `FalconMamba-7B` most clearly —
+  broad distributions *and* little between-pair signal. `Llama3.2-3B` is the low-SD /
+  low-information corner but only mid-spread.
+- **Spread-but-hedging** (high spread, high SD): `Aya`, `Phi4-mini` — they use the whole
+  scale yet keep each individual distribution diffuse.
 
 This typology is the load-bearing setup for reliability — but with a twist that
 Report III makes precise and that is easy to get wrong: a **diffuse non-discriminator
