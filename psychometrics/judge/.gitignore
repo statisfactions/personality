@@ -4,3 +4,4 @@ data/*.csv
 figs/
 # Knitted reports ARE committed (self-contained HTML); their sidecar dirs are not.
 reports/*_files/
+data/medoids/*.npz

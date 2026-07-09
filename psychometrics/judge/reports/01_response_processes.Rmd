@@ -51,11 +51,12 @@ structure is interpretable) is conditioned by the response processes documented 
 > judgment by **both moments jointly**: the distribution of the expected rating itself
 > (§1A, an honest quantity), and a **spread index** (§1B) that places each judgment's
 > entropy between the minimum and maximum attainable at its mean — the closest proxy to
-> underlying-distribution *shape* that two moments allow. *A request to rgb for the raw
-> per-pair distributions is pending; it would enable true modal-response / floor-ceiling /
-> bimodality analysis and let us validate the spread proxy.* (Aside: ~0.5% of judgments
-> have `Hent` fractionally below the theoretical minimum for their `B`, so the two moments
-> aren't from an identically-normalized support — minor, but another reason to want the raw.)
+> underlying-distribution *shape* that two moments allow. *rgb has since shared a
+> 35-adjective sample of the raw distributions; **§6** uses it to validate this proxy
+> against ground truth and to characterize exactly what it hides (genuine mixtures vs a
+> digit artifact).* (Aside: ~0.5% of judgments have `Hent` fractionally below the
+> theoretical minimum for their `B` — §6.1 shows this is a numerical/rounding residual,
+> not a substantive support mismatch.)
 
 ```{r load}
 summ <- read_csv_("model_summary.csv") %>% as_tibble() %>%
@@ -240,9 +241,13 @@ ggplot(typ, aes(mean_spread, ev_sd, colour = family, label = display)) +
   `Gemma-4-31B`/`Gemma3-27B`. They commit to sharp, well-separated judgments.
 - **Diffuse non-discriminators** (high spread, low SD): `FalconMamba-7B` most clearly —
   broad distributions *and* little between-pair signal. `Llama3.2-3B` is the low-SD /
-  low-information corner but only mid-spread.
+  low-information corner but only mid-spread. *(§6, on the raw distributions, shows
+  FalconMamba's breadth is a smooth digit-notched **unimodal**, not bimodality — the
+  spread index cannot see the difference.)*
 - **Spread-but-hedging** (high spread, high SD): `Aya`, `Phi4-mini` — they use the whole
-  scale yet keep each individual distribution diffuse.
+  scale yet keep each individual distribution diffuse. *(§6 shows `Aya` is special: ~11%
+  of its judgments are genuine no-OR-yes **mixtures**, the one case the two-moment proxy
+  materially misreads.)*
 
 This typology is the load-bearing setup for reliability — but with a twist that
 Report III makes precise and that is easy to get wrong: a **diffuse non-discriminator
@@ -289,6 +294,126 @@ marginal-free human *correlation* matrix does not contain, which is why the reli
 and validity reports **double-center** (strip additive row/column marginals) before
 treating `B` as a similarity. It is also the primary axis of the asymmetry (Report II).
 
+## 6. Raw-distribution validation (35-medoid sample)
+
+Everything above works from two moments per judgment (`B`, `Hent`) because the raw
+7-category distributions aren't in the main release. rgb has since shared a **sample of the
+full distributions** — the complete `(35, 35, 7)` probability tensors for all 12 models on
+35 human-derived **facet-medoid** adjectives, generated with the *exact* `tom_likely`
+prompt. This lets us (a) check the spread-index machinery on ground truth and (b) see
+directly what the two moments hide. *Caveats: it is a 35-adjective sample (facet
+exemplars, not a random draw), and bf16 numerics drifted 0.01–0.08 mean-|ΔEV| from the
+June full-matrix release — treat these `dists` as their own canonical object, not a
+cell-by-cell match to the 523² `B`.*
+
+```{r medoids-load}
+md <- fread_gz("medoids_dists.csv.gz")
+pcols <- paste0("p", 1:7); P <- as.matrix(md[, ..pcols])
+md[, disp := DISPLAY[model]]
+md[, `:=`(spread = spread_index(ev, entropy), shape = shape_class(P))]
+```
+
+### 6.1 The entropy envelope holds on internally-consistent data
+
+Here `ev` and `entropy` are recomputed from the same `dists`, so they should be mutually
+consistent up to numerical precision — and they are: the spread-index envelope (§1B) is
+respected but for a small boundary residual.
+
+```{r medoids-envelope}
+md[, hmin := h_min_mean(ev)]
+cat(sprintf("Envelope violations (entropy < theoretical min for its EV): %.2f%%\n",
+            100 * mean(md$entropy < md$hmin - 1e-6)))
+```
+
+This **validates the spread-index construction**: the residual (~0.4%) sits at
+near-integer means where float32 precision bites. Notably it is the *same magnitude* as
+the main release's ~0.5% (§1 note) — so that inconsistency, too, is most likely numerical
+(rgb's documented bf16 drift plus rounding), not a substantive `B`/`Hent` mismatch. Either
+way, it does not affect the spread index materially.
+
+### 6.2 True category usage (the honest version of §1)
+
+With the raw distributions we can plot *actual* mean probability mass per category — no
+rounding, no proxy — for this sample:
+
+```{r medoids-catusage, fig.height=5}
+cat_long <- md[, lapply(.SD, mean), by = disp, .SDcols = pcols] |>
+  melt(id.vars = "disp", variable.name = "cat", value.name = "mass")
+cat_long[, cat := factor(as.integer(gsub("p", "", cat)))]
+cat_long[, disp := factor(disp, levels = disp_ord)]
+ggplot(cat_long, aes(cat, mass, fill = cat)) +
+  geom_col() + facet_wrap(~disp, ncol = 4) +
+  scale_fill_brewer(palette = "RdYlBu", direction = -1, guide = "none") +
+  labs(title = "True mean category mass (35-medoid sample)",
+       x = "rating category 1–7", y = "mean probability") + theme_judge()
+```
+
+The picture is consistent with the expected-rating story of §1 (Aya/Phi4 put real mass at
+the extremes; the Gemma family is central-to-high; Llama3.2 hugs 4–5) — reassuring that
+`B`'s distribution wasn't misleading us about *location*. What it could not tell us is
+*shape*, which is §6.3.
+
+### 6.3 What the two moments hide: genuine mixtures vs a digit artifact
+
+Classifying each raw distribution's shape (a prominent second mode with a real valley
+between peaks) separates two things `B`+`Hent` — and the spread index — cannot:
+
+```{r medoids-shape}
+shape_tab <- md[, .(
+  `unimodal %`   = round(100*mean(shape == "unimodal"),1),
+  `semantic %`   = round(100*mean(shape == "semantic"),1),
+  `digit-notch %`= round(100*mean(shape == "digit-notch"),1),
+  `adjacent %`   = round(100*mean(shape == "adjacent"),1)),
+  by = .(disp)][order(-`semantic %`)]
+knitr::kable(shape_tab, caption = "Distribution-shape census on the 35-medoid sample. 'semantic' = a true no-OR-yes mixture (peaks ≥3 apart); 'digit-notch' = a dip at a dispreferred digit (2 or 6).")
+```
+
+Three findings, and one **correction to §1/§3/§4**:
+
+1. **Genuine bimodality is rare and concentrated in one model.** Only `Aya` shows
+   meaningful *semantic* mixtures (~11% — clean "almost certainly no, but sometimes yes"
+   distributions with an empty middle). `phi4` has a little; every other model is ≥97%
+   unimodal. So for **10 of 12 models the `(EV, entropy)` proxy loses essentially
+   nothing** — the spread index is a faithful summary.
+2. **`FalconMamba`'s apparent "diffuseness" is a smooth distribution with a digit-6
+   notch, not bimodality.** Most of its flagged second modes are `digit-notch`: the model
+   under-uses the token "6", leaving a dip between 5 and 7. This is the same tokenizer
+   phenomenon as the category-2 suppression in the Llama-2 soft-evidence work — an
+   *artifact of the rating channel*, not a two-mode judgment. **This corrects the earlier
+   reading** (§4) that grouped FalconMamba as a diffuse *responder*: it is diffuse but
+   *unimodal-with-a-notch*.
+3. **A digit-2/6 suppression artifact is real but minor** across Aya, FalconMamba and the
+   Qwen family (~1–12%) — worth knowing before treating any single distribution's shape as
+   substantive.
+
+```{r medoids-examples, fig.height=3.4}
+# an Aya genuine mixture vs a matched-EV unimodal judgment: same EV, opposite shape
+aya_bi <- md[model == "Aya" & shape == "semantic"][order(-(p1 + p7))][1]
+uni <- md[model == "Gemma12" & shape == "unimodal"][which.min(abs(ev - aya_bi$ev))]
+ex <- rbind(
+  data.table(who = sprintf("Aya: %s→%s  (EV=%.1f, bimodal)", aya_bi$adj_i, aya_bi$adj_j, aya_bi$ev),
+             cat = 1:7, p = as.numeric(aya_bi[, ..pcols])),
+  data.table(who = sprintf("Gemma3-12B: %s→%s  (EV=%.1f, unimodal)", uni$adj_i, uni$adj_j, uni$ev),
+             cat = 1:7, p = as.numeric(uni[, ..pcols])))
+ggplot(ex, aes(factor(cat), p, fill = who)) +
+  geom_col(show.legend = FALSE) + facet_wrap(~who) +
+  scale_fill_manual(values = c("#8172B3", "#DD8452")) +
+  labs(title = "Same expected rating, opposite response process",
+       subtitle = "the spread index and EV+entropy cannot tell these apart; only the raw distribution can",
+       x = "rating category", y = "probability") + theme_judge()
+```
+
+### 6.4 Verdict
+
+The sample **validates the response-process pipeline** and sharpens it: the `(EV, entropy)`
+spread proxy is adequate for 10/12 models, with **`Aya` the one model whose genuine
+mixture judgments (~11%) require the raw distributions**, and a minor **digit-2/6
+suppression** artifact to keep in mind cohort-wide. It also corrects the FalconMamba
+characterization: its breadth is a notched-unimodal, not a bimodal, response. For the full
+523², rgb notes any adjective subset is a cheap re-run — so the raw distributions are
+obtainable without an independent re-collection if the Aya mixtures (or the digit artifact)
+warrant it downstream.
+
 ## Takeaways for the measurement program
 
 1. **Scale use is a rater property, not a constant.** Leniency, differentiation and
@@ -304,4 +429,9 @@ treating `B` as a similarity. It is also the primary axis of the asymmetry (Repo
 4. **Big additive marginals (prevalence + anchor generosity)** must be removed before
    `B` is read as a similarity — motivating the symmetrization + double-centering in
    Reports II–IV.
+5. **The two-moment proxy is validated against the raw distributions** (§6, 35-medoid
+   sample): faithful for 10/12 models. The exceptions are specific and now known — `Aya`
+   makes genuine no-OR-yes *mixtures* (~11%, invisible to EV+entropy), and a minor
+   digit-2/6 *suppression* artifact runs through Aya/FalconMamba/Qwen. FalconMamba's
+   "diffuseness" is a notched-unimodal, not bimodality.
 ```

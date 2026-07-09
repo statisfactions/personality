@@ -112,6 +112,28 @@ h_min_mean <- function(mu) {
   approxfun(mus, hm, rule = 2)
 })
 h_max_mean <- function(mu) .hmax_fun(mu)
+
+# Classify the shape of a 7-category pmf (rows of P) for the raw-distribution
+# validation. A "mode" = local max with p >= 0.15; "bimodal" requires a real
+# valley (< 0.6 * the smaller peak) between two consecutive modes.
+#   unimodal      — 0 or 1 prominent mode, or no real valley
+#   semantic      — two modes >= 3 categories apart (a genuine "no OR yes" mixture)
+#   digit-notch   — two modes 2 apart with the valley at a dispreferred digit (2 or 6)
+#   adjacent      — two close modes (shoulder), not clearly either
+shape_class <- function(P) apply(P, 1, function(p) {
+  lm <- which(vapply(1:7, function(k)
+    (k == 1 || p[k] > p[k-1]) && (k == 7 || p[k] > p[k+1]) && p[k] >= 0.15, logical(1)))
+  if (length(lm) < 2) return("unimodal")
+  for (t in seq_len(length(lm) - 1)) {
+    a <- lm[t]; b <- lm[t+1]; seg <- p[(a+1):(b-1)]
+    if (length(seg) && min(seg) < 0.6 * min(p[a], p[b])) {
+      if (b - a >= 3) return("semantic")
+      if (b - a == 2 && (a + 1) %in% c(2, 6)) return("digit-notch")
+      return("adjacent")
+    }
+  }
+  "unimodal"
+})
 spread_index <- function(mu, H) {
   hmin <- h_min_mean(mu); hmax <- h_max_mean(mu)
   s <- (H - hmin) / (hmax - hmin)

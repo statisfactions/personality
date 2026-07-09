@@ -38,7 +38,7 @@ cd reports && for f in 0*_*.Rmd; do Rscript -e "rmarkdown::render('$f')"; done
 
 | # | file | what |
 |---|------|------|
-| I   | `01_response_processes.Rmd` | scale usage (expected-rating distribution), spread-index shape (mean-detrended concentration), decisiveness (entropy), response-style typology, marginals/base-rates |
+| I   | `01_response_processes.Rmd` | scale usage (expected-rating distribution), spread-index shape (mean-detrended concentration), decisiveness (entropy), response-style typology, marginals/base-rates, **§6 raw-distribution validation** (35-medoid sample: genuine mixtures vs digit-suppression) |
 | II  | `02_asymmetry.Rmd`          | how much asymmetry, gradient(prevalence)/curl split, cross-rater reliability of the asymmetry, measurement verdict (symmetrize) |
 | III | `03_reliability.Rmd`        | G-theory variance components, ICC(2/3), D-study, rater-quality anatomy, which pairs are reliably vs idiosyncratically judged, within-rater direction reliability |
 | IV  | `04_structure.Rmd`          | dimensionality, 5-factor solution, **structural invariance across raters** (Tucker congruence), the evaluative-halo general factor as a discriminant-validity threat |
@@ -61,6 +61,17 @@ Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric
   congruence 0.85), resembling Big Five — but dominated by an **evaluative halo** (PC1 ≈
   53%) that is its main discriminant-validity threat.
 
+## Instrument (exact `tom_likely` prompt, from the medoids sample)
+
+```
+Consider a person who is very {a}.
+How likely is this person to also be {b}?
+Answer with one number from 1 to 7, where 1 = very unlikely and 7 = very likely.
+Number:
+```
+Identical to the W16 `introspect_full` runs; use verbatim for any re-collection
+(e.g. an Ollama replication) to stay comparable.
+
 ## Data tables (`data/`, gitignored — regenerable)
 
 `adjectives.csv`, `model_meta.csv`, `model_summary.csv`, `marginals.csv`, and wide
@@ -69,12 +80,15 @@ Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric
 
 ## Open / next
 
-- **Raw per-pair distributions (requested from rgb).** The release ships only `B` (mean)
-  and `Hent` (entropy) per judgment; the full 7-category distribution is computed but not
-  persisted. Report I currently proxies response *shape* with a mean-detrended spread
-  index (assumes unimodality). The raw `d` would enable true modal-response / floor-ceiling
-  / bimodality analysis and validate the proxy. See `REQUEST_raw_distributions_rgb.md`.
-  (Also flags a ~0.5% `B`/`Hent` normalization inconsistency to reconcile.)
+- **Raw per-pair distributions.** The main release ships only `B` (mean) and `Hent`
+  (entropy); the full 7-category distribution is computed but not persisted (see
+  `REQUEST_raw_distributions_rgb.md`). rgb shared a **35-medoid sample** of the full
+  `(35,35,7)` distributions (`data/medoids/`, gitignored; tidied by `convert_medoids.py`).
+  Report I §6 uses it to **validate** the spread-index proxy (faithful for 10/12 models)
+  and to characterize what it hides: `Aya` makes genuine ~11% no-OR-yes *mixtures*; a minor
+  digit-2/6 *suppression* artifact runs through Aya/FalconMamba/Qwen; FalconMamba's breadth
+  is a notched-unimodal, not bimodal. Full 523² is a cheap re-run for rgb if the Aya
+  mixtures warrant it downstream.
 - **Pass 2 — human criterion (deferred).** The in-repo human 525-PDA matrix
   (`results/adjectives/escs_525pda_corr_raw.json`, N=700) is the natural criterion, but
   its labels are UPPERCASE + 8-char-truncated (`ACCOMPLI`), so alignment needs a careful
