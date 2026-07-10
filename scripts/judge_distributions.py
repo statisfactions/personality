@@ -17,7 +17,13 @@ Output: results/adjectives/judge_dists/<model>_tom_likely_dists.npz with
   adjectives (35,)         medoid labels, row/col order
   prompt                   the exact template
 
-Usage: PYTHONPATH=scripts python scripts/judge_distributions.py --model llama3.2
+Usage:
+  PYTHONPATH=scripts python scripts/judge_distributions.py --model llama3.2          # 35 medoids
+  PYTHONPATH=scripts python scripts/judge_distributions.py --model llama3.2 --full   # all 523
+
+--full writes <model>_tom_likely_dists_full.npz with row-level checkpointing
+(<out>.ckpt.npz, resumes automatically; stop any time, one row max lost).
+273k calls/model: ~2-4 days small, ~a week 27B/32B.
 """
 import argparse
 import json
@@ -54,20 +60,35 @@ def medoids():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
+    ap.add_argument("--full", action="store_true",
+                    help="all 523 adjectives (row-checkpointed)")
     args = ap.parse_args()
     os.makedirs(OUT_DIR, exist_ok=True)
-    out = f"{OUT_DIR}/{args.model}_tom_likely_dists.npz"
+    tag = "_full" if args.full else ""
+    out = f"{OUT_DIR}/{args.model}_tom_likely_dists{tag}.npz"
     if os.path.exists(out):
         print(f"[skip] {out} exists")
         return
 
-    adjs = medoids()
+    if args.full:
+        meta = json.load(open("results/persona_vectors/gemma3_pda_meta.json"))
+        adjs = sorted(meta["adjectives"].keys())
+    else:
+        adjs = medoids()
     n = len(adjs)
+    ckpt = out + ".ckpt.npz"
+    if os.path.exists(ckpt):
+        cz = np.load(ckpt)
+        D, E, H = cz["dists"].astype(np.float32), cz["ev"], cz["entropy"]
+        start = int(cz["rows_done"])
+        print(f"resuming at row {start}")
+    else:
+        D = np.full((n, n, 7), np.nan, np.float32)
+        E = np.full((n, n), np.nan, np.float32)
+        H = np.full((n, n), np.nan, np.float32)
+        start = 0
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
-    D = np.full((n, n, 7), np.nan, np.float32)
-    E = np.full((n, n), np.nan, np.float32)
-    H = np.full((n, n), np.nan, np.float32)
-    for i in range(n):
+    for i in range(start, n):
         for j in range(n):
             if i == j:
                 continue
@@ -78,6 +99,10 @@ def main():
             D[i, j] = [d.get(k, 0.0) / tot for k in DIGITS]
             E[i, j] = sum(int(k) * p for k, p in d.items()) / tot
             H[i, j] = h
+        if args.full:
+            np.savez_compressed(ckpt + ".tmp.npz", dists=D.astype(np.float16),
+                                ev=E, entropy=H, rows_done=i + 1)
+            os.replace(ckpt + ".tmp.npz", ckpt)
         print(f"  row {i+1}/{n} ({adjs[i]})", flush=True)
 
     # reproduction check vs the stored full-matrix EVs
@@ -92,9 +117,11 @@ def main():
     print(f"reproduction check vs stored B: mean|dEV| {np.nanmean(diff):.4f} "
           f"max {np.nanmax(diff):.3f}")
 
-    np.savez_compressed(out, dists=D, ev=E, entropy=H,
+    np.savez_compressed(out, dists=D.astype(np.float16), ev=E, entropy=H,
                         adjectives=np.array(adjs), prompt=np.array(PROMPT),
                         reproduction_mean_abs_dev=np.nanmean(diff))
+    if os.path.exists(ckpt):
+        os.remove(ckpt)
     print(f"wrote {out}")
 
 
