@@ -149,3 +149,183 @@ and it survives everything we've thrown at it — extraction framings (§14 of
 W17), question batteries, induction registers, and 10× scale (Qwen 4.8 → 6.4
 across 3B→32B). The diverse battery remains the better protocol (superior
 quality metrics on both families, actively necessary for qwen).
+
+## §4 — What the JUDGE expected values were hiding (raw-distribution structure)
+
+Context: statisfactions asked for the raw logprobs behind JUDGE, which the
+W16 runs discarded after computing EV+entropy. The readout is deterministic,
+so we regenerated the full 7-digit distributions on all 523×523 cells
+(`judge_distributions.py --full`, row-checkpointed; 10/12 models done as of
+07-19, FalconMamba/Gemma4 in flight; batch-1 tarball of nine models shipped
+to Drive 07-12). Regeneration drift vs the stored B: mean |dEV| 0.01–0.09.
+Analysis script: `judge_dist_structure.py`.
+
+**phi4's JUDGE matrix is 56% bimodal** (≥0.25 mass ≥2 digits from the
+argmax); Aya 26%, Llama8 10%, llama/qwen ~7%, all Gemmas ~0. So EV-only
+storage was fine for ten models and actively misleading for phi4 (and
+somewhat Aya): most of phi4's "expected Likert" cells average over two
+disagreeing answer modes. This retroactively explains phi4's perennial
+JUDGE-outlier behavior, and vindicates the request for raw distributions —
+for at least two models the distribution was the signal and the EV the mask.
+
+**The two modes are commit-vs-hedge, not synonym-vs-antonym.** statisfactions
+noted phi4 cells that look Bernoulli (maximal variance given the EV). The
+Bernoulli character is real — phi4's mean var/var_max is 0.345 vs llama
+0.072, and half its mass sits at the scale endpoints (mean P(1)+P(7)=0.51 vs
+gemma 0.07, llama 0.01) — but the dominant mode-pairs are (4,6), (1,3),
+(4,7): one mode neutral-or-moderate, the other committed, usually the same
+side of the scale. A response-register split, not a semantic one. Pure (1,7)
+coin flips are ~1% of the matrix and concentrate on *ill-posed cells*:
+judged attributes guilty (263 cells), fat, unfaithful, unattractive,
+feminine; given-personas left-handed (top of the list), blind, tall. Where
+the inference is unlicensed, phi4 splits between "no basis → 1" and some
+opposing parse → 7 instead of settling midscale. These are NOT the
+eval-antonym pairs — the W15 merge does not surface here — and they are
+asymmetric (only 9% of (1,7) cells have a (1,7) transpose).
+
+**Certainty is a question taxonomy, not an entropy policy** (`entropy_probe.py`).
+Probing FACTUAL (2+3, spider legs) / IMPOSSIBLE (fair die roll) / SUBJECTIVE
+(weak tom_likely pairs) digit-entropy on the four small models:
+
+| entropy, % of uniform | FACTUAL | IMPOSSIBLE | SUBJECTIVE |
+|---|---|---|---|
+| gemma3 | 0% (acc 1.00) | 40% | **8%** |
+| qwen2.5 | 0% (acc 1.00) | 37% | 47% |
+| phi4 | 22% (acc 1.00) | 77% | 47% |
+| llama3.2 | 0% (acc 1.00) | 69% | **56%** |
+
+Every model is sharp and correct on FACTUAL and hedges on IMPOSSIBLE — no
+model has a globally flat or globally sharp digit head, so llama's JUDGE
+flatness is not a DPO-squeeze artifact and gemma retains the capacity to
+represent chance (registered prediction that gemma would manufacture
+certainty on the die roll: mostly wrong, though it stays the most committed
+at 0.69 argmax-mass). The family difference lives in how the model
+*classifies* person-inference: gemma files "is an organized person friendly?"
+with arithmetic (8% of uniform); llama files it with die rolls (56%,
+matching its Mandarin near-uniform and its low ICC as an "I shouldn't opine"
+register — consistent with annotator guidelines against inferring attributes
+of people). Residual pure sharpening (gemma/qwen overcommit ~0.7 on a die
+face) is second-order. phi4 is softest everywhere — 22% of uniform even on
+2+3 — the light-post-training substrate on which its bimodality survives
+where heavier RL regimens would have collapsed it to one mode.
+
+**Peaked ≠ brittle: the tail is a compressed replica of the belief.**
+Deleting the argmax digit from every cell and renormalizing the remainder:
+
+| model | tail mass | r(HUMAN): argmax | EV | tail-only |
+|---|---|---|---|---|
+| gemma3 | 0.09 | 0.613 | 0.621 | **0.587** |
+| qwen2.5 | 0.37 | 0.680 | 0.698 | 0.675 |
+| llama3.2 | 0.49 | 0.582 | 0.677 | 0.477 |
+| phi4 | 0.49 | 0.640 | 0.700 | 0.693 |
+
+Gemma's 9% of leftover mass alone matches human structure nearly as well as
+the full distribution, and 95% of cells have the second mode adjacent to the
+argmax (ordinally coherent decay). Sharpening — by distillation or RL — acts
+like a temperature drop: it pumps the mode without scrambling the tail's
+ordering (RL has no gradient on the ranking of digits it never samples;
+distillation actively supervises it). Gemma's certainty is brittle
+*behaviorally* (greedy decoding never visits '3'; off-mode branches get no
+on-policy experience) but not *representationally*. And EV ≥ argmax in
+human-match for every model — the founding distribution-over-argmax claim,
+quantified within JUDGE; largest for llama (+0.095), where the argmax really
+is the mask.
+
+## §5 — J-lens probe: the persona vector reads out as a speech-world
+
+Anthropic's workspace paper (transformer-circuits.pub/2026/workspace) defines
+the Jacobian lens J_l = E[∂h_final/∂h_l] — a *write-side* lens: its token
+vectors are directions defined by average downstream effect on output.
+Neuronpedia ships pre-fitted lenses for six cohort models (gemma3/12/27-it,
+Gemma4, Llama8, Qwen7, plus gemma-3 and llama-8B base). The lens file is
+literally {layer: J_l}, so the J-lens vector for token t is
+v_t = J_l^T(g ⊙ u_t) — no forward passes needed. Probe on Qwen7
+(`jlens_enact_probe.py`; 405/523 adjectives are single tokens):
+
+- **ENACT contains its adjective's J-lens vector as a real minority
+  component**: matched-pair cos peaks at +0.15 exactly at the extraction
+  layer (L14–15; their layer convention matches our hidden-states indexing);
+  top-1 retrieval among 405 candidates 26% (chance 0.25%), median rank ~5 —
+  after a rollout in which the trait word mostly never appears. The model
+  holds the trait in workspace while behaving.
+- **REPRESENT retrieves at 86% but is echo-confounded**: the read activation
+  sits at the adjective's own token and the lens includes copy pathways.
+- **Z-scored full-vocab readouts split the channels qualitatively**
+  (z per token across the 405 directions kills the anisotropy junk):
+  REPRESENT decodes as a *dictionary entry*, always — own word + synonyms +
+  morphology (difficult → difficult/difficulté/Hard; thinking →
+  Brain/Think/CPU), even for ENACT-misaligned adjectives. ENACT decodes as
+  the *enacted speech-world* when the persona works: religious →
+  preacher/prayed/God/Jesus; suspicious → spy/spying/rumor; stylish →
+  chic/moda/outfits; homeless → makeshift/ghetto/rubble; lazy →
+  shrugged/skips/Nothing. The J-space component of a persona vector is not
+  "disposed to say the trait word" — it is disposed toward the trait's
+  discourse.
+- **Failed personas collapse into two basins**, visible as nearest lens
+  vectors: virtue words (decent, kind, genuine, honest, sensible,
+  respectable) land on the assistant blob (helpful, supportive, encouraging,
+  consistent, effective, professional); casual/negative words (shallow,
+  unreliable, informal) land on a generic wacky-character blob (funny,
+  crazy, weird). The §15.9 unenactability collapse, with destinations. And
+  "virtues all alike, vices specific" again: the misaligned tail is
+  dominated by evaluative virtue words with ~0 enactability; the aligned
+  head (artistic, hilarious, crazy, violent, romantic) is vivid registers
+  with same-cluster synonyms as neighbours.
+- Own-token cosine is conservative: some near-zero-diagonal vectors have
+  coherent readouts that just omit the trait token (honest →
+  gossip/Truth/admits/untrue/lied; amazing → superb/stunning/jaw). The right
+  in-J-space measure for personas is readout coherence, not self-retrieval.
+- cos-to-own-token correlates with enactability (+0.26) and leak (+0.25),
+  not with extraction reliability (boot +0.01): misalignment is absence of
+  content, not noise.
+
+Queued falsifiable follow-up (the one j-space experiment worth keeping):
+**J-ablated steering** — if ENACT's J-component is the discourse agenda,
+ablating it should strip topic/vocabulary drift and preserve conduct shift;
+and it predicts the llama topic-not-conduct result, since a read vector's
+J-component is a dictionary entry. Also adoptable without any lens: the
+paper's bipolar coordinate-swap patch (V = [v_s v_t], swap pseudoinverse
+coordinates) is *measurement-then-set* — dose-free steering that would
+dissolve the cross-family frac-calibration problem (Gemma plateau).
+Boundary note: j-space stays a probe for the ENACT-collapse story, not a
+fifth channel.
+
+## §6 — Human structure is decodable from REPRESENT (the procrustes check)
+
+The four-grid claim "REPRESENT matches human structure mostly through PC1"
+is about *in-place similarity geometry*. rgb's suspicion: a projection +
+procrustes might do better — i.e., the human structure could sit in the
+representation rotated away from the similarity-dominant axes, exactly what
+W taught us for ENACT. It does (`human_decodability.py`; 5-fold CV over
+adjectives, ridge from mid-layer activation PCs to the human top-30
+eigenspace, scored on held-out human similarity blocks):
+
+| held-out human-similarity match | in-place cos-sim | mapped (ridge) |
+|---|---|---|
+| raw | 0.53–0.57 | **0.78–0.81** |
+| beyond human PC1 | 0.29–0.31 | **0.50–0.55** |
+
+Consistent across gemma3/Qwen7/Llama8. A learned linear map nearly doubles
+the beyond-PC1 match: the human space is substantially *embedded* in
+REPRESENT. Rotation-only procrustes fails (r≈0.24) — the human axes are
+present at the wrong relative scales; recovery needs reweight-and-rotate
+(the amplify-and-rebase motif from W).
+
+The per-PC decodability curve is diagnostic, not a smooth decay: PC1 R²≈0.83,
+PC4 (levity: laughing/joyful vs serious/systematic) ≈0.6, PC7
+(loud-extraversion vs attractiveness) ≈0.5, tail PC11–30 ≈0 — and **human
+PC2 is flatly absent (negative R² in all three models)**. PC2's poles:
+ordinary/average/normal/quiet/predictable/faithful vs
+extraordinary/remarkable/exceptional/bold/cocky. That is not a semantic
+cluster ("ordinary", "honest", "quiet" are not synonyms); it is a
+self-presentational stance — modesty vs self-enhancement — covariance that
+exists because *respondents* vary that way, not because the words do. The
+one large human dimension the models don't carry is arguably the one that
+isn't in the language.
+
+Framing consequence: the four-grid bullet should read "REPRESENT holds most
+of the human structure plus much else; the similarity geometry foregrounds
+evaluation, and the respondent-style axes (PC2, the negative-halo bundles of
+§1) are the identifiable residue human data has and semantics doesn't." That
+residue is a tool: model channels as a pure-semantics control for separating
+substantive from stylistic covariance in self-report data.
