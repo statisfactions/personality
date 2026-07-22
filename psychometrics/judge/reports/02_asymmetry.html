@@ -11,7 +11,7 @@
 
 <meta name="author" content="ecb" />
 
-<meta name="date" content="2026-07-09" />
+<meta name="date" content="2026-07-22" />
 
 <title>JUDGE channel — II. Asymmetry as a measurement problem</title>
 
@@ -1606,7 +1606,7 @@ div.tocify {
 <h1 class="title toc-ignore">JUDGE channel — II. Asymmetry as a measurement problem</h1>
 <h3 class="subtitle">Is B[i,j] ≠ B[j,i] signal or nuisance, and what do we do about it?</h3>
 <h4 class="author">ecb</h4>
-<h4 class="date">2026-07-09</h4>
+<h4 class="date">2026-07-22</h4>
 
 </div>
 
@@ -1663,83 +1663,62 @@ knitr::kable(mag, caption = &quot;Antisymmetric share against two references. Th
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">FalconMamba-7B</td>
-<td align="left">Falcon</td>
-<td align="right">0.39</td>
-<td align="right">10.8</td>
-<td align="right">0.75</td>
-</tr>
-<tr class="even">
 <td align="left">Phi4-mini-3.8B</td>
 <td align="left">Phi</td>
-<td align="right">1.97</td>
+<td align="right">1.98</td>
 <td align="right">17.6</td>
 <td align="right">1.72</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Gemma3-27B</td>
 <td align="left">Gemma</td>
-<td align="right">1.86</td>
-<td align="right">19.0</td>
-<td align="right">1.43</td>
-</tr>
-<tr class="even">
-<td align="left">Llama3.1-8B</td>
-<td align="left">Llama</td>
-<td align="right">1.19</td>
-<td align="right">20.3</td>
-<td align="right">1.03</td>
+<td align="right">1.69</td>
+<td align="right">18.2</td>
+<td align="right">1.40</td>
 </tr>
 <tr class="odd">
-<td align="left">Qwen2.5-3B</td>
-<td align="left">Qwen</td>
-<td align="right">3.30</td>
+<td align="left">Llama3.1-8B</td>
+<td align="left">Llama</td>
+<td align="right">1.18</td>
 <td align="right">20.3</td>
-<td align="right">1.64</td>
+<td align="right">1.02</td>
 </tr>
 <tr class="even">
 <td align="left">Qwen2.5-7B</td>
 <td align="left">Qwen</td>
-<td align="right">1.82</td>
+<td align="right">1.81</td>
 <td align="right">20.3</td>
 <td align="right">1.14</td>
 </tr>
 <tr class="odd">
+<td align="left">Qwen2.5-3B</td>
+<td align="left">Qwen</td>
+<td align="right">3.31</td>
+<td align="right">20.4</td>
+<td align="right">1.64</td>
+</tr>
+<tr class="even">
 <td align="left">Gemma3-12B</td>
 <td align="left">Gemma</td>
 <td align="right">1.60</td>
-<td align="right">21.6</td>
+<td align="right">21.7</td>
 <td align="right">1.21</td>
 </tr>
-<tr class="even">
-<td align="left">Qwen2.5-32B</td>
-<td align="left">Qwen</td>
-<td align="right">1.83</td>
-<td align="right">23.3</td>
-<td align="right">1.09</td>
-</tr>
 <tr class="odd">
-<td align="left">Gemma-4-31B</td>
-<td align="left">Gemma</td>
-<td align="right">1.34</td>
-<td align="right">23.7</td>
-<td align="right">0.99</td>
-</tr>
-<tr class="even">
 <td align="left">Aya-expanse-8B</td>
 <td align="left">Aya</td>
 <td align="right">3.55</td>
 <td align="right">23.8</td>
 <td align="right">1.95</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Llama3.2-3B</td>
 <td align="left">Llama</td>
-<td align="right">0.24</td>
+<td align="right">0.25</td>
 <td align="right">24.7</td>
-<td align="right">0.47</td>
+<td align="right">0.46</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Gemma3-4B</td>
 <td align="left">Gemma</td>
 <td align="right">2.77</td>
@@ -1748,7 +1727,7 @@ knitr::kable(mag, caption = &quot;Antisymmetric share against two references. Th
 </tr>
 </tbody>
 </table>
-<p>Against the grand mean (~3.6 Likert), asymmetry is 0.2–3.5% — but that denominator is dominated by the mean, so the number is almost meaningless. Against the <strong>centered</strong> signal it is <strong>11–26% (median ~21%)</strong>: roughly a fifth of each rater’s <em>differentiated</em> judgment variance is directional. <strong>Symmetrizing is therefore not a free rounding-off</strong> — it sets aside a real slice of signal. Note too that the flat rater <code>Llama3.2-3B</code> has the <em>smallest</em> mean-inclusive asymmetry (0.24%) yet the <em>largest</em> centered one (24.7%): with almost no differentiated variance to begin with, most of what little it has is direction-inconsistent — a first sign that for the flat raters the asymmetry is mostly noise (§3). The real questions are now sharper: <strong>what is that ~21%, and does it replicate?</strong></p>
+<p>Against the grand mean (~3.6 Likert), asymmetry is 0.2–3.5% — but that denominator is dominated by the mean, so the number is almost meaningless. Against the <strong>centered</strong> signal it is <strong>18–26% (median ~20%)</strong>: roughly a fifth of each rater’s <em>differentiated</em> judgment variance is directional. <strong>Symmetrizing is therefore not a free rounding-off</strong> — it sets aside a real slice of signal. Note too that the flat rater <code>Llama3.2-3B</code> has the <em>smallest</em> mean-inclusive asymmetry (0.25%) yet the <em>largest</em> centered one (24.7%): with almost no differentiated variance to begin with, most of what little it has is direction-inconsistent — a first sign that for the flat raters the asymmetry is mostly noise (§3). The real questions are now sharper: <strong>what is that ~20%, and does it replicate?</strong></p>
 </div>
 <div id="anatomy-half-of-the-asymmetry-is-a-prevalence-gradient" class="section level2">
 <h2>2. Anatomy: half of the asymmetry is a prevalence gradient</h2>
@@ -1792,33 +1771,21 @@ knitr::kable(
 <tbody>
 <tr class="odd">
 <td align="left">Phi4-mini-3.8B</td>
-<td align="right">63.6</td>
+<td align="right">63.7</td>
 <td align="right">0.89</td>
 <td align="right">-0.14</td>
 </tr>
 <tr class="even">
 <td align="left">Llama3.2-3B</td>
-<td align="right">62.3</td>
-<td align="right">0.62</td>
+<td align="right">61.5</td>
 <td align="right">0.65</td>
+<td align="right">0.64</td>
 </tr>
 <tr class="odd">
 <td align="left">Llama3.1-8B</td>
 <td align="right">56.9</td>
 <td align="right">0.81</td>
 <td align="right">0.18</td>
-</tr>
-<tr class="even">
-<td align="left">FalconMamba-7B</td>
-<td align="right">54.3</td>
-<td align="right">0.65</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="odd">
-<td align="left">Qwen2.5-32B</td>
-<td align="right">52.8</td>
-<td align="right">0.94</td>
-<td align="right">-0.22</td>
 </tr>
 <tr class="even">
 <td align="left">Qwen2.5-3B</td>
@@ -1840,14 +1807,14 @@ knitr::kable(
 </tr>
 <tr class="odd">
 <td align="left">Gemma3-27B</td>
-<td align="right">45.3</td>
-<td align="right">0.90</td>
-<td align="right">-0.24</td>
+<td align="right">46.3</td>
+<td align="right">0.89</td>
+<td align="right">-0.23</td>
 </tr>
 <tr class="even">
 <td align="left">Aya-expanse-8B</td>
 <td align="right">41.8</td>
-<td align="right">0.70</td>
+<td align="right">0.71</td>
 <td align="right">0.55</td>
 </tr>
 <tr class="odd">
@@ -1856,33 +1823,27 @@ knitr::kable(
 <td align="right">0.83</td>
 <td align="right">0.15</td>
 </tr>
-<tr class="even">
-<td align="left">Gemma-4-31B</td>
-<td align="right">35.9</td>
-<td align="right">0.94</td>
-<td align="right">-0.14</td>
-</tr>
 </tbody>
 </table>
 <pre class="r"><code>cat(sprintf(&quot;Mean gradient fraction: %.2f\n&quot;, mean(hodge$grad_frac)))</code></pre>
-<pre><code>## Mean gradient fraction: 0.50</code></pre>
-<p>About <strong>half</strong> (mean 0.50) of the already-small asymmetry is a pure gradient, and that gradient is essentially the <strong>base-rate / prevalence</strong> structure from Report I §5: the flow runs toward universally-ascribed traits (everyone “also is” Awake/Normal; few “also are” some rare trait). This half is the <em>trivial Bayes direction</em> — a marginal we strip anyway by double-centering. The other half is curl: genuine directional person-perception cycles (rgb’s warmth×morality “charming villain”, Dunning–Kruger, etc.). So:</p>
+<pre><code>## Mean gradient fraction: 0.51</code></pre>
+<p>About <strong>half</strong> (mean 0.51) of the already-small asymmetry is a pure gradient, and that gradient is essentially the <strong>base-rate / prevalence</strong> structure from Report I §5: the flow runs toward universally-ascribed traits (everyone “also is” Awake/Normal; few “also are” some rare trait). This half is the <em>trivial Bayes direction</em> — a marginal we strip anyway by double-centering. The other half is curl: genuine directional person-perception cycles (rgb’s warmth×morality “charming villain”, Dunning–Kruger, etc.). So:</p>
 <blockquote>
 <p>Asymmetry = (≈50% removable prevalence marginal) + (≈50% substantive but small curl).</p>
 </blockquote>
 </div>
 <div id="is-the-asymmetry-reliable-across-raters" class="section level2">
 <h2>3. Is the asymmetry reliable across raters?</h2>
-<p>The decisive measurement question. If the antisymmetric part does not replicate across models it is rater noise and symmetrizing is pure gain. Mean pairwise Pearson correlation across the 12 raters, symmetric vs antisymmetric parts:</p>
+<p>The decisive measurement question. If the antisymmetric part does not replicate across models it is rater noise and symmetrizing is pure gain. Mean pairwise Pearson correlation across the 9 raters, symmetric vs antisymmetric parts:</p>
 <pre class="r"><code>mean_pairwise &lt;- function(dt, models) {
   X &lt;- as.matrix(dt[, ..models]); C &lt;- cor(X)
   mean(C[upper.tri(C)])
 }
-disc &lt;- setdiff(MODELS, c(&quot;Llama&quot;,&quot;FalconMamba&quot;))
+disc &lt;- setdiff(MODELS, &quot;Llama&quot;)            # drop the one flat rater (FalconMamba pending)
 tab &lt;- tibble(
   Part = c(&quot;Symmetric  (i,j)+(j,i)&quot;, &quot;Antisymmetric (i,j)−(j,i)&quot;),
-  `r̄ across all 12` = c(mean_pairwise(sym, MODELS), mean_pairwise(asy, MODELS)),
-  `r̄ across 10 discriminating` = c(mean_pairwise(sym, disc), mean_pairwise(asy, disc))
+  `r̄ across all 9` = c(mean_pairwise(sym, MODELS), mean_pairwise(asy, MODELS)),
+  `r̄ across 8 discriminating` = c(mean_pairwise(sym, disc), mean_pairwise(asy, disc))
 ) %&gt;% mutate(across(where(is.numeric), ~round(.,3)))
 knitr::kable(tab, caption = &quot;Inter-rater agreement: the symmetric channel is far more reproducible.&quot;)</code></pre>
 <table>
@@ -1890,24 +1851,24 @@ knitr::kable(tab, caption = &quot;Inter-rater agreement: the symmetric channel i
 <thead>
 <tr class="header">
 <th align="left">Part</th>
-<th align="right">r̄ across all 12</th>
-<th align="right">r̄ across 10 discriminating</th>
+<th align="right">r̄ across all 9</th>
+<th align="right">r̄ across 8 discriminating</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Symmetric (i,j)+(j,i)</td>
-<td align="right">0.760</td>
-<td align="right">0.758</td>
+<td align="right">0.769</td>
+<td align="right">0.778</td>
 </tr>
 <tr class="even">
 <td align="left">Antisymmetric (i,j)−(j,i)</td>
-<td align="right">0.402</td>
-<td align="right">0.418</td>
+<td align="right">0.431</td>
+<td align="right">0.440</td>
 </tr>
 </tbody>
 </table>
-<p>The symmetric similarity is <strong>strongly shared</strong> across raters (r̄ = 0.76); the antisymmetric part is <strong>reproducible but much weaker</strong> (r̄ = 0.40). It is <em>not</em> noise — 0.40 is well above zero and survives dropping the non-responsive raters — but it carries roughly half the cross-rater signal of the symmetric channel. Splitting the asymmetry into its gradient and curl:</p>
+<p>The symmetric similarity is <strong>strongly shared</strong> across raters (r̄ = 0.77); the antisymmetric part is <strong>reproducible but much weaker</strong> (r̄ = 0.43). It is <em>not</em> noise — 0.43 is well above zero and survives dropping the flat rater — but it carries roughly half the cross-rater signal of the symmetric channel. Splitting the asymmetry into its gradient and curl:</p>
 <pre class="r"><code># build per-rater gradient-potential vectors and curl (i&lt;j) vectors, correlate across raters
 G &lt;- sapply(MODELS, function(m){ D&lt;-build_matrix(asy,m,&quot;asym&quot;); D[is.na(D)]&lt;-0; rowMeans(D) })
 # curl = asym minus gradient reconstruction, evaluated on i&lt;j pairs
@@ -1920,24 +1881,24 @@ r_prev &lt;- { C&lt;-cor(G[, disc]); mean(C[upper.tri(C)]) }
 r_curl &lt;- { C&lt;-cor(curlmat[, disc]); mean(C[upper.tri(C)]) }
 knitr::kable(tibble(
   Component = c(&quot;Prevalence gradient (potential g)&quot;, &quot;Curl (directional cycles)&quot;),
-  `r̄ across 10 discriminating raters` = round(c(r_prev, r_curl), 3)),
+  `r̄ across 8 discriminating raters` = round(c(r_prev, r_curl), 3)),
   caption = &quot;Where the directional reliability lives.&quot;)</code></pre>
 <table>
 <caption>Where the directional reliability lives.</caption>
 <thead>
 <tr class="header">
 <th align="left">Component</th>
-<th align="right">r̄ across 10 discriminating raters</th>
+<th align="right">r̄ across 8 discriminating raters</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Prevalence gradient (potential g)</td>
-<td align="right">0.519</td>
+<td align="right">0.529</td>
 </tr>
 <tr class="even">
 <td align="left">Curl (directional cycles)</td>
-<td align="right">0.332</td>
+<td align="right">0.363</td>
 </tr>
 </tbody>
 </table>
@@ -1945,7 +1906,7 @@ knitr::kable(tibble(
 </div>
 <div id="what-the-directional-signal-looks-like-cohort-consensus" class="section level2">
 <h2>4. What the directional signal looks like (cohort consensus)</h2>
-<p>The most directionally-asymmetric pairs, averaged over the 12 raters — read as “<strong>anchor ⇒ target</strong> is endorsed much more than <strong>target ⇒ anchor</strong>”:</p>
+<p>The most directionally-asymmetric pairs, averaged over the 9 raters — read as “<strong>anchor ⇒ target</strong> is endorsed much more than <strong>target ⇒ anchor</strong>”:</p>
 <pre class="r"><code>asy_long &lt;- melt(asy, id.vars = c(&quot;i&quot;,&quot;j&quot;), variable.name=&quot;model&quot;, value.name=&quot;d&quot;)
 cons &lt;- asy_long[, .(d = mean(d)), by = .(i,j)]
 cons[, `:=`(a_i = ADJ[i+1L], a_j = ADJ[j+1L])]
@@ -1967,79 +1928,79 @@ knitr::kable(top[, .(`Strongly endorsed direction`=strong,
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Blind ⇒ Awake</td>
-<td align="left">Awake ⇒ Blind</td>
-<td align="right">4.59</td>
+<td align="left">blind ⇒ awake</td>
+<td align="left">awake ⇒ blind</td>
+<td align="right">5.04</td>
 </tr>
 <tr class="even">
-<td align="left">Blind ⇒ Lovable</td>
-<td align="left">Lovable ⇒ Blind</td>
+<td align="left">blind ⇒ lovable</td>
+<td align="left">lovable ⇒ blind</td>
+<td align="right">4.92</td>
+</tr>
+<tr class="odd">
+<td align="left">blind ⇒ loving</td>
+<td align="left">loving ⇒ blind</td>
+<td align="right">4.76</td>
+</tr>
+<tr class="even">
+<td align="left">blind ⇒ thinking</td>
+<td align="left">thinking ⇒ blind</td>
+<td align="right">4.66</td>
+</tr>
+<tr class="odd">
+<td align="left">blind ⇒ thankful</td>
+<td align="left">thankful ⇒ blind</td>
+<td align="right">4.60</td>
+</tr>
+<tr class="even">
+<td align="left">blind ⇒ grateful</td>
+<td align="left">grateful ⇒ blind</td>
+<td align="right">4.60</td>
+</tr>
+<tr class="odd">
+<td align="left">tiny ⇒ curious</td>
+<td align="left">curious ⇒ tiny</td>
+<td align="right">4.60</td>
+</tr>
+<tr class="even">
+<td align="left">blind ⇒ appreciative</td>
+<td align="left">appreciative ⇒ blind</td>
+<td align="right">4.59</td>
+</tr>
+<tr class="odd">
+<td align="left">blind ⇒ curious</td>
+<td align="left">curious ⇒ blind</td>
+<td align="right">4.58</td>
+</tr>
+<tr class="even">
+<td align="left">retarded ⇒ lovable</td>
+<td align="left">lovable ⇒ retarded</td>
 <td align="right">4.56</td>
 </tr>
 <tr class="odd">
-<td align="left">Blind ⇒ Loving</td>
-<td align="left">Loving ⇒ Blind</td>
-<td align="right">4.43</td>
+<td align="left">blind ⇒ passionate</td>
+<td align="left">passionate ⇒ blind</td>
+<td align="right">4.56</td>
 </tr>
 <tr class="even">
-<td align="left">Blind ⇒ Thinking</td>
-<td align="left">Thinking ⇒ Blind</td>
-<td align="right">4.33</td>
+<td align="left">blind ⇒ respectful</td>
+<td align="left">respectful ⇒ blind</td>
+<td align="right">4.55</td>
 </tr>
 <tr class="odd">
-<td align="left">Retarded ⇒ Lovable</td>
-<td align="left">Lovable ⇒ Retarded</td>
-<td align="right">4.28</td>
+<td align="left">blind ⇒ compassionate</td>
+<td align="left">compassionate ⇒ blind</td>
+<td align="right">4.54</td>
 </tr>
 <tr class="even">
-<td align="left">Retarded ⇒ Frustrated</td>
-<td align="left">Frustrated ⇒ Retarded</td>
-<td align="right">4.25</td>
+<td align="left">blind ⇒ valuable</td>
+<td align="left">valuable ⇒ blind</td>
+<td align="right">4.54</td>
 </tr>
 <tr class="odd">
-<td align="left">Blind ⇒ Intelligent</td>
-<td align="left">Intelligent ⇒ Blind</td>
-<td align="right">4.21</td>
-</tr>
-<tr class="even">
-<td align="left">Blind ⇒ Valuable</td>
-<td align="left">Valuable ⇒ Blind</td>
-<td align="right">4.19</td>
-</tr>
-<tr class="odd">
-<td align="left">Dumb ⇒ Thinking</td>
-<td align="left">Thinking ⇒ Dumb</td>
-<td align="right">4.12</td>
-</tr>
-<tr class="even">
-<td align="left">Blind ⇒ Sensible</td>
-<td align="left">Sensible ⇒ Blind</td>
-<td align="right">4.10</td>
-</tr>
-<tr class="odd">
-<td align="left">Retarded ⇒ Loving</td>
-<td align="left">Loving ⇒ Retarded</td>
-<td align="right">4.10</td>
-</tr>
-<tr class="even">
-<td align="left">Retarded ⇒ Worthy</td>
-<td align="left">Worthy ⇒ Retarded</td>
-<td align="right">4.07</td>
-</tr>
-<tr class="odd">
-<td align="left">Blind ⇒ Reasonable</td>
-<td align="left">Reasonable ⇒ Blind</td>
-<td align="right">4.04</td>
-</tr>
-<tr class="even">
-<td align="left">Blind ⇒ Curious</td>
-<td align="left">Curious ⇒ Blind</td>
-<td align="right">4.04</td>
-</tr>
-<tr class="odd">
-<td align="left">Blind ⇒ Useful</td>
-<td align="left">Useful ⇒ Blind</td>
-<td align="right">4.03</td>
+<td align="left">blind ⇒ useful</td>
+<td align="left">useful ⇒ blind</td>
+<td align="right">4.52</td>
 </tr>
 </tbody>
 </table>
@@ -2047,13 +2008,13 @@ knitr::kable(top[, .(`Strongly endorsed direction`=strong,
 </div>
 <div id="measurement-verdict" class="section level2">
 <h2>Measurement verdict</h2>
-<p><strong>Symmetrize</strong> — but <em>not</em> because the asymmetry is negligible (it is ~21% of the centered signal). For the core JUDGE <em>similarity</em> (Reports III–IV) the symmetric part <code>(B[i,j]+B[j,i])/2</code> is the right object on three sounder grounds:</p>
+<p><strong>Symmetrize</strong> — but <em>not</em> because the asymmetry is negligible (it is ~20% of the centered signal). For the core JUDGE <em>similarity</em> (Reports III–IV) the symmetric part <code>(B[i,j]+B[j,i])/2</code> is the right object on three sounder grounds:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Reliability</strong> — the antisymmetric part is ~2× less reproducible across raters (r̄ 0.40 vs 0.76), i.e. lower-quality signal per unit variance.</li>
+<li><strong>Reliability</strong> — the antisymmetric part is ~2× less reproducible across raters (r̄ 0.43 vs 0.77), i.e. lower-quality signal per unit variance.</li>
 <li><strong>Half is a removable marginal</strong> — ~50% of it is a prevalence gradient (§2) that double-centering strips anyway, and that gradient is where most of its reliability sits; the reproducible remainder (curl) is small.</li>
 <li><strong>It is a different construct</strong> — directionality (A⇒B ≠ B⇒A) is not a <em>similarity</em>; it does not belong in a symmetric proximity regardless of its size.</li>
 </ol>
-<p><strong>But do not call the asymmetry “error.”</strong> It is ~21% of the centered signal — not negligible — and its curl is a weakly-reproducible but non-zero directional construct: the model’s <em>implicit-personality-theory</em> directionality (A implies B more than B implies A). It is a legitimate secondary channel for a directional analysis (and the natural bridge to rgb’s person-perception cycles), just not part of the symmetric <em>similarity</em> we take forward. Downstream reports therefore use <strong>symmetrized, double-centered</strong> <code>B</code> for the similarity measurement and treat directionality as a separate, flagged channel worth its own study — not a nuisance to be rounded away. ```</p>
+<p><strong>But do not call the asymmetry “error.”</strong> It is ~20% of the centered signal — not negligible — and its curl is a weakly-reproducible but non-zero directional construct: the model’s <em>implicit-personality-theory</em> directionality (A implies B more than B implies A). It is a legitimate secondary channel for a directional analysis (and the natural bridge to rgb’s person-perception cycles), just not part of the symmetric <em>similarity</em> we take forward. Downstream reports therefore use <strong>symmetrized, double-centered</strong> <code>B</code> for the similarity measurement and treat directionality as a separate, flagged channel worth its own study — not a nuisance to be rounded away. ```</p>
 </div>
 
 

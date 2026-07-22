@@ -1,5 +1,21 @@
 # HANDOFF — JUDGE track reanalysis on the FULL raw distributions
 
+> **STATUS: DONE for batch 1 (2026-07-22).** `convert_full_dists.py` written; all 5 reports
+> + the `ecb-reports/judge_psychometric_soundness.md` narrative + this dir's `README.md`
+> re-run on the 9-model canonical data and re-knitted. **Batch 2 (`FalconMamba`, `Gemma-4`,
+> `Qwen-32`) still pending** — re-run everything when it lands (`convert_full_dists.py` picks
+> up any npz in `data/dists_full/judge_dists/` automatically).
+>
+> **Correction to this doc's own headline:** the "phi4 off-mode 3%→56%, medoid sample badly
+> under-represents spread" framing below was **wrong**. Recomputing rgb's off-mode metric on
+> the medoids gives phi4 = **50.5%** (vs 56.1% full), Aya 26.6% (vs 26.2%) — the medoids
+> tracked off-mode mass *fine*. The "3%" conflated medoid *strict-semantic* (~1.9%) with full
+> *off-mode* (56%). The real correction (Report I §6): the medoid-era "faithful for 10/12"
+> verdict erred by certifying faithfulness off **strict bimodality alone** — `Phi4` is 56%
+> off-mode yet **93% unimodal** (broad-unimodal), `Aya` is the only genuinely bimodal rater
+> (~15% semantic). Off-mode mass ≠ bimodality; report both. The sections below are the
+> original brief, kept for provenance.
+
 **Written 2026-07-22 to survive a context clear.** Immediate next task: **reanalyze the
 JUDGE track using rgb's full raw 7-category distributions**, which supersede the EV-only
 `B`/`Hent` the current reports were built on. Read this + `README.md` first.

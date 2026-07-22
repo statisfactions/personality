@@ -70,13 +70,13 @@ knitr::kable(mag, caption = "Antisymmetric share against two references. The cen
 
 Against the grand mean (~3.6 Likert), asymmetry is 0.2–3.5% — but that denominator is
 dominated by the mean, so the number is almost meaningless. Against the **centered**
-signal it is **11–26% (median ~21%)**: roughly a fifth of each rater's *differentiated*
+signal it is **18–26% (median ~20%)**: roughly a fifth of each rater's *differentiated*
 judgment variance is directional. **Symmetrizing is therefore not a free rounding-off** —
 it sets aside a real slice of signal. Note too that the flat rater `Llama3.2-3B` has the
-*smallest* mean-inclusive asymmetry (0.24%) yet the *largest* centered one (24.7%): with
+*smallest* mean-inclusive asymmetry (0.25%) yet the *largest* centered one (24.7%): with
 almost no differentiated variance to begin with, most of what little it has is
 direction-inconsistent — a first sign that for the flat raters the asymmetry is mostly
-noise (§3). The real questions are now sharper: **what is that ~21%, and does it
+noise (§3). The real questions are now sharper: **what is that ~20%, and does it
 replicate?**
 
 ## 2. Anatomy: half of the asymmetry is a prevalence gradient
@@ -111,7 +111,7 @@ knitr::kable(
 cat(sprintf("Mean gradient fraction: %.2f\n", mean(hodge$grad_frac)))
 ```
 
-About **half** (mean 0.50) of the already-small asymmetry is a pure gradient, and that
+About **half** (mean 0.51) of the already-small asymmetry is a pure gradient, and that
 gradient is essentially the **base-rate / prevalence** structure from Report I §5: the
 flow runs toward universally-ascribed traits (everyone "also is" Awake/Normal; few
 "also are" some rare trait). This half is the *trivial Bayes direction* — a marginal we
@@ -125,25 +125,25 @@ etc.). So:
 
 The decisive measurement question. If the antisymmetric part does not replicate across
 models it is rater noise and symmetrizing is pure gain. Mean pairwise Pearson
-correlation across the 12 raters, symmetric vs antisymmetric parts:
+correlation across the 9 raters, symmetric vs antisymmetric parts:
 
 ```{r reliab-asym}
 mean_pairwise <- function(dt, models) {
   X <- as.matrix(dt[, ..models]); C <- cor(X)
   mean(C[upper.tri(C)])
 }
-disc <- setdiff(MODELS, c("Llama","FalconMamba"))
+disc <- setdiff(MODELS, "Llama")            # drop the one flat rater (FalconMamba pending)
 tab <- tibble(
   Part = c("Symmetric  (i,j)+(j,i)", "Antisymmetric (i,j)−(j,i)"),
-  `r̄ across all 12` = c(mean_pairwise(sym, MODELS), mean_pairwise(asy, MODELS)),
-  `r̄ across 10 discriminating` = c(mean_pairwise(sym, disc), mean_pairwise(asy, disc))
+  `r̄ across all 9` = c(mean_pairwise(sym, MODELS), mean_pairwise(asy, MODELS)),
+  `r̄ across 8 discriminating` = c(mean_pairwise(sym, disc), mean_pairwise(asy, disc))
 ) %>% mutate(across(where(is.numeric), ~round(.,3)))
 knitr::kable(tab, caption = "Inter-rater agreement: the symmetric channel is far more reproducible.")
 ```
 
-The symmetric similarity is **strongly shared** across raters (r̄ = 0.76); the
-antisymmetric part is **reproducible but much weaker** (r̄ = 0.40). It is *not* noise —
-0.40 is well above zero and survives dropping the non-responsive raters — but it carries
+The symmetric similarity is **strongly shared** across raters (r̄ = 0.77); the
+antisymmetric part is **reproducible but much weaker** (r̄ = 0.43). It is *not* noise —
+0.43 is well above zero and survives dropping the flat rater — but it carries
 roughly half the cross-rater signal of the symmetric channel. Splitting the asymmetry
 into its gradient and curl:
 
@@ -160,7 +160,7 @@ r_prev <- { C<-cor(G[, disc]); mean(C[upper.tri(C)]) }
 r_curl <- { C<-cor(curlmat[, disc]); mean(C[upper.tri(C)]) }
 knitr::kable(tibble(
   Component = c("Prevalence gradient (potential g)", "Curl (directional cycles)"),
-  `r̄ across 10 discriminating raters` = round(c(r_prev, r_curl), 3)),
+  `r̄ across 8 discriminating raters` = round(c(r_prev, r_curl), 3)),
   caption = "Where the directional reliability lives.")
 ```
 
@@ -172,7 +172,7 @@ but faint and idiosyncratic.
 
 ## 4. What the directional signal looks like (cohort consensus)
 
-The most directionally-asymmetric pairs, averaged over the 12 raters — read as
+The most directionally-asymmetric pairs, averaged over the 9 raters — read as
 "**anchor ⇒ target** is endorsed much more than **target ⇒ anchor**":
 
 ```{r top-asym}
@@ -195,19 +195,19 @@ from the residual; that is a *substantive* follow-up, not a measurement prerequi
 
 ## Measurement verdict
 
-**Symmetrize** — but *not* because the asymmetry is negligible (it is ~21% of the
+**Symmetrize** — but *not* because the asymmetry is negligible (it is ~20% of the
 centered signal). For the core JUDGE *similarity* (Reports III–IV) the symmetric part
 `(B[i,j]+B[j,i])/2` is the right object on three sounder grounds:
 
 1. **Reliability** — the antisymmetric part is ~2× less reproducible across raters
-   (r̄ 0.40 vs 0.76), i.e. lower-quality signal per unit variance.
+   (r̄ 0.43 vs 0.77), i.e. lower-quality signal per unit variance.
 2. **Half is a removable marginal** — ~50% of it is a prevalence gradient (§2) that
    double-centering strips anyway, and that gradient is where most of its reliability
    sits; the reproducible remainder (curl) is small.
 3. **It is a different construct** — directionality (A⇒B ≠ B⇒A) is not a *similarity*;
    it does not belong in a symmetric proximity regardless of its size.
 
-**But do not call the asymmetry "error."** It is ~21% of the centered signal — not
+**But do not call the asymmetry "error."** It is ~20% of the centered signal — not
 negligible — and its curl is a weakly-reproducible but non-zero directional construct:
 the model's *implicit-personality-theory* directionality (A implies B more than B implies
 A). It is a legitimate secondary channel for a directional analysis (and the natural

@@ -1,6 +1,6 @@
 ---
 title: "JUDGE channel — V. Is the crowd flat? Consensus construction & rater quality"
-subtitle: "A reactive study: does weighting or trimming the 12-rater ensemble help?"
+subtitle: "A reactive study: does weighting or trimming the 9-rater ensemble help?"
 author: "ecb"
 date: "`r Sys.Date()`"
 output:
@@ -21,14 +21,15 @@ source("_common.R")
 ## Why this report exists
 
 This one is **reactive**. Report I's response-style typology suggested an obvious move —
-down-weight the two flat, non-discriminating raters (`Llama3.2-3B`, `FalconMamba`) when
-forming the cohort consensus, since they carry little differentiated signal. Report III
-then found the **opposite** of what that intuition predicts: those flat raters *agree*
-with the consensus perfectly well; the raters that actually pull away are the
-high-variance *idiosyncratic* models (`Gemma-4-31B`, `Aya`). That tension is worth
-resolving directly: **what is the right way to build the JUDGE consensus, and does any
-weighting or trimming beat the flat mean?** (rgb's W16 §8b used a flat 12-model average
-and flagged that a weighted crowd "might" be better — this tests it.)
+down-weight the flat, non-discriminating rater (`Llama3.2-3B`) when forming the cohort
+consensus, since it carries little differentiated signal. Report III then found the
+**opposite** of what that intuition predicts: that flat rater *agrees* with the consensus
+perfectly well; the raters that actually pull away are the high-variance *idiosyncratic*
+models (`Aya`, `Gemma3-4B`). That tension is worth resolving directly: **what is the right
+way to build the JUDGE consensus, and does any weighting or trimming beat the flat mean?**
+(rgb's W16 §8b used a flat multi-model average and flagged that a weighted crowd "might" be
+better — this tests it. We work here with the 9 batch-1 raters; `FalconMamba`, `Gemma-4` and
+`Qwen-32` are pending.)
 
 ```{r load}
 sym <- fread_gz("sym_ev.csv.gz"); syh <- fread_gz("sym_hent.csv.gz")
@@ -57,10 +58,12 @@ knitr::kable(anat, caption="Three orthogonal axes of rater quality. High on one 
 
 The three quality axes **rank the raters differently** (pairwise rank correlations are
 weak): information (differentiation), agreement with the crowd, and internal consistency
-are genuinely distinct. `FalconMamba` is *low* information but *high* on both agreement
-and consistency; `Aya` is *high* information but *low* agreement; `Gemma-4-31B` is
-middling information but lowest agreement. There is no single "good rater" axis to weight
-by — which already warns that a one-number competence weight will be crude.
+are genuinely distinct. `Llama3.2-3B` is *low* information (SD 0.46) but agrees with the
+crowd right at the cohort mean; `Aya` is the *highest* information (SD 1.95) yet the
+*lowest* agreement; `Gemma3-4B` is mid-high information but second-lowest agreement *and*
+the least internally consistent, while `Phi4` and `Gemma3-27B` are the most consistent.
+There is no single "good rater" axis to weight by — which already warns that a one-number
+competence weight will be crude.
 
 ## 2. Does weighting the crowd help? (split-crowd stability)
 
@@ -81,22 +84,24 @@ split_stab <- function(M, w=NULL, nrep=200){
   c(mean=mean(rs), sd=sd(rs))
 }
 schemes <- tibble(
-  Scheme = c("Flat mean (all 12)","Competence-weighted (agreement²)",
-             "Drop 2 flat raters","Drop 2 idiosyncratic raters"),
+  Scheme = c("Flat mean (all 9)","Competence-weighted (agreement²)",
+             "Drop 1 flat rater (Llama3.2)","Drop 2 idiosyncratic (Aya, Gemma3-4B)"),
   res = list(split_stab(Sdc), split_stab(Sdc, comp_w),
-             split_stab(Sdc[, setdiff(MODELS,c("Llama","FalconMamba"))]),
-             split_stab(Sdc[, setdiff(MODELS,c("Gemma4","Aya"))]))
+             split_stab(Sdc[, setdiff(MODELS,"Llama")]),
+             split_stab(Sdc[, setdiff(MODELS,c("Aya","Gemma"))]))
 ) %>% mutate(`Split-half stability`=round(map_dbl(res, "mean"),4),
              `±SD`=round(map_dbl(res,"sd"),4)) %>% select(-res)
 knitr::kable(schemes, caption="Consensus reproducibility under different construction recipes (double-centered structure).")
 ```
 
-**Weighting and trimming barely move the needle.** Competence-weighting lifts split-half
-stability by ~0.003; dropping the idiosyncratic pair helps a hair more than dropping the
-flat pair, but all recipes land within noise of the flat mean (~0.95). The **flat
-average is already near-optimal** — the crowd's reproducibility is not being dragged down
-by any rater. This vindicates rgb's flat aggregate and closes the Report I intuition: the
-non-responsive raters are not worth excluding.
+**Weighting and trimming barely move the needle.** Competence-weighting and dropping the
+single flat rater each lift split-half stability by ~0.003; dropping the two idiosyncratic
+raters actually *lowers* it (~0.006) — but that is mostly the mechanical cost of a smaller
+ensemble (each split-half loses a rater), not evidence the trim removed noise. All recipes
+land within ±0.01 of the flat mean (~0.94). The **flat average is already near-optimal** —
+the crowd's reproducibility is not being dragged down by any rater. This vindicates rgb's
+flat aggregate and closes the Report I intuition: the non-responsive raters are not worth
+excluding.
 
 ## 3. Per-pair confidence weighting
 
@@ -146,33 +151,38 @@ ggplot(grow, aes(k, stab)) +
   geom_ribbon(aes(ymin=lo, ymax=hi), fill="#4C72B0", alpha=.15) +
   geom_line(colour="#4C72B0", linewidth=1) + geom_point(size=1.6, colour="#4C72B0") +
   geom_hline(yintercept=.95, linetype=3, colour="grey55") +
-  scale_x_continuous(breaks=2:12) +
+  scale_x_continuous(breaks=2:9) +
   labs(title="Consensus convergence: agreement of a k-rater subset with the full cohort",
-       x="number of raters in the subset", y="corr. with full 12-rater consensus (structural)") +
+       x="number of raters in the subset", y="corr. with full 9-rater consensus (structural)") +
   theme_judge()
 cat(sprintf("A random %d-rater subset already reproduces the full consensus at r>0.95.\n",
     min(grow$k[grow$stab>0.95])))
 ```
 
-The consensus **converges fast**: a random ~6–7 raters reproduce the full-cohort
-structure at r > 0.95. Beyond that, extra raters are redundant — consistent with the
-D-study saturation in Report III. So the practically-useful ensemble is *modest*, and
-which specific models you include matters little (any 6–7 will do).
+The consensus **converges immediately**: even a random *pair* of raters reproduces the
+full-cohort structural pattern at r > 0.95, and four raters at r > 0.98. Note this
+"reproduce *this* cohort's mean" curve saturates faster than the absolute-reliability
+D-study of Report III (which needs ~6 raters for G ≥ 0.9) — they answer different questions,
+but both say the practically-useful ensemble is *modest* and which specific models you
+include matters little.
 
 ## Verdict
 
-1. **The flat 12-model mean is already near-optimal.** No weighting (competence or
+1. **The flat 9-model mean is already near-optimal.** No weighting (competence or
    confidence) or trimming scheme meaningfully beats it on reproducibility. rgb's flat
    aggregate is the right, robust object.
-2. **The Report I "down-weight the flat raters" intuition is unsupported.** Low
-   *information* ≠ low *quality*: the flat raters agree with and don't destabilize the
-   consensus. If anything, the mild outliers are the high-variance idiosyncratic models —
-   and even trimming those buys ~0.003 in stability.
+2. **The Report I "down-weight the flat rater" intuition is unsupported.** Low
+   *information* ≠ low *quality*: `Llama3.2-3B` agrees with and doesn't destabilize the
+   consensus. If anything, the mild outliers are the high-variance idiosyncratic models
+   (`Aya`, `Gemma3-4B`) — and trimming those buys nothing (split-half stability slips
+   slightly, mostly the cost of a smaller ensemble).
 3. **Rater quality is genuinely multidimensional** (information / agreement / internal
    consistency are ~orthogonal), which is *why* a single competence weight can't help —
    there is no one axis to weight by.
-4. **~6–7 raters suffice.** The consensus saturates well below 12; the ensemble's value
-   is real but bounded, and model identity within the crowd is largely fungible.
+4. **A handful of raters suffice.** The structural consensus reproduces from even 2–4
+   raters, and Report III's D-study needs only ~6 for a dependable (G ≥ 0.9) measurement;
+   the ensemble's value is real but bounded, and model identity within the crowd is largely
+   fungible.
 
 The measurement-design takeaway: **treat the JUDGE similarity as an unweighted
 ensemble of ≥6 discriminating raters, symmetrized and double-centered.** Simplicity is

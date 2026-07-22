@@ -1,6 +1,6 @@
 ---
 title: "JUDGE channel — III. Reliability & generalizability"
-subtitle: "12 LLMs as raters of adjective-pair judgments"
+subtitle: "9 LLMs as raters of adjective-pair judgments"
 author: "ecb"
 date: "`r Sys.Date()`"
 output:
@@ -20,8 +20,9 @@ source("_common.R")
 
 ## Frame
 
-Per ecb's steer, the unit is **models as raters**: 12 judges each rate the same 136,503
-unordered adjective pairs (symmetric similarity `S = (B[i,j]+B[j,i])/2`, justified in
+Per ecb's steer, the unit is **models as raters**: 9 judges (the batch-1 raters;
+`FalconMamba`, `Gemma-4`, `Qwen-32` pending) each rate the same 136,503 unordered adjective
+pairs (symmetric similarity `S = (B[i,j]+B[j,i])/2`, justified in
 Report II). Reliability here is **inter-rater generalizability** — if we call the JUDGE
 similarity a *measurement*, how much of it is shared true score vs rater idiosyncrasy,
 and how many raters does a dependable measurement need? This is the psychometric spine of
@@ -64,11 +65,11 @@ tibble(Component=c("Pair (universe / true score)","Rater (leniency main effect)"
   knitr::kable(caption="Generalizability variance components for the raw symmetric similarity.")
 ```
 
-The **pair** facet dominates (≈61% of variance) — there is a large shared true-score
-signal every rater is tracking. The **rater/leniency** main effect (≈11%) is the
+The **pair** facet dominates (≈62% of variance) — there is a large shared true-score
+signal every rater is tracking. The **rater/leniency** main effect (≈10%) is the
 response-style heterogeneity of Report I, now as a variance term; it depresses *absolute*
 agreement but is removed by design in a *relative* (consistency) coefficient. The
-residual (≈29%) is pair×rater interaction + measurement error — genuine disagreement
+residual (≈28%) is pair×rater interaction + measurement error — genuine disagreement
 about *which* pairs are similar.
 
 ```{r icc}
@@ -82,11 +83,11 @@ knitr::kable(round(t(t(icc_from_vc(vc, nr))),3), col.names="coefficient",
 ```
 
 - A **single LLM rater** has only *moderate* absolute agreement with the field
-  (ICC(2,1) = 0.61). One model's implicit personality theory is a noisy instrument.
-- The **12-rater ensemble** is *excellent* (ICC(2,k) = 0.95) — the reliable measurement
+  (ICC(2,1) = 0.62). One model's implicit personality theory is a noisy instrument.
+- The **9-rater ensemble** is *excellent* (ICC(2,k) = 0.94) — the reliable measurement
   object is the **cohort consensus**, not any single model. This is precisely why rgb's
   aggregate matches the human matrix above every individual model.
-- Consistency exceeds agreement (0.68 > 0.61 single; 0.96 > 0.95 average): removing the
+- Consistency exceeds agreement (0.69 > 0.62 single; 0.95 > 0.94 average): removing the
   leniency main effect recovers reliability, quantifying the calibration confound rgb
   flagged — **~0.07 of single-rater reliability is lost purely to differing scale use.**
 
@@ -102,8 +103,8 @@ ggplot(d, aes(k, G, colour=coefficient)) +
   geom_line(linewidth=1) + geom_point(size=1.4) +
   geom_hline(yintercept=c(.8,.9), linetype=3, colour="grey55") +
   geom_vline(xintercept=nr, linetype=2, colour="grey55") +
-  annotate("text", x=nr+.3, y=.55, label="cohort n=12", hjust=0, size=3, colour="grey40") +
-  scale_x_continuous(breaks=c(1,5,10,12,15,20)) +
+  annotate("text", x=nr+.3, y=.55, label="cohort n=9", hjust=0, size=3, colour="grey40") +
+  scale_x_continuous(breaks=c(1,3,6,9,15,20)) +
   scale_colour_manual(values=c(Relative="#4C72B0", Absolute="#DD8452"), name=NULL) +
   labs(title="Generalizability vs number of raters (Spearman–Brown / D-study)",
        x="number of LLM raters averaged", y="G coefficient") +
@@ -112,8 +113,8 @@ crossings <- sapply(c(.8,.9), function(t) min(which(vc$vp/(vc$vp+(vc$vr+vc$ve)/k
 cat(sprintf("Raters needed for absolute G≥0.8: %d; ≥0.9: %d.\n", crossings[1], crossings[2]))
 ```
 
-Dependability climbs steeply: ~4 raters for absolute G ≥ 0.8, ~8 for ≥ 0.9. The
-cohort of 12 is comfortably in the dependable range — but the curve also says a
+Dependability climbs steeply: ~3 raters for absolute G ≥ 0.8, ~6 for ≥ 0.9. The
+cohort of 9 is comfortably in the dependable range — but the curve also says a
 *handful* of well-chosen models would nearly suffice, so the ensemble's value is real
 but saturating.
 
@@ -143,40 +144,43 @@ ggplot(rql, aes(loo, display, colour=family, shape=metric)) +
   scale_shape_manual(values=c(raw=1, structural=16), name=NULL) +
   labs(title="Agreement of each rater with the leave-one-out consensus",
        subtitle="open = raw ratings (prevalence-inflated) · filled = double-centered structure",
-       x="correlation with mean of the other 11 raters", y=NULL) +
+       x="correlation with mean of the other 8 raters", y=NULL) +
   xlim(0.7,1) + theme_judge()
 ```
 
 The ranking **inverts the naive expectation**. On the structural (marginal-free) metric
-the lowest agreers are the high-variance *idiosyncratic* models — **`Gemma-4-31B` (0.76)
-and `Aya` (0.83)** — while the flat non-discriminators **`FalconMamba` (0.92) and
-`Llama3.2-3B` (0.89) agree with the consensus *above average*.** A flat rater is a
-*compressed but faithful* image of the crowd (it tracks the shared structure, just with
-small amplitude); it is **low-information, not low-agreement, and not noisy.** So the
-"down-weight the non-responsive raters" intuition from Report I's typology is, on the
-evidence, **wrong** — a correction worth stating plainly.
+the lowest agreers are the high-variance / idiosyncratic models — **`Aya` (0.84) and
+`Gemma3-4B` (0.85)** — while the flat non-discriminator **`Llama3.2-3B` (0.89) agrees with
+the consensus right at the cohort mean (0.885), *above* five of the eight other raters.** A
+flat rater is a *compressed but faithful* image of the crowd (it tracks the shared
+structure, just with small amplitude); it is **low-information, not low-agreement, and not
+noisy.** So the "down-weight the non-responsive raters" intuition from Report I's typology
+is, on the evidence, **wrong** — a correction worth stating plainly. (In the full 12-model
+cohort `Gemma-4-31B` was the extreme low-agreement outlier; with it pending in batch 2,
+`Aya` and the small `Gemma3-4B` are the current idiosyncratic pair.)
 
 ```{r trim-effect}
-disc  <- setdiff(MODELS, c("Llama","FalconMamba"))     # flat / low-information
-idio  <- setdiff(MODELS, c("Gemma4","Aya"))            # idiosyncratic / low-agreement
+disc  <- setdiff(MODELS, "Llama")            # flat / low-information (FalconMamba pending)
+idio  <- setdiff(MODELS, c("Aya","Gemma"))   # idiosyncratic / low-agreement
 vcF <- gtheory(as.matrix(sym[, ..disc])); vcI <- gtheory(as.matrix(sym[, ..idio]))
-tibble(Ensemble=c("All 12 raters","drop 2 flat (Llama3.2, FalconMamba)",
-                  "drop 2 idiosyncratic (Gemma-4, Aya)"),
-       `ICC(2,1) single`=round(c(icc_from_vc(vc,12)[1], icc_from_vc(vcF,10)[1], icc_from_vc(vcI,10)[1]),3),
+tibble(Ensemble=c("All 9 raters","drop 1 flat (Llama3.2)",
+                  "drop 2 idiosyncratic (Aya, Gemma3-4B)"),
+       `ICC(2,1) single`=round(c(icc_from_vc(vc,nr)[1], icc_from_vc(vcF,length(disc))[1], icc_from_vc(vcI,length(idio))[1]),3),
        `pair var (true)`=round(c(vc$vp, vcF$vp, vcI$vp),3),
        `residual`       =round(c(vc$ve, vcF$ve, vcI$ve),3)) %>%
-  knitr::kable(caption="Both trims raise single-rater ICC — by opposite mechanisms.")
+  knitr::kable(caption="The two trims act on different variance components.")
 ```
 
-Both trims *modestly* raise single-rater reliability, but for **opposite reasons**, which
-is the real lesson: dropping the **flat** raters raises reliability by **increasing pair
-(true-score) variance** (0.91→1.10 — the remaining raters differentiate more), whereas
-dropping the **idiosyncratic** raters raises it by **cutting the residual** (0.43→0.36 —
-less pair×rater disagreement). Neither is "removing noise"; they trade off different
-variance components. The 12-rater *ensemble* reliability is essentially untouched either
-way — the consensus is robust. Report V follows this up with a full consensus-construction
-study (competence- and confidence-weighting), whose punchline is previewed here: it buys
-almost nothing.
+The two trims act on **different variance components**, which is the real lesson: dropping
+the **flat** rater raises single-rater reliability (0.62→0.67) by **increasing pair
+(true-score) variance** (1.06→1.26 — the remaining raters differentiate more), whereas
+dropping the two **idiosyncratic** raters leaves single-rater ICC essentially unchanged
+(0.62→0.63) because it **cuts the pair and residual variance together** (1.06→0.96 true,
+0.47→0.38 residual — less pair×rater disagreement, but less signal too). Neither is
+"removing noise." The 9-rater *ensemble* reliability is essentially untouched either way —
+the consensus is robust. Report V follows this up with a full consensus-construction study
+(competence- and confidence-weighting), whose punchline is previewed here: it buys almost
+nothing.
 
 ## 4. Which pairs are reliably vs idiosyncratically judged?
 
@@ -194,19 +198,24 @@ set.seed(1)
 ggplot(pr[sample(.N, 40000)], aes(cons, disagree)) +
   geom_hex(bins=45) + scale_fill_viridis_c(trans="log10", name="pairs") +
   labs(title="Rater disagreement vs consensus similarity",
-       subtitle="agreement is highest at the extremes; mid-similarity pairs are contested",
+       subtitle="raters most contest low-similarity (dissimilar) pairs; agreement rises with consensus similarity",
        x="consensus similarity (mean over raters)", y="between-rater SD (contestedness)") +
   theme_judge() + theme(legend.position="right")
 cat(sprintf("corr(disagreement, |consensus−midpoint|) = %.2f;  corr(disagreement, entropy) = %.2f\n",
     cor(pr$disagree, abs(pr$cons-4)), cor(pr$disagree, pr$ent)))
 ```
 
-Disagreement is an **inverted-U in similarity**: raters concur that clear synonyms are
-similar and clear antonyms are not, and **contest the middle** — exactly where a pair's
-co-occurrence is genuinely theory-laden. Contestedness also tracks per-judgment entropy:
-the pairs raters *disagree* on are the pairs each rater is *individually unsure* about.
-That double signature (between-rater SD ↔ within-rater entropy) is reassuring — the
-uncertainty is in the construct, not a rater artefact.
+The picture on the canonical data is **not** the inverted-U an earlier (12-model, EV-only)
+pass reported. Disagreement is **highest at the low-similarity end** (between-rater SD ≈
+0.85 for consensus 2–3) and **falls as consensus similarity rises** (≈ 0.60 for 5–7): raters
+broadly concur that clear synonyms co-occur, but **contest which traits are *dis*similar**.
+And contestedness **decreases** with per-judgment entropy (corr ≈ −0.22): the diffuse,
+hedged, mid-scale judgments (high entropy) are where raters *converge*, while the
+*confident* low-entropy judgments at the dissimilar end are where they diverge. So the
+unreliability sits in **confident negative judgments** — one rater's "definitely not" is
+another's "somewhat" — rather than in the middle. (Entropy still peaks mid-scale, as in
+Report I §3 — `corr(|consensus−4|, entropy) ≈ −0.79` — it is just *not* where the raters
+disagree.)
 
 ```{r pair-examples}
 pr[, `:=`(a_i=ADJ[i+1L], a_j=ADJ[j+1L])]
@@ -236,18 +245,18 @@ wtab <- tibble(model=MODELS, display=DISPLAY[MODELS],
 knitr::kable(wtab, caption="Within-model agreement of the two conditional directions.")
 ```
 
-The two directions correlate only **moderately (0.47–0.78; no rater reaches 0.8)** — so
+The two directions correlate only **moderately (0.47–0.65; no rater reaches 0.7)** — so
 a *single* directed judgment is a noticeably noisy estimate of the underlying similarity,
 and averaging the two directions is a genuine reliability gain (Spearman–Brown steps
-0.6 → ~0.75). This mirrors Report II: ~1/5 of each rater's differentiated variance is
+~0.6 → ~0.75). This mirrors Report II: ~1/5 of each rater's differentiated variance is
 direction-inconsistent. Crucially, the ordering is a **third, distinct axis** of rater
-quality — it does **not** track the flat/discriminating split: the flat `FalconMamba` is
-the *most* internally consistent rater (0.78 — a smooth, stable map), while the flat
-`Llama3.2-3B` (0.51) and the high-variance `Gemma3-4B`/`Aya` are the *least*. So within-,
-between-rater, and information axes each rank the raters differently; "flat" implies
-neither low agreement (§3) nor low within-rater consistency. Only `Llama3.2-3B` is weak
-on *both* variance and direction-consistency — the one rater whose scant signal is
-largely noise.
+quality — it does **not** track the flat/discriminating split: the *most* internally
+consistent raters are `Phi4-mini` and `Gemma3-27B` (~0.64 — smooth, stable maps), while the
+high-variance `Gemma3-4B` (0.48) and `Aya` (0.52) and the flat `Llama3.2-3B` (0.51) are the
+*least*. So within-, between-rater, and information axes each rank the raters differently;
+"flat" implies neither low agreement (§3) nor low within-rater consistency. Only
+`Llama3.2-3B` is weak on *both* variance and direction-consistency — the one rater whose
+scant signal is largely noise.
 
 ## 6. Structural agreement (marginal-free)
 
@@ -261,29 +270,36 @@ Sdc <- sapply(MODELS, function(m){
 Craw <- cor(X); Cdc <- cor(Sdc)
 tibble(Object=c("Raw symmetric ratings","Double-centered similarity"),
        `mean pairwise r`=round(c(mean(Craw[upper.tri(Craw)]), mean(Cdc[upper.tri(Cdc)])),3),
-       `ICC(3,k) k=12` = c(round(icc_from_vc(vc,12)[4],3), NA)) %>%
-  knitr::kable(caption="Agreement drops but stays substantial once shared marginals are removed.")
+       `ICC(3,k) k=9` = c(round(icc_from_vc(vc,nr)[4],3), NA)) %>%
+  knitr::kable(caption="Agreement stays high — indeed rises slightly — once shared marginals are removed.")
 ```
 
-Stripping the shared prevalence marginal lowers mean pairwise agreement from 0.76 to a
-still-substantial level — the raters agree on real *structure*, not merely on shared base
-rates. (The residual is the material Report IV factors.)
+Notably, stripping the shared prevalence + generosity marginals does **not** lower agreement:
+mean pairwise r *rises* from 0.77 (raw) to 0.81 (double-centered). So the raters agree on the
+marginal-free *structure* even more than on the raw ratings — their shared signal is genuine
+co-occurrence covariance, not merely shared base rates, and the prevalence marginal is if
+anything a mild *locus* of between-rater disagreement (models differ modestly on which traits
+are universal). (The double-centered residual is the material Report IV factors.)
 
 ## Verdict
 
 1. **A single LLM's implicit personality theory is a moderately reliable instrument**
-   (ICC(2,1) ≈ 0.61); the **dependable measurement is the cohort consensus**
-   (ICC(2,k) ≈ 0.95). Treat "the JUDGE similarity" as an ensemble quantity.
-2. **~4 good raters reach G ≥ 0.8**; the ensemble's reliability saturates well before 12.
-3. **The consensus is robust; don't reflexively trim.** The flat raters *agree* with the
-   crowd and don't inject noise — they are low-information, not low-quality. The genuine
-   (mild) outliers are the high-variance *idiosyncratic* models (`Gemma-4-31B`, `Aya`).
-   Trimming either extreme nudges single-rater ICC via opposite variance mechanisms, but
-   the ensemble reliability is essentially invariant and competence-weighting buys almost
-   nothing (Report V) — the naive "down-weight the flat raters" intuition is unsupported.
-4. **Disagreement lives in the mid-similarity band** and coincides with within-rater
-   uncertainty — the unreliability is construct-located (theory-laden co-occurrence),
-   which is the *right* place for it to be.
+   (ICC(2,1) ≈ 0.62); the **dependable measurement is the cohort consensus**
+   (ICC(2,k) ≈ 0.94). Treat "the JUDGE similarity" as an ensemble quantity.
+2. **~3 good raters reach G ≥ 0.8** (~6 for ≥ 0.9); reliability saturates well before 9.
+3. **The consensus is robust; don't reflexively trim.** The flat rater (`Llama3.2-3B`)
+   *agrees* with the crowd and doesn't inject noise — it is low-information, not
+   low-quality. The genuine (mild) outliers are the high-variance / idiosyncratic models
+   (`Aya`, `Gemma3-4B`). Dropping the flat rater raises single-rater ICC by adding
+   true-score variance; dropping the idiosyncratic pair barely moves it (cutting signal
+   and residual together) — but the ensemble reliability is essentially invariant and
+   competence-weighting buys almost nothing (Report V), so the naive "down-weight the flat
+   raters" intuition is unsupported.
+4. **Disagreement lives at the *low-similarity, confident* end** — raters contest which
+   traits are dissimilar and *converge* on hedged mid-scale judgments (contestedness falls
+   with entropy). This corrects an earlier "contested middle" reading; the unreliability is
+   still construct-located (definitional negatives are theory-laden), just at the opposite
+   pole from where the two-moment pass suggested.
 5. **~0.07 single-rater reliability is pure leniency confound** — removable, and a reason
    to prefer consistency-type coefficients (or to center raters) in any cross-model use.
 ```
