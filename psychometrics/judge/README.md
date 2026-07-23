@@ -46,11 +46,16 @@ cd reports && for f in 0*_*.Rmd; do Rscript -e "rmarkdown::render('$f')"; done
 `convert_medoids.py` (35-adjective raw sample) are retained for provenance; the current
 pipeline is `convert_full_dists.py`.
 
+`dist_processes.py` is a second pass over the same npz for **Report I §7** — it emits
+response-process products (`proc_content`, `proc_signature`, `proc_modepairs`,
+`proc_endpoint_examples`) that read the distributions *as processes* rather than recomputing
+moments. Run it after `convert_full_dists.py`; both feed Report I.
+
 ## Reports (`reports/`)
 
 | # | file | what |
 |---|------|------|
-| I   | `01_response_processes.Rmd` | scale usage (expected-rating distribution), spread-index shape (mean-detrended concentration), decisiveness (entropy), response-style typology, marginals/base-rates, **§6 full 523² raw distributions** (off-mode mass vs strict bimodality; corrects the medoid-era "faithful for 10/12" verdict — `FalconMamba` diffuse-digit-prior, `Phi4` broad-unimodal, `Aya` genuinely bimodal) |
+| I   | `01_response_processes.Rmd` | scale usage (expected-rating distribution), spread-index shape (mean-detrended concentration), decisiveness (entropy), response-style typology, marginals/base-rates, **§6 full 523² raw distributions** (off-mode mass vs strict bimodality; corrects the medoid-era "faithful for 10/12" verdict — `FalconMamba` diffuse-digit-prior, `Phi4` broad-unimodal, `Aya` genuinely bimodal), **§7 distributions as response processes** (EV-conditioned signature; rating-entropy split into content=MI(pair;rating) vs hedge; mode-pair mechanism census; coin-flips on ill-posed pairs) |
 | II  | `02_asymmetry.Rmd`          | how much asymmetry, gradient(prevalence)/curl split, cross-rater reliability of the asymmetry, measurement verdict (symmetrize) |
 | III | `03_reliability.Rmd`        | G-theory variance components, ICC(2/3), D-study, rater-quality anatomy, which pairs are reliably vs idiosyncratically judged, within-rater direction reliability |
 | IV  | `04_structure.Rmd`          | dimensionality, 5-factor solution, **structural invariance across raters** (Tucker congruence), the evaluative-halo general factor as a discriminant-validity threat |
@@ -76,6 +81,12 @@ Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric
   is excellent** (ICC(2,k)≈0.95). ~6 raters suffice for G≥0.9; weighting/trimming buys ~nothing.
 - **Between-rater disagreement peaks at the *low-similarity, confident* end** (not a
   "contested middle") and falls with entropy — raters converge on hedged mid-scale judgments.
+- **Response processes differ, not just moments (§7).** A rater's rating entropy splits into
+  *content* (MI the pair carries about the rating) + *hedge* (fixed within-judgment entropy):
+  the Gemmas are 75–92% content, `FalconMamba` **7.5%** — "flat" is low-*content*, not
+  low-variability. At a fixed EV the shape varies wildly (graded slide vs endpoint fork vs
+  digit lumps), and balanced 1-vs-7 coin-flips cluster on category-orthogonal pairs
+  (`Phi4` → *guilty*) — the model flips rather than hedges on ill-posed questions.
 - **Internal structure is coherent, low-rank and reproducible across raters** (mean factor
   congruence 0.84), resembling Big Five — but dominated by an **evaluative halo** (PC1 ≈
   53%) that is its main discriminant-validity threat.
@@ -98,8 +109,12 @@ off-mode-mass and shape fractions), `marginals.csv`, and wide `i,j,<model...>` t
 `dir_ev`, `dir_hent` (ordered i≠j), `sym_ev`, `asym_ev`, `sym_hent` (i<j). Full-distribution
 products: `full_catmass.csv` (true per-category mass), `full_shape.csv` (off-mode + shape
 census over all 523²), `full_examples.csv` (matched-EV opposite-shape illustrations). See
-`convert_full_dists.py` header for schemas. All tables carry the **12 cohort raters** in
-the npz's alphabetical adjective order (a different index space than the old EV-only tables).
+`convert_full_dists.py` header for schemas. Response-process products (from
+`dist_processes.py`, Report I §7): `proc_content.csv` (rating-entropy content/hedge budget),
+`proc_signature.csv` (EV-conditioned category distribution), `proc_modepairs.csv` (mode-pair
+census), `proc_endpoint_examples.csv` (coin-flip exemplars). All tables carry the **12 cohort
+raters** in the npz's alphabetical adjective order (a different index space than the old
+EV-only tables).
 
 ## Open / next
 

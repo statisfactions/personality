@@ -481,6 +481,184 @@ Two implications:
   from real distributions rather than an entropy proxy — most valuable exactly for the three
   raters (`FalconMamba`, `Aya`, `Phi4`) the moments fail on.
 
+## 7. Reading the raw distributions *as response processes*
+
+§6 used the full distributions to *audit* the two-moment summary. But the distributions
+carry response-process information the moments cannot even pose a question about: at a
+*fixed* expected rating, **how** does a model arrive there — does it slide a graded peak,
+split its mass, sit on a fixed digit habit, or flip a coin? This section reads the raw
+`(523×523×7)` tensors on their own terms. (Products from `dist_processes.py`.)
+
+### 7.1 The response-process signature: same expected rating, different process
+
+Fix the expected rating and look at the *shape*. Below, for each rater, is the mean
+7-category distribution of its judgments as a function of their expected rating (columns =
+EV bins, rows = rating category, brightness = mean probability). A purely **graded**
+responder would trace a thin bright band along the diagonal (peak follows the EV); anything
+off the diagonal is a response process the EV hides.
+
+```{r proc-signature, fig.height=6.5}
+sig <- read_csv_("proc_signature.csv") %>% as_tibble() %>%
+  mutate(display = factor(display, levels = disp_ord))
+ggplot(sig, aes(ev_bin, cat, fill = mean_mass)) +
+  geom_tile() +
+  geom_abline(slope = 1, intercept = 0, colour = "white", linetype = 3, linewidth = 0.3) +
+  facet_wrap(~display, ncol = 3) +
+  scale_fill_viridis_c(name = "mean prob.", option = "C") +
+  scale_y_continuous(breaks = 1:7) +
+  scale_x_continuous(breaks = 1:7, limits = c(1, 7)) +
+  labs(title = "Response-process signature: rating distribution vs expected rating, per rater",
+       subtitle = "dotted line = pure graded response (peak on the diagonal); off-diagonal mass is what EV hides",
+       x = "expected rating (EV bin)", y = "rating category (1–7)") +
+  theme_judge() + theme(legend.position = "right")
+```
+
+Five distinct processes are legible at a glance, and they are *not* orderable on one axis:
+
+- **Graded slide** — the **Gemma family** (esp. `Gemma3-27B`/`Gemma-4-31B`) hugs the diagonal
+  tightly: the distribution is a single sharp peak that tracks the expected rating almost
+  perfectly. At EV ≈ 4 they put ~0.98 mass on category 4. This is the ideal graded response.
+- **Endpoint fork** — `Aya` keeps visible mass at categories 1 **and** 7 across the *whole*
+  EV range: at a mid-scale expected rating it is not sitting at 4, it is splitting between
+  "no" and "yes". The diagonal is there but a persistent two-band fork rides on top of it.
+- **Fixed digit habit** — `FalconMamba` shows near-*horizontal* bands at categories 1/3/4/5
+  that barely move with EV: the shape is a stock digit prior, not a response to the pair
+  (§7.2 makes this precise). `Llama3.2-3B` is the compact version — a fixed blob at 4–5.
+- **Broad diffuse** — `Phi4-mini` traces the diagonal but *fat*, with a persistent secondary
+  shoulder around 6: it commits softly and hedges wide.
+
+The Gemmas and `FalconMamba` have the *same* EV range yet opposite signatures — a graded
+slide vs a fixed habit. No summary of location and spread can separate those; the signature
+requires the raw distribution.
+
+### 7.2 A rater's rating variability, decomposed: content vs hedge
+
+The signature suggests a sharper, information-theoretic question. A rater's *total* rating
+variability is `H(marginal)` — the entropy of its category usage pooled over all pairs. That
+splits **exactly** into two response-process pieces:
+
+$$H(\text{marginal}) \;=\; \underbrace{I(\text{pair};\text{rating})}_{\text{content: how much the pair drives the rating}} \;+\; \underbrace{\overline{H(\text{rating}\mid\text{pair})}}_{\text{hedge: mean within-judgment entropy}}$$
+
+The first term is the **mutual information** the adjective pair carries about the rating — the
+part of a rater's output that is *about the question*. The second is its mean per-judgment
+entropy — fixed hedging that is the same whatever the pair. `mean Hent` (the decisiveness of
+§3) is only the *second* term; the raw distributions give us the first.
+
+```{r proc-content, fig.height=4.6}
+con <- read_csv_("proc_content.csv") %>% as_tibble() %>%
+  mutate(display = factor(display, levels = disp_ord))
+cl <- con %>%
+  transmute(display, content_frac,
+            `content (MI)` = MI_nats, `hedge (mean within-entropy)` = mean_within_entropy) %>%
+  pivot_longer(c(`content (MI)`, `hedge (mean within-entropy)`),
+               names_to = "component", values_to = "nats") %>%
+  mutate(display = factor(display, levels = con$display[order(con$content_frac)]))
+ggplot(cl, aes(nats, display, fill = component)) +
+  geom_col() +
+  scale_fill_manual(values = c("content (MI)" = "#4C72B0",
+                               "hedge (mean within-entropy)" = "#DD8452"), name = NULL) +
+  labs(title = "A rater's total rating entropy, split into content vs hedge",
+       subtitle = "bar length = H(marginal); blue = mutual information the pair carries about the rating",
+       x = "nats", y = NULL) + theme_judge()
+knitr::kable(
+  con %>% arrange(desc(content_frac)) %>%
+    transmute(Model = display, `H(marginal)` = round(H_marginal, 2),
+              `MI (content)` = round(MI_nats, 2), `mean Hent (hedge)` = round(mean_within_entropy, 2),
+              `content %` = round(100 * content_frac, 1)),
+  caption = "The rating-variability budget. 'content %' = fraction of a rater's rating entropy that is about the pair.")
+```
+
+This **reframes what "flat" means**, and does so more sharply than the SD of `B`. `FalconMamba`
+has one of the *highest* total rating entropies in the cohort (`H(marginal)` ≈ 1.79 nats — it
+uses the scale *widely*) — yet only **7.5%** of it is content: 92% of its output is a fixed
+hedge that ignores the pair. `Llama3.2-3B` is the same story at lower volume (15% content).
+At the other end the **Gemma family and `Qwen2.5-32B` are 75–92% content** — nearly all of
+their rating variability is *about the question*. The discriminating-but-diffuse raters sit
+in between (`Phi4` 28%, `Llama3.1-8B` 26%): genuinely responsive, but hedging half their
+signal away.
+
+So the low-information raters of Report III are low-information *distributionally* — not
+because they use a narrow slice of the scale (FalconMamba doesn't), but because their
+distributions barely **depend** on the pair. This is the mutual-information version of the
+"SD of B" axis, and it is the quantity a soft-evidence model should actually weight by (a
+high-entropy but low-content judgment deserves *little* weight — exactly what an
+inverse-entropy weight gets wrong for `FalconMamba`).
+
+### 7.3 What the *second* mode means: three mechanisms behind "off-mode" mass
+
+When a distribution *is* multi-modal, the two moments (and even the off-mode-mass flag of §6)
+can't say what the second mode is *for*. Censusing the (lower, higher) mode pair of every
+genuinely bi-modal cell separates three completely different response processes:
+
+```{r proc-modepairs, fig.height=3.6}
+mp <- read_csv_("proc_modepairs.csv") %>% as_tibble()
+key <- c("Aya-expanse-8B", "Phi4-mini-3.8B", "FalconMamba-7B", "Qwen2.5-7B")
+mpk <- mp %>% filter(display %in% key) %>%
+  mutate(display = factor(display, levels = key))
+ggplot(mpk, aes(hi, lo, fill = frac)) +
+  geom_tile() + facet_wrap(~display, nrow = 1) +
+  scale_fill_viridis_c(name = "frac of\nbimodal cells", option = "D", trans = "sqrt") +
+  scale_x_continuous(breaks = 1:7) + scale_y_continuous(breaks = 1:7) +
+  labs(title = "Mode-pair census: which two categories are the modes, in bimodal cells",
+       x = "higher mode", y = "lower mode") + theme_judge() + theme(legend.position = "right")
+```
+
+- **No-OR-yes (semantic)** — the `(1, 7)` corner: a genuine "almost certainly not / sometimes
+  yes" mixture. Present but a *minority* even where it is most common (`Aya` ~21% of its
+  bimodal cells; `Phi4` ~18%).
+- **Commit-vs-hedge** — `Phi4`'s signature: its dominant mode pairs are `(4, 7)` (34%) and
+  `(4, 6)` (28%) — a *hedge* mode at the mid-scale and a *commit* mode at the top, exactly
+  rgb's reading. This is not "no vs yes"; it is "shrug vs endorse", and it rides on top of a
+  broadly unimodal shape (which is why `Phi4` is 93% unimodal yet 56% off-mode).
+- **Digit-notch artifact** — `Qwen2.5-7B` is **82%** `(1, 3)`: a mode at 1 and a mode at 3
+  with the dip at the dispreferred digit *2*. `FalconMamba`'s pairs are `(1, 4)` and `(5, 7)`
+  (42% each) — lumps between its preferred digits 1/3/4/5, skipping 2 and 6. These "modes"
+  are a **tokenizer prior**, not a judgment — the distributional echo of the Llama-2 category-2
+  suppression from the soft-evidence track.
+
+So a single "bimodality" flag conflates a semantic mixture, a commit/hedge split, and a
+rating-channel artifact. Only the raw distribution — specifically *where* the modes sit —
+tells them apart.
+
+### 7.4 Coin-flips on ill-posed pairs: where EV is *most* misleading
+
+The starkest response process is the balanced `(1, 7)` **coin-flip**: half the mass on
+"very unlikely", half on "very likely", nothing between. Its expected rating is ≈ 4 — dead
+neutral — but the process is the opposite of a neutral judgment. These cells are rare (`Aya`
+~3% of judgments; others < 1%) and, tellingly, they **cluster on category-orthogonal targets**:
+
+```{r proc-endpoint, fig.height=3}
+ex <- read_csv_("proc_endpoint_examples.csv") %>% as_tibble()
+knitr::kable(
+  ex %>% filter(display %in% c("Aya-expanse-8B", "Phi4-mini-3.8B", "Qwen2.5-3B")) %>%
+    group_by(display) %>% slice_head(n = 3) %>% ungroup() %>%
+    transmute(Rater = display, Pair = paste0(adj_i, " → ", adj_j),
+              EV = round(ev, 1), `p(1)` = round(p1, 2), `p(7)` = round(p7, 2)),
+  caption = "Balanced 1-vs-7 coin-flips. EV reads ‘neutral’; the process is maximal binary uncertainty.")
+```
+
+`Phi4`'s coin-flips are almost all **→ guilty** (`intelligent → guilty`, `religious →
+guilty`, `muscular → guilty`, `energetic → guilty` …): a competence or physical anchor asked
+"how likely also *guilty*?" — a moral-category question orthogonal to the anchor. `Aya`'s and
+`Qwen`'s land on `→ artificial`, `→ good-for-nothing`, `→ evil`. The pattern is a genuine
+response process: **faced with an ill-posed, category-mismatched pair, these models flip
+between the extremes rather than hedge to the middle** — so their `(1, 7)` bimodality is
+partly the model *recognizing that the question does not compose*. This is the single case
+where rounding EV to "4 = neither likely nor unlikely" most badly misreads what happened, and
+it is invisible without the raw distribution.
+
+### 7.5 What this adds
+
+Read as response processes, the raw distributions turn "how uncertain is this rater" into
+**"uncertain *how*"**: content vs hedge (§7.2), graded-slide vs endpoint-fork vs fixed-digit
+(§7.1), semantic mixture vs commit/hedge vs digit artifact (§7.3), and coin-flip-on-ill-posed
+(§7.4). None of these is recoverable from `B` and `Hent`. Two have immediate measurement
+payoff: (a) **content share** `I(pair;rating)/H(marginal)` is the right per-rater information
+weight (and correctly demotes `FalconMamba`, which an entropy weight would over-trust), and
+(b) the mode-pair mechanism tells a soft-evidence model *which* off-mode mass is signal
+(semantic) versus nuisance (digit artifact) — a cleaner footing than either the EV-cosine or
+a raw earth-mover distance.
+
 ## Takeaways for the measurement program
 
 1. **Scale use is a rater property, not a constant.** Leniency, differentiation and
@@ -490,9 +668,12 @@ Two implications:
    They carry little differentiated signal — but Report III shows they still *agree* with
    the consensus and do not harm it, so exclusion is **not** warranted; the ensemble is
    robust. (This corrects the tempting "down-weight the flat raters" intuition.)
-3. **The entropy channel is real signal.** The inverted-U response process is sensible
-   for discriminating raters; where it flattens, the rater is guessing. Entropy gives us
-   a per-judgment reliability weight we will use.
+3. **The entropy channel is real signal — but entropy is the *wrong* weight.** The
+   inverted-U response process is sensible for discriminating raters; where it flattens, the
+   rater is guessing. But §7.2 shows a per-judgment *entropy* weight over-trusts
+   `FalconMamba` (high entropy, near-zero **content**); the right per-rater weight is the
+   **content share** `I(pair;rating)/H(marginal)`, which the raw distributions give and the
+   two moments do not.
 4. **Big additive marginals (prevalence + anchor generosity)** must be removed before
    `B` is read as a similarity — motivating the symmetrization + double-centering in
    Reports II–IV.
@@ -507,4 +688,14 @@ Two implications:
    diffuse but cannot tell those shapes apart — which is exactly why the full distributions
    matter, and where a soft-evidence treatment should start. A minor digit-2/6 suppression
    artifact runs through `FalconMamba`, the Qwen family and `Aya`.
+6. **Read as response processes (§7), the distributions say "uncertain *how*", not just "how
+   uncertain".** (a) A rater's rating entropy splits into **content** (mutual information the
+   pair carries about the rating) + **hedge** (fixed within-judgment entropy): the Gemmas are
+   75–92% content, while `FalconMamba` is 7.5% — "flat" is *low-content*, not low-variability.
+   (b) Holding EV fixed, the category distribution reveals distinct processes — graded slide
+   (Gemma), endpoint fork (Aya), fixed digit habit (FalconMamba), broad diffuse (Phi4). (c)
+   The *location* of the second mode separates semantic no-vs-yes from `Phi4`'s commit-vs-hedge
+   and the Qwen/Falcon digit-notch artifact. (d) Balanced 1-vs-7 **coin-flips** cluster on
+   category-orthogonal pairs (`Phi4` → *guilty*): the model flips rather than hedges on
+   ill-posed questions, the one place EV ≈ 4 most badly misreads the process.
 ```
