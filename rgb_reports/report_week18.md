@@ -155,13 +155,22 @@ quality metrics on both families, actively necessary for qwen).
 Context: statisfactions asked for the raw logprobs behind JUDGE, which the
 W16 runs discarded after computing EV+entropy. The readout is deterministic,
 so we regenerated the full 7-digit distributions on all 523×523 cells
-(`judge_distributions.py --full`, row-checkpointed; 10/12 models done as of
-07-19, FalconMamba/Gemma4 in flight; batch-1 tarball of nine models shipped
-to Drive 07-12). Regeneration drift vs the stored B: mean |dEV| 0.01–0.09.
+(`judge_distributions.py --full`, row-checkpointed; ALL 12 models complete
+2026-07-20; batch-1 (nine models) and batch-2 (Qwen32/FalconMamba/Gemma4)
+tarballs shipped to Drive 07-12/07-22). Regeneration drift vs the stored B:
+mean |dEV| 0.01–0.09.
 Analysis script: `judge_dist_structure.py`.
 
 **phi4's JUDGE matrix is 56% bimodal** (≥0.25 mass ≥2 digits from the
-argmax); Aya 26%, Llama8 10%, llama/qwen ~7%, all Gemmas ~0. So EV-only
+argmax); Aya 26%, Llama8 10%, llama/qwen ~7%, Qwen32 1%, all Gemmas ~0.
+(FalconMamba flags 78% on this criterion but is not bimodal — it is diffuse,
+mean entropy 85% of uniform, with digit-prior lumps on 1/3/4/5 and digits
+2/6 almost never argmax. Its graded mass carries the cohort's strongest
+JUDGE human-match — EV r=0.73, tail-only 0.69 — and Qwen32's tail-only
+0.63 *beats* its own EV 0.60: in the flattest models the signal lives
+entirely in the graded mass. Gemma4 is the cohort's most peaked — 0.3%
+bimodal, 4.5% tail mass — and its human-match is the cohort floor, 0.55,
+extending the Gemma-family pattern.) So EV-only
 storage was fine for ten models and actively misleading for phi4 (and
 somewhat Aya): most of phi4's "expected Likert" cells average over two
 disagreeing answer modes. This retroactively explains phi4's perennial

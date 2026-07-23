@@ -59,13 +59,16 @@ z = np.load("enact_vectors_mid.npz", allow_pickle=True)
 D, adj = z["dir__llama3.2"], z["adjectives"]      # (523, 3072), (523,)
 ```
 
-## `judge_dists_full_batch1_*.tar.gz` (~40 MB) — JUDGE raw distributions, FULL 523-set
-Nine models so far (llama3.2, qwen2.5, gemma3, phi4, Llama8, Qwen7, Aya,
-Gemma12, Gemma27; Qwen32/FalconMamba/Gemma4 in flight). `dists` (523,523,7)
-float16 + recomputed `ev`/`entropy`. **Supersedes the EV-only introspect_full
-B/Hent** (regenerated 2026-07; README_full.md inside has the numerics-drift
-and bimodality caveats — notably phi4's matrix is 56% bimodal, so its EV-only
-B was substantially an average of disagreeing modes).
+## `judge_dists_full_batch{1,2}_*.tar.gz` (~40 + 10 MB) — JUDGE raw distributions, FULL 523-set
+**Complete: all 12 cohort models.** Batch 1 (2026-07-12): llama3.2, qwen2.5,
+gemma3, phi4, Llama8, Qwen7, Aya, Gemma12, Gemma27. Batch 2 (2026-07-22):
+Qwen32, FalconMamba, Gemma4 (+ updated README_full.md — grab batch 2's copy).
+`dists` (523,523,7) float16 + recomputed `ev`/`entropy`. **Supersedes the
+EV-only introspect_full B/Hent** (regenerated 2026-07; README_full.md has the
+numerics-drift and bimodality caveats — notably phi4's matrix is 56% bimodal
+commit-vs-hedge, so its EV-only B averaged disagreeing modes; FalconMamba's
+78% flag is diffuseness not bimodality, and its graded mass carries the
+cohort's best human-match, EV r=0.73).
 
 ## `judge_dists_medoids_*.tar.gz` (0.5 MB) — JUDGE raw distributions (sample)
 Full 7-digit Likert distributions behind the JUDGE matrix, for the 35
