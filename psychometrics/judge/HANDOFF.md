@@ -1,10 +1,18 @@
 # HANDOFF — JUDGE track reanalysis on the FULL raw distributions
 
-> **STATUS: DONE for batch 1 (2026-07-22).** `convert_full_dists.py` written; all 5 reports
-> + the `ecb-reports/judge_psychometric_soundness.md` narrative + this dir's `README.md`
-> re-run on the 9-model canonical data and re-knitted. **Batch 2 (`FalconMamba`, `Gemma-4`,
-> `Qwen-32`) still pending** — re-run everything when it lands (`convert_full_dists.py` picks
-> up any npz in `data/dists_full/judge_dists/` automatically).
+> **STATUS: DONE for the full 12-model cohort (2026-07-23).** `convert_full_dists.py` written;
+> all 5 reports + the `ecb-reports/judge_psychometric_soundness.md` narrative + this dir's
+> `README.md` re-run on the canonical raw distributions and re-knitted. **Batch 2
+> (`FalconMamba`, `Gemma-4`, `Qwen-32`) landed 2026-07-22** (`judge_dists_full_batch2_20260722.tar.gz`)
+> and is incorporated — cohort complete. `convert_full_dists.py` reads whatever npz sit in
+> `data/dists_full/judge_dists/`. **New batch-2 headline: `FalconMamba` is the standout —
+> 78% off-mode yet 90% unimodal (diffuse digit-prior, NOT bimodal), near-uniform entropy
+> (1.66 nats), and rgb reports its distribution-level readout carries the cohort's STRONGEST
+> human-match (EV r≈0.73) — "the flattest model was the one EV-only storage under-sold most."**
+> `Gemma-4-31B` is the sharpest rater (entropy 0.11) and reverts to the extreme low-agreement
+> idiosyncratic outlier. Going 9→12 restored most original figures (ICC 0.61/0.95, PC1 53%,
+> congruence 0.84, asym median ~21%); the two canonical sign-flips (§4 disagreement at the
+> low-similarity/confident end; §6 double-centering raises agreement 0.76→0.79) still hold.
 >
 > **Correction to this doc's own headline:** the "phi4 off-mode 3%→56%, medoid sample badly
 > under-represents spread" framing below was **wrong**. Recomputing rgb's off-mode metric on

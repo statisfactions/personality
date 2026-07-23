@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tidy the FULL 523-set raw JUDGE distributions (rgb `judge_dists_full` batch1).
+"""Tidy the FULL 523-set raw JUDGE distributions (rgb `judge_dists_full`).
 
 Source: data/dists_full/judge_dists/<stem>_tom_likely_dists_full.npz  (gitignored)
   dists (523,523,7) float16  P(rating k+1) for "very {row}: how likely also {col}?"
@@ -11,8 +11,9 @@ These SUPERSEDE results/adjectives/introspect_full/*_tom_likely_dir.npz (the Jun
 EV-only release; bf16 numerics drifted, bimodal cells' EV flipped up to ~4). We
 recompute B (=EV) and Hent (=entropy) directly from `dists` in float64 so the
 entropy envelope (spread index) is internally consistent, and treat these as
-canonical. **Only 9 models are in batch1** (FalconMamba/Gemma4/Qwen32 pending
-batch2), so the tidy tables here carry 9 rater columns, not 12.
+canonical. The full 12-model cohort completed 2026-07-20 (batch 1 = 9 models
+2026-07-12; batch 2 = FalconMamba/Gemma4/Qwen32 2026-07-22). This script processes
+whatever npz are present under data/dists_full/judge_dists/ (currently all 12).
 
 Adjective order in the npz is ALPHABETICAL and differs from the old
 adjectives.csv; we regenerate adjectives.csv from the npz so the whole 9-model
@@ -53,15 +54,18 @@ OUT = os.path.join(HERE, "data")
 # npz file stem -> canonical stem (matches convert_judge.py META / model_meta.csv)
 CANON = {"gemma3": "Gemma", "llama3.2": "Llama", "phi4": "Phi4", "qwen2.5": "Qwen"}
 META = {  # canonical stem -> (display, family, params_b)
-    "Llama":   ("Llama3.2-3B",    "Llama", 3.2),
-    "Llama8":  ("Llama3.1-8B",    "Llama", 8.0),
-    "Qwen":    ("Qwen2.5-3B",     "Qwen",  3.0),
-    "Qwen7":   ("Qwen2.5-7B",     "Qwen",  7.0),
-    "Gemma":   ("Gemma3-4B",      "Gemma", 4.0),
-    "Gemma12": ("Gemma3-12B",     "Gemma", 12.0),
-    "Gemma27": ("Gemma3-27B",     "Gemma", 27.0),
-    "Phi4":    ("Phi4-mini-3.8B", "Phi",   3.8),
-    "Aya":     ("Aya-expanse-8B", "Aya",   8.0),
+    "Llama":       ("Llama3.2-3B",    "Llama",  3.2),
+    "Llama8":      ("Llama3.1-8B",    "Llama",  8.0),
+    "Qwen":        ("Qwen2.5-3B",     "Qwen",   3.0),
+    "Qwen7":       ("Qwen2.5-7B",     "Qwen",   7.0),
+    "Qwen32":      ("Qwen2.5-32B",    "Qwen",  32.0),
+    "Gemma":       ("Gemma3-4B",      "Gemma",  4.0),
+    "Gemma12":     ("Gemma3-12B",     "Gemma", 12.0),
+    "Gemma27":     ("Gemma3-27B",     "Gemma", 27.0),
+    "Gemma4":      ("Gemma-4-31B",    "Gemma", 31.0),
+    "Phi4":        ("Phi4-mini-3.8B", "Phi",    3.8),
+    "Aya":         ("Aya-expanse-8B", "Aya",    8.0),
+    "FalconMamba": ("FalconMamba-7B", "Falcon", 7.0),
 }
 K = np.arange(1, 8, dtype=np.float64)
 
@@ -259,7 +263,7 @@ def main():
     with open(os.path.join(OUT, "MANIFEST_full.json"), "w") as f:
         json.dump({"n_adjectives": n, "n_models": len(order), "models": order,
                    "n_dir_pairs": int(di.size), "n_sym_pairs": int(ti.size),
-                   "source": "judge_dists_full_batch1", "canonical": True}, f, indent=2)
+                   "source": "judge_dists_full", "canonical": True}, f, indent=2)
     z0 = np.load(paths[0], allow_pickle=True)
     with open(os.path.join(OUT, "prompt_full.txt"), "w") as fh:
         fh.write(str(z0["prompt"]))

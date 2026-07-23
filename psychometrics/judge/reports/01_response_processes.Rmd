@@ -1,6 +1,6 @@
 ---
 title: "JUDGE channel — I. Descriptives & response processes"
-subtitle: "Implicit personality theory in 9 LLMs, read as a rating instrument"
+subtitle: "Implicit personality theory in 12 LLMs, read as a rating instrument"
 author: "ecb"
 date: "`r Sys.Date()`"
 output:
@@ -33,13 +33,12 @@ rgb's own analyses of this data (W15–W16) are **geometric and mechanistic**: t
 read/write dissociation, a Helmholtz–Hodge decomposition of the asymmetry, factor
 congruence to the human 525-PDA. This report series takes the **psychometric** view
 the geometry brackets: *if we treat these judgments as measurements, are they sound?*
-The unit I adopt (per ecb's steer) is **models as raters** — here **9 judges** rating the
+The unit I adopt (per ecb's steer) is **models as raters** — **12 judges** rating the
 same 273,006 ordered pairs. (This reanalysis is built on rgb's **full 7-category raw
-distributions**, `judge_dists_full` batch 1, which cover 9 of the 12-model cohort; the raw
-data for the other three — `FalconMamba`, `Gemma-4`, `Qwen-32` — are pending in batch 2,
-so those raters drop out here. Earlier versions of these reports used a 12-model EV-only
-release; the raw distributions supersede it — see the caveat below.) Reliability, validity
-and response-process questions all follow from the models-as-raters frame.
+distributions**, `judge_dists_full`, complete for all 12 cohort models as of 2026-07-20.
+Earlier versions of these reports used a 12-model EV-only release; the raw distributions
+supersede it — see the caveat below.) Reliability, validity and response-process questions
+all follow from the models-as-raters frame.
 
 This first report is the descriptive floor: **how does each rater use the scale?**
 Everything downstream (what to do about asymmetry; whether the raters agree; whether the
@@ -60,16 +59,16 @@ structure is interpretable) is conditioned by the response processes documented 
 > from "half on 1, half on 7" are opposite response processes that round identically), and
 > **now we can**: **§6 uses the full 523² raw distributions** to give the honest category
 > usage, floor/ceiling, and a shape census — and it **corrects the earlier medoid-based
-> verdict** that the two-moment proxy was faithful for 10/12 models. `Phi4` and `Aya` are
-> *not* summarized by EV alone; the earlier error was one of *metric* (reading faithfulness
-> off strict bimodality) rather than the medoid sample, which in fact tracked off-mode mass
-> reasonably well.
+> verdict** that the two-moment proxy was faithful for 10/12 models. `Phi4`, `Aya` and
+> `FalconMamba` are *not* summarized by EV alone; the earlier error was one of *metric*
+> (reading faithfulness off strict bimodality) rather than the medoid sample, which in fact
+> tracked off-mode mass reasonably well.
 
 ```{r load}
 summ <- read_csv_("model_summary.csv") %>% as_tibble() %>%
   mutate(display = factor(display, levels = disp_ord))
 marg <- read_csv_("marginals.csv") %>% as_tibble()
-dir_ev <- fread_gz("dir_ev.csv.gz")     # i,j, <9 models>  (273006 directional EVs)
+dir_ev <- fread_gz("dir_ev.csv.gz")     # i,j, <12 models>  (273006 directional EVs)
 dir_h  <- fread_gz("dir_hent.csv.gz")
 # long form for distributional plots
 ev_long <- melt(dir_ev, id.vars = c("i","j"), variable.name = "model", value.name = "ev")
@@ -80,7 +79,7 @@ h_long <- melt(dir_h, id.vars = c("i","j"), variable.name = "model", value.name 
 
 ## 1. Scale usage: some raters never leave the middle
 
-The single most consequential descriptive fact is that the 9 models **do not use the
+The single most consequential descriptive fact is that the 12 models **do not use the
 1–7 scale in remotely the same way.** The table sorts by mean rating (leniency); note
 especially the spread column (`ev_sd`) and the EV tail fractions (share of judgments with
 an expected rating in each band).
@@ -114,15 +113,17 @@ ggplot(ev_long, aes(ev)) +
 
 Read as a **response-style census**:
 
-- **Range-restricted / central responder.** `Llama3.2-3B`'s expected ratings collapse
-  onto a narrow 4–5 band (SD = 0.46) — whatever the pair, the answer is "middling". It is
-  the sole flat rater in this batch (`FalconMamba`, the other range-restricted model in the
-  full cohort, is in the pending batch 2).
+- **Range-restricted / central responders.** `Llama3.2-3B`'s expected ratings collapse
+  onto a narrow 4–5 band (SD = 0.46) — whatever the pair, the answer is "middling".
+  `FalconMamba-7B` is similarly compressed (SD = 0.75) but for a different reason: §3/§6
+  show it sits near the *uniform* entropy ceiling (broad distributions whose means land
+  mid-scale), not a confident middle.
 - **Full-range responders with ceiling/floor mass.** `Aya-expanse-8B` and `Phi4-mini`
   spread expected ratings across the whole scale with heavy mass toward the ceiling
-  (SD ≈ 1.7–1.9) — §6 shows these two are the models whose raw distributions are genuinely
+  (SD ≈ 1.7–1.9) — §6 shows these are among the models whose raw distributions are genuinely
   diffuse (real mass at both ends), not just wide-ranging means.
-- **Gemma family** is central-to-high and, on the raw data (§6), the most *concentrated*.
+- **Gemma family** is central-to-high and, on the raw data (§6), the most *concentrated*
+  (`Gemma-4-31B` is the sharpest rater in the cohort).
 - **Qwen family** sits modal around 3–4 (the most parsimonious raters, mean 3.6–3.7) with
   intermediate spread.
 
@@ -153,9 +154,9 @@ knitr::kable(
 
 This **re-sorts the cohort on a genuinely different axis than leniency or SD**: the
 Gemma family produces the most *concentrated* underlying distributions (mean spread
-0.06–0.11 — it commits to sharp judgments) while `Phi4-mini` is by far the most *diffuse*
-(0.94 — its judgments are broad even where the expected rating is mid-scale), with
-`Llama3.1-8B` and `Aya` next (0.57–0.65). Note this is not the same as the SD of `B`: a rater can produce a wide range
+0.05–0.11, `Gemma-4-31B` the sharpest — it commits to sharp judgments) while `Phi4-mini`
+and `FalconMamba-7B` are the most *diffuse* (0.87–0.94 — their judgments are broad even
+where the expected rating is mid-scale). Note this is not the same as the SD of `B`: a rater can produce a wide range
 of expected ratings out of individually *diffuse* distributions (`Phi4`) or a narrow
 range out of *sharp* ones. Concentration and differentiation are distinct response-style
 dimensions — the point §4 formalizes.
@@ -220,15 +221,15 @@ Two things:
 1. **The inverted-U** (entropy peaks at mid-scale, collapses at the extremes) is present
    for the discriminating raters — a *sensible* response process: the model is certain
    when it judges a pair clearly (dis)similar and hedges in between.
-2. **The flat rater breaks it.** `Llama3.2-3B` sits at moderate entropy (mean ≈ 1.09 nats)
-   almost everywhere and is essentially *never* decisive — only 0.002% of its judgments
-   have entropy < 0.1, versus 49–67% for the Gemma family. Its narrow EV in §1 is now
-   explained: it is not compressing a confident signal, it is **reporting broadish
-   distributions whose means all sit mid-scale.** (`FalconMamba`, the cohort's other
-   near-uniform responder, is in the pending batch 2.) Note the two *highest*-entropy
-   raters here are `Phi4-mini` and `Llama3.1-8B` (≈ 1.26 nats) — but these *do*
-   differentiate (high EV-SD), so their diffuseness is a wide-then-hedged style, not
-   non-response; §6 confirms `Phi4` in particular carries real off-mode mass.
+2. **The non-responsive raters break it.** `FalconMamba-7B` sits at entropy ≈ 1.66 nats
+   almost everywhere (near the `log(7)=1.95` uniform ceiling) — it is *maximally uncertain
+   on nearly every pair*. `Llama3.2-3B` is similar in effect (mean ≈ 1.09 nats and
+   essentially never decisive: only 0.002% of its judgments have entropy < 0.1, versus
+   49–67% for the Gemma family). Their narrow EV in §1 is now explained: they are not
+   compressing a confident signal, they are **reporting near-flat distributions whose means
+   happen to sit mid-scale.** (Note the discriminating raters `Phi4-mini` and `Llama3.1-8B`
+   also carry high entropy, ≈ 1.26 nats, but *do* differentiate — a wide-then-hedged style,
+   not non-response; §6 confirms `Phi4` carries real off-mode mass.)
 
 ## 4. A response-process typology: two kinds of "uncertain"
 
@@ -252,14 +253,16 @@ ggplot(typ, aes(mean_spread, ev_sd, colour = family, label = display)) +
 ```
 
 - **Confident differentiators** (low spread, high SD): the Gemma family, esp.
-  `Gemma3-27B`/`Gemma3-12B`. They commit to sharp, well-separated judgments — §6 confirms
-  they are ≥98% unimodal on the raw data.
-- **Low-information corner** (low SD): `Llama3.2-3B` — little between-pair signal, and only
-  mid-spread (its distributions are broadish, not sharp). It is the sole occupant now that
-  `FalconMamba` is in batch 2.
+  `Gemma-4-31B`/`Gemma3-27B`. They commit to sharp, well-separated judgments — §6 confirms
+  they are ≥99% unimodal on the raw data.
+- **Diffuse non-discriminators** (high spread, low SD): `FalconMamba-7B` most clearly —
+  broad distributions *and* little between-pair signal. `Llama3.2-3B` is the low-SD /
+  low-information corner but only mid-spread. *(§6 shows `FalconMamba`'s breadth is a
+  **diffuse, digit-prior** distribution (~78% off-mode mass but ~90% unimodal), not a
+  bimodal one — the spread index cannot see that difference.)*
 - **Spread-but-hedging** (high spread, high SD): `Aya`, `Phi4-mini` — they use the whole
   scale yet keep each individual distribution diffuse. *(§6, on the full raw distributions,
-  shows these two are exactly where the two-moment proxy fails: `Phi4` puts ≥0.25 off-mode
+  shows these two are where the two-moment proxy fails: `Phi4` puts ≥0.25 off-mode
   mass in **56%** of cells and `Aya` in **26%**, and `Aya` makes genuine no-OR-yes
   **mixtures** in ~15% of judgments — invisible to EV+entropy.)*
 
@@ -311,7 +314,7 @@ treating `B` as a similarity. It is also the primary axis of the asymmetry (Repo
 ## 6. The full raw distributions: what the two moments actually hide
 
 Sections 1–5 read each judgment through its two moments (`B`, `Hent`). We now hold the
-**full 523×523×7 rating distributions** for all 9 batch-1 raters, so we can replace the
+**full 523×523×7 rating distributions** for all 12 cohort raters, so we can replace the
 proxy with ground truth over the *entire* pair space — honest category usage, floor and
 ceiling mass, and a distribution-shape census — and settle, at cohort scale, what the two
 moments summarize well and what they miss.
@@ -357,13 +360,14 @@ knitr::kable(comp, caption = "rgb's off-mode-mass metric, medoid sample vs full 
 ```
 
 Contrary to the "medoids badly under-represent spread" hypothesis, the medoid sample
-**tracked off-mode mass reasonably**: `Phi4` reads 50.5% on the medoids vs 56.1% on the
-full set, `Aya` 26.6% vs 26.2%. The exemplars do drift *slightly* low (both Llamas roughly
-double, 2→7% and 5→10%, off small bases — consistent with central cases being modestly less
-diffuse) but the **ranking and the qualitative story are preserved**. So the medoid sample
-was not the problem. The blanket "faithful for 10/12" verdict is nonetheless **wrong for
-`Phi4` and `Aya`** — and §6.3 shows *why* the earlier analysis missed it: it read
-faithfulness off *strict bimodality* alone, when the operative failure is *off-mode mass*.
+**tracked off-mode mass remarkably well**: `FalconMamba` reads 78.8% on the medoids vs
+78.3% on the full set, `Phi4` 50.5% vs 56.1%, `Aya` 26.6% vs 26.2%. The exemplars drift
+*slightly* low only for the Llamas (which roughly double, 2→7% and 5→10%, off small bases)
+but the **ranking and the qualitative story are preserved**. So the medoid sample was not
+the problem. The blanket "faithful for 10/12" verdict is nonetheless **wrong for
+`FalconMamba`, `Phi4` and `Aya`** — and §6.3 shows *why* the earlier analysis missed it: it
+read faithfulness off *strict bimodality* alone, when the operative failure is *off-mode
+mass*.
 
 ### 6.2 True category usage (the honest version of §1), cohort-wide
 
@@ -374,7 +378,7 @@ no rounding, no proxy:
 ggplot(cm, aes(cat, mean_mass, fill = cat)) +
   geom_col() + facet_wrap(~display, ncol = 3) +
   scale_fill_brewer(palette = "RdYlBu", direction = -1, guide = "none") +
-  labs(title = "True mean category mass (full 523², 9 raters)",
+  labs(title = "True mean category mass (full 523², 12 raters)",
        x = "rating category 1–7", y = "mean probability") + theme_judge()
 ```
 
@@ -407,20 +411,28 @@ knitr::kable(
   caption = "Off-mode mass vs a strict shape census over all 523². High off-mode need NOT mean bimodal.")
 ```
 
-The census sharpens §6.1 into the real finding:
+The census sharpens §6.1 into the real finding — **three different ways to be "off-mode,"
+only one of them genuine bimodality:**
 
-1. **`Phi4` is diffuse but *not* strongly bimodal.** Despite 56% off-mode mass it is **93%
-   unimodal** by the prominence test — its judgments are *broad, flat-topped* distributions,
-   not clean two-mode mixtures. Its EV genuinely mis-summarizes it, but the shape is
-   spread, not split.
-2. **`Aya` is the one genuinely bimodal rater** — **15% semantic** mixtures (empty-middle
+1. **`FalconMamba` has the *most* off-mode mass (78%) yet is *not* bimodal** — **90%
+   unimodal**, with the off-mode share split between a small `digit-notch` component (6.3% —
+   it under-uses digits 2 and 6 as the mode) and a broad, near-uniform spread (its mean
+   entropy is 1.66 nats, ~85% of the `log(7)` ceiling). This is the flat rater of §§1,3
+   seen from the distribution side: *diffuse with a digit prior*, not a two-mode judgment.
+   It is the sharpest example of why the off-mode flag must not be read as bimodality.
+2. **`Phi4` is diffuse but *not* strongly bimodal.** Despite 56% off-mode mass it is **93%
+   unimodal** — its judgments are *broad, flat-topped* (rgb's "commit-vs-hedge" modes), not
+   clean two-mode mixtures. Its EV genuinely mis-summarizes it, but the shape is spread,
+   not split.
+3. **`Aya` is the one genuinely bimodal rater** — **15% semantic** mixtures (empty-middle
    "almost certainly no, but sometimes yes" distributions), on top of its 26% off-mode
    mass. This is the case the two moments materially misread as a mid/high mean.
-3. **The Gemma family and `Llama3.1-8B` are ≥ 98% unimodal** — for them EV + entropy lose
-   essentially nothing, off-mode mass and all.
-4. **Digit-2/6 suppression is real but minor**, concentrated in the Qwen family (`Qwen2.5-7B`
-   4.4% digit-notch) and `Aya` (8%) — a channel artifact to keep in mind, not substantive
-   structure.
+4. **The Gemma family (incl. the ultra-sharp `Gemma-4-31B`), `Qwen2.5-32B` and `Llama3.1-8B`
+   are ≥ 98% unimodal** — for them EV + entropy lose essentially nothing, off-mode mass and
+   all.
+5. **Digit-2/6 suppression is real but minor**, running through `FalconMamba` (6.3%), the
+   Qwen family (`Qwen2.5-7B` 4.4% digit-notch) and `Aya` (8%) — a rating-channel artifact
+   to keep in mind, not substantive structure.
 
 ```{r full-examples, fig.height=3.4}
 ex <- read_csv_("full_examples.csv") %>% as_tibble()
@@ -445,52 +457,54 @@ failure mode the two-moment summary cannot see.
 ### 6.4 Verdict — and what it enables
 
 The full distributions **correct the medoid-era conclusion**: the `(EV, entropy)` summary is
-adequate for **7 of the 9 batch-1 raters** (the Gemmas, both Llamas, both Qwens), but **not
-for `Phi4` or `Aya`**. Crucially, the spread index of §1B *did* flag both as diffuse — it
-was doing its job — but a two-moment index **cannot distinguish broad-unimodal (`Phi4`)
-from genuinely bimodal (`Aya`)**, and that distinction matters for what a judgment *means*.
-The earlier verdict erred not because the 35-medoid sample was unrepresentative (§6.1 shows
-it tracked off-mode mass well) but because it certified faithfulness off *strict bimodality*
-alone — and `Phi4`, 93% unimodal yet 56% off-mode, slips exactly through that gap. The
-lesson is methodological as much as empirical: pick the diffuseness metric that matches the
-question.
+adequate for **9 of the 12 raters** (the Gemmas, both Llamas, all three Qwens) but **not for
+`FalconMamba`, `Phi4` or `Aya`** — and, tellingly, it fails on all three *differently*:
+`FalconMamba` is diffuse-with-a-digit-prior, `Phi4` broad-unimodal, `Aya` genuinely bimodal.
+The spread index of §1B *did* flag all three as diffuse — it was doing its job — but a
+two-moment index **cannot tell those three shapes apart**, and the distinction matters for
+what a judgment *means*. The earlier verdict erred not because the 35-medoid sample was
+unrepresentative (§6.1 shows it tracked off-mode mass well) but because it certified
+faithfulness off *strict bimodality* alone — and `FalconMamba`/`Phi4`, ~90% unimodal yet
+78%/56% off-mode, slip exactly through that gap. The lesson is methodological as much as
+empirical: pick the diffuseness metric that matches the question.
 
-Two forward implications:
+Two implications:
 
-- **The remaining raters (`FalconMamba`, `Gemma-4`, `Qwen-32`) are batch-2 pending**, so a
-  cohort-complete shape census waits on that data. `FalconMamba` in particular — flagged as
-  diffuse on the medoids — should be re-checked here: on the medoids its breadth read as a
-  digit-notch, not bimodality, but that too may not survive the full set.
+- **The under-sold flat rater.** `FalconMamba`'s graded, near-uniform mass is precisely what
+  a mean+entropy summary throws away — yet rgb reports its *distributional* readout carries
+  the cohort's **strongest** correspondence to the human 525-PDA structure (EV r ≈ 0.73). The
+  model the EV-only storage under-sold most is the one whose full distribution matters most —
+  a direct argument for keeping the raw 7-way data.
 - **The full 7-way distributions open a soft-evidence treatment** (bridging ecb's earlier
   soft-evidence IRT work): distributional similarity (e.g. earth-mover distance between two
   judgment distributions) as an alternative to EV-cosine, and genuine confidence weighting
-  from real distributions rather than an entropy proxy — most valuable exactly for the two
-  raters (`Aya`, `Phi4`) the moments fail on.
+  from real distributions rather than an entropy proxy — most valuable exactly for the three
+  raters (`FalconMamba`, `Aya`, `Phi4`) the moments fail on.
 
 ## Takeaways for the measurement program
 
 1. **Scale use is a rater property, not a constant.** Leniency, differentiation and
    decisiveness each vary ~4× across the cohort and are only loosely coupled — three
    separate response-style nuisances to model, not one calibration knob.
-2. **`Llama3.2-3B` is range-restricted / low-information** (the sole flat rater in batch 1;
-   `FalconMamba` is pending). It carries little differentiated signal — but Report III shows
-   it still *agrees* with the consensus and does not harm it, so exclusion is **not**
-   warranted; the ensemble is robust. (This corrects the tempting "down-weight the flat
-   raters" intuition.)
+2. **Two raters (`Llama3.2-3B`, `FalconMamba-7B`) are range-restricted / low-information.**
+   They carry little differentiated signal — but Report III shows they still *agree* with
+   the consensus and do not harm it, so exclusion is **not** warranted; the ensemble is
+   robust. (This corrects the tempting "down-weight the flat raters" intuition.)
 3. **The entropy channel is real signal.** The inverted-U response process is sensible
    for discriminating raters; where it flattens, the rater is guessing. Entropy gives us
    a per-judgment reliability weight we will use.
 4. **Big additive marginals (prevalence + anchor generosity)** must be removed before
    `B` is read as a similarity — motivating the symmetrization + double-centering in
    Reports II–IV.
-5. **On the full raw distributions (§6), the two-moment summary is adequate for 7 of the 9
-   batch-1 raters but fails for `Phi4` and `Aya`** — correcting the earlier "faithful for
-   10/12" verdict, which erred by certifying faithfulness off *strict bimodality* alone
-   (the 35-medoid sample actually tracked off-mode mass fine — `Phi4` 50%→56%). The two
-   failures are *different*: `Phi4` is diffuse but
+5. **On the full raw distributions (§6), the two-moment summary is adequate for 9 of the 12
+   raters but fails for `FalconMamba`, `Phi4` and `Aya`** — correcting the earlier "faithful
+   for 10/12" verdict, which erred by certifying faithfulness off *strict bimodality* alone
+   (the 35-medoid sample actually tracked off-mode mass fine — `FalconMamba` 78.8%→78.3%,
+   `Phi4` 50%→56%). The three failures are *different*: `FalconMamba` is diffuse with a
+   digit prior, `Phi4` is diffuse but
    **broad-unimodal** (56% off-mode, 93% unimodal), while `Aya` is **genuinely bimodal**
-   (~15% empty-middle semantic mixtures). The spread index correctly flags both as diffuse
-   but cannot tell those two shapes apart — which is exactly why the full distributions
+   (~15% empty-middle semantic mixtures). The spread index correctly flags all three as
+   diffuse but cannot tell those shapes apart — which is exactly why the full distributions
    matter, and where a soft-evidence treatment should start. A minor digit-2/6 suppression
-   artifact runs through the Qwen family and `Aya`.
+   artifact runs through `FalconMamba`, the Qwen family and `Aya`.
 ```

@@ -26,7 +26,7 @@ JUDGE similarity that is two questions:
 
 1. **Dimensionality & pattern** — does the symmetrized similarity organize into
    interpretable trait dimensions?
-2. **Structural invariance** — do the 9 raters *agree* on that structure (is it a
+2. **Structural invariance** — do the 12 raters *agree* on that structure (is it a
    property of the measurement, not of one model)?
 
 I keep one caution front and center (ecb's steer): **recovering an interpretable — even
@@ -39,9 +39,9 @@ coherent thing *is*. Criterion evidence against humans is a separate — and, pe
 inferentially weaker — strand, deferred to a follow-up.
 
 The measurement object is the **cohort-consensus** symmetrized similarity (Report III:
-the dependable unit), built over the 8 discriminating raters (the one range-restricted
-rater, `Llama3.2-3B`, adds little *differentiated* structure and, since it agrees with the
-crowd, including it shifts the consensus negligibly — Report V), transformed by
+the dependable unit), built over the 10 discriminating raters (the 2 range-restricted
+raters add little *differentiated* structure and, since they agree with the crowd,
+including them shifts the consensus negligibly — Report V), transformed by
 profile-correlation — the same
 second-order transform rgb used, chosen because the human reference matrix is itself a
 profile correlation over people (kept consistent so any later comparison is
@@ -49,7 +49,7 @@ apples-to-apples).
 
 ```{r build}
 sym <- fread_gz("sym_ev.csv.gz")
-disc <- setdiff(MODELS, "Llama")            # drop the one flat rater (FalconMamba pending)
+disc <- setdiff(MODELS, c("Llama","FalconMamba"))
 Sbar <- Reduce(`+`, lapply(disc, function(m) build_matrix(sym, m, "sym"))) / length(disc)
 Rcons <- profile_cor(Sbar)
 pca_load <- function(R, k){
@@ -73,8 +73,8 @@ cat(sprintf("PC1 explains %.0f%% of common variance; PC1/PC2 = %.2f. A single st
     100*ev[1]/sum(pmax(ev,0)), ev[1]/ev[2]))
 ```
 
-There is a **strong general factor** — PC1 alone accounts for ~55% of common variance,
-3.8× PC2. Substantively this is the model's **evaluative halo**: a good/competent ↔
+There is a **strong general factor** — PC1 alone accounts for ~53% of common variance,
+3.75× PC2. Substantively this is the model's **evaluative halo**: a good/competent ↔
 bad/incompetent axis that pervades every judgment (rgb W15 §2's "PC1 over-collapse";
 also present, if less dominant, in the human self-report — human PC1/PC2 ≈ 5.15 per rgb
 W16 §9). It is **double-edged for validity**: it is a coherent, reproducible axis (a
@@ -147,10 +147,10 @@ cat(sprintf("Mean congruence to consensus across raters: %.2f (Tucker ≥0.85 co
     mean(per_model)))
 ```
 
-Mean congruence to the consensus is **0.86** — comfortably in the "fair-to-good"
-structural-agreement band, with `Llama-8B`, `Qwen2.5-3B` and `Phi4` near-identical (≥0.90)
-and `Aya` the weakest (0.70), consistent with its status (Report III) as the current
-low-agreement idiosyncratic rater. **The raters largely agree on the latent structure**,
+Mean congruence to the consensus is **0.84** — comfortably in the "fair-to-good"
+structural-agreement band, with `Llama-8B`, the Qwen family and `Phi4` near-identical (≥0.90)
+and `Aya` (0.69) and `Gemma-4-31B` (0.71) the weakest, consistent with their status
+(Report III) as the low-agreement idiosyncratic raters. **The raters largely agree on the latent structure**,
 which is genuine internal-structure reliability: the five-factor organization is not one
 model's quirk.
 
@@ -187,7 +187,7 @@ cat(sprintf("Residual top eigenvalues: %s\n", paste(round(head(evr,5),1), collap
 
 Reassuringly, differentiated trait structure **survives** removing the general factor and
 **still replicates across raters** — so the instrument is not *only* an evaluative halo;
-there is reproducible discriminant structure beneath it. But the halo's dominance (55% of
+there is reproducible discriminant structure beneath it. But the halo's dominance (53% of
 common variance) is a real limit on discriminant validity: for any downstream use,
 trait-specific JUDGE scores should be taken **net of the general evaluative factor**, or
 much of what looks like (say) an Agreeableness signal will be halo.
@@ -207,7 +207,7 @@ necessary (not sufficient) condition for the structural evidence to mean anythin
 
 - The consensus JUDGE similarity is **coherent and low-rank** — one dominant evaluative
   factor plus a small ladder of differentiated trait factors.
-- That structure is **reproducible across raters** (mean congruence 0.86; 0.87 again on
+- That structure is **reproducible across raters** (mean congruence 0.84; 0.85 again on
   the general-factor-removed residual) — it is a property of the *measurement*, not one
   model. This is real structural reliability, and the strongest validity-relevant claim
   the internal evidence supports.
