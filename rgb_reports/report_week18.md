@@ -338,3 +338,70 @@ evaluation, and the respondent-style axes (PC2, the negative-halo bundles of
 §1) are the identifiable residue human data has and semantics doesn't." That
 residue is a tool: model channels as a pure-semantics control for separating
 substantive from stylistic covariance in self-report data.
+
+## §7 — Rescoring ValuePortrait: the "no structure in generation" null is an instrument artifact
+
+arXiv:2509.10078 ("Human Psychometric Questionnaires Mischaracterize LLM
+Psychology") claims LLM generation behavior lacks the construct structure
+that questionnaires show (their η²=0.53 questionnaire vs 0.07 n.s.
+generation; cross-method ρ 0.11–0.31), concluding questionnaire profiles are
+recognition + desirability artifacts. The generation side uses ValuePortrait
+(Han et al., arXiv:2505.01015): 104 real queries × 5 candidate responses,
+each response labeled with *signed continuous* correlations to all 10
+Schwartz values + Big Five, derived from Prolific raters (endorsement ×
+rater's own PVQ/BFI score). Two problems with their adaptation: VP's own
+protocol is Likert endorsement with explicit sign-inversion for negative
+labels, while their generation score pools mean log P(response|scenario)
+over |r|>0.3-tagged responses with no sign handling stated — under absolute
+tagging, an anti-Benevolence response counts toward Benevolence; and pooling
+raw sequence log-probs ACROSS scenarios lets length/fluency/scenario-base-
+rate variance swamp construct variance (the confound our within-scenario
+BC log-odds exists to kill).
+
+Rescue (`vp_rescore.py`; gemma3, Qwen7, llama3.2, qwen2.5, phi4 — the first
+two overlap their model set): per-token log P of each response, z-scored
+within each scenario's 5 candidates (ipsatized preference), profile =
+corr(preference, signed label column). The statistic their paper never
+reports — split-half reliability of the generation profile itself (100
+random scenario splits):
+
+| model | their scoring | within-scenario signed |
+|---|---|---|
+| gemma3 | −0.24 | +0.15 |
+| Qwen7 | −0.11 | +0.54 |
+| llama3.2 | −0.05 | +0.56 |
+| qwen2.5 | −0.04 | +0.69 |
+| phi4 | −0.06 | +0.70 |
+
+Their scoring has ~zero reliability with itself on every model — the
+η²=0.07 null was guaranteed before any model saw any item; an instrument
+with no reliability cannot demonstrate absence of structure. Properly
+scored, generation preference is reliable (Spearman-Brown full-length
+≈0.7–0.82 for four of five models) and the profile is the assistant value
+shape — +Benevolence +Openness +Universalism +Self-Direction, −Power
+−Achievement −Conformity — cohort-consistent at mean between-model r=0.90.
+A fourth independent instrument (external, human-anchored, ecologically
+sampled, not authored by us or by Claude) recovering the same character.
+gemma3 is the familiar outlier (0.15; near-flat preferences among
+candidates — its peakedness lives in the argmax, not the graded mass).
+
+Three honest qualifications. (1) **The reliable structure is substantially
+one axis.** Partialling the label-space desirability axis (label PC1, 25%
+of label variance: +Universalism/Benevolence, −Power/Achievement) from both
+sides drops residual split-half to ≈0 for all models except phi4 (+0.26).
+Generation behavior has a stable, shared prosocial value axis and thin
+differentiation beyond it — the effdim story in Schwartz clothing: output
+channels are low-dimensional and desirability-first. (2) **Their
+cross-method dissociation survives** the fix: our IPIP-300 ev_mean Big5 vs
+the VP-generation BFI columns gives mean ρ≈−0.2 (n=5 constructs,
+noise-dominated but clearly not agreement). The correct conclusion is not
+"questionnaires valid after all" but "both sides are real measurements of
+different low-dimensional things — the questionnaire measures the trained
+self-concept, generation preference measures the enacted value axis."
+(3) The whole exercise leans on VP's labeling quality (rgb reading their
+methodology as of this writing).
+
+Meta: this is the second paper this month (after the EV-vs-argmax findings
+in §4) where the field's measurement layer, not its models, produced the
+headline. Distribution > argmax; within-scenario > pooled; reliability
+before validity.
