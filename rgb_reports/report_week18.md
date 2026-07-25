@@ -405,3 +405,19 @@ Meta: this is the second paper this month (after the EV-vs-argmax findings
 in §4) where the field's measurement layer, not its models, produced the
 headline. Distribution > argmax; within-scenario > pooled; reliability
 before validity.
+
+**v4 addendum (2026-07-25).** Their v4 (current) sharpens the abstract to
+actively recommend "generation-based profiling as a more accurate measure,"
+specifies sum-of-token log P with *explicitly no length normalization*,
+tags positive-only at r≥0.3 (so no sign contamination — our unsigned
+replication above was uncharitable on that point), adds within-scenario
+macro-averaging, and still reports no reliability statistic for the
+generation profile. Exact-v4 replication (tag counts match theirs to the
+digit, 286 value / 228 trait): split-half −0.39…+0.39 (mean ≈+0.07) — the
+macro-averaging does not rescue reliability — and construct scores
+correlate r=−0.54…−0.76 with the mean token length of each construct's
+tagged responses. The recommended measure is substantially a length
+ranking; since length is a dataset property, the artifact is shared across
+models, contaminating both their cross-model consistency and the
+questionnaire-vs-generation divergence. One-sentence version: the measure
+correlates up to |r|=0.76 with response length and ≈0 with itself.
