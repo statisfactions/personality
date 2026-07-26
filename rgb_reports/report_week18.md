@@ -493,3 +493,21 @@ point: macro-vs-micro shifts individual cross-method cells by up to
 per-construct Ns of 11–64. v3's abstract called the method "a more
 reliable approach"; v4 softened to "ecologically valid." Note-ask upgrade:
 fix + which-tag-set clarification + code confirmation.
+
+**Why cross-method ρ goes negative on BFI (rgb's question).** Four of five
+BFI generation values are statistically zero (E −.016, A −.009, C −.013,
+N +.005; bootstrap SE ≈.037); only Openness is real (+.106±.040) — so the
+5-rank Spearman is one datum plus four near-coin-flips (hence phi4 +0.60
+vs llama −0.70). But the flips are sign-biased by LABEL GEOMETRY: in this
+pool the E/A/C label columns anti-align with the desirability axis models
+follow (r≈−0.25 each) while N/O align positively (+0.37/+0.47) — high-A/C
+raters endorsed the conventional candidates, the pool's prosocial axis
+picks the empathic-reflective ones. Generation profile = desirability axis
+refracted through label orientations; questionnaire profile = assistant
+ceiling on A/C, floor on N. Structurally inverted orderings → negative ρ
+guaranteed for any prosocial-preferring model, independent of its conduct.
+Their "Gen↔BFI lowest agreement, several negative correlations" is partly
+dataset geometry, not model psychology. (Their tagged N: five pairs.)
+Openness is the exception where label and pool axis align and says≈does —
+again the most model-native Big Five dimension (cf. W16 judgment factor
+structure).
