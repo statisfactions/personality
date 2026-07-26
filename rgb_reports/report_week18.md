@@ -740,3 +740,17 @@ instrument: the continuous labels both papers left on the table. Meta,
 three layers deep: every methods section in this lineage required reading
 the code (their eq-vs-code gap; v3→v4 silent changes; VP's undisclosed
 binarization). Publish scoring code with the note.
+
+**Same lab, two media (rgb, from VP Appendix F).** VP (Han, Choi, Song,
+Lee, Jo) and 2509.10078 (Song, Choi, Park, Han, Lee, Jo) share five
+authors — one lab, pipeline reused with first-authorship rotated. VP
+App. F reports Cronbach's α ≈ .9 for the tagged item-sets in their human
+endorsement data (per rgb's read): the tags ARE coherent scales in the
+native Likert medium — and reliability ≈ 0 for the same tags in the
+logprob medium (our measurement). Sharpest form of the interface lesson:
+reliability is a property of items × population × READOUT MEDIUM, not of
+items; a .9 in the native medium is exactly what licenses a team to skip
+re-checking in the new one. Also softens the v3→v4 forensics (internal
+pipeline evolution, both codebases owned by the same group) and
+simplifies note etiquette: one email reaches everyone, and the pitch is
+"your first paper's continuous labels fix your second paper's instrument."
