@@ -586,3 +586,22 @@ instrument is fixed; what's missing is mostly the PHENOMENON
 (between-model personality variance) — and where it exists, self-report
 still misses it. Their thesis's strongest form survives; our psych bullet 1
 ("assistants are assistants") quantified by an external instrument.
+
+**Softmax-choice variant (rgb's proposal: make the model pick, report
+weighted labels).** Temperature sweep resolves it: softmax of TOTAL lp
+(the true renormalized choice distribution, τ=1) is near-degenerate —
+entropy 0.06-0.14 nats of ln5=1.61, one-hot on short/fluent candidates,
+reliability erratic — the principled probabilistic object is a length race.
+Per-token softmax reliability RISES with temperature (llama 0.48→0.61
+across τ=.05/.1/.2) because the high-τ limit linearizes to exactly the
+within-scenario covariance profile — the current instrument. Picking
+discards ranks 2-5; graded mass carries the signal (the §4 lesson in
+choice space; distribution>argmax again). KEEP from the proposal: the
+units — expected-label-of-choice reads in deployment terms (cohort picks
+tilt +0.025 Benevolence, +0.023 Openness, −0.019 Achievement, −0.017
+Conformity per scenario vs pool; cross-model 0.54). Conceptual closure:
+three ways to make a model "pick" among texts = generation probability
+(degenerate), MCQ letter choice (symbolic judgment — reintroduces
+transparency, is BC/JUDGE not generation), graded soft preference (the
+reliable middle = this instrument). The instrument space collapses onto
+the existing channel taxonomy.
