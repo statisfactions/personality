@@ -421,3 +421,16 @@ ranking; since length is a dataset property, the artifact is shared across
 models, contaminating both their cross-model consistency and the
 questionnaire-vs-generation divergence. One-sentence version: the measure
 correlates up to |r|=0.76 with response length and ≈0 with itself.
+
+**Scoring-variant ablation (rgb's perplexity question).** Split-half by
+variant, all within-scenario z-scored: per-token (log-perplexity) beats
+total log-prob on every model (Qwen7 −0.02 → +0.56; cross-model profile
+agreement 0.77 → 0.90), and beats length-residualized total (dividing is
+the right functional form — total lp scales multiplicatively with length).
+Scenario normalization alone is NOT sufficient: length varies within a
+scenario's 5 candidates, so total-lp stays unreliable even after centering
+— their v4 lacks both fixes and needs both. Residual gradients: per-token
+preference is mildly pro-length (+0.22), aligned with the human
+desirability label's own +0.10, while total-lp is anti-length (−0.21),
+against the labels. The instrument, stated properly: within-scenario
+z-scored log-perplexity per candidate, correlated with signed human labels.
