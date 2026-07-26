@@ -473,3 +473,23 @@ scoring) drowns in scenario variance and within-scenario contrast (ours)
 is the geometry-aligned readout. Their own Figure 1 contains the diagnosis
 of their scoring artifact. Fig:
 results/vp_rescore/figs/vp_fig1_transparency.png
+
+**v3→v4 forensics (rgb noticed Eq. 1 changed; full text-diff in
+dependencies/arxiv_2509.10078/).** Two silent methods changes: micro→macro
+aggregation AND tagging |r|≥0.3 → r≥0.3. Under v3's stated rule the PVQ tag
+set is 553 pairs, 267 of them (48%) negatively correlated with the construct
+they count toward — and log-probs admit no sign-inversion analog to VP's
+Likert 7−x. But both versions are internally inconsistent about the rule
+(v3 §data says 284/227 ≈ pos-only-minus-exclusions while v3 §scoring says
+|r|≥0.3; v4 main says r≥0.3 while its Table 12 caption still says |r|>0.3),
+and the generation permutation p-values are IDENTICAL to three decimals
+across versions (0.604/0.726) despite the changed formula — most likely
+nothing was recomputed and the computation was always pos-only (matching
+our 286/228 replication), with the text wrong in one direction or the
+other in both versions. Undecidable without their code ("released upon
+publication"). Their new App. F.1 sensitivity analysis concedes the core
+point: macro-vs-micro shifts individual cross-method cells by up to
+|Δρ|=0.31 — the size of their headline effects (0.11–0.31) — on
+per-construct Ns of 11–64. v3's abstract called the method "a more
+reliable approach"; v4 softened to "ecologically valid." Note-ask upgrade:
+fix + which-tag-set clarification + code confirmation.
