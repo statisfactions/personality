@@ -511,3 +511,23 @@ dataset geometry, not model psychology. (Their tagged N: five pairs.)
 Openness is the exception where label and pool axis align and says≈does —
 again the most model-native Big Five dimension (cf. W16 judgment factor
 structure).
+
+**What η²/WMV actually measure (rgb's question + variance decomposition).**
+Item score = the model's output per item: Likert response (questionnaire)
+vs raw total log P of the tagged response (generation); η² = ANOVA variance
+in those scores explained by construct membership. The two sides have
+incommensurable denominators. Generation-side decomposition of raw total
+log P across the 520 items: scenario identity 57–77%, length 24–48%, all
+15 construct labels jointly 5–9% (2–5% after ipsatization). Their observed
+generation η²≈0.04 is therefore near the MAXIMUM attainable for this
+statistic — construct signal at its label-bounded ceiling inside a
+denominator that is ~3/4 scenario weather — not evidence of absence.
+Questionnaire-side denominator contains none of that (40 context-free
+near-paraphrase items), so semantic consistency alone yields η²≈0.5;
+that is Cronbach's-α logic, a reliability statistic never valid as
+evidence a construct exists (nor, inverted, that it doesn't). The ANOVA
+also presumes exchangeable items — true by design for questionnaires,
+false for scenario-nested VP items; the legitimate generation analog must
+operate on within-scenario preference, where per-item effects are honestly
+small and the structure question moves to the aggregate level (where it
+passes, split-half 0.54–0.70).
