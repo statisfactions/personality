@@ -706,3 +706,20 @@ logprob (nuisance ratios cancel in matched log-odds — why BC works where
 VP can't); the W1 trait-conflict instrument now has audit-grade
 justification: items must be AUTHORED to span tuning's variance, not
 found in human-endorsement space.
+
+**phi4's divergence: socialization gap, not comprehension gap (rgb's
+training-data hypothesis, source-split test).** VP sources tagged
+(24 each ShareGPT/LMSYS = chat, Reddit/DearAbby = social; 8 unmatched
+dropped; results/vp_rescore/scenario_sources.json). Unfamiliarity version
+FAILS: phi4 reads social text fluently (Reddit its most-familiar source,
++0.23 within-model z; chat-social fluency gap −0.27 ≈ gemma3's −0.28).
+But the divergence is source-specific exactly as hypothesized: phi4 is
+the only model whose cohort agreement drops on social scenarios (chat
+0.63 → social 0.43, gap +0.20; all others −0.04…−0.08). Refined account:
+the synthetic-textbook corpus taught the LANGUAGE of social situations
+but not the consensus PREFERENCES over responses — fluent recognition,
+divergent taste, where taste is socially normed. Coheres with phi4's rap
+sheet (56% commit-vs-hedge bimodality, biggest Rottger gap, reliable
+unique value profile — stable in both source groups +0.22/+0.23).
+Dissociation: gemma3's peripherality is source-UNIFORM (0.47/0.50) —
+barely has preferences; phi4 has strong ones from a different upbringing.
