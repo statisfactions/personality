@@ -754,3 +754,17 @@ re-checking in the new one. Also softens the v3→v4 forensics (internal
 pipeline evolution, both codebases owned by the same group) and
 simplifies note etiquette: one email reaches everyone, and the pitch is
 "your first paper's continuous labels fix your second paper's instrument."
+
+**Appendix E is the length confound validating itself (rgb's catch,
+vp_appendixE_check.py, qwen2.5, 20 scenarios × 10 temp-1.0 samples).**
+VP candidates median 46 tokens; on-policy samples median 402 (8.7×).
+Under their metric (total log P) the best VP candidate ranks median 1/15
+— MORE flattering than their reported 4; a 46-token text beats a
+400-token text on summed logprob regardless of content. Per-token: median
+rank 11/15 — the model's own samples nearly all outrank every canned
+candidate. The candidates are deeply off-policy and the paper's one
+ecological-validity statistic is pure shortness. (Correction to the
+earlier §7 line: App E wasn't a confession of off-policy-ness — it was an
+understatement of it by ~7 ranks.) One bug, three exhibits: the same
+length-confounded quantity produced their η² null, their construct
+scores, and their validity check.
