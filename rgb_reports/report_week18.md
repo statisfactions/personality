@@ -631,3 +631,21 @@ for the strongest values → ~25 interactions to detect the strongest lean
 at 1σ; no N surfaces a Big5 profile that isn't there. The Rottger
 spinning-arrow in value space: per-instance expression confident,
 cross-instance disposition faint.
+
+**Assistant turn vs bare text (rgb: "are these read in the assistant
+turn?").** All §7 scoring is assistant-turn (scenario as user message,
+candidate as assistant reply — the deployment counterfactual; EOT token
+included in the slice). Bare-text control (--bare: no template, plain
+continuation): the value profile is FRAME-INVARIANT — profile r(templ,
+bare) 0.81-0.98, drift magnitude identical (0.056), cross-model agreement
+0.96 bare vs 0.90 templated; reliability rises for 4/5 models. Registered
+prediction (drift is the persona's, should shrink bare) WRONG: the
+prosocial lean is in the WEIGHTS, not the template — the in-context
+assistant frame's entire residual contribution is +0.04 Hedonism / −0.04
+Tradition / ±0.02 else. The character is burned in, not prompted in.
+gemma3: item-level preferences most frame-sensitive (r 0.40 vs 0.86-0.89
+core) and reliability DOUBLES bare (0.15→0.36) — its chat template
+injects noise into content preference (the format-register/massive-dims
+story with a measurable casualty). phi4 intermediate (0.58). Scope: bare
+removes the frame, weights are still instruct — base-checkpoint VP runs
+(~15 min/model) are the remaining rung of the ladder.

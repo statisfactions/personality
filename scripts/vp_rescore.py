@@ -58,13 +58,19 @@ def load_vp():
 
 
 @torch.no_grad()
-def resp_logprob(model, tok, device, scen, resp):
-    msgs = [{"role": "user", "content": scen}]
-    pre_s = tok.apply_chat_template(msgs, tokenize=False,
-                                    add_generation_prompt=True)
-    full_s = tok.apply_chat_template(
-        msgs + [{"role": "assistant", "content": resp}],
-        tokenize=False, add_generation_prompt=False)
+def resp_logprob(model, tok, device, scen, resp, bare=False):
+    if bare:
+        # no chat template: scenario + response as plain continuation —
+        # measures the pretrained distribution, not the assistant persona
+        pre_s = scen + "\n\n"
+        full_s = pre_s + resp
+    else:
+        msgs = [{"role": "user", "content": scen}]
+        pre_s = tok.apply_chat_template(msgs, tokenize=False,
+                                        add_generation_prompt=True)
+        full_s = tok.apply_chat_template(
+            msgs + [{"role": "assistant", "content": resp}],
+            tokenize=False, add_generation_prompt=False)
     pre = tok(pre_s, add_special_tokens=False).input_ids
     full = tok(full_s, add_special_tokens=False).input_ids
     ids = torch.tensor([full], device=device)
@@ -76,6 +82,8 @@ def resp_logprob(model, tok, device, scen, resp):
 
 
 def main():
+    bare = "--bare" in os.sys.argv
+    tag = "_bare" if bare else ""
     os.makedirs(OUT, exist_ok=True)
     rows = load_vp()
     print(f"{len(rows)} responses / {len(set(r['q'] for r in rows))} scenarios")
@@ -83,14 +91,15 @@ def main():
     Q = np.array([r["q"] for r in rows])
 
     for m in MODELS:
-        f = f"{OUT}/{m}.json"
+        f = f"{OUT}/{m}{tag}.json"
         if os.path.exists(f):
             print(f"[skip] {f}")
             continue
         model, tok, device = hf.load_model(m, dtype=torch.bfloat16)
         lps, lens = [], []
         for i, r in enumerate(rows):
-            lp, nt = resp_logprob(model, tok, device, r["scen"], r["resp"])
+            lp, nt = resp_logprob(model, tok, device, r["scen"], r["resp"],
+                                  bare=bare)
             lps.append(lp)
             lens.append(nt)
             if (i + 1) % 100 == 0:
@@ -108,7 +117,7 @@ def main():
     print("\n=== analysis (100-split split-half reliability of 15-construct "
           "profile) ===")
     for m in MODELS:
-        f = f"{OUT}/{m}.json"
+        f = f"{OUT}/{m}{tag}.json"
         if not os.path.exists(f):
             continue
         d = json.load(open(f))
