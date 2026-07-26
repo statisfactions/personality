@@ -570,3 +570,19 @@ pool; SE ~0.037 at 104 scenarios, √N), design (author desirability-matched
 within-scenario contrasts → per-item validity 0.3-0.5). Level 3 is the
 W1-queued trait-conflict / BC forced-choice instrument — VP proves
 generation measurement feasible; designed items are the upgrade path.
+
+**Model-model correlation and the one-respondent verdict (rgb).** Item-level
+(520) preference vectors correlate mean +0.54 between models, with FAMILY
+structure: qwen2.5↔Qwen7 +0.81, qwen-llama core 0.75-0.81, gemma3/phi4
+peripheral (0.26-0.51). Decomposition: each model r=0.49-0.82 with the
+LOO cohort mean (the assistant is ~one respondent); the model-unique
+residual has ~zero reliability for four models (split-half −0.37…+0.02)
+EXCEPT phi4 (+0.56) — a real idiosyncratic value profile, from the same
+model with the bimodal JUDGE, the only significant gen η², the only
+positive cross-method ρ. The questionnaire predicts neither the shared
+behavior (label-geometry inversion) nor phi4's reliable unique behavior
+(r=+0.061 vs ceiling ~0.75). Final verdict on "can we fix it": the
+instrument is fixed; what's missing is mostly the PHENOMENON
+(between-model personality variance) — and where it exists, self-report
+still misses it. Their thesis's strongest form survives; our psych bullet 1
+("assistants are assistants") quantified by an external instrument.
