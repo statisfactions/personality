@@ -686,3 +686,23 @@ direction of a few percent of profile variance gives r_true 0.97-0.99 —
 exactly its lower CI bound. Bound: post-training's effect on generation
 value-preference is ≤ a few % of profile variance, statistically zero at
 N=104. The corpus verdict was conservative.
+
+**Closing design lesson (rgb's dissatisfaction, formalized).** The
+instrument's two fatal properties compose: (a) candidate variance spans
+axes tuning doesn't touch — dimension-counting made it inevitable (ENACT
+conduct-space ~5-dim; VP candidates vary along human-endorsement axes
+selected by an orthogonal criterion); (b) off-policy by design — their own
+App. E (best candidate ranks median 4/15 among the model's real samples)
+documents that log P here measures recognition of foreign text, i.e. the
+corpus. The 2×2 (scoring × policy): off-policy×logprob = VP = corpus
+(proved); off-policy×judged = the judge's values; on-policy×judged =
+enactability (conduct; judge is the cost, but auditable); on-policy×
+logprob = UNEXPLORED — score the model's own rollouts under instruct vs
+base = the reinforcement trace, judge-free and on-policy (we hold the
+rollouts and the base checkpoints). "Judge-free" logprob scoring was
+never judge-free: it swaps a visible auditable judge for the corpus
+prior — invisible and uncorrectable. Minimal pairs rescue off-policy×
+logprob (nuisance ratios cancel in matched log-odds — why BC works where
+VP can't); the W1 trait-conflict instrument now has audit-grade
+justification: items must be AUTHORED to span tuning's variance, not
+found in human-endorsement space.
