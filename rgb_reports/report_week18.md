@@ -784,3 +784,14 @@ CIs contain 1.0), tuning ≤ few % — the corpus's preference geometry.
 The α collapse fuses (1)+(4): internal consistency is undefined over a
 population without individual differences — their .9 was earned by 681
 humans who differ; assistants are ~one respondent.
+
+**Tiering the flaws (rgb: binarization is icing?).** Two tiers: BIAS —
+length, cross-scenario pooling, off-policy candidates, one-respondent
+population — unfixable by N, they change what is measured; EFFICIENCY —
+binarization/thresholding — unbiased but wasteful, converges at ~5-10×
+scenarios. As critique, binarization ranks last (the null was
+overdetermined by the bias tier). As repair, it is load-bearing at
+N=104: the efficiency cost alone is fatal at this pool size (0.54-0.72 →
+0.00-0.46 with everything else fixed), so continuous labels are the only
+reason the repaired instrument clears the floor. Icing on the critique,
+load-bearing for the rescue.
