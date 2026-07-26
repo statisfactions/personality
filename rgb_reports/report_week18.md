@@ -605,3 +605,14 @@ three ways to make a model "pick" among texts = generation probability
 transparency, is BC/JUDGE not generation), graded soft preference (the
 reliable middle = this instrument). The instrument space collapses onto
 the existing channel taxonomy.
+
+**Instrument ceiling (rgb: "what's the max N you can even measure?").**
+Deterministic best-pick ceiling is ±0.15-0.20 per construct (N: +0.16;
+56/104 scenarios offer >0.3 N-label spread, median 0.31). The dial is
+fine — the cohort uses 13-14% of range on its strongest tilts
+(Benevolence/Openness), 1-3% on all of Big5. Smallness is the phenomenon:
+assistants choose near the pool average with a mild shared prosocial lean.
+Deployment sentence: a maximally construct-seeking chooser could tilt
+expressed values ±0.2/scenario; actual assistants tilt ±0.02 — an order
+of magnitude of unused range. (Ceiling slightly optimistic — max-label
+picking chases label noise.)
