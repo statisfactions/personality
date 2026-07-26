@@ -616,3 +616,18 @@ Deployment sentence: a maximally construct-seeking chooser could tilt
 expressed values ±0.2/scenario; actual assistants tilt ±0.02 — an order
 of magnitude of unused range. (Ceiling slightly optimistic — max-label
 picking chases label noise.)
+
+**Cancellation, not centrism (rgb: flat because choices cancel, or
+avoiding extremes?).** Per-scenario tilt SD vs a label-blind null (same
+softmax weights, candidates shuffled within scenario): ratio 0.99 overall
+(0.92-1.06 per construct, 0.97-1.01 per model). Models do NOT avoid
+value-charged candidates — each pick carries near-full-size value content
+(SD ≈0.12 of the ±0.16 ceiling); the construct direction just doesn't
+repeat. Regime = drift-on-indifference: choices are value-LOADED but not
+value-DRIVEN (fluency/style wins, incidental labels ride along), plus the
+small consistent prosocial drift (Benevolence/Openness ~5σ at SE 0.005;
+Big5 zeros are true zeros, not sample-starved). Per-scenario S/N ≈ 0.2
+for the strongest values → ~25 interactions to detect the strongest lean
+at 1σ; no N surfaces a Big5 profile that isn't there. The Rottger
+spinning-arrow in value space: per-instance expression confident,
+cross-instance disposition faint.
