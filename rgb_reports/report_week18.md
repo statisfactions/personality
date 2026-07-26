@@ -723,3 +723,20 @@ sheet (56% commit-vs-hedge bimodality, biggest Rottger gap, reliable
 unique value profile — stable in both source groups +0.22/+0.23).
 Dissociation: gemma3's peripherality is source-UNIFORM (0.47/0.50) —
 barely has preferences; phi4 has strong ones from a different upbringing.
+
+**The binarization is inherited from Han et al. (rgb, reading VP's code).**
+VP's own score.py uses the continuous validation correlations only as
+signed tags (|r|>=0.3, 7−x Likert inversion) — not disclosed in their
+text either; the citing paper copied the convention into a logprob context
+where the inversion has no analog. Cost of binarization alone, same
+preferences/scenarios: reliability 0.54-0.72 (continuous) → 0.00-0.05 for
+three of five models (signed tags; phi4 0.46 survives on signal size).
+Tags keep ~26-100 items/construct (Security 14+12) and discard magnitudes
+— 80-95% of effective information. Ledger restructured: the citing
+paper's fatal interface was INHERITED (tags defensible in VP's native
+Likert protocol, dead on arrival for logprob preference at N=104), with
+their sign/length/pooling errors stacked on top. Our "rescue" is a third
+instrument: the continuous labels both papers left on the table. Meta,
+three layers deep: every methods section in this lineage required reading
+the code (their eq-vs-code gap; v3→v4 silent changes; VP's undisclosed
+binarization). Publish scoring code with the note.
