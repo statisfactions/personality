@@ -456,3 +456,20 @@ model in both channels (questionnaire η² 0.47; only significant generation
 η²). Heatmap: results/vp_rescore/figs/vp_eta2_heatmap.png — questionnaire
 panel shows scale blocks, both generation panels are visually structureless
 at item grain.
+
+**Their Figure 1, our materials (`vp_fig1_transparency.py`).** The
+transparency exhibit replicates with an instrument they never used:
+IPIP-300 item-definition discrimination +0.076 vs VP +0.007 (~11x; theirs
+0.13-0.22 vs ~0), within-vs-between item-similarity gap +0.050 vs +0.003
+(all-mpnet-base-v2). This is the part of their paper we endorse — it is
+the mechanism behind the eta2 resolution above (transparent items cluster
+because they announce their construct). Two additions from our version:
+Conscientiousness has the faintest definition-band among IPIP scales (its
+items are behavioral, least adjective-like); and the only visible structure
+in the VP response x response panel is the same-scenario 5-blocks along the
+diagonal — ecological items' embedding geometry is organized by SCENARIO,
+not construct, which is precisely why cross-scenario pooling (their
+scoring) drowns in scenario variance and within-scenario contrast (ours)
+is the geometry-aligned readout. Their own Figure 1 contains the diagnosis
+of their scoring artifact. Fig:
+results/vp_rescore/figs/vp_fig1_transparency.png
