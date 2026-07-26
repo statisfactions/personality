@@ -434,3 +434,25 @@ preference is mildly pro-length (+0.22), aligned with the human
 desirability label's own +0.10, while total-lp is anti-length (−0.21),
 against the labels. The instrument, stated properly: within-scenario
 z-scored log-perplexity per candidate, correlated with signed human labels.
+
+**η²/WMV reproduction (their RQ2, our data — `vp_eta2.py`).** Their
+item-level construct-clustering result REPLICATES and our rescued scoring
+does NOT change it: questionnaire η² 0.27 (IPIP-300 keyed EVs, all models
+p<.001; theirs .49-.53) vs generation η² ≈ permutation floor under both
+scorings (~0.04 PVQ / ~0.01 BFI; only phi4-PVQ significant). Held jointly
+with the reliable profiles (split-half 0.54-0.70 on the same data), this
+resolves cleanly: η² is bounded by per-item effect size; VP's per-response
+label correlations are ~0.1 BY DESIGN (no lexical construct cues — their
+own F1-near-chance transparency result), so item-level clustering is
+impossible while aggregate profiles remain reliable — tiny single-item
+validity + solid scale-level reliability is what a subtle instrument is
+supposed to look like. Their centerpiece questionnaire-vs-generation η²
+contrast therefore compares ITEM TRANSPARENCY, not presence of structure:
+transparent items cluster because they announce their construct; ecological
+items cannot, regardless of how much structure the model has. The valid
+comparison is aggregate-level, where generation is reliable, prosocial-
+shaped, and cross-model consistent. phi4 is the most construct-structured
+model in both channels (questionnaire η² 0.47; only significant generation
+η²). Heatmap: results/vp_rescore/figs/vp_eta2_heatmap.png — questionnaire
+panel shows scale blocks, both generation panels are visually structureless
+at item grain.
