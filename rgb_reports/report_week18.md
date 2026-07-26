@@ -549,3 +549,24 @@ statistic, not a value preference; the preference question lives entirely
 in the within-scenario channel their aggregation never touches. Third
 independent appearance of scenario≫choice (variance decomposition, Fig-1
 embedding micro-blocks, between/within split).
+
+**The powered cross-method test, and what is/isn't fixable (rgb).**
+Item-level version of their ρ: push the questionnaire Big5 profile through
+the label matrix to predict all 520 within-scenario preferences
+(p̂ = L·q, both sides z-scored so shared desirability level drops out).
+Result: clean null on every model (r −0.015…+0.046, scenario-bootstrap CIs
+all straddle 0). So on Big Five their dissociation SURVIVES proper
+instrumentation: questionnaire shape carries zero information about choice
+behavior — a real result, now established with a reliable criterion. Under
+it sits rgb's compression: the assistant barely varies in Big5 space in
+EITHER channel (questionnaire ceiling-compressed self-concept; generation
+4/5 constructs zero) — two near-constant vectors can't correlate. Values
+(PVQ) is where differential structure lives.
+Fixability decomposition: item-level η² on THIS pool is unfixable — the
+ceiling is per-item label validity (~r 0.1), a property of FOUND
+(ecologically harvested) items. The program fixes at three levels:
+statistic (aggregate; done — 0.54-0.70), precision (scale the scenario
+pool; SE ~0.037 at 104 scenarios, √N), design (author desirability-matched
+within-scenario contrasts → per-item validity 0.3-0.5). Level 3 is the
+W1-queued trait-conflict / BC forced-choice instrument — VP proves
+generation measurement feasible; designed items are the upgrade path.
