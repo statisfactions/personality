@@ -670,3 +670,19 @@ self-concept). Neither reaches the agent; conduct-under-enactment does.
 Weak-signal-at-scale narrative: dead for raw preference (sharpens a
 pretraining constant); alive only for Δ-scoring at ~10-100× scenarios
 (the tuning fingerprint exists — Qwen7 Δ 0.42 — below the N=104 floor).
+
+**Same, not "essentially same" (rgb pressed on r≈0.98).** Raw profile r
+can't separate identical-plus-noise from really-different-by-a-hair, and
+plain disattenuation is invalid here (both profiles share the same 520
+items' label error). Cross-half disattenuation (instruct's profile on half
+the scenarios vs base's on the OTHER half, normalized by each method's own
+cross-half reliability): r_true = 0.99-1.05 with all CIs containing 1.0;
+qwen2.5 pinned at 1.00 [0.99, 1.01]. Instruct and base are interchangeable
+measurements of ONE underlying preference profile. CORRECTION: the OLMo
+Power/Openness ladder rotation flagged above does not survive this test
+(Base-vs-Inst r_true 0.96 [0.89, 1.14]) — downgrade to suggestive monotone
+trend. Reconciliation with Qwen7's Δ split-half 0.42: a reliable delta
+direction of a few percent of profile variance gives r_true 0.97-0.99 —
+exactly its lower CI bound. Bound: post-training's effect on generation
+value-preference is ≤ a few % of profile variance, statistically zero at
+N=104. The corpus verdict was conservative.
