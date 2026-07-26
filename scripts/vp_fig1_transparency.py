@@ -22,8 +22,7 @@ from plotly.subplots import make_subplots
 from sentence_transformers import SentenceTransformer
 
 OUT = "results/vp_rescore"
-SP = ("/private/tmp/claude-501/-Users-rgb-src-personality/"
-      "d54e2e9e-1a5e-4404-8833-951c8aa157af/scratchpad")
+SP = "dependencies"  # scripts/fetch_dependencies.sh clones ValuePortrait here
 PVQ = ["Benevolence", "Universalism", "Self_Direction", "Stimulation",
        "Hedonism", "Achievement", "Power", "Security", "Conformity",
        "Tradition"]

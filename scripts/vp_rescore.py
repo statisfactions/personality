@@ -26,8 +26,7 @@ import torch
 
 import hf_logprobs as hf
 
-SP = ("/private/tmp/claude-501/-Users-rgb-src-personality/"
-      "d54e2e9e-1a5e-4404-8833-951c8aa157af/scratchpad")
+SP = "dependencies"  # scripts/fetch_dependencies.sh clones ValuePortrait here
 OUT = "results/vp_rescore"
 MODELS = ["gemma3", "Qwen7", "llama3.2", "qwen2.5", "phi4"]
 PVQ = ["Benevolence", "Universalism", "Self_Direction", "Stimulation",
