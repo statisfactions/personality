@@ -795,3 +795,16 @@ N=104: the efficiency cost alone is fatal at this pool size (0.54-0.72 →
 0.00-0.46 with everything else fixed), so continuous labels are the only
 reason the repaired instrument clears the floor. Icing on the critique,
 load-bearing for the rescue.
+
+**α of the repaired instrument (rgb's prediction: not broken, not strong).**
+Two senses split: PROFILE reliability (within-model, across constructs)
+SB 0.70-0.82 — exactly "acceptable, not strong"; prediction lands.
+RESPONDENT-DISCRIMINATION α (models as respondents, 104 continuous-
+weighted scenario-items): mean ≈0, median −0.08/+0.06 (5/13 respondents),
+scatter −9.9…+0.72 — k=104 amplifies r̄±0.01 into α±huge, so median over
+mean. Still broken — but by the POPULATION, not the instrument: the one
+construct with real between-model variance, Self-Direction, hits α=0.72
+from the same pipeline. Note-form: the repaired instrument achieves
+acceptable profile reliability and acceptable discrimination wherever
+between-model variance exists; near-zero average α is a fact about the
+assistant population (~one respondent), not the instrument.
