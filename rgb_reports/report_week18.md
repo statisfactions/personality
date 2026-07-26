@@ -649,3 +649,24 @@ injects noise into content preference (the format-register/massive-dims
 story with a measurable casualty). phi4 intermediate (0.58). Scope: bare
 removes the frame, weights are still instruct — base-checkpoint VP runs
 (~15 min/model) are the remaining rung of the ladder.
+
+**Attribution: the drift is pretraining's (base checkpoints + OLMo ladder;
+rgb's spoiler confirmed).** Matched base-vs-instruct pairs (gemma3/Qwen7/
+llama3.2/qwen2.5, same 520 texts, bare scoring): profile r 0.95-0.99, base
+drift slightly LARGER (|prof| .052-.068 vs .041-.063). Δ-profiles
+(instruct−base preference) tiny and mostly unreliable (|Δ| .02-.05,
+split-half −.13…+.42; only Qwen7 marginal). OLMo-2 ladder flat in
+magnitude (.041→.047), r≥.92 to own Base throughout; the one systematic
+rotation: Power −.073→−.097, Openness +.092→+.058 across SFT/DPO
+(curiosity→anti-dominance trade; DPO→Inst adds nothing). gemma-3-4b-pt
+more reliable than its instruct sibling — gemma tuning damages even the
+frame-free readout. VERDICT (three levels): their instrument was (1)
+unreliable as published, (2) reliable once repaired, (3) but measures the
+CORPUS, not the character — invariant to frame AND to the post-training
+stack that creates the assistant. Generation-probability profiling,
+their recommended "more valid" method, characterizes pretraining data;
+the rejected questionnaire at least measures something tuning built (the
+self-concept). Neither reaches the agent; conduct-under-enactment does.
+Weak-signal-at-scale narrative: dead for raw preference (sharpens a
+pretraining constant); alive only for Δ-scoring at ~10-100× scenarios
+(the tuning fingerprint exists — Qwen7 Δ 0.42 — below the N=104 floor).
