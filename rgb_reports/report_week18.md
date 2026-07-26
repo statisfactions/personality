@@ -531,3 +531,21 @@ false for scenario-nested VP items; the legitimate generation analog must
 operate on within-scenario preference, where per-item effects are honestly
 small and the structure question moves to the aggregate level (where it
 passes, split-half 0.54–0.70).
+
+**Why ipsatized label-R² is LOWER than raw (rgb's paradox).** The z-vs-center
+choice is minor (≤0.014). The driver is the numerator: raw label-R² is
+dominated by the BETWEEN-scenario channel (scenario-mean labels ×
+scenario-mean per-token lp: R² 0.21–0.28, but OLS null with 15 predictors
+on 104 scenarios is 0.146 → honest ~0.07–0.16), which is part overfit and
+part a real, semi-stable (split-half 0.15–0.52) TOPIC-FAMILIARITY
+covariance — prosocial-labeled candidate pools occur in assistant-
+in-distribution scenarios. The within-scenario (choice) channel is 0.02–0.08
+vs null 0.036. Ipsatization deletes the topic channel by construction;
+what remains is the value-preference signal — small per item, reliable in
+aggregate. Sharpest characterization of their measure: v4's Eq. 1
+macro-averages scenario-mean logprobs over tagged-scenario subsets, i.e.
+it is almost purely the between-scenario channel — a topic-exposure
+statistic, not a value preference; the preference question lives entirely
+in the within-scenario channel their aggregation never touches. Third
+independent appearance of scenario≫choice (variance decomposition, Fig-1
+embedding micro-blocks, between/within split).
