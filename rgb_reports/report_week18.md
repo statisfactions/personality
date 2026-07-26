@@ -768,3 +768,19 @@ earlier §7 line: App E wasn't a confession of off-policy-ness — it was an
 understatement of it by ~7 ranks.) One bug, three exhibits: the same
 length-confounded quantity produced their η² null, their construct
 scores, and their validity check.
+
+**§7 summary (rgb's four points, final form).** (1) v4's Eq. 1 fixes
+tag-count imbalance not the confound — still raw total log P, still the
+between-scenario topic channel; by VP's own App-F reliability measure,
+the tag-set scales score mean Cronbach's α = −2.1 (5 instruct
+respondents; −0.54 with 13) in the logprob medium vs their +0.9 with
+human respondents — negative, not merely low. (2) η² was capped, not
+low: denominator 57-77% scenario + 24-48% length; labels bounded at
+5-9%; observed 0.04 = the ceiling. (3) Deeply off-policy, App E hid it:
+candidates 8.7× shorter than samples; total-lp validity rank = pure
+shortness (median 1/15 our replication); per-token 11/15. (4) What it
+measures isn't the assistant: frame-invariant, base ≡ instruct (r_true
+CIs contain 1.0), tuning ≤ few % — the corpus's preference geometry.
+The α collapse fuses (1)+(4): internal consistency is undefined over a
+population without individual differences — their .9 was earned by 681
+humans who differ; assistants are ~one respondent.
