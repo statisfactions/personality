@@ -243,3 +243,20 @@ QUEUED (design review first): schedule playback — inject the LoRA's own
 recorded {δ_l} at every layer with weights untouched; if behavior and
 drift-resistance reproduce, "training writes character" reduces to
 "training records an activation program inference could inject."
+
+**BitFit tie-in (rgb).** The constants-only PEFT family — BitFit
+(bias-only tuning), prefix tuning (constant KV), (IA)³ (constant
+scalings) — is the existing literature for "interventions that can only
+add constants." §4.5 cuts both ways: it predicts BitFit-class methods
+suffice for character (the rank-64 LoRA's effective intervention is
+per-layer constants at conversation grain), and it explains why
+bias-only tuning works where it works (the target behavior IS a constant
+activation program) and fails where it fails (input-conditional
+computation). Wrinkles: Llama has no bias terms (bias=False throughout) —
+a character LoRA is an over-parameterized graft of effective biases onto
+a bias-free architecture; and our 0.92 consistency is response-mean
+grain — per-token input-dependence (where conditional gating à la the
+hostility switch would live) is unexamined. The queued playback becomes a
+named three-way: full LoRA vs schedule playback (=BitFit-by-hooks) vs
+single-layer steering; the playback-vs-LoRA gap = the behavioral value of
+the non-bias part of character.
