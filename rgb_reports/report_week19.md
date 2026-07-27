@@ -212,3 +212,34 @@ produce context-stable directional writes with matched trait semantics;
 fine-tuning's write is broader-band (majority out-of-span, idiosyncratic
 per adapter). Open: does the out-of-span part carry conduct (steer with
 it) or training debris? — directly testable with our steering harness.
+
+## §4.5 — The LoRA is a steering schedule (rgb: "it applies to every layer")
+
+Layer-resolved Δh for all 10 adapters + block-wise ΔW application for the
+agreeableness pair (`tide_dwh_layers.py`).
+
+1. **Steering SCHEDULE, not vector**: per-text consistency ~0.92 at every
+   one of 33 layers — at each depth the displacement is a context-stable
+   constant vector — but the direction ROTATES with depth (cos to Δh_16:
+   0.29 at L8, 0.72 at L20, 0.50 at L28, 0.18 at L32). The adapter's
+   activation-level content is a layer-indexed family {δ_l}; single-layer
+   steering reproduces one frame of it. (Registered "direction set early":
+   wrong — it never stops evolving.) |Δh| grows superlinearly (0.26 at
+   L4 → 1.6 at L16 → 7.3 at L28 → 40 at L32).
+2. **Trait content is distributed**: blocks 0-7 and 8-15 EACH alone
+   produce sign-correct trait projections at L16 (8-15 strongest,
+   +0.34/−0.31); late blocks can't touch L16 (0.01 — causality sanity
+   check) but each alone moves L32 by |Δh| 12-18 vs full-adapter 40 —
+   the late half writes output-adjacent content a mid-layer vector cannot
+   reproduce by construction.
+3. **Sublinear composition**: block L32 effects sum ~70 vs full 40 — the
+   per-block ΔW's interact.
+
+Amended §4 verdict: fine-tuning ≈ a recorded, context-stable,
+depth-rotating activation program; single-layer steering is a one-frame
+excerpt; the LoRA's persistence advantage (their drift experiments)
+plausibly = re-application across layers and tokens, not deeper encoding.
+QUEUED (design review first): schedule playback — inject the LoRA's own
+recorded {δ_l} at every layer with weights untouched; if behavior and
+drift-resistance reproduce, "training writes character" reduces to
+"training records an activation program inference could inject."
