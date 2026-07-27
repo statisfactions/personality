@@ -123,3 +123,34 @@ RIGHT; question factor <15% — RIGHT; face validity — half right.
   (adjective-respondent SD 4.4), ~0.8σ from the prosocial extreme of the
   523-persona range — why within-regime instruments see texture where
   full-range instruments see one big axis.
+
+## §3.5 — The instruction IS the signal (rgb's ablation; honest downgrade of §3)
+
+Does the questionnaire read the persona instruction or the enacted rollout?
+Ablation on 105 adjectives (every 5th, coworker question;
+`tide_sys_ablation.py`): B = rollout-only (sys dropped), C =
+instruction-only (rollout dropped), vs A = full (main run).
+
+- r(A,C)=0.76, r(A,B)=0.13, r(B,C)=0.03; regression A~B+C: β_C=0.75,
+  β_B=0.11. **The instrument reads the standing order.**
+- B collapses to the default assistant: profile r=+0.92 with the default
+  profile (deviation 0.17 vs A's 0.54; deviations only weakly
+  persona-shaped, mean per-item alignment with A +0.12).
+- **Machine-Bem fails in-context**: with its own vivid in-character turn
+  fully in view, the model's self-description barely updates. Stronger
+  negative than the W17 diagonal test (which could be excused by no access
+  to behavioral history — here the history is in the window). Multi-turn
+  drift prediction revised toward the null.
+- CORRECTIONS to §3: the 1056-respondent matrix = INSTRUCTED
+  SELF-DESCRIPTION structure (JUDGE-of-assigned-self), not conduct
+  readout; persona η²=0.99 = instruction-echo fidelity; effdim 9.0 = the
+  bandwidth of llama's instructed self-concept (its match to ENACT conduct
+  effdim ~9 is now a cross-object coincidence worth its own explanation,
+  not a triviality). And their scenario-dominance (56-78%) is plausibly
+  substantially role-sys-prompt echo too — their contexts carry system
+  prompts during the questionnaire; same ablation would settle it
+  (inference, not measured).
+- Taxonomy: v7-with-instruction measures ASSIGNED identity;
+  v7-with-conduct-only measures ~nothing beyond the default self-concept.
+  The model knows who it's told to be, not who it's been — the SELF-channel
+  verdict, reproduced inside their instrument.
