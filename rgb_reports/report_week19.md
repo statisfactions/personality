@@ -173,3 +173,42 @@ Bem predicts accumulation only under free-choice framing; flat everywhere
 = no mechanism; accumulating everywhere = mechanism without
 attribution-sensitivity. Verdict on self-perception: OPEN, with one
 measured baseline point.
+
+## §4 — ΔW·h: fine-tuning writes through the same door, plus a wider one
+
+Applied their 10 souped OCEAN adapters (ocean_const_paired_dpo/-persona)
+in weight space, teacher-forced the 60 default-assistant rollouts, and
+measured the layer-16 displacement Δh vs our ENACT geometry
+(`tide_dwh_bridge.py`; predictions registered the night before).
+
+- **Sign test 10/10**: every amplifier projects + and every suppressor −
+  on our prompt-extracted trait-matched ENACT directions (O +0.38/−0.24,
+  E +0.30/−0.37, A +0.35/−0.29; C, N weaker but correct). DPO+self-SFT
+  training moves activations along the directions "You are someone who
+  is X" produces. Weight door and prompt door, same hallway.
+- **In-span partial**: 0.07–0.27 at k=10, 0.18–0.38 at k=45 (nulls
+  0.002/0.011) — 20-100× chance, but most of fine-tuning's displacement
+  is OUTSIDE the ENACT span (magnitude prediction 0.35-0.6 was too
+  high). Comparable to llama's own ENACT-in-REPRESENT 36%. The
+  out-of-span mass is NOT one shared tuning direction (common component
+  27% of variance, itself mostly out-of-span; removing it raises every
+  adapter's in-span) — it is adapter-specific subspace prompting doesn't
+  reach.
+- **Context-stability 0.89-0.94** (unregistered find): each adapter's
+  layer-16 displacement is essentially a constant vector across 60
+  different conversations — LoRA character tuning acts like a steering
+  vector at mid-depth. The training pipeline's mid-layer effect is
+  approximately "add ê," where ê is ~1/5-1/3 our span and the rest new.
+- **Everything leaves the assistant**: 8/10 adapters displace away from
+  the assistant axis regardless of trait or pole (O-amp most, −0.25; the
+  N-amp-most-anti-assistant prediction was wrong) — the axis reads
+  assistant-ness, not valence; any character tuning is a departure.
+- **Antipodality −0.23…−0.52** as predicted: amp/sup oblique, never
+  opposite — the weight-space asymmetry survives into activation space
+  (the W16 valence-vs-variance account's third appearance).
+
+Unification verdict: prompting, activation steering, and fine-tuning all
+produce context-stable directional writes with matched trait semantics;
+fine-tuning's write is broader-band (majority out-of-span, idiosyncratic
+per adapter). Open: does the out-of-span part carry conduct (steer with
+it) or training debris? — directly testable with our steering harness.
