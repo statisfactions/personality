@@ -85,3 +85,41 @@ logprob variance), TIDE (56-78% of factor scores), our de-collapse battery
 gating (qwen 2.9→4.0 by question register). Instruments differ only in
 whether they contrast it out (our within-scenario scoring), residualise it
 (their refit), or absorb it into "traits" (both papers' headline numbers).
+
+## §3 — Their instrument, our respondents: two doors, different wings
+
+Administered their 72-item v7 FC questionnaire to our Llama8
+persona-enactment rollouts (523 adjectives × 2 fixed questions + 10
+default-assistant baselines; choice-mass readout, KV-cached;
+`tide_on_enact.py`, results/tide_enact/). Registered predictions: axes
+congruent (φ≥0.7 for 3/4) — WRONG; persona ≥50% of top-PC variance —
+RIGHT; question factor <15% — RIGHT; face validity — half right.
+
+- **Axis congruence fails informatively.** Hungarian-matched Tucker |φ| vs
+  their k=4: mean 0.49 (below their own llama↔qwen 0.66); item-corr
+  congruence r=0.42. The ONE shared axis is humor/exuberance (φ=0.72) —
+  the only dimension that varies in both regimes.
+- **Range restriction explains the miss.** Our factors: F0 VALENCE
+  (admirable↔awful; unrotated PC1=27%, fusing depth+compliance+pedagogy),
+  F1 exuberance/disinhibition, F2 diffidence/hedging, F3 MENACE
+  (evil/abusive↔ordinary; the safety items). Valence and menace are
+  regions role-modulation never samples — no deployment role makes the
+  assistant awful — so in their data the conduct items decorrelate into
+  fine registers (TIDE) while under personas they collapse into big
+  valence/threat bundles: when the character is bad, everything degrades
+  together. "Virtues alike, vices specific" as a factor-structure
+  phenomenon. TIDE = micro-structure of the assistant's normal operating
+  wing; personas unlock the rest of the mansion.
+- **Their instrument is BETTER at reading personas than roles**: persona
+  η² = 0.99/0.96/0.86 on our top PCs (question ≤0.02, 0.15 on PC4) vs
+  their scenario 56-78% + trajectory-noise third. Near-deterministic
+  persona readout.
+- **Bandwidth is instrument-invariant**: PR effdim of our matrix = 9.0 —
+  their questionnaire on our rollouts recovers our llama ENACT
+  activation-geometry effdim (~8.8-9). Third independent measurement of
+  the ~9-dim llama persona bandwidth; the basis is regime-dependent, the
+  dimensionality is not.
+- **The default assistant lives at the nice pole**: −3.5 on our PC1
+  (adjective-respondent SD 4.4), ~0.8σ from the prosocial extreme of the
+  523-persona range — why within-regime instruments see texture where
+  full-range instruments see one big axis.
