@@ -1,5 +1,26 @@
 # HANDOFF — JUDGE track reanalysis on the FULL raw distributions
 
+> **STATUS as of 2026-07-27: reanalysis COMPLETE and committed** (`b5a856d` 9-model,
+> `3792a85` batch-2/12-model, `eb03a8d` Report I §7). Working tree clean. All 12 cohort
+> models on canonical raw dists; all 5 reports + narrative + README re-knitted. Nothing
+> pending on this track except the standing follow-ups below (soft-evidence; pass-2 human
+> criterion). Pipeline: `python3 convert_full_dists.py` then `python3 dist_processes.py`
+> then knit `reports/0*.Rmd`. Raw npz gitignored under `data/dists_full/judge_dists/`
+> (extract both `judge_dists_full_batch*` tarballs from repo root, flatten batch-2's
+> top-level npz into `judge_dists/`).
+>
+> **Report I §7 added (`eb03a8d`, `dist_processes.py` → `proc_*.csv`): reads the raw
+> distributions AS response processes** (not just recomputed moments). Four findings:
+> (1) EV-conditioned **signature** — at a fixed EV the category distribution differs by
+> rater (graded slide=Gemma / endpoint fork=Aya / fixed digit habit=FalconMamba / broad
+> diffuse=Phi4); (2) **content-vs-hedge**: H(marginal) = MI(pair;rating) + mean within-cell
+> entropy — Gemmas 75–92% content, FalconMamba **7.5%** ("flat"=low-content, NOT
+> low-variability; content share is the right info weight, entropy over-trusts FalconMamba);
+> (3) **mode-pair census** separates semantic no-vs-yes (1,7) / Phi4 commit-vs-hedge (4,7),(4,6)
+> / Qwen-Falcon digit-notch (1,3 dip@2; 5,7 dip@6); (4) balanced 1-vs-7 **coin-flips** cluster
+> on category-orthogonal pairs (Phi4→guilty) — model flips not hedges on ill-posed questions.
+> Only Report I was touched for §7. §1–6 unchanged.
+>
 > **STATUS: DONE for the full 12-model cohort (2026-07-23).** `convert_full_dists.py` written;
 > all 5 reports + the `ecb-reports/judge_psychometric_soundness.md` narrative + this dir's
 > `README.md` re-run on the canonical raw distributions and re-knitted. **Batch 2
