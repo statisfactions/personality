@@ -54,9 +54,11 @@ inside other people's instruments. The big structural results:
      desirability-freebie) — the model's knowledge of human personality
      structure is excellent even though
   3. its **self-knowledge is nil in the channels tested**: SELF is the canned
-     assistant character sheet with no self behind it (a model's self-report
-     predicts its own conduct no better than other models') — it *knows who it's
-     told to be, not who it is*";
+     assistant character sheet with no self behind it — a model's self-report
+     predicts its own conduct no better than other models' (diagonal r 0.71 vs
+     off-diagonal 0.69: high *because both sides are the shared assistant
+     shape*; the model-specific increment is +0.02) — it *knows who it's told
+     to be, not who it is*;
   4. character interventions unify: prompting, activation steering, and DPO+SFT
      LoRAs all write through a shared low-dimensional conduct subspace, and a
      character LoRA is, at activation level, a **context-stable, depth-rotating
