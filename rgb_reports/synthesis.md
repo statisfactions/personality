@@ -49,9 +49,14 @@ dimensions against REPRESENT's 50–70, and mapped vectors steer *better* than
 extracted ones; (2) **JUDGE is the best human-matched channel** (r≈0.8,
 nearly none of it desirability-freebie) — the model's knowledge of human
 personality structure is excellent even though (3) its **self-knowledge is
-nil**: SELF is a character sheet with no self behind it, and the model cannot
-read its own conduct even when that conduct is sitting in its context window
-— *it knows who it's told to be, not who it's been*; (4) audits of two
+nil in the channels tested**: SELF is a character sheet with no self behind
+it (a model's self-report predicts its own conduct no better than other
+models'), and in the one — low-dose, attribution-confounded — test so far, a
+turn of its own in-character conduct sitting in the context window barely
+moved its self-description; whether self-perception accumulates over turns,
+or the model is *correctly discounting* behavior it attributes to
+instruction, is open (ledger #26, #37) — "*knows who it's told to be, not
+who it's been*" is the hypothesis on trial, not the verdict; (4) audits of two
 external instruments (ValuePortrait / arXiv:2509.10078, and Persona
 Cartography's TIDE) show the field's behavioral measures largely read the
 **corpus or the standing instruction**, not the model-as-agent — and our
