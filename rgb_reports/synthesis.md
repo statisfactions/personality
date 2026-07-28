@@ -186,7 +186,7 @@ than PC1-carried. Whether output channels *express* the self-presentation
 axis is a separate (open) question — SELF's desirability boulder says
 mostly not.
 
-# Part III — The audits (W18 §7, W19): what the field's instruments measure
+# Part III — The audits (W18 §7, W19): A sampling of other instruments
 
 ## 9. ValuePortrait / arXiv:2509.10078 ("questionnaires mischaracterize")
 
