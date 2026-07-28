@@ -280,3 +280,27 @@ Test: multi-turn rollouts (20-40 turns, persona-free), judge conduct
 judged rudeness climbs with turn index while llama/gemma stay flat, the
 self-report tracks the model's *drift disposition* rather than its turn-1
 behavior — which would be a genuinely new kind of says-vs-is validity.
+
+## Related-work coverage debt (rgb, 2026-07-28)
+
+Before the psych paper / MI note related-work sections — and as candidates
+for the same audit treatment we gave VP and TIDE:
+
+- **Anthropic persona vectors** (Chen et al. 2025) — already our ENACT
+  lineage (Lu et al. recipe); needs explicit positioning: our cohort
+  results vs their single-model claims, and the steering-schedule finding
+  vs their monitoring framing.
+- **Anthropic emotions paper** — rgb flags; locate exact cite and check
+  whether their affect measurement is EV-style or argmax (audit-relevant).
+- **Wulff & Mata** (Nat Hum Behav 2025) and **Milano et al.** (2025) —
+  already positioned re: the W13 scoop (embedding baseline), but the
+  §8-correction (encoder-generic raw decodability) makes them relevant a
+  second time: our per-PC edge claim needs their baselines acknowledged.
+- **Wulff-coauthored "how to use LLMs for personality" methods paper** —
+  not yet examined in detail; likely overlaps our
+  reliable-measurement-recipe section; read before claiming the recipe
+  is novel.
+- Assume many others: do a proper systematic sweep (the audit genre —
+  psychometrics-of-LLMs papers 2024-26) before either paper's related
+  work is drafted. Zotero group is the collection point (tag
+  rgb-bibliography).
