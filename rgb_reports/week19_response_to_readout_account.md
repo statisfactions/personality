@@ -135,3 +135,34 @@ story).
    enactability predicting rollout-judge conduct where SELF doesn't
    (already demonstrated in-house), or a safety-flavored benchmark
    (jailbreak compliance) against JUDGE/ENACT vs SELF profiles.
+
+## On the HARKing worry (your §5 "post-hoc" hedging)
+
+The HARKing norm is a proxy: temporal order (hypothesis before data)
+stands in for overfitting-protection, and it's the right proxy in the
+expensive-experiment regime where post-hoc stories can never be re-tested.
+Ours is mostly not that regime, and the proxy detaches from its purpose:
+what matters is not when a hypothesis formed but whether the data
+confirming it could have shaped it. The middle ground — Tukey's EDA/CDA
+split, ML's train/test hygiene, done honestly — is **provenance labeling
+instead of temporal policing**, three tiers:
+
+1. **Exploratory** — found while wandering; labeled as such.
+2. **Registered** — prediction written before the run, graded after. Our
+   weekly reports contain dated registered predictions WITH the misses in
+   plain text (in-span magnitude wrong; N-amp wrong; direction-set-early
+   wrong; drift-shrinks-bare wrong). A scored ledger with public misses is
+   the one artifact accommodation cannot fake.
+3. **Confirmed out-of-design** — the account, induced from our
+   instruments, holding inside other labs' instruments (VP, TIDE).
+   Cross-instrument generalization beats fresh-sample replication.
+
+Refinement: index the hygiene by the cost of the data a claim touches.
+Model-side claims are cheap-regenerable — the rule is "test again."
+HUMAN-side claims sit on one unresamplable N=700 dataset — full
+expensive-science multiplicity discipline applies there (the PC2 episode,
+which we broke and un-broke in one day, is the cautionary tale in both
+directions). Two regimes, two hygienes, one paper — and your "own the
+post-hoc structure" instinct upgrades from apology to method: state the
+tiers, cite the miss-rate, note the confirmatory tier ran on external
+instruments.
