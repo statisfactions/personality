@@ -357,7 +357,7 @@ original), **DEAD** (retracted), **OPEN** (registered, undecided).
 
 ---
 
-## What we'd like from you
+## Things that you might take up
 
 1. The **VP note** — now less "quick fix" and more construct-validity
    challenge (three layers; §9 above is the abstract). Your call on fronting
