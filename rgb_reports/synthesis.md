@@ -1,273 +1,371 @@
 # The state of the rgb track — a digestible synthesis
 
-**For:** statisfactions, getting back in after grading.
-**Written:** 2026-06-03.
-**Scope:** the whole rgb (distributional-logprobs / RepE / forced-choice) arc,
-organized by theme rather than by week, glossing the false starts. The
-week-by-week index is `overview.md`; the paper plan is `paper_outline.md` (last
-touched ~W10, so it predates everything in §4–§6 below). This doc is the bridge
-from "where we were when you got busy" to "where we are now."
+**For:** statisfactions.
+**Written:** 2026-06-03; **rewritten 2026-07-27** through W19.
+**Scope:** the whole rgb arc, organized by theme, glossing false starts. The
+week-by-week index is `overview.md`; weekly reports are the lab notebook
+(telegraphic, append-only, corrections live at the end of sections); this doc
+is always the current truth. The claims ledger at the bottom is the fastest
+way to see what's alive, what got revised, and what died.
+
+---
+
+## Glossary (read this box first)
+
+| term | meaning |
+|---|---|
+| **523 set** | Saucier's 525 personality adjectives (public human self-report data, 700 respondents) minus 2 corrupted columns. Every channel uses the same 523 words in the same order. |
+| **HUMAN** | the human ground truth: 523×523 correlation matrix of human self-ratings. |
+| **REPRESENT** | read-side channel: residual-stream activation geometry for each adjective ("My personality is X", mid-layer, last token). What the model *encodes*. |
+| **JUDGE** | the model's implicit personality theory: "a person who is very X — how likely also Y?" rated 1–7 via logprobs, all 523×523 pairs. What the model *believes about people*. |
+| **ENACT** | write-side channel: tell the model to *be* X, collect rollouts, extract the mean activation direction of the enactment (vs the all-persona mean). What the model *does*. |
+| **SELF** | direct self-report: "I am X — agree/disagree?", six prompt framings. What the model *claims*. |
+| **EV / argmax** | we always read the full logprob distribution over answer tokens; EV = probability-weighted mean. The argmax (sampled answer) is the mask; the distribution is the signal. |
+| **effdim (PR)** | participation ratio of an eigenspectrum — a soft count of "how many dimensions really vary." |
+| **PC1-removed** | subtracting the top eigencomponent of a similarity matrix before comparing to HUMAN. Human PC1 is a huge desirability/adjustment axis; any channel can match it for free, so we always report the match *with and without* it. |
+| **massive dims / winsorize** | a handful of residual-stream dimensions with enormous always-on activations (format/register machinery, not content). Default denoising: cap their std at the largest normal dim's std. |
+| **assistant axis** | the direction from the all-persona mean to the default-assistant activation — "how assistant-like is this state." |
+| **persona vector / ê** | the ENACT direction for one adjective; adding it to the residual stream steers conduct. |
+| **W (read→write map)** | ridge regression from REPRESENT coordinates to ENACT directions. ENACT is, to R²≈0.6–0.7, a *linear image* of REPRESENT. |
+| **enactability** | judge-scored shift of a persona rollout vs baseline: did the model actually *become* X when asked? |
+| **leak** | fraction of rollouts that *say* the trait word instead of showing the trait. |
+| **desirability boulder** | the giant first factor (social desirability) that dominates self-report-like channels; ~42% of SELF's variance. |
+| **one-respondent problem** | assistants barely differ from each other; a population with ~no individual differences breaks individual-differences statistics (α, cross-model ρ). |
+| **tom_likely** | the JUDGE prompt framing (third-person, "how likely"), chosen because bipolar framings confuse unsure models. |
+| **split-half** | our workhorse reliability check: does a profile computed on half the items agree with the other half? Reported for every instrument we build or audit. |
+| **Tucker φ** | factor-congruence coefficient; ≥0.85 = "fair similarity" of factor axes. |
 
 ---
 
 ## TL;DR — if you read one paragraph
 
-We measure LLM personality through three readouts — what the model **represents**
-(residual-stream geometry), what it **prefers** (Likert / binary choice), and
-what it **writes** (free text). The throughline of the whole project is that
-these three disagree, and the disagreements are informative. The biggest recent
-result: models **represent** evaluative antonyms (Wonderful ≈ Awful) as *merged*
-neighbors but **judge** them as opposite — a clean, universal read/write
-dissociation at the lexical level. And the merge turns out not to be a transformer
-artifact or a scale effect: it is already complete in 2014-era static word
-vectors. It is a property of the distributional hypothesis itself. What is *new*
-in LLMs is the **write** side — the capacity to hold a symbolic distinction that
-overrides the associative merge when the model is asked to judge. That reframes
-our contribution: the geometry everyone (Wulff, Milano) is now publishing is the
-old, inherited part; the override is ours.
+We measure LLM personality through five channels on one 523-adjective set:
+what the model **represents**, **judges**, **enacts**, **claims** (SELF), and
+what **humans** do on the same words. The project's founding slogan —
+*distribution > argmax* — has now been vindicated at every level, including
+inside other people's instruments. The big structural results: (1) the write
+side (ENACT) is a **low-rank linear image** of the read side, ~5–13 effective
+dimensions against REPRESENT's 50–70, and mapped vectors steer *better* than
+extracted ones; (2) **JUDGE is the best human-matched channel** (r≈0.8,
+nearly none of it desirability-freebie) — the model's knowledge of human
+personality structure is excellent even though (3) its **self-knowledge is
+nil**: SELF is a character sheet with no self behind it, and the model cannot
+read its own conduct even when that conduct is sitting in its context window
+— *it knows who it's told to be, not who it's been*; (4) audits of two
+external instruments (ValuePortrait / arXiv:2509.10078, and Persona
+Cartography's TIDE) show the field's behavioral measures largely read the
+**corpus or the standing instruction**, not the model-as-agent — and our
+repair recipes (within-context contrast, graded readout, reliability-first)
+transfer; (5) character interventions unify: prompting, activation steering,
+and DPO+SFT LoRAs all write through a shared low-dimensional conduct
+subspace, and a character LoRA is, at activation level, a **context-stable,
+depth-rotating steering schedule** — approximately a bias, which is why
+bias-only tuning works.
 
 ---
 
-## 1. The founding move: distribution > argmax
+# Part I — Foundations (W1–W16, compressed)
 
-The first thing that made this track its own thing (vs. the Serapio-Garcia
-self-report approach) was reading the **full logprob distribution** over a
-Likert response, not the argmax. The selected answer is a mask; the distribution
-is the signal. Two models can both "answer 4" while one is razor-peaked and the
-other near-uniform — and that difference is the personality-relevant quantity.
+## 1. Distribution > argmax
 
-- Gemma / Qwen are peaked (digit-entropy ≈ 0.15); Llama is near-uniform (≈ 1.4).
-- This is why entropy keeps showing up as a load-bearing variable later (it is a
-  detectability / confidence axis, not just noise).
+Two models can both "answer 4" while one is razor-peaked and one near-uniform;
+the distribution is the personality-relevant quantity. Gemma/Qwen are peaked
+(digit-entropy ≈0.15), Llama near-uniform (≈1.4). This kept paying rent all
+the way to W18, where regenerating the raw JUDGE distributions showed phi4's
+matrix is **56% bimodal** — its EVs were averages over two disagreeing answer
+modes (commit-vs-hedge, not synonym-vs-antonym) — and the flattest model
+(FalconMamba) hid the *best* human-match in its graded mass. Certainty turns
+out to be a **question taxonomy, not an entropy policy**: every model is sharp
+on arithmetic and hedges on die rolls; families differ in whether they file
+"is an organized person friendly?" with arithmetic (Gemma) or with die rolls
+(Llama). And peaked ≠ brittle: Gemma's 9% probability tail is a faithful
+miniature of its full belief (tail-only human-match 0.587 vs 0.621).
 
 ## 2. The assistant shape
 
-Every model, scored as itself, lands **low-Neuroticism, high-Agreeableness /
-Conscientiousness**. In Big Five space the HHH (helpful-honest-harmless) assistant
-persona is roughly **rank-1**: E–C correlate at r ≈ 0.93. HEXACO partially resists
-this collapse because Honesty-Humility maps directly onto HHH and pulls out as its
-own axis. Practical consequence: a lot of apparent "trait structure" in a tuned
-model is one evaluative assistant axis wearing five names. This recurs as the
-"evaluative halo" in §5.
+Every tuned model lands low-N, high-A/C; in Big Five space the HHH persona is
+~rank-1 (E–C r≈0.93). This "one evaluative axis wearing five names" recurs
+everywhere: as the desirability boulder in SELF, as the prosocial tilt in
+generation preferences, as the reason Big Five differential structure barely
+exists in any assistant channel.
 
-## 3. Three readouts that disagree (the spine)
+## 3. The read/write dissociation (the capstone of part I)
 
-| Readout | What it captures | How we get it |
-|---|---|---|
-| **Representation** | what the model *encodes* about a trait/word | hidden states at ~2/3 depth, denoised. **Paired** data (facet/persona contrast pairs): `meandiff-itempc1` — `unit(project_out(mean(fwd) − mean(rev), item top-1 PC))`. **Unpaired** data (single adjectives): `adaptive_denoise` — center, and remove PC1 *only* when it's a concentrated rogue dim (IPR < 10 ≈ Gemma's massive activations), else keep it. |
-| **Preference** | what the model *picks* | distributional logprobs over Likert / binary choice |
-| **Free text / judgment** | what the model *does* | generated text; or a rating task it has to reason through |
+Models **represent** evaluative antonyms merged (Wonderful ≈ Awful, cosine
+positive) but **judge** them opposite — a sign-flip, not attenuation, in every
+model 3B→32B. The merge is a **pretrained constant** (flat across
+base→SFT→DPO→instruct in two families) and in fact regresses all the way to
+**2014 static GloVe vectors**: it is a property of the distributional
+hypothesis itself, not of transformers. Only LLM *judgment* and human
+self-report split the antonyms — and they land on top of each other. The
+**symbolic override of the associative merge is the new thing** tuning shapes,
+and the read/write framing of the whole project comes from here. (Full
+regress table in `report_week16.md`; the old synthesis §6 has the strata.)
 
-The **three-construct dissociation** (W3) is the finding that these don't agree —
-and the read/write work (§5) is the sharpest case of the disagreement, localized
-to a single matrix cell.
+## 4. Methods lessons that keep earning
 
-Two methods lessons worth carrying:
+- **PC1 discipline**: raw PCA PC1 of hidden states is a norm artifact; with
+  paired data the contrast removes it for free, with unpaired data removal
+  must be conditional (only when it's an identifiable spike).
+- **Human-match must be reported PC1-removed** — human PC1 (desirability) is
+  matchable for free by any evaluative channel.
+- **The scoop lesson (W13)**: sentence encoders recover human facet structure
+  from item text alone (Wulff/Milano), so geometry-matches-humans is
+  inherited, not special. Our contribution since: *where the model deviates*
+  from the embedding baseline, and the write side, which embeddings don't have.
 
-- **PC1 is a norm artifact — but only sometimes, and the real lesson is about the
-  signal, not the artifact.** In pre-norm transformers the top PC of *raw* hidden
-  states correlates r ≈ 1.0 with activation norm and carries zero trait info — never
-  raw PCA. Anisotropy (all inputs cosine ≈ +1 in absolute space) is the universal
-  obstacle, but how you remove it depends on whether the trait signal is *defined by
-  a contrast*. With **paired** data the signal lives in `fwd − rev` by construction,
-  structurally off the dominant (norm) axis; the contrast also largely subtracts the
-  *shared* anisotropy offset (not all of it — fwd/rev norms differ, leaving a
-  second-order residual), and projecting out item-PC1 (≈ that axis, from the raw
-  cloud) cleans the residual. This is *always* safe — item-PC1 is content-free and
-  the signal is the contrast, so removal can't touch trait variance — but it's
-  marginal (+0.007 r); the contrast did the real work. With **unpaired** single
-  words there's no contrast, so the trait signal just *is* an axis of the centered
-  cloud — possibly the dominant one — and you can't blindly strip PC1 without risking
-  the signal itself. So you keep it, *unless* it's an identifiable artifact (Gemma's
-  massive activations, ~1e5, surviving centering as a concentrated spike). That
-  regime-test — remove PC1 only when its inverse participation ratio flags a spike —
-  is what makes the adjective pipeline *adaptive* rather than fixed. The deep point:
-  paired data separates signal from the dominant axis for free; unpaired data
-  doesn't, so removal has to be conditional.
-- **Format-invariant measurement.** Reading at the period token gives r = 1.000
-  stability across response formats (a causal-attention guarantee). Useful when
-  you need the measurement not to depend on prompt scaffolding.
+# Part II — The channel pentad and the read→write map (W17–W18)
 
-## 4. The human-alignment anchor — and the scoop
+## 5. ENACT: personas as directions, and the map W
 
-The empirical headline that survived everything: across the cohort (Gemma /
-Llama / Phi4 / Qwen, 3B–12B), each model's 30×30 IPIP **facet cosine matrix
-matches the human facet correlation matrix** (Johnson N≈145k) at cohort
-r ≈ **+0.56**. Models pick up the empirical Big Five covariance from training
-text, consistently across 4 architectures and a 4× scale range.
+Telling a model to *be* each of 523 adjectives and extracting the mean
+activation direction of the rollouts (vs the all-persona mean) gives the
+**ENACT** channel — 10-model cohort, one direction per adjective per model.
+Findings:
 
-Then the **vocabulary-coupling** decomposition (W8): the apparent "Likert
-recovers personas better than representation does" gap (+0.144 on one Qwen)
-mostly evaporates (~+0.05 cohort) once persona description, rating target, and
-extraction vocabulary are all matched. The methods aren't measuring different
-things; the gap was lexical coupling. **Your TIRT readout slots in exactly here**
-as the third, structurally-cleaner line — it removes 2 of the 3 couplings by
-construction (W10–W12).
+- **ENACT is a linear image of REPRESENT**: a ridge map W from read-space
+  coordinates predicts held-out ENACT directions at R²≈0.72 (llama) / 0.57
+  (qwen), compressing effdim ~45→10. The orthogonal remainder is **rotation,
+  not intent** — it carries no extra steering power.
+- **Mapped vectors steer at least as well as extracted ones** (3/3 families).
+  W denoises: the recorded vectors' noise is largely outside the map's span.
+  This yields a **zero-rollout persona-vector recipe**: read the adjective,
+  map it, steer.
+- **Effdim ladder**: REPRESENT 50–70 ≫ HUMAN 27 > ENACT 5–13 ≈ SELF 4.5.
+  Output channels share a narrow bottleneck. The bandwidth is family-
+  constitutional: prompt batteries can unlock situationally-gated dims in
+  qwen (2.9→4.0) but cannot create dims (llama flat ~9 on any battery).
+- **Steering doses don't port across families** (Gemma's plateau inflates
+  residual norms 25×); anchor doses to natural direction-norm ratios.
 
-**The scoop (W13).** Wulff & Mata (2025, *Nat. Hum. Behav.*) and Milano et al.
-(2025) published that the human factor structure is recoverable from item *text*
-alone via sentence embeddings. That partially took our headline. Our response
-reframed the contribution and is the seed of everything below: build the embedding
-baseline ourselves, and ask **where the model deviates from it**, because the
-deviation — not the match — is the part that is about *this kind of model*.
+## 6. SELF: a character sheet with no self behind it
 
-The embedding baseline result: the model's facet geometry does **not** beat an
-encoder's. The structure lives in the item semantics both consume, not in anything
-autoregressive-or-alignment-specific. The encoder is "just another model of the
-same items," and the LLM sits closer to the encoder than to humans. So the
-*geometry* is inherited; we went looking for what isn't.
+Six framings of "I am X" (direct / HHH-assistant / as-a-person / accuracy /
+observer / outputs), full 523, whole cohort. SELF is **assistant-shaped in
+every framing**, effdim ≈4.5 (two boulders: 42% desirability + 20%
+claim-tier). The **diagonal test**: a model's SELF profile predicts its *own*
+ENACT profile no better than it predicts other models' (advantage +0.02) —
+self-report carries no self-knowledge, it reads out the trained self-concept.
+PC1-removed human-match ranking across channels — the sharpest
+symbolic-over-associative statement we have:
 
-## 5. The read/write gap, made behavioral (W14–W15) — the capstone
+**JUDGE (0.80) ≫ ENACT (0.62) > REPRESENT (0.44) ≫ SELF (0.21)**
 
-**Is the adjective Big Five even real (W14)?** Three over-extraction diagnostics
-(rotation stability, bass-ackwards trees, respondent bootstrap) + a Kaiser/SPSS
-varimax fix: there is **no stable 6th factor**, and the model collapses to a
-**2-factor evaluative core** — two *near-orthogonal valence poles*, not an
-intensity factor. Reconciled with the r ≈ 0.56 match in W14 §2: it's a **metric**
-difference. *Relationally* (matrix-correlation of pairwise similarities) the Big
-Five is present and stimulus-invariant; *dimensionally* (factor congruence) it is
-weak-to-absent, because factor extraction is variance-weighted and the model's
-variance concentrates on evaluation. "Thin Big Five overlay" = low-variance-but-
-present, not missing.
+JUDGE earns almost none of its human-match from desirability; SELF earns
+almost all of it. The model's knowledge of *people* is excellent; its
+knowledge of *itself* is a press release.
 
-**The behavioral bridge (W15).** The geometry above is a fact about a
-*representation*. Does the model *act* on it? Take 26 pole-spanning adjectives
-(Wonderful/Amazing/… vs Awful/Terrible/…, plus warmth, antagonism, distress,
-intellect, neutral). Compare three corners on the same words:
+## 7. Facets and disbelieved clusters
 
-- **Representation** (residual-stream cosine): puts pos-eval × neg-eval **above**
-  its own mean — Wonderful ≈ Awful, *merged*.
-- **Judgment** (Likert-logprob similarity rating, valence-neutral anchor): puts
-  the same pair **below** the mean — *split*, at or past the human antonym value.
+Using 35 human-derived adjective clusters as facet blocks: model JUDGE
+binding is cohort-consensual (r≈0.83) and tracks cluster *valence* (+0.72)
+where human coherence is valence-neutral. Models refuse the human
+negative-halo bundles (awkward = clumsy+plain+boring+unattractive;
+disorganized contains left-handed) — **valence is an axis for models, a
+binder for humans**. "Virtues all alike, every vice specific" — and this
+recurs later as a factor-structure phenomenon (§12).
 
-Every model 3B→32B (Qwen 3/7/32B, Gemma 4/12B) shows this **sign-flip, not
-attenuation**. It is **not size-gated** (complete at 3B); family matters more
-than size (both Gemmas *overshoot* the human split). The divergence is **localized**
-— representation and judgment agree everywhere except the evaluative pole-merge,
-i.e. the representation's one signature error is exactly the cell that doesn't
-reach behavior.
+## 8. Human structure is decodable from REPRESENT
 
-Mechanism probes (W15 §2–§3):
+The four-grid claim "REPRESENT matches humans mostly via PC1" was about
+similarity geometry in place. A cross-validated linear map from activation
+PCs to the human eigenspace nearly **doubles** the beyond-PC1 human match
+(0.29→0.50–0.55; raw 0.78–0.81, three families). The human structure is
+*embedded*, rotated and mis-scaled. The per-PC decodability curve is
+diagnostic: human PC1 decodes at R²≈0.83, PC4 (levity) ≈0.6 … and **human
+PC2 — modesty vs self-enhancement, a self-presentation stance — is flatly
+absent (negative R²) in every model**. The one big human dimension models
+lack is the one that lives in *respondents* rather than in language. That
+residue is a tool: model channels as a pure-semantics control for
+separating substance from style in human self-report.
 
-- It's not coherent-rep-vs-noisy-judgment: the judgment matrix is **near-PSD**
-  (two self-consistent geometries disagreeing on one block).
-- It's not a semantics-vs-disposition confound: re-run as a Theory-of-Mind task
-  ("consider a person who is very *Wonderful*; how accurately does *Awful*
-  describe them?") and judgment **still splits**. ToM also *overshoots* the human
-  split with an **evaluative halo that scales with model size** — the assistant
-  shape (§2) reappearing at the lexical level.
-- **Weights vs context, base vs instruct:** the representational merge is a
-  **pretrained constant** — flat across all stages of both Qwen (Base→Instruct)
-  and OLMo-2 (Base→SFT→DPO→RLVR), bare-extracted. The behavioral split is
-  **family-dependent**: Qwen's base already voices it and tuning just collapses
-  entropy (confidence); OLMo builds it cumulatively across post-training while
-  staying high-entropy. Single-model conclusions got revised 4× by the OLMo
-  ladder — so the only claim that survives across families is the
-  representation-level one. *(rgb's standing caution — "single-model conclusions
-  often get revised" — earned its keep here.)*
+# Part III — The audits (W18 §7, W19): what the field's instruments measure
 
-Interpretation, in one line: **the merge is associative** (distributional twins,
-same emphatic contexts, living in the residual stream); the model **also holds a
-symbolic valence distinction** and deploys it the moment it has to judge. So the
-external 2/3-depth geometry is a *worse witness to the model's evaluative
-competence than its own judgment*. (This is the behavioral teeth on rgb's
-long-standing "representation isn't intention" stance.)
+## 9. ValuePortrait / arXiv:2509.10078 ("questionnaires mischaracterize")
 
-## 6. NEW (W16): how far back does the merge go?
+They compare questionnaire profiles to generation-probability profiles over
+ValuePortrait (104 real scenarios × 5 candidate responses with signed,
+human-derived construct labels) and conclude generation behavior has no
+construct structure. Full audit, every exhibit replicated or repaired:
 
-Reading-group question this week: the merge is in current transformer encoders
-too — how much further back does it stretch? Down to LSTMs? HMMs?
+- **Their scoring has ~zero reliability with itself** (split-half ≈0; the
+  statistic they never report) and construct scores correlate up to
+  **r=−0.76 with response length**. Their η² null is the statistic's ceiling
+  (labels can explain at most 5–9% of raw logprob variance; scenario+length
+  eat the rest), their Appendix E validation is the length confound
+  congratulating itself (candidates are 8.7× shorter than real samples;
+  length-corrected they rank 11/15 — deeply off-policy), and by their own
+  companion paper's α measure the tag-scales score **−2.1** in the logprob
+  medium vs +0.9 with human respondents. Reliability is a property of items
+  × population × *readout medium*.
+- **Repaired** (per-token logprob, z-scored within scenario, signed
+  continuous labels): generation preference is reliable (split-half
+  0.54–0.70) and the profile is the assistant value shape (+Benevolence,
+  +Openness, −Power, −Achievement), cross-model r=0.90. Every scoring
+  ingredient earns its place in an ablation.
+- **But what it measures isn't the assistant.** The profile is invariant to
+  the chat frame *and* to the entire post-training stack: base checkpoints
+  carry the full drift (cross-half disattenuated r_true CIs all contain
+  1.0), the OLMo ladder is flat, tuning's contribution is bounded ≤ a few %
+  of profile variance. **The repaired instrument reads the corpus, not the
+  character.** Their thesis survives in its strongest form (questionnaire
+  shape predicts zero of 520 choice preferences even when the criterion is
+  reliable), but their proposed replacement measures pretraining statistics.
+- **One-respondent verdict**: item-level model-model preference r=0.54 with
+  family blocks; the model-unique residual is unreliable for four of five
+  models — except **phi4** (+0.56), the cohort's one idiosyncratic
+  character (synthetic-textbook corpus; its divergence concentrates on
+  social/interpersonal scenarios it reads fluently but "grew up" without —
+  a socialization gap, not a comprehension gap).
+- Both papers are one lab; the fatal tagging convention was inherited from
+  their own earlier (fine, Likert-native) pipeline. The note we owe them is
+  three layers: broken → repaired → measuring-the-wrong-object, wrapped in
+  "your continuous labels are the undervalued asset."
 
-We walked the regress with the **same merge statistic on the same 26 adjectives**,
-newest → oldest: LLM-judgment, LLM-representation, transformer encoders
-(bge-large, mpnet), and **static word vectors** (GloVe 6B/840B, 2014; komninos),
-against the human antonym reference.
+## 10. The reliable-behavioral-measurement recipe (what the audit teaches)
 
-**Result** (`scripts/adjective_regress.py`, fig `results/adjectives/regress/regress.png`;
-antonym-z = pos-eval × neg-eval block similarity, z-scored within each matrix —
-above 0 = merged, below 0 = split):
+Contrast within context (context is 57–77% of everything, in *every*
+instrument we've measured); read the graded distribution, never the pick;
+normalize to perplexity units; keep signed continuous labels; report
+split-half reliability as a first-class number; calibrate against the
+instrument's ceiling; and when found items cap per-item validity at r≈0.1,
+*author* desirability-matched contrasts instead (per-item validity 0.3–0.5).
+The last point is the W1 trait-conflict instrument, which now has three
+independent votes (us; Okada's GFC; Persona Cartography's v7 redesign after
+they independently discovered Likert desirability contamination via
+Likert-vs-FC sign flips).
 
-| stratum | antonym-z | verdict |
-|---|---:|---|
-| LLM-repr (Qwen-7B residual stream) | **+1.58** | merged (most of all) |
-| komninos (dependency word2vec, 2016) | +1.18 | merged |
-| glove.6B (static, 2014) | +0.71 | merged |
-| mpnet-base (encoder, 2021) | +0.51 | merged |
-| glove.840B (static, 2014) | +0.24 | merged |
-| bge-large (encoder, 2023) | +0.16 | merged |
-| **LLM-judge (Qwen-7B rating)** | **−0.49** | **split** |
-| **human (525-PDA self-report)** | **−0.53** | **split** |
+## 11. Persona Cartography / TIDE (W19)
 
-The merge is **complete in 2014 static GloVe vectors** and persists unbroken
-through encoders and the LLM's resting representation. Only the LLM's **judgment**
-and human self-report push the antonyms apart — and they land on top of each other
-(−0.49 vs −0.53). The whole 26-word geometry agrees everywhere (synonyms group,
-different dimensions separate) *except* this one antonym cell — exactly the W15
-read/write cell. And merge magnitude is **not** era-monotonic: the LLM representation
-merges *hardest*, a 2016 word2vec merges harder than a 2023 encoder. The
-distributional objective predicts the *sign*; modernity predicts nothing. (Full
-table + the LSTM/HMM/CRF reasoning in `report_week16.md`.)
+Their unsupervised result: four "model-native" factors (Tone, Initiative,
+Didacticism, Epistemic Caution) from a 72-item forced-choice questionnaire
+over 2,500 rollouts. Engagement findings:
 
-The point this makes: **the good/bad merge is a property of the distributional
-hypothesis, not of transformers, depth, or scale.** Antonyms-are-distributional-
-neighbors is the oldest known failure mode of vector-space semantics (documented
-continuously from LSA/HAL in the 1990s through word2vec/GloVe; the counter-fitting
-literature exists precisely to undo it). A class-based generative model (an HMM /
-Brown-cluster LM) would merge them *harder*, into the same induced slot; a CRF is
-a category error here (supervised sequence labeler, induces no word geometry on
-its own). So the regress bottoms out not at an architecture but at **"learn meaning
-from co-occurrence."**
+- **Design anatomy**: the "personas" are 25 *user* archetypes × 100
+  scenarios, each scenario carrying its own role system prompt. Scenario
+  explains 56–78% of factor scores (their own honest appendix), archetype
+  ≤6% — except the **hostility switch**: a hostile user shifts PC1 by +2.8
+  SD toward guarded-formal (24 other archetypes: within ±0.8). Accommodation
+  is a discrete guard trigger, not graded style-matching.
+- **Pre-oblimin**: no desirability boulder (their FC design kills it by
+  documented intent — independent replication of our SELF finding), the
+  unrotated first axis is *persona amplitude* (expressive ↔ compliant), and
+  **k=4 is retention, not discovery**: Horn's analysis supports ~11–13
+  dimensions. Their retained 4 ≈ our conservative ~5; their probed 11–13 ≈
+  our llama effdim ~9. Two labs, two instrument classes, same two-level
+  bandwidth answer.
+- **Their instrument on our respondents**: administering their 72 items to
+  our 523 labeled persona rollouts, axis congruence *fails* by range
+  restriction (only the humor/exuberance axis is shared, φ=0.72): personas
+  reach **valence and menace wings** that role-modulation never samples,
+  where conduct items collapse into big correlated bundles. TIDE is the
+  fine texture of the assistant's home wing. The default assistant sits
+  ~0.8σ from the *prosocial extreme* of the 523-persona range.
+- **The instruction is the signal** (the week's most important control):
+  with the persona system prompt ablated, questionnaire answers collapse to
+  the default assistant (r=0.92) — the instrument reads the standing order,
+  not the conduct in the window. r(full, instruction-only)=0.76 vs r(full,
+  rollout-only)=0.13. *The model knows who it's told to be, not who it's
+  been.* (Caveat, rgb's: one turn of evidence cannot invalidate
+  self-perception — it's the high-external-justification cell of the Bem
+  design, where humans don't update either. The dose × attribution 2×2 is
+  the queued experiment.)
 
-And that sharpens the whole project: a GloVe vector is **all read, no write** — it
-*cannot* un-merge the antonyms because it has no behavioral channel. The LLM can.
-**The override is the new thing**, and it is the thing our read/write work measures.
+# Part IV — Interventions unify (W19 §4)
 
-## 7. The unifying mechanism — symbolic vs associative
+## 12. Prompting, steering, and fine-tuning write through one door
 
-One frame ties §3–§6 together (rgb's, since W7):
+Applying their ten OCEAN LoRAs in weight space and measuring the mid-layer
+activation displacement on fixed rollouts: **sign test 10/10** — every
+amplifier displaces *along* our prompt-extracted trait directions, every
+suppressor against. In-span fraction is partial (0.2–0.4 at k=45, 20–100×
+chance — most of fine-tuning's displacement is outside the prompting span,
+adapter-specific). Amp/sup are oblique (−0.2…−0.5), never antipodal; 8/10
+adapters displace *away from the assistant axis* regardless of trait or
+pole (the axis reads assistant-ness, not valence).
 
-- **Associative** route: the aggregated residual stream. Co-occurrence statistics,
-  distributional twins, the evaluative merge. Inherited, pretrained, ancient.
-- **Symbolic** route: per-item judgment. Negation, antonymy, the discrete
-  good ≠ bad call. Deployed in the Likert / ToM / write tasks; overrides the
-  associative merge.
+## 13. A character LoRA is a steering schedule
 
-Likert recovers more than projection because it is a **symbolic per-adjective
-judgment**; representation aggregates the **associative residual**. The read/write
-gap is the symbolic route overriding the associative one, and W16 says the
-associative substrate is as old as distributional semantics while the symbolic
-override is what tuning shapes.
+The LoRA's displacement is **context-stable at every one of 33 layers**
+(per-text consistency ~0.92) but the *direction rotates with depth* — a
+layer-indexed family of constant vectors {δ_ℓ}, of which single-layer
+steering reproduces one frame. Trait content enters throughout the early
+half (blocks 0–7 and 8–15 each sign-correct alone); the late half writes
+large output-adjacent content a mid-layer vector cannot reach; blocks
+compose sublinearly. Corollary both directions with **BitFit**: character
+is (mostly) bias-shaped, which is why constants-only tuning works where it
+works — and the LoRA's persistence advantage over prompting is plausibly
+re-application across layers and tokens, not deeper encoding. Queued
+decisive test: **schedule playback** — inject the recorded {δ_ℓ} with
+weights untouched; the gap to the full LoRA is the behavioral value of the
+non-bias part of character.
 
-## 8. Where your track meets this, and what's open
+---
 
-- **Your GFC/TIRT is the third readout.** It is already wired in (W10–W12) as the
-  structurally-cleanest persona-recovery line, and it is the natural "preference"
-  corner that is immune to the vocabulary coupling that contaminates Likert. The
-  read/write framing gives it a sharper role: TIRT is a *write*-adjacent measure
-  (forced behavior under desirability matching), so it should pattern with
-  judgment, not with representation — a prediction worth checking on the adjective
-  antonyms directly.
-- **Trait-conflict dilemma instrument** — open since W3; the ceiling-effect
-  breaker; Thurstonian-scorable scenario forced-choice. Still the most paper-shaped
-  open item.
-- **Read/write reconnection** — does a representation-induced persona persist
-  through extended generation? Connects your persona work to the W4 steering
-  results and the W15 override.
-- **Regress, write side:** does an HMM/Brown-cluster LM merge antonyms (it should,
-  harder)? A small from-scratch PPMI-SVD demo would close the bottom of §6
-  conclusively. Cheap; not yet built.
+# Claims ledger — current status of every major claim
 
-## Key outputs to look at (in order)
+Status: **LIVE** (standing), **REV** (revised — read the pointer, not the
+original), **DEAD** (retracted), **OPEN** (registered, undecided).
 
-| # | Artifact | What it shows |
-|---|---|---|
-| 1 | `results/facets/reconcile_facet_adjective.png` | the r≈0.56 match is relational, not dimensional (W14 §2) |
-| 2 | `results/adjectives/introspection_vs_representation.png` | the read/write sign-flip — represents-merged, judges-split (W15 §1) |
-| 3 | `results/adjectives/training_stage_*.png` | merge is pretrained-constant; behavioral split is family-dependent (W15 §3) |
-| 4 | `results/adjectives/regress/regress.png` | the merge regresses to 2014 static vectors — distributional, not architectural (W16) |
-| 5 | `results/facets/ipip_facet_vs_human_dashboard.html` | the original human-alignment headline (W9 §7) |
+| # | claim | status | where |
+|---|---|---|---|
+| 1 | Distribution > argmax (EV+entropy as primary readout) | LIVE | W1; quantified within JUDGE (EV≥argmax all models) W18 §4 |
+| 2 | Assistant shape: low-N high-A/C, HHH ~rank-1 | LIVE | W1–; recurs in SELF, VP prosocial tilt |
+| 3 | Evaluative-antonym merge: represented merged, judged split, all models | LIVE | W15 |
+| 4 | Merge is pretrained-constant and regresses to 2014 GloVe | LIVE | W15 §3, W16 |
+| 5 | PCA PC1 of raw hidden states is a norm artifact | LIVE | W2/W6 |
+| 6 | ENACT = linear image of REPRESENT (W; R²≈0.6–0.7; remainder rotation-not-intent) | LIVE | W17 |
+| 7 | Mapped ê=Wr steers ≥ recorded persona vectors | LIVE | W17 (3 families) |
+| 8 | Effdim ladder REPRESENT 50–70 > HUMAN 27 > ENACT 5–13 ≈ SELF 4.5 | LIVE | W17–18 |
+| 9 | Persona bandwidth constitutional per family; battery-gated within qwen | LIVE | W18 §3 |
+| 10 | SELF = character sheet; diagonal test ≈0 self-signal | LIVE | W17 §15 |
+| 11 | Channel ranking (PC1-removed human match): JUDGE≫ENACT>REPRESENT≫SELF | LIVE | W18 §2.5 |
+| 12 | Valence is an axis for models, a binder for humans (disbelieved clusters) | LIVE | W18 §1 |
+| 13 | Human structure embedded in REPRESENT; human PC2 (self-presentation) absent | LIVE | W18 §6 |
+| 14 | phi4 JUDGE 56% bimodal; modes are commit-vs-hedge | LIVE | W18 §4 |
+| 15 | Certainty is question taxonomy, not entropy policy | LIVE | W18 §4 |
+| 16 | VP/2509.10078: published scoring unreliable; length-dominated; η² at ceiling | LIVE | W18 §7 |
+| 17 | Repaired generation preference: reliable, assistant-shaped, cross-model 0.90 | LIVE | W18 §7 |
+| 18 | Repaired instrument reads corpus, not character (frame- and tuning-invariant; r_true≈1 vs base) | LIVE | W18 §7 |
+| 19 | One-respondent: model-unique behavior unreliable except phi4 | LIVE | W18 §7 |
+| 20 | phi4 divergence = socialization gap (social scenarios, fluent reading) | LIVE | W18 §7 |
+| 21 | TIDE k=4 is retention; underlying space ~11–13 dims; no desirability boulder | LIVE | W19 §1 |
+| 22 | Hostility switch: discrete guard-register trigger | LIVE | W19 §2 |
+| 23 | TIDE-vs-ENACT axes: shared humor axis only; range restriction (valence+menace wings) | LIVE | W19 §3 |
+| 24 | Persona questionnaire reads the standing instruction, not conduct | LIVE | W19 §3.5 |
+| 25 | "Persona η²=0.99 = near-deterministic conduct readout" | **REV** | → instruction-echo fidelity; W19 §3.5 |
+| 26 | "Machine-Bem fails" | **REV** | → reopened: N=1 dose + high-external-justification cell; 2×2 queued; W19 §3.5 amendment |
+| 27 | OLMo ladder Power/Openness rotation under tuning | **REV** | → not significant under cross-half disattenuation; W18 §7 |
+| 28 | LoRA sign test 10/10 on prompt-extracted trait directions | LIVE | W19 §4 |
+| 29 | LoRA = context-stable depth-rotating steering schedule; character ≈ bias | LIVE | W19 §4.5 |
+| 30 | "N-amp most anti-assistant" | **DEAD** | wrong; O-amp is, and 8/10 leave the axis regardless; W19 §4 |
+| 31 | Steering doses portable across families as frac-of-residual-norm | **DEAD** | Gemma plateau; anchor to dir-norm ratios; W17 |
+| 32 | Gemma massive dims = format/verbosity readout ("list-mode") | LIVE | W17 |
+| 33 | J-lens: ENACT reads out the persona's speech-world; failed personas → assistant/wacky basins | LIVE | W18 §5 |
+| 34 | Trait-conflict / desirability-matched FC instrument is the right next instrument | OPEN | 3 independent votes; W1, W18 §7, W19 §1 |
+| 35 | Schedule playback ≈ LoRA (training = recordable activation program) | OPEN | queued, design review first; W19 §4.5 |
+| 36 | Out-of-span LoRA displacement: conduct or debris? | OPEN | W19 §4 |
+| 37 | Bem 2×2 (dose × attributional framing) | OPEN | W19 §3.5 |
 
-Reports, if you want the long form: `report_week14.md` and `report_week15.md` are
-the freshest and most self-contained; `report_week7.md` is where the
-symbolic-vs-associative frame is born; `paper_outline.md` is the (now partial)
-paper plan to update together.
+---
+
+## What we'd like from you
+
+1. The **VP note** — now less "quick fix" and more construct-validity
+   challenge (three layers; §9 above is the abstract). Your call on fronting
+   it; the handoff pack (exhibits, numbers, scripts) exists on request.
+2. The **paper outline** is the next artifact after this one — the pentad +
+   audits + instrument recipe is the psych-facing paper; the map/steering/
+   schedule material is the MI note. Psychometrics sections are yours if you
+   want them.
+3. Sanity-checks welcome anywhere the ledger says LIVE and you smell REV.
+
+## Key artifacts (in reading order)
+
+| artifact | shows |
+|---|---|
+| `results/persona_vectors/figs/facet_cohort_summary.png` | five channels vs HUMAN, raw + PC1-removed (the ranking) |
+| `results/adjectives/regress/regress.png` | the merge regresses to 2014 vectors |
+| `results/vp_rescore/figs/vp_eta2_heatmap.png` | questionnaire blocks vs generation confetti, both scorings |
+| `results/vp_rescore/figs/vp_fig1_transparency.png` | item transparency, their Figure 1 on our materials |
+| `report_week18.md` §7, `report_week19.md` | the audits, long form |
