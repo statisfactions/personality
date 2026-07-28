@@ -260,3 +260,32 @@ hostility switch would live) is unexamined. The queued playback becomes a
 named three-way: full LoRA vs schedule playback (=BitFit-by-hooks) vs
 single-layer steering; the playback-vs-LoRA gap = the behavioral value of
 the non-bias part of character.
+
+## §5 — The read→write map is rank-10, and rotation splits in two (rgb's
+identity-off-subspace idea)
+
+Reduced-rank version of W (fit ridge, truncate fitted values to rank r;
+operator form T = I + αC_r, identity off the active subspace — the
+J-space bipolar-patch discipline applied to our map). Three families,
+held-out cos(mapped, recorded):
+
+- **Rank sweep**: r=10 recovers 93–98% of full-45 quality (llama
+  .760/.818, qwen .795/.813, gemma .778/.825); qwen saturates by r≈3-8.
+  The conduct transformation is essentially rank-10; the
+  identity-plus-low-rank operator is near-free.
+- **Mode-pair angles** (rank-10; angle between each mode's read-input
+  direction and write-output direction): llama median 76°, gemma 73°,
+  qwen 64° — family ordering reproduces the W17 rotation ranking — but
+  NO family has any small-angle mode (qwen's min 58°). "Rotation"
+  conflated two quantities: SPAN CONTAINMENT (qwen high, llama low — the
+  old family parameter) vs MODE ALIGNMENT (universally poor). Enactment
+  is never amplification of the read direction, even inside the read
+  span; amplify-and-rebase is mostly rebase, everywhere. qwen rebases
+  within the span; llama partly out of it.
+
+GPU follow-ups queued: (a) truncation steering — if mapped>recorded
+strengthens at rank 10, the denoising account gets a dial; (b) the
+ENACTIFIER: hook h → h + αC_r·h on prompts that merely DESCRIBE a
+persona — state-dependent, adjective-free steering that converts
+description into performance (measurement-then-set; dose-free in the
+swap sense).
