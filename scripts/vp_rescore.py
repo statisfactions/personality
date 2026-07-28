@@ -29,6 +29,18 @@ import hf_logprobs as hf
 SP = "dependencies"  # scripts/fetch_dependencies.sh clones ValuePortrait here
 OUT = "results/vp_rescore"
 MODELS = ["gemma3", "Qwen7", "llama3.2", "qwen2.5", "phi4"]
+# --base: pretrained counterparts + OLMo-2 training-stage ladder, scored
+# bare-text (no chat templates on base models); output <name>_base.json
+BASE_MODELS = {
+    "gemma3": "google/gemma-3-4b-pt",
+    "Qwen7": "Qwen7Base",
+    "llama3.2": "meta-llama/Llama-3.2-3B",
+    "qwen2.5": "Qwen/Qwen2.5-3B",
+    "Olmo2Base": "Olmo2Base",
+    "Olmo2SFT": "Olmo2SFT",
+    "Olmo2DPO": "Olmo2DPO",
+    "Olmo2Inst": "Olmo2Inst",
+}
 PVQ = ["Benevolence", "Universalism", "Self_Direction", "Stimulation",
        "Hedonism", "Achievement", "Power", "Security", "Conformity",
        "Tradition"]
@@ -82,20 +94,22 @@ def resp_logprob(model, tok, device, scen, resp, bare=False):
 
 
 def main():
-    bare = "--bare" in os.sys.argv
-    tag = "_bare" if bare else ""
+    base = "--base" in os.sys.argv
+    bare = "--bare" in os.sys.argv or base
+    tag = "_base" if base else "_bare" if bare else ""
+    models = BASE_MODELS if base else {m: m for m in MODELS}
     os.makedirs(OUT, exist_ok=True)
     rows = load_vp()
     print(f"{len(rows)} responses / {len(set(r['q'] for r in rows))} scenarios")
     L = np.array([r["lab"] for r in rows])            # (520, 15) signed
     Q = np.array([r["q"] for r in rows])
 
-    for m in MODELS:
+    for m, repo in models.items():
         f = f"{OUT}/{m}{tag}.json"
         if os.path.exists(f):
             print(f"[skip] {f}")
             continue
-        model, tok, device = hf.load_model(m, dtype=torch.bfloat16)
+        model, tok, device = hf.load_model(repo, dtype=torch.bfloat16)
         lps, lens = [], []
         for i, r in enumerate(rows):
             lp, nt = resp_logprob(model, tok, device, r["scen"], r["resp"],
@@ -116,7 +130,7 @@ def main():
     qids = np.unique(Q)
     print("\n=== analysis (100-split split-half reliability of 15-construct "
           "profile) ===")
-    for m in MODELS:
+    for m in models:
         f = f"{OUT}/{m}{tag}.json"
         if not os.path.exists(f):
             continue
