@@ -421,36 +421,99 @@ similarity signal do not share a prominence scale, i.e. the contrast model does 
 of them at all. That is a useful, theory-derived rater-fit statistic, and it agrees with
 the response-style verdicts from Report I rather than duplicating them.
 
-## 8. What the theory says we should collect: the diagonal
+## 8. What we cannot identify, and the right experiment for it
 
-The one contrast-model quantity we cannot estimate is the split between **α and β
-separately** — we identify only `(β − α)f` from the skew part and `−((α+β)/2)f + θc̄`
-from the symmetric marginal, which is one equation short because θ and the mean
-commonality `c̄` are entangled with it.
+The one contrast-model quantity the collected data cannot deliver is the split between
+**α and β separately** — we identify only `(β − α)f` from the skew part and
+`−((α+β)/2)f + θc̄` from the symmetric marginal, which is one equation short because θ and
+the mean commonality `c̄` are entangled with it. Everything in §1–§7 is a statement about
+`(β − α)f` and about the shape of the residual; the *focusing* weight itself is not
+estimated.
 
-Tversky's own solution is the **diagonal**: `s(a,a) = θ f(A)`, because the distinctive
-sets are empty. Self-similarity *is* the direct measurement of prominence — and it is
-also the test of **minimality**, the metric axiom that says `s(a,a)` must be constant
-(under a features account it is emphatically not: prominent objects are more
-self-similar).
+### 8.1 Why the diagonal is the wrong instrument for it
 
-**rgb's `dists` tensor has a NaN diagonal — the 523 self-pairs were never collected.**
-This is the cheapest high-value collection on the whole track: **523 prompts per model**,
-in the verbatim `tom_likely` frame ("Consider a person who is very *kind*. How likely is
-this person to also be *kind*?"), on the models we can reach directly. It would deliver
+Tversky's own identification is the **diagonal**: `s(a,a) = θ f(A)`, since the distinctive
+sets are empty. rgb's `dists` tensor has a NaN diagonal — the 523 self-pairs were never
+collected — so this looks like a cheap fix. It is not, for three reasons, and the third is
+decisive.
 
-1. a **direct** estimate of *f*, independent of the marginals — turning §2's recovered
-   scale from an inference into a validated measurement, and settling §3's
-   prevalence-vs-salience question outright;
-2. **α and β separately**, hence a genuine per-model focusing parameter rather than the
-   composite in §7;
-3. a **minimality test** — variance in `s(a,a)` across adjectives is non-metricity that
-   no symmetrizing or double-centering can remove;
-4. a **response-process check** at near-zero cost: a rater that does not answer 7 to
-   "very kind ⇒ kind" is telling us something important about the whole instrument.
+**(a) The self-pair task is pragmatically degenerate.** "Consider a person who is very
+*kind*. How likely is this person to *also* be *kind*?" — *also* presupposes a distinct
+second predicate, so the question is ill-formed. Any variance returned is variance in how
+a model handles an ill-formed question. Worse, a model that resolves the anomaly by
+reading *also* as "additionally, over and above being kind" is answering a **different
+question** than it answers off-diagonal, in which case the diagonal is not on the same
+scale as the matrix it was supposed to anchor.
 
-Four of the cohort models (`gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`, `phi4-mini`) are in
-the Orin lineup, so a 4-model × 523-prompt pilot is a few hours of one-off inference.
+**(b) The operationalization does not transfer.** Tversky did not obtain `s(a,a)` by
+asking how similar a thing is to itself. He read it off **identification/confusion**
+data — Rothkopf's Morse-code matrix, letter-confusion matrices — where `p(a → a)` falls
+out of a task that is perfectly well-formed. JUDGE has no confusion task, so the
+psychometric move has no vehicle here.
+
+**(c) Ceiling — the decisive one.** Substituting each adjective's best available
+near-synonym for literal identity (distinctive sets near-empty, so `s ≈ θf(A)`) shows
+where the diagonal would land:
+
+```{r ceiling}
+Sd <- Sbar; diag(Sd) <- NA
+ceil <- apply(Sd, 1, max, na.rm = TRUE)
+nb   <- apply(Sd, 1, function(r) which.max(replace(r, is.na(r), -Inf)))
+cat(sprintf("near-identity ceiling max_j S[i,j]: mean %.2f, sd %.2f, range %.2f-%.2f\n",
+            mean(ceil), sd(ceil), min(ceil), max(ceil)))
+cat(sprintf("  fraction already >= 6.5: %.0f%%   |   >= 6.9: %.0f%%   (scale max = 7)\n",
+            100*mean(ceil >= 6.5), 100*mean(ceil >= 6.9)))
+cat(sprintf("  correlation with the recovered prominence f: %.2f\n", cor(ceil, fbar)))
+bind_rows(
+  tibble(End = "lowest ceiling",  i = order(ceil)[1:6]),
+  tibble(End = "highest ceiling", i = order(-ceil)[1:6])) %>%
+  transmute(End, Adjective = ADJ[i], `ceiling` = round(ceil[i], 2),
+            `best available near-synonym` = ADJ[nb[i]]) %>%
+  knitr::kable(caption = "Where a self-pair would land: the near-identity ceiling.")
+```
+
+**58% of adjectives already sit at ≥ 6.5 and 11% at ≥ 6.9 on a 7-point scale.** The literal
+self-pair would be a wall of 7s for the large majority, leaving almost no variance to read
+`f` from — and `f` has to span the distance between *thinking* and *blind* to be worth
+anything. The near-synonym proxy does not rescue it either: it correlates only 0.46 with
+`f`, and the low-ceiling cases are low because the 523-word set happens to contain no
+synonym for them (*retarded*, *blind*, *left-handed*), which is a **coverage artefact of
+the item pool**, not low self-similarity.
+
+**What the diagonal *is* worth** is a smaller and honest claim: an **instrument-integrity
+check**. A rater that answers 5 rather than 7 to "very kind ⇒ kind" is reading a contrast
+presupposition into *also* — which would mean every off-diagonal cell means something
+other than what this whole track has assumed. Ruling that out is worth 523 cheap prompts.
+It would also calibrate each rater's true ceiling — `FalconMamba` and `Llama3.2-3B` never
+exceed 6.25 and 6.03 *anywhere* in the matrix, so their compression is currently
+confounded with their content. Useful; not an identification of α and β.
+
+### 8.2 The right experiment: the dissimilarity frame
+
+Tversky's own lever for separating the weights is to ask for **difference** rather than
+similarity. The same features are available, but the weights on the *distinctive* sets
+change, and the asymmetry can **reverse**. That is the manipulation to run, and it
+adjudicates §3's deflationary rival in a way the diagonal never could:
+
+> *Consider a person who is very **{i}**. How **unlike** a person who is very **{j}** are
+> they?*
+
+- A **base-rate** account (`B[i,j] ≈ P(j | i)`) predicts **no reversal**: conditional
+  probability does not flip sign when the question is rephrased toward difference.
+- The **contrast model** predicts the prominence gradient **inverts**.
+
+The task is well-formed, so neither failure mode in §8.1 applies. It does not need the
+full 273,006 cells: sampling a few thousand pairs at **high prominence gap** — where §2
+shows the directional effect is 97% consistent and therefore where the test has power —
+is enough, plus a matched low-gap control block. Running the **symmetric** frame ("how
+similar are a person who is very *i* and a person who is very *j*?") on the same pairs
+adds the α = β condition and pins the focusing effect by manipulation rather than by
+assumption.
+
+Four cohort models (`gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`, `phi4-mini`) are in the Orin
+lineup, so a 4-model × 3-frame design over a few thousand pairs is a modest one-off run —
+and it is the same referent-swap logic the readout account already budgets for, applied to
+the one place where the two theories make opposite predictions.
 
 ## Verdict — and two amendments to Report II
 

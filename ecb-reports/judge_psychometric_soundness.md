@@ -213,12 +213,19 @@ As a measurement of the models' implicit personality theory, the JUDGE instrumen
    plane/construct resolution (0.72–0.73 vs nulls of 0.05–0.30), not the low-reliability
    residual Report II described. Its dominant plane and the construct-level flow (negative
    affect as net source) are the natural bridge to rgb's person-perception cycles (W16 §5).
-6. **Collect the 523 self-pairs (Report VI §8).** The `dists` diagonal is NaN, but
-   Tversky's `s(a,a) = θ·f(A)` is the *direct* measurement of prominence and the only route
-   to identifying α and β separately (we currently recover only `(β−α)f`). 523 prompts per
-   model in the verbatim `tom_likely` frame; four cohort models are on the Orin. Also yields
-   a **minimality** test (metric non-metricity that no symmetrizing can remove) and a free
-   response-process check. Cheapest high-value collection on the track.
+6. **Dissimilarity-frame experiment (Report VI §8.2).** α and β are not separately
+   identified by the collected data — everything in Report VI is a statement about `(β−α)f`.
+   Tversky's lever is to ask for **difference** rather than similarity: a base-rate account
+   (`B[i,j]≈P(j|i)`) predicts **no reversal**, the contrast model predicts the prominence
+   gradient **inverts**. A few thousand high-prominence-gap pairs (where §2 shows 97%
+   directional consistency, so the test has power) plus a matched low-gap control, and a
+   symmetric "how similar are…" frame as the α=β condition. Four cohort models are on the
+   Orin. *Superseded proposal:* collecting the 523 self-pairs. The `dists` diagonal is NaN,
+   but `s(a,a)` cannot identify anything here — the task is pragmatically degenerate (*also*
+   presupposes a distinct predicate), Tversky read self-similarity off confusion data rather
+   than by asking, and, decisively, **58% of adjectives already hit ≥6.5 (11% ≥6.9) via their
+   best near-synonym on a 7-point scale**, so the diagonal would be a wall of 7s. It retains
+   value only as a cheap **instrument-integrity check** and per-rater ceiling calibration.
 3. **Halo-controlled trait scores.** Provide general-factor-partialled JUDGE trait scales
    for use as a method in the model-level MTMM.
 4. **Tie into the Kane MTMM.** JUDGE joins Likert / GFC-TIRT / rgb-axis as a method

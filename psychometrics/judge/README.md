@@ -63,7 +63,7 @@ moments. Run it after `convert_full_dists.py`; both feed Report I.
 | III | `03_reliability.Rmd`        | G-theory variance components, ICC(2/3), D-study, rater-quality anatomy, which pairs are reliably vs idiosyncratically judged, within-rater direction reliability |
 | IV  | `04_structure.Rmd`          | dimensionality, 5-factor solution, **structural invariance across raters** (Tucker congruence), the evaluative-halo general factor as a discriminant-validity threat |
 | V   | `05_consensus.Rmd`          | *reactive* — does weighting/trimming the ensemble beat the flat mean? (no); consensus growth curve |
-| VI  | `06_tversky_asymmetry.Rmd`  | **Tversky (1977) contrast-model reading of the asymmetry** — the gradient/curl split *is* the contrast model's fit vs residual; recovered prominence scale `f = -g` (prevalence + an independent negativity term, **not** lexical frequency); additivity test; the curl as *diagnosticity*, low-rank and strongly shared once measured at plane/construct resolution; Tversky–Hutchinson nearest-neighbour centrality (negative result: the symmetric part *is* spatial); per-rater contrast weights; the case for collecting the missing diagonal |
+| VI  | `06_tversky_asymmetry.Rmd`  | **Tversky (1977) contrast-model reading of the asymmetry** — the gradient/curl split *is* the contrast model's fit vs residual; recovered prominence scale `f = -g` (prevalence + an independent negativity term, **not** lexical frequency); additivity test; the curl as *diagnosticity*, low-rank and strongly shared once measured at plane/construct resolution; Tversky–Hutchinson nearest-neighbour centrality (negative result: the symmetric part *is* spatial); per-rater contrast weights; why the missing diagonal *cannot* identify α/β (ceiling + pragmatic degeneracy) and the dissimilarity-frame experiment that can |
 
 Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric_soundness.md`.
 
@@ -150,10 +150,18 @@ EV-only tables).
   **Caveat (ecb):** human correspondence is *one* strand of evidence, **not** validity in
   itself — a match supports, a mismatch does not disconfirm a coherent measurement of the
   models' own implicit personality theory.
-- **Collect the diagonal (Report VI §8).** `dists` has a NaN diagonal, but Tversky's
-  `s(a,a) = θ·f(A)` is the direct measurement of prominence and the only way to identify α
-  and β separately (we currently get only `(β−α)f`). **523 prompts per model** in the
-  verbatim `tom_likely` frame; four cohort models (`gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`,
-  `phi4-mini`) are on the Orin. Also gives a minimality test and a free response-process check.
+- **Dissimilarity-frame experiment (Report VI §8.2).** α and β are *not* separately
+  identified by the collected data (we recover only `(β−α)f`). Tversky's lever is to ask for
+  **difference** instead of similarity: a base-rate account (`B[i,j]≈P(j|i)`) predicts **no
+  reversal**, the contrast model predicts the prominence gradient **inverts**. Needs only a
+  few thousand high-prominence-gap pairs + a low-gap control, ideally with a symmetric
+  ("how similar are…") frame as the α=β condition. Four cohort models are on the Orin.
+- **The diagonal is NOT the fix** (§8.1, corrected 2026-07-28). Collecting `s(a,a)` fails on
+  three counts: the self-pair task is pragmatically degenerate (*also* presupposes a distinct
+  predicate), Tversky read `s(a,a)` off confusion data rather than by asking, and — decisive —
+  **ceiling**: 58% of adjectives already reach ≥6.5 and 11% ≥6.9 via their best near-synonym
+  on a 7-point scale, so the diagonal would be a wall of 7s with no variance to read `f` from.
+  Worth 523 prompts only as an **instrument-integrity check** (does the rater read a contrast
+  presupposition into *also*?) and to calibrate per-rater ceilings.
 - Directional (curl) channel as a substantive implicit-personality-theory construct.
 - Ties to the model-as-unit Kane validity argument (`memory/project_validity_argument_program`).

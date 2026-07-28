@@ -2588,18 +2588,133 @@ cat(sprintf(&quot;consensus symmetric: C = %.2f, max N_i = %d   |   double-cente
 </table>
 <p>The asymmetry weight varies ~1.7× (0.36–0.64) and is <strong>not</strong> a size or family effect. The last column is a genuine over-identification test: the contrast model says the <em>same</em> <em>f</em> governs the asymmetry and the symmetric marginal, so the correlation should be strongly positive. It is, for the larger and more differentiated raters (<code>Qwen2.5-32B</code> 0.84, <code>Gemma-4-31B</code> 0.83, <code>Qwen2.5-7B</code>/<code>Phi4</code> 0.73) — and it <strong>collapses to ~0 for <code>Llama3.2-3B</code> (0.01) and <code>Aya</code> (0.16)</strong>. For those raters the directional signal and the similarity signal do not share a prominence scale, i.e. the contrast model does not hold of them at all. That is a useful, theory-derived rater-fit statistic, and it agrees with the response-style verdicts from Report I rather than duplicating them.</p>
 </div>
-<div id="what-the-theory-says-we-should-collect-the-diagonal" class="section level2">
-<h2>8. What the theory says we should collect: the diagonal</h2>
-<p>The one contrast-model quantity we cannot estimate is the split between <strong>α and β separately</strong> — we identify only <code>(β − α)f</code> from the skew part and <code>−((α+β)/2)f + θc̄</code> from the symmetric marginal, which is one equation short because θ and the mean commonality <code>c̄</code> are entangled with it.</p>
-<p>Tversky’s own solution is the <strong>diagonal</strong>: <code>s(a,a) = θ f(A)</code>, because the distinctive sets are empty. Self-similarity <em>is</em> the direct measurement of prominence — and it is also the test of <strong>minimality</strong>, the metric axiom that says <code>s(a,a)</code> must be constant (under a features account it is emphatically not: prominent objects are more self-similar).</p>
-<p><strong>rgb’s <code>dists</code> tensor has a NaN diagonal — the 523 self-pairs were never collected.</strong> This is the cheapest high-value collection on the whole track: <strong>523 prompts per model</strong>, in the verbatim <code>tom_likely</code> frame (“Consider a person who is very <em>kind</em>. How likely is this person to also be <em>kind</em>?”), on the models we can reach directly. It would deliver</p>
-<ol style="list-style-type: decimal">
-<li>a <strong>direct</strong> estimate of <em>f</em>, independent of the marginals — turning §2’s recovered scale from an inference into a validated measurement, and settling §3’s prevalence-vs-salience question outright;</li>
-<li><strong>α and β separately</strong>, hence a genuine per-model focusing parameter rather than the composite in §7;</li>
-<li>a <strong>minimality test</strong> — variance in <code>s(a,a)</code> across adjectives is non-metricity that no symmetrizing or double-centering can remove;</li>
-<li>a <strong>response-process check</strong> at near-zero cost: a rater that does not answer 7 to “very kind ⇒ kind” is telling us something important about the whole instrument.</li>
-</ol>
-<p>Four of the cohort models (<code>gemma3:4b</code>, <code>qwen2.5:3b</code>, <code>llama3.2:3b</code>, <code>phi4-mini</code>) are in the Orin lineup, so a 4-model × 523-prompt pilot is a few hours of one-off inference.</p>
+<div id="what-we-cannot-identify-and-the-right-experiment-for-it" class="section level2">
+<h2>8. What we cannot identify, and the right experiment for it</h2>
+<p>The one contrast-model quantity the collected data cannot deliver is the split between <strong>α and β separately</strong> — we identify only <code>(β − α)f</code> from the skew part and <code>−((α+β)/2)f + θc̄</code> from the symmetric marginal, which is one equation short because θ and the mean commonality <code>c̄</code> are entangled with it. Everything in §1–§7 is a statement about <code>(β − α)f</code> and about the shape of the residual; the <em>focusing</em> weight itself is not estimated.</p>
+<div id="why-the-diagonal-is-the-wrong-instrument-for-it" class="section level3">
+<h3>8.1 Why the diagonal is the wrong instrument for it</h3>
+<p>Tversky’s own identification is the <strong>diagonal</strong>: <code>s(a,a) = θ f(A)</code>, since the distinctive sets are empty. rgb’s <code>dists</code> tensor has a NaN diagonal — the 523 self-pairs were never collected — so this looks like a cheap fix. It is not, for three reasons, and the third is decisive.</p>
+<p><strong>(a) The self-pair task is pragmatically degenerate.</strong> “Consider a person who is very <em>kind</em>. How likely is this person to <em>also</em> be <em>kind</em>?” — <em>also</em> presupposes a distinct second predicate, so the question is ill-formed. Any variance returned is variance in how a model handles an ill-formed question. Worse, a model that resolves the anomaly by reading <em>also</em> as “additionally, over and above being kind” is answering a <strong>different question</strong> than it answers off-diagonal, in which case the diagonal is not on the same scale as the matrix it was supposed to anchor.</p>
+<p><strong>(b) The operationalization does not transfer.</strong> Tversky did not obtain <code>s(a,a)</code> by asking how similar a thing is to itself. He read it off <strong>identification/confusion</strong> data — Rothkopf’s Morse-code matrix, letter-confusion matrices — where <code>p(a → a)</code> falls out of a task that is perfectly well-formed. JUDGE has no confusion task, so the psychometric move has no vehicle here.</p>
+<p><strong>(c) Ceiling — the decisive one.</strong> Substituting each adjective’s best available near-synonym for literal identity (distinctive sets near-empty, so <code>s ≈ θf(A)</code>) shows where the diagonal would land:</p>
+<pre class="r"><code>Sd &lt;- Sbar; diag(Sd) &lt;- NA
+ceil &lt;- apply(Sd, 1, max, na.rm = TRUE)
+nb   &lt;- apply(Sd, 1, function(r) which.max(replace(r, is.na(r), -Inf)))
+cat(sprintf(&quot;near-identity ceiling max_j S[i,j]: mean %.2f, sd %.2f, range %.2f-%.2f\n&quot;,
+            mean(ceil), sd(ceil), min(ceil), max(ceil)))</code></pre>
+<pre><code>## near-identity ceiling max_j S[i,j]: mean 6.49, sd 0.40, range 4.38-6.97</code></pre>
+<pre class="r"><code>cat(sprintf(&quot;  fraction already &gt;= 6.5: %.0f%%   |   &gt;= 6.9: %.0f%%   (scale max = 7)\n&quot;,
+            100*mean(ceil &gt;= 6.5), 100*mean(ceil &gt;= 6.9)))</code></pre>
+<pre><code>##   fraction already &gt;= 6.5: 58%   |   &gt;= 6.9: 11%   (scale max = 7)</code></pre>
+<pre class="r"><code>cat(sprintf(&quot;  correlation with the recovered prominence f: %.2f\n&quot;, cor(ceil, fbar)))</code></pre>
+<pre><code>##   correlation with the recovered prominence f: 0.46</code></pre>
+<pre class="r"><code>bind_rows(
+  tibble(End = &quot;lowest ceiling&quot;,  i = order(ceil)[1:6]),
+  tibble(End = &quot;highest ceiling&quot;, i = order(-ceil)[1:6])) %&gt;%
+  transmute(End, Adjective = ADJ[i], `ceiling` = round(ceil[i], 2),
+            `best available near-synonym` = ADJ[nb[i]]) %&gt;%
+  knitr::kable(caption = &quot;Where a self-pair would land: the near-identity ceiling.&quot;)</code></pre>
+<table>
+<caption>Where a self-pair would land: the near-identity ceiling.</caption>
+<thead>
+<tr class="header">
+<th align="left">End</th>
+<th align="left">Adjective</th>
+<th align="right">ceiling</th>
+<th align="left">best available near-synonym</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lowest ceiling</td>
+<td align="left">retarded</td>
+<td align="right">4.38</td>
+<td align="left">dumb</td>
+</tr>
+<tr class="even">
+<td align="left">lowest ceiling</td>
+<td align="left">blind</td>
+<td align="right">4.73</td>
+<td align="left">elderly</td>
+</tr>
+<tr class="odd">
+<td align="left">lowest ceiling</td>
+<td align="left">unattractive</td>
+<td align="right">4.93</td>
+<td align="left">normal</td>
+</tr>
+<tr class="even">
+<td align="left">lowest ceiling</td>
+<td align="left">plain</td>
+<td align="right">5.20</td>
+<td align="left">thinking</td>
+</tr>
+<tr class="odd">
+<td align="left">lowest ceiling</td>
+<td align="left">left-handed</td>
+<td align="right">5.21</td>
+<td align="left">awake</td>
+</tr>
+<tr class="even">
+<td align="left">lowest ceiling</td>
+<td align="left">unlucky</td>
+<td align="right">5.23</td>
+<td align="left">thinking</td>
+</tr>
+<tr class="odd">
+<td align="left">highest ceiling</td>
+<td align="left">enthusiastic</td>
+<td align="right">6.97</td>
+<td align="left">excited</td>
+</tr>
+<tr class="even">
+<td align="left">highest ceiling</td>
+<td align="left">excited</td>
+<td align="right">6.97</td>
+<td align="left">enthusiastic</td>
+</tr>
+<tr class="odd">
+<td align="left">highest ceiling</td>
+<td align="left">grateful</td>
+<td align="right">6.97</td>
+<td align="left">thankful</td>
+</tr>
+<tr class="even">
+<td align="left">highest ceiling</td>
+<td align="left">thankful</td>
+<td align="right">6.97</td>
+<td align="left">grateful</td>
+</tr>
+<tr class="odd">
+<td align="left">highest ceiling</td>
+<td align="left">sociable</td>
+<td align="right">6.96</td>
+<td align="left">social</td>
+</tr>
+<tr class="even">
+<td align="left">highest ceiling</td>
+<td align="left">social</td>
+<td align="right">6.96</td>
+<td align="left">sociable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>58% of adjectives already sit at ≥ 6.5 and 11% at ≥ 6.9 on a 7-point scale.</strong> The literal self-pair would be a wall of 7s for the large majority, leaving almost no variance to read <code>f</code> from — and <code>f</code> has to span the distance between <em>thinking</em> and <em>blind</em> to be worth anything. The near-synonym proxy does not rescue it either: it correlates only 0.46 with <code>f</code>, and the low-ceiling cases are low because the 523-word set happens to contain no synonym for them (<em>retarded</em>, <em>blind</em>, <em>left-handed</em>), which is a <strong>coverage artefact of the item pool</strong>, not low self-similarity.</p>
+<p><strong>What the diagonal <em>is</em> worth</strong> is a smaller and honest claim: an <strong>instrument-integrity check</strong>. A rater that answers 5 rather than 7 to “very kind ⇒ kind” is reading a contrast presupposition into <em>also</em> — which would mean every off-diagonal cell means something other than what this whole track has assumed. Ruling that out is worth 523 cheap prompts. It would also calibrate each rater’s true ceiling — <code>FalconMamba</code> and <code>Llama3.2-3B</code> never exceed 6.25 and 6.03 <em>anywhere</em> in the matrix, so their compression is currently confounded with their content. Useful; not an identification of α and β.</p>
+</div>
+<div id="the-right-experiment-the-dissimilarity-frame" class="section level3">
+<h3>8.2 The right experiment: the dissimilarity frame</h3>
+<p>Tversky’s own lever for separating the weights is to ask for <strong>difference</strong> rather than similarity. The same features are available, but the weights on the <em>distinctive</em> sets change, and the asymmetry can <strong>reverse</strong>. That is the manipulation to run, and it adjudicates §3’s deflationary rival in a way the diagonal never could:</p>
+<blockquote>
+<p><em>Consider a person who is very <strong>{i}</strong>. How <strong>unlike</strong> a person who is very <strong>{j}</strong> are they?</em></p>
+</blockquote>
+<ul>
+<li>A <strong>base-rate</strong> account (<code>B[i,j] ≈ P(j | i)</code>) predicts <strong>no reversal</strong>: conditional probability does not flip sign when the question is rephrased toward difference.</li>
+<li>The <strong>contrast model</strong> predicts the prominence gradient <strong>inverts</strong>.</li>
+</ul>
+<p>The task is well-formed, so neither failure mode in §8.1 applies. It does not need the full 273,006 cells: sampling a few thousand pairs at <strong>high prominence gap</strong> — where §2 shows the directional effect is 97% consistent and therefore where the test has power — is enough, plus a matched low-gap control block. Running the <strong>symmetric</strong> frame (“how similar are a person who is very <em>i</em> and a person who is very <em>j</em>?”) on the same pairs adds the α = β condition and pins the focusing effect by manipulation rather than by assumption.</p>
+<p>Four cohort models (<code>gemma3:4b</code>, <code>qwen2.5:3b</code>, <code>llama3.2:3b</code>, <code>phi4-mini</code>) are in the Orin lineup, so a 4-model × 3-frame design over a few thousand pairs is a modest one-off run — and it is the same referent-swap logic the readout account already budgets for, applied to the one place where the two theories make opposite predictions.</p>
+</div>
 </div>
 <div id="verdict-and-two-amendments-to-report-ii" class="section level2">
 <h2>Verdict — and two amendments to Report II</h2>
