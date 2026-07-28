@@ -72,38 +72,72 @@ persona expression is family-capped (Qwen ~5 vs Llama ~9, prompt-gated in Qwen b
 
 ## 3. The proposal
 
-### 3.1 Trait-concept semantics is the shared medium, not a distinguishing referent
+### 3.1 Two objects a readout can be about, and what varies within each
 
-The inherited trait semantics are approximately **constant** across the cohort — that's what the
-encoder-baseline result says — and they are an input to essentially *every* readout: JUDGE runs
-on adjective pairs, SELF on adjective self-ratings, ENACT on adjective-conditioned personas, and
-the values work is largely about semantics leaking into a generation measure. So this is the
-medium all our measurements run through, not something that distinguishes them. It explains the
-convergence in §2 and then gets out of the way. A quantity that doesn't vary across models can't
-explain model differences.
+**Person-attribution structure** — what the model takes to co-occur *in people*; its implicit
+theory of personality. What varies across models:
 
-### 3.2 Two further objects a readout can be about
+- **Differentiation** — how articulated that structure is beyond the evaluative axis. JUDGE is
+  the direct readout, and its survival of PC1 removal (0.86→0.80) is what marks it as real
+  structure rather than halo. Human-match is a *validity check* on this, not the property itself.
+  Spreads 0.55 (Gemma-4) to 0.73 (FalconMamba).
 
-1. **Person-attribution structure** — what the model takes to co-occur *in people*; its implicit
-   theory of personality.
-2. **Persona system** — what the model is absent instruction, and what it can become under
-   instruction. (We considered splitting default-vs-range into two objects; collapsed for now,
-   though whether they're separable in our data is an open question below.)
+**Persona system** — what the model is absent instruction, and what it can become under
+instruction. (We considered splitting default-vs-range into two objects and collapsed them for
+now; whether they're separable in our data is an open question below.) What varies:
 
-### 3.3 Readouts draw on mixtures of these
+- **Default shape** — the profile expressed absent instruction: near rank-1, desirability-
+  organized. This is *selected* by post-training, not created by it, and "post-training" means
+  SFT/DPO/RLVR, not RLHF alone. The assistant shape isn't meaningless; it's one shape among many.
+- **Anchoring strength** — how deeply the model is held to that default. Almost certainly
+  multidimensional rather than scalar, which is why we're not claiming a single "responsivity"
+  number (see open question 3).
+- **Persona distribution** — the range of characters the model can instantiate and how accessible
+  each is. Not uniform: virtue words collapse into the assistant blob (unenactable) while vivid
+  registers instantiate cleanly. Effective dimensionality (Qwen ~5, Llama ~9) is one summary
+  statistic of its spread, alongside enactability and cross-persona discriminability.
 
-The mixture follows from each readout's design, and nothing is pure — every readout runs through
-trait-concept semantics, and most touch more than one object:
+### 3.2 Everything enters and exits through two things that aren't objects
+
+Both of these felt like they should be peers of the objects above, and neither is. They're the
+channel: every readout encodes its stimulus through the first and emits its answer through the
+second.
+
+**Trait-concept semantics (the input medium).** Approximately **constant** across the cohort —
+that's what the encoder-baseline result says — and an input to essentially every readout: JUDGE
+runs on adjective pairs, SELF on adjective self-ratings, ENACT on adjective-conditioned personas,
+and the values work is largely about semantics leaking into a generation measure. It explains the
+convergence in §2 and then gets out of the way, because a quantity that doesn't vary across
+models can't explain model differences.
+
+**Response generation (the output channel).** Unlike the medium, this varies a lot, and it
+modulates how much of any signal survives into a score:
+
+- **Concentration** — how peaked the response distribution is (Gemma ≈ 0.11 nats, FalconMamba
+  ≈ 1.66).
+- **Item-drivenness** — how much of that spread tracks the item rather than a fixed per-model
+  habit (Gemmas 75–92% content, FalconMamba 7.5%).
+
+These are separate because FalconMamba proves they dissociate: it looks maximally uncertain by
+entropy, but almost none of the spread is about the item — it's running a fixed digit-prior.
+"Flat" means low-*content*, not high-variability, so entropy alone over-trusts it. Model-specific
+representation artifacts (Gemma's massive activations, the IPR-gated partialling) are explicitly
+**not** properties here — they're a methods correction and belong in methods.
+
+### 3.3 Readouts draw on mixtures of the objects
+
+The mixture follows from each readout's design, and nothing is pure — all of these run through the
+medium and out the response channel, and most touch both objects:
 
 | Readout | Draws on |
 |---|---|
-| JUDGE | mostly person-attribution; through semantics; some default-persona leakage (it is still the model's own view of people) |
-| SELF | mostly persona system (the default); through semantics |
-| ENACT | persona system (instantiation + performance); through semantics |
-| REPRESENT (adjective stimuli) | mostly trait-concept semantics |
-| REPRESENT (persona-pair stimuli) | persona system; through semantics |
-| Likert self-report | persona system (default), heavily; through semantics |
-| BC / TIRT | persona system under constrained choice; plus person-attribution, since scenario choices involve attributing to a character |
+| JUDGE | mostly person-attribution, with some default-persona leakage — it is still the model's own view of people |
+| SELF | almost entirely the persona system's default |
+| ENACT | persona system: instantiation and performance |
+| REPRESENT (adjective stimuli) | mostly the medium itself — little of either object |
+| REPRESENT (persona-pair stimuli) | persona system |
+| Likert self-report | persona system's default, heavily |
+| BC / TIRT | persona system under constrained choice, plus person-attribution — scenario choices involve attributing to a character |
 
 Two consequences worth pausing on. First, **REPRESENT is not one readout** — its referent is set
 by the stimulus, not by where we read, so the adjective version and the persona-pair version are
@@ -120,46 +154,7 @@ assumption. Relatedly, Osgood's semantic-differential work established evaluatio
 dimension of connotative meaning long before LLMs — independent grounding for why PC1 is
 evaluative in every channel.
 
-### 3.4 What varies across models
-
-These are the quantities that actually differ across the cohort, are measurable from behavior,
-and require no interpretability work.
-
-**Of the person-attribution structure**
-
-- **Differentiation** — how articulated the attributed trait structure is beyond the evaluative
-  axis. JUDGE is the direct readout; its survival of PC1 removal (0.86→0.80) is what marks it as
-  real structure rather than halo. Human-match is a *validity check* on this, not the property
-  itself.
-
-**Of the persona system**
-
-- **Default shape** — the profile expressed absent instruction: near rank-1, desirability-
-  organized. Note this is *selected* by post-training, not created by it, and "post-training"
-  means SFT/DPO/RLVR, not RLHF alone. The assistant shape isn't meaningless; it's one shape
-  among many.
-- **Anchoring strength** — how deeply the model is held to that default. Almost certainly
-  multidimensional rather than scalar (different interventions move different models
-  differently), which is why we're not claiming a single "responsivity" number.
-- **Persona distribution** — the range of characters the model can instantiate and how
-  accessible each is. Not uniform: virtue words collapse into the assistant blob (unenactable)
-  while vivid registers instantiate cleanly. Effective dimensionality (Qwen ~5, Llama ~9) is one
-  summary statistic of its spread, alongside enactability and cross-persona discriminability.
-
-**Cutting across everything — response generation**
-
-- **Concentration** — how peaked the response distribution is (Gemma ≈ 0.11 nats, FalconMamba
-  ≈ 1.66).
-- **Item-drivenness** — how much of that spread tracks the item rather than a fixed per-model
-  habit (Gemmas 75–92% content, FalconMamba 7.5%).
-
-These last two are kept separate because FalconMamba proves they dissociate: it looks maximally
-uncertain by entropy, but almost none of the spread is about the item — it's running a fixed
-digit-prior. "Flat" means low-*content*, not high-variability, so entropy alone over-trusts it.
-Model-specific representation artifacts (Gemma's massive activations, the IPR-gated partialling)
-are explicitly **not** properties here — they're a methods correction and belong in methods.
-
-### 3.5 Readouts have blind spots
+### 3.4 Readouts have blind spots
 
 Each readout is sensitive to some properties and blind to others: argmax scoring can't see
 concentration; cosine on separately-encoded items can't see context-dependent weighting;
