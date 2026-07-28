@@ -69,37 +69,70 @@ correction). The tests that do discriminate:
 tid <- read_csv_("frames_tidy.csv") %>% as_tibble()
 FR  <- c("cond","sim","diff")
 tid <- tid %>% mutate(frame = factor(frame, levels = FR))
-MOD <- sort(unique(tid$model))
-cat(sprintf("%d records | %d models | %d pairs | mean valid mass %.3f\n",
-            nrow(tid), length(MOD), n_distinct(paste(tid$i, tid$j)), mean(tid$valid_mass, na.rm=TRUE)))
+ALLMOD <- sort(unique(tid$model))
 ```
 
-## 1. Manipulation check
+## 1. Data quality first — one rater has to go
 
-```{r mcheck}
+The primary measure is the **digit the model actually emitted**, not the logprob EV. That
+choice is forced. At temperature 0 the emitted token *is* the answer, but this endpoint's
+`top_logprobs` are not always the distribution that produced it: `qwen2.5:3b` emits "5" on
+cells where the reported distribution puts 0.80 on "7", and the disagreement rate reaches
+61% on `phi4-mini`. **This is a finding the whole track needs** — the soft-evidence
+programme assumes those distributions are trustworthy, and on this endpoint, for some
+models, they are not.
+
+```{r quality}
 tid %>% group_by(model, frame) %>%
-  summarise(n = n(), mean = mean(ev), sd = sd(ev),
-            `% at scale ends` = 100*mean(ev < 1.5 | ev > 6.5), .groups = "drop") %>%
-  mutate(across(where(is.numeric), ~round(.,2))) %>%
-  knitr::kable(caption = "Raw ratings by model and frame (EV over the 1-7 logprob distribution).")
+  summarise(n = n(), `digit rate` = mean(text_ok),
+            `logprob agrees with text` = mean(lp_agree, na.rm = TRUE),
+            mean = mean(rating), sd = sd(rating), .groups = "drop") %>%
+  mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "Response quality by model and frame. `digit rate` counts prompts that produced a parsable 1-7 at all.")
 ```
+
+**`phi4-mini` is excluded from every test below**, for three independent reasons:
+
+1. **Frame-differential non-response.** It opens with prose ("I cannot provide an
+   accurate answer...") on **16.5% of `sim` prompts** versus ~4% of `cond` and `diff`.
+   Missingness that depends on the manipulation is exactly what a frame contrast cannot
+   tolerate.
+2. **The repair changes the answer.** Seeding an assistant `"Number:"` turn does raise
+   its digit rate, but it also *moves its ratings* — *blind*/*thinking* goes from 6
+   unprefilled to 2 prefilled. That is a different measurement, not a reformatted one.
+3. **Degenerate `diff` responding.** Its `diff` ratings have SD = 0.05 — it answers 6 to
+   essentially every difference item.
+
+Its refusal pattern is itself worth recording: **the model balks specifically at the
+similarity frame**, not at the conditional or the difference frame. `llama3.2:3b` is
+retained but is the known flat rater (SD 0.33–0.61), so it contributes little
+differentiated signal; the weight falls on the Gemmas and `qwen2.5:3b`.
+
+```{r drop-phi4}
+tid <- tid %>% filter(model != "phi4-mini-latest")
+MOD <- sort(unique(tid$model))
+cat(sprintf("%d records | %d raters | %d pairs\n",
+            nrow(tid), length(MOD), n_distinct(paste(tid$i, tid$j))))
+```
+
+## 2. Manipulation check
 
 ```{r mcheck-plot, fig.height=4}
-ggplot(tid, aes(ev, colour = frame)) + geom_density(linewidth = 0.7) +
+ggplot(tid, aes(rating, colour = frame)) + geom_density(linewidth = 0.7, adjust = 1.6) +
   facet_wrap(~model, nrow = 1) +
   scale_colour_manual(values = c(cond = "#4C72B0", sim = "#55A868", diff = "#C44E52")) +
   labs(title = "The frames elicit different response distributions",
        x = "rating (raw polarity)", y = NULL) + theme_judge()
 ```
 
-## 2. T4 — is rgb's conditional a similarity judgment?
+## 3. T4 — is rgb's conditional a similarity judgment?
 
 Pair-level correspondence between the frames, averaging the two orders (so this is about
 the *symmetric* signal, not the asymmetry):
 
 ```{r t4}
-wide <- tid %>% group_by(model, i, j, frame) %>% summarise(ev = mean(ev), .groups = "drop") %>%
-  pivot_wider(names_from = frame, values_from = ev) %>%
+wide <- tid %>% group_by(model, i, j, frame) %>% summarise(r = mean(rating), .groups = "drop") %>%
+  pivot_wider(names_from = frame, values_from = r) %>%
   filter(!is.na(cond), !is.na(sim), !is.na(diff)) %>%   # complete pairs only
   mutate(diff_alike = 8 - diff)
 arch <- {
@@ -120,7 +153,7 @@ wide %>% group_by(model) %>%
   knitr::kable(caption = "Do the frames measure the same thing? (pair level, orders averaged). The archival column also validates this harness against rgb's original collection.")
 ```
 
-## 3. T1 — non-complementarity (the primary test)
+## 4. T1 — non-complementarity (the primary test)
 
 If `diff` is `sim` with the polarity reversed, `sim + diff` is a constant. Under the
 contrast model it varies with how much feature mass the pair has to work with.
@@ -157,7 +190,7 @@ ggplot(nc, aes(arch_sym, sum_sd)) +
   theme_judge()
 ```
 
-## 4. T3 — does the archival prominence scale predict the new frames?
+## 5. T3 — does the archival prominence scale predict the new frames?
 
 For each frame, the directional asymmetry on the alikeness polarity,
 `Δ = r(i→j) − r(j→i)`, regressed on the archival prominence difference `f_i − f_j`.
@@ -166,7 +199,7 @@ the better subject).
 
 ```{r t3}
 asym <- tid %>%
-  mutate(val = ev_alike) %>%
+  mutate(val = rating_alike) %>%
   select(model, i, j, frame, order, val) %>%
   pivot_wider(names_from = order, values_from = val) %>%
   filter(!is.na(ij), !is.na(ji)) %>%          # both orders needed for a delta
@@ -185,10 +218,10 @@ map_dfr(MOD, function(m) map_dfr(FR, function(f) {
   knitr::kable(caption = "T3: out-of-sample validation of the Report VI prominence scale. Negative slope = predicted direction.")
 ```
 
-## 5. T2 — asymmetry-to-signal ratio by frame
+## 6. T2 — asymmetry-to-signal ratio by frame
 
 ```{r t2}
-sig <- tid %>% group_by(model, frame) %>% summarise(sd_rating = sd(ev), .groups = "drop")
+sig <- tid %>% group_by(model, frame) %>% summarise(sd_rating = sd(rating), .groups = "drop")
 asym %>% group_by(model, frame) %>% summarise(sd_delta = sd(delta), .groups = "drop") %>%
   left_join(sig, by = c("model","frame")) %>%
   mutate(ratio = sd_delta/sd_rating) %>%
@@ -207,7 +240,7 @@ asym %>% group_by(model, frame) %>% summarise(sd_delta = sd(delta), .groups="dro
        y = "SD(Δ) / SD(rating)") + theme_judge()
 ```
 
-## 6. High-gap vs low-gap block
+## 7. High-gap vs low-gap block
 
 The design's own manipulation check: the asymmetry should be concentrated in the high
 prominence-gap block, in every frame.
@@ -219,3 +252,88 @@ asym %>% group_by(model, frame, block) %>%
   mutate(ratio = high_gap/low_gap, across(where(is.numeric), ~round(.,3))) %>%
   knitr::kable(caption = "Mean |Δ| by prominence-gap block.")
 ```
+
+## 8. Summary figure — where the prominence gradient lives
+
+```{r summary-fig, fig.height=4.2}
+map_dfr(MOD, function(m) map_dfr(FR, function(f) {
+  d <- asym %>% filter(model == m, frame == f)
+  if (nrow(d) < 10) return(tibble())
+  ct <- cor.test(d$delta, d$fdiff)
+  tibble(model = m, frame = factor(f, levels = FR), r = ct$estimate,
+         lo = ct$conf.int[1], hi = ct$conf.int[2])
+})) %>%
+  ggplot(aes(frame, r, colour = model, group = model)) +
+  geom_hline(yintercept = 0, colour = "grey60") +
+  geom_errorbar(aes(ymin = lo, ymax = hi), width = 0.08,
+                position = position_dodge(width = 0.35), alpha = 0.6) +
+  geom_point(size = 2.6, position = position_dodge(width = 0.35)) +
+  geom_line(alpha = 0.35, position = position_dodge(width = 0.35)) +
+  labs(title = "The Report VI prominence gradient is largely specific to the conditional frame",
+       subtitle = "correlation of the directional asymmetry with the archival prominence difference (95% CI)\nnegative = the direction Tversky's contrast model predicts",
+       x = NULL, y = "r(Δ, f_i − f_j)") + theme_judge()
+```
+
+## Verdict
+
+The experiment does its job: it separates the two accounts, and it splits the difference
+between them in a specific and informative way.
+
+**1. `cond` is not an explicit similarity judgment (T4).** rgb's conditional correlates
+r = 0.60–0.75 with a directly-asked similarity on the very same pairs — substantial, but
+sharing only about half its variance — and it correlates *better* with the archival
+consensus (0.77–0.88) than with `sim` (0.52–0.74). The high archival correlation doubles
+as the harness bridge: this collection reproduces rgb's original, so the `cond`/`sim` gap
+is a frame effect, not a pipeline artefact.
+
+**2. The prominence gradient is strongly frame-bound (T3) — the headline.** In the
+conditional frame the archival *f* predicts the fresh directional asymmetry powerfully and
+in the predicted direction for every rater (r = −0.34 to −0.70, |t| = 5.6–15.6): Report
+VI's scale replicates **out-of-sample, on freshly collected data, in the frame it came
+from**, and it does so *more* strongly in the larger models. In the explicit similarity and
+difference frames the same predictor is weak and sign-inconsistent (|r| = 0.06–0.24; two of
+the ten model × frame cells run the *wrong* way, both non-significant). The gap-block check
+agrees: `cond` concentrates asymmetry in the high-prominence-gap block for every rater
+(1.35–2.93×), while `sim` does so only for the two larger Gemmas (1.65×) and `diff` barely
+at all.
+
+If *f* were frame-invariant feature salience it should govern similarity and difference
+judgments about as well as conditionals. It does not — by roughly a factor of three to
+five in correlation. **What Report VI characterized is largely the geometry of a
+conditional inference, not of a general similarity faculty.** That is a point for the
+deflationary `P(j | i)` rival, on the test designed to separate them.
+
+**3. Non-complementarity is real, and it grows with model scale (T1).** `sim + diff` is not
+constant, and — the test that matters — the sum moves with the pair's overlap in four of
+five raters: `gemma3:27b` R² = 0.23 (b = 0.67, t = 7.5), `qwen2.5:3b` R² = 0.16 (t = 6.4),
+`gemma3:12b` R² = 0.07 (t = 4.0), `llama3.2:3b` R² = 0.04 (t = 2.3). Within the Gemma
+family the effect is monotone in size — **4B 0.007 → 12B 0.071 → 27B 0.233** — with
+`gemma3:4b` the lone null. So Tversky & Gati's human non-complementarity *does* reproduce
+here, but as a capability that emerges with scale rather than a universal property of these
+raters. The predicted *richness* channel (`f_i + f_j`) is never significant; the effect runs
+entirely through **overlap**, i.e. through common rather than distinctive features.
+
+**4. T2 is equivocal.** The relative asymmetry is larger in `diff` than in `sim` for four of
+five raters, which is the contrast model's ordering, but `gemma3:12b` reverses it and all
+the margins are small. `cond` exceeds both frames in every rater — consistent with (2).
+
+**What survives from Report VI.** Everything estimated *on conditional data*: the
+gradient/curl decomposition, the recovered scale and its composition (base rate plus an
+independent negativity term, no lexical-frequency component), the low-rank shared curl.
+Test (2) is genuine out-of-sample confirmation of that scale **within** `cond`, which is
+more than Report VI had. What does not survive is calling it Tversky *prominence* in the
+general sense. **Report VI should be read as a contrast-model account of rgb's conditional
+item** — where the contrast model does real explanatory work — and not as an account of
+similarity judgment at large. Result (3) says the contrast model is not simply wrong about
+these models either: its signature non-additivity is there, and sharpens with scale.
+
+**For the readout account** this is the thesis in miniature, on the cleanest test available:
+same adjective pairs, same models, same response format, three questions — and the
+structure you recover depends on which question you asked. A "similarity readout" and a
+"conditional-endorsement readout" are not two views of one object, and the gap between them
+is not noise: it is systematic, replicates across five raters, and varies with scale.
+
+**Limits.** Five usable raters after the `phi4-mini` exclusion, one range-restricted and
+three from one family; 252 pairs; top-1 responses only, because the endpoint's logprobs
+could not be trusted (§1) — so there is no distributional channel here, and the
+soft-evidence treatment this track wants will need a different collection path.

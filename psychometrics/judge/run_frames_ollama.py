@@ -62,12 +62,20 @@ def build_prompt(frame, a, b):
     return f"{BODY[frame].format(a=a, b=b)}\n{SCALE[frame]}\nNumber:"
 
 
-def call_remote(model, prompt, api_key, timeout=120, top_logprobs=20):
-    """One chat completion via curl (compact JSON payload; see CLAUDE.md gotchas)."""
+def call_remote(model, prompt, api_key, timeout=120, top_logprobs=20, prefill=False):
+    """One chat completion via curl (compact JSON payload; see CLAUDE.md gotchas).
+
+    `prefill` seeds an assistant turn with "Number:" so the natural continuation is a
+    digit. Needed for phi4-mini, which otherwise opens with prose ("I cannot provide
+    an...") at a FRAME-DEPENDENT rate (16.5% on `sim` vs ~4% on `cond`/`diff`), which
+    would put differential missingness straight into the frame contrast."""
+    msgs = [{"role": "system", "content": SYS_MSG},
+            {"role": "user", "content": prompt}]
+    if prefill:
+        msgs.append({"role": "assistant", "content": "Number:"})
     payload = {
         "model": model,
-        "messages": [{"role": "system", "content": SYS_MSG},
-                     {"role": "user", "content": prompt}],
+        "messages": msgs,
         "temperature": 0,
         "stream": False,
         "max_tokens": 4,
@@ -128,6 +136,8 @@ def main():
     ap.add_argument("--frames", default=",".join(FRAMES))
     ap.add_argument("--timeout", type=int, default=120)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--prefill", action="store_true",
+                    help="seed an assistant 'Number:' turn (needed for phi4-mini)")
     args = ap.parse_args()
 
     key = os.environ.get("OLLAMA_API_KEY")
@@ -143,7 +153,7 @@ def main():
         pairs = pairs[:args.pairs]
 
     os.makedirs(OUT, exist_ok=True)
-    stem = args.model.replace(":", "-").replace("/", "-")
+    stem = args.model.replace(":", "-").replace("/", "-") + ("_prefill" if args.prefill else "")
     path = args.out or os.path.join(OUT, f"{stem}_frames.jsonl")
 
     done = set()
@@ -171,7 +181,8 @@ def main():
         for k, (p, frame, order) in enumerate(jobs, 1):
             a, b = (p["adj_i"], p["adj_j"]) if order == "ij" else (p["adj_j"], p["adj_i"])
             prompt = build_prompt(frame, a, b)
-            resp, err = call_remote(args.model, prompt, key, timeout=args.timeout)
+            resp, err = call_remote(args.model, prompt, key, timeout=args.timeout,
+                                    prefill=args.prefill)
             if resp is None:
                 nfail += 1
                 rec = {"i": int(p["i"]), "j": int(p["j"]), "frame": frame, "order": order,

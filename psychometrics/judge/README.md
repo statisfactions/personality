@@ -46,6 +46,10 @@ cd reports && for f in 0*_*.Rmd; do Rscript -e "rmarkdown::render('$f')"; done
 `convert_medoids.py` (35-adjective raw sample) are retained for provenance; the current
 pipeline is `convert_full_dists.py`.
 
+`sample_frame_pairs.R` → `data/frame_pairs.csv` (252 stratified pairs), `run_frames_ollama.py`
+→ `frames_raw/*.jsonl` (**tracked** — collected inference is not regenerable),
+`run_frames_all.sh`, `convert_frames.py` → `data/frames_tidy.csv`. These feed Report VII.
+
 `adj_freq.py` adds `data/adj_freq.csv` (wordfreq Zipf frequencies for the 523 adjectives) —
 a rival predictor of prominence used by Report VI. Run after `convert_full_dists.py`.
 
@@ -63,6 +67,7 @@ moments. Run it after `convert_full_dists.py`; both feed Report I.
 | III | `03_reliability.Rmd`        | G-theory variance components, ICC(2/3), D-study, rater-quality anatomy, which pairs are reliably vs idiosyncratically judged, within-rater direction reliability |
 | IV  | `04_structure.Rmd`          | dimensionality, 5-factor solution, **structural invariance across raters** (Tucker congruence), the evaluative-halo general factor as a discriminant-validity threat |
 | V   | `05_consensus.Rmd`          | *reactive* — does weighting/trimming the ensemble beat the flat mean? (no); consensus growth curve |
+| VII | `07_frame_experiment.Rmd`   | **The frame experiment** — same 252 pairs asked three ways (rgb's conditional / explicit similarity / explicit difference) × both orders on 5 Orin raters. Finds the Report VI prominence gradient is **strongly frame-bound** (replicates out-of-sample in `cond`, 3–5× weaker in `sim`/`diff`); non-complementarity is real and **grows with model scale**; `cond` ≠ an explicit similarity judgment; `phi4-mini` excluded (frame-differential refusal); endpoint logprobs found unreliable |
 | VI  | `06_tversky_asymmetry.Rmd`  | **Tversky (1977) contrast-model reading of the asymmetry** — the gradient/curl split *is* the contrast model's fit vs residual; recovered prominence scale `f = -g` (prevalence + an independent negativity term, **not** lexical frequency); additivity test; the curl as *diagnosticity*, low-rank and strongly shared once measured at plane/construct resolution; Tversky–Hutchinson nearest-neighbour centrality (negative result: the symmetric part *is* spatial); per-rater contrast weights; why the missing diagonal *cannot* identify α/β (ceiling + pragmatic degeneracy) and the dissimilarity-frame experiment that can |
 
 Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric_soundness.md`.
@@ -150,7 +155,7 @@ EV-only tables).
   **Caveat (ecb):** human correspondence is *one* strand of evidence, **not** validity in
   itself — a match supports, a mismatch does not disconfirm a coherent measurement of the
   models' own implicit personality theory.
-- **Dissimilarity-frame experiment (Report VI §8.2).** α and β are *not* separately
+- ~~Dissimilarity-frame experiment~~ **— DONE (Report VII, 2026-07-29).** α and β are *not* separately
   identified by the collected data (we recover only `(β−α)f`). Tversky's lever is to ask for
   **difference** instead of similarity: a base-rate account (`B[i,j]≈P(j|i)`) predicts **no
   reversal**, the contrast model predicts the prominence gradient **inverts**. Needs only a

@@ -213,7 +213,21 @@ As a measurement of the models' implicit personality theory, the JUDGE instrumen
    plane/construct resolution (0.72–0.73 vs nulls of 0.05–0.30), not the low-reliability
    residual Report II described. Its dominant plane and the construct-level flow (negative
    affect as net source) are the natural bridge to rgb's person-perception cycles (W16 §5).
-6. **Dissimilarity-frame experiment (Report VI §8.2).** α and β are not separately
+6. **Frame experiment — DONE (Report VII, 2026-07-29).** 252 pairs × 3 frames × 2 orders
+   on 5 Orin raters (9,072 prompts; `phi4-mini` excluded for frame-differential refusal —
+   it balks at the *similarity* frame specifically). **The Report VI prominence gradient is
+   strongly frame-bound:** it replicates out-of-sample within rgb's conditional frame
+   (r = −0.34 to −0.70, |t| = 5.6–15.6, stronger in larger models) but is 3–5× weaker and
+   sign-inconsistent in explicit similarity/difference frames. So Report VI is a
+   contrast-model account **of the conditional item**, not of similarity judgment at large —
+   a point for the deflationary `P(j|i)` rival. Two results cut the other way: `cond`
+   correlates only 0.60–0.75 with a directly-asked similarity on the same pairs (so it is
+   *not* simply a similarity judgment either), and Tversky & Gati **non-complementarity is
+   real and monotone in model scale** (Gemma 4B R² = .007 → 12B .071 → 27B .233), running
+   through overlap rather than the predicted richness channel. Also found: this Orin
+   endpoint's `top_logprobs` are **not reliably aligned to the emitted token** (qwen 20%,
+   phi4 61% disagreement) — a caution for the soft-evidence programme.
+   *Superseded proposal (kept for the record):* α and β are not separately
    identified by the collected data — everything in Report VI is a statement about `(β−α)f`.
    Tversky's lever is to ask for **difference** rather than similarity: a base-rate account
    (`B[i,j]≈P(j|i)`) predicts **no reversal**, the contrast model predicts the prominence
