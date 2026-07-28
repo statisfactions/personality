@@ -44,9 +44,11 @@ what the model **represents**, **judges**, **enacts**, **claims** (SELF), and
 what **humans** do on the same words. The project's founding slogan —
 *distribution > argmax* — has now been vindicated at every level, including
 inside other people's instruments. The big structural results: (1) the write
-side (ENACT) is a **low-rank linear image** of the read side, ~5–13 effective
-dimensions against REPRESENT's 50–70, and mapped vectors steer *better* than
-extracted ones; (2) **JUDGE is the best human-matched channel** (r≈0.8,
+side (ENACT) is a **low-rank linear image** of the read side — ~5–13
+effective dimensions, against REPRESENT's 50–70 and **human self-report's
+~27**: models enact a third to a half of human personality bandwidth from a
+representation that carries about twice it — and mapped vectors steer
+*better* than extracted ones; (2) **JUDGE is the best human-matched channel** (r≈0.8,
 nearly none of it desirability-freebie) — the model's knowledge of human
 personality structure is excellent even though (3) its **self-knowledge is
 nil in the channels tested**: SELF is a character sheet with no self behind
