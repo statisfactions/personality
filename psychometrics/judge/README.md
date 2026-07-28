@@ -46,6 +46,9 @@ cd reports && for f in 0*_*.Rmd; do Rscript -e "rmarkdown::render('$f')"; done
 `convert_medoids.py` (35-adjective raw sample) are retained for provenance; the current
 pipeline is `convert_full_dists.py`.
 
+`adj_freq.py` adds `data/adj_freq.csv` (wordfreq Zipf frequencies for the 523 adjectives) —
+a rival predictor of prominence used by Report VI. Run after `convert_full_dists.py`.
+
 `dist_processes.py` is a second pass over the same npz for **Report I §7** — it emits
 response-process products (`proc_content`, `proc_signature`, `proc_modepairs`,
 `proc_endpoint_examples`) that read the distributions *as processes* rather than recomputing
@@ -60,6 +63,7 @@ moments. Run it after `convert_full_dists.py`; both feed Report I.
 | III | `03_reliability.Rmd`        | G-theory variance components, ICC(2/3), D-study, rater-quality anatomy, which pairs are reliably vs idiosyncratically judged, within-rater direction reliability |
 | IV  | `04_structure.Rmd`          | dimensionality, 5-factor solution, **structural invariance across raters** (Tucker congruence), the evaluative-halo general factor as a discriminant-validity threat |
 | V   | `05_consensus.Rmd`          | *reactive* — does weighting/trimming the ensemble beat the flat mean? (no); consensus growth curve |
+| VI  | `06_tversky_asymmetry.Rmd`  | **Tversky (1977) contrast-model reading of the asymmetry** — the gradient/curl split *is* the contrast model's fit vs residual; recovered prominence scale `f = -g` (prevalence + an independent negativity term, **not** lexical frequency); additivity test; the curl as *diagnosticity*, low-rank and strongly shared once measured at plane/construct resolution; Tversky–Hutchinson nearest-neighbour centrality (negative result: the symmetric part *is* spatial); per-rater contrast weights; the case for collecting the missing diagonal |
 
 Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric_soundness.md`.
 
@@ -77,6 +81,16 @@ Companion narrative (validity-argument framing): `ecb-reports/judge_psychometric
   figure suggests), ≈½ removable prevalence gradient, and ~2× less reliable across raters
   than the symmetric part → symmetrize for the similarity, keep directionality as a
   separate channel.
+- **That asymmetry is a Tversky contrast model (Report VI).** The gradient half is the
+  model's *prominence* term — recovered scale `f` = base rate (R²=0.72) **plus an
+  independent negativity component** (ΔR²=0.12 net of a 6-df prevalence spline; undesirable
+  traits are stronger referents) and **zero** lexical-frequency component, so it is a
+  feature-salience measure, not a base rate. Direction is as Tversky predicts (97% of
+  large-gap pairs). The curl half is *diagnosticity* and, contra Report II, is **low-rank
+  and strongly shared** (dominant-plane congruence 0.73 vs null 0.05; construct-level 0.72
+  vs 0.30) — Report II's r̄ 0.34 measured cell-level noise. Nearest-neighbour centrality
+  (C = 2.31, max Nᵢ = 9) says the *symmetric* part is comfortably spatial: JUDGE is
+  non-metric in its asymmetry, not in its similarity.
 - **A single LLM is a moderately reliable rater** (ICC(2,1)≈0.61); the **cohort consensus
   is excellent** (ICC(2,k)≈0.95). ~6 raters suffice for G≥0.9; weighting/trimming buys ~nothing.
 - **Between-rater disagreement peaks at the *low-similarity, confident* end** (not a
@@ -136,5 +150,10 @@ EV-only tables).
   **Caveat (ecb):** human correspondence is *one* strand of evidence, **not** validity in
   itself — a match supports, a mismatch does not disconfirm a coherent measurement of the
   models' own implicit personality theory.
+- **Collect the diagonal (Report VI §8).** `dists` has a NaN diagonal, but Tversky's
+  `s(a,a) = θ·f(A)` is the direct measurement of prominence and the only way to identify α
+  and β separately (we currently get only `(β−α)f`). **523 prompts per model** in the
+  verbatim `tom_likely` frame; four cohort models (`gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`,
+  `phi4-mini`) are on the Orin. Also gives a minimality test and a free response-process check.
 - Directional (curl) channel as a substantive implicit-personality-theory construct.
 - Ties to the model-as-unit Kane validity argument (`memory/project_validity_argument_program`).

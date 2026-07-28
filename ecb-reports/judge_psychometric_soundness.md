@@ -69,6 +69,55 @@ of size. **The scored object is therefore the symmetrized, double-centered `B`; 
 directional curl is retained as a separate, flagged channel — sizeable but low-reliability
 implicit-personality-theory directionality, not error.**
 
+**What the asymmetry *is*: a Tversky contrast model (Report VI).** Reading the same
+decomposition through Tversky (1977) turns two of Report II's descriptive results into
+model fits, and amends both. JUDGE's prompt fixes subject/referent roles, so `B[i,j]` is a
+contrast-model similarity `θf(A∩B) − αf(A−B) − βf(B−A)`; with an additive feature measure
+the antisymmetric part is *exactly* `(β−α)(f_i − f_j)`, a pure gradient with zero curl. So
+the Helmholtz–Hodge split is not a chart choice — the **gradient share (mean 50%, consensus
+57%) is the contrast model's fit** and the curl is precisely what it cannot produce.
+
+- *Amendment 1 — the gradient is not "the trivial Bayes direction."* It is the model's
+  **prominence** term, and prominence is not a base rate. Net of a 6-df natural spline in
+  prevalence (R² = 0.72 on its own), the evaluative halo adds **ΔR² = 0.12, t = −19**, in
+  every one of the 12 raters, with a **negative** sign: *at equal base rate an undesirable
+  trait is the stronger referent* — the standard negativity/diagnosticity asymmetry of
+  person perception. Lexical frequency (wordfreq Zipf, 5-unit range) adds **nothing**
+  (ΔR² = 0.000, p = 0.51). A triple dissociation: `f` is a feature-salience measure with a
+  prevalence component and an independent negativity component, not a probability and not
+  word availability. Direction is as Tversky predicts (specific ⇒ general; sign correct for
+  76% of all pairs and **97%** of top-decile-prominence-gap pairs), and the size of the
+  asymmetry depends on the prominence gap (r = 0.62) but **not** on overlap once the gap is
+  partialled (r = −0.01), so additivity is not rejected. Double-centering still correctly
+  removes this term for the similarity — but it removes a **construct**, not an artefact.
+- *Amendment 2 — the curl is not "faint and idiosyncratic."* Report II correlated it
+  **cell by cell** (r̄ 0.34–0.40) — the wrong resolution for a context-dependence effect,
+  which shifts weights at category level. At the resolution the theory predicts, the curl
+  is **low-rank and strongly shared**: the dominant skew-symmetric circulation plane carries
+  47% of curl variance and replicates across raters at **subspace congruence 0.73 against a
+  permutation null of 0.05**; projected onto the 5-factor basis, cross-rater agreement is
+  **0.72 vs a random-basis null of 0.30 (p < 0.005)**. Its shape is interpretable — an
+  evaluative × (misfortune vs malevolence) circulation, with **negative affect as the
+  construct-level net source** (anchoring on F3 implies antagonism/incompetence far more
+  than the reverse) — and a third of the 5×5 residual is itself a second-order prominence
+  potential at trait-factor level.
+- *A useful negative.* Tversky & Hutchinson's (1986) nearest-neighbour centrality — the
+  test for focal structure no Euclidean space can host — comes out **clean**: C = 2.31,
+  max Nᵢ = 9 (a 3-D embedding suffices). **JUDGE is non-metric in its asymmetry, not in its
+  symmetric part**, which supports rather than undercuts the geometric treatments. The two
+  raters with anomalous centrality (`Qwen2.5-7B` 9.5, `Llama3.2-3B` 8.3) are the
+  range-restricted ones, so centrality doubles as a cheap flat-rater diagnostic.
+- *Rater-level parameters.* The scale-free asymmetry weight varies ~1.7× across raters
+  (0.36–0.64, unrelated to size or family), and a contrast-model **over-identification
+  test** — does the same `f` govern the asymmetry and the symmetric marginal? — holds for
+  the differentiated raters (`Qwen2.5-32B` 0.84, `Gemma-4-31B` 0.83) and **collapses for
+  `Llama3.2-3B` (0.01) and `Aya` (0.16)**, a theory-derived rater-fit statistic that agrees
+  with, rather than duplicates, the Report I response-style verdicts.
+
+The measurement verdict is unchanged (symmetrize). What changes is the **status of what we
+set aside**: a second construct with its own reliability, its own theory, and its own
+model-level parameters — carried forward as such, not filed as nuisance.
+
 ## 2. Generalization inference — from one score to the universe score
 
 *Warrant: the score generalizes across the sampled conditions — here, across raters/models.*
@@ -159,9 +208,17 @@ As a measurement of the models' implicit personality theory, the JUDGE instrumen
    525-PDA matrix as *one* criterion strand. Blocked on a careful adjective alignment: the
    human labels are UPPERCASE + 8-char-truncated (`ACCOMPLI`), so a prefix/fuzzy match with
    collision auditing is needed. Frame strictly per §0.
-2. **Directional (curl) construct.** The ~21% asymmetry, net of prevalence, is a
-   low-reliability but non-zero implicit-personality-theory *directionality* — worth its
-   own small study, and the natural bridge to rgb's person-perception cycles (W16 §5).
+2. **Directional (curl) construct — upgraded by Report VI.** Net of prevalence the
+   asymmetry is a *diagnosticity* channel that is low-rank and **strongly** reproducible at
+   plane/construct resolution (0.72–0.73 vs nulls of 0.05–0.30), not the low-reliability
+   residual Report II described. Its dominant plane and the construct-level flow (negative
+   affect as net source) are the natural bridge to rgb's person-perception cycles (W16 §5).
+6. **Collect the 523 self-pairs (Report VI §8).** The `dists` diagonal is NaN, but
+   Tversky's `s(a,a) = θ·f(A)` is the *direct* measurement of prominence and the only route
+   to identifying α and β separately (we currently recover only `(β−α)f`). 523 prompts per
+   model in the verbatim `tom_likely` frame; four cohort models are on the Orin. Also yields
+   a **minimality** test (metric non-metricity that no symmetrizing can remove) and a free
+   response-process check. Cheapest high-value collection on the track.
 3. **Halo-controlled trait scores.** Provide general-factor-partialled JUDGE trait scales
    for use as a method in the model-level MTMM.
 4. **Tie into the Kane MTMM.** JUDGE joins Likert / GFC-TIRT / rgb-axis as a method
