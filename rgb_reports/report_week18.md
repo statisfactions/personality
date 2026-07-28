@@ -808,3 +808,20 @@ from the same pipeline. Note-form: the repaired instrument achieves
 acceptable profile reliability and acceptable discrimination wherever
 between-model variance exists; near-zero average α is a fact about the
 assistant population (~one respondent), not the instrument.
+
+**§6 CORRECTION (2026-07-27, from rgb's audit of the regressions).** The
+per-PC decodability claim was an artifact of the pipeline: one ridge α
+shared across all 30 outputs (tuned on total SSE, dominated by PC1) plus
+CV R² as the metric — R² conflates direction with calibration, and
+miscalibrated-but-directionally-correct predictions score negative. With a
+fixed α and correlation as the metric, held-out corr(pred, true):
+REPRESENT decodes PC1 +0.93-0.95, **PC2 +0.81-0.89**, PC3 +0.78-0.86, PC4
++0.82-0.85, mean PC2-10 +0.65-0.73 (three families). "Human PC2 flatly
+absent" is DEAD — the self-presentation axis IS in the representation.
+Second correction from the same audit: sentence encoders decode raw
+held-out human similarity at 0.71-0.785 ≈ REPRESENT's 0.78-0.81, so the
+raw "embedded" claim is distributional-generic; REPRESENT's specific edge
+is +0.10-0.15 PC1-removed and, per-PC, pervasive (beats mpnet on every
+deep PC: PC2 0.85 vs 0.68, PC4 0.82 vs 0.51). Methods lesson for the
+recipe: per-target metrics; correlation for direction-presence; R² only
+with per-target calibration. (Shuffle sanity 0.01.)

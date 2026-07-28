@@ -167,19 +167,24 @@ disorganized contains left-handed) — **valence is an axis for models, a
 binder for humans**. "Virtues all alike, every vice specific" — and this
 recurs later as a factor-structure phenomenon (§12).
 
-## 8. Human structure is decodable from REPRESENT
+## 8. Human structure is decodable from REPRESENT — with two corrections
 
-The four-grid claim "REPRESENT matches humans mostly via PC1" was about
-similarity geometry in place. A cross-validated linear map from activation
-PCs to the human eigenspace nearly **doubles** the beyond-PC1 human match
-(0.29→0.50–0.55; raw 0.78–0.81, three families). The human structure is
-*embedded*, rotated and mis-scaled. The per-PC decodability curve is
-diagnostic: human PC1 decodes at R²≈0.83, PC4 (levity) ≈0.6 … and **human
-PC2 — modesty vs self-enhancement, a self-presentation stance — is flatly
-absent (negative R²) in every model**. The one big human dimension models
-lack is the one that lives in *respondents* rather than in language. That
-residue is a tool: model channels as a pure-semantics control for
-separating substance from style in human self-report.
+A cross-validated linear map from activation PCs to the human eigenspace
+decodes held-out human similarity at 0.78–0.81. Two corrections from
+rgb's audit of these regressions (2026-07-27): (1) **the raw number is
+distributional-generic** — sentence encoders decode the same target at
+0.71–0.785, so "embedded in REPRESENT" deflates to "embedded in any
+distributional space"; the model-specific edge is +0.10–0.15 PC1-removed.
+(2) The originally-reported "human PC2 (self-presentation) is absent" was
+a **metric artifact** (shared ridge α + R² conflating direction with
+calibration): with correlation as the metric, REPRESENT decodes PC1
++0.93–0.95, PC2 +0.81–0.89, and every PC through 10 at mean ~0.7 — and
+beats encoders on every deep PC (PC2 0.85 vs 0.68, PC4 0.82 vs 0.51). So
+the honest claim: the deep human structure is present in the
+representation, more so than in encoders, with the edge pervasive rather
+than PC1-carried. Whether output channels *express* the self-presentation
+axis is a separate (open) question — SELF's desirability boulder says
+mostly not.
 
 # Part III — The audits (W18 §7, W19): what the field's instruments measure
 
@@ -323,7 +328,8 @@ original), **DEAD** (retracted), **OPEN** (registered, undecided).
 | 10 | SELF = character sheet; diagonal test ≈0 self-signal | LIVE | W17 §15 |
 | 11 | Channel ranking (PC1-removed human match): JUDGE≫ENACT>REPRESENT≫SELF | LIVE | W18 §2.5 |
 | 12 | Valence is an axis for models, a binder for humans (disbelieved clusters) | LIVE | W18 §1 |
-| 13 | Human structure embedded in REPRESENT; human PC2 (self-presentation) absent | LIVE | W18 §6 |
+| 13 | Human structure embedded in REPRESENT beyond encoders (+0.10-0.15 PC1-removed; per-PC edge pervasive) | REV | W18 §6 + correction |
+| 13b | "Human PC2 absent from all models" | **DEAD** | metric artifact (shared-α ridge + R²); PC2 decodes at 0.81-0.89; W18 §6 correction |
 | 14 | phi4 JUDGE 56% bimodal; modes are commit-vs-hedge | LIVE | W18 §4 |
 | 15 | Certainty is question taxonomy, not entropy policy | LIVE | W18 §4 |
 | 16 | VP/2509.10078: published scoring unreliable; length-dominated; η² at ceiling | LIVE | W18 §7 |
