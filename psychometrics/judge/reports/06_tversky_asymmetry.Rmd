@@ -498,17 +498,46 @@ adjudicates §3's deflationary rival in a way the diagonal never could:
 > *Consider a person who is very **{i}**. How **unlike** a person who is very **{j}** are
 > they?*
 
-- A **base-rate** account (`B[i,j] ≈ P(j | i)`) predicts **no reversal**: conditional
-  probability does not flip sign when the question is rephrased toward difference.
-- The **contrast model** predicts the prominence gradient **inverts**.
+Writing `c = f(A∩B)`, `u = f(A−B)`, `v = f(B−A)`, the two tasks are
+`s(a,b) = θc − αu − βv` and `d(a,b) = α'u + β'v − θ'c`, so
 
-The task is well-formed, so neither failure mode in §8.1 applies. It does not need the
-full 273,006 cells: sampling a few thousand pairs at **high prominence gap** — where §2
-shows the directional effect is 97% consistent and therefore where the test has power —
-is enough, plus a matched low-gap control block. Running the **symmetric** frame ("how
-similar are a person who is very *i* and a person who is very *j*?") on the same pairs
-adds the α = β condition and pins the focusing effect by manipulation rather than by
-assumption.
+$$\Delta s = (\beta-\alpha)(u-v), \qquad \Delta d = (\alpha'-\beta')(u-v).$$
+
+**A sign flip is therefore *not* the discriminating prediction** — and it is worth being
+explicit that my first statement of this design said it was, wrongly. With α > β and
+α' > β' the raw asymmetry does invert between the frames, but so does any reverse-scored
+measure, so a conditional-probability account with flipped polarity predicts exactly the
+same inversion. After reverse-scoring, the two accounts agree on sign. What separates
+them is:
+
+1. **Non-complementarity (the primary test).**
+   `s(a,b) + d(a,b) = (θ−θ')c + (α'−α)u + (β'−β)v`. If difference is merely similarity
+   reverse-scored, this sum is **constant**. Under the contrast model the weights are
+   re-tuned between tasks, so the sum varies systematically with the pair's feature
+   richness — pairs high in *both* common and distinctive features are judged both more
+   similar and more different (Tversky & Gati's result in humans). Regress `s + d` on the
+   overlap proxy (symmetric similarity, from the collected 273k cells) and the richness
+   proxy `f_i + f_j`: **flat ⇒ probability account, structured ⇒ contrast model.**
+2. **The asymmetry-to-signal ratio should differ by frame.** Distinctive features carry
+   more weight in difference judgments, so `|Δd|/SD(d)` should exceed `|Δs|/SD(s)`.
+   A polarity reversal predicts them equal.
+3. **Frame-invariance of *f*.** The same prominence scale recovered in §2 from 273,006
+   cells should predict the directional asymmetry in *both* new frames. This is genuine
+   out-of-sample validation of §2, which the sign test in §2 explicitly was not.
+4. **Does `cond` behave like `sim` at all?** Report VI *assumes* `B[i,j]` is a
+   contrast-model similarity. Running rgb's original conditional frame alongside an
+   explicit similarity frame on the same pairs **tests that assumption** rather than
+   granting it — and a divergence would be a scope limit on this entire report.
+
+The task is well-formed, so neither failure mode in §8.1 applies, and it does not need the
+full 273,006 cells: pairs sampled at **high prominence gap** — where §2 shows the
+directional effect is 97% consistent, so the test has power — plus a matched low-gap
+control block, each stratified across the similarity range so that `c` and `u+v` vary
+independently enough for test 1.
+
+**Collected 2026-07-28** — `sample_frame_pairs.R` (252 pairs: 2 prominence-gap blocks × 3
+similarity terciles × 42) and `run_frames_ollama.py` (3 frames × 2 orders = 1,512 prompts
+per model) on the four Orin cohort models. Results in Report VII.
 
 Four cohort models (`gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`, `phi4-mini`) are in the Orin
 lineup, so a 4-model × 3-frame design over a few thousand pairs is a modest one-off run —

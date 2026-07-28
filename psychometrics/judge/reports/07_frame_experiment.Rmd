@@ -1,0 +1,221 @@
+---
+title: "JUDGE channel — VII. The frame experiment"
+subtitle: "Similarity, difference, and rgb's conditional — does JUDGE behave like a contrast model or like a conditional probability?"
+author: "ecb"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+    fig_width: 9
+    fig_height: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, dpi = 110)
+source("_common.R")
+```
+
+## Design
+
+Report VI read the JUDGE asymmetry as Tversky's contrast model and got a good fit — half
+the directional variance is a single per-adjective prominence potential, the direction is
+right for 97% of high-gap pairs, and prominence separates cleanly from base rate and from
+lexical frequency. But two things were left standing.
+
+1. **Everything was a statement about `(β − α)f`.** The focusing weights are not
+   separately identified by data collected in one frame.
+2. **The whole reading assumed `B[i,j]` is a similarity judgment.** rgb's item is a
+   *conditional* — "a person who is very *i*: how likely also *j*?" — and the deflationary
+   rival is that it is simply `P(j | i)`, in which case Tversky is the wrong theory and the
+   prominence scale is a base rate wearing a costume.
+
+This experiment holds the pair fixed and varies the question. **252 pairs × 3 frames ×
+2 orders = 1,512 prompts per model**, on the four cohort models reachable on the Orin.
+
+| frame | prompt | polarity |
+|---|---|---|
+| `cond` | *Consider a person who is very **a**. How likely is this person to also be **b**?* | alikeness |
+| `sim`  | *How similar is a person who is very **a** to a person who is very **b**?* | alikeness |
+| `diff` | *How different is a person who is very **a** from a person who is very **b**?* | differentness |
+
+Same 1–7 instruction and same system message in all three, so a frame effect cannot come
+from the response format. The grammatical subject is Tversky's *subject* role; running both
+orders is the focusing manipulation. Pairs are stratified 2 × 3 on **prominence gap**
+(top vs bottom decile of `|f_i − f_j|`, using the *f* recovered in Report VI §2 from all
+273,006 archival cells) × **similarity tercile**, so that common-feature mass and
+distinctive-feature mass vary as independently as this item pool allows.
+
+**What separates the two accounts.** With `c = f(A∩B)`, `u = f(A−B)`, `v = f(B−A)`:
+`s = θc − αu − βv` and `d = α'u + β'v − θ'c`, so `Δs = (β−α)(u−v)` and
+`Δd = (α'−β')(u−v)`. The raw sign therefore flips between frames — but so does any
+reverse-scored measure, so **the sign flip is not diagnostic** (Report VI §8.2 states this
+correction). The tests that do discriminate:
+
+- **T1 non-complementarity (primary).** `s + d = (θ−θ')c + (α'−α)u + (β'−β)v`. If `diff`
+  is just `sim` reverse-scored, the sum is **constant**. Under the contrast model it moves
+  with the pair's feature richness.
+- **T2 asymmetry-to-signal ratio by frame.** Distinctive features weigh more in difference
+  judgments, so the relative asymmetry should be larger in `diff`. Pure polarity reversal
+  predicts equality.
+- **T3 frame-invariance of *f*.** The archival prominence scale should predict the
+  directional asymmetry in *both new frames* — genuine out-of-sample validation, which
+  Report VI §2's sign test explicitly was not.
+- **T4 is `cond` a similarity judgment at all?** The assumption Report VI granted itself.
+
+```{r load}
+tid <- read_csv_("frames_tidy.csv") %>% as_tibble()
+FR  <- c("cond","sim","diff")
+tid <- tid %>% mutate(frame = factor(frame, levels = FR))
+MOD <- sort(unique(tid$model))
+cat(sprintf("%d records | %d models | %d pairs | mean valid mass %.3f\n",
+            nrow(tid), length(MOD), n_distinct(paste(tid$i, tid$j)), mean(tid$valid_mass, na.rm=TRUE)))
+```
+
+## 1. Manipulation check
+
+```{r mcheck}
+tid %>% group_by(model, frame) %>%
+  summarise(n = n(), mean = mean(ev), sd = sd(ev),
+            `% at scale ends` = 100*mean(ev < 1.5 | ev > 6.5), .groups = "drop") %>%
+  mutate(across(where(is.numeric), ~round(.,2))) %>%
+  knitr::kable(caption = "Raw ratings by model and frame (EV over the 1-7 logprob distribution).")
+```
+
+```{r mcheck-plot, fig.height=4}
+ggplot(tid, aes(ev, colour = frame)) + geom_density(linewidth = 0.7) +
+  facet_wrap(~model, nrow = 1) +
+  scale_colour_manual(values = c(cond = "#4C72B0", sim = "#55A868", diff = "#C44E52")) +
+  labs(title = "The frames elicit different response distributions",
+       x = "rating (raw polarity)", y = NULL) + theme_judge()
+```
+
+## 2. T4 — is rgb's conditional a similarity judgment?
+
+Pair-level correspondence between the frames, averaging the two orders (so this is about
+the *symmetric* signal, not the asymmetry):
+
+```{r t4}
+wide <- tid %>% group_by(model, i, j, frame) %>% summarise(ev = mean(ev), .groups = "drop") %>%
+  pivot_wider(names_from = frame, values_from = ev) %>%
+  filter(!is.na(cond), !is.na(sim), !is.na(diff)) %>%   # complete pairs only
+  mutate(diff_alike = 8 - diff)
+arch <- {
+  sym <- fread_gz("sym_ev.csv.gz"); disc <- setdiff(MODELS, c("Llama","FalconMamba"))
+  S <- Reduce(`+`, lapply(disc, function(m) build_matrix(sym, m, "sym")))/length(disc)
+  pr <- read_csv_("frame_pairs.csv") %>% as_tibble()
+  pr %>% mutate(arch_sym = S[cbind(i+1L, j+1L)]) %>% select(i, j, arch_sym, gap, sym_design = sym,
+                                                            f_i, f_j, block)
+}
+wide <- wide %>% left_join(arch, by = c("i","j"))
+wide %>% group_by(model) %>%
+  summarise(`cond ~ sim` = cor(cond, sim),
+            `cond ~ reverse(diff)` = cor(cond, diff_alike),
+            `sim ~ reverse(diff)`  = cor(sim, diff_alike),
+            `cond ~ archival B` = cor(cond, arch_sym),
+            `sim ~ archival B`  = cor(sim, arch_sym), .groups = "drop") %>%
+  mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "Do the frames measure the same thing? (pair level, orders averaged). The archival column also validates this harness against rgb's original collection.")
+```
+
+## 3. T1 — non-complementarity (the primary test)
+
+If `diff` is `sim` with the polarity reversed, `sim + diff` is a constant. Under the
+contrast model it varies with how much feature mass the pair has to work with.
+
+```{r t1}
+nc <- wide %>% mutate(sum_sd = sim + diff, rich = f_i + f_j)
+nc %>% group_by(model) %>%
+  summarise(`mean(sim+diff)` = mean(sum_sd), `SD(sim+diff)` = sd(sum_sd),
+            `r with overlap (archival B)` = cor(sum_sd, arch_sym),
+            `r with richness (f_i+f_j)` = cor(sum_sd, rich), .groups = "drop") %>%
+  mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "T1: is sim + diff constant? A polarity-reversal account says SD ~ 0 and both correlations ~ 0.")
+
+map_dfr(MOD, function(m) {
+  d <- nc %>% filter(model == m)
+  if (nrow(d) < 10) return(tibble())
+  fit <- lm(sum_sd ~ scale(arch_sym) + scale(rich), d)
+  tibble(Model = m, n = nrow(d), `R²` = summary(fit)$r.squared,
+         `b(overlap)` = coef(fit)[[2]], `t(overlap)` = summary(fit)$coefficients[2,3],
+         `b(richness)` = coef(fit)[[3]], `t(richness)` = summary(fit)$coefficients[3,3])
+}) %>% mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "T1 regression: sim + diff on standardized overlap and richness.")
+```
+
+```{r t1-plot, fig.height=4}
+ggplot(nc, aes(arch_sym, sum_sd)) +
+  geom_point(alpha = 0.25, size = 0.9, colour = "#4C72B0") +
+  geom_smooth(method = "lm", colour = "#C44E52", se = TRUE, linewidth = 0.7) +
+  geom_hline(yintercept = 8, linetype = 3, colour = "grey50") +
+  facet_wrap(~model, nrow = 1) +
+  labs(title = "Non-complementarity: sim + diff against pair overlap",
+       subtitle = "dotted line = the constant sum a pure polarity reversal would give",
+       x = "archival symmetric similarity B (10-rater consensus)", y = "sim + diff") +
+  theme_judge()
+```
+
+## 4. T3 — does the archival prominence scale predict the new frames?
+
+For each frame, the directional asymmetry on the alikeness polarity,
+`Δ = r(i→j) − r(j→i)`, regressed on the archival prominence difference `f_i − f_j`.
+Report VI predicts a **negative** slope in every frame (the less prominent adjective is
+the better subject).
+
+```{r t3}
+asym <- tid %>%
+  mutate(val = ev_alike) %>%
+  select(model, i, j, frame, order, val) %>%
+  pivot_wider(names_from = order, values_from = val) %>%
+  filter(!is.na(ij), !is.na(ji)) %>%          # both orders needed for a delta
+  mutate(delta = ij - ji) %>%
+  left_join(arch, by = c("i","j")) %>%
+  mutate(fdiff = f_i - f_j)
+
+map_dfr(MOD, function(m) map_dfr(FR, function(f) {
+  d <- asym %>% filter(model == m, frame == f)
+  if (nrow(d) < 10) return(tibble())
+  fit <- lm(delta ~ fdiff, d)
+  tibble(Model = m, Frame = f, n = nrow(d), `slope on (f_i - f_j)` = coef(fit)[[2]],
+         t = summary(fit)$coefficients[2,3], `r` = cor(d$delta, d$fdiff),
+         `SD(Δ)` = sd(d$delta))
+})) %>% mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "T3: out-of-sample validation of the Report VI prominence scale. Negative slope = predicted direction.")
+```
+
+## 5. T2 — asymmetry-to-signal ratio by frame
+
+```{r t2}
+sig <- tid %>% group_by(model, frame) %>% summarise(sd_rating = sd(ev), .groups = "drop")
+asym %>% group_by(model, frame) %>% summarise(sd_delta = sd(delta), .groups = "drop") %>%
+  left_join(sig, by = c("model","frame")) %>%
+  mutate(ratio = sd_delta/sd_rating) %>%
+  select(Model = model, Frame = frame, `SD(Δ)` = sd_delta, `SD(rating)` = sd_rating,
+         `asymmetry ratio` = ratio) %>%
+  mutate(across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "T2: relative asymmetry by frame. A polarity reversal predicts sim and diff to match.")
+```
+
+```{r t2-plot, fig.height=4}
+asym %>% group_by(model, frame) %>% summarise(sd_delta = sd(delta), .groups="drop") %>%
+  left_join(sig, by=c("model","frame")) %>% mutate(ratio = sd_delta/sd_rating) %>%
+  ggplot(aes(frame, ratio, group = model, colour = model)) +
+  geom_line() + geom_point(size = 2.5) +
+  labs(title = "Relative asymmetry by frame", x = NULL,
+       y = "SD(Δ) / SD(rating)") + theme_judge()
+```
+
+## 6. High-gap vs low-gap block
+
+The design's own manipulation check: the asymmetry should be concentrated in the high
+prominence-gap block, in every frame.
+
+```{r block}
+asym %>% group_by(model, frame, block) %>%
+  summarise(`mean |Δ|` = mean(abs(delta)), .groups = "drop") %>%
+  pivot_wider(names_from = block, values_from = `mean |Δ|`) %>%
+  mutate(ratio = high_gap/low_gap, across(where(is.numeric), ~round(.,3))) %>%
+  knitr::kable(caption = "Mean |Δ| by prominence-gap block.")
+```
