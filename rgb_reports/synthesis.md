@@ -43,31 +43,24 @@ We measure LLM personality through five channels on one 523-adjective set:
 what the model **represents**, **judges**, **enacts**, **claims** (SELF), and
 what **humans** do on the same words. The project's founding slogan —
 *distribution > argmax* — has now been vindicated at every level, including
-inside other people's instruments. The big structural results: (1) the write
-side (ENACT) is a **low-rank linear image** of the read side — ~5–13
-effective dimensions, against REPRESENT's 50–70 and **human self-report's
-~27**: models enact a third to a half of human personality bandwidth from a
-representation that carries about twice it — and mapped vectors steer
-*better* than extracted ones; (2) **JUDGE is the best human-matched channel** (r≈0.8,
-nearly none of it desirability-freebie) — the model's knowledge of human
-personality structure is excellent even though (3) its **self-knowledge is
-nil in the channels tested**: SELF is a character sheet with no self behind
-it (a model's self-report predicts its own conduct no better than other
-models'), and in the one — low-dose, attribution-confounded — test so far, a
-turn of its own in-character conduct sitting in the context window barely
-moved its self-description; whether self-perception accumulates over turns,
-or the model is *correctly discounting* behavior it attributes to
-instruction, is open (ledger #26, #37) — "*knows who it's told to be, not
-who it's been*" is the hypothesis on trial, not the verdict; (4) audits of two
-external instruments (ValuePortrait / arXiv:2509.10078, and Persona
-Cartography's TIDE) show the field's behavioral measures largely read the
-**corpus or the standing instruction**, not the model-as-agent — and our
-repair recipes (within-context contrast, graded readout, reliability-first)
-transfer; (5) character interventions unify: prompting, activation steering,
-and DPO+SFT LoRAs all write through a shared low-dimensional conduct
-subspace, and a character LoRA is, at activation level, a **context-stable,
-depth-rotating steering schedule** — approximately a bias, which is why
-bias-only tuning works.
+inside other people's instruments. The big structural results:
+
+  1. the write side (ENACT) is a **low-rank linear image** of the read side —
+     ~5–13 effective dimensions, against REPRESENT's 50–70 and **human
+     self-report's ~27**: models enact a third to a half of human personality
+     bandwidth from a representation that carries about twice it — and mapped
+     vectors steer *better* than extracted ones;
+  2. **JUDGE is the best human-matched channel** (r≈0.8, nearly none of it
+     desirability-freebie) — the model's knowledge of human personality
+     structure is excellent even though
+  3. its **self-knowledge is nil in the channels tested**: SELF is the canned
+     assistant character sheet with no self behind it (a model's self-report
+     predicts its own conduct no better than other models') — it *knows who it's
+     told to be, not who it is*";
+  4. character interventions unify: prompting, activation steering, and DPO+SFT
+     LoRAs all write through a shared low-dimensional conduct subspace, and a
+     character LoRA is, at activation level, a **context-stable, depth-rotating
+     steering schedule** — approximately a bias.
 
 ---
 
