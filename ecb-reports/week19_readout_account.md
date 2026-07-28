@@ -1,50 +1,28 @@
 # Week 19 — Discussion agenda: an account of why our readouts disagree
 
-**From:** ecb · **For:** discussion with rgb · **Date:** 2026-07-28
-
-## Purpose
-
-A first pass at a framing for the first joint paper, written as a guide for actually starting
-to write. It's a proposal, not a decision — the point of the meeting is to tear it up. It
-seems worth a shot because it organizes most of what we've found into one argument without
-much new work, but several pieces are shaky and flagged as such below.
+This is a first pass at a framing for the first paper, written as a guide for actually starting
+to write. Writing will ~crush our souls~ help us figure out how well the argument fits together and help point us in a better direction. 
 
 ---
 
 ## 1. What the paper would be
 
-**The contribution is an account of why our different readouts of "personality" disagree.**
-The object of study is the family of readouts itself, not any one instrument.
+**The contribution is an account of why and how different readouts of "personality" disagree.** The literature has clean Big Five structure in one study, everything collapsing to a single evaluative dimension in another, trait judgments flipping with punctuation in a third.
 
-The field's readouts contradict each other — clean Big Five structure in one study, collapse to
-a single evaluative dimension in another, trait judgments flipping with punctuation in a third.
-The methods literature treats these contradictions as artifacts to be purged. Our move is the
-opposite: **the contradictions are a signal we can decompose.** Different elicitation methods
+Our approach: Different elicitation methods
 disagree because they are about different things, and once we can say what each is about, the
-disagreements become predictable instead of embarrassing.
+disagreements become informative.
 
-We're well-positioned for this because we have the readouts *and* the supporting analyses in
-one cohort, which is what the methods-critique papers lack.
+What this is *not*: not another "self-report is invalid" paper (widely recognized and kind of a straw man), 
+and not a pitch for a particular replacement instrument (premature).
 
-What this is *not*: not another "self-report is invalid" paper (table stakes now, and a straw
-man), not a pitch for one replacement instrument (premature, and invites the "your result is
-baked into your instrument" critique we leveled at Persona Cartography), and not the general
-"all LLM psychological measurement" version (staying on personality to keep the first piece
-focused).
 
-Two outside frameworks sit in the background, used lightly and only at the edges: **Lin** (two
-recent papers arguing LLM psychology is full of "measurement phantoms" and calling for
-purpose-built computational constructs — he gives us the problem statement and a citable
-license, but no mechanism) and **Kane** (validity as an argument about a *specified*
-interpretation of scores — his one useful move here is forcing us to say which claim we're
-making, since "the model's personality" conflates the model's theory of personality with the
-model's own disposition). Neither should structure the paper.
 
 ---
 
 ## 2. What we've found
 
-Nothing new here — this is the pattern the account has to explain.
+Claude-y summary:
 
 **Convergence is broad, and mostly inherited.** Every readout and every model recovers roughly
 human-like *relational* trait structure, with block-level human-match sitting in a narrow band
@@ -72,7 +50,9 @@ persona expression is family-capped (Qwen ~5 vs Llama ~9, prompt-gated in Qwen b
 
 ## 3. The proposal
 
-### 3.1 Two objects a readout can be about, and what varies within each
+The framework is a bit post-hoc and emergent from an exploratory analysis, see notes below about writing.  
+
+### 3.1 Two objects a readout can be about, and their (variable) properties
 
 **Person-attribution structure** — what the model takes to co-occur *in people*; its implicit
 theory of personality. What varies across models:
@@ -83,46 +63,38 @@ theory of personality. What varies across models:
   Spreads 0.55 (Gemma-4) to 0.73 (FalconMamba).
 
 **Persona system** — what the model is absent instruction, and what it can become under
-instruction. (We considered splitting default-vs-range into two objects and collapsed them for
-now; whether they're separable in our data is an open question below.) What varies:
+instruction. What varies:
 
 - **Default shape** — the profile expressed absent instruction: near rank-1, desirability-
-  organized. This is *selected* by post-training, not created by it, and "post-training" means
-  SFT/DPO/RLVR, not RLHF alone. The assistant shape isn't meaningless; it's one shape among many.
+  organized. This is *selected* by post-training. The assistant shape is one shape among many.
 - **Anchoring strength** — how deeply the model is held to that default. Almost certainly
-  multidimensional rather than scalar, which is why we're not claiming a single "responsivity"
-  number (see open question 3).
+  multidimensional.
 - **Persona distribution** — the range of characters the model can instantiate and how accessible
   each is. Not uniform: virtue words collapse into the assistant blob (unenactable) while vivid
   registers instantiate cleanly. Effective dimensionality (Qwen ~5, Llama ~9) is one summary
   statistic of its spread, alongside enactability and cross-persona discriminability.
+ [statisfactions: not sure how these three 'statistics' differ?]
 
-### 3.2 Everything enters and exits through two things that aren't objects
+### 3.2 And also... two "channels"
 
-Both of these felt like they should be peers of the objects above, and neither is. They're the
-channel: every readout encodes its stimulus through the first and emits its answer through the
-second.
+Every readout encodes its stimulus through the input medium and emits its answer through the
+response generation process:
 
 **Trait-concept semantics (the input medium).** Approximately **constant** across the cohort —
-that's what the encoder-baseline result says — and an input to essentially every readout: JUDGE
-runs on adjective pairs, SELF on adjective self-ratings, ENACT on adjective-conditioned personas,
-and the values work is largely about semantics leaking into a generation measure. It explains the
-convergence in §2 and then gets out of the way, because a quantity that doesn't vary across
-models can't explain model differences.
+that's what the encoder-baseline result says — and an input to essentially every readout: 
+obviously central to REPRESENT, JUDGE
+runs on adjective pairs, SELF on adjective self-ratings, ENACT on adjective-conditioned personas.
 
-**Response generation (the output channel).** Unlike the medium, this varies a lot, and it
+**Response generation (the output channel).** Unlike the medium, this varies a lot between models, and it
 modulates how much of any signal survives into a score:
 
 - **Concentration** — how peaked the response distribution is (Gemma ≈ 0.11 nats, FalconMamba
   ≈ 1.66).
 - **Item-drivenness** — how much of that spread tracks the item rather than a fixed per-model
   habit (Gemmas 75–92% content, FalconMamba 7.5%).
-
-These are separate because FalconMamba proves they dissociate: it looks maximally uncertain by
+n
+These are separate because FalconMamba has evidence of dissociation: it looks maximally uncertain by
 entropy, but almost none of the spread is about the item — it's running a fixed digit-prior.
-"Flat" means low-*content*, not high-variability, so entropy alone over-trusts it. Model-specific
-representation artifacts (Gemma's massive activations, the IPR-gated partialling) are explicitly
-**not** properties here — they're a methods correction and belong in methods.
 
 ### 3.3 Readouts draw on mixtures of the objects
 
@@ -139,20 +111,7 @@ medium and out the response channel, and most touch both objects:
 | Likert self-report | persona system's default, heavily |
 | BC / TIRT | persona system under constrained choice, plus person-attribution — scenario choices involve attributing to a character |
 
-Two consequences worth pausing on. First, **REPRESENT is not one readout** — its referent is set
-by the stimulus, not by where we read, so the adjective version and the persona-pair version are
-about different things. Second, **REPRESENT-on-adjectives and JUDGE are not two views of one
-object**: one is about word meanings, the other about what co-occurs in people. We had been
-treating them as two views of the same thing. Readouts converge to the extent their mixtures
-overlap, which is a claim we can defend from design rather than assert.
-
-Useful background here, possibly new to rgb: Tversky's *Features of Similarity* (1977)
-established that judged similarity is not a metric — it's asymmetric and context-dependent, with
-feature weighting set by the comparison set. So a cosine between separately-encoded items and a
-judgment made with both items in context *should* diverge; expecting agreement is the naive
-assumption. Relatedly, Osgood's semantic-differential work established evaluation as the dominant
-dimension of connotative meaning long before LLMs — independent grounding for why PC1 is
-evaluative in every channel.
+[we probably aren't including BC/TIRT, at least in the first pass]
 
 ### 3.4 Readouts have blind spots
 
@@ -167,13 +126,9 @@ readout variance = measurement differences, interaction = which readouts reveal 
 
 ## 4. Open questions for the meeting
 
-These are real, not rhetorical.
+1. **Are the objects and properties right?** The objects are mostly heuristic (mereological fictionalism, woo hoo!) but it would be nice if they corresponded to the way we normally think and write about these abstract shifting blobs, and have some intuitive referent.
 
-1. **Are the objects right?** Does splitting person-attribution from the persona system match
-   rgb's read of the data — and was collapsing default-vs-range into one persona system the right
-   call, or do they need separating?
-
-2. **The merge/split demotion — this needs an explicit decision.** Under this framing, the
+2. Claude says, this, huh?! **The merge/split demotion — this needs an explicit decision.** Under this framing, the
    read/write result stops being a claim about the model (an associative substrate with a
    symbolic override) and becomes a *methods* finding: the standard similarity readout has a
    demonstrable blind spot, and the trait-relevant structure is recoverable under reweighting
@@ -183,27 +138,23 @@ These are real, not rhetorical.
    demotion of a capstone result, and rgb should weigh in on whether the trade is worth it —
    including whether there's a mechanistic account rgb would rather defend.
 
-3. **Does anchoring strength hold together at all**, or does it fragment by intervention type to
-   the point where we shouldn't name it as a property?
-
-4. **Is item-drivenness stable enough across readouts** to carry weight as a model property,
+3. **Is item-drivenness stable enough across readouts** to carry weight as a model property,
    rather than being an artifact of the JUDGE-style rating format where we measured it?
+   Or is it a bit too shoehorned, the kind with teeth? People should get beat up for stating
+   their beliefs.
 
-5. **Which properties are actually separable in the data?** Default shape and persona
+4. **Which properties are actually separable in the data?** Default shape and persona
    distribution may not be independent if the models with strong defaults are also the narrow
-   ones. Worth checking before committing.
-
-A background note for ecb, not needed in the meeting: the persona-system and person-attribution
-properties are being treated as reflective (real properties producing the observed responses),
-the response-generation properties as formative (constituted by their measurement). That mixed
-measurement model is defensible but should be stated deliberately in the paper.
+   ones. 
 
 ---
 
 ## 5. Where this heads (contingent on the above)
 
 **Paper shape.** The work is emergent and post-hoc, so the structure should own that rather than
-hide it: pose the question a priori (legitimate), present the account as *induced from* the
+hide it: pose the question of why readouts differ a priori (legitimate; even though we didn't explicitly 
+start with this questions, it drove our analysis and doesn't feel like HARKing), 
+present the account as *induced from* the
 results (transparent), and confirm it on data the account wasn't built from (the part that makes
 it testable rather than a story). Sections: intro → the space of readouts (lit review + table) →
 our program → the phenomenon (exploratory) → the account (induced) → a confirmatory test →
@@ -221,7 +172,7 @@ discussion. The literature's readouts belong in the lit review, not the discussi
 3. **A downstream behavioral criterion** — show one of these properties predicts some
    consequential model behavior where self-report doesn't. This is the one genuine hole in the
    argument: without it we establish the negatives but never demonstrate that any of these
-   properties does useful work.
+   properties does useful work. This also gives a confirmatory test.  Draw on some classic model benchmark?
+   And if it doesn't work, cry, cry, cry.
 
-Budget discussed: 1–2 weeks of new generation/analysis for this first piece, everything else from
-committed data plus sensitivity checks.
+
