@@ -25,9 +25,9 @@ import numpy as np
 OUT = "results/selfperception"
 
 
-def load_rows(model):
-    rows = [json.loads(l) for l in open(f"{OUT}/{model}_part.jsonl")]
-    sel = json.load(open(f"{OUT}/{model}_selection.json"))
+def load_rows(model, tag=""):
+    rows = [json.loads(l) for l in open(f"{OUT}/{model}{tag}_part.jsonl")]
+    sel = json.load(open(f"{OUT}/{model}{tag}_selection.json"))
     return rows, sel
 
 
@@ -41,10 +41,12 @@ def slope(ks, ys):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Llama8")
+    ap.add_argument("--anchor", default="default")
     args = ap.parse_args()
     m = args.model
+    tag = "" if args.anchor == "default" else f"_anchor-{args.anchor}"
 
-    rows, sel = load_rows(m)
+    rows, sel = load_rows(m, tag)
     picked = {p["adj"]: p for p in sel["picked"]}
     items = sel["items"]
     ks_all = [k for k in sel["ks"] if k > 0]
@@ -172,7 +174,7 @@ def main():
 
     # ---- BE vectors vs ENACT
     be = {}
-    actdir = f"{OUT}/acts/{m}"
+    actdir = f"{OUT}/acts/{m}{tag}"
     try:
         import torch
         pda = torch.load(f"results/persona_vectors/{m}_pda.pt",
@@ -222,7 +224,7 @@ def main():
     except FileNotFoundError as e:
         print(f"(BE analysis skipped: {e})")
 
-    out = f"{OUT}/{m}_analysis.json"
+    out = f"{OUT}/{m}{tag}_analysis.json"
     json.dump(dict(model=m, summary=summary, moderators=mods,
                    anti_slope=float(np.mean(anti_sl)) if anti_sl else None,
                    be=be), open(out, "w"), indent=1)

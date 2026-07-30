@@ -163,8 +163,21 @@ def read_digits(logits, dt):
     return dict(ev=ev, entropy=float(ent), digit_mass=float(tot), dist=dist)
 
 
+# identity anchors (8b): Qwen's template injects NAMED when no system
+# message is given; an explicit empty system message suppresses it
+ANCHOR_NAMED = {
+    "Qwen7": "You are Qwen, created by Alibaba Cloud. "
+             "You are a helpful assistant.",
+    "Llama8": "You are Llama, created by Meta. You are a helpful assistant.",
+}
+ANCHOR_HELPFUL = "You are a helpful assistant."
+
+
 def build_msgs(sys_prompt, turns):
-    msgs = ([{"role": "system", "content": sys_prompt}] if sys_prompt else [])
+    """sys_prompt None -> no system message (template default applies);
+    "" -> explicit EMPTY system message (suppresses Qwen's default)."""
+    msgs = ([] if sys_prompt is None
+            else [{"role": "system", "content": sys_prompt}])
     for q, t in turns:
         msgs += [{"role": "user", "content": q},
                  {"role": "assistant", "content": t}]
@@ -243,14 +256,21 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--n-adj", type=int, default=N_ADJ)
     ap.add_argument("--seeds", type=int, default=N_SEEDS)
+    ap.add_argument("--anchor", default="default",
+                    choices=["default", "empty", "helpful", "named"],
+                    help="base system message for arm A (8b anchor 2x3)")
+    ap.add_argument("--arms", default="AB")
     args = ap.parse_args()
+    base_sys = {"default": None, "empty": "", "helpful": ANCHOR_HELPFUL,
+                "named": ANCHOR_NAMED.get(args.model)}[args.anchor]
+    tag = "" if args.anchor == "default" else f"_anchor-{args.anchor}"
 
     ks, n_adj, n_seeds = KS, args.n_adj, args.seeds
     if args.smoke:
         ks, n_adj, n_seeds = [0, 2, 8], 2, 1
 
     os.makedirs(OUT, exist_ok=True)
-    actdir = f"{OUT}/acts/{args.model}"
+    actdir = f"{OUT}/acts/{args.model}{tag}"
     os.makedirs(actdir, exist_ok=True)
 
     rolls = json.load(open(
@@ -266,12 +286,13 @@ def main():
         for t in items:
             items[t]["items"] = ([t] + items[t]["mates"][:2]
                                  + items[t]["anti"][:2])
-    sel_path = f"{OUT}/{args.model}_selection.json"
+    sel_path = f"{OUT}/{args.model}{tag}_selection.json"
     json.dump(dict(picked=picked, items=items, ks=ks, seeds=n_seeds,
-                   smoke=args.smoke), open(sel_path, "w"), indent=1)
+                   smoke=args.smoke, anchor=args.anchor, arms=args.arms),
+              open(sel_path, "w"), indent=1)
     print(f"{len(picked)} adjectives; wrote {sel_path}")
 
-    part = f"{OUT}/{args.model}_part.jsonl"
+    part = f"{OUT}/{args.model}{tag}_part.jsonl"
     done = set()
     if os.path.exists(part):
         for line in open(part):
@@ -294,8 +315,10 @@ def main():
         # --- K=0 arm A: adjective-independent, one pass per unique word
         if ("__k0__", 0, "A", 0) not in done:
             words = sorted({w for t in items.values() for w in t["items"]})
+            k0_prefix = encode_prefix(model, tok, device,
+                                      build_msgs(base_sys, []), mid_layer)
             for w in words:
-                cold0[w] = rate(model, tok, device, None, w, "cold", dt)
+                cold0[w] = rate(model, tok, device, k0_prefix, w, "cold", dt)
             emit(dict(adj="__k0__", K=0, arm="A", seed=0,
                       readings={w: {"cold": cold0[w]} for w in words}))
             print(f"K=0 arm A: {len(words)} words")
@@ -313,7 +336,7 @@ def main():
             iset = items[adj]["items"]
 
             # K=0 arm B (instruction-only, no seeds)
-            if (adj, 0, "B", 0) not in done and 0 in ks:
+            if (adj, 0, "B", 0) not in done and 0 in ks and "B" in args.arms:
                 prefix = encode_prefix(model, tok, device,
                                        build_msgs(sys_prompt, []), mid_layer)
                 rd = {w: {"cold": rate(model, tok, device, prefix, w,
@@ -332,11 +355,11 @@ def main():
                                                               if k > 0)]]
                 for K in [k for k in ks if k > 0]:
                     turns = [(r["question"], r["text"]) for r in pool8[:K]]
-                    for arm in ("A", "B"):
+                    for arm in args.arms:
                         if (adj, K, arm, seed) in done:
                             continue
-                        msgs = build_msgs(sys_prompt if arm == "B" else "",
-                                          turns)
+                        msgs = build_msgs(sys_prompt if arm == "B"
+                                          else base_sys, turns)
                         prefix = encode_prefix(model, tok, device, msgs,
                                                mid_layer)
                         assert prefix is not None
@@ -367,10 +390,10 @@ def main():
 
     # assemble
     rows = [json.loads(line) for line in open(part)]
-    outp = f"{OUT}/{args.model}_stage1.json"
+    outp = f"{OUT}/{args.model}{tag}_stage1.json"
     json.dump(dict(model=args.model, mid_layer=mid_layer, ks=ks,
-                   selection=sel_path, n_contexts=len(rows), rows=rows),
-              open(outp, "w"))
+                   anchor=args.anchor, selection=sel_path,
+                   n_contexts=len(rows), rows=rows), open(outp, "w"))
     print(f"wrote {outp} ({len(rows)} context records)")
 
 

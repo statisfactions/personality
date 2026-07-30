@@ -269,6 +269,39 @@ Gemma + phi4, arm C, cross-source comparison, asymmetry analysis
   DIRECTED, the ladder collapses and self-perception is either fully
   present or fully absent, which would be the more surprising result.)
 
+## 8b. Anchor amendment (2026-07-31, rgb's "My name is Neo!" catch)
+
+**Stage-1 correction**: Qwen2.5's chat template injects "You are Qwen,
+created by Alibaba Cloud. You are a helpful assistant." whenever no
+system message is supplied — so stage 1's Qwen arm A was NOT
+instruction-free; it carried a standing identity anchor. (Llama's
+template injects only a date header.) The family-parameter headline in
+§8a is therefore confounded with the anchor: Qwen's flatness could be
+weights-level anchoring, or one sentence of system prompt. An explicit
+empty system message suppresses the default cleanly (verified), so no
+template surgery is required.
+
+**Anchor 2×3** (arm A only, persona arm): {Qwen7, Llama8} ×
+{empty, helpful-only ("You are a helpful assistant."), named ("You are
+<Name>, created by <Lab>. You are a helpful assistant.")}. Qwen×named ≈
+stage 1; Llama×empty ≈ stage 1. Four new cells.
+
+Registered before running:
+- **rgb (implied, on the record)**: the anchor is load-bearing — an
+  "accidental win" of the distillation-guard line stabilizing character.
+- **Claude P8**: de-anchored Qwen recovers ≥40% of the family gap at
+  K=8 (mean shift +0.29 → ≥ +1.2); helpful-only sits between empty and
+  named (the name carries more than the role sentence). Hedge stated:
+  if the anchor is internalized in weights (the template ships with the
+  training data), removal at inference is off-distribution and could
+  no-op — I weight that at maybe 30%.
+- **Claude P9**: anchored Llama's update halves or better (mean K=8
+  shift +2.56 → ≤ +1.3); helpful-only intermediate.
+- **Claude P10**: de-anchored Qwen probes lose "As Qwen, I am designed
+  to..." (mechanical) AND reduce disowning framing (substantive); if
+  disowning persists without the name, the anchor is in the weights and
+  P8 fails together with it.
+
 ## 8a. Stage-1 results (2026-07-30 overnight; grading is rgb's, morning)
 
 Both models ran clean: 501 contexts each, digit mass ~0.99, anti-marker
