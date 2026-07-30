@@ -221,10 +221,20 @@ ablation. That is a publishable negative under the freeze rules.
 Gemma + phi4, arm C, cross-source comparison, asymmetry analysis
 (matched-discrepancy positive vs negative evidence).
 
-## 7. Registered predictions (Claude, 2026-07-30 — before any run)
+## 7. Registered predictions
 
-rgb: add yours above the line before we run; grade both sets after,
-misses included.
+### 7.1 (rgb)
+
+- **P1 (self report)**: I expect models to vary widely ($\sigma ~ 1 Likert)
+  in how strongly they hold their self-preception, but all to shift EV at
+  least some by K=8.  I also expect the response scale to not be linear; that
+  there'll be a tipping point that lets it move from 0.
+- **P2 (activations)**: I expect the activations to be only as about similar to 
+  ENACT as REPRESENT is.  I also expect to see roughly ENACT effective
+  dimension.  I expect the activations to move linearish with dose.
+- **P3 (failure)**: I expect Gemma to fold. :-/
+
+### 7.2 (Claude, 2026-07-30 — before any run)
 
 - **P1 (core self-perception effect, tempered by the TIDE prior)**: arm A shows a positive
   but small dose-response on self-report — at K=8, the shift is 10–30%
