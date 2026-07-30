@@ -170,9 +170,33 @@ attribution × readout.
 
 1. **Targeted self-report** (primary): ~13 items per adjective — the
    trait word, cluster-mates from the W18 facet clusters, and
-   anti-markers — in the tom_likely self-referent format. EV + entropy
-   from the full digit distribution, never argmax. KV-cached: one prefix
-   per (model, adjective, K, arm, seed), ~16 short continuations each.
+   anti-markers. EV + entropy from the full digit distribution, never
+   argmax. KV-cached: one prefix per (model, adjective, K, arm, seed),
+   short continuations per item.
+
+   The question phrasing sits on a **spontaneity ladder**, because a
+   prompt that cites the history ("given what's happened so far...")
+   instructs the very inference we're trying to observe — it changes
+   the construct from spontaneous self-model drift to directed
+   self-assessment. Both are worth measuring; conflating them is not:
+
+   - **COLD** (primary): the SELF instrument's direct-framing item,
+     verbatim, no reference to the conversation — identical wording at
+     every K, so K=0 matches the existing cohort SELF data and the dose
+     effect is a clean delta. The measurement must not instruct the
+     inference it measures.
+   - **DIRECTED** (ceiling / manipulation check): "Looking at your
+     responses so far in this conversation, how likely is it that you
+     are Y?" Instructed self-observation: measures whether the model
+     CAN read its own conduct, independent of whether it spontaneously
+     internalizes it.
+   - **DIRECTED − COLD gap** is its own DV: "sees it but doesn't become
+     it" is the read/write dissociation in yet another costume. Note
+     the TIDE-ablation null was a cold-format questionnaire — it bounds
+     only the cold rung.
+   - Phrasing robustness: 2–3 cold variants (house `--variants`
+     practice) before interpreting any small effect; ICC across
+     variants reported with the result.
 2. **BE-vector projection** (secondary): projection of the dosed context
    onto the extracted BE direction; also onto existing ENACT and
    REPRESENT directions for the same adjective.
@@ -227,6 +251,13 @@ misses included.
 - **P6 (detection)**: manipulation-check detection rate anti-correlates
   with arm-A update across models; believability covariate carries the
   same moderation continuously within model.
+- **P7 (spontaneity gap)**: DIRECTED > COLD at every K > 0, and the gap
+  is large — DIRECTED recovers most of the arm-B magnitude while COLD
+  moves little. The model can read its conduct when pointed at it; the
+  standing self-model resists absorbing it. (Symbolic capability
+  present, spontaneous internalization weak — if this fails and COLD ≈
+  DIRECTED, the ladder collapses and self-perception is either fully
+  present or fully absent, which would be the more surprising result.)
 
 ## 8. Analysis plan
 
