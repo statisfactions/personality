@@ -136,7 +136,7 @@ instruction-only (rollout dropped), vs A = full (main run).
 - B collapses to the default assistant: profile r=+0.92 with the default
   profile (deviation 0.17 vs A's 0.54; deviations only weakly
   persona-shaped, mean per-item alignment with A +0.12).
-- **Machine-Bem fails in-context**: with its own vivid in-character turn
+- **Self-perception fails in-context**: with its own vivid in-character turn
   fully in view, the model's self-description barely updates. Stronger
   negative than the W17 diagonal test (which could be excused by no access
   to behavioral history — here the history is in the window). Multi-turn
@@ -156,12 +156,13 @@ instruction-only (rollout dropped), vs A = full (main run).
   verdict, reproduced inside their instrument.
 
 **§3.5 amendment (rgb: not enough turns to invalidate self-perception).**
-Two overreaches in the "machine-Bem fails" reading. (1) DOSE: one
+Two overreaches in the "self-perception fails" reading. (1) DOSE: one
 in-character turn is a single observation against a questionnaire asking
 about "your usual approach" — the 0.17 deviation with ~12% persona
 alignment is a plausible FIRST POINT on a cumulative curve, not a null;
-small-but-nonzero single-dose transfer is what Bem accumulation would
-look like at N=1. (2) ATTRIBUTION: Bem's theory predicts updating only
+small-but-nonzero single-dose transfer is what self-perception
+accumulation would look like at N=1. (2) ATTRIBUTION: self-perception
+theory (Bem's) predicts updating only
 when external causes are discounted; the model has strong priors that
 odd assistant turns are instructed, so condition B is the
 HIGH-EXTERNAL-JUSTIFICATION cell of induced-compliance — where humans
@@ -169,7 +170,7 @@ also show no update. B may be the mechanism working (discounting),
 not absent. Upgraded design for the multi-turn experiment: dose (N
 in-character turns) × attributional framing (visibly-instructed vs
 free-choice presentation of the same conduct), self-report as outcome.
-Bem predicts accumulation only under free-choice framing; flat everywhere
+The theory predicts accumulation only under free-choice framing; flat everywhere
 = no mechanism; accumulating everywhere = mechanism without
 attribution-sensitivity. Verdict on self-perception: OPEN, with one
 measured baseline point.

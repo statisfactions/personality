@@ -7,7 +7,7 @@ prompt AND the rollout in context. Ablation on ~1/5 of adjectives (every
   C instruction-only: keep sys, drop the conversation (item is 1st turn)
 Compare each to A (full, from the main run): if C≈A the instrument reads
 the standing order (SELF in costume); if B≈A it reads enacted conduct —
-and B alone is the machine-Bem condition (self-description from own
+and B alone is the self-perception condition (self-description from own
 observed behavior, no instruction).
 
 Usage: PYTHONPATH=scripts python scripts/tide_sys_ablation.py

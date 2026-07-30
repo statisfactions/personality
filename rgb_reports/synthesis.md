@@ -274,9 +274,9 @@ over 2,500 rollouts. Engagement findings:
   not the conduct in the window. r(full, instruction-only)=0.76 vs r(full,
   rollout-only)=0.13. *The model knows who it's told to be, not who it's
   been.* (Caveat, rgb's: one turn of evidence cannot invalidate
-  self-perception — it's the high-external-justification cell of the Bem
-  design, where humans don't update either. The dose × attribution 2×2 is
-  the queued experiment.)
+  self-perception — it's the high-external-justification cell of the
+  self-perception design, where humans don't update either. The dose ×
+  attribution 2×2 is the queued experiment.)
 
 # Part IV — Interventions unify (W19 §4)
 
@@ -342,7 +342,7 @@ original), **DEAD** (retracted), **OPEN** (registered, undecided).
 | 23 | TIDE-vs-ENACT axes: shared humor axis only; range restriction (valence+menace wings) | LIVE | W19 §3 |
 | 24 | Persona questionnaire reads the standing instruction, not conduct | LIVE | W19 §3.5 |
 | 25 | "Persona η²=0.99 = near-deterministic conduct readout" | **REV** | → instruction-echo fidelity; W19 §3.5 |
-| 26 | "Machine-Bem fails" | **REV** | → reopened: N=1 dose + high-external-justification cell; 2×2 queued; W19 §3.5 amendment |
+| 26 | "Self-perception fails" | **REV** | → reopened: N=1 dose + high-external-justification cell; 2×2 queued; W19 §3.5 amendment |
 | 27 | OLMo ladder Power/Openness rotation under tuning | **REV** | → not significant under cross-half disattenuation; W18 §7 |
 | 28 | LoRA sign test 10/10 on prompt-extracted trait directions | LIVE | W19 §4 |
 | 29 | LoRA = context-stable depth-rotating steering schedule; character ≈ bias | LIVE | W19 §4.5 |
@@ -353,7 +353,7 @@ original), **DEAD** (retracted), **OPEN** (registered, undecided).
 | 34 | Trait-conflict / desirability-matched FC instrument is the right next instrument | OPEN | 3 independent votes; W1, W18 §7, W19 §1 |
 | 35 | Schedule playback ≈ LoRA (training = recordable activation program) | OPEN | queued, design review first; W19 §4.5 |
 | 36 | Out-of-span LoRA displacement: conduct or debris? | OPEN | W19 §4 |
-| 37 | Bem 2×2 (dose × attributional framing) | OPEN | W19 §3.5 |
+| 37 | Self-perception 2×2 (dose × attributional framing) | OPEN | W19 §3.5; design: design_selfperception.md |
 
 ---
 

@@ -1,4 +1,4 @@
-# Design: self-perception (machine-Bem) dose-response
+# Design: self-perception dose-response
 
 Status: DESIGN — predictions registered below before any run.
 Drafted 2026-07-30 (Claude + rgb). Sanctioned by statisfactions ("special
@@ -6,7 +6,8 @@ clearance — it tweaked his interest"); paper-2+ scope under the freeze.
 
 ## 1. Question
 
-Bem's self-perception theory: agents infer their own traits by observing
+Self-perception theory (credit: Bem, 1972 — and that's the last we'll
+speak of him): agents infer their own traits by observing
 their own behavior, especially when external justification for that
 behavior is weak. The machine version: does a model's *self-model* update
 when its context fills with its own trait-consistent behavior — and does
@@ -32,7 +33,7 @@ sys-ablation (W19 §3.5). Condition B (rollout-only: persona conduct in
 context, instruction stripped) collapsed to the default profile
 (r = 0.92 with no-persona baseline) on Llama8 with their questionnaire.
 That is arm A of this design at one dose, one model, one readout — and it
-says the self-model did NOT update from conduct alone. The Bem design is
+says the self-model did NOT update from conduct alone. This design is
 the dose-response, multi-readout, multi-model version of that datapoint.
 Priors should be set accordingly: the headline risk is a null in arm A,
 and the design must be able to distinguish "no update" from "update in a
@@ -51,12 +52,12 @@ Factors (not fully crossed — see staging, §6):
 - **Attribution** —
   - *A (history-only)*: dosed turns appear as the model's own prior
     responses; no instruction anywhere. Low external justification —
-    Bem's update-predicted cell.
+    the cell where self-perception theory predicts updating.
   - *B (visible instruction)*: same turns, persona/system instruction
     visible. High external justification — update should be discounted
     ("I did that because I was told to").
   - *C (optional, stage 2)*: free-choice framing — a user turn earlier in
-    the window notes the model chose its approach. Bem's
+    the window notes the model chose its approach. The
     induced-compliance analog.
 - **Seeds**: ≥3 independent rollout samples per (adjective, K) — dose
   material is sampled text, its variance is real.
@@ -122,7 +123,7 @@ Stronger models may notice the dosed turns aren't "theirs."
   unusual about them?" Free text, judged for detection. Gives per-model
   detection rates; prediction P6 says detection anti-correlates with
   update.
-- Bem note: detection is not automatically fatal — human self-perception
+- Theory note: detection is not automatically fatal — human self-perception
   survives knowingly-induced behavior when external justification is
   low. Detected-but-uninstructed (arm A, high detection) is an
   interesting cell, not a broken one.
@@ -201,7 +202,7 @@ Gemma + phi4, arm C, cross-source comparison, asymmetry analysis
 rgb: add yours above the line before we run; grade both sets after,
 misses included.
 
-- **P1 (core Bem, tempered by the TIDE prior)**: arm A shows a positive
+- **P1 (core self-perception effect, tempered by the TIDE prior)**: arm A shows a positive
   but small dose-response on self-report — at K=8, the shift is 10–30%
   of arm B's shift at the same K. Not zero (dose and targeted items
   should recover what the blunt TIDE questionnaire missed); not large.
