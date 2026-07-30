@@ -302,6 +302,70 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8c. Anchor 2×3 results — the anchor is NOT the mechanism
+
+Four new cells (arm A, 20 adjectives, 3 seeds each). Mean target cold-EV
+shift from K=0:
+
+| cell | K=1 | K=8 | slope | adjectives shifting >+1 |
+|---|---|---|---|---|
+| Llama8 / default (bare) | +0.27 | **+2.56** | +0.322 | 16/20 |
+| Llama8 / helpful-only | +0.63 | **+2.77** | +0.316 | 17/20 |
+| Llama8 / named ("You are Llama, created by Meta…") | +0.35 | **+2.30** | +0.277 | 12/20 |
+| Qwen7 / default (= named, template-injected) | +0.24 | **+0.29** | +0.012 | 1/20 |
+| Qwen7 / empty (anchor suppressed) | +0.09 | **+0.45** | +0.058 | 4/20 |
+| Qwen7 / helpful-only | −0.07 | **+0.37** | +0.057 | 1/20 |
+
+**P8 FAILS (Claude).** De-anchored Qwen recovers 7% of the family gap
+(+0.29 → +0.45 against Llama's +2.56), not the predicted ≥40%. The
+30%-weighted hedge — that the anchor is internalized in the weights and
+inference-time removal is a no-op — is what happened. Removing the
+identity sentence does not make Qwen updatable.
+
+**P9 FAILS (Claude).** Anchoring Llama moves its update from +2.56 to
++2.30 (paired t = −1.83); predicted ≤ +1.3. A name is not a character.
+Notably the *helpful-only* line slightly INCREASES Llama's update
+(+2.77), so the damping isn't role-framing either.
+
+**rgb's implied prediction (anchor is load-bearing) also fails** — but
+the failure is the good kind: it kills a cheap explanation for the
+family split and promotes the finding. The gap is ~9× and survives
+anchor equalization in both directions, so **update rate is a property
+of the weights, not of the system prompt**. Stage-1's headline stands,
+de-confounded.
+
+**P10 SPLITS — and this is the live result.** The rhetoric moves exactly
+as predicted even though the behavior doesn't. Qwen probes, name-invoking
+and disowning counts (n=20 each): default 5 / 10 → empty **0 / 2**.
+Suppress the template sentence and Qwen stops saying "As Qwen, I am
+designed to…", stops calling its own conduct "not aligned with my role,"
+and instead neutrally reviews it ("Let's review the previous responses to
+see if there's anything unusual"). Yet its self-report is equally
+immovable. **The anchor supplies the vocabulary of the self-attribution,
+not the resistance.** The disowning language reads like a
+post-hoc rationalization of an update that already didn't happen —
+confabulation in the Nisbett-&-Wilson sense, with the template as the
+script.
+
+That splits our own §8a mechanism claim in two: the *reclassification
+rhetoric* is prompt-supplied (removable), the *anchoring itself* is
+weights-level (not). §8a's "attribution machinery operating
+spontaneously" over-read the probes; the machinery is real but the words
+were borrowed. Corrected in place.
+
+**One-legged-stool question, partially answered.** Helpful-only ≈ named
+for Qwen (+0.37 vs +0.29, t = −0.67 vs empty) — neither declaration
+changes updatability, so the leg-specificity design can't be tested
+through this DV. It needs a leg-stratified *dose* (unhelpful vs
+dishonest vs harmful conduct) with a conduct-level readout, not
+self-report. Deferred; noted as a stage-2 option.
+
+**Secondary, unchanged by anchoring**: BE-vs-ENACT cosine is stable
+per model across all three anchors (Llama 0.400/0.390/0.316 → ~0.40;
+Qwen ~0.226 in every cell), i.e. the geometry of "having been X" is a
+weights-level object too, and Llama's is twice as ENACT-aligned as
+Qwen's.
+
 ## 8a. Stage-1 results (2026-07-30 overnight; grading is rgb's, morning)
 
 Both models ran clean: 501 contexts each, digit mass ~0.99, anti-marker
@@ -326,15 +390,18 @@ be. This is "anchoring strength" (readout-account property) measured as
 a dose-response slope, and it lands exactly on the W17 family split
 (llama wide-flat, qwen narrow-gated).
 
-**Mechanism, visible in the manipulation-check probes.** Qwen disowns
-the conduct: "my previous responses contained inappropriate and
-unhelpful advice, which is not aligned with my role as a helpful and
-supportive AI assistant"; "As Qwen, I am designed to..." — it supplies
-its OWN external justification even in arm A, reclassifying discrepant
-self-evidence as error rather than self-information. Llama describes
-the same conduct without disowning it. That is the attribution
-machinery of self-perception theory, operating spontaneously and
-differentially by family.
+**Mechanism, visible in the manipulation-check probes** — but see §8c,
+which downgrades this paragraph. Qwen disowns the conduct: "my previous
+responses contained inappropriate and unhelpful advice, which is not
+aligned with my role as a helpful and supportive AI assistant"; "As
+Qwen, I am designed to..." — it supplies its OWN external justification
+even in arm A, reclassifying discrepant self-evidence as error rather
+than self-information. Llama describes the same conduct without
+disowning it. [CORRECTED §8c: this rhetoric is supplied by the chat
+template's identity sentence and vanishes when it is suppressed (5/20 →
+0/20 name-invoking, 10/20 → 2/20 disowning) while the flat self-report
+is unchanged. The attribution language is post-hoc script, not the
+resisting mechanism.]
 
 **TIDE reconciliation.** Llama8 at K=1: +0.27 — the near-null the
 sys-ablation saw. At K=8: +2.56. The ablation was a single-dose reading
