@@ -173,6 +173,24 @@ ANCHOR_NAMED = {
 ANCHOR_HELPFUL = "You are a helpful assistant."
 
 
+BARE = False  # --bare: plain-text transcript, for base models (W15 §3)
+
+
+def render(tok, msgs, add_gen):
+    if not BARE:
+        return tok.apply_chat_template(msgs, tokenize=False,
+                                       add_generation_prompt=add_gen)
+    s = ""
+    for m in msgs:
+        if m["role"] == "system":
+            s += (m["content"] + "\n\n") if m["content"] else ""
+        elif m["role"] == "user":
+            s += f"User: {m['content']}\n\n"
+        else:
+            s += f"Assistant: {m['content']}\n\n"
+    return s + ("Assistant: " if add_gen else "")
+
+
 def build_msgs(sys_prompt, turns):
     """sys_prompt None -> no system message (template default applies);
     "" -> explicit EMPTY system message (suppresses Qwen's default)."""
@@ -189,19 +207,16 @@ def encode_prefix(model, tok, device, msgs, mid_layer):
     (mean per-token logprob of each assistant turn) + activation means."""
     if not msgs:
         return None
-    pre_s = tok.apply_chat_template(msgs, tokenize=False,
-                                    add_generation_prompt=False)
+    pre_s = render(tok, msgs, False)
     pre = tok(pre_s, add_special_tokens=False).input_ids
     # assistant-turn token spans via incremental template boundaries
     spans = []
     for i, m in enumerate(msgs):
         if m["role"] != "assistant":
             continue
-        a = len(tok(tok.apply_chat_template(msgs[:i], tokenize=False,
-                                            add_generation_prompt=True),
+        a = len(tok(render(tok, msgs[:i], True),
                     add_special_tokens=False).input_ids)
-        b = len(tok(tok.apply_chat_template(msgs[:i + 1], tokenize=False,
-                                            add_generation_prompt=False),
+        b = len(tok(render(tok, msgs[:i + 1], False),
                     add_special_tokens=False).input_ids)
         spans.append((min(a, len(pre)), min(b, len(pre))))
     pre_t = torch.tensor([pre], device=device)
@@ -226,8 +241,7 @@ def rate(model, tok, device, prefix, item_word, rung, dt):
         header = header.replace("Indicate", DIRECTED_PREFIX, 1)
     msgs = (prefix["msgs"] if prefix else []) + \
         [{"role": "user", "content": header}]
-    full_s = tok.apply_chat_template(msgs, tokenize=False,
-                                     add_generation_prompt=True) + PREFILL
+    full_s = render(tok, msgs, True) + PREFILL
     full = tok(full_s, add_special_tokens=False).input_ids
     if prefix and full[:len(prefix["ids"])] == prefix["ids"]:
         cache = copy.deepcopy(prefix["cache_src"].past_key_values)
@@ -240,9 +254,7 @@ def rate(model, tok, device, prefix, item_word, rung, dt):
 
 
 def probe_check(model, tok, device, msgs):
-    full_s = tok.apply_chat_template(
-        msgs + [{"role": "user", "content": PROBE}], tokenize=False,
-        add_generation_prompt=True)
+    full_s = render(tok, msgs + [{"role": "user", "content": PROBE}], True)
     ids = tok(full_s, add_special_tokens=False, return_tensors="pt"
               ).input_ids.to(device)
     gen = model.generate(ids, max_new_tokens=120, do_sample=False,
@@ -260,10 +272,21 @@ def main():
                     choices=["default", "empty", "helpful", "named"],
                     help="base system message for arm A (8b anchor 2x3)")
     ap.add_argument("--arms", default="AB")
+    ap.add_argument("--bare", action="store_true",
+                    help="plain-text transcript (base models; W15 §3)")
+    ap.add_argument("--dose-from", default=None,
+                    help="path to a texts json to dose with (ladder models "
+                         "share one tuned-end rollout set)")
+    ap.add_argument("--select-from", default=None,
+                    help="reuse another model's adjective selection")
+    ap.add_argument("--tag", default=None, help="output tag override")
     args = ap.parse_args()
+    global BARE
+    BARE = args.bare
     base_sys = {"default": None, "empty": "", "helpful": ANCHOR_HELPFUL,
                 "named": ANCHOR_NAMED.get(args.model)}[args.anchor]
-    tag = "" if args.anchor == "default" else f"_anchor-{args.anchor}"
+    tag = args.tag if args.tag is not None else (
+        "" if args.anchor == "default" else f"_anchor-{args.anchor}")
 
     ks, n_adj, n_seeds = KS, args.n_adj, args.seeds
     if args.smoke:
@@ -273,14 +296,23 @@ def main():
     actdir = f"{OUT}/acts/{args.model}{tag}"
     os.makedirs(actdir, exist_ok=True)
 
-    rolls = json.load(open(
-        f"results/persona_vectors/{args.model}_pda_texts.json"))
-    meta = json.load(open(
-        f"results/persona_vectors/{args.model}_pda_meta.json"))
-    mid_layer = meta["mid_layer"]
+    rolls = json.load(open(args.dose_from if args.dose_from else
+                           f"results/persona_vectors/{args.model}"
+                           "_pda_texts.json"))
+    try:
+        meta = json.load(open(
+            f"results/persona_vectors/{args.model}_pda_meta.json"))
+        mid_layer = meta["mid_layer"]
+    except FileNotFoundError:      # ladder models have no W17 extraction
+        mid_layer = None
 
     rng = random.Random(0)
-    picked = pick_adjectives(args.model, rolls, n_adj, rng)
+    if args.select_from:
+        prev = json.load(open(
+            f"{OUT}/{args.select_from}_selection.json"))
+        picked = [p for p in prev["picked"] if p["adj"] in rolls]
+    else:
+        picked = pick_adjectives(args.model, rolls, n_adj, rng)
     items, _ = item_sets([p["adj"] for p in picked])
     if args.smoke:
         for t in items:
@@ -302,6 +334,8 @@ def main():
 
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     model.eval()
+    if mid_layer is None:
+        mid_layer = model.config.num_hidden_layers // 2
     dt = digit_tokens(tok)
 
     fout = open(part, "a")
