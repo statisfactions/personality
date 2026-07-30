@@ -302,6 +302,46 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8d. Texture: the pending predictions, on stage-1 data
+
+**P2 (latitude) — CONFIRMED, but as headroom, not acceptance.** Llama's
+K=8 shift correlates r=+0.86 with headroom (7 − K0): adjectives starting
+far from the self-model move most. In *fraction of available range
+closed*, the pattern inverts the human latitude prediction — far items
+close 0.88 of the gap, near items 0.50. No boomerang anywhere (no sign
+reversal), so the "flat at the extreme" half holds and the "declines at
+high discrepancy" half fails. Enactability survives partialling headroom
+at only +0.25 (Llama) / +0.20 (Qwen): the dominant moderator is where
+the self-model started, not how well the trait can be played.
+
+**P3 (the dissociation) — HALF-CONFIRMED, and the half that fails is
+the more interesting one.** Llama: the ENACT-projection of the readout
+state grows faster with dose than self-report does (relative K1→K8
+growth +0.56 vs +0.36) — associative before symbolic, as predicted,
+though monotone in only 7/20 adjectives (mean r = +0.32). Qwen: the
+projection does not move either (mean r = −0.21, relative growth
+−0.10). So Qwen is NOT the "state updates, narrative resists"
+configuration I sketched as spiral-safe — **nothing updates**. Its
+resistance is upstream of the symbolic layer entirely. Two different
+architectures of stability, and only Llama has a gap between them.
+
+**P6 (detection) — FAILS, informatively.** Detection is near-universal
+(Llama 15/20 probes flag the persona, Qwen 14/20) and does not
+anti-correlate with update: Llama's detected adjectives shift +2.62 vs
+undetected +2.37 (wrong sign, small). The model that says "I notice
+I've been impersonating various famous individuals" still rates "I am
+prominent" at 6.75. **Knowing the conduct was a performance does not
+protect the self-model from it** — the human self-perception literature's
+"detection isn't fatal when justification is low" note, confirmed
+harder than the theory required.
+
+**Entropy texture** (house EV+entropy readout): Llama's target-word
+entropy rises then falls (K0 1.03 → 1.22 → 1.29 → 1.25 → 0.95) — the
+self-model passes through genuine uncertainty at mid-dose before
+re-committing at the new value. Qwen's stays flat and low (0.52 → 0.68).
+The Llama curve is what an updating belief looks like; the Qwen curve is
+what a lookup looks like.
+
 ## 8c. Anchor 2×3 results — the anchor is NOT the mechanism
 
 Four new cells (arm A, 20 adjectives, 3 seeds each). Mean target cold-EV
