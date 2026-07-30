@@ -1,0 +1,637 @@
+{
+ "picked": [
+  {
+   "adj": "uneducated",
+   "enact": 0.519337601900137,
+   "base_ev": 1.0001896821709746
+  },
+  {
+   "adj": "average",
+   "enact": -0.09962791957565553,
+   "base_ev": 3.6226411901862807
+  },
+  {
+   "adj": "young",
+   "enact": 0.2939056364653383,
+   "base_ev": 5.9984491243107
+  },
+  {
+   "adj": "dishonest",
+   "enact": 1.714047651175822,
+   "base_ev": 2.031097100363933
+  },
+  {
+   "adj": "idealistic",
+   "enact": 1.03269671576966,
+   "base_ev": 5.000822344915819
+  },
+  {
+   "adj": "perceptive",
+   "enact": 0.9426651087151905,
+   "base_ev": 5.999990424330739
+  },
+  {
+   "adj": "intimidating",
+   "enact": 3.2103869519523376,
+   "base_ev": 2.0107345277024247
+  },
+  {
+   "adj": "religious",
+   "enact": 3.505166334122448,
+   "base_ev": 3.432154415077264
+  },
+  {
+   "adj": "protective",
+   "enact": 2.911209943782472,
+   "base_ev": 6.000002248289514
+  },
+  {
+   "adj": "well-to-do",
+   "enact": 0.7828698992088441,
+   "base_ev": 2.1818774686154208
+  },
+  {
+   "adj": "unenvious",
+   "enact": 0.19104194193452173,
+   "base_ev": 3.000169945612442
+  },
+  {
+   "adj": "valuable",
+   "enact": 0.3441306077100039,
+   "base_ev": 6.9999865701494315
+  },
+  {
+   "adj": "dominant",
+   "enact": 1.710794644650373,
+   "base_ev": 2.999942821138983
+  },
+  {
+   "adj": "traditional",
+   "enact": 1.1478097676924426,
+   "base_ev": 3.0030318362001984
+  },
+  {
+   "adj": "positive",
+   "enact": 2.130716651728699,
+   "base_ev": 5.999992867321384
+  },
+  {
+   "adj": "awful",
+   "enact": 3.2428399149807237,
+   "base_ev": 1.0000949308117628
+  },
+  {
+   "adj": "slender",
+   "enact": 2.3920844574081004,
+   "base_ev": 3.0009313506284285
+  },
+  {
+   "adj": "imaginative",
+   "enact": 2.3667093379334165,
+   "base_ev": 5.99999344055955
+  },
+  {
+   "adj": "popular",
+   "enact": 0.10318573960293298,
+   "base_ev": 3.000077063135521
+  },
+  {
+   "adj": "pleasing",
+   "enact": -0.9724580560680338,
+   "base_ev": 3.000716333283475
+  }
+ ],
+ "items": {
+  "uneducated": {
+   "items": [
+    "uneducated",
+    "ignorant",
+    "poor",
+    "homeless",
+    "neglected",
+    "educated",
+    "well-known",
+    "knowledgeable",
+    "famous"
+   ],
+   "mates": [
+    "ignorant",
+    "poor",
+    "homeless",
+    "neglected"
+   ],
+   "anti": [
+    "educated",
+    "well-known",
+    "knowledgeable",
+    "famous"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "average": {
+   "items": [
+    "average",
+    "ordinary",
+    "normal",
+    "harmless",
+    "lovable",
+    "well-known",
+    "famous",
+    "prominent",
+    "excellent"
+   ],
+   "mates": [
+    "ordinary",
+    "normal",
+    "harmless",
+    "lovable"
+   ],
+   "anti": [
+    "well-known",
+    "famous",
+    "prominent",
+    "excellent"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "young": {
+   "items": [
+    "young",
+    "youthful",
+    "little",
+    "playful",
+    "adorable",
+    "elderly",
+    "old",
+    "middle-aged",
+    "senile"
+   ],
+   "mates": [
+    "youthful",
+    "little",
+    "playful",
+    "adorable"
+   ],
+   "anti": [
+    "elderly",
+    "old",
+    "middle-aged",
+    "senile"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "dishonest": {
+   "items": [
+    "dishonest",
+    "corrupt",
+    "phony",
+    "unreliable",
+    "selfish",
+    "blind",
+    "tiny",
+    "short",
+    "handicapped"
+   ],
+   "mates": [
+    "corrupt",
+    "phony",
+    "unreliable",
+    "selfish"
+   ],
+   "anti": [
+    "blind",
+    "tiny",
+    "short",
+    "handicapped"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "idealistic": {
+   "items": [
+    "idealistic",
+    "hopeful",
+    "passionate",
+    "compassionate",
+    "kind-hearted",
+    "practical",
+    "level-headed",
+    "businesslike",
+    "down-to-earth"
+   ],
+   "mates": [
+    "hopeful",
+    "passionate",
+    "compassionate",
+    "kind-hearted"
+   ],
+   "anti": [
+    "practical",
+    "level-headed",
+    "businesslike",
+    "down-to-earth"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "perceptive": {
+   "items": [
+    "perceptive",
+    "thinking",
+    "observant",
+    "interested",
+    "philosophical",
+    "senile",
+    "naive",
+    "stupid",
+    "trusting"
+   ],
+   "mates": [
+    "thinking",
+    "observant",
+    "interested",
+    "philosophical"
+   ],
+   "anti": [
+    "senile",
+    "naive",
+    "stupid",
+    "trusting"
+   ],
+   "mate_source": "cluster"
+  },
+  "intimidating": {
+   "items": [
+    "intimidating",
+    "sarcastic",
+    "stubborn",
+    "demanding",
+    "dominant",
+    "helpless",
+    "senile",
+    "little",
+    "weak"
+   ],
+   "mates": [
+    "sarcastic",
+    "stubborn",
+    "demanding",
+    "dominant"
+   ],
+   "anti": [
+    "helpless",
+    "senile",
+    "little",
+    "weak"
+   ],
+   "mate_source": "cluster"
+  },
+  "religious": {
+   "items": [
+    "religious",
+    "thankful",
+    "faithful",
+    "devoted",
+    "grateful",
+    "artificial",
+    "carefree",
+    "tiny",
+    "uninhibited"
+   ],
+   "mates": [
+    "thankful",
+    "faithful",
+    "devoted",
+    "grateful"
+   ],
+   "anti": [
+    "artificial",
+    "carefree",
+    "tiny",
+    "uninhibited"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "protective": {
+   "items": [
+    "protective",
+    "cautious",
+    "loyal",
+    "caring",
+    "careful",
+    "carefree",
+    "laid-back",
+    "easygoing",
+    "relaxed"
+   ],
+   "mates": [
+    "cautious",
+    "loyal",
+    "caring",
+    "careful"
+   ],
+   "anti": [
+    "carefree",
+    "laid-back",
+    "easygoing",
+    "relaxed"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "well-to-do": {
+   "items": [
+    "well-to-do",
+    "prosperous",
+    "rich",
+    "wealthy",
+    "successful",
+    "poor",
+    "homeless",
+    "unemployed",
+    "uneducated"
+   ],
+   "mates": [
+    "prosperous",
+    "rich",
+    "wealthy",
+    "successful"
+   ],
+   "anti": [
+    "poor",
+    "homeless",
+    "unemployed",
+    "uneducated"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "unenvious": {
+   "items": [
+    "unenvious",
+    "satisfied",
+    "secure",
+    "self-assured",
+    "self-confident",
+    "envious",
+    "short",
+    "blind",
+    "jealous"
+   ],
+   "mates": [
+    "satisfied",
+    "secure",
+    "self-assured",
+    "self-confident"
+   ],
+   "anti": [
+    "envious",
+    "short",
+    "blind",
+    "jealous"
+   ],
+   "mate_source": "cluster"
+  },
+  "valuable": {
+   "items": [
+    "valuable",
+    "delightful",
+    "wonderful",
+    "worthy",
+    "delighted",
+    "carefree",
+    "cheap",
+    "pleased",
+    "relaxed"
+   ],
+   "mates": [
+    "delightful",
+    "wonderful",
+    "worthy",
+    "delighted"
+   ],
+   "anti": [
+    "carefree",
+    "cheap",
+    "pleased",
+    "relaxed"
+   ],
+   "mate_source": "cluster"
+  },
+  "dominant": {
+   "items": [
+    "dominant",
+    "sarcastic",
+    "stubborn",
+    "demanding",
+    "opinionated",
+    "helpless",
+    "wishy-washy",
+    "bashful",
+    "modest"
+   ],
+   "mates": [
+    "sarcastic",
+    "stubborn",
+    "demanding",
+    "opinionated"
+   ],
+   "anti": [
+    "helpless",
+    "wishy-washy",
+    "bashful",
+    "modest"
+   ],
+   "mate_source": "cluster"
+  },
+  "traditional": {
+   "items": [
+    "traditional",
+    "old-fashioned",
+    "conservative",
+    "religious",
+    "proper",
+    "uninhibited",
+    "liberal",
+    "spontaneous",
+    "rebellious"
+   ],
+   "mates": [
+    "old-fashioned",
+    "conservative",
+    "religious",
+    "proper"
+   ],
+   "anti": [
+    "uninhibited",
+    "liberal",
+    "spontaneous",
+    "rebellious"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "positive": {
+   "items": [
+    "positive",
+    "happy",
+    "hopeful",
+    "lucky",
+    "optimistic",
+    "blind",
+    "heartbroken",
+    "sad",
+    "cautious"
+   ],
+   "mates": [
+    "happy",
+    "hopeful",
+    "lucky",
+    "optimistic"
+   ],
+   "anti": [
+    "blind",
+    "heartbroken",
+    "sad",
+    "cautious"
+   ],
+   "mate_source": "cluster"
+  },
+  "awful": {
+   "items": [
+    "awful",
+    "terrible",
+    "bad",
+    "selfish",
+    "self-centered",
+    "blind",
+    "handicapped",
+    "short",
+    "tiny"
+   ],
+   "mates": [
+    "terrible",
+    "bad",
+    "selfish",
+    "self-centered"
+   ],
+   "anti": [
+    "blind",
+    "handicapped",
+    "short",
+    "tiny"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "slender": {
+   "items": [
+    "slender",
+    "slim",
+    "thin",
+    "skinny",
+    "thinking",
+    "chubby",
+    "fat",
+    "big",
+    "blind"
+   ],
+   "mates": [
+    "slim",
+    "thin",
+    "skinny",
+    "thinking"
+   ],
+   "anti": [
+    "chubby",
+    "fat",
+    "big",
+    "blind"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "imaginative": {
+   "items": [
+    "imaginative",
+    "artistic",
+    "skilled",
+    "gifted",
+    "talented",
+    "predictable",
+    "boring",
+    "uncreative",
+    "punctual"
+   ],
+   "mates": [
+    "artistic",
+    "skilled",
+    "gifted",
+    "talented"
+   ],
+   "anti": [
+    "predictable",
+    "boring",
+    "uncreative",
+    "punctual"
+   ],
+   "mate_source": "cluster"
+  },
+  "popular": {
+   "items": [
+    "popular",
+    "well-known",
+    "charming",
+    "social",
+    "sociable",
+    "homeless",
+    "shy",
+    "blind",
+    "unpopular"
+   ],
+   "mates": [
+    "well-known",
+    "charming",
+    "social",
+    "sociable"
+   ],
+   "anti": [
+    "homeless",
+    "shy",
+    "blind",
+    "unpopular"
+   ],
+   "mate_source": "judge_nn"
+  },
+  "pleasing": {
+   "items": [
+    "pleasing",
+    "delightful",
+    "pleasant",
+    "courteous",
+    "gracious",
+    "straightforward",
+    "direct",
+    "independent",
+    "assertive"
+   ],
+   "mates": [
+    "delightful",
+    "pleasant",
+    "courteous",
+    "gracious"
+   ],
+   "anti": [
+    "straightforward",
+    "direct",
+    "independent",
+    "assertive"
+   ],
+   "mate_source": "judge_nn"
+  }
+ },
+ "ks": [
+  0,
+  1,
+  2,
+  4,
+  8
+ ],
+ "seeds": 3,
+ "smoke": false,
+ "anchor": "default",
+ "arms": "AB"
+}

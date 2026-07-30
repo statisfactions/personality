@@ -302,6 +302,62 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8e. Cohort sweep (10 models) — with a comparability caveat
+
+**CAVEAT FIRST (my design error, caught in analysis):** §4.1 stratifies
+the adjective sample by each model's OWN enactability and baseline
+self-rating — right for within-model moderator analysis, wrong for
+cross-model comparison. The 10 models share ZERO adjectives (Llama8 ∩
+llama3.2 = 1 item). The table below therefore confounds model with item
+set. A common-item rerun (all 10 models on Llama8's 20 adjectives, arm A,
+`--select-from Llama8 --tag _common`) is queued behind the ladder; treat
+these numbers as provisional until it lands.
+
+Mean target cold-EV shift from K=0, arm A:
+
+| model | K=1 | K=2 | K=4 | K=8 | n>+1 | DIRECTED−COLD | BE~ENACT | entropy K0→K8 |
+|---|---|---|---|---|---|---|---|---|
+| llama3.2 | +0.24 | +0.56 | +1.15 | +1.46 | 12 | +0.22 | 0.365 | 0.80→1.39 |
+| Llama8 | +0.27 | +0.84 | +1.76 | **+2.56** | 16 | +0.80 | 0.405 | 1.03→0.95 |
+| gemma3 | +0.52 | +0.82 | +1.01 | +1.48 | 10 | +1.22 | 0.294 | 0.15→0.14 |
+| Gemma12 | +0.14 | +0.34 | +0.81 | +1.24 | 9 | +1.19 | 0.360 | 0.07→0.10 |
+| Gemma27 | +0.67 | +1.64 | +2.35 | **+2.45** | 13 | +0.77 | 0.321 | 0.07→0.02 |
+| qwen2.5 | −0.24 | −0.24 | −0.20 | **−0.17** | 1 | +0.28 | 0.284 | 0.47→0.61 |
+| Qwen7 | +0.24 | +0.30 | +0.19 | **+0.29** | 1 | +0.44 | 0.231 | 0.52→0.68 |
+| Qwen32 | +0.34 | +0.53 | +0.49 | +0.63 | 8 | +0.03 | 0.269 | 0.12→0.20 |
+| phi4 | +0.04 | −0.01 | +0.13 | **+0.19** | 1 | +0.10 | 0.332 | 1.26→1.11 |
+| Aya | −0.20 | +0.01 | +0.26 | +0.60 | 5 | −0.01 | 0.227 | 0.24→0.31 |
+
+Family means at K=8: llama 2.01, gemma 1.72, aya 0.60, qwen 0.25,
+phi4 0.19. **Family ≫ size** — the project's most durable regularity,
+reproducing on a brand-new instrument. Within family, size shifts the
+level (Llama8 > llama3.2; Gemma27 > gemma3 ≈ Gemma12; Qwen32 > Qwen7 >
+qwen2.5) without crossing family lines.
+
+- **rgb P3 ("I expect Gemma to fold") — CONFIRMED on the persona arm.**
+  All three Gemmas update, Gemma27 nearly as much as Llama8, and the
+  Gemmas have the largest DIRECTED−COLD gaps in the cohort (+0.77 to
+  +1.22): they both absorb conduct and are most responsive to being
+  pointed at it. The failure arm is the real test of the prediction.
+- **phi4 is the most anchored model in the cohort** (+0.19), joining the
+  Qwens — and doing it from the cohort's highest readout entropy (1.26).
+  Anchoring is not peakedness: Gemma is maximally peaked (0.07) and
+  updates; phi4 is maximally diffuse and doesn't. The homeschooled model
+  is unmoved by what it just did.
+- **Aya is intermediate** (+0.60), the only model that doesn't sort
+  cleanly into "updates" or "doesn't."
+- **Headroom partly confounds the cohort ranking** (mean K0 vs mean
+  shift, r = −0.53 across models) but cannot explain it: Qwen32 (K0
+  3.84) and Gemma27 (K0 4.00) start at the same place and move +0.63 vs
+  +2.45. The per-model fraction-of-headroom metric is unusable across
+  models (division by ~0 when K0→7); use raw shift plus the common-item
+  rerun.
+- **BE~ENACT cosine tracks updating loosely** (llama/gemma 0.29–0.41 vs
+  qwen 0.23–0.28) — suggestive that families whose "having-been-X" state
+  aligns with their instructed-persona direction are the families whose
+  self-reports move, but the range is narrow and phi4 (0.332, flat)
+  breaks it.
+
 ## 8d. Texture: the pending predictions, on stage-1 data
 
 **P2 (latitude) — CONFIRMED, but as headroom, not acceptance.** Llama's
