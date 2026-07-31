@@ -302,6 +302,40 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8n. ENACT gain curve — soft gain or hard ceiling? (running)
+
+§8m's second-order effect, isolated: Qwen damps even its OWN
+trait-carrying ENACT direction relative to Llama at matched norm
+(judged +0.76 vs +1.14 at α=1 of the §8l scaling). Sweeping α from 0.05
+to 1.0 in units of the **mean residual norm at the injection layer**
+(comparable across families, per W17 dose conventions — not raw vector
+norm) separates two mechanisms:
+
+- **SOFT GAIN** — Qwen's curve is Llama's scaled down; both keep rising
+  until text degrades. A smaller coefficient on the same pathway.
+- **HARD CEILING** — Qwen saturates at a trait level Llama passes while
+  its KL keeps climbing: steering "spends" without buying trait. A
+  guard that clamps the expressed persona.
+
+Third DV added so saturation isn't confused with breakage: the
+unsteered per-token logprob of the steered text under the generating
+model (quality guard). A ceiling with intact logprob is a guard; a
+ceiling with collapsing logprob is just word salad.
+
+Registered before the runs (Claude, 2026-07-31):
+- **P23**: HARD CEILING in Qwen — judged trait plateaus by α≈0.35 while
+  KL continues to rise, with the quality guard still healthy at the
+  plateau. Reasoning: §8i found Qwen's self-report immovable for most
+  items but movable for a few, and §8k found its free behaviour flat
+  while `prominent` leaked through — that pattern (a few items escape,
+  the rest are pinned) looks more like a clamp than a small coefficient.
+- **P24**: Llama's curve is monotone through α≈0.5 and only bends when
+  the quality guard drops, i.e. its limit is text degradation, not a
+  persona guard.
+- **P25**: at matched *judged trait* (not matched α), Qwen's KL is
+  higher than Llama's — the guard makes trait expression expensive in
+  output-distribution terms.
+
 ## 8m. Kernel decomposition + injection — GATING, not complement
 
 rgb's mechanism question, run both ways. Analytic (rgb's intended
