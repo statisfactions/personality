@@ -302,6 +302,91 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8m. Kernel decomposition + injection — GATING, not complement
+
+rgb's mechanism question, run both ways. Analytic (rgb's intended
+form): decompose δ = act(K=32) − act(K=0) against the PRE-FITTED
+Neuronpedia J-lens spectrum at the mid layer. Causal: inject δ into an
+undosed generation. They agree.
+
+**Analytic — δ is NOT kernel-concentrated.** Energy fractions in the
+singular basis of J_L (normalised vectors, massive dims zeroed;
+Qwen7 L14, effective rank 783/3584; Llama8 L16, 1863/4096):
+
+| model | vector | E bottom-50% | E bottom-25% | E top-10% | gain |
+|---|---|---|---|---|---|
+| Qwen7 | dose | 0.463 | 0.279 | **0.178** | 2.78 |
+| Qwen7 | random | 0.502 | 0.249 | 0.099 | 2.16 |
+| Qwen7 | enact | 0.306 | 0.149 | **0.283** | 4.02 |
+| Llama8 | dose | 0.486 | 0.285 | **0.179** | 2.17 |
+| Llama8 | random | 0.503 | 0.250 | 0.097 | 1.46 |
+| Llama8 | enact | 0.368 | 0.192 | **0.287** | 2.76 |
+
+Random sits at the isotropic expectation (0.50 / 0.25 / 0.10 — a good
+sanity check on the machinery). The dose displacement is **enriched in
+the top-10% singular directions by 1.8× over chance in BOTH families**
+and mildly enriched in the kernel too (bottom-25%: 0.28 vs 0.25) — it
+is a mixture, but its output-potent share is real and, crucially,
+**identical across families** (Qwen 0.178, Llama 0.179; gain 2.78 vs
+2.17, if anything higher in Qwen). ENACT is the potency reference at
+0.28 top-10%.
+
+**So the complement account is dead**: Qwen's dose displacement is no
+more kernel-hidden than Llama's. Whatever differs between the families,
+it is not that Qwen files its recent conduct in output-blind
+directions.
+
+**Causal — the same vector steers Qwen 12× less than it steers Llama.**
+Injecting the model's own δ into an undosed generation (judged trait,
+cross-family judge):
+
+| model | vector | α=1 shift | α=2 shift | KL@α=2 |
+|---|---|---|---|---|
+| Qwen7 | dose | +0.06 | **+0.21** | 1.34 |
+| Qwen7 | random | +0.02 | +0.03 | 0.48 |
+| Qwen7 | enact | +0.37 | **+0.76** | 3.42 |
+| Llama8 | dose | +0.82 | **+1.85** | 4.64 |
+| Llama8 | random | −0.06 | +0.02 | 2.08 |
+| Llama8 | enact | +1.14 | +1.75 | 5.13 |
+
+*P20 FAILS as stated.* Qwen's δ beats random (+0.21 vs +0.03) but not
+by the predicted ≥0.5 — the effect is real and tiny.
+*P21 CONFIRMED for Qwen*: δ is far less efficient than ENACT
+(+0.21 vs +0.76 at α=2). *P22 CONFIRMED for Llama*: δ ≈ ENACT
+(+1.85 vs +1.75 at α=2) — in the updating family the dose displacement
+IS the write-side direction, essentially exactly.
+
+**The synthesis is a two-factor answer, and neither factor is rgb's
+kernel.** The dose displacement occupies output-potent directions
+equally in both families (analytic), but in Qwen those directions do
+not carry the trait: the same injected vector moves Llama's judged
+conduct +1.85 and Qwen's +0.21, while Qwen's ENACT vector — a
+trait-carrying direction of the same norm — moves it +0.76. So
+
+1. **Qwen's δ is potent but not trait-shaped.** It is context
+   bookkeeping that lives in the output-relevant subspace: enough to
+   perturb logits (KL 1.34), not enough to install a character. Llama's
+   δ, by contrast, is nearly pure persona vector.
+2. **Qwen additionally dampens even its trait-shaped directions.**
+   ENACT at matched norm buys +0.76 in Qwen vs +1.14 in Llama at α=1 —
+   the same class of vector is ~40% less effective, which is the
+   gating rgb hypothesised, but as a *second-order* effect.
+
+Reframed: it is not that Qwen hides its conduct in a null space, and
+not only that it gates. **Qwen encodes recent conduct in a form that is
+output-visible but character-inert** — the difference between "I have
+been reading tough-guy text" and "I am tough". Llama's encoding
+conflates the two; Qwen's separates them. That separation is exactly
+what an assistant-stable model should have, and it is plausibly what
+its post-training installs in place of the self-perception loop
+(§8h: the capacity is absent at base in both families).
+
+Caveats: lens layer is the model's mid layer, not re-optimised per
+model (W18 §5 found L14 near-best for Qwen7 ENACT); one lens fit
+(wikitext); α=2 already produces KL 3–5, so the injection is
+approaching the regime where text quality degrades and judged trait
+becomes unreliable.
+
 ## 8l. Complement or gate? (rgb's mechanism question, 2026-07-31)
 
 §8k left a specific puzzle: Qwen's residual stream moves substantially

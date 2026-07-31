@@ -43,6 +43,8 @@ LENS_REPO = "neuronpedia/jacobian-lens"
 LENS_FILES = {
     "Qwen7": "qwen2.5-7b-it/jlens/Salesforce-wikitext/"
              "Qwen2.5-7B-Instruct_jacobian_lens.pt",
+    "Llama8": "llama3.1-8b-it/jlens/Salesforce-wikitext/"
+              "Llama-3.1-8B-Instruct_jacobian_lens.pt",
 }
 
 
