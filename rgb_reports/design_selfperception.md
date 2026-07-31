@@ -302,6 +302,39 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8i. Threshold test — "maybe Qwen's curve is just longer" (rgb)
+
+The §8e–8h headline assumes the K∈{1..8} window captures the curve. It
+may not: Llama's floor items are sigmoid with inflection ~K=4, so a
+family with a 4× longer curve would inflect at K=16–32 and read as
+"flat" at our ceiling. Every flat model in the cohort is vulnerable to
+this — the claim "Qwen has no self-perception" is really "Qwen has no
+self-perception within 8 turns."
+
+Run: K∈{0,1,2,4,8,16,32}, arm A, chat format, Llama8's common 20
+adjectives, 3 seeds. Models: Qwen7 (the flat family), Llama8 (does the
+updater saturate or keep climbing?), phi4 (flattest in cohort),
+Gemma12 (mid-updater). Dose material cycles the 12 distinct questions,
+taking a fresh rollout each pass — so K=32 repeats questions with
+different answers (a confound to note: repetition itself is a signal,
+and it enters only above K=12).
+
+Registered before the runs (Claude, 2026-07-31):
+- **P14**: Qwen7 stays under +1.0 at K=32 (no hidden threshold). If a
+  threshold existed at 4× Llama's inflection we should see acceleration
+  already by K=16; predicted K=16 ≈ +0.4, K=32 ≈ +0.6, i.e. the same
+  flat line, not a delayed sigmoid. Confidence moderate — rgb's
+  threshold account is mechanistically plausible and our K=8 ceiling
+  was chosen for convenience, not from theory.
+- **P15**: Llama8 saturates rather than climbing linearly — K=32 lands
+  within 0.5 of K=8 (+2.5 → ≤ +3.0), because most items are already
+  near the scale ceiling. A continuing climb would mean dose effects
+  are unbounded and the K=8 numbers are arbitrary points on a ramp.
+- **P16**: if any flat model DOES turn over, it will be phi4 rather
+  than Qwen — phi4's flatness sits on the cohort's highest readout
+  entropy (1.26), which reads more like an un-committed model than an
+  anchored one.
+
 ## 8h. Qwen base-vs-instruct (running 2026-07-30 evening)
 
 Direct test of whether Qwen's post-training damps what OLMo's amplifies.
