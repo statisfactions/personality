@@ -302,6 +302,35 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8h. Qwen base-vs-instruct (running 2026-07-30 evening)
+
+Direct test of whether Qwen's post-training damps what OLMo's amplifies.
+Three bare-text arm-A runs on Llama8's common 20 adjectives, dose
+material from Qwen7-Instruct rollouts in both Qwen cells (weights the
+only variable):
+
+1. **Qwen7Base** (Qwen/Qwen2.5-7B) — pretrained, no post-training.
+2. **Qwen7** in bare format — the anchored endpoint, format-matched.
+3. **Llama8** in bare format — control for whether bare text itself
+   suppresses updating in a known updater (its chat-format value is
+   +2.51 on these items).
+
+Registered before the runs (Claude, 2026-07-30):
+- **P11**: Llama8-bare stays a clear updater (≥ +1.2), i.e. the format
+  costs some but not most of the effect. If it collapses, the whole
+  bare-text ladder comparison (§8g) is format-limited and OLMo's
+  numbers are floors, not levels.
+- **P12**: Qwen7Base updates MORE than Qwen7-bare — the damping is
+  installed by Qwen's post-training, not inherited from pretraining.
+  Confidence moderate; the OLMo result makes "post-training installs
+  responsiveness" the cohort-wide default, so Qwen inverting it is the
+  interesting-but-less-likely branch. Predicted base ≈ +0.6 to +1.2 vs
+  instruct-bare ≈ +0.1.
+- **P13 (alternative)**: if base ≈ instruct ≈ flat, Qwen's anchoring is
+  a PRETRAINING property (corpus/tokenizer/architecture), and the
+  post-training story dies for this family — which would make Qwen the
+  cohort's most interesting model rather than its most boring.
+
 ## 8g. OLMo-2 ladder — rgb's "the anchor was load-bearing during RL"
 
 Bare-text transcript format (identical across stages), dose material
