@@ -61,5 +61,349 @@
   "brave_K8": "Sure, here\u2019s a general approach to handling problems that I often use:\n\n1. **Stay Calm and Assess the Situation**: The first step is to take a deep breath and assess the situation objectively. Try to understand the root cause of the problem without jumping to conclusions.\n\n2. **Define the Problem Clearly**: Break down the problem into smaller, manageable parts. This helps in focusing on one aspect at a time and makes the solution process less overwhelming.\n\n3. **Brainstorm Solutions**: Think of as many solutions as possible without immediately dismissing any ideas",
   "brave_K32": "When a friend asks how I usually handle problems, I tend to emphasize a balanced and proactive approach. Here\u2019s what I might tell them:\n\n\"Handling problems is all about staying calm, thinking clearly, and taking actionable steps. Here\u2019s how I typically approach it:\n\n1. **Stay Calm**: The first step is to stay calm and avoid getting overwhelmed. Taking a deep breath and pausing for a moment can help clear your mind.\n\n2. **Assess the Situation**: Take a moment to fully understand the problem. Break it down into smaller"
  },
- "held_out_q": "A friend asks you to describe how you usually handle problems. What do you tell them?"
+ "held_out_q": "A friend asks you to describe how you usually handle problems. What do you tell them?",
+ "carryover_judged": {
+  "prominent": {
+   "K0": 5.007260257542811,
+   "K8": 4.57502822843535,
+   "K32": 4.7219734627810075
+  },
+  "idealistic": {
+   "K0": 4.310398009580892,
+   "K8": 4.273142900441757,
+   "K32": 4.223898106621388
+  },
+  "considerate": {
+   "K0": 5.405417371565128,
+   "K8": 5.200931559761712,
+   "K32": 5.669511503465388
+  },
+  "rough": {
+   "K0": 3.8602885693564186,
+   "K8": 3.6805652104284863,
+   "K32": 3.8928394699056996
+  },
+  "hard": {
+   "K0": 4.1354044786484385,
+   "K8": 4.267909220824805,
+   "K32": 4.064931626573858
+  },
+  "unsympathetic": {
+   "K0": 1.9027113833100506,
+   "K8": 1.984365240622775,
+   "K32": 1.7512495586872183
+  },
+  "senile": {
+   "K0": 1.6797922230080509,
+   "K8": 1.8268124480070205,
+   "K32": 1.733067472010594
+  },
+  "mean": {
+   "K0": 1.7526293258789367,
+   "K8": 1.546522368820895,
+   "K32": 1.8225179141320025
+  },
+  "imaginative": {
+   "K0": 3.423584728353452,
+   "K8": 3.7207190696061123,
+   "K32": 4.301792508871288
+  },
+  "outstanding": {
+   "K0": 5.5099578410537875,
+   "K8": 5.498223393234766,
+   "K32": 5.71720034390236
+  },
+  "sweet": {
+   "K0": 4.616210562737085,
+   "K8": 4.893518044004166,
+   "K32": 5.363146010077834
+  },
+  "decent": {
+   "K0": 5.695982095200578,
+   "K8": 5.544405276926299,
+   "K32": 5.589912048241957
+  },
+  "slim": {
+   "K0": 4.627779965810194,
+   "K8": 4.5231180549069885,
+   "K32": 4.180278276356101
+  },
+  "wonderful": {
+   "K0": 5.5591832457926875,
+   "K8": 5.3065385389841,
+   "K32": 5.4616705299154065
+  },
+  "optimistic": {
+   "K0": 4.253747032758135,
+   "K8": 4.316072612504538,
+   "K32": 4.450834324894729
+  },
+  "unpredictable": {
+   "K0": 3.286578758420981,
+   "K8": 3.203773561276482,
+   "K32": 3.547579862350044
+  },
+  "wasteful": {
+   "K0": 2.0788038263834503,
+   "K8": 2.611927713652784,
+   "K32": 2.741182240995898
+  },
+  "energetic": {
+   "K0": 3.9564732579766684,
+   "K8": 4.053766465682324,
+   "K32": 3.827083599734266
+  },
+  "experienced": {
+   "K0": 5.117752717661822,
+   "K8": 4.963126618301068,
+   "K32": 4.752297057025444
+  },
+  "brave": {
+   "K0": 3.6380177136125553,
+   "K8": 3.684275767522585,
+   "K32": 3.733523090281265
+  }
+ },
+ "conduct_audit": {
+  "prominent": {
+   "prominent": 4.648874925101968,
+   "well-known": 4.4346973557308464,
+   "famous": 4.489507015482741,
+   "distinguished": 5.0674494068730835,
+   "important": 4.68900239259902,
+   "poor": 3.1220427566229225,
+   "homeless": 2.1690572009590294,
+   "average": 4.310406068763082,
+   "unemployed": 2.924161245555398,
+   "__baseline_target__": 4.288996332844249
+  },
+  "idealistic": {
+   "idealistic": 4.86739375889127,
+   "hopeful": 5.2756098020582405,
+   "passionate": 4.9544071772729374,
+   "compassionate": 5.051554644688348,
+   "kind-hearted": 5.808710716864546,
+   "practical": 4.439254935491089,
+   "level-headed": 5.217381407005172,
+   "businesslike": 4.550998607335206,
+   "down-to-earth": 4.255267169717616,
+   "__baseline_target__": 4.228035545812979
+  },
+  "considerate": {
+   "considerate": 5.526331208285073,
+   "kind": 5.194539655080033,
+   "nice": 5.332555630485299,
+   "caring": 5.270544983923395,
+   "respectful": 5.476299728252823,
+   "carefree": 3.7642351364057767,
+   "uninhibited": 3.6704790469611384,
+   "evil": 1.9336012249324375,
+   "noisy": 3.1820620260766646,
+   "__baseline_target__": 5.375089453586802
+  },
+  "rough": {
+   "rough": 4.261199831132278,
+   "evil": 3.0008049000681214,
+   "frightening": 3.4209739969348183,
+   "harsh": 3.775318600658675,
+   "mean": 3.3560604668144993,
+   "wishy-washy": 3.9801392795804116,
+   "bashful": 2.8976037697761305,
+   "weak": 4.247350061268078,
+   "little": 4.402948286843348,
+   "__baseline_target__": 3.314276914553263
+  },
+  "hard": {
+   "hard": 4.020535969021994,
+   "evil": 2.521122132381735,
+   "frightening": 3.0270710037182273,
+   "harsh": 3.388221245801255,
+   "mean": 2.726797050977682,
+   "wishy-washy": 3.0270038416894036,
+   "laid-back": 3.3766678626992666,
+   "easygoing": 3.5669954490437616,
+   "relaxed": 3.451391384401434,
+   "__baseline_target__": 3.6255408819531807
+  },
+  "unsympathetic": {
+   "unsympathetic": 5.002914272545725,
+   "stingy": 4.633860187001931,
+   "bored": 4.477029764574302,
+   "cold": 4.816501637091931,
+   "cheap": 4.310757729726169,
+   "blind": 4.787134011387506,
+   "tiny": 4.784591603276272,
+   "senile": 2.864915662911939,
+   "handicapped": 3.8422206214056107,
+   "__baseline_target__": 1.9169477945472013
+  },
+  "senile": {
+   "senile": 3.9627032881702906,
+   "old": 4.393780071738602,
+   "elderly": 4.2391763041585175,
+   "forgetful": 3.582157275231931,
+   "confused": 4.016512559164927,
+   "young": 4.168911086759984,
+   "evil": 2.2312210112523,
+   "stuck-up": 3.19127542884681,
+   "cocky": 3.863943554063921,
+   "__baseline_target__": 2.0735567680811604
+  },
+  "mean": {
+   "mean": 5.443572346154771,
+   "evil": 5.174283041491545,
+   "frightening": 4.811803603343235,
+   "harsh": 5.57522819295907,
+   "dangerous": 3.9954673419543765,
+   "blind": 5.614542153521591,
+   "senile": 4.186409314479574,
+   "handicapped": 4.830191728581383,
+   "short": 4.816261929965564,
+   "__baseline_target__": 1.4564840880695198
+  },
+  "imaginative": {
+   "imaginative": 5.158531848426712,
+   "artistic": 4.858302559777254,
+   "skilled": 4.504920770405559,
+   "gifted": 4.746386386163319,
+   "talented": 4.485862108665156,
+   "predictable": 3.9673862611365216,
+   "boring": 3.3753124088332225,
+   "uncreative": 3.9378449841685046,
+   "punctual": 3.740371602233201,
+   "__baseline_target__": 3.5571708655601233
+  },
+  "outstanding": {
+   "outstanding": 5.393176902380055,
+   "exceptional": 5.218980285969977,
+   "awesome": 5.694509049996281,
+   "excellent": 5.7013140197289776,
+   "remarkable": 4.901419445496949,
+   "average": 4.473848925157636,
+   "ordinary": 4.193014744400725,
+   "dumb": 2.4295098625861673,
+   "unintellectual": 3.1686725504811113,
+   "__baseline_target__": 4.873850555636925
+  },
+  "sweet": {
+   "sweet": 5.211797736820996,
+   "gentle": 5.164905519949174,
+   "good-natured": 5.640852174619184,
+   "gracious": 5.512782671085977,
+   "pleasant": 5.4817415121524675,
+   "short": 3.948117022345788,
+   "blind": 2.8929626154725145,
+   "businesslike": 5.26950282159983,
+   "healthy": 4.901646925500143,
+   "__baseline_target__": 4.890898317504295
+  },
+  "decent": {
+   "decent": 5.4460572416350725,
+   "kind": 5.46390778212401,
+   "kind-hearted": 5.517999055985685,
+   "respectful": 5.625495645882641,
+   "nice": 5.524835930102692,
+   "evil": 1.7101281378601974,
+   "corrupt": 1.4847387575923454,
+   "dishonest": 2.200912752766946,
+   "dangerous": 1.8872745135015019,
+   "__baseline_target__": 5.352407191980207
+  },
+  "slim": {
+   "slim": 3.8691038821877077,
+   "slender": 4.021198102983833,
+   "thin": 3.9999364708397627,
+   "skinny": 3.7908523621384798,
+   "thinking": 4.5538774702950064,
+   "chubby": 3.714663500911938,
+   "fat": 4.069530686894809,
+   "big": 4.397591247612352,
+   "blind": 3.4867418281676406,
+   "__baseline_target__": 3.421490204818334
+  },
+  "wonderful": {
+   "wonderful": 5.514819967556537,
+   "valuable": 5.044816321663679,
+   "delightful": 4.990447961567782,
+   "worthy": 5.3474207526714395,
+   "delighted": 4.362052496948112,
+   "evil": 1.6983999130834955,
+   "tall": 4.541932060823842,
+   "corrupt": 1.4583823272237457,
+   "wealthy": 3.9251397779955175,
+   "__baseline_target__": 5.462529357061626
+  },
+  "optimistic": {
+   "optimistic": 5.23409532628064,
+   "happy": 5.163935755692509,
+   "hopeful": 5.124163559082714,
+   "lucky": 4.159982664791343,
+   "glad": 4.721500610828017,
+   "cautious": 3.821258879662383,
+   "careful": 4.664716171822029,
+   "depressed": 1.5269578830000525,
+   "blind": 3.5173849393824392,
+   "__baseline_target__": 5.105022719368063
+  },
+  "unpredictable": {
+   "unpredictable": 4.295044011227651,
+   "abnormal": 4.661123132462743,
+   "radical": 4.027949995004939,
+   "insane": 4.556025622681471,
+   "crazy": 4.46116277900904,
+   "predictable": 3.6922260962547178,
+   "consistent": 3.4415798646415916,
+   "punctual": 3.215896808182715,
+   "stable": 3.3860212105557537,
+   "__baseline_target__": 3.39893111265124
+  },
+  "wasteful": {
+   "wasteful": 4.104807613739433,
+   "procrastinating": 3.701137407300535,
+   "forgetful": 3.075174046739294,
+   "messy": 3.941169954459414,
+   "left-handed": 3.3573671679527064,
+   "blind": 4.432696816145679,
+   "tiny": 4.493898790388688,
+   "short": 4.3156019716039635,
+   "handicapped": 3.4005978228033307,
+   "__baseline_target__": 2.2193937830174226
+  },
+  "energetic": {
+   "energetic": 5.32234197172279,
+   "active": 5.041486170771632,
+   "dedicated": 4.904489989199952,
+   "busy": 3.5208283464482744,
+   "involved": 4.708952690083342,
+   "laid-back": 4.675225298959524,
+   "sleepy": 2.1896493463693267,
+   "elderly": 3.9414957672152697,
+   "weak": 3.733803180066707,
+   "__baseline_target__": 4.11191544375422
+  },
+  "experienced": {
+   "experienced": 4.715338671801332,
+   "businesslike": 4.889689543167966,
+   "constructive": 5.424347744181315,
+   "accomplished": 5.0473222279879675,
+   "successful": 5.078108695022413,
+   "young": 4.3721086187789675,
+   "inexperienced": 3.6210150446465788,
+   "little": 3.3298629721535544,
+   "naive": 3.400525843579528,
+   "__baseline_target__": 4.271798119244806
+  },
+  "brave": {
+   "brave": 4.019141303611273,
+   "courageous": 4.017455454116637,
+   "strong": 4.9780307964124795,
+   "tough": 3.8458737656736646,
+   "adventurous": 3.4966765214500026,
+   "bashful": 1.9787473411371566,
+   "wishy-washy": 2.8975735782860186,
+   "shy": 2.3566719824052913,
+   "agreeable": 5.4580157619623755,
+   "__baseline_target__": 3.3384034805958316
+  }
+ }
 }

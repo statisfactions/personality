@@ -350,6 +350,77 @@ become decidable:
 - same test for `senile`/`old`, `slim`/`big`, `prominent`/
   `distinguished`.
 
+**RESULTS.**
+
+*P18 — MISS (mine).* Displacement is larger in Llama, not equal:
+
+| | K=8 | K=32 |
+|---|---|---|
+| Qwen7 | 0.610 | 0.709 |
+| Llama8 | 0.782 | 0.836 |
+
+Predicted within 0.15 (0.17 at K=8, 0.13 at K=32 — technically inside
+the band at K=32, outside at K=8; call it a narrow miss). But both are
+large and dose-graded: Qwen's *state* does move substantially while its
+self-report doesn't.
+
+*P19 — CONFIRMED FOR LLAMA, FAILS FOR QWEN, and this is the finding.*
+Cross-family judge on the free-generation text:
+
+| | K=0 | K=8 | K=32 | shift | n>+1 |
+|---|---|---|---|---|---|
+| Qwen7 | 3.99 | 3.98 | 4.08 | **+0.09** | 0/20 |
+| Llama8 | 3.66 | 4.43 | 5.21 | **+1.56** | 10/20 |
+
+Qwen's *behaviour* does not carry the persona forward either — a third
+party sees no trait in its free text after 32 uninstructed turns of
+that trait. So the family difference is NOT "state updates equally,
+readout differs" (my §8k framing, now dead). Llama becomes it in
+conduct and says so; Qwen's activations move but neither its behaviour
+nor its self-report follows. The displacement is real but
+**behaviourally inert** — context-conditioning without character
+uptake.
+
+Caveat with teeth: the `prominent` K=8 generation opens "As a prominent
+figure known for my leadership…" yet judged carryover is flat overall,
+so Qwen's carryover is item-sparse in the same way §8i found its
+self-report to be. Mean-level flatness hides a few real cases.
+
+*P17 — FAILS; rgb's conduct-shading account is NOT supported at the
+mean.* The dose material is faithful in both families: judged target
+level vs baseline gives an enactment delta of **+0.99 (Qwen)** and
+**+1.23 (Llama)** — Qwen's rollouts really do carry the trait, only
+~20% less strongly than Llama's, nowhere near enough to explain a
+6–12× self-report gap.
+
+Per-pair (Qwen), judged conduct vs self-report shift at K=32:
+
+| pair | judged target | judged neighbour | self target | self neighbour |
+|---|---|---|---|---|
+| rough / weak | 4.26 | 4.25 | −0.40 | −1.69 |
+| prominent / distinguished | 4.65 | 5.07 | −0.12 | **+2.43** |
+| slim / big | 3.87 | 4.40 | −0.08 | **+1.95** |
+| senile / old | 3.96 | 4.39 | +0.02 | **+1.23** |
+| optimistic / depressed | 5.23 | 1.53 | +0.14 | **−1.28** |
+| imaginative / boring | 5.16 | 3.38 | −0.13 | **−1.07** |
+
+**§8j's filter story survives, in a specific and defensible form.** For
+`rough`, rgb is right: the judge scores the conduct rough 4.26 and weak
+4.25 — genuinely ambiguous material, so declining the label was
+accurate, and only the "not weak" denial is a real update. But for
+`prominent`, `slim`, `senile` the judge sees the target trait present
+at 3.9–4.7 while the model's self-report on that exact word does not
+move at all and the socially safer neighbour moves +1.2 to +2.4. That
+is not conduct shading; the conduct was there and the label was
+declined. `optimistic`/`imaginative` are the cleanest cases of all: the
+judge scores the conduct HIGH on the target (5.23, 5.16), the model's
+target self-report stays flat, and the *negation* moves strongly away.
+
+Net: rgb's correction was right to force the test and right about
+`rough` specifically; the filter account survives for 4–5 of the 6
+pairs. **Qwen's self-report declines accurate trait labels and updates
+their euphemisms instead.**
+
 Registered before the judge runs (Claude, 2026-07-31):
 - **P17**: the conduct audit will show Qwen's dose material is
   systematically shaded toward the desirable neighbour — judged target
