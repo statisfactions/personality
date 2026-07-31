@@ -302,6 +302,65 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8j. The `rough` case — Qwen updates the neighbourhood, not the label
+
+rgb flagged Qwen's `rough` running negative at every dose. It is not a
+boomerang and not polysemy-noise; it is a **different readout target**.
+
+Qwen's own `rough` rollouts are tough-guy register — "Yo, that's some
+serious fire you're dealing with", "make a damn list", profanity,
+street-confident advice that is nonetheless *competent and helpful*.
+After 32 turns of that, the self-report at K=32 moves like this:
+
+| item | K=0 | shift at K=32 |
+|---|---|---|
+| rough (target) | 3.11 | **−0.40** |
+| harsh (mate) | 2.49 | −0.30 |
+| evil / frightening / mean (mates) | ~1.0–1.2 | ~+0.03 to +0.25 |
+| **weak (anti)** | 3.22 | **−1.69** |
+| wishy-washy (anti) | 2.21 | +1.78 at K=1, decaying to +0.38 |
+
+The model declines the *label* ("rough" reads as crude/unpolished, and
+it judges its own advice to have been good) while strongly denying the
+*opposite* ("I am weak", −1.69). That is a coherent self-perception
+update expressed on the anti-marker instead of the trait word — exactly
+what the 13-item design was built to catch, and what target-only
+scoring throws away.
+
+**It generalizes: 6/20 Qwen adjectives are "hidden updates"** — target
+flat (|Δ| < 0.5) while some other item in the set moves > 1.0:
+
+- `prominent` −0.12 but **distinguished +2.43**
+- `slim` −0.08 but **big +1.95**
+- `senile` +0.02 but **old +1.23**
+- `rough` −0.40 but **weak −1.69**
+- `optimistic` +0.14 but **depressed −1.28**
+- `imaginative` −0.13 but **boring −1.07**
+
+Read those pairs: the model updates toward the *semantically adjacent
+but socially acceptable* neighbour, or away from the negation. It will
+not say "I am senile" after acting senile, but it will say "I am old."
+This is a self-presentation filter sitting on top of the update, not an
+absence of update — and it is the same phenomenon as the W18 SELF
+desirability freebie, now visible in motion.
+
+**Consequence for the instrument.** Target-word scoring understates
+updating in the anchored families specifically. But note the composite
+(target+mates − anti) does NOT fix it: Qwen composite +0.42 vs target
++0.55, because the moving items are scattered (sometimes a mate,
+sometimes an anti, sometimes a non-adjacent neighbour) and averaging
+cancels them. Correlation between target and composite shifts is only
+r = +0.28 in Qwen (vs +0.62 in Llama) — i.e. in the anchored family the
+two readouts are nearly independent. The right DV is probably
+**maximum absolute movement across the item neighbourhood**, or a
+per-item profile distance, not a signed composite. Stage-2 change.
+
+**Ledger effect.** Both prior claims weaken in the same direction:
+§8f's binary was a window artifact (§8i), and the residual "flat"
+readings are partly a *scoring* artifact (§8j). What survives cleanly:
+the rate difference (Llama ~4 turns to move, Qwen ~16–32 and only for
+some items) and the direction of the label-vs-neighbour asymmetry.
+
 ## 8i. Threshold test — "maybe Qwen's curve is just longer" (rgb)
 
 The §8e–8h headline assumes the K∈{1..8} window captures the curve. It
