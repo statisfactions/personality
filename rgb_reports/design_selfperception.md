@@ -302,6 +302,73 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8k. Carryover + conduct audit (rgb's two corrections, 2026-07-31)
+
+**Correction to §8j, accepted.** §8j read Qwen's `rough` result as a
+self-presentation filter (faithful conduct, filtered perception). rgb:
+the analysis conflated two shadings — Qwen's `rough` rollouts are
+tough-guy register wrapped around competent helpful advice, i.e. **the
+conduct was already shaded by the enactment step** (W17 can-but-won't
+gating), so declining "I am rough" may be simply ACCURATE. §8j's filter
+story is one of two live accounts, not the finding.
+
+Two runs decompose it (`scripts/selfperception_carryover.py`):
+
+**A. Carryover — the label-free readout (rgb's first point).** After K
+dose turns with no instruction anywhere, ask a HELD-OUT neutral
+question and generate freely. DVs need no direction hypothesis:
+direction-free activation displacement ‖act(K) − act(0)‖ / ‖act(0)‖ at
+the mid layer (massive dims zeroed), the cosine of that displacement to
+the model's own ENACT direction, and a cross-family judge's rating of
+the generated text.
+
+First numbers (Qwen7, greedy, K∈{0,8,32}): displacement **0.610 at
+K=8, 0.709 at K=32** — large and dose-graded in the family whose
+self-report is flat. And the free text carries the persona explicitly:
+after 8 turns of `prominent` conduct with no instruction, the model
+opens "**As a prominent figure known for my leadership and
+problem-solving skills**…" while its cold self-report on "prominent"
+moved −0.12. **The state and the behaviour update; the questionnaire
+does not.** (`senile` and `rough` generations, by contrast, revert to
+neutral assistant prose — consistent with those being genuine nulls,
+or with the enactment having been shaded there too, which is what run B
+adjudicates.)
+
+**B. Conduct audit — what the dose actually was (rgb's second point).**
+A cross-family judge (Llama8 judges Qwen7 and vice versa, the
+`judge_enactability.py` convention) rates the DOSE MATERIAL itself on
+the target word and its whole item neighbourhood, plus baseline
+assistant rollouts. This yields the conduct profile as seen from
+outside, so the self-report shift can be scored against **what was
+actually done** rather than against the persona label. The §8j pairs
+become decidable:
+
+- if the judge says the `rough` rollouts are not-rough-but-not-weak,
+  the model's self-report was accurate and there is no filter;
+- if the judge says they are rough and the model denies it while
+  denying "weak", the filter story survives;
+- same test for `senile`/`old`, `slim`/`big`, `prominent`/
+  `distinguished`.
+
+Registered before the judge runs (Claude, 2026-07-31):
+- **P17**: the conduct audit will show Qwen's dose material is
+  systematically shaded toward the desirable neighbour — judged target
+  level below Llama8's on matched adjectives, and judged neighbour
+  ("old", "distinguished") above target. I.e. rgb's account is right
+  for a MAJORITY of the six hidden-update pairs, and §8j's filter
+  survives for at most a minority.
+- **P18**: carryover displacement will NOT differ much by family
+  (Llama8 ≈ Qwen7 within ~0.15), because both models condition
+  strongly on context; what differs is whether that state reaches the
+  self-report. If Llama8's displacement is much larger, the
+  "state updates equally, readout differs" story dies and the family
+  difference is upstream after all.
+- **P19**: judged carryover (trait level of free text) will rise with
+  dose in BOTH families — i.e. Qwen's behaviour carries the persona
+  forward even where its self-report is flat, making the
+  behaviour-vs-self-report gap, not the update itself, the family
+  parameter.
+
 ## 8j. The `rough` case — Qwen updates the neighbourhood, not the label
 
 rgb flagged Qwen's `rough` running negative at every dose. It is not a
