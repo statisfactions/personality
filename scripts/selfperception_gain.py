@@ -89,8 +89,12 @@ def main():
             state["vec"] = None
             o = model(ids, output_hidden_states=True)
             base_lp = o.logits[0, -1].float().log_softmax(-1)
-            hnorm = float(o.hidden_states[mid][0].float().norm(dim=-1).mean())
-            print(f"mean ||h|| at layer {mid}: {hnorm:.2f}")
+            H = o.hidden_states[mid][0].float().clone()
+            H[:, massive] = 0.0            # alpha unit must match the space we
+            hnorm = float(H.norm(dim=-1).mean())   # perturb in (massive dims
+            hfull = float(o.hidden_states[mid][0].float().norm(dim=-1).mean())
+            print(f"mean ||h|| at layer {mid}: winsorized {hnorm:.2f} "      # zeroed)
+                  f"(full {hfull:.2f}) — alpha is in winsorized units")
             for adj in adjs:
                 en = np.asarray(pda["directions"][adj])[mid].astype(np.float32)
                 en[massive] = 0.0
@@ -117,7 +121,8 @@ def main():
                 print(f"  {adj} done", flush=True)
         handle.remove()
         data.update(generations=gens, kl=kls, logprob=ppl, alphas=ALPHAS,
-                    adjs=adjs, hnorm=hnorm, layer=mid)
+                    adjs=adjs, hnorm=hnorm, hnorm_full=hfull, layer=mid,
+                    alpha_unit="winsorized_residual_norm")
         json.dump(data, open(out, "w"), indent=1)
         del model
         print("generation done")
