@@ -302,6 +302,64 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8g. OLMo-2 ladder — rgb's "the anchor was load-bearing during RL"
+
+Bare-text transcript format (identical across stages), dose material
+generated once from Olmo2Inst and reused for all four stages, so weights
+are the only variable. Mean target cold-EV shift, arm A:
+
+| stage | K=1 | K=2 | K=4 | K=8 | slope | K0 entropy |
+|---|---|---|---|---|---|---|
+| Base (pretrained) | +0.23 | +0.34 | +0.51 | **+0.65** | +0.065 | 1.90 |
+| SFT | +0.49 | +0.75 | +1.02 | **+1.31** | +0.127 | 1.65 |
+| DPO | +0.80 | +1.06 | +1.49 | **+1.79** | +0.163 | 1.35 |
+| Instruct (RLVR) | +0.81 | +1.03 | +1.55 | **+1.81** | +0.167 | 1.30 |
+
+**Post-training INSTALLS self-perception; it does not damp it.** The
+update rate nearly triples from base to instruct, monotonically, with
+most of the gain in SFT→DPO and nothing added by RLVR (DPO ≈ Instruct,
++1.79 vs +1.81). Readout entropy falls monotonically across the same
+ladder (1.90 → 1.30), so the model is getting both more responsive to
+its own conduct and more committed in its answers.
+
+This **inverts rgb's hypothesis as stated** — the "anchoring was
+learned during RL" account predicts stability increasing with
+post-training, and stability *decreases*. The steerable-self is what
+post-training builds. But it rescues the deeper form: character
+dynamics ARE installed by post-training rather than pretrained, so
+"trained in the presence of X" remains the right shape of explanation —
+the sign is just opposite for OLMo's stack. Qwen's resistance is then
+not the generic effect of post-training but something Qwen's specific
+recipe does against the grain.
+
+Caveats: OLMo's template carries no identity sentence, so this cannot
+test Qwen's anchor directly; bare-text format is off-distribution for
+the tuned stages (held constant, but it depresses all four); one
+family, N=1 ladder. The Qwen2.5 base-vs-instruct comparison
+(Qwen7Base exists in MODELS) is the direct follow-up and is cheap.
+
+## 8f. Common-item cohort — the comparability caveat, resolved
+
+All 10 models rerun on Llama8's 20 adjectives (arm A, `_common` tag).
+Cross-cohort correlation with the per-model-stratified numbers:
+**r = +0.932**. The ranking is not an item-set artifact.
+
+| family | per-model | common-item |
+|---|---|---|
+| gemma | 1.72 | **2.24** |
+| llama | 2.01 | **2.18** |
+| aya | 0.60 | 0.35 |
+| phi4 | 0.19 | 0.29 |
+| qwen | 0.25 | **0.18** |
+
+The updating families rise on common items (Gemma12 +1.24 → +2.27,
+llama3.2 +1.46 → +1.85) because Llama8's stratified set has more
+low-baseline headroom; the anchored families do not move (qwen 0.25 →
+0.18). The gap widens from ~8× to ~12×. Gemma edges llama at the family
+level on common items — the two updating families are effectively tied,
+and the real division in the cohort is binary: {llama, gemma} update,
+{qwen, phi4, aya} don't.
+
 ## 8e. Cohort sweep (10 models) — with a comparability caveat
 
 **CAVEAT FIRST (my design error, caught in analysis):** §4.1 stratifies

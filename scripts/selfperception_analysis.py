@@ -42,9 +42,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Llama8")
     ap.add_argument("--anchor", default="default")
+    ap.add_argument("--tag", default=None, help="explicit output tag override")
     args = ap.parse_args()
     m = args.model
-    tag = "" if args.anchor == "default" else f"_anchor-{args.anchor}"
+    tag = args.tag if args.tag is not None else (
+        "" if args.anchor == "default" else f"_anchor-{args.anchor}")
 
     rows, sel = load_rows(m, tag)
     picked = {p["adj"]: p for p in sel["picked"]}
