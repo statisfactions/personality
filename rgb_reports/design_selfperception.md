@@ -315,6 +315,57 @@ only variable):
    suppresses updating in a known updater (its chat-format value is
    +2.51 on these items).
 
+**RESULTS.** Mean target cold-EV shift, arm A, Llama8's common 20
+adjectives:
+
+| cell | K=1 | K=2 | K=4 | K=8 | slope | n>+1 |
+|---|---|---|---|---|---|---|
+| Qwen7Base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | +0.060 | 2 |
+| Qwen7 instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | +0.054 | 3 |
+| Qwen7 instruct (chat) | −0.10 | −0.00 | −0.02 | +0.09 | +0.019 | 1 |
+| **Llama8 (bare) CONTROL** | +0.67 | +1.28 | +1.87 | **+2.31** | +0.242 | 15 |
+| Llama8 (chat) | +0.22 | +0.66 | +1.78 | +2.51 | +0.328 | 15 |
+
+**P11 CONFIRMED.** Llama8-bare = +2.31 vs +2.51 in chat format: the
+bare-text protocol costs 8% of the effect, not most of it. §8g's ladder
+numbers are levels, not floors, and the format is a valid common
+denominator across base and tuned models.
+
+**P12 FAILS, P13 CONFIRMED — and this is the result.** Qwen base +0.64
+vs instruct-bare +0.43 (paired over adjectives, t = +1.08, n.s.). The
+base model is already flat; post-training subtracts nothing detectable.
+Head-to-head in the identical protocol:
+
+- OLMo: base +0.65 → instruct **+1.81** (post-training installs, +1.16)
+- Qwen: base +0.64 → instruct **+0.43** (post-training does nothing,
+  −0.21 n.s.)
+- Llama8 for scale: +2.31 in the same bare protocol.
+
+**The two base models are indistinguishable (+0.65 vs +0.64) and the
+tuned models are 4× apart.** So it is not that Qwen's post-training
+damps self-perception — it is that Qwen's post-training *never installs
+it*, while OLMo's (and, by inference, Llama's and Gemma's) does. rgb's
+"the anchor was load-bearing during RL" gets its cleanest possible
+disposition: the anchor cannot be doing the damping, because there is
+nothing to damp — the pretrained starting point is already immovable in
+every family we can test, and the cohort's spread is entirely in how
+much post-training *adds*.
+
+Reframe: self-perception is not a pretrained capacity that alignment
+constrains; it is a **capacity post-training grants**, to varying
+degrees, and Qwen's recipe is the one that withholds it. Whether that
+is deliberate (identity stability as an objective) or incidental (a
+recipe optimized for benchmarks that never rewards conduct-tracking) is
+not decidable from weights we can see — but it is now a question about
+what Alibaba's post-training *lacks*, not what it *adds*.
+
+Caveat: one base model per family, and Qwen7Base's readout entropy is
+high (1.61 vs instruct 0.71) — flatness in a diffuse readout is weaker
+evidence than flatness in a peaked one. The Gemma or Llama base
+comparison would settle whether ALL bases are flat (making
+post-training the sole source cohort-wide) or whether Qwen's base is
+specifically flat.
+
 Registered before the runs (Claude, 2026-07-30):
 - **P11**: Llama8-bare stays a clear updater (≥ +1.2), i.e. the format
   costs some but not most of the effect. If it collapses, the whole
