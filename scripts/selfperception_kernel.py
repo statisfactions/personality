@@ -3,15 +3,16 @@
 rgb's mechanism question in its analytic form: take the PRE-FITTED
 Jacobian lens J_l for the model (Neuronpedia / Anthropic "Verbalizable
 Workspace"), and decompose the dose displacement δ = act(K=32) − act(K=0)
-against J_l's spectrum. Energy in the small-singular-value subspace =
-directions the output map is (nearly) blind to.
+against J_l's spectrum. Variance share (proportion of squared length,
+as in PCA) in the small-singular-value subspace = directions the output
+map is (nearly) blind to.
 
   complement account -> δ sits disproportionately in the kernel
                         relative to a matched-norm random vector
   gating account     -> δ's spectral profile looks like ENACT's
                         (output-potent), and suppression is elsewhere
 
-Reported per model: fraction of ‖δ‖² in the bottom-p singular subspace,
+Reported per model: variance share of δ in the bottom-p singular subspace,
 the "potency ratio" ‖J δ‖/(σ_mean‖δ‖), and the same for random and ENACT
 controls. Lens is d_model×d_model per layer; no forward passes needed.
 
@@ -72,7 +73,7 @@ def main():
         v[massive] = 0.0
         v = v / (np.linalg.norm(v) + 1e-9)
         c = V @ v                                  # coords in singular basis
-        e = c ** 2                                 # energy per direction
+        e = c ** 2                    # variance share per direction (Σ=1)
         n = len(S)
         bot = {p: float(e[int(n * (1 - p)):].sum()) for p in (0.5, 0.25, 0.1)}
         top = {p: float(e[:int(n * p)].sum()) for p in (0.1, 0.25)}

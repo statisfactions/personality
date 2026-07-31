@@ -313,7 +313,7 @@ undosed generation. They agree.
 singular basis of J_L (normalised vectors, massive dims zeroed;
 Qwen7 L14, effective rank 783/3584; Llama8 L16, 1863/4096):
 
-| model | vector | E bottom-50% | E bottom-25% | E top-10% | gain |
+| model | vector | var-share bottom-50% | bottom-25% | top-10% | gain |
 |---|---|---|---|---|---|
 | Qwen7 | dose | 0.463 | 0.279 | **0.178** | 2.78 |
 | Qwen7 | random | 0.502 | 0.249 | 0.099 | 2.16 |
@@ -332,16 +332,21 @@ genuine lens alignment (0.283/0.287, above every null).
 **Definitions.** J_L (d×d) linearly maps a residual-stream perturbation
 at layer L to its effect on output. SVD J = U S Vᵀ; rows of Vᵀ are input
 directions ranked by σ (big σ = output map cares; σ≈0 = kernel).
-Normalise a vector v, write c = V v, so Σcᵢ² = 1. "E top-10%" = share of
-that squared length in the 358 (Qwen) highest-σ directions; "E
-bottom-50%" = share in the 1792 lowest. Isotropic random → 0.10 / 0.50
-by symmetry. "gain" = ‖Jv‖/mean(σ), a spectrum-normalised potency
-scalar (random sits at RMS(σ)/mean(σ), a property of the spectrum).
+Normalise a vector v and write its coordinates in that basis, c = V v,
+so Σcᵢ² = 1 (Parseval). The tabled quantity is **the proportion of the
+vector's squared length falling in a band of directions** — the same
+statistic PCA calls proportion of variance, here over lens-singular
+directions instead of principal components. (Signal processing calls it
+"energy"; avoided below, since ML already uses that word for
+energy-based models.) "top-10%" = the 358 (Qwen) highest-σ directions;
+"bottom-50%" = the 1792 lowest. Isotropic random → 0.10 / 0.50 by
+symmetry. "gain" = ‖Jv‖/mean(σ), a spectrum-normalised potency scalar
+(random sits at RMS(σ)/mean(σ), a property of the spectrum).
 
 **Null-model correction (rgb asked how these were defined; the question
 exposed the weak null).** Against an ISOTROPIC null the dose δ looks
 1.8× enriched — but activation space is anisotropic, so that null is
-too generous. Redone with three nulls, E top-10%:
+too generous. Redone with three nulls, variance-share in the top-10% directions:
 
 | model | dose | isotropic | activation-covariance-matched | cross-adjective difference |
 |---|---|---|---|---|
