@@ -322,6 +322,56 @@ unsteered per-token logprob of the steered text under the generating
 model (quality guard). A ceiling with intact logprob is a guard; a
 ceiling with collapsing logprob is just word salad.
 
+**RESULTS (winsorized α unit; the full-norm first pass is preserved as
+`gain_*_fullnorm.json` and was confounded — see the unit note below).**
+
+| α (×winsorized ‖h‖) | Qwen shift | Qwen KL | Qwen logprob | Llama shift | Llama KL | Llama logprob |
+|---|---|---|---|---|---|---|
+| 0.05 | −0.00 | 0.16 | −0.36 | +0.20 | 0.02 | −0.30 |
+| 0.10 | +0.28 | 1.24 | −0.65 | +0.02 | 0.16 | −0.37 |
+| 0.20 | **+0.70** | 3.58 | −1.54 | +0.28 | 3.32 | −0.78 |
+| 0.35 | +1.35 | 11.33 | −4.44 | +1.21 | 5.65 | −1.54 |
+| 0.50 | +1.02 | 17.06 | −5.14 | **+1.89** | 6.15 | −1.93 |
+| 0.75 | +0.02 | 21.51 | −7.20 | +0.95 | 11.15 | −1.61 |
+| 1.00 | −0.48 | 23.29 | −3.03 | −0.47 | 16.98 | −1.85 |
+
+**P23 FAILS — no hard ceiling; both families show an inverted-U.** Trait
+rises, peaks, then collapses as the text breaks. Qwen peaks at α=0.35
+(+1.35) with logprob already at −4.44; Llama peaks at α=0.50 (+1.89)
+with logprob −1.93. Nothing plateaus at intact quality, so there is no
+clamp of the kind predicted.
+
+**P24 CONFIRMED.** Llama's bend tracks its quality guard: monotone rise
+through α=0.5, decline only once logprob degrades. Its limit is text
+degradation, not a persona guard.
+
+**P25 FAILS, direction reversed.** At matched text quality (logprob
+= −1.55): Qwen buys +0.70 of trait at KL 3.59; Llama buys +1.23 at KL
+5.66. Llama spends MORE output-distribution change per unit quality and
+gets more trait for it. Qwen is not paying a premium; it is buying less
+of everything.
+
+**The surviving claim, unit-free.** Maximum trait reachable with intact
+text (logprob > −2.1): **Llama +1.89, Qwen +0.70** — a 2.7× gap that
+does not depend on the α unit, since it is defined by each model's own
+degradation threshold. At matched quality the gap is 1.8× (+1.23 vs
++0.70). So Qwen's damping is real but is NOT a clamp: its steering
+window is narrower at both ends — it needs more perturbation to move
+the trait at all, and its text breaks sooner once it does. In
+`trait-per-KL` terms over the rising regime, Llama is ~20× more
+efficient (3.46 vs 0.15).
+
+**α-unit note (the confound that produced the first pass).** The first
+sweep scaled α by the FULL live residual norm — Qwen 378 vs Llama 18.7,
+a 20× ratio — while the injected direction lives in the winsorized
+space, whose norms differ only ~9× (168 vs 17.9). Qwen was therefore
+absorbing ~2× the intended perturbation. Correcting it moved Qwen's
+peak from α=0.20 to α=0.35 and reduced its intact-text maximum from
++1.07 to +0.70; the family ordering was unchanged, but every absolute
+number moved. §8m's "40% damping at matched norm" used raw *vector*
+norm — a third, differently-wrong unit — and should be read as
+superseded by the 2.7× / 1.8× figures here.
+
 Registered before the runs (Claude, 2026-07-31):
 - **P23**: HARD CEILING in Qwen — judged trait plateaus by α≈0.35 while
   KL continues to rise, with the quality guard still healthy at the
