@@ -302,6 +302,54 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8l. Complement or gate? (rgb's mechanism question, 2026-07-31)
+
+§8k left a specific puzzle: Qwen's residual stream moves substantially
+under dose (‖Δ‖/‖h‖ = 0.61 at K=8, 0.71 at K=32) while neither its free
+behaviour (judged carryover +0.09) nor its self-report follows. rgb's
+framing — the context changes the residual stream in a way that doesn't
+affect output, so either
+
+  **(a) COMPLEMENT** — the displacement lies outside the output-relevant
+  (Jacobian) subspace: inert geometry, nothing to suppress; or
+  **(b) GATING** — it is inside that subspace and something damps it.
+
+**Injection test.** Take δ = act(K=32) − act(K=0) — the model's OWN dose
+displacement — and add it at the mid layer during an UNDOSED
+generation, α ∈ {0, 1, 2}, greedy, same held-out question. Controls: a
+matched-norm random vector (potency floor) and the model's own ENACT
+direction rescaled to ‖δ‖ (potency ceiling, a direction known to
+steer). DVs: KL of the next-token distribution vs α=0, and cross-family
+judged trait level of the generated text.
+
+- (a) predicts δ behaves like the random control: small KL, no trait
+  movement, until the text degrades.
+- (b) predicts δ behaves like ENACT: trait appears when nothing is
+  suppressing it, locating the suppression as contextual/downstream
+  rather than geometric.
+
+Smoke (Qwen7, `prominent`): KL is dose 0.530 / random 0.358 / enact
+0.274 at α=1 — so δ is *not* inert at the logit layer; it perturbs
+output at least as much as a random vector of the same norm, which
+already argues against the strong complement reading. Whether the
+perturbation is TRAIT-shaped (gating) or merely disruptive (complement
+with collateral damage) is what the judged runs decide: the diagnostic
+is judged-trait-per-unit-KL, δ vs random vs enact.
+
+Registered before the full runs (Claude, 2026-07-31):
+- **P20**: δ steers Qwen's judged trait more than random-matched-norm
+  does (≥ +0.5 judged points at α=1) → GATING, not complement. Reason:
+  §8k found `prominent`'s K=8 free text opening "As a prominent
+  figure…", so the trait IS reachable in output from a dosed state; an
+  inert-complement account has to explain that away.
+- **P21**: δ steers LESS efficiently than the matched-norm ENACT
+  direction (judged-per-KL lower), i.e. the dose displacement is a
+  mixture of trait signal and context bookkeeping, not a clean persona
+  vector.
+- **P22**: the same test on Llama8 shows δ ≈ ENACT in efficiency — in
+  the family where dose already changes behaviour, the displacement
+  should already BE the write-side direction.
+
 ## 8k. Carryover + conduct audit (rgb's two corrections, 2026-07-31)
 
 **Correction to §8j, accepted.** §8j read Qwen's `rough` result as a

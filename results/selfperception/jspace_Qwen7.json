@@ -1,0 +1,48 @@
+{
+ "generations": {
+  "prominent|dose|0.0": "When I encounter a problem, I generally follow a structured approach to ensure that I address it effectively and efficiently. Here\u2019s how I typically handle issues:\n\n1. **Identify the Problem**: Clearly define what the problem is. It's important to understand the full scope of the issue before attempting to solve it.\n\n2. **Gather Information**: Collect all relevant information about the problem. This might involve researching similar situations, consulting with others who have experience, or analyzing data related to the issue.\n\n3",
+  "prominent|dose|1.0": "When I face problems, I generally try to approach them with a calm and rational mindset. Here's how I typically handle challenges:\n\n1. **Stay Calm and Assess the Situation**: The first step is to take a moment to breathe and assess the situation without rushing into reactions. This helps in making clearer decisions.\n\n2. **Identify the Core of the Problem**: Breaking down the problem into manageable parts can make it easier to tackle. Identifying what exactly needs to be addressed is crucial.\n\n3",
+  "prominent|dose|2.0": "I generally approach problems with a calm and rational mindset. When faced with challenges, I believe in staying focused and looking for constructive solutions. It's important to me to assess situations objectively and to consider all available options. I find that maintaining open communication and a positive attitude can help navigate through difficult times. By staying resilient and proactive, one can often turn challenges into opportunities for growth and learning.",
+  "prominent|random|1.0": "When faced with problems, I approach them in a structured and thoughtful manner. Here\u2019s a general outline of how I typically handle issues:\n\n1. **Understanding the Problem**: I start by thoroughly understanding the problem at hand. This involves gathering all relevant information and considering different perspectives to ensure I have a comprehensive view.\n\n2. **Analyzing the Situation**: Once I have a clear understanding, I analyze the situation to identify the root cause of the problem. This step is crucial as it helps me to address",
+  "prominent|random|2.0": "When my friend asks about how I usually handle problems, I can share that I approach challenges with a focus on understanding and resolving issues effectively. My primary goal is to address problems in a way that minimizes disruption and maximizes efficiency. I consider the following aspects:\n\n1. **Comprehension**: I start by gathering all necessary information to fully understand the problem. This involves asking questions and seeking clarification to ensure I have a clear picture of what needs to be done.\n\n2. **Analysis**: Once",
+  "prominent|enact|1.0": "When discussing how I handle problems, I would emphasize a structured and thoughtful approach. Here\u2019s what I might share with my friend:\n\n1. **Stay Calm**: It's important to remain calm and composed when facing a problem. This helps in making rational decisions and not reacting impulsively.\n\n2. **Define the Problem**: Clearly define the problem at hand. Understanding the issue thoroughly is crucial before attempting any solution.\n\n3. **Gather Information**: Collect all relevant information about the problem. This could",
+  "prominent|enact|2.0": "When addressing how I handle problems, I emphasize the importance of clear communication, critical thinking, and a proactive approach. Here\u2019s a general description:\n\n1. **Understanding the Problem**: Begin by fully understanding the problem. This involves gathering all relevant information and ensuring that you have a clear grasp of the situation. Ask questions to clarify any uncertainties and seek to understand the underlying issues.\n\n2. **Analyzing the Situation**: Analyze the problem by breaking it down into its key components. Consider various perspectives and",
+  "idealistic|dose|0.0": "When I encounter a problem, I generally follow a structured approach to ensure that I address it effectively and efficiently. Here\u2019s how I typically handle issues:\n\n1. **Identify the Problem**: Clearly define what the problem is. It's important to understand the full scope of the issue before attempting to solve it.\n\n2. **Gather Information**: Collect all relevant information about the problem. This might involve researching similar situations, consulting with others who have experience, or analyzing data related to the issue.\n\n3",
+  "idealistic|dose|1.0": "When I face a problem, my approach is generally to stay calm and assess the situation objectively. I believe that taking a moment to gather my thoughts helps in making clearer decisions. Here are some steps I typically follow:\n\n1. **Identify the Core of the Issue**: I try to understand what the root cause of the problem is. This helps in formulating a more effective solution.\n\n2. **Gather Information**: I collect all relevant information and consider different perspectives. This can involve talking to others",
+  "idealistic|dose|2.0": "I generally approach problems with a calm and thoughtful mindset. I believe in taking the time to understand the situation and consider all perspectives before reacting. When facing challenges, I try to focus on finding constructive solutions rather than dwelling on negative emotions. Communication is key for me\u2014whether it's talking things through with friends or addressing issues directly with those around me. I also find it helpful to seek support from loved ones and to practice self-care during difficult times. Overall, my goal is to maintain a positive outlook",
+  "idealistic|random|1.0": "When I help someone or myself with a problem, I follow a structured approach that involves several key steps:\n\n1. **Understanding the Problem**: The first step is to clearly understand what the issue is. This might involve asking questions to get more details about the situation and ensuring that everyone involved has a clear understanding of the problem.\n\n2. **Analyzing the Situation**: Once the problem is understood, it's important to analyze the situation thoroughly. This can involve breaking down the problem into smaller parts to see",
+  "idealistic|random|2.0": "When it comes to handling problems, I believe the key is to maintain a clear and logical approach. Here\u2019s what I would typically share with a friend:\n\n1. **Identify the Problem**: The first step is to clearly define what the problem is. Sometimes, we might not even realize there's an issue until we take a moment to think about it. Being able to articulate the problem is crucial because it helps in formulating a plan of action.\n\n2. **Gather Information**: Once the",
+  "idealistic|enact|1.0": "When discussing how I handle problems, I often emphasize the importance of a structured and empathetic approach. Here\u2019s how I typically address challenges:\n\n1. **Understanding the Problem**: I believe in thoroughly understanding the issue at hand. This involves gathering information, asking questions, and listening to different perspectives. By doing so, we can gain a deeper insight into the problem and its underlying causes.\n\n2. **Collaboration and Teamwork**: Problems are often best tackled through collaboration. I value working with others",
+  "idealistic|enact|2.0": "To effectively address and handle problems, it's essential to approach them with a mindset of collaboration, learning, and growth. Here are some ways we can tackle challenges:\n\n1. **Empathy and Understanding**: By deeply understanding the perspectives and needs of others, we can foster meaningful connections and create positive change. This involves listening actively, valuing diverse viewpoints, and working together towards common goals.\n\n2. **Innovation and Creativity**: Embracing new ideas and innovative solutions can lead to transformative outcomes"
+ },
+ "kl": {
+  "prominent|dose|0.0": 0.0,
+  "prominent|dose|1.0": 0.5295148491859436,
+  "prominent|dose|2.0": 2.117202043533325,
+  "prominent|random|1.0": 0.3575807511806488,
+  "prominent|random|2.0": 0.5459345579147339,
+  "prominent|enact|1.0": 0.2744992971420288,
+  "prominent|enact|2.0": 0.7669445276260376,
+  "idealistic|dose|0.0": 0.0,
+  "idealistic|dose|1.0": 0.41434866189956665,
+  "idealistic|dose|2.0": 1.8271100521087646,
+  "idealistic|random|1.0": 0.10699616372585297,
+  "idealistic|random|2.0": 0.47794264554977417,
+  "idealistic|enact|1.0": 0.1979021430015564,
+  "idealistic|enact|2.0": 2.8866186141967773
+ },
+ "dose_norms": {
+  "prominent": 19.700300216674805,
+  "idealistic": 19.08168601989746
+ },
+ "alphas": [
+  0.0,
+  1.0,
+  2.0
+ ],
+ "mid_layer": 14,
+ "adjs": [
+  "prominent",
+  "idealistic"
+ ]
+}
