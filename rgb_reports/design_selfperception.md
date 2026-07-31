@@ -323,16 +323,46 @@ Qwen7 L14, effective rank 783/3584; Llama8 L16, 1863/4096):
 | Llama8 | enact | 0.368 | 0.192 | **0.287** | 2.76 |
 
 Random sits at the isotropic expectation (0.50 / 0.25 / 0.10 — a good
-sanity check on the machinery). The dose displacement is **enriched in
-the top-10% singular directions by 1.8× over chance in BOTH families**
-and mildly enriched in the kernel too (bottom-25%: 0.28 vs 0.25) — it
-is a mixture, but its output-potent share is real and, crucially,
-**identical across families** (Qwen 0.178, Llama 0.179; gain 2.78 vs
-2.17, if anything higher in Qwen). ENACT is the potency reference at
-0.28 top-10%.
+sanity check on the machinery). Read the dose row against the CORRECTED
+null below, not against isotropic: the apparent 1.8× top-decile
+enrichment is anisotropy, not signal. What survives is the cross-family
+symmetry (Qwen 0.178, Llama 0.179 — indistinguishable) and ENACT's
+genuine lens alignment (0.283/0.287, above every null).
 
-**So the complement account is dead**: Qwen's dose displacement is no
-more kernel-hidden than Llama's. Whatever differs between the families,
+**Definitions.** J_L (d×d) linearly maps a residual-stream perturbation
+at layer L to its effect on output. SVD J = U S Vᵀ; rows of Vᵀ are input
+directions ranked by σ (big σ = output map cares; σ≈0 = kernel).
+Normalise a vector v, write c = V v, so Σcᵢ² = 1. "E top-10%" = share of
+that squared length in the 358 (Qwen) highest-σ directions; "E
+bottom-50%" = share in the 1792 lowest. Isotropic random → 0.10 / 0.50
+by symmetry. "gain" = ‖Jv‖/mean(σ), a spectrum-normalised potency
+scalar (random sits at RMS(σ)/mean(σ), a property of the spectrum).
+
+**Null-model correction (rgb asked how these were defined; the question
+exposed the weak null).** Against an ISOTROPIC null the dose δ looks
+1.8× enriched — but activation space is anisotropic, so that null is
+too generous. Redone with three nulls, E top-10%:
+
+| model | dose | isotropic | activation-covariance-matched | cross-adjective difference |
+|---|---|---|---|---|
+| Qwen7 | 0.178 | 0.099 | **0.187** | 0.178 |
+| Llama8 | 0.179 | 0.097 | **0.213** | 0.179 |
+
+**The enrichment claim is DEAD.** Against a covariance-matched null the
+dose displacement is exactly typical (Qwen 0.178 vs 0.187; Llama 0.179
+vs 0.213 — if anything slightly BELOW). A difference between unrelated
+states scores identically (0.178/0.179), i.e. the 1.8× was a property
+of activation-space anisotropy, not of the dose. The honest statement
+is the null one: **δ's placement relative to the lens spectrum is
+unremarkable in both families — it is neither kernel-hidden nor
+specially output-potent.** ENACT's top-10% share (0.283/0.287) DOES
+exceed the covariance-matched null, so the trait-carrying direction is
+genuinely lens-aligned while the dose displacement is not.
+
+**The complement account is dead anyway, on the causal evidence and on
+the cross-family symmetry**: Qwen's dose displacement is no more
+kernel-hidden than Llama's, and the two are indistinguishable on every
+spectral statistic, while their behavioural consequences differ 9×. Whatever differs between the families,
 it is not that Qwen files its recent conduct in output-blind
 directions.
 
