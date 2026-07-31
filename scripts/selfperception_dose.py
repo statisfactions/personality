@@ -280,6 +280,8 @@ def main():
     ap.add_argument("--select-from", default=None,
                     help="reuse another model's adjective selection")
     ap.add_argument("--tag", default=None, help="output tag override")
+    ap.add_argument("--ks", default=None,
+                    help="comma-separated dose levels, e.g. 0,1,2,4,8,16,32")
     args = ap.parse_args()
     global BARE
     BARE = args.bare
@@ -288,7 +290,8 @@ def main():
     tag = args.tag if args.tag is not None else (
         "" if args.anchor == "default" else f"_anchor-{args.anchor}")
 
-    ks, n_adj, n_seeds = KS, args.n_adj, args.seeds
+    ks = ([int(k) for k in args.ks.split(",")] if args.ks else KS)
+    n_adj, n_seeds = args.n_adj, args.seeds
     if args.smoke:
         ks, n_adj, n_seeds = [0, 2, 8], 2, 1
 
@@ -385,8 +388,21 @@ def main():
                 by_q = {}
                 for r in clean:
                     by_q.setdefault(r["question"], []).append(r)
-                pool8 = [srng.choice(by_q[q]) for q in qs[:max(k for k in ks
-                                                              if k > 0)]]
+                for v in by_q.values():
+                    srng.shuffle(v)
+                # cycle questions, taking a fresh rollout each pass, so K can
+                # exceed the number of distinct questions (K>12 dose range)
+                kmax = max(k for k in ks if k > 0)
+                pool8, used = [], {q: 0 for q in qs}
+                while len(pool8) < kmax:
+                    progressed = False
+                    for q in qs:
+                        if used[q] < len(by_q[q]) and len(pool8) < kmax:
+                            pool8.append(by_q[q][used[q]])
+                            used[q] += 1
+                            progressed = True
+                    if not progressed:
+                        break
                 for K in [k for k in ks if k > 0]:
                     turns = [(r["question"], r["text"]) for r in pool8[:K]]
                     for arm in args.arms:
