@@ -302,6 +302,70 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 8o. Summary check (rgb, 2026-07-31) — three parentheticals tested
+
+rgb's five-bullet synthesis, audited. Four bullets hold. One attributed
+an unmeasured contrast to the system instruction; two parentheticals are
+now answered.
+
+**Bullet 4 correction — the system prompt is NOT specially lens-aligned
+either.** We had never measured it; §8m measured the ENACT *persona
+direction* (extracted from system-prompt-induced rollouts), not the
+system prompt's own displacement. Measured now — top-10% variance share
+of act(with sys prompt) − act(without), same held-out question:
+
+| model | system-prompt displacement | dose displacement | covariance-matched null |
+|---|---|---|---|
+| Qwen7 | 0.211 | 0.174 | 0.196 |
+| Llama8 | 0.215 | 0.189 | 0.206 |
+
+The instruction is a hair above null (+0.015 / +0.009) and the dose a
+hair below (−0.022 / −0.017); neither difference is meaningful against
+between-adjective spread. **Nothing we have measured is
+disproportionately in or out of jspace** — only the extracted ENACT
+direction is (0.283/0.287), and that is a *distilled* difference
+vector, not a state the model actually occupies. The honest bullet:
+"the intervention materially changes the residual stream, and its
+placement relative to the output-relevant subspace is unremarkable —
+as is the system prompt's."
+
+**Bullet 3's parenthetical — "or is there nothing to update? pushing a
+pond?" Supported.** Base models look unanchored rather than resistant:
+their readouts are diffuse (K0 entropy: OLMo base 1.90 vs instruct 1.30;
+Qwen base 1.61 vs instruct 0.71) and their seed-to-seed SD is LOWER than
+their tuned versions (0.239 vs 0.374; 0.203 vs 0.312) — a flat, wide
+distribution that barely reacts, not a sharp one being held in place.
+Llama8's seed SD is 0.652, ~3× the base models': the family that
+updates is also the family whose self-report is genuinely
+context-sensitive. "Pushing a pond" is the right picture: no restoring
+force because no shape.
+
+**Bullet 2's parenthetical — "positive or assistant?" Neither, exactly:
+it is the DESIRABILITY-CONSISTENT direction, not proximity to default.**
+The moved neighbours are not systematically closer to the model's
+baseline self-profile (mean K0 gap neighbour − target = −0.87, i.e. they
+start *lower*). What predicts the movement is which way the word can be
+moved while staying flattering:
+
+| pair | neighbour K0 | shift | direction |
+|---|---|---|---|
+| prominent / distinguished | 4.53 | +2.43 | endorses |
+| slim / big | 1.91 | +1.95 | endorses |
+| senile / old | 1.35 | +1.23 | endorses |
+| rough / weak | 3.22 | −1.69 | denies |
+| optimistic / depressed | 3.42 | −1.28 | denies |
+| imaginative / boring | 3.99 | −1.07 | denies |
+
+Every UP-move is on a factual-but-neutral word (distinguished, big,
+old; mean K0 2.60 — from LOW, so not "staying where it already was");
+every DOWN-move is on a clearly pejorative one (weak, depressed,
+boring; mean K0 3.54, moving away from a HIGHER start). The model
+accepts the evidence in whichever polarity does not require a
+self-deprecating claim: it will say it is old, big and distinguished
+after acting senile, slim and prominent, and will insist it is not
+weak, depressed or boring. That is desirability-consistent updating —
+closer to a self-enhancement bias than to assistant-proximity.
+
 ## 8n. ENACT gain curve — soft gain or hard ceiling? (running)
 
 §8m's second-order effect, isolated: Qwen damps even its OWN
