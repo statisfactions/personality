@@ -30,7 +30,10 @@ import torch
 import hf_logprobs as hf
 
 OUT = "results/selfperception"
-MAX_TRIES = 12
+MAX_TRIES = 8
+# escalating temperature: capable models rarely fail GSM8K at t=1.0, and we
+# need >=8 genuine own-voice errors for a K=8 dose. Later tries push harder.
+TEMPS = [0.0, 1.0, 1.0, 1.3, 1.3, 1.5, 1.5, 1.7]
 MAX_NEW = 200
 
 
@@ -107,7 +110,7 @@ def main():
     data = json.load(open(out)) if os.path.exists(out) else {"items": []}
     done = {it["problem"] for it in data["items"]}
 
-    probs = make_problems(args.n * 3)
+    probs = make_problems(min(400, args.n * 25))
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     model.eval()
 
@@ -131,19 +134,23 @@ def main():
                 continue
             wrong = right = None
             for t in range(MAX_TRIES):
-                txt = attempt(prob, 1.0 if t else 0.0)
+                txt = attempt(prob, TEMPS[min(t, len(TEMPS) - 1)])
                 got = final_int(txt)
                 if got is None:
                     continue
                 if got != ans and wrong is None:
-                    wrong = dict(text=txt, given=got)
+                    wrong = dict(text=txt, given=got,
+                                 temp=TEMPS[min(t, len(TEMPS) - 1)])
                 elif got == ans and right is None:
-                    right = dict(text=txt, given=got)
+                    right = dict(text=txt, given=got,
+                                 temp=TEMPS[min(t, len(TEMPS) - 1)])
                 if wrong and right:
                     break
             if wrong and right:
                 data["items"].append(dict(problem=prob, answer=ans,
-                                          wrong=wrong, right=right))
+                                          wrong=wrong, right=right,
+                                          wrong_temp=wrong.get("temp"),
+                                          right_temp=right.get("temp")))
                 print(f"  {len(data['items'])}/{args.n}: "
                       f"wrong={wrong['given']} true={ans}", flush=True)
                 json.dump(data, open(out, "w"), indent=1)
