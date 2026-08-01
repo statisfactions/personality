@@ -113,28 +113,42 @@ md += ["### Arm B control — instructed self-description, mostly but not "
        "Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing "
        "nothing from conduct (A/B 0.10); Phi4 resists in both arms. "
        "A/B = arm-A shift / arm-B shift at K=8; unstable where the B "
-       "shift is small (qwen2.5, phi4, aya rows).", "",
-       "| model | K0 | B EV @K=1 | B EV @K=8 | B shift @K8 | "
-       "A shift @K8 | A/B |", "|---|---|---|---|---|---|---|"]
+       "shift is small (qwen2.5, phi4, aya rows). Entropy columns "
+       "separate *won't affirm* from *won't commit*: Llama8's "
+       "instruction collapses the digit distribution (1.00→0.05) at EV "
+       "6.98; Aya stays peaked at a moderate value (0.26 @ 5.54 — a "
+       "committed discount); Phi4's distribution never collapses at all "
+       "(1.23→1.11), so its low B EV is an uncommitted spread, not a "
+       "peaked \"no\".", "",
+       "| model | K0 | K0 entropy | B EV @K=1 | B EV @K=8 | "
+       "B entropy @K8 | B shift @K8 | A shift @K8 | A/B |",
+       "|---|---|---|---|---|---|---|---|---|"]
 for m in COHORT:
     rows, k0, _ = load(m, "")
     shA = shifts(rows, k0)
     muA = mean_by_k(shA, [8])[8]
-    babs = {}
+    babs, bent = {}, {}
     for K in (1, 8):
-        evs = []
+        evs, ens = [], []
         for r in rows:
             if r["adj"] != "__k0__" and r["arm"] == "B" and r["K"] == K \
                     and r["adj"] in r["readings"]:
                 evs.append(r["readings"][r["adj"]]["cold"]["ev"])
-        babs[K] = np.mean(evs)
+                ens.append(r["readings"][r["adj"]]["cold"]["entropy"])
+        babs[K], bent[K] = np.mean(evs), np.mean(ens)
+    k0row = next(r for r in rows if r["adj"] == "__k0__")
+    e0 = np.mean([k0row["readings"][a]["cold"]["entropy"] for a in shA
+                  if a in k0row["readings"]])
     k0m = np.mean([k0[a] for a in shA])
     bshift = babs[8] - k0m
-    md.append(f"| {disp(m)} | {k0m:.2f} | {babs[1]:.2f} | {babs[8]:.2f} | "
-              f"{fmt(bshift)} | {fmt(muA)} | {muA / bshift:.2f} |")
+    md.append(f"| {disp(m)} | {k0m:.2f} | {e0:.2f} | {babs[1]:.2f} | "
+              f"{babs[8]:.2f} | {bent[8]:.2f} | {fmt(bshift)} | "
+              f"{fmt(muA)} | {muA / bshift:.2f} |")
 md += ["", "Item sets differ per row (own stratification), so read "
        "columns within-row; the common-set arm-A numbers are in "
-       "Exhibit 1a.", ""]
+       "Exhibit 1a. Phi4's B level is the cohort outlier (leave-one-out "
+       "z = −2.9 on B EV @K8; in-sample z = −2.0, near the n=10 bound "
+       "of 2.85).", ""]
 
 # --- item-set defense: (i) common set covers every model's own covariate
 # grid post-hoc; (ii) common vs per-model-stratified rankings agree ---
