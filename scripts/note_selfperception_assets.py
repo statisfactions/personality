@@ -99,6 +99,43 @@ verify.append(("8f family means K8 (gemma 2.24 llama 2.18 aya 0.35 "
                "phi4 0.29 qwen 0.18)",
                {f: round(float(np.mean(v)), 2) for f, v in fam_k8.items()}))
 
+# ---------------- Exhibit 1c: arm B control ----------------
+md += ["### Arm B control — instructed self-description, mostly but not "
+       "uniformly at ceiling", "",
+       "Per-model stage-1 runs (each model's own stratified 20; arm B = "
+       "persona instruction visible). Absolute cold EV, not shift. Arm B "
+       "jumps to near-ceiling from K=1 with no further dose-response in "
+       "the llama/gemma/Qwen-7B+ rows (6.6–7.0) — for those models arm-A "
+       "differences are uptake, not capability. But it is NOT universal: "
+       "Phi4-3.8B (4.97), Aya-8B (5.54) and Qwen2.5-3B (5.87) stay well "
+       "short of ceiling — the most anchored models discount even "
+       "*instructed* self-description. Two architectures of stability: "
+       "Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing "
+       "nothing from conduct (A/B 0.10); Phi4 resists in both arms. "
+       "A/B = arm-A shift / arm-B shift at K=8; unstable where the B "
+       "shift is small (qwen2.5, phi4, aya rows).", "",
+       "| model | K0 | B EV @K=1 | B EV @K=8 | B shift @K8 | "
+       "A shift @K8 | A/B |", "|---|---|---|---|---|---|---|"]
+for m in COHORT:
+    rows, k0, _ = load(m, "")
+    shA = shifts(rows, k0)
+    muA = mean_by_k(shA, [8])[8]
+    babs = {}
+    for K in (1, 8):
+        evs = []
+        for r in rows:
+            if r["adj"] != "__k0__" and r["arm"] == "B" and r["K"] == K \
+                    and r["adj"] in r["readings"]:
+                evs.append(r["readings"][r["adj"]]["cold"]["ev"])
+        babs[K] = np.mean(evs)
+    k0m = np.mean([k0[a] for a in shA])
+    bshift = babs[8] - k0m
+    md.append(f"| {disp(m)} | {k0m:.2f} | {babs[1]:.2f} | {babs[8]:.2f} | "
+              f"{fmt(bshift)} | {fmt(muA)} | {muA / bshift:.2f} |")
+md += ["", "Item sets differ per row (own stratification), so read "
+       "columns within-row; the common-set arm-A numbers are in "
+       "Exhibit 1a.", ""]
+
 # --- item-set defense: (i) common set covers every model's own covariate
 # grid post-hoc; (ii) common vs per-model-stratified rankings agree ---
 from scipy.stats import spearmanr
