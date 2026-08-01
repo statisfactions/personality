@@ -1071,10 +1071,25 @@ what Alibaba's post-training *lacks*, not what it *adds*.
 
 Caveat: one base model per family, and Qwen7Base's readout entropy is
 high (1.61 vs instruct 0.71) — flatness in a diffuse readout is weaker
-evidence than flatness in a peaked one. The Gemma or Llama base
-comparison would settle whether ALL bases are flat (making
-post-training the sole source cohort-wide) or whether Qwen's base is
-specifically flat.
+evidence than flatness in a peaked one.
+
+**Base sweep queued (rgb, 2026-08-01)**: Llama-3.1-8B base and
+gemma-3-12b-pt, same bare protocol, dosed with their own instruct
+siblings' rollouts. This settles whether ALL bases are flat (post-
+training is the sole source of self-perception cohort-wide — the strong
+claim) or whether Qwen's base is specifically flat.
+
+Registered before the runs (Claude, 2026-08-01):
+- **P30**: Llama8Base lands at +0.5 to +0.9 — i.e. with the two bases
+  we have (Qwen 0.64, OLMo 0.65), not with its own instruct sibling
+  (+2.31 bare). The base ≈ 0.65 convergence across three unrelated
+  pretraining corpora would then be the strongest form of the claim:
+  self-perception is not a pretrained capacity at all.
+- **P31**: Gemma12Base likewise flat, DESPITE Gemma being the
+  highest-updating family after tuning (+2.27 common-item). If instead
+  Gemma's base already updates, the story splits: Gemma inherits the
+  capacity and Qwen/OLMo build it, which would make "post-training
+  installs it" a statement about most families rather than all.
 
 Registered before the runs (Claude, 2026-07-30):
 - **P11**: Llama8-bare stays a clear updater (≥ +1.2), i.e. the format

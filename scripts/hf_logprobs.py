@@ -53,6 +53,8 @@ MODELS: Dict[str, str] = {
     # W15 §3 base-vs-instruct (training-stage) checkpoints — probe with bare text
     # (format held constant across stages so the weights are the only variable).
     "Qwen7Base":  "Qwen/Qwen2.5-7B",                  # base for Qwen7 (Instruct)
+    "Llama8Base": "meta-llama/Llama-3.1-8B",          # base for Llama8 (Instruct)
+    "Gemma12Base": "google/gemma-3-12b-pt",           # base for Gemma12 (it)
     # OLMo-2 7B: clean base -> SFT -> DPO -> Instruct(=RLVR) ladder, same tokenizer
     # across stages (AllenAI, Apache-2.0, ungated; verified by W15 §3 agent).
     "Olmo2Base":  "allenai/OLMo-2-1124-7B",
