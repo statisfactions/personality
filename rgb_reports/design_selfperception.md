@@ -345,7 +345,34 @@ clamp of the kind predicted.
 through α=0.5, decline only once logprob degrades. Its limit is text
 degradation, not a persona guard.
 
-**P25 FAILS, direction reversed.** At matched text quality (logprob
+**KL definition (rgb asked).** The tabled `KL` is
+KL(p_steered ‖ p_base) over the full vocabulary at ONE position — the
+final prompt token, i.e. the first generated token's distribution. It
+measures immediate perturbation, not divergence of the unfolding text.
+Recomputed teacher-forced as the mean per-token KL along each steered
+generation (`kl_seq`), the two disagree in level and in shape:
+
+| α | Qwen KL_first / KL_seq | Llama KL_first / KL_seq |
+|---|---|---|
+| 0.20 | 3.58 / 1.07 | 3.32 / 0.49 |
+| 0.35 | 11.33 / 3.51 | 5.65 / 1.12 |
+| 0.50 | 17.06 / 4.21 | 6.15 / 1.50 |
+| 1.00 | 23.29 / 5.87 | 16.98 / 2.96 |
+
+First-token KL runs 3–6× higher than the sequence average and saturates
+sooner: steering hits the opening token hardest and the model partially
+re-converges as its own generated text accumulates in context. All
+KL-based statements below use `kl_seq`; the first-token numbers are kept
+only for continuity with §8l–8m.
+
+**P25 FAILS, direction reversed — and it fails the same way on both KL
+definitions.** At matched sequence-level divergence (KL_seq = 1.0),
+Qwen buys +0.66 of trait and Llama +1.03; trait-per-KL_seq in the rising
+regime is 0.55 (Qwen) vs 2.65 (Llama). Qwen is not paying a premium for
+trait expression — it gets less trait per unit of output change by
+either measure.
+
+**P25 (first-token version) FAILS, direction reversed.** At matched text quality (logprob
 = −1.55): Qwen buys +0.70 of trait at KL 3.59; Llama buys +1.23 at KL
 5.66. Llama spends MORE output-distribution change per unit quality and
 gets more trait for it. Qwen is not paying a premium; it is buying less
