@@ -86,5 +86,5 @@ Judged conduct: cross-family judge (Llama8) rating of the dose material itself, 
 
 ## Figures
 
-- `fig_dose_response.png` — Exhibit 1b as curves (log-x)
-- `fig_ladder.png` — Exhibit 3, OLMo ladder + Qwen base pair + Llama8 control
+- `fig_dose_response.png` / `.html` — Exhibit 1b as curves (log-x)
+- `fig_ladder.png` / `.html` — Exhibit 3, OLMo ladder + Qwen base pair + Llama8 control

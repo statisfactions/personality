@@ -251,6 +251,7 @@ fig.update_layout(
     yaxis=dict(title="mean target EV shift vs K=0 (Likert 1–7)"),
     legend=dict(x=0.02, y=0.98), font=dict(size=13))
 fig.write_image(f"{OUT}/fig_dose_response.png", scale=2)
+fig.write_html(f"{OUT}/fig_dose_response.html", include_plotlyjs="cdn")
 
 stages = ["base", "SFT", "DPO", "instruct (RLVR)"]
 ol = [ladder_pts[l] for l in ["OLMo-2 base (pretrained)", "OLMo-2 SFT",
@@ -277,11 +278,12 @@ fig2.update_layout(
     xaxis=dict(title="post-training stage"),
     legend=dict(x=0.02, y=0.98), font=dict(size=13))
 fig2.write_image(f"{OUT}/fig_ladder.png", scale=2)
+fig2.write_html(f"{OUT}/fig_ladder.html", include_plotlyjs="cdn")
 
 md += ["## Figures", "",
-       "- `fig_dose_response.png` — Exhibit 1b as curves (log-x)",
-       "- `fig_ladder.png` — Exhibit 3, OLMo ladder + Qwen base pair + "
-       "Llama8 control", ""]
+       "- `fig_dose_response.png` / `.html` — Exhibit 1b as curves (log-x)",
+       "- `fig_ladder.png` / `.html` — Exhibit 3, OLMo ladder + Qwen base "
+       "pair + Llama8 control", ""]
 
 os.makedirs(OUT, exist_ok=True)
 open(f"{OUT}/tables.md", "w").write("\n".join(md))
