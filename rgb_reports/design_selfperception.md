@@ -308,6 +308,14 @@ rgb's five-bullet synthesis, audited. Four bullets hold. One attributed
 an unmeasured contrast to the system instruction; two parentheticals are
 now answered.
 
+Original List:
+
+  * response varies mostly by family (self report, judged free text)
+  * some families update fairly freely, while others only update a little, require lots of evidence, and may shade the interpretation & behavior toward the positive (ed. positive or assistant?)
+  * base models don't seem to update much (ed. or there's nothing to update?  pushing a pond?)
+  * the intervention has a material change to residual stream activations;  this effect isn't particularly in or out of the token-affecting jspace (unlike the system instruction, which disproportionally affects the jspace).
+  * steering with the resulting output *can* steer models, albeit weakly for qwen (ed. and probably other demonstration-resistant models)
+
 **Bullet 4 correction — the system prompt is NOT specially lens-aligned
 either.** We had never measured it; §8m measured the ENACT *persona
 direction* (extracted from system-prompt-induced rollouts), not the
