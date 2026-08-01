@@ -96,6 +96,60 @@ verify.append(("8f family means K8 (gemma 2.24 llama 2.18 aya 0.35 "
                "phi4 0.29 qwen 0.18)",
                {f: round(float(np.mean(v)), 2) for f, v in fam_k8.items()}))
 
+# --- item-set defense: (i) common set covers every model's own covariate
+# grid post-hoc; (ii) common vs per-model-stratified rankings agree ---
+from scipy.stats import spearmanr
+
+sel20 = [p["adj"] for p in json.load(
+    open(f"{SRC}/Llama8_selection.json"))["picked"]]
+md += ["### Item-set robustness (the common set is not just Llama's)", "",
+       "The common 20 were stratified on **Llama8's** covariates (3×3 "
+       "tercile grid: enactability × baseline self-EV). Post-hoc, the same "
+       "20 words land across each model's OWN covariate grid — because the "
+       "covariates correlate across models:", "",
+       "| model | own tercile cells occupied (of 9) | enact pctile span | "
+       "baseline pctile span | ρ(enact, Llama8) | ρ(baseline, Llama8) |",
+       "|---|---|---|---|---|---|"]
+l8cov = {}
+for m in ["Llama8"] + [m for m in COHORT if m != "Llama8"]:
+    ena = json.load(open(f"results/adjectives/enactability/"
+                         f"{m}_enactability.json"))["scores"]
+    sf = json.load(open(f"results/adjectives/selfreport/"
+                        f"{m}_self_full.json"))["results"]["direct"]
+    alle = np.array([ena[a]["enactability"] for a in ena])
+    allb = np.array([sf[a]["ev"] for a in ena if a in sf])
+    e20 = np.array([ena[a]["enactability"] for a in sel20])
+    b20 = np.array([sf[a]["ev"] for a in sel20])
+    ep = np.array([np.mean(alle <= x) for x in e20]) * 100
+    bp = np.array([np.mean(allb <= x) for x in b20]) * 100
+    qe, qb = np.quantile(alle, [1 / 3, 2 / 3]), np.quantile(allb,
+                                                            [1 / 3, 2 / 3])
+
+    def terc(x, q):
+        return 0 if x <= q[0] else (1 if x <= q[1] else 2)
+
+    ncell = len({(terc(e, qe), terc(b, qb)) for e, b in zip(e20, b20)})
+    if m == "Llama8":
+        l8cov = dict(e=e20, b=b20)
+    rho_e = spearmanr(e20, l8cov["e"])[0]
+    rho_b = spearmanr(b20, l8cov["b"])[0]
+    md.append(f"| {m} | {ncell}/9 | {ep.min():.0f}–{ep.max():.0f} | "
+              f"{bp.min():.0f}–{bp.max():.0f} | {rho_e:+.2f} | "
+              f"{rho_b:+.2f} |")
+
+own_k8, com_k8 = [], []
+for m in COHORT:
+    rows, k0, _ = load(m, "")
+    mu = mean_by_k(shifts(rows, k0), [8])
+    own_k8.append(mu[8])
+    rows, k0, _ = load(m, "_common")
+    com_k8.append(mean_by_k(shifts(rows, k0), [8])[8])
+r_sets = float(np.corrcoef(own_k8, com_k8)[0, 1])
+md += ["", f"And the cohort ranking is item-set-robust: per-model-"
+       f"stratified vs common-set K=8 shifts correlate r = {r_sets:+.3f} "
+       "across the 10 models.", ""]
+verify.append(("8f cross-set r = +0.932", round(r_sets, 3)))
+
 # ---------------- Exhibit 1b: extended dose ----------------
 md += ["## Exhibit 1b — extended dose K≤32 (arm A, common adjectives)", "",
        "| model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | n>+1 @K32 | "

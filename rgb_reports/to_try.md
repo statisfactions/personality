@@ -304,3 +304,20 @@ for the same audit treatment we gave VP and TIDE:
   psychometrics-of-LLMs papers 2024-26) before either paper's related
   work is drafted. Zotero group is the collection point (tag
   rgb-bibliography).
+
+## Full-523 self-perception dose-response (rgb, 2026-08-01)
+
+When the GPU has nothing better to burn: run the self-perception dose
+protocol on the full 523-adjective set per model, retiring adjective
+sampling entirely. Why: the per-model 3×3 stratification was built for
+within-model moderator analyses, then the cohort comparison had to fall
+back to Llama8's 20 for comparability — defensible (common set occupies
+7–9/9 of every model's own tercile grid post-hoc; per-model vs common
+rankings r = +0.932, see note_assets/tables.md) but inelegant, and n=20
+caps the moderator analyses (latitude curve, enactability partial) at
+anecdote resolution. Full grid also enables per-family item-response
+curves (which adjectives are late-turners everywhere vs family-specific).
+Cost: ~26× stage-1 per model (523 adj × K{0..8} × 2 arms × 3 seeds
+≈ 15.7k contexts, KV-cached); roughly a few GPU-days per model at
+stage-1 throughput — overnight-queue material, arm A only and K{0,2,8}
+first pass would cut it ~4×.

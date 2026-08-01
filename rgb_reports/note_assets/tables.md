@@ -19,6 +19,25 @@ Source: `scripts/note_selfperception_assets.py`, computed from `results/selfperc
 
 Family means at K=8: gemma +2.24, llama +2.18, aya +0.35, phi4 +0.29, qwen +0.18
 
+### Item-set robustness (the common set is not just Llama's)
+
+The common 20 were stratified on **Llama8's** covariates (3×3 tercile grid: enactability × baseline self-EV). Post-hoc, the same 20 words land across each model's OWN covariate grid — because the covariates correlate across models:
+
+| model | own tercile cells occupied (of 9) | enact pctile span | baseline pctile span | ρ(enact, Llama8) | ρ(baseline, Llama8) |
+|---|---|---|---|---|---|
+| Llama8 | 9/9 | 1–88 | 2–93 | +1.00 | +1.00 |
+| llama3.2 | 9/9 | 15–85 | 2–98 | +0.91 | +0.41 |
+| gemma3 | 8/9 | 7–94 | 2–88 | +0.79 | +0.60 |
+| Gemma12 | 7/9 | 4–93 | 5–96 | +0.69 | +0.57 |
+| Gemma27 | 9/9 | 2–93 | 1–93 | +0.74 | +0.57 |
+| qwen2.5 | 7/9 | 1–86 | 5–95 | +0.63 | +0.57 |
+| Qwen7 | 9/9 | 3–94 | 1–90 | +0.77 | +0.55 |
+| Qwen32 | 8/9 | 6–93 | 2–91 | +0.74 | +0.50 |
+| phi4 | 8/9 | 10–93 | 3–99 | +0.86 | +0.54 |
+| Aya | 8/9 | 15–89 | 7–99 | +0.88 | +0.18 |
+
+And the cohort ranking is item-set-robust: per-model-stratified vs common-set K=8 shifts correlate r = +0.932 across the 10 models.
+
 ## Exhibit 1b — extended dose K≤32 (arm A, common adjectives)
 
 | model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |
