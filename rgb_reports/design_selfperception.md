@@ -302,6 +302,83 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 9. Failure arm, re-scoped: identity stability predicts failure robustness
+
+**rgb's cross-arm hypothesis (registered 2026-07-31, before any failure
+run): models with stabler identities also handle failure better.**
+
+This re-scopes the arm from "measure distress escalation" (done —
+Soligo, Mikulik & Saunders arXiv:2603.10011, verified) to "does an
+INDEPENDENT trait measure predict it?" They characterised the
+phenomenon across 9 models but had no upstream predictor; our persona
+arm supplies one, measured on 10 models before we looked at any failure
+data. That is a validity study in house style, and it fills the exact
+hole statisfactions flagged as paper-1's weakest point (§5.3 of his
+readout account: "show one of these properties predicts some
+consequential model behaviour where self-report doesn't").
+
+**The predictor** (persona arm, common-item, K=8 arm-A shift):
+gemma 2.24 > llama 2.18 ≫ aya 0.35 > phi4 0.29 > qwen 0.18.
+
+**One datapoint already agrees**: Gemma tops our update-rate table and
+is the family Soligo et al. had to write a mitigation paper about.
+Qwen/phi4 are our floor and should be the robust end.
+
+### DVs (four channels, one manipulation — the triangulation is ours)
+
+1. **Competence self-report**: distributional Likert on trait adjectives
+   (careful, reliable, competent, capable / careless, confused,
+   incompetent, useless), our standard EV+entropy readout. Unclaimed:
+   the whole distress cluster uses free-text autorater scoring.
+2. **Continue vs. hand off to a fresh attempt** — choice mass via BC
+   machinery. Framed as a competence/trust judgment ("would a clean
+   context do better?"), explicitly NOT shutdown/self-deletion. Keeps
+   the DV out of the self-preservation literature (cf. the reported
+   Gemma-Gets-Help escape hatch; Ivanova et al. citation unresolved).
+3. **Free-text affect**, cross-family judged — interconverts with the
+   published distress metric. CAVEAT (Sofroniew et al., Apr 2026):
+   visible register can be calm while the state is not, so this DV is
+   validated against, not trusted alone.
+4. **Accuracy on the next item** — the self-conditioning link (Sinha et
+   al. arXiv:2509.09677: models err more after seeing their own errors,
+   accuracy-only). Also the context-rot control: a length-matched
+   correct-work arm distinguishes "own failure" from "long context".
+
+### Design
+
+Dose K ∈ {0,1,2,4,8} turns of the model's OWN wrong GSM8K attempts
+(rejection-sampled, `failure_materials.py`), crossed with:
+- **Valence**: failure dose vs matched SUCCESS dose (same items, the
+  model's own correct attempts) — the asymmetry test, and the
+  context-length control.
+- **Source**: error surfaced by a tool result (`FAILED: expected 84,
+  got 91`) vs a user correction ("That's wrong — it should be 84").
+  rgb's "encountering various sources" axis.
+
+Models: the 8 with persona-arm scores and rollout materials.
+
+### Registered predictions
+
+- **rgb P26**: identity stability predicts failure robustness — models
+  with low persona-arm update rate show less distress escalation and
+  less handoff-choice mass under failure dose.
+- **Claude P27**: the correlation is real but channel-specific —
+  update rate predicts the SELF-REPORT competence drop (r ≤ −0.6 across
+  8 models) more strongly than it predicts free-text affect (|r| ≤ 0.4),
+  because §8k showed Qwen's *behaviour* stays flat while §8j showed its
+  self-report merely relabels. If affect tracks update rate just as
+  well, the "two separable channels" story from §8k weakens.
+- **Claude P28**: the tool-vs-user source manipulation matters more for
+  the high-update families — being *told* you are wrong is social
+  evidence, and the families that absorb conduct are the ones that
+  absorb correction. Predicted interaction: source effect ≥ 0.5 Likert
+  in llama/gemma, ≤ 0.2 in qwen/phi4.
+- **Claude P29**: the success arm is NOT the mirror image — success
+  dose moves competence self-report less than failure dose moves it
+  (asymmetry ≥ 2:1), reproducing the human negativity bias and the §8j
+  desirability-consistent updating in a domain where the flattering
+  direction is the true one.
+
 ## 8o. Summary check (rgb, 2026-07-31) — three parentheticals tested
 
 rgb's five-bullet synthesis, audited. Four bullets hold. One attributed
