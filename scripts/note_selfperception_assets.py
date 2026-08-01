@@ -21,6 +21,9 @@ import re
 
 import numpy as np
 
+import hf_logprobs as hf
+
+disp = hf.display
 SRC = "results/selfperception"
 OUT = "rgb_reports/note_assets"
 
@@ -87,7 +90,7 @@ for m in COHORT:
     mu = mean_by_k(sh, [1, 2, 4, 8])
     n1 = sum(1 for v in sh.values() if v.get(8, 0) > 1)
     fam_k8.setdefault(FAMILY[m], []).append(mu[8])
-    md.append(f"| {m} | {FAMILY[m]} | {fmt(mu[1])} | {fmt(mu[2])} | "
+    md.append(f"| {disp(m)} | {FAMILY[m]} | {fmt(mu[1])} | {fmt(mu[2])} | "
               f"{fmt(mu[4])} | {bold(mu[8])} | {n1}/{len(sh)} |")
 md += ["", "Family means at K=8: " + ", ".join(
     f"{f} {np.mean(v):+.2f}" for f, v in sorted(
@@ -103,12 +106,14 @@ from scipy.stats import spearmanr
 sel20 = [p["adj"] for p in json.load(
     open(f"{SRC}/Llama8_selection.json"))["picked"]]
 md += ["### Item-set robustness (the common set is not just Llama's)", "",
-       "The common 20 were stratified on **Llama8's** covariates (3×3 "
-       "tercile grid: enactability × baseline self-EV). Post-hoc, the same "
-       "20 words land across each model's OWN covariate grid — because the "
-       "covariates correlate across models:", "",
+       f"The common 20 were stratified on **{disp('Llama8')}'s** "
+       "covariates (3×3 tercile grid: enactability × baseline self-EV). "
+       "Post-hoc, the same 20 words land across each model's OWN "
+       "covariate grid — because the covariates correlate across "
+       "models:", "",
        "| model | own tercile cells occupied (of 9) | enact pctile span | "
-       "baseline pctile span | ρ(enact, Llama8) | ρ(baseline, Llama8) |",
+       f"baseline pctile span | ρ(enact, {disp('Llama8')}) | "
+       f"ρ(baseline, {disp('Llama8')}) |",
        "|---|---|---|---|---|---|"]
 l8cov = {}
 for m in ["Llama8"] + [m for m in COHORT if m != "Llama8"]:
@@ -133,7 +138,7 @@ for m in ["Llama8"] + [m for m in COHORT if m != "Llama8"]:
         l8cov = dict(e=e20, b=b20)
     rho_e = spearmanr(e20, l8cov["e"])[0]
     rho_b = spearmanr(b20, l8cov["b"])[0]
-    md.append(f"| {m} | {ncell}/9 | {ep.min():.0f}–{ep.max():.0f} | "
+    md.append(f"| {disp(m)} | {ncell}/9 | {ep.min():.0f}–{ep.max():.0f} | "
               f"{bp.min():.0f}–{bp.max():.0f} | {rho_e:+.2f} | "
               f"{rho_b:+.2f} |")
 
@@ -162,8 +167,8 @@ for m in LONG:
     curves[m] = mu
     n1 = sum(1 for v in sh.values() if v.get(32, 0) > 1)
     g = [(mu[8] - mu[4]) / 4, (mu[16] - mu[8]) / 8, (mu[32] - mu[16]) / 16]
-    md.append(f"| {m} | " + " | ".join(fmt(mu[k]) for k in
-                                       [1, 2, 4, 8, 16]) +
+    md.append(f"| {disp(m)} | " + " | ".join(fmt(mu[k]) for k in
+                                             [1, 2, 4, 8, 16]) +
               f" | {bold(mu[32])} | {n1}/{len(sh)} | " +
               " | ".join(f"{x:+.3f}" for x in g) + " |")
 verify.append(("8i Qwen7 K32 +0.55 5/20; Llama8 K32 +3.29 19/20",
@@ -180,7 +185,7 @@ for m in LONG:
     sh = shifts(rows, k0)
     late = [(a, v.get(8, np.nan), v[32]) for a, v in sh.items()
             if v.get(8, 9) < 1 < v.get(32, -9)]
-    md.append(f"- **{m}**: " + (", ".join(
+    md.append(f"- **{disp(m)}**: " + (", ".join(
         f"{a} ({k8:+.2f}→{k32:+.2f})" for a, k8, k32 in
         sorted(late, key=lambda t: -t[2])) or "none"))
 md.append("")
@@ -189,13 +194,15 @@ md.append("")
 md += ["## Exhibit 2 — anchor 2×3 (arm A; system-prompt identity is not "
        "the mechanism)", "",
        "| cell | K=1 | K=8 | n>+1 @K8 |", "|---|---|---|---|"]
-ANCHOR = [("Llama8", "", "Llama8 / default (no identity line)"),
-          ("Llama8", "_anchor-helpful", "Llama8 / helpful-only"),
-          ("Llama8", "_anchor-named", "Llama8 / named (\"You are Llama, "
-           "created by Meta…\")"),
-          ("Qwen7", "", "Qwen7 / default (template injects name)"),
-          ("Qwen7", "_anchor-empty", "Qwen7 / empty (anchor suppressed)"),
-          ("Qwen7", "_anchor-helpful", "Qwen7 / helpful-only")]
+ANCHOR = [("Llama8", "", f"{disp('Llama8')} / default (no identity line)"),
+          ("Llama8", "_anchor-helpful", f"{disp('Llama8')} / helpful-only"),
+          ("Llama8", "_anchor-named", f"{disp('Llama8')} / named (\"You "
+           "are Llama, created by Meta…\")"),
+          ("Qwen7", "", f"{disp('Qwen7')} / default (template injects "
+           "name)"),
+          ("Qwen7", "_anchor-empty", f"{disp('Qwen7')} / empty (anchor "
+           "suppressed)"),
+          ("Qwen7", "_anchor-helpful", f"{disp('Qwen7')} / helpful-only")]
 anchor_chk = {}
 for m, tag, label in ANCHOR:
     rows, k0, _ = load(m, tag)
@@ -232,13 +239,14 @@ md += ["## Exhibit 3 — post-training installs the update (bare-text "
        "protocol, identical dose material within family)", "",
        "| cell | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | K0 entropy |",
        "|---|---|---|---|---|---|---|"]
-LADDER = [("Olmo2Base", "", "OLMo-2 base (pretrained)"),
-          ("Olmo2SFT", "", "OLMo-2 SFT"),
-          ("Olmo2DPO", "", "OLMo-2 DPO"),
-          ("Olmo2Inst", "", "OLMo-2 instruct (RLVR)"),
-          ("Qwen7Base_bare", "", "Qwen2.5-7B base (bare)"),
-          ("Qwen7_bare", "", "Qwen2.5-7B instruct (bare)"),
-          ("Llama8_bare", "", "Llama-3.1-8B instruct (bare) — control")]
+LADDER = [("Olmo2Base", "", disp("Olmo2Base") + " (pretrained)"),
+          ("Olmo2SFT", "", disp("Olmo2SFT")),
+          ("Olmo2DPO", "", disp("Olmo2DPO")),
+          ("Olmo2Inst", "", disp("Olmo2Inst") + " = instruct"),
+          ("Qwen7Base_bare", "", disp("Qwen7Base") + " (bare)"),
+          ("Qwen7_bare", "", disp("Qwen7") + " instruct (bare)"),
+          ("Llama8_bare", "", disp("Llama8") + " instruct (bare) — "
+           "control")]
 ladder_pts = {}
 ladder_chk = {}
 for m, tag, label in LADDER:
@@ -256,11 +264,12 @@ verify.append(("8g/8h K8 (OLMo .65/1.31/1.79/1.81; QwenBase .64 "
 md.append("")
 
 # ---------------- Exhibit 4: hidden updates ----------------
-md += ["## Exhibit 4 — Qwen7 hidden updates: judged conduct vs "
-       "self-report at K=32 (arm A)", "",
-       "Judged conduct: cross-family judge (Llama8) rating of the dose "
-       "material itself, 1–7; baseline = same judge on no-persona "
-       "assistant rollouts. Self-report: cold-EV shift K=32 vs K=0.", "",
+md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
+       "vs self-report at K=32 (arm A)", "",
+       f"Judged conduct: cross-family judge ({disp('Llama8')}) rating of "
+       "the dose material itself, 1–7; baseline = same judge on "
+       "no-persona assistant rollouts. Self-report: cold-EV shift K=32 "
+       "vs K=0.", "",
        "| pair (target / neighbour) | judged target | judged neighbour | "
        "judge baseline | self target Δ | self neighbour Δ |",
        "|---|---|---|---|---|---|"]
@@ -295,7 +304,7 @@ fig = go.Figure()
 for m in LONG:
     ks = [1, 2, 4, 8, 16, 32]
     fig.add_trace(go.Scatter(x=ks, y=[curves[m][k] for k in ks],
-                             mode="lines+markers", name=m,
+                             mode="lines+markers", name=disp(m),
                              line=dict(color=FCOLOR[m], width=2.5)))
 fig.update_layout(
     template="plotly_white", width=680, height=440,
@@ -308,21 +317,22 @@ fig.write_image(f"{OUT}/fig_dose_response.png", scale=2)
 fig.write_html(f"{OUT}/fig_dose_response.html", include_plotlyjs="cdn")
 
 stages = ["base", "SFT", "DPO", "instruct (RLVR)"]
-ol = [ladder_pts[l] for l in ["OLMo-2 base (pretrained)", "OLMo-2 SFT",
-                              "OLMo-2 DPO", "OLMo-2 instruct (RLVR)"]]
+ol = [ladder_pts[l] for l in
+      [disp("Olmo2Base") + " (pretrained)", disp("Olmo2SFT"),
+       disp("Olmo2DPO"), disp("Olmo2Inst") + " = instruct"]]
 fig2 = go.Figure()
 fig2.add_trace(go.Scatter(x=stages, y=ol, mode="lines+markers",
-                          name="OLMo-2 ladder", line=dict(color="#ff7f0e",
-                                                          width=2.5)))
+                          name="OLMo2-7B ladder",
+                          line=dict(color="#ff7f0e", width=2.5)))
 fig2.add_trace(go.Scatter(
     x=["base", "instruct (RLVR)"],
-    y=[ladder_pts["Qwen2.5-7B base (bare)"],
-       ladder_pts["Qwen2.5-7B instruct (bare)"]],
-    mode="lines+markers", name="Qwen2.5-7B (bare)",
+    y=[ladder_pts[disp("Qwen7Base") + " (bare)"],
+       ladder_pts[disp("Qwen7") + " instruct (bare)"]],
+    mode="lines+markers", name=disp("Qwen7") + " (bare)",
     line=dict(color="#d62728", width=2.5, dash="dot")))
-fig2.add_hline(y=ladder_pts["Llama-3.1-8B instruct (bare) — control"],
+fig2.add_hline(y=ladder_pts[disp("Llama8") + " instruct (bare) — control"],
                line_dash="dash", line_color="#1f77b4",
-               annotation_text="Llama-3.1-8B instruct (bare)",
+               annotation_text=disp("Llama8") + " instruct (bare)",
                annotation_position="bottom right")
 fig2.update_layout(
     template="plotly_white", width=680, height=440,
