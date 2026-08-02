@@ -128,8 +128,12 @@ def main():
                 prompt = PDA_SCALE.format(adj=a)
             else:
                 prompt = AGREE_SCALE.format(statement=template.format(adj=a))
-            dist, _, ent = hf.likert_distribution(model, tok, prompt, device,
-                                                  digits=DIGITS)
+            # base models ship no chat template — probe them bare (W15 §3
+            # convention); tuned models keep the templated path they were
+            # measured with, so cohort numbers stay comparable
+            dist, _, ent = hf.likert_distribution(
+                model, tok, prompt, device, digits=DIGITS,
+                use_chat_template=tok.chat_template is not None)
             results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
                                  "dist": dist}
         evs = [results[fname][a]["ev"] for a in adjs]
