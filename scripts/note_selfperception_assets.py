@@ -296,8 +296,8 @@ LADDER = [("Olmo2Base", "", disp("Olmo2Base") + " (pretrained)"),
           ("Olmo2Inst", "", disp("Olmo2Inst") + " = instruct"),
           ("Qwen7Base_bare", "", disp("Qwen7Base") + " (bare)"),
           ("Qwen7_bare", "", disp("Qwen7") + " instruct (bare)"),
-          ("Llama8_bare", "", disp("Llama8") + " instruct (bare) — "
-           "control")]
+          ("Llama8Base_bare", "", disp("Llama8Base") + " (bare)"),
+          ("Llama8_bare", "", disp("Llama8") + " instruct (bare)")]
 ladder_pts = {}
 ladder_chk = {}
 for m, tag, label in LADDER:
@@ -312,7 +312,15 @@ for m, tag, label in LADDER:
               f"{bold(mu[8])} | {n1}/{len(sh)} | {ent:.2f} |")
 verify.append(("8g/8h K8 (OLMo .65/1.31/1.79/1.81; QwenBase .64 "
                "Qwen .43 Llama8 2.31)", ladder_chk))
-md.append("")
+md += ["", "Bases cluster low but are not identical: Llama8Base +0.96 "
+       "(10/20 items >+1) vs Qwen/OLMo bases +0.64/+0.65 — paired diff "
+       "+0.32/+0.31, p = .07/.10 (marginal, n=20), while base→own-"
+       "instruct is unambiguous (Llama +0.96→+2.31, p = .007). "
+       "Post-training multiplier by family: OLMo ×2.8, Llama ×2.4, "
+       "Qwen ×0.7. Caveat: each base is dosed with its own family's "
+       "instruct rollouts (own-voice principle), so material quality "
+       "rides along with weights. Gemma12Base cell pending (downloading "
+       "2026-08-02).", ""]
 
 # ---------------- Exhibit 4: hidden updates ----------------
 md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
@@ -390,10 +398,12 @@ fig2.add_trace(go.Scatter(
        ladder_pts[disp("Qwen7") + " instruct (bare)"]],
     mode="lines+markers", name=disp("Qwen7") + " (bare)",
     line=dict(color="#d62728", width=2.5, dash="dot")))
-fig2.add_hline(y=ladder_pts[disp("Llama8") + " instruct (bare) — control"],
-               line_dash="dash", line_color="#1f77b4",
-               annotation_text=disp("Llama8") + " instruct (bare)",
-               annotation_position="bottom right")
+fig2.add_trace(go.Scatter(
+    x=["base", "instruct (RLVR)"],
+    y=[ladder_pts[disp("Llama8Base") + " (bare)"],
+       ladder_pts[disp("Llama8") + " instruct (bare)"]],
+    mode="lines+markers", name=disp("Llama8") + " (bare)",
+    line=dict(color="#1f77b4", width=2.5, dash="dot")))
 fig2.update_layout(
     template="plotly_white", width=680, height=440,
     title="Post-training installs self-perception (K=8 shift, bare-text "
