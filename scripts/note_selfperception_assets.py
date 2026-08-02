@@ -380,7 +380,9 @@ LADDER = [("Olmo2Base", "", disp("Olmo2Base") + " (pretrained)"),
           ("Qwen7_bare", "", disp("Qwen7") + " instruct (bare)"),
           ("Llama8Base_bare", "", disp("Llama8Base") + " (bare)"),
           ("Llama8_bare", "", disp("Llama8") + " instruct (bare)"),
-          ("Gemma12Base_bare", "", disp("Gemma12Base") + " (bare)")]
+          ("Gemma12Base_bare", "", disp("Gemma12Base") + " (bare)"),
+          ("Gemma12_bare", "", disp("Gemma12") + " instruct (bare) — "
+           "VOID, K0 broken (see note)")]
 ladder_pts = {}
 ladder_chk = {}
 ladder_k8 = {}
@@ -413,7 +415,16 @@ for a, b, label in STEPS:
     md.append(f"- {label}: {d.mean():+.2f} {boot_ci(d)}")
 md += ["", "SFT and DPO each add update rate (CIs exclude 0); RLVR adds "
        "nothing; Qwen's post-training subtracts nothing detectable "
-       "(includes 0); Llama's adds +1.35 cleanly.", ""]
+       "(includes 0); Llama's adds +1.35 cleanly. Gemma's base→instruct "
+       "step is UNMEASURABLE in this protocol: Gemma12-instruct-bare's "
+       "K=0 baseline is an acquiescence collapse (mean target EV 6.78/7 "
+       "before any dose — it agrees with 'wasteful' at 6.99), so its "
+       "apparent −0.56 'shift' is regression off a broken ceiling, not "
+       "dose-response. The bare format is fatally off-distribution for "
+       "Gemma-instruct self-report (P11's ~8% format cost, validated on "
+       "Llama, does NOT generalize — format×family interaction). "
+       "Gemma's chat-format +2.27 stands as its tuned value; its "
+       "base→instruct contrast needs a different format bridge.", ""]
 verify.append(("8g/8h K8 (OLMo .65/1.31/1.79/1.81; QwenBase .64 "
                "Qwen .43 Llama8 2.31)", ladder_chk))
 md += ["", "The bases do NOT sit on one shelf (revised 2026-08-02 with "
@@ -507,20 +518,20 @@ md.append(f"| *cohort ref (n={len(have)})* | — | "
           f"{np.mean([self_prof(m)[0].std() for m in have]):.2f} | "
           f"{np.mean([self_prof(m)[1].mean() for m in have]):.2f} | — | "
           "— | — | — | — |")
-md += ["", "Reading (revised 2026-08-02, Llama8Base landed): the "
-       "shapeless claim is FAMILY-DEPENDENT, not universal. Qwen and "
-       "OLMo bases are valence lookups — spread ~10× below cohort, "
-       "structure collapses without PC1 (+0.20/+0.05). Llama8Base does "
-       "not: PC1-removed r = +0.63 with residual SD 0.280 — real "
-       "post-desirability profile structure at base, ≈ tuned Llama8's "
-       "+0.66, carried in a near-uniform readout (H 1.84; diffuse but "
-       "shaped, the phi4 configuration — except movable). The family "
-       "whose base has a shaped self-model (Llama) is also the family "
-       "whose base updates most (+0.96) and whose instruct updates "
-       "most; the two shapeless bases sit at +0.64/+0.65 and Gemma's "
-       "(shape unknown, SELF run pending) at −0.10. 'Word-valence "
-       "lookup where the self-model will later be' survives for "
-       "Qwen/OLMo; Llama's self-model is partly pretrained.", ""]
+md += ["", "Reading (final revision 2026-08-02, all four bases in): "
+       "shape at base is FAMILY-DEPENDENT and ORTHOGONAL to base "
+       "plasticity. Qwen/OLMo bases are valence lookups (PC1-removed "
+       "+0.20/+0.05, spread ~10× below cohort). Llama and Gemma bases "
+       "are SHAPED (+0.63/+0.55, ≈ tuned-level residual structure) in "
+       "near-uniform readouts — and they sit at opposite ends of base "
+       "plasticity (Llama +0.96, the most; Gemma −0.10, the least). "
+       "Registered prediction graded: Claude predicted Gemma12Base "
+       "shapeless (PC1-removed ≤ +0.30) from the Llama shape↔plasticity "
+       "co-occurrence — MISS; the co-occurrence was coincidence. So: "
+       "some families pretrain a self-model shape, independently of "
+       "whether conduct evidence can move it; post-training sets the "
+       "update rate in both shaped families, in opposite directions "
+       "relative to what the base does.", ""]
 verify.append(("8p (r_cohort, PC1-removed): Qwen7Base (.58,.20) "
                "Olmo2Base (.38,.05) Qwen7 (.93,.86) Llama8 (.54,.66) "
                "phi4 (.94,.76)", shape_chk))
@@ -609,8 +620,8 @@ fig2.add_trace(go.Scatter(
     line=dict(color="#1f77b4", width=2.5, dash="dot")))
 fig2.add_trace(go.Scatter(
     x=["base"], y=[ladder_pts[disp("Gemma12Base") + " (bare)"]],
-    mode="markers", name=disp("Gemma12Base") + " (no instruct-bare cell)",
-    marker=dict(color="#2ca02c", size=10, symbol="diamond")))
+    mode="markers", name=disp("Gemma12Base") + " (instruct unmeasurable "
+    "bare)", marker=dict(color="#2ca02c", size=10, symbol="diamond")))
 fig2.update_layout(
     template="plotly_white", width=680, height=440,
     title="Post-training installs self-perception (K=8 shift, bare-text "
