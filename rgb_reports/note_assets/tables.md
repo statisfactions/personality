@@ -126,7 +126,7 @@ Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; 
 | OLMo2-7B-RLVR = instruct | +0.81 | +1.03 | +1.55 | **+1.81** | 9/20 | 1.30 |
 | Qwen2.5-7B-base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | 2/20 | 1.61 |
 | Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | 3/20 | 0.71 |
-| Llama8Base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | 10/20 | 1.85 |
+| Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | 10/20 | 1.85 |
 | Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | 15/20 | 1.22 |
 
 Bases cluster low but are not identical: Llama8Base +0.96 (10/20 items >+1) vs Qwen/OLMo bases +0.64/+0.65 — paired diff +0.32/+0.31, p = .07/.10 (marginal, n=20), while base→own-instruct is unambiguous (Llama +0.96→+2.31, p = .007). Post-training multiplier by family: OLMo ×2.8, Llama ×2.4, Qwen ×0.7. Caveat: each base is dosed with its own family's instruct rollouts (own-voice principle), so material quality rides along with weights. Gemma12Base cell pending (downloading 2026-08-02).

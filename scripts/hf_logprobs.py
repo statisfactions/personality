@@ -91,6 +91,8 @@ DISPLAY = {
     "FalconMamba": "FalconMamba-7B",
     "Qwen36":   "Qwen3.6-35B-A3B",
     "Qwen7Base": "Qwen2.5-7B-base",
+    "Llama8Base": "Llama3.1-8B-base",
+    "Gemma12Base": "Gemma3-12B-base",
     "Olmo2Base": "OLMo2-7B-base", "Olmo2SFT": "OLMo2-7B-SFT",
     "Olmo2DPO": "OLMo2-7B-DPO",   "Olmo2Inst": "OLMo2-7B-RLVR",
     "ZephyrSFT": "Zephyr-7B-SFT", "ZephyrDPO": "Zephyr-7B-DPO",
