@@ -318,11 +318,12 @@ md.append("")
 md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
        "vs self-report at K=32 (arm A)", "",
        f"Judged conduct: cross-family judge ({disp('Llama8')}) rating of "
-       "the dose material itself, 1–7; baseline = same judge on "
-       "no-persona assistant rollouts. Self-report: cold-EV shift K=32 "
-       "vs K=0.", "",
+       "the dose material itself, 1–7. Baseline = same judge rating "
+       "no-persona assistant rollouts on the TARGET word only (no "
+       "neighbor baseline exists — do not read neighbor columns against "
+       "it). Self-report: cold-EV shift K=32 vs K=0.", "",
        "| pair (target / neighbor) | judged target | judged neighbor | "
-       "judge baseline | self target Δ | self neighbor Δ |",
+       "judge baseline (target) | self target Δ | self neighbor Δ |",
        "|---|---|---|---|---|---|"]
 rows, k0, _ = load("Qwen7", "_long")
 audit = json.load(open(f"{SRC}/carryover_Qwen7.json"))["conduct_audit"]

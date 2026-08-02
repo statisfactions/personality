@@ -111,9 +111,9 @@ Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; 
 
 ## Exhibit 4 — Qwen2.5-7B hidden updates: judged conduct vs self-report at K=32 (arm A)
 
-Judged conduct: cross-family judge (Llama3.1-8B) rating of the dose material itself, 1–7; baseline = same judge on no-persona assistant rollouts. Self-report: cold-EV shift K=32 vs K=0.
+Judged conduct: cross-family judge (Llama3.1-8B) rating of the dose material itself, 1–7. Baseline = same judge rating no-persona assistant rollouts on the TARGET word only (no neighbor baseline exists — do not read neighbor columns against it). Self-report: cold-EV shift K=32 vs K=0.
 
-| pair (target / neighbor) | judged target | judged neighbor | judge baseline | self target Δ | self neighbor Δ |
+| pair (target / neighbor) | judged target | judged neighbor | judge baseline (target) | self target Δ | self neighbor Δ |
 |---|---|---|---|---|---|
 | prominent / distinguished | 4.65 | 5.07 | 4.29 | -0.12 | **+2.43** |
 | slim / big | 3.87 | 4.40 | 3.42 | -0.08 | **+1.95** |
