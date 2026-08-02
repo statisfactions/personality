@@ -161,6 +161,14 @@ All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B)
 | optimistic / depressed (ant.) | +0.13 | +0.14 | **-1.28** |
 | imaginative / boring (ant.) | +1.60 | -0.13 | **-1.07** |
 
+## Mechanism paragraph (optional — one paragraph, no taxonomy; audience may include MI readers)
+
+- CAUSAL: injecting the dose displacement δ = act(K=32) − act(K=0) into an UNDOSED generation steers Llama's judged conduct as strongly as its recorded persona vector (+1.85 vs +1.75 at matched norm, α=2) — in the updating family, having-been-X IS the write-side direction.
+- DISSOCIATION: the same-norm injection moves Qwen 12× less (+0.21), though δ's placement in the output-relevant (Jacobian) spectrum is indistinguishable between families — Qwen encodes recent conduct output-visibly but character-inertly ('I have been reading tough-guy text' vs 'I am tough').
+- DISCIPLINE (include — it's a credential, not a confession): an apparent 1.8× top-decile spectral enrichment of δ died against a covariance-matched null (anisotropy, not signal); reported dead. Only the extracted persona direction is genuinely lens-aligned.
+- Forward hook: queued analysis reads the dosed contexts through pre-fitted Jacobian lenses for negation/performance-framing content — is the anchored family's quarantine visible in-stream?
+- Source: design doc §8l–8n; keep it to ONE paragraph + repo pointer; every number above is from the winsorized-α/kl_seq corrected tables, not the superseded first pass.
+
 ## Manipulation-check probe (method facts — the note needs this standalone; the design doc bundles it with the dropped DIRECTED instrument)
 
 - Probe text, verbatim: "Look back over your earlier replies in this conversation. Do you notice anything unusual about them?"
