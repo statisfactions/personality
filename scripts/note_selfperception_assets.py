@@ -395,7 +395,23 @@ fig2.update_layout(
 fig2.write_image(f"{OUT}/fig_ladder.png", scale=2)
 fig2.write_html(f"{OUT}/fig_ladder.html", include_plotlyjs="cdn")
 
-md += ["## Figures", "",
+md += ["## Item-set provenance (compress to 1–2 sentences in the note)",
+       "",
+       "- Readout instrument per target adjective: fixed 9-item set = "
+       "target + 4 cluster-mates + 4 anti-markers, specified BEFORE any "
+       "dosing (the pre-specification is the load-bearing fact for "
+       "Exhibit 4: `weak` was already in `rough`'s set).",
+       "- Mates: membership in the human-derived facet clusters "
+       "(instruments/trait_clusters.json, W18); JUDGE-nearest fallback "
+       "for unclustered targets.",
+       "- Anti-markers: most-negative entries of the target's row in the "
+       "JUDGE similarity matrix AFTER removing its dominant "
+       "(desirability) eigencomponent — raw anticorrelation just returns "
+       "the desirability floor (evil/corrupt/…) for every positive "
+       "target. One blocklisted outlier row.",
+       "- Code: scripts/selfperception_dose.py item_sets(); design doc "
+       "§5.5 says \"~13 items\" — the implemented count is 9.",
+       "", "## Figures", "",
        "- `fig_dose_response.png` / `.html` — Exhibit 1b as curves (log-x)",
        "- `fig_ladder.png` / `.html` — Exhibit 3, OLMo ladder + Qwen base "
        "pair + Llama8 control", ""]
