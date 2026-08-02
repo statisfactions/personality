@@ -337,8 +337,9 @@ def main():
 
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     model.eval()
-    if mid_layer is None:
-        mid_layer = model.config.num_hidden_layers // 2
+    if mid_layer is None:                  # Gemma3Config nests it under
+        cfg = getattr(model.config, "text_config", model.config)
+        mid_layer = cfg.num_hidden_layers // 2
     dt = digit_tokens(tok)
 
     fout = open(part, "a")
