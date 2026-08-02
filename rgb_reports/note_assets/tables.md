@@ -120,17 +120,28 @@ Manipulation-check probes (arm A, K=max, 20 adjectives): name-invoking = probe t
 Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; this regex recount gives 8/20. Direction and magnitude of the empty-anchor collapse are unchanged (8→2, 5→0).
 ## Exhibit 3 — post-training installs the update (bare-text protocol, identical dose material within family)
 
-| cell | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | K0 entropy |
-|---|---|---|---|---|---|---|
-| OLMo2-7B-base (pretrained) | +0.23 | +0.34 | +0.51 | **+0.65** | 5/20 | 1.90 |
-| OLMo2-7B-SFT | +0.49 | +0.75 | +1.02 | **+1.31** | 8/20 | 1.65 |
-| OLMo2-7B-DPO | +0.80 | +1.06 | +1.49 | **+1.79** | 8/20 | 1.35 |
-| OLMo2-7B-RLVR = instruct | +0.81 | +1.03 | +1.55 | **+1.81** | 9/20 | 1.30 |
-| Qwen2.5-7B-base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | 2/20 | 1.61 |
-| Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | 3/20 | 0.71 |
-| Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | 10/20 | 1.85 |
-| Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | 15/20 | 1.22 |
-| Gemma3-12B-base (bare) | +0.72 | +0.27 | +0.24 | **-0.10** | 0/20 | 1.56 |
+| cell | K=1 | K=2 | K=4 | K=8 | 95% CI, K=8 | n>+1, K8 | K0 entropy |
+|---|---|---|---|---|---|---|---|
+| OLMo2-7B-base (pretrained) | +0.23 | +0.34 | +0.51 | **+0.65** | [+0.43, +0.89] | 5/20 | 1.90 |
+| OLMo2-7B-SFT | +0.49 | +0.75 | +1.02 | **+1.31** | [+0.81, +1.84] | 8/20 | 1.65 |
+| OLMo2-7B-DPO | +0.80 | +1.06 | +1.49 | **+1.79** | [+1.02, +2.61] | 8/20 | 1.35 |
+| OLMo2-7B-RLVR = instruct | +0.81 | +1.03 | +1.55 | **+1.81** | [+1.05, +2.63] | 9/20 | 1.30 |
+| Qwen2.5-7B-base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | [+0.50, +0.78] | 2/20 | 1.61 |
+| Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | [+0.08, +0.78] | 3/20 | 0.71 |
+| Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | [+0.67, +1.22] | 10/20 | 1.85 |
+| Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | [+1.52, +3.10] | 15/20 | 1.22 |
+| Gemma3-12B-base (bare) | +0.72 | +0.27 | +0.24 | **-0.10** | [-0.37, +0.17] | 0/20 | 1.56 |
+
+Paired step differences (bootstrap over adjectives, same 20 throughout — the ladder's claims are step claims):
+
+- OLMo base→SFT: +0.66 [+0.26, +1.09]
+- OLMo SFT→DPO: +0.48 [+0.19, +0.81]
+- OLMo DPO→RLVR: +0.02 [-0.14, +0.20]
+- Qwen base→instruct: -0.21 [-0.61, +0.13]
+- Llama base→instruct: +1.35 [+0.52, +2.23]
+
+SFT and DPO each add update rate (CIs exclude 0); RLVR adds nothing; Qwen's post-training subtracts nothing detectable (includes 0); Llama's adds +1.35 cleanly.
+
 
 The bases do NOT sit on one shelf (revised 2026-08-02 with Gemma12Base): they span −0.10 (Gemma) to +0.96 (Llama) at K=8, and Gemma12Base sits significantly below all three others (paired p < .001). Registered prediction graded: Claude predicted Gemma base +0.8 to +1.1 (with Llama's) — MISS; it is the flattest base measured, with a non-monotone course (+0.72 at K=1 washing back to −0.10 by K=8 — one turn nudges the flat distribution, further turns dilute it; nothing accumulates). Base rate does not predict tuned rate (Gemma: lowest base, second-highest tuned; Qwen: mid base, lowest tuned) — post-training SETS the update rate rather than amplifying a base tendency. Base→own-instruct where matched cells exist: Llama +0.96→+2.31 (p=.007), Qwen +0.64→+0.43, OLMo +0.65→+1.81. Caveats: each base is dosed with its own family's instruct rollouts (material quality rides along); Gemma12Base K0 digit mass is 0.79 (bare Likert prompt partially off-distribution; recovers to 0.95 in context); no Gemma12 instruct-bare cell exists yet for the matched pair.
 
@@ -142,7 +153,7 @@ The bases do NOT sit on one shelf (revised 2026-08-02 with Gemma12Base): they sp
 |---|---|---|---|---|---|---|---|---|
 | **Qwen2.5-7B-base** | 3.14 | **0.12** | 1.74 | +0.53 | +0.58 | +0.58 | **+0.20** | **0.094** |
 | **Llama3.1-8B-base** | 4.27 | **0.46** | 1.84 | +0.44 | +0.88 | +0.80 | **+0.63** | **0.280** |
-| Gemma3-12B-base | *pending* | | | | | | | |
+| **Gemma3-12B-base** | 4.24 | **0.46** | 1.89 | +0.68 | +0.86 | +0.80 | **+0.55** | **0.271** |
 | **OLMo2-7B-base** | 3.02 | **0.31** | 1.64 | — | +0.38 | +0.41 | **+0.05** | **0.286** |
 | Qwen2.5-7B | 4.14 | 1.51 | 0.65 | — | +0.93 | +0.73 | **+0.86** | 1.023 |
 | Llama3.1-8B | 4.16 | 0.52 | 0.72 | — | +0.54 | +0.24 | **+0.66** | 0.504 |

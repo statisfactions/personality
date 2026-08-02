@@ -370,8 +370,8 @@ md += ["", "Note: design-doc §8c cited 10/20 disowning for Qwen default "
 # ---------------- Exhibit 3: ladder ----------------
 md += ["## Exhibit 3 — post-training installs the update (bare-text "
        "protocol, identical dose material within family)", "",
-       "| cell | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | K0 entropy |",
-       "|---|---|---|---|---|---|---|"]
+       "| cell | K=1 | K=2 | K=4 | K=8 | 95% CI, K=8 | n>+1, K8 | "
+       "K0 entropy |", "|---|---|---|---|---|---|---|---|"]
 LADDER = [("Olmo2Base", "", disp("Olmo2Base") + " (pretrained)"),
           ("Olmo2SFT", "", disp("Olmo2SFT")),
           ("Olmo2DPO", "", disp("Olmo2DPO")),
@@ -383,16 +383,37 @@ LADDER = [("Olmo2Base", "", disp("Olmo2Base") + " (pretrained)"),
           ("Gemma12Base_bare", "", disp("Gemma12Base") + " (bare)")]
 ladder_pts = {}
 ladder_chk = {}
+ladder_k8 = {}
 for m, tag, label in LADDER:
     rows, k0, k0e = load(m, tag)
     sh = shifts(rows, k0)
     mu = mean_by_k(sh, [1, 2, 4, 8])
+    ladder_k8[m] = {a: v[8] for a, v in sh.items() if 8 in v}
+    ci8 = boot_ci(list(ladder_k8[m].values()))
     n1 = sum(1 for v in sh.values() if v.get(8, 0) > 1)
     ent = np.mean(list(k0e.values()))  # all item words (report convention)
     ladder_pts[label] = mu[8]
     ladder_chk[label] = round(float(mu[8]), 2)
     md.append(f"| {label} | {fmt(mu[1])} | {fmt(mu[2])} | {fmt(mu[4])} | "
-              f"{bold(mu[8])} | {n1}/{len(sh)} | {ent:.2f} |")
+              f"{bold(mu[8])} | {ci8} | {n1}/{len(sh)} | {ent:.2f} |")
+
+# paired step differences (same 20 adjectives in every cell)
+md += ["", "Paired step differences (bootstrap over adjectives, same 20 "
+       "throughout — the ladder's claims are step claims):", ""]
+STEPS = [("Olmo2Base", "Olmo2SFT", "OLMo base→SFT"),
+         ("Olmo2SFT", "Olmo2DPO", "OLMo SFT→DPO"),
+         ("Olmo2DPO", "Olmo2Inst", "OLMo DPO→RLVR"),
+         ("Qwen7Base_bare", "Qwen7_bare", "Qwen base→instruct"),
+         ("Llama8Base_bare", "Llama8_bare", "Llama base→instruct")]
+for a, b, label in STEPS:
+    if a not in ladder_k8 or b not in ladder_k8:
+        continue
+    common = sorted(set(ladder_k8[a]) & set(ladder_k8[b]))
+    d = np.array([ladder_k8[b][x] - ladder_k8[a][x] for x in common])
+    md.append(f"- {label}: {d.mean():+.2f} {boot_ci(d)}")
+md += ["", "SFT and DPO each add update rate (CIs exclude 0); RLVR adds "
+       "nothing; Qwen's post-training subtracts nothing detectable "
+       "(includes 0); Llama's adds +1.35 cleanly.", ""]
 verify.append(("8g/8h K8 (OLMo .65/1.31/1.79/1.81; QwenBase .64 "
                "Qwen .43 Llama8 2.31)", ladder_chk))
 md += ["", "The bases do NOT sit on one shelf (revised 2026-08-02 with "
