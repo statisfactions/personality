@@ -1092,6 +1092,41 @@ three unrelated pretraining corpora, same bare protocol:
 | OLMo2 instruct | 4.25 | +1.81 | 1.30 | 0.374 |
 | Qwen7 instruct | 4.08 | +0.43 | 0.71 | 0.312 |
 
+**Is the base readout a profile at all, or a shrug?** (rgb: "here shrug
+could be 'I like the number 4, it's a good number and a perfect square,
+I'll answer that'".) Checked directly on the K=0 digit distributions:
+
+| model | EV | H | modal digit | SD of EV across words |
+|---|---|---|---|---|
+| Llama8Base | 4.17 | 1.85 | 7 | **0.45** |
+| Qwen7Base | 4.12 | 1.61 | 5 | **0.97** |
+| Olmo2Base | 4.16 | 1.90 | 5 | **0.39** |
+| Llama8 instruct | 3.69 | 1.22 | 1 | 1.81 |
+| Qwen7 instruct | 3.97 | 0.71 | 4 | 1.26 |
+| Olmo2Inst | 4.24 | 1.30 | 6 | 1.49 |
+
+Not a 4-preference — the bases are near-UNIFORM (H 1.61–1.90 against a
+ln 7 = 1.95 ceiling; Olmo's mean distribution is 0.12/0.12/0.14/0.13/
+0.17/0.17/0.14, essentially flat). The common EV ≈ 4.2 is therefore an
+ARTIFACT of near-uniformity: a flat distribution over 1–7 has EV 4.0 by
+construction. That deflates the "eerie convergence" reading —
+the three bases do not share a self-model, they share the absence of
+one, and EV is the wrong statistic for a flat distribution.
+
+It is not pure noise either: EV still varies across words by 0.39–0.97
+SD (vs 1.26–1.81 for the tuned models), so ~30–50% of the tuned models'
+profile spread survives in the bases. And the tuned models are NOT
+merely sharper — their modal digits differ (Llama-instruct piles on 1,
+Qwen-instruct on 4, Olmo-instruct on 6), i.e. post-training installs
+a *response style* as well as a profile.
+
+Consequence for §8g/§8h/P30: the base dose-response of +0.64 to +0.96
+should be read as "a small shift in a nearly flat distribution", which
+is weaker evidence of "some self-perception" than the raw number
+suggests — and strengthens the pond reading (§8o). The right base-model
+statistic is distributional (entropy, spread), not EV. The three bases
+still agree — on being shapeless.
+
 **The three bases agree to a degree that is slightly eerie**: K=0 mean
 4.24 / 4.24 / 4.25, K=8 shift 0.64–0.96, entropy 1.6–1.9, seed SD
 0.20–0.36. Different corpora, different tokenizers, different labs,
