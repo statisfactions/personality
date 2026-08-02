@@ -1079,6 +1079,42 @@ siblings' rollouts. This settles whether ALL bases are flat (post-
 training is the sole source of self-perception cohort-wide — the strong
 claim) or whether Qwen's base is specifically flat.
 
+**RESULT — P30 CONFIRMED (Llama8Base +0.96, just above the predicted
+0.5–0.9 band); Gemma12Base still downloading.** Three base models from
+three unrelated pretraining corpora, same bare protocol:
+
+| cell | K=0 | K=8 shift | K0 entropy | seed SD |
+|---|---|---|---|---|
+| Llama8Base | 4.25 | **+0.96** | 1.85 | 0.357 |
+| Qwen7Base | 4.24 | **+0.64** | 1.61 | 0.203 |
+| OLMo2Base | 4.24 | **+0.65** | 1.90 | 0.239 |
+| Llama8 instruct | 3.52 | +2.31 | 1.22 | 0.652 |
+| OLMo2 instruct | 4.25 | +1.81 | 1.30 | 0.374 |
+| Qwen7 instruct | 4.08 | +0.43 | 0.71 | 0.312 |
+
+**The three bases agree to a degree that is slightly eerie**: K=0 mean
+4.24 / 4.24 / 4.25, K=8 shift 0.64–0.96, entropy 1.6–1.9, seed SD
+0.20–0.36. Different corpora, different tokenizers, different labs,
+different architectures in OLMo's case — and the same starting point,
+the same small dose response, the same diffuse readout. Whatever the
+pretrained "self" is, it is the same object everywhere and it barely
+moves.
+
+**Post-training then moves models in BOTH directions from that common
+origin**: Llama +1.35 above its base, OLMo +1.16, Qwen −0.21. That is
+the cleanest statement of the finding yet — not "post-training installs
+self-perception" (§8g's framing, too weak) but **post-training sets the
+update rate, from a common pretrained baseline, and different recipes
+set it in opposite directions.** Qwen's post-training does not merely
+fail to install the capacity; it produces a model that updates LESS
+than its own base.
+
+Note also the entropy/seed-SD signature: bases are diffuse (1.6–1.9)
+with LOW seed variance, i.e. flat-and-unresponsive, not sharp-and-held
+(§8o's pond). Tuning sharpens the readout in every family (entropy
+falls) while seed variance RISES in the updaters — a self-report that
+is both more committed and more context-sensitive.
+
 Registered before the runs (Claude, 2026-08-01):
 - **P30**: Llama8Base lands at +0.5 to +0.9 — i.e. with the two bases
   we have (Qwen 0.64, OLMo 0.65), not with its own instruct sibling
