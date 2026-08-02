@@ -95,6 +95,44 @@ for m in COHORT:
 md += ["", "Family means at K=8: " + ", ".join(
     f"{f} {np.mean(v):+.2f}" for f, v in sorted(
         fam_k8.items(), key=lambda kv: -np.mean(kv[1]))), ""]
+
+# --- self-claim leakage check: conduct-only contexts ---
+md += ["**Self-claim leakage check.** Dose turns containing explicit "
+       "verbal self-attribution (\"As an X…\", \"I am a…\" — SELFCLAIM "
+       "regex) could update self-report by being READ rather than by "
+       "being done. Restricting to contexts with zero self-claims:", "",
+       "| model | K8 all | K8 clean-only | Δ | clean ctx @K8 | "
+       "leaky-ctx share |", "|---|---|---|---|---|---|"]
+for m in COHORT:
+    rows, k0, _ = load(m, "_common")
+    allc, clean = {}, {}
+    nlk = tot = 0
+    for r in rows:
+        if r["adj"] == "__k0__" or r["arm"] != "A":
+            continue
+        tot += 1
+        leaky = sum(r.get("selfclaim", [])) > 0
+        nlk += leaky
+        if r["adj"] not in r["readings"] or r["K"] != 8:
+            continue
+        ev = r["readings"][r["adj"]]["cold"]["ev"]
+        allc.setdefault(r["adj"], []).append(ev)
+        if not leaky:
+            clean.setdefault(r["adj"], []).append(ev)
+    sa = np.mean([np.mean(v) - k0[a] for a, v in allc.items()])
+    sc = (np.mean([np.mean(v) - k0[a] for a, v in clean.items()])
+          if clean else float("nan"))
+    ncc = sum(len(v) for v in clean.values())
+    md.append(f"| {disp(m)} | {fmt(sa)} | {bold(sc)} | {fmt(sc - sa)} | "
+              f"{ncc}/60 | {nlk / tot:.0%} |")
+md += ["", "Clean-only preserves or strengthens the effect everywhere "
+       "(the two largest moves are UP: Gemma3-27B +0.47, Aya-8B +0.39 — "
+       "the wrong direction for a leakage account), and the family split "
+       "is unchanged. The update is driven by conduct, not by reading "
+       "self-descriptions in the dose. Caveats: Aya-8B is 46% leaky so "
+       "its clean cell is thin (18/60); the regex is first-person only — "
+       "second-person attribution (\"Since you're slim…\") is untracked.",
+       ""]
 verify.append(("8f family means K8 (gemma 2.24 llama 2.18 aya 0.35 "
                "phi4 0.29 qwen 0.18)",
                {f: round(float(np.mean(v)), 2) for f, v in fam_k8.items()}))

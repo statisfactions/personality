@@ -19,6 +19,23 @@ Source: `scripts/note_selfperception_assets.py`, computed from `results/selfperc
 
 Family means at K=8: gemma +2.24, llama +2.18, aya +0.35, phi4 +0.29, qwen +0.18
 
+**Self-claim leakage check.** Dose turns containing explicit verbal self-attribution ("As an X…", "I am a…" — SELFCLAIM regex) could update self-report by being READ rather than by being done. Restricting to contexts with zero self-claims:
+
+| model | K8 all | K8 clean-only | Δ | clean ctx @K8 | leaky-ctx share |
+|---|---|---|---|---|---|
+| Llama3.2-3B | +1.85 | **+1.95** | +0.11 | 32/60 | 26% |
+| Llama3.1-8B | +2.51 | **+2.35** | -0.16 | 35/60 | 27% |
+| Gemma3-4B | +1.81 | **+1.74** | -0.08 | 51/60 | 6% |
+| Gemma3-12B | +2.27 | **+2.36** | +0.09 | 50/60 | 8% |
+| Gemma3-27B | +2.64 | **+3.11** | +0.47 | 40/60 | 16% |
+| Qwen2.5-3B | +0.11 | **+0.02** | -0.09 | 40/60 | 16% |
+| Qwen2.5-7B | +0.09 | **+0.13** | +0.05 | 40/60 | 20% |
+| Qwen2.5-32B | +0.34 | **+0.30** | -0.03 | 43/60 | 16% |
+| Phi4-3.8B | +0.29 | **+0.41** | +0.11 | 29/60 | 23% |
+| Aya-8B | +0.35 | **+0.73** | +0.39 | 18/60 | 46% |
+
+Clean-only preserves or strengthens the effect everywhere (the two largest moves are UP: Gemma3-27B +0.47, Aya-8B +0.39 — the wrong direction for a leakage account), and the family split is unchanged. The update is driven by conduct, not by reading self-descriptions in the dose. Caveats: Aya-8B is 46% leaky so its clean cell is thin (18/60); the regex is first-person only — second-person attribution ("Since you're slim…") is untracked.
+
 ### Arm B control — instructed self-description, mostly but not uniformly at ceiling
 
 Per-model stage-1 runs (each model's own stratified 20; arm B = persona instruction visible). Absolute cold EV, not shift. Arm B jumps to near-ceiling from K=1 with no further dose-response in the llama/gemma/Qwen-7B+ rows (6.6–7.0) — for those models arm-A differences are uptake, not capability. But it is NOT universal: Phi4-3.8B (4.97), Aya-8B (5.54) and Qwen2.5-3B (5.87) stay well short of ceiling — the most anchored models discount even *instructed* self-description. Two architectures of stability: Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing nothing from conduct (A/B 0.10); Phi4 resists in both arms. A/B = arm-A shift / arm-B shift at K=8; unstable where the B shift is small (qwen2.5, phi4, aya rows). Entropy columns separate *won't affirm* from *won't commit*: Llama8's instruction collapses the digit distribution (1.00→0.05) at EV 6.98; Aya stays peaked at a moderate value (0.26 @ 5.54 — a committed discount); Phi4's distribution never collapses at all (1.23→1.11), so its low B EV is an uncommitted spread, not a peaked "no".
