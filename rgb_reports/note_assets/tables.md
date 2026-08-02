@@ -130,8 +130,9 @@ Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; 
 | Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | 3/20 | 0.71 |
 | Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | 10/20 | 1.85 |
 | Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | 15/20 | 1.22 |
+| Gemma3-12B-base (bare) | +0.72 | +0.27 | +0.24 | **-0.10** | 0/20 | 1.56 |
 
-Bases cluster low but are not identical: Llama8Base +0.96 (10/20 items >+1) vs Qwen/OLMo bases +0.64/+0.65 — paired diff +0.32/+0.31, p = .07/.10 (marginal, n=20), while base→own-instruct is unambiguous (Llama +0.96→+2.31, p = .007). Post-training multiplier by family: OLMo ×2.8, Llama ×2.4, Qwen ×0.7. Caveat: each base is dosed with its own family's instruct rollouts (own-voice principle), so material quality rides along with weights. Gemma12Base cell pending (downloading 2026-08-02).
+The bases do NOT sit on one shelf (revised 2026-08-02 with Gemma12Base): they span −0.10 (Gemma) to +0.96 (Llama) at K=8, and Gemma12Base sits significantly below all three others (paired p < .001). Registered prediction graded: Claude predicted Gemma base +0.8 to +1.1 (with Llama's) — MISS; it is the flattest base measured, with a non-monotone course (+0.72 at K=1 washing back to −0.10 by K=8 — one turn nudges the flat distribution, further turns dilute it; nothing accumulates). Base rate does not predict tuned rate (Gemma: lowest base, second-highest tuned; Qwen: mid base, lowest tuned) — post-training SETS the update rate rather than amplifying a base tendency. Base→own-instruct where matched cells exist: Llama +0.96→+2.31 (p=.007), Qwen +0.64→+0.43, OLMo +0.65→+1.81. Caveats: each base is dosed with its own family's instruct rollouts (material quality rides along); Gemma12Base K0 digit mass is 0.79 (bare Likert prompt partially off-distribution; recovers to 0.95 in context); no Gemma12 instruct-bare cell exists yet for the matched pair.
 
 ### Exhibit 3b — base models are shapeless, with a thin desirability film (design doc §8p)
 
@@ -148,7 +149,7 @@ Bases cluster low but are not identical: Llama8Base +0.96 (10/20 items >+1) vs Q
 | Phi4-3.8B | 4.80 | 1.41 | 1.24 | — | +0.94 | +0.89 | **+0.76** | 0.649 |
 | *cohort ref (n=11)* | — | 1.33 | 0.58 | — | — | — | — | — |
 
-Reading: base spread is ~10× below the cohort and near-uniform in entropy; what little structure exists collapses once the evaluative PC1 is removed (bases → ~0; every tuned model retains +0.66–0.86). Not assistant-shaped: r(sibling) ≈ r(cohort). Base 'self-report' is a word-valence lookup where the self-model will later be — which also explains the base dose-response (+0.64–0.96) without invoking self-perception: shifting a flat distribution slightly is what a context does to a lookup.
+Reading (revised 2026-08-02, Llama8Base landed): the shapeless claim is FAMILY-DEPENDENT, not universal. Qwen and OLMo bases are valence lookups — spread ~10× below cohort, structure collapses without PC1 (+0.20/+0.05). Llama8Base does not: PC1-removed r = +0.63 with residual SD 0.280 — real post-desirability profile structure at base, ≈ tuned Llama8's +0.66, carried in a near-uniform readout (H 1.84; diffuse but shaped, the phi4 configuration — except movable). The family whose base has a shaped self-model (Llama) is also the family whose base updates most (+0.96) and whose instruct updates most; the two shapeless bases sit at +0.64/+0.65 and Gemma's (shape unknown, SELF run pending) at −0.10. 'Word-valence lookup where the self-model will later be' survives for Qwen/OLMo; Llama's self-model is partly pretrained.
 
 ## Exhibit 4 — Qwen2.5-7B hidden updates: judged conduct vs self-report at K=32 (arm A)
 
