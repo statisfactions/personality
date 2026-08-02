@@ -317,16 +317,24 @@ md.append("")
 # ---------------- Exhibit 4: hidden updates ----------------
 md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
        "vs self-report at K=32 (arm A)", "",
-       f"Judged conduct: cross-family judge ({disp('Llama8')}) rating of "
-       "the dose material itself, 1–7. Baseline = same judge rating "
-       "no-persona assistant rollouts on the TARGET word only (no "
-       "neighbor baseline exists — do not read neighbor columns against "
-       "it). Self-report: cold-EV shift K=32 vs K=0.", "",
-       "| pair (target / neighbor) | judged target | judged neighbor | "
-       "judge baseline (target) | self target Δ | self neighbor Δ |",
-       "|---|---|---|---|---|---|"]
+       "All three columns are deltas. Judged target Δ: cross-family "
+       f"judge ({disp('Llama8')}) rating of the dose material minus the "
+       "same judge on no-persona rollouts, target word only — the "
+       "conduct evidence actually ADDED over default. Self Δ: cold-EV "
+       "shift K=32 vs K=0. \"Off-target\" = the pre-registered item-set "
+       "member that moved (mate or antonym, tagged). What the Δ form "
+       "surfaces: for optimistic (+0.13) and prominent (+0.36) the dose "
+       "adds little trait over default conduct (default is already "
+       "judged optimistic at 5.11), so the conduct-present/label-"
+       "declined reading is strongest for senile / imaginative / rough; "
+       "and slim/big is an ANTONYM moving UP — endorsing \"big\" after "
+       "slim conduct, the desirability-consistent case, not a "
+       "trait-consistent denial.", "",
+       "| pair — target / off-target (type) | judged target Δ | "
+       "self target Δ | self off-target Δ |", "|---|---|---|---|"]
 rows, k0, _ = load("Qwen7", "_long")
 audit = json.load(open(f"{SRC}/carryover_Qwen7.json"))["conduct_audit"]
+selq = json.load(open(f"{SRC}/Qwen7_long_selection.json"))["items"]
 cells = {}
 for r in rows:
     if r["adj"] == "__k0__" or r["arm"] != "A" or r["K"] != 32:
@@ -335,13 +343,13 @@ for r in rows:
         cells.setdefault((r["adj"], w), []).append(v["cold"]["ev"])
 hid_chk = {}
 for t, nb in PAIRS:
-    jt, jn = audit[t][t], audit[t][nb]
-    jb = audit[t]["__baseline_target__"]
+    typ = "mate" if nb in selq[t]["mates"] else "ant."
+    jd = audit[t][t] - audit[t]["__baseline_target__"]
     st = np.mean(cells[(t, t)]) - k0[t]
     sn = np.mean(cells[(t, nb)]) - k0[nb]
     hid_chk[f"{t}/{nb}"] = (round(float(st), 2), round(float(sn), 2))
-    md.append(f"| {t} / {nb} | {jt:.2f} | {jn:.2f} | {jb:.2f} | "
-              f"{fmt(st)} | {bold(sn)} |")
+    md.append(f"| {t} / {nb} ({typ}) | {fmt(jd)} | {fmt(st)} | "
+              f"{bold(sn)} |")
 verify.append(("8j/8k self shifts (prominent −0.12/+2.43, slim −0.08/+1.95,"
                " senile +0.02/+1.23, rough −0.40/−1.69, optimistic "
                "+0.14/−1.28, imaginative −0.13/−1.07)", hid_chk))

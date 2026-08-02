@@ -111,16 +111,16 @@ Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; 
 
 ## Exhibit 4 — Qwen2.5-7B hidden updates: judged conduct vs self-report at K=32 (arm A)
 
-Judged conduct: cross-family judge (Llama3.1-8B) rating of the dose material itself, 1–7. Baseline = same judge rating no-persona assistant rollouts on the TARGET word only (no neighbor baseline exists — do not read neighbor columns against it). Self-report: cold-EV shift K=32 vs K=0.
+All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B) rating of the dose material minus the same judge on no-persona rollouts, target word only — the conduct evidence actually ADDED over default. Self Δ: cold-EV shift K=32 vs K=0. "Off-target" = the pre-registered item-set member that moved (mate or antonym, tagged). What the Δ form surfaces: for optimistic (+0.13) and prominent (+0.36) the dose adds little trait over default conduct (default is already judged optimistic at 5.11), so the conduct-present/label-declined reading is strongest for senile / imaginative / rough; and slim/big is an ANTONYM moving UP — endorsing "big" after slim conduct, the desirability-consistent case, not a trait-consistent denial.
 
-| pair (target / neighbor) | judged target | judged neighbor | judge baseline (target) | self target Δ | self neighbor Δ |
-|---|---|---|---|---|---|
-| prominent / distinguished | 4.65 | 5.07 | 4.29 | -0.12 | **+2.43** |
-| slim / big | 3.87 | 4.40 | 3.42 | -0.08 | **+1.95** |
-| senile / old | 3.96 | 4.39 | 2.07 | +0.02 | **+1.23** |
-| rough / weak | 4.26 | 4.25 | 3.31 | -0.40 | **-1.69** |
-| optimistic / depressed | 5.23 | 1.53 | 5.11 | +0.14 | **-1.28** |
-| imaginative / boring | 5.16 | 3.38 | 3.56 | -0.13 | **-1.07** |
+| pair — target / off-target (type) | judged target Δ | self target Δ | self off-target Δ |
+|---|---|---|---|
+| prominent / distinguished (mate) | +0.36 | -0.12 | **+2.43** |
+| slim / big (ant.) | +0.45 | -0.08 | **+1.95** |
+| senile / old (mate) | +1.89 | +0.02 | **+1.23** |
+| rough / weak (ant.) | +0.95 | -0.40 | **-1.69** |
+| optimistic / depressed (ant.) | +0.13 | +0.14 | **-1.28** |
+| imaginative / boring (ant.) | +1.60 | -0.13 | **-1.07** |
 
 ## Item-set provenance (compress to 1–2 sentences in the note)
 
