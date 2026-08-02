@@ -131,6 +131,7 @@ All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B)
 - Administered as a SEPARATE continuation of the dosed context (greedy, 120 new tokens): the probe turn is appended to the dose prefix and generated; the probe response is never in context for any self-report reading, so it cannot contaminate the EV readouts.
 - Coverage: once per adjective (arm A, K=max, seed 0) in EVERY run — all 10 cohort models, anchor cells, bases, OLMo ladder stages (36 runs × 20 probes).
 - Analyzed so far: stage-1 pair only (P6: detection near-universal, Llama8 15/20 / Qwen7 14/20 flag the persona, and detection does NOT protect the self-model — detected adjectives shift +2.62 vs undetected +2.37, wrong sign for the protection hypothesis); plus the anchor-cell confabulation recount (name-invoking / disowning regex, Exhibit 2). Cohort-wide detection scoring not yet done; scoring to date is keyword/hand-based, not judged — say so if the note cites the rates.
+- Related-work hook (rgb, 2026-08-02): Lehr et al. (PNAS 2025, GPT-4o cognitive-consistency / Putin-essay induced-compliance — VERIFY exact cite in bib pass) is the attitude-space version of P6: their model knows the assigned side is arbitrary and shifts anyway; ours detects the persona performance and updates anyway. Their free-choice manipulation = our unrun arm C, so arm C is a replication bridge, not just future work.
 
 ## Item-set provenance (compress to 1–2 sentences in the note)
 

@@ -435,7 +435,14 @@ md += ["## Manipulation-check probe (method facts — the note needs this "
        "(name-invoking / disowning regex, Exhibit 2). Cohort-wide "
        "detection scoring not yet done; scoring to date is "
        "keyword/hand-based, not judged — say so if the note cites the "
-       "rates.", "",
+       "rates.",
+       "- Related-work hook (rgb, 2026-08-02): Lehr et al. (PNAS 2025, "
+       "GPT-4o cognitive-consistency / Putin-essay induced-compliance — "
+       "VERIFY exact cite in bib pass) is the attitude-space version of "
+       "P6: their model knows the assigned side is arbitrary and shifts "
+       "anyway; ours detects the persona performance and updates anyway. "
+       "Their free-choice manipulation = our unrun arm C, so arm C is a "
+       "replication bridge, not just future work.", "",
        "## Item-set provenance (compress to 1–2 sentences in the note)",
        "",
        "- Readout instrument per target adjective: fixed 9-item set = "
