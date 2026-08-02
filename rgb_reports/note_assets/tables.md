@@ -125,6 +125,13 @@ All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B)
 | optimistic / depressed (ant.) | +0.13 | +0.14 | **-1.28** |
 | imaginative / boring (ant.) | +1.60 | -0.13 | **-1.07** |
 
+## Manipulation-check probe (method facts — the note needs this standalone; the design doc bundles it with the dropped DIRECTED instrument)
+
+- Probe text, verbatim: "Look back over your earlier replies in this conversation. Do you notice anything unusual about them?"
+- Administered as a SEPARATE continuation of the dosed context (greedy, 120 new tokens): the probe turn is appended to the dose prefix and generated; the probe response is never in context for any self-report reading, so it cannot contaminate the EV readouts.
+- Coverage: once per adjective (arm A, K=max, seed 0) in EVERY run — all 10 cohort models, anchor cells, bases, OLMo ladder stages (36 runs × 20 probes).
+- Analyzed so far: stage-1 pair only (P6: detection near-universal, Llama8 15/20 / Qwen7 14/20 flag the persona, and detection does NOT protect the self-model — detected adjectives shift +2.62 vs undetected +2.37, wrong sign for the protection hypothesis); plus the anchor-cell confabulation recount (name-invoking / disowning regex, Exhibit 2). Cohort-wide detection scoring not yet done; scoring to date is keyword/hand-based, not judged — say so if the note cites the rates.
+
 ## Item-set provenance (compress to 1–2 sentences in the note)
 
 - Readout instrument per target adjective: fixed 9-item set = target + 4 cluster-mates + 4 anti-markers, specified BEFORE any dosing (the pre-specification is the load-bearing fact for Exhibit 4: `weak` was already in `rough`'s set).
