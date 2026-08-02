@@ -321,8 +321,8 @@ md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
        "the dose material itself, 1–7; baseline = same judge on "
        "no-persona assistant rollouts. Self-report: cold-EV shift K=32 "
        "vs K=0.", "",
-       "| pair (target / neighbour) | judged target | judged neighbour | "
-       "judge baseline | self target Δ | self neighbour Δ |",
+       "| pair (target / neighbor) | judged target | judged neighbor | "
+       "judge baseline | self target Δ | self neighbor Δ |",
        "|---|---|---|---|---|---|"]
 rows, k0, _ = load("Qwen7", "_long")
 audit = json.load(open(f"{SRC}/carryover_Qwen7.json"))["conduct_audit"]
@@ -402,7 +402,7 @@ md += ["## Item-set provenance (compress to 1–2 sentences in the note)",
        "dosing (the pre-specification is the load-bearing fact for "
        "Exhibit 4: `weak` was already in `rough`'s set).",
        "- Mates: membership in the human-derived facet clusters "
-       "(instruments/trait_clusters.json, W18); nearest-neighbour "
+       "(instruments/trait_clusters.json, W18); nearest-neighbor "
        "fallback for unclustered targets.",
        "- Anti-markers: anticorrelation in a model-derived "
        "judgment-similarity matrix, desirability-partialled (raw "
