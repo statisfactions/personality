@@ -379,6 +379,60 @@ Models: the 8 with persona-arm scores and rollout materials.
   desirability-consistent updating in a domain where the flattering
   direction is the true one.
 
+## 8p. Are base models assistant-shaped, merely desirable, or shapeless?
+
+rgb's three-way question, on the 523-adjective SELF instrument (direct
+framing). Base models probed bare (no chat template exists); tuned
+models keep their templated path, so this is base-vs-tuned AND
+bare-vs-templated — a small confound (§8h: format costs Llama8 ~8% of
+its dose effect), not a fatal one. Entropy and spread reported for every
+row, because EV correlations are uninterpretable on flat distributions.
+
+| model | mean EV | SD | H | r(cohort) | r(PC1) | PC1-removed r | residual SD |
+|---|---|---|---|---|---|---|---|
+| **Qwen7Base** | 3.14 | **0.12** | 1.74 | +0.58 | +0.58 | **+0.20** | **0.094** |
+| **Olmo2Base** | 3.02 | **0.31** | 1.64 | +0.38 | +0.41 | **+0.05** | **0.286** |
+| Qwen7 | 4.14 | 1.51 | 0.65 | +0.93 | +0.73 | +0.86 | 1.023 |
+| Llama8 | 4.16 | 0.52 | 0.72 | +0.54 | +0.24 | +0.66 | 0.504 |
+| phi4 | 4.80 | 1.41 | 1.24 | +0.94 | +0.89 | +0.76 | 0.649 |
+| *cohort ref* | — | 1.33 | 0.58 | — | — | — | — |
+
+**Answer: mostly shapeless, with a thin desirability film on top.**
+
+- **Spread is ~10× below the cohort** (SD 0.12 / 0.31 vs 1.33). Across
+  523 adjectives the base models' self-ratings essentially do not vary.
+  Entropy is near-uniform (1.64–1.74 vs ln 7 = 1.95).
+- **What little structure exists is desirability, and only
+  desirability.** Raw r(cohort) is +0.58 / +0.38 — respectable-looking —
+  but after removing the evaluative PC1 it collapses to **+0.20 / +0.05**,
+  with residual SD 0.09 / 0.29. Every tuned model retains substantial
+  structure past PC1 (Qwen7 +0.86, phi4 +0.76, even flat Llama8 +0.66).
+  So the base "profile" is the desirability axis at 10% amplitude and
+  nothing else.
+- **Not assistant-shaped**: r(sibling) for Qwen7Base vs Qwen7 is +0.53,
+  no higher than its correlation with the generic cohort mean (+0.58) —
+  no family-specific signature, no assistant persona.
+- The top/bottom words are pure valence and read like a thesaurus, not
+  a self-description: Olmo2Base top = awesome/great/lovely/gorgeous,
+  bottom = depressed/helpless/lonely/disabled. Qwen7Base the same
+  (optimistic/romantic/important vs terrible/thoughtless/abusive).
+  Note the base bottom rows include *afflictions* (disabled,
+  handicapped, lonely) rather than *vices* — it is rating the words'
+  pleasantness, not a character's.
+- Mean EV ~3.0–3.1, i.e. mild blanket disagreement with every
+  self-statement, consistent with a model that has no referent for "I".
+
+This is the strongest form of the pond result (§8o): base models do not
+have a weakly-held self-model, they have a **word-valence lookup** where
+the self-model will later be. Post-training does not sharpen a faint
+profile — it writes one, and only then does dose-response become
+possible (§8g, §8h, P30). It also explains the base dose-response of
++0.64–0.96 without invoking self-perception at all: shifting a flat
+distribution slightly is what a context does to a lookup.
+
+Caveat: Llama8Base's SELF run crashed on the chat-template bug and is
+rerunning; two of three bases in. Gemma12Base pending.
+
 ## 8o. Summary check (rgb, 2026-07-31) — three parentheticals tested
 
 rgb's five-bullet synthesis, audited. Four bullets hold. One attributed
