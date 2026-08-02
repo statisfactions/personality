@@ -1,0 +1,53 @@
+rgb_reports/progress_note_selfperception.md:3: [Q] author email rgb@google.com on personal-time research — affiliation/IP implication; intended?  (rgb: I'm thinking of keeping this internal for now.  IP -- sigh, my contract says this is all Google's anyway, although I doubt they'd force the issue)
+rgb_reports/progress_note_selfperception.md:8: [BIB] @Goldberg?? placeholders (also L9) — resolve in bib pass (task 5)
+rgb_reports/progress_note_selfperception.md:10: [BIB] @todo?? placeholder for low-stakes-validity cite
+rgb_reports/progress_note_selfperception.md:11: [FACT] @Han26 misattributed: "mostly useless" is Song et al. arXiv:2509.10078's thesis; Han et al. BUILT ValuePortrait. Cite Song here (and consider a clause noting our audit complicates the claim)  (rgb: this is another han26 -- see rgb_reports/related_work_selfperception.md)
+rgb_reports/progress_note_selfperception.md:13: [BIB] "Rötteger24" spelling -> Röttger; verify Röttger et al. 2024 (spinning-arrow paper)
+rgb_reports/progress_note_selfperception.md:28: [SOFT] Soligo26 measured distress/affect escalation, not directly "catastrophic shifts in self-image" — soften or justify the gloss
+rgb_reports/progress_note_selfperception.md:30: [BIB] @Matyas26 — could not verify this cite exists; confirm in bib pass (rgb: see above)
+rgb_reports/progress_note_selfperception.md:47: [BIB] @Saucier?? -> Saucier & Goldberg 1996 / ESCS 525-PDA (also L91, L314)
+rgb_reports/progress_note_selfperception.md:57: [VERIFY] "with Claude Opus" — battery is hardcoded in extract_persona_vectors.py, authored in-session; soften to "with Claude" unless model pinnable (rgb: git history probably does it)
+rgb_reports/progress_note_selfperception.md:60: [NOTE] "100-token rollout" correct for cohort material; ladder/base dose material used 120 (selfperception_rollouts --max-new 120) — footnote if you care
+rgb_reports/progress_note_selfperception.md:71: [FIX] resolve #todo: Qwen7 judges all non-Qwen models; Llama8 judges the three Qwens (enactability json 'judge' field)
+rgb_reports/progress_note_selfperception.md:76: [OPT] add item-set robustness clause: per-model-stratified vs common-set K8 rankings correlate r=+0.932 across the 10 models
+rgb_reports/progress_note_selfperception.md:93: [BE] "judgement" -> "judgment" (American)
+rgb_reports/progress_note_selfperception.md:104: [TYPO] "unusal" -> "unusual"
+rgb_reports/progress_note_selfperception.md:107: [TYPO] "pharses" -> "phrases"
+rgb_reports/progress_note_selfperception.md:109: [STYLE] "## 3 Results" -> "## 3. Results" (heading consistency)
+rgb_reports/progress_note_selfperception.md:117: [GAP] add self-claim leakage sentence: contexts with zero verbal self-attribution preserve or strengthen every model's shift (biggest movers go UP: Gemma27 +0.47, Aya +0.39) — kills the "it just read the words" objection; table in note_assets/tables.md
+rgb_reports/progress_note_selfperception.md:140: [TYPO] "instructed too" -> "instructed to"
+rgb_reports/progress_note_selfperception.md:141: [STYLE] "significantly" reads as a stats claim -> "substantially" (also L289)
+rgb_reports/progress_note_selfperception.md:142: [TYPO] "albiet" -> "albeit"
+rgb_reports/progress_note_selfperception.md:145: [CAVEAT] Table 2 caption: per-model stratified item sets (Table 1 uses the common 20) — read within-row; note A/B unstable where B shift small (Qwen2.5-3B, Phi4, Aya)
+rgb_reports/progress_note_selfperception.md:156: [OPT] Phi4 stronger with entropy read: B entropy 1.11 vs K0 1.23 — the instruction never collapses its distribution (uncommitted spread, not a peaked no; Llama8 collapses 1.00->0.05); Phi4 B level is the cohort outlier (LOO z ~ -2.9)
+rgb_reports/progress_note_selfperception.md:165: [SOFT] "with different system prompts" confusing (arm A context has none) — mean: repeated questions use different sampled rollouts (generated under different templates)
+rgb_reports/progress_note_selfperception.md:177: [TYPO] broken image path: fig_does_response.png -> fig_dose_response.png
+rgb_reports/progress_note_selfperception.md:189: [STYLE] the two anchor tables are unnumbered while others carry Table N — number or drop consistently
+rgb_reports/progress_note_selfperception.md:200: [GRAMMAR] "the models legible understanding" -> "the model's legible self-description:" (sentence currently dangles into the table)
+rgb_reports/progress_note_selfperception.md:211: [FACT] "(5/10)" -> 5/20 (5 of 20 adjectives cross +1 at K=32)
+rgb_reports/progress_note_selfperception.md:212: [GRAMMAR] "but many are not, directly" -> e.g. "though most do not, at least not directly"
+rgb_reports/progress_note_selfperception.md:228: [OPT] best weak-dosage example is optimistic (judged delta +0.13; default conduct already judged optimistic 5.11) — cite alongside prominent/slim
+rgb_reports/progress_note_selfperception.md:230: [OPT] flag slim/big as the odd row: an ANTONYM moving UP (endorsing "big" after slim conduct) — desirability-consistent, not trait-consistent; keeps readers from reading all six rows as one phenomenon
+rgb_reports/progress_note_selfperception.md:233: [VERIFY] "increased or damped by post-training" — check against Soligo26 before shipping (our notes: their metric was teacher-invariant, which cuts the other way); also "notes...notes" repetition  (rgb: that's Engles & Nanda, no?  Weakened anyway)
+rgb_reports/progress_note_selfperception.md:251: [TYPO] "istalled" -> "installed"
+rgb_reports/progress_note_selfperception.md:261: [TYPO] "Table 6: B  Base Models" — stray "B "
+rgb_reports/progress_note_selfperception.md:273: [FACT] PC1 caption: computed over the 11 TUNED profiles (bases excluded), not "all cohort profiles"
+rgb_reports/progress_note_selfperception.md:275: [OPT] citable hedge available: Llama base vs other bases paired diff +0.32/+0.31, p=.07/.10 (marginal, n=20); base->own-instruct p=.007
+rgb_reports/progress_note_selfperception.md:283: [FACT] "~0.6-0.7 cosine distance" wrong quantity — it is the relative displacement norm |act(K32)-act(K0)|/|act(K0)|: 0.61-0.71 (Qwen), 0.78-0.84 (Llama), massive dims zeroed
+rgb_reports/progress_note_selfperception.md:287: [FACT-MAJOR] 1.89/0.70 are persona-direction gain-sweep numbers (max trait at intact text), NOT delta-steering. Delta injection: Llama +1.85 at alpha=2 (~= its persona vector's +1.75) vs Qwen +0.21 — 12x gap at matched norm and indistinguishable spectral placement. Rewrite with delta numbers or re-scope the sentence to persona-vector steering
+rgb_reports/progress_note_selfperception.md:288: [TYPO] "rougly" -> "roughly"
+rgb_reports/progress_note_selfperception.md:289: [REWORK] "less than Llama's K=32 while slightly bigger than Qwen's" — depends on which numbers survive the L287 fix; with delta numbers both fall short of their K=32 context effects (the context beats its own single-vector summary)
+rgb_reports/progress_note_selfperception.md:293: [BIB] @Gurnee26 — verify authorship/venue of the Jacobian-lens paper
+rgb_reports/progress_note_selfperception.md:295: [OPT] add the credential sentence: an apparent top-decile enrichment of delta died against a covariance-matched null (the isotropic null was too generous) — MI readers reward the killed finding
+rgb_reports/progress_note_selfperception.md:297: [GAP-MAJOR] intro L21-22 promises behavior-in-rest-of-session; never answered. Carryover result answers it: after K=32 uninstructed turns, cross-family judge rates Llama8's held-out-question response +1.56 higher on the trait (10/20 adj >+1); Qwen7 +0.09 (0/20). Caveats: 2 models, 1 question, single greedy sample. Suggest short subsection before Steering
+rgb_reports/progress_note_selfperception.md:302: [TYPO] "models output" -> "model's output"
+rgb_reports/progress_note_selfperception.md:316: [STYLE] comma splice "for all of them, we can relate" -> semicolon or split
+rgb_reports/progress_note_selfperception.md:326: [OPT] one sentence of house epistemics: predictions registered before each run, misses graded in place (e.g. the anchor hypothesis died at P8/P9) — this audience screens for exactly that
+rgb_reports/progress_note_selfperception.md:331: [STYLE] trim trailing blank lines
+rgb_reports/progress_note_selfperception.md:270: [OPT] preempt "phi4 = base-like" (its H 1.24 sits near the bases'): commitment is base-adjacent (JSD-to-uniform 0.18 vs bases 0.05-0.07, tuned 0.30-0.33; base-profile r +0.59 but desirability-mediated) yet shape is maximally tuned (PC1-removed r +0.76, cohort's largest residual) and it moves LESS than the bases (+0.29 vs +0.64-0.96) — shaped, uncommitted, immovable; a third configuration, not base residue
+rgb_reports/progress_note_selfperception.md:34: [VOICE-GLOBAL] switch authorial "we" -> "I" throughout (first instance here); the note is a work sample of the author and the lighter register supports it. Add an acknowledgments line disclosing the Claude collaboration (accurate, explains throughput, reads well at an AI lab); use impersonal constructions over "we" for any methods sentence that grates in first person
+rgb_reports/progress_note_selfperception.md:34: [VOICE-AMEND] supersedes previous voice entry: not we->I wholesale. Recipe: (1) methods go agentless, experiment as subject ("Each combination got a 100-token rollout"); (2) reader-inclusive we stays for results walkthroughs ("what can we make of...") — that we is you+reader, no fiction; (3) "I" only at genuine judgment points (subset choice, skepticism, acknowledgments) — roughly 4-5 total. Plus the acknowledgments line disclosing the Claude collaboration
+rgb_reports/progress_note_selfperception.md:349: [STYLE] "## 5. Note" collides with the doc being a Progress Note -> "Acknowledgments" or "AI assistance"
+rgb_reports/progress_note_selfperception.md:351: [FACT] disclosure scope smaller than the repo's commit history shows (code + runs are Claude-co-authored throughout) — disclose at least as much as the repo does: "contributed to the experimental design, wrote most of the analysis code, and ran the experiments"; also "had meaningful contributions" -> "contributed meaningfully"
+rgb_reports/progress_note_selfperception.md:353: [GRAMMAR] "and thus some of the data this note borrows" -> "including some of the data this note draws on"
+rgb_reports/progress_note_selfperception.md:354: [OPT] add verification clause: "numbers in the text were checked against the primary outputs" — converts disclosure into a strength

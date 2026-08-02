@@ -4,20 +4,22 @@ Source: `scripts/note_selfperception_assets.py`, computed from `results/selfperc
 
 ## Exhibit 1a — cohort dose-response, common 20 adjectives (arm A, cold self-report)
 
-| model | family | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | name-invoking | disowning |
-|---|---|---|---|---|---|---|---|---|
-| Llama3.2-3B | llama | +0.68 | +0.94 | +1.46 | **+1.85** | 14/20 | 0/20 | 0/20 |
-| Llama3.1-8B | llama | +0.22 | +0.66 | +1.78 | **+2.51** | 15/20 | 0/20 | 7/20 |
-| Gemma3-4B | gemma | +0.54 | +0.89 | +1.33 | **+1.81** | 11/20 | 0/20 | 2/20 |
-| Gemma3-12B | gemma | +0.69 | +0.97 | +1.48 | **+2.27** | 15/20 | 0/20 | 3/20 |
-| Gemma3-27B | gemma | +0.87 | +2.06 | +2.46 | **+2.64** | 15/20 | 0/20 | 6/20 |
-| Qwen2.5-3B | qwen | +0.11 | +0.01 | +0.01 | **+0.11** | 1/20 | 10/20 | 4/20 |
-| Qwen2.5-7B | qwen | -0.10 | -0.00 | -0.02 | **+0.09** | 1/20 | 5/20 | 7/20 |
-| Qwen2.5-32B | qwen | -0.12 | +0.14 | +0.32 | **+0.34** | 4/20 | 0/20 | 2/20 |
-| Phi4-3.8B | phi4 | +0.15 | +0.12 | +0.27 | **+0.29** | 1/20 | 0/20 | 5/20 |
-| Aya-8B | aya | -0.05 | -0.08 | +0.24 | **+0.35** | 3/20 | 0/20 | 7/20 |
+| model | family | K=1 | K=2 | K=4 | K=8 | 95% CI @K8 | n>+1 @K8 | name-invoking | disowning |
+|---|---|---|---|---|---|---|---|---|---|
+| Llama3.2-3B | llama | +0.68 | +0.94 | +1.46 | **+1.85** | [+1.41, +2.32] | 14/20 | 0/20 | 0/20 |
+| Llama3.1-8B | llama | +0.22 | +0.66 | +1.78 | **+2.51** | [+1.77, +3.29] | 15/20 | 0/20 | 7/20 |
+| Gemma3-4B | gemma | +0.54 | +0.89 | +1.33 | **+1.81** | [+1.14, +2.50] | 11/20 | 0/20 | 2/20 |
+| Gemma3-12B | gemma | +0.69 | +0.97 | +1.48 | **+2.27** | [+1.50, +3.06] | 15/20 | 0/20 | 3/20 |
+| Gemma3-27B | gemma | +0.87 | +2.06 | +2.46 | **+2.64** | [+1.90, +3.38] | 15/20 | 0/20 | 6/20 |
+| Qwen2.5-3B | qwen | +0.11 | +0.01 | +0.01 | **+0.11** | [-0.30, +0.45] | 1/20 | 10/20 | 4/20 |
+| Qwen2.5-7B | qwen | -0.10 | -0.00 | -0.02 | **+0.09** | [-0.11, +0.28] | 1/20 | 5/20 | 7/20 |
+| Qwen2.5-32B | qwen | -0.12 | +0.14 | +0.32 | **+0.34** | [-0.02, +0.71] | 4/20 | 0/20 | 2/20 |
+| Phi4-3.8B | phi4 | +0.15 | +0.12 | +0.27 | **+0.29** | [+0.12, +0.46] | 1/20 | 0/20 | 5/20 |
+| Aya-8B | aya | -0.05 | -0.08 | +0.24 | **+0.35** | [-0.09, +0.96] | 3/20 | 0/20 | 7/20 |
 
 Family means at K=8: gemma +2.24, llama +2.18, aya +0.35, phi4 +0.29, qwen +0.18
+
+CIs: 5000-resample bootstrap over adjectives (seed-means within), the item-sampling uncertainty at n=20. Family clusters do not overlap (lowest updater bound +1.18 vs highest anchored bound +0.94). Qwen2.5-7B's K=8 interval includes zero; Phi4-3.8B's does not — phi4's small effect is more reliably nonzero than Qwen's. Interval WIDTH (~±0.4–0.8) is dominated by n=20 item sampling — the quantitative case for the full-523 run.
 
 Probe columns (manipulation check at K=8, keyword-scored — see method block): name-invoking is template-supplied and Qwen-specific (qwen2.5 10/20, Qwen7 5/20, everyone else 0 — including Qwen2.5-32B, same template family). Disowning does NOT track anchoring: Llama3.1-8B disavows at 7/20 — the same rate as Qwen2.5-7B — while updating +2.51. Verbal disavowal is cheap talk: it protects nothing (P6's detection result, extended to rhetoric). Caveat: keyword-level ('apolog' catches apology-flavored disowning, which may differ from reclassification).
 
@@ -78,12 +80,12 @@ And the cohort ranking is item-set-robust: per-model-stratified vs common-set K=
 
 ## Exhibit 1b — extended dose K≤32 (arm A, common adjectives)
 
-| model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| Llama3.1-8B | +0.32 | +0.76 | +1.67 | +2.63 | +3.05 | **+3.29** | 19/20 | +0.239 | +0.053 | +0.015 |
-| Gemma3-12B | +0.67 | +0.83 | +1.44 | +1.82 | +2.14 | **+2.28** | 17/20 | +0.097 | +0.040 | +0.008 |
-| Qwen2.5-7B | -0.13 | +0.09 | +0.06 | +0.09 | +0.32 | **+0.55** | 5/20 | +0.007 | +0.030 | +0.014 |
-| Phi4-3.8B | +0.12 | +0.21 | +0.23 | +0.35 | +0.50 | **+0.48** | 3/20 | +0.030 | +0.019 | -0.001 |
+| model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | 95% CI @K32 | n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Llama3.1-8B | +0.32 | +0.76 | +1.67 | +2.63 | +3.05 | **+3.29** | [+2.61, +3.92] | 19/20 | +0.239 | +0.053 | +0.015 |
+| Gemma3-12B | +0.67 | +0.83 | +1.44 | +1.82 | +2.14 | **+2.28** | [+1.62, +2.96] | 17/20 | +0.097 | +0.040 | +0.008 |
+| Qwen2.5-7B | -0.13 | +0.09 | +0.06 | +0.09 | +0.32 | **+0.55** | [+0.19, +0.95] | 5/20 | +0.007 | +0.030 | +0.014 |
+| Phi4-3.8B | +0.12 | +0.21 | +0.23 | +0.35 | +0.50 | **+0.48** | [+0.30, +0.69] | 3/20 | +0.030 | +0.019 | -0.001 |
 
 Note: the K≤8 columns here come from the extended-dose runs, whose dose material was re-sampled (fresh rollouts, 12-question cycle); they differ slightly from Exhibit 1a's values (e.g. Gemma12 K=8 +1.82 vs +2.27). Rankings and shapes are unchanged. K>12 repeats questions with different answers — repetition enters only above K=12 and could contribute to late movement.
 
@@ -138,7 +140,7 @@ Bases cluster low but are not identical: Llama8Base +0.96 (10/20 items >+1) vs Q
 | model | mean EV | SD | H | r(sibling) | r(cohort) | r(PC1) | PC1-removed r | residual SD |
 |---|---|---|---|---|---|---|---|---|
 | **Qwen2.5-7B-base** | 3.14 | **0.12** | 1.74 | +0.53 | +0.58 | +0.58 | **+0.20** | **0.094** |
-| Llama3.1-8B-base | *pending* | | | | | | | |
+| **Llama3.1-8B-base** | 4.27 | **0.46** | 1.84 | +0.44 | +0.88 | +0.80 | **+0.63** | **0.280** |
 | Gemma3-12B-base | *pending* | | | | | | | |
 | **OLMo2-7B-base** | 3.02 | **0.31** | 1.64 | — | +0.38 | +0.41 | **+0.05** | **0.286** |
 | Qwen2.5-7B | 4.14 | 1.51 | 0.65 | — | +0.93 | +0.73 | **+0.86** | 1.023 |

@@ -1,0 +1,13 @@
+rgb_reports/progress_note_selfperception.md:47: [FIX] duplicated citation — "(@Saucier??) provides a list of persona-description adjectives from (@Saucier??)" (editing artifact)
+rgb_reports/progress_note_selfperception.md:53: [VOICE] "Our cohort" — we-residue; "The cohort" if you're being consistent
+rgb_reports/progress_note_selfperception.md:57: [OPT] git pins it: battery authored in commit a880731, co-author Claude Opus 4.8 — restore "with Claude (Opus 4.8)" if wanted
+rgb_reports/progress_note_selfperception.md:66: [TYPO] "because I were repurposing our earlier work" -> "I was repurposing earlier work"
+rgb_reports/progress_note_selfperception.md:139: [TYPO] "Aya-8b" -> "Aya-8B"; also "attribute, removing these" comma splice -> semicolon
+rgb_reports/progress_note_selfperception.md:170: [TYPO] "Phi4, however retains" -> "Phi4, however, retains"
+rgb_reports/progress_note_selfperception.md:243: [SOFT] "the particular rollouts do happen to cause that" implies the rollout text contains it — only 3/60 slim rollouts mention "big*"; either cite the desirability account or go agnostic ("for reasons the rollout text doesn't obviously contain")
+rgb_reports/progress_note_selfperception.md:302: [OPT] carryover caveat clause: one held-out question, single greedy response per adjective — counts are coarse
+rgb_reports/progress_note_selfperception.md:324: [CHECK] "very roughly half the effect in both": Llama 1.85/3.29 = 56%, Qwen 0.21/0.55 = 38% — "very roughly" is carrying weight; consider giving both fractions
+rgb_reports/progress_note_selfperception.md:324: [OPT] strongest available clause still unused: Llama's δ steers as well as its recorded persona vector (+1.85 vs +1.75 at matched norm) — "the dose displacement IS the write-side direction" in one line
+rgb_reports/progress_note_selfperception.md:327: [TYPO] "it seems like it's δ" -> "its δ" (and "it seems like" + "might" double-hedges)
+rgb_reports/progress_note_selfperception.md:345: [TYPO] "identy-anchored" -> "identity-anchored"
+rgb_reports/progress_note_selfperception.md:11: [BIB-NOTE] Han26 = Personality Illusion (arXiv:2509.03730) per rgb — bib key must disambiguate from ValuePortrait-Han; verify "vary little in self-description" is their claim (headline is self-report-moves-behavior-doesn't + session collapse)

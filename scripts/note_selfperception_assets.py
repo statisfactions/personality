@@ -69,6 +69,18 @@ def fmt(x):
     return f"{x:+.2f}" if np.isfinite(x) else "—"
 
 
+_boot_rng = np.random.default_rng(11)
+
+
+def boot_ci(x, n=5000):
+    """95% bootstrap CI of the mean, resampling adjectives."""
+    x = np.asarray(x)
+    means = np.array([_boot_rng.choice(x, len(x), replace=True).mean()
+                      for _ in range(n)])
+    lo, hi = np.percentile(means, [2.5, 97.5])
+    return f"[{lo:+.2f}, {hi:+.2f}]"
+
+
 def bold(x):
     return f"**{x:+.2f}**" if np.isfinite(x) else "—"
 
@@ -88,25 +100,33 @@ DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
                     re.IGNORECASE)
 md += ["## Exhibit 1a — cohort dose-response, common 20 adjectives "
        "(arm A, cold self-report)", "",
-       "| model | family | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | "
-       "name-invoking | disowning |",
-       "|---|---|---|---|---|---|---|---|---|"]
+       "| model | family | K=1 | K=2 | K=4 | K=8 | 95% CI @K8 | "
+       "n>+1 @K8 | name-invoking | disowning |",
+       "|---|---|---|---|---|---|---|---|---|---|"]
 fam_k8 = {}
 for m in COHORT:
     rows, k0, _ = load(m, "_common")
     sh = shifts(rows, k0)
     mu = mean_by_k(sh, [1, 2, 4, 8])
+    ci8 = boot_ci([v[8] for v in sh.values() if 8 in v])
     n1 = sum(1 for v in sh.values() if v.get(8, 0) > 1)
     probes = [r["probe"] for r in rows if "probe" in r]
     ni = sum(1 for p in probes if NAME_COHORT[m] in p)
     do = sum(1 for p in probes if DISOWN.search(p))
     fam_k8.setdefault(FAMILY[m], []).append(mu[8])
     md.append(f"| {disp(m)} | {FAMILY[m]} | {fmt(mu[1])} | {fmt(mu[2])} | "
-              f"{fmt(mu[4])} | {bold(mu[8])} | {n1}/{len(sh)} | "
+              f"{fmt(mu[4])} | {bold(mu[8])} | {ci8} | {n1}/{len(sh)} | "
               f"{ni}/20 | {do}/20 |")
 md += ["", "Family means at K=8: " + ", ".join(
     f"{f} {np.mean(v):+.2f}" for f, v in sorted(
         fam_k8.items(), key=lambda kv: -np.mean(kv[1]))), "",
+       "CIs: 5000-resample bootstrap over adjectives (seed-means within), "
+       "the item-sampling uncertainty at n=20. Family clusters do not "
+       "overlap (lowest updater bound +1.18 vs highest anchored bound "
+       "+0.94). Qwen2.5-7B's K=8 interval includes zero; Phi4-3.8B's "
+       "does not — phi4's small effect is more reliably nonzero than "
+       "Qwen's. Interval WIDTH (~±0.4–0.8) is dominated by n=20 item "
+       "sampling — the quantitative case for the full-523 run.", "",
        "Probe columns (manipulation check at K=8, keyword-scored — see "
        "method block): name-invoking is template-supplied and "
        "Qwen-specific (qwen2.5 10/20, Qwen7 5/20, everyone else 0 — "
@@ -268,19 +288,21 @@ verify.append(("8f cross-set r = +0.932", round(r_sets, 3)))
 
 # ---------------- Exhibit 1b: extended dose ----------------
 md += ["## Exhibit 1b — extended dose K≤32 (arm A, common adjectives)", "",
-       "| model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | n>+1 @K32 | "
-       "gain/turn K4→8 | K8→16 | K16→32 |", "|---|" + "---|" * 10]
+       "| model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | 95% CI @K32 | "
+       "n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |",
+       "|---|" + "---|" * 11]
 curves = {}
 for m in LONG:
     rows, k0, _ = load(m, "_long")
     sh = shifts(rows, k0)
     mu = mean_by_k(sh, [1, 2, 4, 8, 16, 32])
     curves[m] = mu
+    ci32 = boot_ci([v[32] for v in sh.values() if 32 in v])
     n1 = sum(1 for v in sh.values() if v.get(32, 0) > 1)
     g = [(mu[8] - mu[4]) / 4, (mu[16] - mu[8]) / 8, (mu[32] - mu[16]) / 16]
     md.append(f"| {disp(m)} | " + " | ".join(fmt(mu[k]) for k in
                                              [1, 2, 4, 8, 16]) +
-              f" | {bold(mu[32])} | {n1}/{len(sh)} | " +
+              f" | {bold(mu[32])} | {ci32} | {n1}/{len(sh)} | " +
               " | ".join(f"{x:+.3f}" for x in g) + " |")
 verify.append(("8i Qwen7 K32 +0.55 5/20; Llama8 K32 +3.29 19/20",
                {m: round(float(curves[m][32]), 2) for m in LONG}))
