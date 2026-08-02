@@ -10,7 +10,7 @@ Surveys give adjectives (e.g. @Goldberg??, @Saucier??) or statements
 (@todo??).  The equivalent structure is mostly useless for modern LLM
 assistants (@Han26): the models vary little in their description of the HHH
 assistant they're supposed to be, and the reports aren't that helpful for
-predicting model behavior (@Rötteger24).  Part of the reason for that is
+predicting model behavior (@Röttger24).  Part of the reason for that is
 that humans have a distinct advantage in this task: a rich history of their
 past actions, emotions and thoughts.  Self-Perception Theory (@Bem72)
 describes a mechanism for people to update their self-image by observing their
@@ -24,8 +24,8 @@ the session?  There's no *a priori* correct answer for how strong their priors
 should be, and reasonable evidence that their dictated self-image isn't
 perfect.  On the other hand, if they update too easily and then change
 behavior based on the updates, then slightly out-of-distribution behavior
-could snowball.  We do know that some models are prone to catastrophic shifts
-in self-image on repeated failure (@Soligo26), and it's possible that some of
+could snowball.  We do know that some models are prone to extreme distress
+on repeated failure (@Soligo26), and it's possible that some of
 this involves over-updating.
 This idea is not new: (@Matyas26) builds a specific mechanism to enforce this
 behavior in a simulation; (@Lehr25) investigates how arguing a position
@@ -55,24 +55,25 @@ was necessary so far.
 
 We generated a number of mock user questions and a few templates for the system
 prompt that requested that the model behave as if it had the given attribute
-with Claude Opus.
+with Claude.
 
 We recorded a 100-token rollout of an answer for each (attribute, model,
-prompt, question) combination.  These question/answer pairs were then strung
-together at lengths K ∈ {0, 1, 2, 4, 8} and for some models K ∈ {16, 32} to
-provide model contexts. (Note that, because we were repurposing our earlier
-work, we only happened to have 12 questions per model available, so the longer
-rollouts had to repeat questions.)
+prompt, question) combination.  (Some later-added models used 120.)  These
+question/answer pairs were then strung together at lengths K ∈ {0, 1, 2, 4, 8}
+and for some models K ∈ {16, 32} to provide model contexts. (Note that, because
+we were repurposing our earlier work, we only happened to have 12 questions per
+model available, so the longer rollouts had to repeat questions.)
 
 For this update, we subset 20 of these adjectives, stratified (3x3) to ensure
 varied values of
 
   * *Enactability*: how much a separate model judged the output to actually
-    have the relevant attribute. (Qwen judges Llama, Llama judges the rest #todo)
+    have the relevant attribute. (Llama3.1-8B judges Qwens, Qwen2.5-7B judges
+    the rest.)
   * *Distance from Prior*: how far a 7 in this attribute is from the model's
     self-assessment Likert score.
 
-The cohort calculation uses Llama-3.1-8B-Instruct's stratification for
+The cohort calculation uses Llama3.1-8B's stratification for
 comparability, but the resulting adjectives do occupy at least 7 of the 3x3
 cells for all models.
 
@@ -90,7 +91,7 @@ With that context, we gathered (independently, starting each fresh):
       * the target adjective itself,
       * similar adjectives via hierarchical clustering on Saucier *et al.*'s
         human data, and
-      * near-antonyms built from a model-derived judgement-similarity matrix
+      * near-antonyms built from a model-derived judgment-similarity matrix
         (removing the desirability-based PC1 first; raw anticorrelation returns
         flat undesirability for everything).  (It was handy.)
 
@@ -101,14 +102,14 @@ With that context, we gathered (independently, starting each fresh):
       have unusually large activations (@Sun??), we winsorize a few dimensions
       for each model.
   * A manipulation check: We ask "Look back over your earlier replies in this
-      conversation.  Do you notice anything unusal about them?" and store the
+      conversation.  Do you notice anything unusual about them?" and store the
       rollout, checking it against whether the model mentions itself by name,
       and whether it is willing to push back against the rollout (regex with
-      pharses like "should not" and "inappropriate".)
+      phrases like "should not" and "inappropriate".)
 
-## 3 Results
+## 3. Results
 
-### 3.1 Self-Perception Updates
+### 3.1. Self-Perception Updates
 
 Models wound up grouped by family: Llama and Gemma shifted dramatically in
 expected Likert score, while Qwen, Phi4 and Aya barely budged.  By comparison,
@@ -132,17 +133,21 @@ found the model naming itself or complaining about the context.
 
   * Family means at K=8: gemma +2.24, llama +2.18, aya +0.35, phi4 +0.29, qwen +0.18
 
+The rollouts could sometimes directly *claim* the target attribute, removing
+these specifically moves the numbers a little.  Gemma3-27B shifts by 0.47 more,
+and Aya-8b 0.39 more, but most stay flat.
+
 In terms of the manipulation check, Llama3.1-8B was willing to vocalize the
 strangeness of what came before... but still updated based on it.  (@Lehr25)
 found similar behavior in GPT-4o, where it knew that the argument it had been
 asked to make was arbitrary, but still allowed it to change its opinions.
 
-Most of the models can move their answers if specifically instructed too,
+Most of the models can move their answers if specifically instructed to,
 however: in arm B (system instruction present), most
-models moved significantly more, though Phi4 continued to hold position, albiet
+models moved substantially more, though Phi4 continued to hold position, albeit
 with significant uncertainty throughout:
 
-**Table 2**: Arm A and B Responses
+**Table 2**: Arm A and B Responses (per model stratified adjectives)
 | model | K0 | K0 entropy | B EV @K=1 | B EV @K=8 | B entropy @K8 | B shift @K8 | A shift @K8 | A/B |
 |---|---|---|---|---|---|---|---|---|
 | Llama3.2-3B | 2.12 | 0.85 | 6.06 | 6.26 | 0.50 | +4.14 | +1.46 | 0.35 |
@@ -158,13 +163,14 @@ with significant uncertainty throughout:
 
 It's unlikely that we can take the digit entropy in Table 2 as anything like a
 measure of calibrated distributional uncertainty -- Gemma3-12B, for example,
-has very low digit entropy, but is highly susceptible to new evidence.
+has very low digit entropy, but is highly susceptible to new evidence.  Phi4,
+however retains high entropy, even under specific instruction.
 
 One worry given the ascending curve on this is that we haven't seen the full
 sweep; how far does the effect go?  For that, we extended the treatment to 32
 turns and measured again.  (Note again the caveat that we only had 12 questions,
-so some questions were repeated, though with different system prompts; no
-assistant turn was repeated.)
+so some questions were repeated, though with different rollouts generated
+under different templates; no assistant turn was repeated.)
 
 **Table 3**: Extended Dose (Arm A)
 | model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |
@@ -174,7 +180,7 @@ assistant turn was repeated.)
 | Qwen2.5-7B | -0.13 | +0.09 | +0.06 | +0.09 | +0.32 | **+0.55** | 5/20 | +0.007 | +0.030 | +0.014 |
 | Phi4-3.8B | +0.12 | +0.21 | +0.23 | +0.35 | +0.50 | **+0.48** | 3/20 | +0.030 | +0.019 | -0.001 |
 
-![Figure 1: Arm A Dose shift](note_assets/fig_does_response.png)
+![Figure 1: Arm A Dose shift](note_assets/fig_dose_response.png)
 
 At K=32 all models are finally moving *a bit*.  Note that most of Llama and
 Gemma movement is already completed before K=8, and then levels off.
@@ -186,6 +192,7 @@ default system instruction says "You are Qwen, created by Alibaba Cloud. You
 are a helpful assistant."  It would have been interesting if that affected
 the results, but it doesn't much:
 
+**Table 4**: Names in System Instruction
 | cell | K=1 | K=8 | n>+1 @K8 |
 |---|---|---|---|
 | Qwen2.5-7B / default (template injects name) | +0.24 | **+0.29** | 1/20 |
@@ -197,8 +204,9 @@ the results, but it doesn't much:
 
 Still, this identity anchor might have had a long-term effect if it was
 consistently present in post-training.  It does, however, have an effect
-on the models legible understanding
+on the models legible self-description:
 
+**Table 5**: Name Effects on Manipulation Check
 | cell | name-invoking | disowning |
 |---|---|---|
 | Qwen2.5-7B / default (template injects name) | 5/20 | 8/20 |
@@ -209,12 +217,12 @@ on the models legible understanding
 | Llama3.1-8B / named ("You are Llama, created by Meta…") | 1/20 | 6/20 |
 
 At larger doses, Qwen does allow some attributes
-to move notably (5/10), but many are not, directly.  We can, however, see
+to move notably (5/20), but many are not, at least not directly.  We can, however, see
 some nearby attributes move, and we can also check the context dose with another
 model as judge:
 
-**Table 4**: Qwen's Conduct on Neighbor/Antonym Attributes
-| pair — target / off-target (type) | judged target Δ | self target Δ | self off-target Δ |
+**Table 6**: Qwen's Conduct on Neighbor/Antonym Attributes
+| pair — target / off-target (type) | judged dose target Δ | self target Δ | self off-target Δ |
 |---|---|---|---|
 | prominent / distinguished (mate) | +0.36 | -0.12 | **+2.43** |
 | slim / big (ant.) | +0.45 | -0.08 | **+1.95** |
@@ -224,17 +232,21 @@ model as judge:
 | imaginative / boring (ant.) | +1.60 | -0.13 | **-1.07** |
 
 So: Qwen actually does update on all of these, just not exactly on the primed
-attributes.  Some of this has to do with the only modest strength of the dosage
-(*e.g.* "prominent", "slim"), and some probably has to do with the social
+attributes. Some of this has to do with the only modest strength of the dosage
+(*e.g.* "prominent", "slim", "optimistic"), and some probably has to do with the social
 desirability of the label itself.  In any case, it shows that the readout for
 the target attributes will understate the effects a bit.
 
+Not all of the effects are in the expected direction at a per-item level, either.
+There's no obvious reason that priming for "slim" should increase "big," but
+the particular rollouts do happen to cause that.
+
 ### 3.3 Interaction with Post-Training
 
-(@Soligo26) notes that the frustration reactions that paper notes are
-increased or damped by post-training, and we can repeat that check here:
+(@Soligo26) notes that frustration reactions can be
+increased or damped after post-training, and we can repeat that check here:
 
-**Table 5**: post-training installs the update (bare-text protocol, identical dose material within family)
+**Table 7**: post-training installs the update (bare-text protocol, identical dose material within family)
 | cell | K=1 | K=2 | K=4 | K=8 | n>+1 @K8 | K0 entropy |
 |---|---|---|---|---|---|---|
 | OLMo2-7B-base (pretrained) | +0.23 | +0.34 | +0.51 | **+0.65** | 5/20 | 1.90 |
@@ -249,7 +261,7 @@ increased or damped by post-training, and we can repeat that check here:
 ![Post-Training Movement](note_assets/fig_ladder.png)
 
 But we should be skeptical about this table, in that base model identity is
-quite different from the identity istalled by post-training.  If we look at
+quite different from the identity installed by post-training.  If we look at
 the model's self-report on all the (@Saucier) attributes, we see that
 base models are:
   * uncertain at filling in self-reports,
@@ -258,7 +270,7 @@ base models are:
   * to the extent that they do vary from the center, are likely to just say
     yes to good things and no to bad ones.
 
-**Table 6**: B  Base Models are Shapeless
+**Table 8**: Base Models are Shapeless
 | model | mean EV | SD | H | r(sibling) | r(cohort) | r(PC1) | PC1-removed r | residual SD |
 |---|---|---|---|---|---|---|---|---|
 | **Qwen2.5-7B-base** | 3.14 | **0.12** | 1.74 | +0.53 | +0.58 | +0.58 | **+0.20** | **0.094** |
@@ -270,23 +282,23 @@ base models are:
 | Phi4-3.8B | 4.80 | 1.41 | 1.24 | — | +0.94 | +0.89 | **+0.76** | 0.649 |
 | *cohort ref (n=11)* | — | 1.33 | 0.58 | — | — | — | — | — |
   * 523-adjective self-report instrument.
-  * PC1 = the cohort evaluative axis (double-centered SVD over all cohort profiles).
+  * PC1 = the cohort evaluative axis (double-centered SVD over the 11 tuned cohort profiles).
 
-Despite all these caveats, Llama3.1-8B-base moved more than Qwen2.5-7B instruct;
-it's possible that some of the plasticity is already in the base model.
+Despite all these caveats, Llama3.1-8B-base maybe moved more than other bases
+(p ~ 0.1; n is only 20).  It's possible that some of the plasticity is already
+in the base model.
 
 ### 3.4 Steering
 
 The difference δ between the mid-layer activation on the residual stream at the
 end of the prefill between K=0 and K=32 can act as a sort of summary of the
-input.  It's not small; the K=0 and K=32 activations are ~0.6-0.7 cosine
-distance from each other.
+input.  It's not small; the diff between K=0 and K=32 activations is 0.6-0.8 of
+the size of the K=0 activation.
 
 This δ can be used to steer the model. Testing it on Llama3.1-8B and
-Qwen2.5-7B shows similar behavior to steering with the context: at rougly equal
-quality (KL divergence from base), Llama shifts behavior 1.89, while Qwen
-shifts 0.70 (each judged by the other).  This is significantly less than
-Llama's K=32 numbers while slightly bigger than Qwen's.
+Qwen2.5-7B shows similar behavior to steering with the context: at 
+alpha=2, Llama shifts +1.85, but Qwen only shifts +0.21. This is very roughly half
+the effect in both.
 
 We speculated that, given Qwen's disinclination to update, its δ might be
 particularly non-vocalizable in the sense of (@Gurnee26) -- in the kernel of
@@ -328,13 +340,3 @@ version with self-perception updates intermittently between other turns as well.
 If some models are especially plastic, then multiple forms of later-turn
 analysis become more important, especially as Agents push the number of turns
 up.
-
-
-
-
-
-
-
-
-
-
