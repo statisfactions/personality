@@ -332,3 +332,17 @@ was wrong. The full-523 run should take anti-markers (and possibly
 mates) from the human matrix: model-independent, Saucier/Goldberg marker
 lineage citable, and drops junk items like `blind` (erratic per §8a)
 that the JUDGE route let in.
+
+## Template-borne flatness (parked 2026-08-02, rgb: "something there")
+
+Found while bounding Table 8's format confound: tuned Llama8's famously
+flat self-profile (SD 0.47 templated) is NOT flat bare — same weights,
+bare format, SD 1.69, bare↔templated r only 0.68. The hedged
+self-description lives in the chat-mode register, not the self-model.
+Contrast Qwen7 (r 0.94, format-invariant self-report) and Gemma12-inst
+(bare = acquiescence collapse at 6.78 — a third failure mode).
+Three families, three different relationships between template and
+self-report. Possibly connects to: where does the update land (W17
+family split), the §8c anchor-supplies-vocabulary result, and the
+format-register channel idea. Full-523 bare-vs-templated on the tuned
+cohort would map it properly (cheap: SELF instrument, two formats).
