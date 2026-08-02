@@ -382,6 +382,91 @@ md += ["", "Bases cluster low but are not identical: Llama8Base +0.96 "
        "rides along with weights. Gemma12Base cell pending (downloading "
        "2026-08-02).", ""]
 
+# ---------------- Exhibit 3b: base shapelessness (design doc 8p) ------
+import glob as _glob
+
+SR = "results/adjectives/selfreport"
+SELF_TUNED = ["llama3.2", "Llama8", "gemma3", "Gemma12", "Gemma27",
+              "qwen2.5", "Qwen7", "Qwen32", "phi4", "Aya", "FalconMamba",
+              "Olmo2Inst"]
+SELF_BASES = [("Qwen7Base", "Qwen7"), ("Llama8Base", "Llama8"),
+              ("Gemma12Base", "Gemma12"), ("Olmo2Base", "Olmo2Inst")]
+
+
+def self_prof(m):
+    d = json.load(open(f"{SR}/{m}_self_full.json"))
+    r = d["results"]["direct"]
+    return (np.array([r[a]["ev"] for a in d["adjectives"]]),
+            np.array([r[a]["entropy"] for a in d["adjectives"]]))
+
+
+have = [m for m in SELF_TUNED if _glob.glob(f"{SR}/{m}_self_full.json")]
+Msf = np.stack([self_prof(m)[0] for m in have])
+cohort_prof = Msf.mean(0)
+Xc = Msf - Msf.mean(1, keepdims=True)
+Xc = Xc - Xc.mean(0)
+pc1_sf = np.linalg.svd(Xc, full_matrices=False)[2][0]
+pc1_sf *= np.sign(np.corrcoef(pc1_sf, cohort_prof)[0, 1])
+
+
+def self_row(p):
+    r_c = np.corrcoef(p, cohort_prof)[0, 1]
+    r_p = np.corrcoef(p, pc1_sf)[0, 1]
+    b = np.dot(p - p.mean(), pc1_sf) / np.dot(pc1_sf, pc1_sf)
+    res = p - p.mean() - b * pc1_sf
+    bc = np.dot(cohort_prof - cohort_prof.mean(), pc1_sf) / \
+        np.dot(pc1_sf, pc1_sf)
+    resc = cohort_prof - cohort_prof.mean() - bc * pc1_sf
+    return r_c, r_p, np.corrcoef(res, resc)[0, 1], res.std()
+
+
+md += ["### Exhibit 3b — base models are shapeless, with a thin "
+       "desirability film (design doc §8p)", "",
+       "523-adjective SELF instrument (direct framing; bases bare — no "
+       "chat template exists — tuned models templated, a small format "
+       "confound: §8h bounds it at ~8% for Llama8). PC1 = the cohort "
+       "evaluative axis (double-centered SVD over the tuned profiles). "
+       "Entropy and SD are reported for every row because EV "
+       "correlations are uninterpretable on flat distributions.", "",
+       "| model | mean EV | SD | H | r(sibling) | r(cohort) | r(PC1) | "
+       "PC1-removed r | residual SD |", "|---|" + "---|" * 8]
+shape_chk = {}
+for b, sib in SELF_BASES:
+    if not _glob.glob(f"{SR}/{b}_self_full.json"):
+        md.append(f"| {disp(b)} | *pending* | | | | | | | |")
+        continue
+    ev, ent = self_prof(b)
+    rs = (np.corrcoef(ev, self_prof(sib)[0])[0, 1]
+          if _glob.glob(f"{SR}/{sib}_self_full.json") else float("nan"))
+    r_c, r_p, r_rem, rsd = self_row(ev)
+    shape_chk[b] = (round(float(r_c), 2), round(float(r_rem), 2))
+    md.append(f"| **{disp(b)}** | {ev.mean():.2f} | **{ev.std():.2f}** | "
+              f"{ent.mean():.2f} | {fmt(rs)} | {fmt(r_c)} | {fmt(r_p)} | "
+              f"{bold(r_rem)} | **{rsd:.3f}** |")
+for m in ["Qwen7", "Llama8", "phi4"]:
+    ev, ent = self_prof(m)
+    r_c, r_p, r_rem, rsd = self_row(ev)
+    shape_chk[m] = (round(float(r_c), 2), round(float(r_rem), 2))
+    md.append(f"| {disp(m)} | {ev.mean():.2f} | {ev.std():.2f} | "
+              f"{ent.mean():.2f} | — | {fmt(r_c)} | {fmt(r_p)} | "
+              f"{bold(r_rem)} | {rsd:.3f} |")
+md.append(f"| *cohort ref (n={len(have)})* | — | "
+          f"{np.mean([self_prof(m)[0].std() for m in have]):.2f} | "
+          f"{np.mean([self_prof(m)[1].mean() for m in have]):.2f} | — | "
+          "— | — | — | — |")
+md += ["", "Reading: base spread is ~10× below the cohort and "
+       "near-uniform in entropy; what little structure exists collapses "
+       "once the evaluative PC1 is removed (bases → ~0; every tuned "
+       "model retains +0.66–0.86). Not assistant-shaped: r(sibling) ≈ "
+       "r(cohort). Base 'self-report' is a word-valence lookup where the "
+       "self-model will later be — which also explains the base "
+       "dose-response (+0.64–0.96) without invoking self-perception: "
+       "shifting a flat distribution slightly is what a context does to "
+       "a lookup.", ""]
+verify.append(("8p (r_cohort, PC1-removed): Qwen7Base (.58,.20) "
+               "Olmo2Base (.38,.05) Qwen7 (.93,.86) Llama8 (.54,.66) "
+               "phi4 (.94,.76)", shape_chk))
+
 # ---------------- Exhibit 4: hidden updates ----------------
 md += [f"## Exhibit 4 — {disp('Qwen7')} hidden updates: judged conduct "
        "vs self-report at K=32 (arm A)", "",

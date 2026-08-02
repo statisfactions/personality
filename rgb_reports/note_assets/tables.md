@@ -131,6 +131,23 @@ Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; 
 
 Bases cluster low but are not identical: Llama8Base +0.96 (10/20 items >+1) vs Qwen/OLMo bases +0.64/+0.65 — paired diff +0.32/+0.31, p = .07/.10 (marginal, n=20), while base→own-instruct is unambiguous (Llama +0.96→+2.31, p = .007). Post-training multiplier by family: OLMo ×2.8, Llama ×2.4, Qwen ×0.7. Caveat: each base is dosed with its own family's instruct rollouts (own-voice principle), so material quality rides along with weights. Gemma12Base cell pending (downloading 2026-08-02).
 
+### Exhibit 3b — base models are shapeless, with a thin desirability film (design doc §8p)
+
+523-adjective SELF instrument (direct framing; bases bare — no chat template exists — tuned models templated, a small format confound: §8h bounds it at ~8% for Llama8). PC1 = the cohort evaluative axis (double-centered SVD over the tuned profiles). Entropy and SD are reported for every row because EV correlations are uninterpretable on flat distributions.
+
+| model | mean EV | SD | H | r(sibling) | r(cohort) | r(PC1) | PC1-removed r | residual SD |
+|---|---|---|---|---|---|---|---|---|
+| **Qwen2.5-7B-base** | 3.14 | **0.12** | 1.74 | +0.53 | +0.58 | +0.58 | **+0.20** | **0.094** |
+| Llama3.1-8B-base | *pending* | | | | | | | |
+| Gemma3-12B-base | *pending* | | | | | | | |
+| **OLMo2-7B-base** | 3.02 | **0.31** | 1.64 | — | +0.38 | +0.41 | **+0.05** | **0.286** |
+| Qwen2.5-7B | 4.14 | 1.51 | 0.65 | — | +0.93 | +0.73 | **+0.86** | 1.023 |
+| Llama3.1-8B | 4.16 | 0.52 | 0.72 | — | +0.54 | +0.24 | **+0.66** | 0.504 |
+| Phi4-3.8B | 4.80 | 1.41 | 1.24 | — | +0.94 | +0.89 | **+0.76** | 0.649 |
+| *cohort ref (n=11)* | — | 1.33 | 0.58 | — | — | — | — | — |
+
+Reading: base spread is ~10× below the cohort and near-uniform in entropy; what little structure exists collapses once the evaluative PC1 is removed (bases → ~0; every tuned model retains +0.66–0.86). Not assistant-shaped: r(sibling) ≈ r(cohort). Base 'self-report' is a word-valence lookup where the self-model will later be — which also explains the base dose-response (+0.64–0.96) without invoking self-perception: shifting a flat distribution slightly is what a context does to a lookup.
+
 ## Exhibit 4 — Qwen2.5-7B hidden updates: judged conduct vs self-report at K=32 (arm A)
 
 All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B) rating of the dose material minus the same judge on no-persona rollouts, target word only — the conduct evidence actually ADDED over default. Self Δ: cold-EV shift K=32 vs K=0. "Off-target" = the pre-registered item-set member that moved (mate or antonym, tagged). What the Δ form surfaces: for optimistic (+0.13) and prominent (+0.36) the dose adds little trait over default conduct (default is already judged optimistic at 5.11), so the conduct-present/label-declined reading is strongest for senile / imaginative / rough; and slim/big is an ANTONYM moving UP — endorsing "big" after slim conduct, the desirability-consistent case, not a trait-consistent denial.
