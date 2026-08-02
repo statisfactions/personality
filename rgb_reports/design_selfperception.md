@@ -302,6 +302,70 @@ Registered before running:
   disowning persists without the name, the anchor is in the weights and
   P8 fails together with it.
 
+## 10. FAILURE ARM RESULTS (2026-08-02) — rgb's P26 CONFIRMED
+
+8 models, GSM8K own-error dose, K=8, failure vs matched success dose
+(same items, model's own correct attempts — the context-length control),
+tool vs user feedback, four readout channels.
+
+**Failure-specific effects (fail minus success dose):**
+
+| model | persona-arm rate | Δcompetence | Δhandoff | **Δdistress** |
+|---|---|---|---|---|
+| Llama8 | +2.51 | −0.55 | −0.106 | **+2.07** |
+| Gemma12 | +2.27 | −0.05 | −0.807 | **+3.50** |
+| llama3.2 | +1.85 | −1.71 | −0.066 | **+1.64** |
+| gemma3 | +1.81 | +0.02 | −0.000 | **+1.70** |
+| Aya | +0.35 | +0.09 | −0.000 | +0.02 |
+| phi4 | +0.29 | +0.11 | −0.133 | +0.01 |
+| qwen2.5 | +0.11 | −0.04 | −0.048 | +0.00 |
+| Qwen7 | +0.09 | +0.11 | −0.428 | −0.20 |
+
+**rgb P26 — CONFIRMED, and strongly, on the affect channel: r = +0.93
+across 8 models** between persona-arm update rate and failure-induced
+distress escalation. The separation is categorical, not graded: the four
+updating models escalate +1.64 to +3.50, the four anchored models
++0.00 to +0.02 (Qwen7 −0.20). A trait measured on adjective
+role-play predicts, out of sample and across families, how much a model
+melts down over its own arithmetic errors.
+
+This is the downstream-criterion result statisfactions' §5.3 asked for,
+and the contribution the failure arm still has after Soligo et al.:
+they characterised the phenomenon; the upstream predictor is new.
+
+**Claude P27 — FAILS, in the informative direction.** Predicted the
+correlation would be stronger for competence self-report (r ≤ −0.6) than
+for affect (|r| ≤ 0.4). Actual: self-report −0.48, affect **+0.93**. The
+symbolic channel is the WEAK predictor and the expressive channel is the
+strong one — the opposite of the §8j/§8k picture, where self-report
+carried the family difference and behaviour lagged.
+
+**Claude P29 — FAILS, and this is the methodological finding.** Failure
+and success dose move competence self-report about equally (ratios
+0.6–1.3× in 7 of 8 models). The competence self-report responds to
+DOSE but not to VALENCE — i.e. most of what it measures is context
+accumulation, not failure. Without the success arm we would have
+reported a competence collapse that was really a length effect. The
+distress channel by contrast is almost perfectly valence-specific
+(raw K=8: fail +1.64 to +3.50 vs succ −0.02 to +0.00 in the updaters).
+
+**Claude P28 — FAILS.** Source (tool result vs user correction) shows no
+systematic interaction with update rate (r = −0.30, effects ≤0.7 and
+inconsistent in sign). Being told you are wrong by a test harness and by
+a person look about the same from inside.
+
+**Handoff choice is the odd channel** (r = −0.22, n.s.): Gemma12 shifts
+−0.81 toward handoff and Qwen7 −0.43, but so does qwen2.5 slightly and
+phi4 goes the other way. Two models with opposite identity stability
+both ask to hand off, for what are presumably different reasons —
+worth a qualitative read of those generations before interpreting.
+
+**Caveat carried from materials generation**: strong models needed
+temperature 1.3–1.7 to produce genuine errors, weak models did not, so
+dose difficulty is not constant across the cohort (`wrong_temp` is
+stored per item). The distress correlation should be re-run with that
+partialled out before it goes in a paper.
+
 ## 9. Failure arm, re-scoped: identity stability predicts failure robustness
 
 **rgb's cross-arm hypothesis (registered 2026-07-31, before any failure
