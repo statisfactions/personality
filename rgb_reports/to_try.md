@@ -321,3 +321,14 @@ Cost: ~26× stage-1 per model (523 adj × K{0..8} × 2 arms × 3 seeds
 ≈ 15.7k contexts, KV-cached); roughly a few GPU-days per model at
 stage-1 throughput — overnight-queue material, arm A only and K{0,2,8}
 first pass would cut it ~4×.
+
+Amendment (2026-08-02, rgb's "should've used Saucier"): verified — raw
+anticorrelation on the human 525-PDA matrix yields content-apt antonyms
+with NO desirability floor and no PC1 surgery (rough→kind, optimistic→
+negative/unhappy/sad, senile→competent/alert; PC1-removal barely changes
+the lists). The floor is a JUDGE-space pathology (valence as axis), not
+a property of adjective data generally — Claude predicted same-floor and
+was wrong. The full-523 run should take anti-markers (and possibly
+mates) from the human matrix: model-independent, Saucier/Goldberg marker
+lineage citable, and drops junk items like `blind` (erratic per §8a)
+that the JUDGE route let in.
