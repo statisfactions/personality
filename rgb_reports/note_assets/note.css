@@ -1,0 +1,43 @@
+/* Lab-note style for pandoc standalone HTML (progress notes).
+   Deliberately lighter than a LaTeX paper: readable measure, quiet tables. */
+html { font-size: 17px; }
+body {
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  color: #1a1a1a;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+h1 { font-size: 1.6rem; line-height: 1.25; margin-top: 0; }
+h2 { font-size: 1.25rem; margin-top: 2.2rem; border-bottom: 1px solid #ddd;
+     padding-bottom: 0.2rem; }
+h3 { font-size: 1.05rem; margin-top: 1.6rem; }
+p  { margin: 0.8rem 0; }
+code { font-size: 0.9em; background: #f4f4f4; padding: 0.05em 0.25em;
+       border-radius: 3px; }
+
+/* tables: compact, striped, scroll instead of overflow on the wide ones */
+table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin: 1rem 0;
+  font-variant-numeric: tabular-nums;
+}
+th, td { padding: 0.25rem 0.55rem; border: none; text-align: right;
+         white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th { border-bottom: 2px solid #444; }
+tbody tr:nth-child(even) { background: #f6f6f6; }
+tbody tr:last-child td { border-bottom: 1px solid #bbb; }
+
+figure, p > img { margin: 1.2rem auto; text-align: center; }
+img { max-width: 100%; height: auto; }
+figcaption { font-size: 0.85rem; color: #555; margin-top: 0.4rem; }
+
+blockquote { border-left: 3px solid #ccc; margin-left: 0;
+             padding-left: 1rem; color: #444; }
+ul { padding-left: 1.4rem; }
+li { margin: 0.25rem 0; }
