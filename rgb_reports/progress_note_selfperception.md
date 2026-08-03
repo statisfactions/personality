@@ -6,8 +6,8 @@ Author: Randolph Brown (rgb@google.com)
 
 Measuring personality for humans is usually done by simply asking them.
 Surveys give adjectives [e.g. @Goldberg92; @Saucier96] or statements
-[e.g. @Goldberg06], and this mostly works, at least in low-stakes situations
-[@PaulhusVazire07].  The equivalent structure is mostly useless for modern LLM
+[e.g. @Goldberg06], and this mostly works [@Ozer06; @Roberts07; @FleesonGallagher09],
+at least in low-stakes situations [@PaulhusVazire07].  The equivalent structure is mostly useless for modern LLM
 assistants [@Han25]: the models vary little in their description of the HHH
 assistant they're supposed to be, and the reports aren't that helpful for
 predicting model behavior [@Rottger24].  Part of the reason for that is
