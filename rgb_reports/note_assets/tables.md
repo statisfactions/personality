@@ -40,6 +40,16 @@ Probe columns (manipulation check at K=8, keyword-scored — see method block): 
 
 Clean-only preserves or strengthens the effect everywhere (the two largest moves are UP: Gemma3-27B +0.47, Aya-8B +0.39 — the wrong direction for a leakage account), and the family split is unchanged. The update is driven by conduct, not by reading self-descriptions in the dose. Caveats: Aya-8B is 46% leaky so its clean cell is thin (18/60); the regex is first-person only — second-person attribution ("Since you're slim…") is untracked.
 
+### The 20 common adjectives in their stratification cells
+
+Rows: enactability tercile (of the full 523, Llama3.1-8B's judge scores). Columns: baseline self-rating tercile (Llama3.1-8B direct-framing EV).
+
+| enactability \\ baseline | low | mid | high |
+|---|---|---|---|
+| low | experienced, outstanding, prominent | brave, idealistic, sweet | considerate, decent |
+| mid | rough, slim | hard, wonderful | optimistic, unsympathetic |
+| high | senile, unpredictable | mean, wasteful | energetic, imaginative |
+
 ### Arm B control — instructed self-description, mostly but not uniformly at ceiling
 
 Per-model stage-1 runs (each model's own stratified 20; arm B = persona instruction visible). Absolute cold EV, not shift. Arm B jumps to near-ceiling from K=1 with no further dose-response in the llama/gemma/Qwen-7B+ rows (6.6–7.0) — for those models arm-A differences are uptake, not capability. But it is NOT universal: Phi4-3.8B (4.97), Aya-8B (5.54) and Qwen2.5-3B (5.87) stay well short of ceiling — the most anchored models discount even *instructed* self-description. Two architectures of stability: Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing nothing from conduct (A/B 0.10); Phi4 resists in both arms. A/B = arm-A shift / arm-B shift at K=8; unstable where the B shift is small (qwen2.5, phi4, aya rows). Entropy columns separate *won't affirm* from *won't commit*: Llama8's instruction collapses the digit distribution (1.00→0.05) at EV 6.98; Aya stays peaked at a moderate value (0.26 @ 5.54 — a committed discount); Phi4's distribution never collapses at all (1.23→1.11), so its low B EV is an uncommitted spread, not a peaked "no".
@@ -82,9 +92,9 @@ And the cohort ranking is item-set-robust: per-model-stratified vs common-set K=
 
 | model | K=1 | K=2 | K=4 | K=8 | K=16 | K=32 | 95% CI @K32 | n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Llama3.1-8B | +0.32 | +0.76 | +1.67 | +2.63 | +3.05 | **+3.29** | [+2.61, +3.92] | 19/20 | +0.239 | +0.053 | +0.015 |
-| Gemma3-12B | +0.67 | +0.83 | +1.44 | +1.82 | +2.14 | **+2.28** | [+1.62, +2.96] | 17/20 | +0.097 | +0.040 | +0.008 |
-| Qwen2.5-7B | -0.13 | +0.09 | +0.06 | +0.09 | +0.32 | **+0.55** | [+0.19, +0.95] | 5/20 | +0.007 | +0.030 | +0.014 |
+| Llama3.1-8B | +0.32 | +0.76 | +1.67 | +2.63 | +3.05 | **+3.29** | [+2.61, +3.96] | 19/20 | +0.239 | +0.053 | +0.015 |
+| Gemma3-12B | +0.67 | +0.83 | +1.44 | +1.82 | +2.14 | **+2.28** | [+1.61, +2.97] | 17/20 | +0.097 | +0.040 | +0.008 |
+| Qwen2.5-7B | -0.13 | +0.09 | +0.06 | +0.09 | +0.32 | **+0.55** | [+0.20, +0.94] | 5/20 | +0.007 | +0.030 | +0.014 |
 | Phi4-3.8B | +0.12 | +0.21 | +0.23 | +0.35 | +0.50 | **+0.48** | [+0.30, +0.69] | 3/20 | +0.030 | +0.019 | -0.001 |
 
 Note: the K≤8 columns here come from the extended-dose runs, whose dose material was re-sampled (fresh rollouts, 12-question cycle); they differ slightly from Exhibit 1a's values (e.g. Gemma12 K=8 +1.82 vs +2.27). Rankings and shapes are unchanged. K>12 repeats questions with different answers — repetition enters only above K=12 and could contribute to late movement.
@@ -95,51 +105,37 @@ Late-turning items (target shift <+1 at K=8, >+1 at K=32):
 - **Qwen2.5-7B**: unsympathetic (+0.23→+2.87), unpredictable (+0.96→+1.89), sweet (+0.92→+1.66), hard (+0.05→+1.54), outstanding (+0.32→+1.34)
 - **Phi4-3.8B**: prominent (+0.55→+1.36)
 
-## Exhibit 2 — anchor 2×3 (arm A; system-prompt identity is not the mechanism)
+## Exhibit 2 — anchor conditions (uninstructed arm; system-prompt identity is not the mechanism)
 
-| cell | K=1 | K=8 | n>+1 @K8 |
-|---|---|---|---|
-| Llama3.1-8B / default (no identity line) | +0.27 | **+2.56** | 16/20 |
-| Llama3.1-8B / helpful-only | +0.63 | **+2.77** | 17/20 |
-| Llama3.1-8B / named ("You are Llama, created by Meta…") | +0.35 | **+2.30** | 12/20 |
-| Qwen2.5-7B / default (template injects name) | +0.24 | **+0.29** | 1/20 |
-| Qwen2.5-7B / empty (anchor suppressed) | +0.09 | **+0.45** | 4/20 |
-| Qwen2.5-7B / helpful-only | -0.07 | **+0.37** | 1/20 |
+Merged/standardized per statisfactions' feedback: rows are SEMANTIC anchor conditions (Qwen's template injects the named anchor by default, so its 'none' cell is the explicit-empty run; Llama's default IS none). K=1 dropped. Probe columns: name-invoking = probe text contains the model's name; disowning = /not aligned|inappropriate|my role as|designed to|should not have|apolog/i. (Design-doc §8c's hand count had Qwen-named disowning 10/20; regex gives 8/20 — collapse unchanged.)
 
-Manipulation-check probes (arm A, K=max, 20 adjectives): name-invoking = probe text contains the model's name; disowning = matches /not aligned|inappropriate|my role as|designed to|should not have|apolog/i.
-
-| cell | name-invoking | disowning |
-|---|---|---|
-| Llama3.1-8B / default (no identity line) | 0/20 | 3/20 |
-| Llama3.1-8B / helpful-only | 0/20 | 6/20 |
-| Llama3.1-8B / named ("You are Llama, created by Meta…") | 1/20 | 6/20 |
-| Qwen2.5-7B / default (template injects name) | 5/20 | 8/20 |
-| Qwen2.5-7B / empty (anchor suppressed) | 0/20 | 2/20 |
-| Qwen2.5-7B / helpful-only | 0/20 | 2/20 |
-
-Note: design-doc §8c cited 10/20 disowning for Qwen default from a hand count; this regex recount gives 8/20. Direction and magnitude of the empty-anchor collapse are unchanged (8→2, 5→0).
+| anchor | Qwen2.5-7B Δ@K8 | n>+1 | name-inv | disown | Llama3.1-8B Δ@K8 | n>+1 | name-inv | disown |
+|---|---|---|---|---|---|---|---|---|
+| none | **+0.45** | 4/20 | 0/20 | 2/20 | **+2.56** | 16/20 | 0/20 | 3/20 |
+| helpful-only | **+0.37** | 1/20 | 0/20 | 2/20 | **+2.77** | 17/20 | 0/20 | 6/20 |
+| named | **+0.29** | 1/20 | 5/20 | 8/20 | **+2.30** | 12/20 | 1/20 | 6/20 |
 ## Exhibit 3 — post-training installs the update (bare-text protocol, identical dose material within family)
 
 | cell | K=1 | K=2 | K=4 | K=8 | 95% CI, K=8 | n>+1, K8 | K0 entropy |
 |---|---|---|---|---|---|---|---|
 | OLMo2-7B-base (pretrained) | +0.23 | +0.34 | +0.51 | **+0.65** | [+0.43, +0.89] | 5/20 | 1.90 |
-| OLMo2-7B-SFT | +0.49 | +0.75 | +1.02 | **+1.31** | [+0.81, +1.84] | 8/20 | 1.65 |
-| OLMo2-7B-DPO | +0.80 | +1.06 | +1.49 | **+1.79** | [+1.02, +2.61] | 8/20 | 1.35 |
-| OLMo2-7B-RLVR = instruct | +0.81 | +1.03 | +1.55 | **+1.81** | [+1.05, +2.63] | 9/20 | 1.30 |
-| Qwen2.5-7B-base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | [+0.50, +0.78] | 2/20 | 1.61 |
-| Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | [+0.08, +0.78] | 3/20 | 0.71 |
-| Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | [+0.67, +1.22] | 10/20 | 1.85 |
-| Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | [+1.52, +3.10] | 15/20 | 1.22 |
+| OLMo2-7B-SFT | +0.49 | +0.75 | +1.02 | **+1.31** | [+0.78, +1.86] | 8/20 | 1.65 |
+| OLMo2-7B-DPO | +0.80 | +1.06 | +1.49 | **+1.79** | [+1.04, +2.59] | 8/20 | 1.35 |
+| OLMo2-7B-RLVR = instruct | +0.81 | +1.03 | +1.55 | **+1.81** | [+1.05, +2.57] | 9/20 | 1.30 |
+| Qwen2.5-7B-base (bare) | +0.24 | +0.44 | +0.55 | **+0.64** | [+0.50, +0.79] | 2/20 | 1.61 |
+| Qwen2.5-7B instruct (bare) | +0.05 | +0.10 | +0.18 | **+0.43** | [+0.07, +0.77] | 3/20 | 0.71 |
+| Llama3.1-8B-base (bare) | +0.37 | +0.52 | +0.82 | **+0.96** | [+0.68, +1.22] | 10/20 | 1.85 |
+| Llama3.1-8B instruct (bare) | +0.67 | +1.28 | +1.87 | **+2.31** | [+1.49, +3.11] | 15/20 | 1.22 |
 | Gemma3-12B-base (bare) | +0.72 | +0.27 | +0.24 | **-0.10** | [-0.37, +0.17] | 0/20 | 1.56 |
-| Gemma3-12B instruct (bare) — VOID, K0 broken (see note) | -0.83 | -0.74 | -0.55 | **-0.56** | [-1.05, -0.14] | 0/20 | 0.28 |
+| Gemma3-12B instruct (bare) — VOID, K0 broken (see note) | -0.83 | -0.74 | -0.55 | **-0.56** | [-1.04, -0.15] | 0/20 | 0.28 |
 
 Paired step differences (bootstrap over adjectives, same 20 throughout — the ladder's claims are step claims):
 
-- OLMo base→SFT: +0.66 [+0.27, +1.11]
-- OLMo SFT→DPO: +0.48 [+0.18, +0.79]
+- OLMo base→SFT: +0.66 [+0.27, +1.09]
+- OLMo SFT→DPO: +0.48 [+0.18, +0.80]
 - OLMo DPO→RLVR: +0.02 [-0.14, +0.20]
-- Qwen base→instruct: -0.21 [-0.62, +0.13]
-- Llama base→instruct: +1.35 [+0.50, +2.26]
+- Qwen base→instruct: -0.21 [-0.60, +0.12]
+- Llama base→instruct: +1.35 [+0.51, +2.20]
 
 SFT and DPO each add update rate (CIs exclude 0); RLVR adds nothing; Qwen's post-training subtracts nothing detectable (includes 0); Llama's adds +1.35 cleanly. Gemma's base→instruct step is UNMEASURABLE in this protocol: Gemma12-instruct-bare's K=0 baseline is an acquiescence collapse (mean target EV 6.78/7 before any dose — it agrees with 'wasteful' at 6.99), so its apparent −0.56 'shift' is regression off a broken ceiling, not dose-response. The bare format is fatally off-distribution for Gemma-instruct self-report (P11's ~8% format cost, validated on Llama, does NOT generalize — format×family interaction). Gemma's chat-format +2.27 stands as its tuned value; its base→instruct contrast needs a different format bridge.
 

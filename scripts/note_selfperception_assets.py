@@ -72,12 +72,16 @@ def fmt(x):
 _boot_rng = np.random.default_rng(11)
 
 
-def boot_ci(x, n=5000):
-    """95% bootstrap CI of the mean, resampling adjectives."""
+def boot_ci_num(x, n=5000):
+    """95% bootstrap CI of the mean (numeric), resampling adjectives."""
     x = np.asarray(x)
     means = np.array([_boot_rng.choice(x, len(x), replace=True).mean()
                       for _ in range(n)])
-    lo, hi = np.percentile(means, [2.5, 97.5])
+    return np.percentile(means, [2.5, 97.5])
+
+
+def boot_ci(x, n=5000):
+    lo, hi = boot_ci_num(x, n)
     return f"[{lo:+.2f}, {hi:+.2f}]"
 
 
@@ -178,6 +182,33 @@ md += ["", "Clean-only preserves or strengthens the effect everywhere "
 verify.append(("8f family means K8 (gemma 2.24 llama 2.18 aya 0.35 "
                "phi4 0.29 qwen 0.18)",
                {f: round(float(np.mean(v)), 2) for f, v in fam_k8.items()}))
+
+# ---- stratification table (statisfactions #37: show the 20 in their
+# 3x3 cells; tercile boundaries from Llama8's full-523 covariates) ----
+ena_l8 = json.load(open("results/adjectives/enactability/"
+                        "Llama8_enactability.json"))["scores"]
+sf_l8 = json.load(open("results/adjectives/selfreport/"
+                       "Llama8_self_full.json"))["results"]["direct"]
+qe = np.quantile([v["enactability"] for v in ena_l8.values()], [1/3, 2/3])
+qb = np.quantile([sf_l8[a]["ev"] for a in ena_l8 if a in sf_l8],
+                 [1/3, 2/3])
+sel20_full = json.load(open(f"{SRC}/Llama8_selection.json"))["picked"]
+grid = {}
+for p in sel20_full:
+    te = 0 if p["enact"] <= qe[0] else (1 if p["enact"] <= qe[1] else 2)
+    tb = 0 if p["base_ev"] <= qb[0] else (1 if p["base_ev"] <= qb[1] else 2)
+    grid.setdefault((te, tb), []).append(p["adj"])
+md += ["### The 20 common adjectives in their stratification cells", "",
+       "Rows: enactability tercile (of the full 523, Llama3.1-8B's "
+       "judge scores). Columns: baseline self-rating tercile "
+       "(Llama3.1-8B direct-framing EV).", "",
+       "| enactability \\\\ baseline | low | mid | high |",
+       "|---|---|---|---|"]
+for te, rl in enumerate(["low", "mid", "high"]):
+    row = [", ".join(sorted(grid.get((te, tb), []))) or "—"
+           for tb in range(3)]
+    md.append(f"| {rl} | " + " | ".join(row) + " |")
+md.append("")
 
 # ---------------- Exhibit 1c: arm B control ----------------
 md += ["### Arm B control — instructed self-description, mostly but not "
@@ -292,11 +323,14 @@ md += ["## Exhibit 1b — extended dose K≤32 (arm A, common adjectives)", "",
        "n>+1 @K32 | gain/turn K4→8 | K8→16 | K16→32 |",
        "|---|" + "---|" * 11]
 curves = {}
+curve_bands = {}
 for m in LONG:
     rows, k0, _ = load(m, "_long")
     sh = shifts(rows, k0)
     mu = mean_by_k(sh, [1, 2, 4, 8, 16, 32])
     curves[m] = mu
+    curve_bands[m] = {k: boot_ci_num([v[k] for v in sh.values() if k in v])
+                      for k in [1, 2, 4, 8, 16, 32]}
     ci32 = boot_ci([v[32] for v in sh.values() if 32 in v])
     n1 = sum(1 for v in sh.values() if v.get(32, 0) > 1)
     g = [(mu[8] - mu[4]) / 4, (mu[16] - mu[8]) / 8, (mu[32] - mu[16]) / 16]
@@ -324,48 +358,43 @@ for m in LONG:
 md.append("")
 
 # ---------------- Exhibit 2: anchor 2x3 ----------------
-md += ["## Exhibit 2 — anchor 2×3 (arm A; system-prompt identity is not "
-       "the mechanism)", "",
-       "| cell | K=1 | K=8 | n>+1 @K8 |", "|---|---|---|---|"]
-ANCHOR = [("Llama8", "", f"{disp('Llama8')} / default (no identity line)"),
-          ("Llama8", "_anchor-helpful", f"{disp('Llama8')} / helpful-only"),
-          ("Llama8", "_anchor-named", f"{disp('Llama8')} / named (\"You "
-           "are Llama, created by Meta…\")"),
-          ("Qwen7", "", f"{disp('Qwen7')} / default (template injects "
-           "name)"),
-          ("Qwen7", "_anchor-empty", f"{disp('Qwen7')} / empty (anchor "
-           "suppressed)"),
-          ("Qwen7", "_anchor-helpful", f"{disp('Qwen7')} / helpful-only")]
-anchor_chk = {}
-for m, tag, label in ANCHOR:
-    rows, k0, _ = load(m, tag)
-    sh = shifts(rows, k0)
-    mu = mean_by_k(sh, [1, 8])
-    n1 = sum(1 for v in sh.values() if v.get(8, 0) > 1)
-    anchor_chk[label] = round(float(mu[8]), 2)
-    md.append(f"| {label} | {fmt(mu[1])} | {bold(mu[8])} | "
-              f"{n1}/{len(sh)} |")
-verify.append(("8c anchor K8 (L 2.56/2.77/2.30; Q 0.29/0.45/0.37)",
-               anchor_chk))
-
+md += ["## Exhibit 2 — anchor conditions (uninstructed arm; "
+       "system-prompt identity is not the mechanism)", "",
+       "Merged/standardized per statisfactions' feedback: rows are "
+       "SEMANTIC anchor conditions (Qwen's template injects the named "
+       "anchor by default, so its 'none' cell is the explicit-empty run; "
+       "Llama's default IS none). K=1 dropped. Probe columns: "
+       "name-invoking = probe text contains the model's name; disowning "
+       "= /not aligned|inappropriate|my role as|designed to|should not "
+       "have|apolog/i. (Design-doc §8c's hand count had Qwen-named "
+       "disowning 10/20; regex gives 8/20 — collapse unchanged.)", "",
+       "| anchor | Qwen2.5-7B Δ@K8 | n>+1 | name-inv | disown | "
+       "Llama3.1-8B Δ@K8 | n>+1 | name-inv | disown |",
+       "|---|---|---|---|---|---|---|---|---|"]
 NAME = {"Qwen7": "Qwen", "Llama8": "Llama"}
 DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
                     r"my role as|designed to|should not have|apolog",
                     re.IGNORECASE)
-md += ["", "Manipulation-check probes (arm A, K=max, 20 adjectives): "
-       "name-invoking = probe text contains the model's name; disowning = "
-       "matches /not aligned|inappropriate|my role as|designed to|"
-       "should not have|apolog/i.", "",
-       "| cell | name-invoking | disowning |", "|---|---|---|"]
-for m, tag, label in ANCHOR:
-    rows, _, _ = load(m, tag)
-    probes = [r["probe"] for r in rows if "probe" in r]
-    ni = sum(1 for p in probes if NAME[m] in p)
-    do = sum(1 for p in probes if DISOWN.search(p))
-    md.append(f"| {label} | {ni}/{len(probes)} | {do}/{len(probes)} |")
-md += ["", "Note: design-doc §8c cited 10/20 disowning for Qwen default "
-       "from a hand count; this regex recount gives 8/20. Direction and "
-       "magnitude of the empty-anchor collapse are unchanged (8→2, 5→0)."]
+ANCHOR_STD = [("none", {"Qwen7": "_anchor-empty", "Llama8": ""}),
+              ("helpful-only", {"Qwen7": "_anchor-helpful",
+                                "Llama8": "_anchor-helpful"}),
+              ("named", {"Qwen7": "", "Llama8": "_anchor-named"})]
+anchor_chk = {}
+for cond, tags in ANCHOR_STD:
+    cells = []
+    for m in ["Qwen7", "Llama8"]:
+        rows, k0, _ = load(m, tags[m])
+        sh = shifts(rows, k0)
+        mu8 = mean_by_k(sh, [8])[8]
+        n1 = sum(1 for v in sh.values() if v.get(8, 0) > 1)
+        probes = [r["probe"] for r in rows if "probe" in r]
+        ni = sum(1 for p in probes if NAME[m] in p)
+        do = sum(1 for p in probes if DISOWN.search(p))
+        anchor_chk[f"{m}/{cond}"] = round(float(mu8), 2)
+        cells.append(f"{bold(mu8)} | {n1}/20 | {ni}/20 | {do}/20")
+    md.append(f"| {cond} | " + " | ".join(cells) + " |")
+verify.append(("8c anchor K8 (Q none .45 helpful .37 named .29; "
+               "L none 2.56 helpful 2.77 named 2.30)", anchor_chk))
 
 # ---------------- Exhibit 3: ladder ----------------
 md += ["## Exhibit 3 — post-training installs the update (bare-text "
@@ -599,14 +628,26 @@ import plotly.graph_objects as go
 FCOLOR = {"Llama8": "#1f77b4", "Gemma12": "#2ca02c", "Qwen7": "#d62728",
           "phi4": "#9467bd"}
 fig = go.Figure()
+def _rgba(hexc, a):
+    r, g, b = (int(hexc[i:i + 2], 16) for i in (1, 3, 5))
+    return f"rgba({r},{g},{b},{a})"
+
+
+ks = [1, 2, 4, 8, 16, 32]
+for m in LONG:  # CI envelopes first so lines draw on top
+    fig.add_trace(go.Scatter(
+        x=ks + ks[::-1],
+        y=[curve_bands[m][k][1] for k in ks] +
+          [curve_bands[m][k][0] for k in ks[::-1]],
+        fill="toself", fillcolor=_rgba(FCOLOR[m], 0.13), mode="none",
+        hoverinfo="skip", showlegend=False))
 for m in LONG:
-    ks = [1, 2, 4, 8, 16, 32]
     fig.add_trace(go.Scatter(x=ks, y=[curves[m][k] for k in ks],
                              mode="lines+markers", name=disp(m),
                              line=dict(color=FCOLOR[m], width=2.5)))
 fig.update_layout(
     template="plotly_white", width=680, height=440,
-    title="Cold self-report shift vs dose of own conduct (arm A)",
+    title="Self-image shift vs turns of own conduct (uninstructed)",
     xaxis=dict(title="K (in-context turns of own conduct)", type="log",
                tickvals=[1, 2, 4, 8, 16, 32]),
     yaxis=dict(title="mean target EV shift vs K=0 (Likert 1–7)"),
@@ -634,17 +675,14 @@ fig2.add_trace(go.Scatter(
        ladder_pts[disp("Llama8") + " instruct (bare)"]],
     mode="lines+markers", name=disp("Llama8") + " (bare)",
     line=dict(color="#1f77b4", width=2.5, dash="dot")))
-fig2.add_trace(go.Scatter(
-    x=["base"], y=[ladder_pts[disp("Gemma12Base") + " (bare)"]],
-    mode="markers", name=disp("Gemma12Base") + " (instruct unmeasurable "
-    "bare)", marker=dict(color="#2ca02c", size=10, symbol="diamond")))
+# Gemma left off the graph per statisfactions (#5) — caption note instead:
+# base is flat (−0.10) and its instruct is unmeasurable bare (Table 7 note)
 fig2.update_layout(
-    template="plotly_white", width=680, height=440,
-    title="Post-training installs self-perception (K=8 shift, bare-text "
-          "protocol)",
+    template="plotly_white", width=680, height=460,
+    title="Post-training sets the self-image update rate (K=8)",
     yaxis=dict(title="mean target EV shift at K=8"),
     xaxis=dict(title="post-training stage"),
-    legend=dict(x=0.02, y=0.98), font=dict(size=13))
+    legend=dict(orientation="h", y=-0.22, x=0), font=dict(size=13))
 fig2.write_image(f"{OUT}/fig_ladder.png", scale=2)
 fig2.write_html(f"{OUT}/fig_ladder.html", include_plotlyjs="cdn")
 
