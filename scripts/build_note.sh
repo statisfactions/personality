@@ -12,3 +12,12 @@ pandoc progress_note_selfperception.md \
   --metadata pagetitle="Models Vary Widely in Strength of Self-Image" \
   -o progress_note_selfperception.html
 echo "wrote rgb_reports/progress_note_selfperception.html"
+
+# PDF via headless Chrome from the styled HTML — preserves the lab-note
+# CSS (the pandoc→LaTeX route ignores it and restyles formal).
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless --disable-gpu \
+  --no-pdf-header-footer \
+  --print-to-pdf=progress_note_selfperception.pdf \
+  "file://$(pwd)/progress_note_selfperception.html" 2>/dev/null
+echo "wrote rgb_reports/progress_note_selfperception.pdf"
