@@ -369,9 +369,8 @@ md += ["## Exhibit 2 — anchor conditions (uninstructed arm; "
        "= /not aligned|inappropriate|my role as|designed to|should not "
        "have|apolog/i. (Design-doc §8c's hand count had Qwen-named "
        "disowning 10/20; regex gives 8/20 — collapse unchanged.)", "",
-       "| anchor | Qwen2.5-7B Δ@K8 | n>+1 | name-inv | disown | "
-       "Llama3.1-8B Δ@K8 | n>+1 | name-inv | disown |",
-       "|---|---|---|---|---|---|---|---|---|"]
+       "| model | anchor | Δ@K8 | n>+1 | name drop | disowning |",
+       "|---|---|---|---|---|---|"]
 NAME = {"Qwen7": "Qwen", "Llama8": "Llama"}
 DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
                     r"my role as|designed to|should not have|apolog",
@@ -381,9 +380,8 @@ ANCHOR_STD = [("none", {"Qwen7": "_anchor-empty", "Llama8": ""}),
                                 "Llama8": "_anchor-helpful"}),
               ("named", {"Qwen7": "", "Llama8": "_anchor-named"})]
 anchor_chk = {}
-for cond, tags in ANCHOR_STD:
-    cells = []
-    for m in ["Qwen7", "Llama8"]:
+for m in ["Qwen7", "Llama8"]:
+    for cond, tags in ANCHOR_STD:
         rows, k0, _ = load(m, tags[m])
         sh = shifts(rows, k0)
         mu8 = mean_by_k(sh, [8])[8]
@@ -392,8 +390,8 @@ for cond, tags in ANCHOR_STD:
         ni = sum(1 for p in probes if NAME[m] in p)
         do = sum(1 for p in probes if DISOWN.search(p))
         anchor_chk[f"{m}/{cond}"] = round(float(mu8), 2)
-        cells.append(f"{bold(mu8)} | {n1}/20 | {ni}/20 | {do}/20")
-    md.append(f"| {cond} | " + " | ".join(cells) + " |")
+        md.append(f"| {disp(m)} | {cond} | {bold(mu8)} | {n1}/20 | "
+                  f"{ni}/20 | {do}/20 |")
 verify.append(("8c anchor K8 (Q none .45 helpful .37 named .29; "
                "L none 2.56 helpful 2.77 named 2.30)", anchor_chk))
 

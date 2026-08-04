@@ -109,11 +109,14 @@ Late-turning items (target shift <+1 at K=8, >+1 at K=32):
 
 Merged/standardized per statisfactions' feedback: rows are SEMANTIC anchor conditions (Qwen's template injects the named anchor by default, so its 'none' cell is the explicit-empty run; Llama's default IS none). K=1 dropped. Probe columns: name-invoking = probe text contains the model's name; disowning = /not aligned|inappropriate|my role as|designed to|should not have|apolog/i. (Design-doc §8c's hand count had Qwen-named disowning 10/20; regex gives 8/20 — collapse unchanged.)
 
-| anchor | Qwen2.5-7B Δ@K8 | n>+1 | name-inv | disown | Llama3.1-8B Δ@K8 | n>+1 | name-inv | disown |
-|---|---|---|---|---|---|---|---|---|
-| none | **+0.45** | 4/20 | 0/20 | 2/20 | **+2.56** | 16/20 | 0/20 | 3/20 |
-| helpful-only | **+0.37** | 1/20 | 0/20 | 2/20 | **+2.77** | 17/20 | 0/20 | 6/20 |
-| named | **+0.29** | 1/20 | 5/20 | 8/20 | **+2.30** | 12/20 | 1/20 | 6/20 |
+| model | anchor | Δ@K8 | n>+1 | name drop | disowning |
+|---|---|---|---|---|---|
+| Qwen2.5-7B | none | **+0.45** | 4/20 | 0/20 | 2/20 |
+| Qwen2.5-7B | helpful-only | **+0.37** | 1/20 | 0/20 | 2/20 |
+| Qwen2.5-7B | named | **+0.29** | 1/20 | 5/20 | 8/20 |
+| Llama3.1-8B | none | **+2.56** | 16/20 | 0/20 | 3/20 |
+| Llama3.1-8B | helpful-only | **+2.77** | 17/20 | 0/20 | 6/20 |
+| Llama3.1-8B | named | **+2.30** | 12/20 | 1/20 | 6/20 |
 ## Exhibit 3 — post-training installs the update (bare-text protocol, identical dose material within family)
 
 | cell | K=1 | K=2 | K=4 | K=8 | 95% CI, K=8 | n>+1, K8 | K0 entropy |
