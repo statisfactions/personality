@@ -346,3 +346,17 @@ self-report. Possibly connects to: where does the update land (W17
 family split), the §8c anchor-supplies-vocabulary result, and the
 format-register channel idea. Full-523 bare-vs-templated on the tuned
 cohort would map it properly (cheap: SELF instrument, two formats).
+
+## SELF follows REPRESENT (quick test 2026-08-03, rgb's "did we test that?")
+
+Never previously computed directly. LOO kernel prediction (k=20) of each
+tuned model's 523-adjective SELF profile from cohort channel geometries:
+raw r ~ 0.80 for all three channels (desirability carries it);
+desirability-removed: REPRESENT +0.51 > ENACT +0.46 > JUDGE +0.43 (mean,
+n=11 models; REPRESENT best in 10/11). So self-report tracks the
+read-side lexical geometry at least as much as conduct geometry —
+private empirical backstop for the note's intro sentence (Okada/
+Peereboom/C&C) and a paper-1 discussion point. Caveats: cohort-level
+geometries not per-model; crude kernel; channel differences small.
+Upgrade path: per-model REPRESENT geometry, proper CIs, and the
+Cutler & Condon human-side comparison.
