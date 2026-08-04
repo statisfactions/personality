@@ -369,7 +369,7 @@ md += ["## Exhibit 2 — anchor conditions (uninstructed arm; "
        "= /not aligned|inappropriate|my role as|designed to|should not "
        "have|apolog/i. (Design-doc §8c's hand count had Qwen-named "
        "disowning 10/20; regex gives 8/20 — collapse unchanged.)", "",
-       "| model | anchor | Δ@K8 | n>+1 | name drop | disowning |",
+       "| model | anchor | Δ@K8 | n>+1 | name-invoking | disowning |",
        "|---|---|---|---|---|---|"]
 NAME = {"Qwen7": "Qwen", "Llama8": "Llama"}
 DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
