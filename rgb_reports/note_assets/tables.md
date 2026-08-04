@@ -42,9 +42,9 @@ Clean-only preserves or strengthens the effect everywhere (the two largest moves
 
 ### The 20 common adjectives in their stratification cells
 
-Rows: enactability tercile (of the full 523, Llama3.1-8B's judge scores). Columns: baseline self-rating tercile (Llama3.1-8B direct-framing EV).
+Rows: enactability tercile (of the full 523, Llama3.1-8B's judge scores). Columns: distance from prior — 7 minus the baseline self-rating (Llama3.1-8B direct-framing EV), so a LOW baseline is a FAR prior.
 
-| enactability \\ baseline | low | mid | high |
+| enactability \\ distance from prior | far | mid | near |
 |---|---|---|---|
 | low | experienced, outstanding, prominent | brave, idealistic, sweet | considerate, decent |
 | mid | rough, slim | hard, wonderful | optimistic, unsympathetic |

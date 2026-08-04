@@ -200,9 +200,10 @@ for p in sel20_full:
     grid.setdefault((te, tb), []).append(p["adj"])
 md += ["### The 20 common adjectives in their stratification cells", "",
        "Rows: enactability tercile (of the full 523, Llama3.1-8B's "
-       "judge scores). Columns: baseline self-rating tercile "
-       "(Llama3.1-8B direct-framing EV).", "",
-       "| enactability \\\\ baseline | low | mid | high |",
+       "judge scores). Columns: distance from prior — 7 minus the "
+       "baseline self-rating (Llama3.1-8B direct-framing EV), so a LOW "
+       "baseline is a FAR prior.", "",
+       "| enactability \\\\ distance from prior | far | mid | near |",
        "|---|---|---|---|"]
 for te, rl in enumerate(["low", "mid", "high"]):
     row = [", ".join(sorted(grid.get((te, tb), []))) or "—"
