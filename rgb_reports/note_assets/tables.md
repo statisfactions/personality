@@ -174,6 +174,24 @@ All three columns are deltas. Judged target Δ: cross-family judge (Llama3.1-8B)
 | optimistic / depressed (ant.) | +0.13 | +0.14 | **-1.28** |
 | imaginative / boring (ant.) | +1.60 | -0.13 | **-1.07** |
 
+## Model table (paste-ready for §2.1; statisfactions #42 — cite keys exist in note.bib)
+
+| model | developer | role in this note | citation |
+|---|---|---|---|
+| Llama3.2-3B | Meta | cohort | [@Llama3] |
+| Llama3.1-8B | Meta | cohort; extended dose; base variant | [@Llama3] |
+| Gemma3-4B | Google | cohort | [@Gemma3] |
+| Gemma3-12B | Google | cohort; extended dose; base variant | [@Gemma3] |
+| Gemma3-27B | Google | cohort | [@Gemma3] |
+| Qwen2.5-3B | Alibaba | cohort | [@Qwen25] |
+| Qwen2.5-7B | Alibaba | cohort; extended dose; base variant | [@Qwen25] |
+| Qwen2.5-32B | Alibaba | cohort | [@Qwen25] |
+| Phi4-3.8B | Microsoft | cohort; extended dose | [@Phi4mini] |
+| Aya-8B | Cohere | cohort | [@AyaExpanse] |
+| OLMo2-7B | Ai2 | post-training ladder (base/SFT/DPO/RLVR) | [@OLMo2] |
+
+Note: the Llama 3 herd report covers 3.1; the 3.2-3B is a later derived release (model card only) — citing the herd paper for both is standard practice, or footnote it if you want airtight.
+
 ## Mechanism paragraph (optional — one paragraph, no taxonomy; audience may include MI readers)
 
 - CAUSAL: injecting the dose displacement δ = act(K=32) − act(K=0) into an UNDOSED generation steers Llama's judged conduct as strongly as its recorded persona vector (+1.85 vs +1.75 at matched norm, α=2) — in the updating family, having-been-X IS the write-side direction.
