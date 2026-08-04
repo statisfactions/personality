@@ -212,55 +212,37 @@ for te, rl in enumerate(["low", "mid", "high"]):
 md.append("")
 
 # ---------------- Exhibit 1c: arm B control ----------------
-md += ["### Arm B control — instructed self-description, mostly but not "
-       "uniformly at ceiling", "",
-       "Per-model stage-1 runs (each model's own stratified 20; arm B = "
-       "persona instruction visible). Absolute cold EV, not shift. Arm B "
-       "jumps to near-ceiling from K=1 with no further dose-response in "
-       "the llama/gemma/Qwen-7B+ rows (6.6–7.0) — for those models arm-A "
-       "differences are uptake, not capability. But it is NOT universal: "
-       "Phi4-3.8B (4.97), Aya-8B (5.54) and Qwen2.5-3B (5.87) stay well "
-       "short of ceiling — the most anchored models discount even "
-       "*instructed* self-description. Two architectures of stability: "
-       "Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing "
-       "nothing from conduct (A/B 0.10); Phi4 resists in both arms. "
-       "A/B = arm-A shift / arm-B shift at K=8; unstable where the B "
-       "shift is small (qwen2.5, phi4, aya rows). Entropy columns "
-       "separate *won't affirm* from *won't commit*: Llama8's "
-       "instruction collapses the digit distribution (1.00→0.05) at EV "
-       "6.98; Aya stays peaked at a moderate value (0.26 @ 5.54 — a "
-       "committed discount); Phi4's distribution never collapses at all "
-       "(1.23→1.11), so its low B EV is an uncommitted spread, not a "
-       "peaked \"no\".", "",
-       "| model | K0 | K0 entropy | B EV @K=1 | B EV @K=8 | "
-       "B entropy @K8 | B shift @K8 | A shift @K8 | A/B |",
-       "|---|---|---|---|---|---|---|---|---|"]
+md += ["### Instructed vs uninstructed movement (slim table per rgb; "
+       "per-model stratified 20)", "",
+       "| model | uninstructed \u0394@K8 | instructed \u0394@K8 | "
+       "instructed \u2212 uninstructed |", "|---|---|---|---|"]
+armb_prose = {}
 for m in COHORT:
     rows, k0, _ = load(m, "")
     shA = shifts(rows, k0)
+    shB = shifts(rows, k0, arm="B")
     muA = mean_by_k(shA, [8])[8]
-    babs, bent = {}, {}
-    for K in (1, 8):
-        evs, ens = [], []
-        for r in rows:
-            if r["adj"] != "__k0__" and r["arm"] == "B" and r["K"] == K \
-                    and r["adj"] in r["readings"]:
-                evs.append(r["readings"][r["adj"]]["cold"]["ev"])
-                ens.append(r["readings"][r["adj"]]["cold"]["entropy"])
-        babs[K], bent[K] = np.mean(evs), np.mean(ens)
-    k0row = next(r for r in rows if r["adj"] == "__k0__")
-    e0 = np.mean([k0row["readings"][a]["cold"]["entropy"] for a in shA
-                  if a in k0row["readings"]])
-    k0m = np.mean([k0[a] for a in shA])
-    bshift = babs[8] - k0m
-    md.append(f"| {disp(m)} | {k0m:.2f} | {e0:.2f} | {babs[1]:.2f} | "
-              f"{babs[8]:.2f} | {bent[8]:.2f} | {fmt(bshift)} | "
-              f"{fmt(muA)} | {muA / bshift:.2f} |")
-md += ["", "Item sets differ per row (own stratification), so read "
-       "columns within-row; the common-set arm-A numbers are in "
-       "Exhibit 1a. Phi4's B level is the cohort outlier (leave-one-out "
-       "z = −2.9 on B EV @K8; in-sample z = −2.0, near the n=10 bound "
-       "of 2.85).", ""]
+    muB = mean_by_k(shB, [8])[8]
+    ent = {}
+    for K, arm in ((8, "B"),):
+        ens = [r["readings"][r["adj"]]["cold"]["entropy"] for r in rows
+               if r["adj"] != "__k0__" and r["arm"] == arm and r["K"] == K
+               and r["adj"] in r["readings"]]
+        ent[arm] = np.mean(ens)
+    armb_prose[m] = (muA, muB, ent["B"])
+    md.append(f"| {disp(m)} | {fmt(muA)} | {fmt(muB)} | "
+              f"{bold(muB - muA)} |")
+md += ["", "Instruction moves nearly every model; conduct moves only "
+       "some \u2014 the third column is the gap the note is about. "
+       "Prose numbers for the Phi4 entropy sentence (the table no "
+       "longer carries them): under instruction Phi4's digit "
+       "distribution never collapses (K0 entropy 1.23 \u2192 1.11 at "
+       "B/K8; absolute B EV only 4.97, cohort outlier LOO z \u2248 "
+       "\u22122.9) while Llama8's collapses 1.00 \u2192 0.05 at EV "
+       "6.98; Aya commits to a moderate value (0.26 @ 5.54). "
+       "Won\u2019t-commit vs won\u2019t-affirm vs committed-discount. "
+       "Item sets differ per row (own stratification); read within-row.",
+       ""]
 
 # --- item-set defense: (i) common set covers every model's own covariate
 # grid post-hoc; (ii) common vs per-model-stratified rankings agree ---

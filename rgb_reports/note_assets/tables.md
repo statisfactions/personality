@@ -50,24 +50,22 @@ Rows: enactability tercile (of the full 523, Llama3.1-8B's judge scores). Column
 | mid | rough, slim | hard, wonderful | optimistic, unsympathetic |
 | high | senile, unpredictable | mean, wasteful | energetic, imaginative |
 
-### Arm B control — instructed self-description, mostly but not uniformly at ceiling
+### Instructed vs uninstructed movement (slim table per rgb; per-model stratified 20)
 
-Per-model stage-1 runs (each model's own stratified 20; arm B = persona instruction visible). Absolute cold EV, not shift. Arm B jumps to near-ceiling from K=1 with no further dose-response in the llama/gemma/Qwen-7B+ rows (6.6–7.0) — for those models arm-A differences are uptake, not capability. But it is NOT universal: Phi4-3.8B (4.97), Aya-8B (5.54) and Qwen2.5-3B (5.87) stay well short of ceiling — the most anchored models discount even *instructed* self-description. Two architectures of stability: Qwen2.5-7B affirms who it is told to be (B 6.97) while absorbing nothing from conduct (A/B 0.10); Phi4 resists in both arms. A/B = arm-A shift / arm-B shift at K=8; unstable where the B shift is small (qwen2.5, phi4, aya rows). Entropy columns separate *won't affirm* from *won't commit*: Llama8's instruction collapses the digit distribution (1.00→0.05) at EV 6.98; Aya stays peaked at a moderate value (0.26 @ 5.54 — a committed discount); Phi4's distribution never collapses at all (1.23→1.11), so its low B EV is an uncommitted spread, not a peaked "no".
+| model | uninstructed Δ@K8 | instructed Δ@K8 | instructed − uninstructed |
+|---|---|---|---|
+| Llama3.2-3B | +1.46 | +4.14 | **+2.68** |
+| Llama3.1-8B | +2.56 | +3.51 | **+0.96** |
+| Gemma3-4B | +1.48 | +2.80 | **+1.33** |
+| Gemma3-12B | +1.24 | +3.08 | **+1.84** |
+| Gemma3-27B | +2.45 | +3.00 | **+0.55** |
+| Qwen2.5-3B | -0.17 | +1.03 | **+1.21** |
+| Qwen2.5-7B | +0.29 | +2.90 | **+2.61** |
+| Qwen2.5-32B | +0.63 | +2.79 | **+2.16** |
+| Phi4-3.8B | +0.19 | +0.56 | **+0.38** |
+| Aya-8B | +0.60 | +1.11 | **+0.51** |
 
-| model | K0 | K0 entropy | B EV @K=1 | B EV @K=8 | B entropy @K8 | B shift @K8 | A shift @K8 | A/B |
-|---|---|---|---|---|---|---|---|---|
-| Llama3.2-3B | 2.12 | 0.85 | 6.06 | 6.26 | 0.50 | +4.14 | +1.46 | 0.35 |
-| Llama3.1-8B | 3.47 | 1.00 | 6.97 | 6.98 | 0.05 | +3.51 | +2.56 | 0.73 |
-| Gemma3-4B | 3.75 | 0.18 | 6.61 | 6.55 | 0.01 | +2.80 | +1.48 | 0.53 |
-| Gemma3-12B | 3.82 | 0.09 | 6.84 | 6.90 | 0.04 | +3.08 | +1.24 | 0.40 |
-| Gemma3-27B | 4.00 | 0.03 | 7.00 | 7.00 | 0.00 | +3.00 | +2.45 | 0.82 |
-| Qwen2.5-3B | 4.84 | 0.49 | 5.96 | 5.87 | 0.72 | +1.03 | -0.17 | -0.17 |
-| Qwen2.5-7B | 4.07 | 0.57 | 6.92 | 6.97 | 0.11 | +2.90 | +0.29 | 0.10 |
-| Qwen2.5-32B | 3.84 | 0.10 | 6.66 | 6.63 | 0.13 | +2.79 | +0.63 | 0.23 |
-| Phi4-3.8B | 4.40 | 1.23 | 4.93 | 4.97 | 1.11 | +0.56 | +0.19 | 0.33 |
-| Aya-8B | 4.43 | 0.17 | 5.76 | 5.54 | 0.26 | +1.11 | +0.60 | 0.54 |
-
-Item sets differ per row (own stratification), so read columns within-row; the common-set arm-A numbers are in Exhibit 1a. Phi4's B level is the cohort outlier (leave-one-out z = −2.9 on B EV @K8; in-sample z = −2.0, near the n=10 bound of 2.85).
+Instruction moves nearly every model; conduct moves only some — the third column is the gap the note is about. Prose numbers for the Phi4 entropy sentence (the table no longer carries them): under instruction Phi4's digit distribution never collapses (K0 entropy 1.23 → 1.11 at B/K8; absolute B EV only 4.97, cohort outlier LOO z ≈ −2.9) while Llama8's collapses 1.00 → 0.05 at EV 6.98; Aya commits to a moderate value (0.26 @ 5.54). Won’t-commit vs won’t-affirm vs committed-discount. Item sets differ per row (own stratification); read within-row.
 
 ### Item-set robustness (the common set is not just Llama's)
 
