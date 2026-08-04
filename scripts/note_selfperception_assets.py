@@ -660,7 +660,7 @@ fig2.add_trace(go.Scatter(
 # base is flat (−0.10) and its instruct is unmeasurable bare (Table 7 note)
 fig2.update_layout(
     template="plotly_white", width=680, height=460,
-    title="Post-training sets the self-image update rate (K=8)",
+    title="Post-Training Movement",
     yaxis=dict(title="mean target EV shift at K=8"),
     xaxis=dict(title="post-training stage"),
     legend=dict(orientation="h", y=-0.22, x=0), font=dict(size=13))
