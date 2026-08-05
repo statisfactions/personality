@@ -360,3 +360,19 @@ Peereboom/C&C) and a paper-1 discussion point. Caveats: cohort-level
 geometries not per-model; crude kernel; channel differences small.
 Upgrade path: per-model REPRESENT geometry, proper CIs, and the
 Cutler & Condon human-side comparison.
+
+## Post-ship check: saturation is coherent polarization (2026-08-05)
+
+rgb's rushed-pull worry ("did we shove Llama or render it incoherent?")
+checked post-hoc against the long runs: PASSES, strongly. Three-band
+structure at every K, dose-monotone: Llama8 K=32 target +3.29 / mates
++2.02 / antis −0.82 (Gemma12 −1.04; Qwen7 the miniature +0.55/+0.29/
+−0.08). Per-item: slim 6.95 comes with big 2.60→1.04 and fat→1.36;
+prominent 6.90 with average 4.48→1.82; off-topic antis stay flat. So
+saturating Likert = committed polarized self-image, not acquiescence
+or breakage. Consequences: shipped claims strengthened (target-only
+numbers UNDERSTATE displacement); the three-band figure is the missing
+discriminant-validity exhibit — make it a headliner in the full-523
+report. Bonus family contrast on the same pair: Llama denies "big"
+(−1.56) after slim dosing where Qwen endorsed it (+1.95) — coherent
+polarization vs desirability drift.
