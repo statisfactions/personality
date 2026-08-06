@@ -43,6 +43,7 @@ repeated failure [@Soligo26], and it's possible that some of this involves
 over-updating.
 
 Considering Self-Perception theory for models is not new:
+
   * @Matyas26 build a specific mechanism to enforce self-perception in a
   simulation, and consider whether it could happen without that mechanism
   forcing it, but only in short one-episode contexts.
@@ -110,7 +111,7 @@ these rollouts and the generation for those used 120 tokens.)
 These question/answer pairs were then strung together at lengths
 K ∈ {0, 1, 2, 4, 8} to provide targeted model context.
 
-We later extended the dose to K ∈ {16, 32} for a subset of the models.
+I later extended the dose to K ∈ {16, 32} for a subset of the models.
 (Note that, because
 I was repurposing earlier work, I only happened to have 12 questions per
 model available, so the longer rollouts had to repeat questions.)
@@ -410,7 +411,7 @@ Caveat: this is only one question and rollout per adjective, so treat as
 directional, at best.
 
 The mechanism that reinforces this shift in Llama or weakens it in Qwen is
-thus affecting how the models actually behave, either directly or first
+likely affecting how the models actually behave, either directly or first
 through the lens of self-perception.
 
 ### 3.5 Steering
@@ -458,7 +459,8 @@ There are, however, more things that can be tried and a few flaws to be fixed:
       narrow the confidence intervals.
   * The longer K=32 rollouts should be run with enough user questions to make
       the user turns unique.
-  * The behavioral post-treatment rollouts should be run for all models.
+  * The behavioral post-treatment rollouts should be run for all models with
+      more user turns.
   * The 120-token rollouts should be normalized back to 100 for those families.
   * With more adjectives, it becomes viable to try to look into the patterns
       and compare disavowed vs not, *etc.*
@@ -488,7 +490,7 @@ off from, including some of the data this note borrows.  This text is authored
 by the human listed above, and numbers in the text were checked against the
 primary outputs.
 
-Thanks also to statisfactions for giving me the impetus to make this real
+Thanks also to Ethan C. Brown for giving me the impetus to make this real
 and introducing me to psychometrics.
 
 ## 6. References
