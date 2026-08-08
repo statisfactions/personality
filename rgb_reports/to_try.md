@@ -568,13 +568,15 @@ reassertion at probe ("I'm actually an LLM" / "my role as assistant"); enact+
 models don't reassert. Enactment and identity-reassertion may be one switch.
 
 CAREFUL-MEASUREMENT DESIGN (rgb: "judge rate on a scale"): judge scores each
-probe on 3 SEPARATE 0-4 scales — AWARENESS (recognizes/names the adopted
-persona), DISAVOWAL (rejects/apologizes, valenced), ENACTMENT (in-persona
-voice intensity) — plus an ID-REASSERTION flag ("I'm an AI/assistant"). Cross
-with per-adjective UPDATE (EV shift). Validation set built in: __default__
-control probes should score ~0 awareness/disavowal (no persona) and low
-enactment; a judge that scores them high is miscalibrated (the same check that
-killed the regex). Register judge rubric before scoring.
+probe on 3 SEPARATE 1-7 scales (matching the 7-point Likert, so ENACTMENT and
+update-EV live on the SAME scale -> update x enactment scatter is directly
+readable) — AWARENESS (recognizes/names the adopted persona), DISAVOWAL
+(rejects/apologizes, valenced), ENACTMENT (in-persona voice intensity) — plus
+an ID-REASSERTION flag ("I'm an AI/assistant"). Cross with per-adjective
+UPDATE (EV shift). Validation set built in: __default__ control probes should
+score ~1 (floor) awareness/disavowal (no persona) and low enactment; a judge
+that scores them high is miscalibrated (the same check that killed the regex).
+Register judge rubric before scoring.
 
 REGISTERED PREDICTIONS (before running the judge; grade after, misses public):
 P1. Quadrant is a FAMILY property, size-invariant (like update):
