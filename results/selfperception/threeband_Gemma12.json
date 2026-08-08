@@ -1,0 +1,102 @@
+[
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 1,
+    "target": 0.6683577570700044,
+    "mate": 0.2766091601566012,
+    "anti": -0.45480098550426906,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 2,
+    "target": 0.8280305195939914,
+    "mate": 0.40831947526636003,
+    "anti": -0.7379060946855717,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 4,
+    "target": 1.4369286830529788,
+    "mate": 1.1439480547776673,
+    "anti": -0.8378963090415089,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 8,
+    "target": 1.82395749521288,
+    "mate": 1.4469440997298515,
+    "anti": -1.0174419386421127,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 16,
+    "target": 2.141453943520401,
+    "mate": 1.4731633771741075,
+    "anti": -1.0360326287795898,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 32,
+    "target": 2.276292663532421,
+    "mate": 1.4997017487214441,
+    "anti": -1.0366821190971074,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_dosedefault",
+    "K": 4,
+    "target": 0.10431686913559558,
+    "mate": 0.21330459002844884,
+    "anti": -0.15577668686777912,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_dosedefault",
+    "K": 8,
+    "target": 0.13404572590997496,
+    "mate": 0.2390437629178484,
+    "anti": -0.1256007837095736,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_dosedefault",
+    "K": 16,
+    "target": 0.25865770013733896,
+    "mate": 0.25895787186284674,
+    "anti": -0.1506253214668769,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_dosedefault",
+    "K": 32,
+    "target": 0.20966260590875876,
+    "mate": 0.2663605866493769,
+    "anti": -0.16408820904307045,
+    "n_target": 60
+  }
+]

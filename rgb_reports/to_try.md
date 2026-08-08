@@ -407,3 +407,43 @@ family's ENACT-in-R-span fraction (Qwen 62% vs Llama 36%). If it holds,
 hope and becomes a debiasing recipe. Needs a ground-truthed group-
 statistics dataset (occupational/demographic base rates) — instrument
 design is the open piece.
+
+## __default__ null control: the anti-move is trait-specific (2026-08-08)
+
+Interview-hole plug (rgb: "drive toward __default__, hopefully little
+happens"). New flag `selfperception_dose.py --dose-persona __default__`:
+dose the context with the model's GENERIC no-persona assistant conduct
+(same length/format/template/read-items) instead of the trait persona.
+Matched placebo. Result — the control is essentially FLAT:
+
+  Llama8   real @K32 target +3.29 anti -0.82  |  default +?/-0.06, -0.12
+  Gemma12  real @K32 target +2.28 anti -1.04  |  default +0.21,  -0.16
+
+Llama8: perfectly null (target -0.06, anti -0.12 at K=32) — the entire
+shift, target AND antonym, is trait-content-specific. Kills the boring
+explanations (context length, acquiescence, format drift, "any
+self-generated text moves it") AND confirms Llama's anti-move is genuine
+polarization, not desirability deflation. Gemma12: near-null with a small
+residual (target ~10% of real, anti ~15%), a uniform mild drift consistent
+with Gemma's known format sensitivity — report it, don't smooth it.
+
+This is the matched null the note lacked. Combined with the aggregate
+three-band (below), the discriminant-validity story is now: plastic
+families show control-verified trait polarization; phi4/Aya's
+anti-move-dwarfs-target pattern is a SEPARATE desirability-deflation
+phenomenon (target doesn't move) — needs its own __default__ control to
+confirm. Full-523 headliner: three-band figure WITH the default-dose null
+band overlaid. Scripts: selfperception_threeband.py (aggregate),
+--dose-persona flag (control). Data: {Llama8,Gemma12}_dosedefault_*.
+
+## Aggregate three-band, cohort-wide (2026-08-08)
+
+Turned the per-pair anecdote into selfperception_threeband.py. Cohort @K8:
+clean target>mate>anti<0 for the plastic families (Llama8 +2.56/+1.31/
+-0.66; Gemma27 +2.45/+2.09/-0.49; gemma3, Gemma12). BUT phi4 (+0.19/+0.07/
+-0.93) and Aya (+0.60/+0.29/-1.61) have anti-moves that DWARF their
+targets = desirability deflation, not polarization. llama3.2 inverts
+(mate>target, anti +0.43). Qwen family flat/muddy. Discriminant that
+separates polarization from valence: does target LEAD anti (Llama) or does
+anti lead (phi4/Aya). Within-model ordering is selection-robust (same
+items); cross-model magnitude carries the per-model-selection caveat.

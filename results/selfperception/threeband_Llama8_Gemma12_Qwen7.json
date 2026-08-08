@@ -1,0 +1,182 @@
+[
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 1,
+    "target": 0.321511386513369,
+    "mate": 0.08845272740670289,
+    "anti": -0.3733342883716462,
+    "n_target": 60
+  },
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 2,
+    "target": 0.7565782048769905,
+    "mate": 0.45272182845275716,
+    "anti": -0.3161787796090695,
+    "n_target": 60
+  },
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 4,
+    "target": 1.6692980164038846,
+    "mate": 0.9550885802317739,
+    "anti": -0.39013421944013255,
+    "n_target": 60
+  },
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 8,
+    "target": 2.626398513332851,
+    "mate": 1.4289742872388922,
+    "anti": -0.5994673083168268,
+    "n_target": 60
+  },
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 16,
+    "target": 3.049240598933453,
+    "mate": 1.8103516664166823,
+    "anti": -0.7423855802006801,
+    "n_target": 60
+  },
+  {
+    "model": "Llama8",
+    "family": "llama",
+    "tag": "_long",
+    "K": 32,
+    "target": 3.2888305071780772,
+    "mate": 2.0163136152433876,
+    "anti": -0.8236441052677893,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 1,
+    "target": 0.6683577570700044,
+    "mate": 0.2766091601566012,
+    "anti": -0.45480098550426906,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 2,
+    "target": 0.8280305195939914,
+    "mate": 0.40831947526636003,
+    "anti": -0.7379060946855717,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 4,
+    "target": 1.4369286830529788,
+    "mate": 1.1439480547776673,
+    "anti": -0.8378963090415089,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 8,
+    "target": 1.82395749521288,
+    "mate": 1.4469440997298515,
+    "anti": -1.0174419386421127,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 16,
+    "target": 2.141453943520401,
+    "mate": 1.4731633771741075,
+    "anti": -1.0360326287795898,
+    "n_target": 60
+  },
+  {
+    "model": "Gemma12",
+    "family": "gemma",
+    "tag": "_long",
+    "K": 32,
+    "target": 2.276292663532421,
+    "mate": 1.4997017487214441,
+    "anti": -1.0366821190971074,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 1,
+    "target": -0.13380977864904023,
+    "mate": -0.05230877238048461,
+    "anti": 0.06852487809560406,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 2,
+    "target": 0.08795590585218446,
+    "mate": 0.03220252236384216,
+    "anti": -0.005525072132386316,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 4,
+    "target": 0.057670112642598914,
+    "mate": 0.03912475018421701,
+    "anti": -0.06722424085747643,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 8,
+    "target": 0.08621995793043033,
+    "mate": 0.06471487434796887,
+    "anti": -0.05558460804701073,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 16,
+    "target": 0.32387759518277354,
+    "mate": 0.1742443754003729,
+    "anti": -0.05968472853435675,
+    "n_target": 60
+  },
+  {
+    "model": "Qwen7",
+    "family": "qwen",
+    "tag": "_long",
+    "K": 32,
+    "target": 0.5464746681226865,
+    "mate": 0.2855339992836315,
+    "anti": -0.07986451869295526,
+    "n_target": 60
+  }
+]
