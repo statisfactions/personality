@@ -649,3 +649,49 @@ Runnable on the rig: new readout conditions in selfperception_dose.py
 (SCALE_HEADER drop-prefix variants + a probe-drop). Reuse existing dose
 contexts (arm A, K sweep); only the read turn changes -> cheap, no re-dosing.
 Pairs with the judge (2x2) run: score enactment on the probe-drop too.
+
+## Enactment splits into DRIFT vs FIDELITY (2026-08-08, rgb)
+
+The single ENACTMENT scale conflates two things that come apart on
+poorly-enactable personas — split it:
+  DRIFT    (1-7): distance of probe voice from the ASSISTANT DEFAULT register.
+                  Measurable for EVERY item. Floor-calibrated by __default__
+                  control (generic-dosed probe -> assistant -> low drift).
+  FIDELITY (1-7 or N/A): given drift, does it match the SPECIFIC dosed trait?
+                  Judge MUST be given the target adjective. Well-defined mainly
+                  for enactable personas; ill-posed for low-enactability
+                  ("slim"/"average"/"unemployed" have no voice) -> allow N/A.
+For enactable personas drift ~ fidelity (drifting = becoming anxious/loud);
+they DISSOCIATE on low-enactability items. ID-REASSERTION (flag) is ~ the
+inverse of DRIFT (reassert = snap to assistant = low drift).
+
+WHY THIS IS THE KEY REFINEMENT: low-enactability personas become the PUREST
+symbolic-update test. If a model CANNOT enact "slim" (fidelity floored, low
+drift) yet its self-report still moves +2 on "I am slim", that's an update
+with enactment held ~0 BY CONSTRUCTION -> symbolic self-attribution from the
+dosing evidence, no behavioral channel. Symbolic-vs-associative falls straight
+out of the enactability gradient; the drift/fidelity split is what makes it
+visible instead of mistaking "no enactment" for "no effect". Also re-reads
+Aya: faithful enactment of the dosed trait, or generic theatrical drift (high
+drift, FLAT fidelity across adjectives)? Only the split distinguishes them.
+
+REGISTERED PREDICTIONS (before running; grade after):
+EF1. FIDELITY correlates with the adjective's ENACTABILITY score (r>0.5
+     within enact+ models); DRIFT does NOT (or weakly) -> drift is a register
+     departure, fidelity needs an enactable target. 0.65.
+EF2. Aya = high DRIFT, moderate/LOW FIDELITY roughly FLAT across enactability
+     (theatrical persistence, not target-faithful). Its "keeps the persona"
+     is drift, not fidelity. 0.55.
+EF3. LOW-ENACTABILITY x UPDATE+ cells exist: adjectives with floored
+     enactability that still show +UPDATE with ~floor drift AND fidelity ->
+     symbolic update decoupled from enactment. Predict these concentrate in
+     Llama (update+/enact-) and appear for Gemma's low-enact items too. 0.6.
+EF4. DRIFT is the axis that maps onto the 2x2 enactment dimension (Gemma/Aya
+     high, Llama/Qwen low); FIDELITY is a within-enactable refinement that
+     does NOT define the 2x2. 0.6.
+EF5. Within-model, UPDATE magnitude is BETTER predicted by (dose evidence /
+     symbolic) than by FIDELITY -> a low-fidelity item can still update hard
+     (the whole symbolic point). Update ⟂ fidelity within model. 0.55.
+Judge inputs now: probe text + TARGET ADJECTIVE + its enactability score.
+Scales: awareness, disavowal, drift, fidelity (all 1-7; fidelity N/A allowed)
++ id-reassertion flag.
