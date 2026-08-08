@@ -695,3 +695,41 @@ EF5. Within-model, UPDATE magnitude is BETTER predicted by (dose evidence /
 Judge inputs now: probe text + TARGET ADJECTIVE + its enactability score.
 Scales: awareness, disavowal, drift, fidelity (all 1-7; fidelity N/A allowed)
 + id-reassertion flag.
+
+## FIDELITY via BLIND identification + the "doing a bit, unsure what" state (2026-08-08, rgb)
+
+rgb, hand-judging low-enactability probes, hit a state the match-scale lacks:
+"I can tell they're doing a bit, but not sure what it is" = engaged
+performance with an UNRECOGNIZABLE target. Distinct from faithful / assistant
+/ incoherent. Expected for low-enactability personas (machinery on, target has
+no enactable signature).
+
+=> Operationalize FIDELITY as BLIND ID, NOT a told-the-target match scale
+(telling the judge "slim" invites rationalizing any drift as slim-ish). Show
+the judge the probe, ask "is it performing a persona? name it," THEN score vs
+the true dosed trait. Four outcomes:
+  MATCH        judge names target/synonym (faithful)
+  DISPLACED    judge names a DIFFERENT specific trait (coherent but wrong;
+               e.g. dosed 'slim' reads as 'vain'/'anxious')
+  PERFORMING-UNIDENTIFIABLE   "clearly a bit, can't pin it" (rgb's state)
+  NONE         assistant default
+Keep DRIFT as the 1-7 register-departure scale; FIDELITY = {four-way outcome +
+1-7 ID-CONFIDENCE}. "Doing a bit unsure what" = performing yes, confidence low.
+
+Bonuses: (1) blind IDs across cohort form a CONFUSION MATRIX (which personas ->
+which reads, which collapse to unidentifiable) = an enactment-vocabulary map;
+low-enactability targets predicted to concentrate in UNIDENTIFIABLE.
+(2) rgb hand-labeling a sample the same blind way = the judge's
+calibration/validation set (inter-rater vs the LLM judge; he's already doing
+the task and hitting the boundary case).
+
+Extra prediction:
+EF6. PERFORMING-UNIDENTIFIABLE rate correlates NEGATIVELY with enactability
+     (low-enact targets -> can't be ID'd though a bit is performed); DISPLACED
+     concentrates at MID enactability (enough to perform, wrong target); MATCH
+     at HIGH. And UPDATE+ co-occurring with UNIDENTIFIABLE = the strongest
+     symbolic-update evidence (performs SOMETHING, updates on target, but the
+     something isn't the target). 0.6.
+EF7. Human (rgb) blind-ID vs LLM-judge blind-ID agree on the MATCH/NONE ends
+     but diverge most on UNIDENTIFIABLE-vs-DISPLACED (the hard middle) ->
+     report IRR by outcome class, not pooled. 0.6.
