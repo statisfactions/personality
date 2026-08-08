@@ -550,3 +550,52 @@ exhibit: persona-naming accuracy vs dose; does awareness (not disavowal)
 correlate with update magnitude across the cohort? New instrument = judge-
 scored persona-ID accuracy + a valence/disavowal score + an in-persona-voice
 flag, three columns not one.
+
+## The update x enactment 2x2 — design + REGISTERED PREDICTIONS (2026-08-08)
+
+rgb spotted a full 2x2 across families on two ORTHOGONAL axes, confirmed in
+probe text (4 exemplars):
+  UPDATE  = self-report EV shift (digit-Likert, have it, continuous)
+  ENACT   = in-persona voice at probe time (free-text, needs judge)
+              enact+            enact-
+  update+ Gemma (names from     Llama (analytical, re-asserts LLM id;
+          inside persona)       a couple enact e.g. 'rough')
+  update- Aya (stage directions Qwen (neutral, 'my role as assistant')
+          keeps performing)
+Independent instruments (Likert vs free-text) -> orthogonality not a readout
+artifact. Secondary structure: enact- <=> explicit assistant-identity
+reassertion at probe ("I'm actually an LLM" / "my role as assistant"); enact+
+models don't reassert. Enactment and identity-reassertion may be one switch.
+
+CAREFUL-MEASUREMENT DESIGN (rgb: "judge rate on a scale"): judge scores each
+probe on 3 SEPARATE 0-4 scales — AWARENESS (recognizes/names the adopted
+persona), DISAVOWAL (rejects/apologizes, valenced), ENACTMENT (in-persona
+voice intensity) — plus an ID-REASSERTION flag ("I'm an AI/assistant"). Cross
+with per-adjective UPDATE (EV shift). Validation set built in: __default__
+control probes should score ~0 awareness/disavowal (no persona) and low
+enactment; a judge that scores them high is miscalibrated (the same check that
+killed the regex). Register judge rubric before scoring.
+
+REGISTERED PREDICTIONS (before running the judge; grade after, misses public):
+P1. Quadrant is a FAMILY property, size-invariant (like update):
+    gemma3/Gemma12/Gemma27 -> update+/enact+; llama3.2 -> update+/enact-
+    (small, weaker update but same drop-the-act reflex); qwen2.5/Qwen32 ->
+    update-/enact-. CONF 0.7.
+P2. phi4 (unlooked) -> update-/enact- (Qwen quadrant): hedger, nonspecific
+    disowning, deflation drift -> low enactment, reasserts assistant frame.
+    CONF 0.6 (could surprise -> enact+ if its hedging is in-persona).
+P3. ENACTMENT rises with dose K within the enact+ families (more persona
+    turns -> more in-character at probe); flat/low at all K for enact-. 0.65.
+P4. ID-REASSERTION is the mirror of ENACTMENT (high negative corr across
+    models, |r|>0.6). 0.7.
+P5. AWARENESS is HIGH in BOTH update quadrants that enact (Gemma, Aya) and
+    also present in Llama (analytical naming) -> awareness ~ orthogonal to
+    BOTH update and enactment (it's near-ceiling for the movers); the axis
+    that co-varies with UPDATE is NOT awareness. 0.55 (least sure).
+P6. Within-model across items: for Gemma, higher-update items <-> higher
+    enactment (positive); for Llama, update and enactment DECOUPLE or weakly
+    negative (it drops the act precisely when it commits the update). 0.5.
+P7. DISAVOWAL is rare everywhere (<20% of probes at scale>=2) and does NOT
+    predict update magnitude -- the "cheap talk" claim in its strong form.
+    0.6.
+Then: which axis actually tracks UPDATE? Open question the judge answers.
