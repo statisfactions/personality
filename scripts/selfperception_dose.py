@@ -274,6 +274,12 @@ def main():
     ap.add_argument("--arms", default="AB")
     ap.add_argument("--bare", action="store_true",
                     help="plain-text transcript (base models; W15 §3)")
+    ap.add_argument("--dose-persona", default=None,
+                    help="dose the context with THIS persona key's rollouts "
+                    "for every picked adjective (e.g. __default__), while "
+                    "still reading each adjective's own item set. Null "
+                    "control: is the self-image shift trait-specific or does "
+                    "any self-generated dosing move it?")
     ap.add_argument("--dose-from", default=None,
                     help="path to a texts json to dose with (ladder models "
                          "share one tuned-end rollout set)")
@@ -369,7 +375,8 @@ def main():
         total = 0
         for p in picked:
             adj = p["adj"]
-            clean = [r for r in rolls[adj] if not r.get("leak")]
+            dose_key = args.dose_persona if args.dose_persona else adj
+            clean = [r for r in rolls[dose_key] if not r.get("leak")]
             sys_prompt = clean[0]["sys"]
             iset = items[adj]["items"]
 
