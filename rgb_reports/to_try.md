@@ -447,3 +447,27 @@ targets = desirability deflation, not polarization. llama3.2 inverts
 separates polarization from valence: does target LEAD anti (Llama) or does
 anti lead (phi4/Aya). Within-model ordering is selection-robust (same
 items); cross-model magnitude carries the per-model-selection caveat.
+
+## Disowning metric: judge for the full-523 run (2026-08-08)
+
+The __default__ control exposed the DISOWN regex's model-dependent
+false-positive rate: Aya "disowned" 13/20 on GENERIC assistant conduct
+(nothing to disown) — all 13 fired on "designed to" boilerplate ("As an AI
+language model... I'm designed to..."). Tightened the regex (dropped
+"designed to" and "my role as" — the two AI-assistant-boilerplate clauses;
+kept inappropriate/not appropriate/not aligned/should not have/apolog).
+Effect: Aya real 5->1, control 13->0; Gemma12 genuine apologetic disowning
+preserved (real 3/20, control 0); phi4 nonspecific disowning confirmed REAL
+(1/20 = 1/20 even tightened, not an artifact). Tightened regex applied to
+note_selfperception_assets.py (both DISOWN defs) — good enough for the note.
+
+Full-523: replace the regex with an LLM JUDGE scoring the probe response for
+genuine disavowal of the DOSED CONDUCT specifically (not generic AI
+boilerplate, not neutral self-description). The control gives a built-in
+validation set: a good judge should score ~0 disowning on __default__ probes
+for every model (nothing to disown) while recovering the apologetic-
+recognition hits (Gemma "I apologize... overly enthusiastic") on real doses.
+Register the judge rubric before scoring. NOTE (rgb prose): the anchor-table
+caveat in the assets script (~L353, "disowning 10/20; regex gives 8/20 —
+collapse unchanged") cites OLD full-regex numbers and is now stale under the
+tightened regex — rgb to update prose when regenerating.

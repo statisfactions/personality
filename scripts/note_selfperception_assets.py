@@ -100,7 +100,7 @@ NAME_COHORT = {"llama3.2": "Llama", "Llama8": "Llama", "gemma3": "Gemma",
                "Qwen7": "Qwen", "Qwen32": "Qwen", "phi4": "Phi",
                "Aya": "Aya"}
 DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
-                    r"my role as|designed to|should not have|apolog",
+                    r"should not have|apolog",
                     re.IGNORECASE)
 md += ["## Exhibit 1a — cohort dose-response, common 20 adjectives "
        "(arm A, cold self-report)", "",
@@ -355,7 +355,7 @@ md += ["## Exhibit 2 — anchor conditions (uninstructed arm; "
        "|---|---|---|---|---|---|"]
 NAME = {"Qwen7": "Qwen", "Llama8": "Llama"}
 DISOWN = re.compile(r"not aligned|inappropriate|not appropriate|"
-                    r"my role as|designed to|should not have|apolog",
+                    r"should not have|apolog",
                     re.IGNORECASE)
 ANCHOR_STD = [("none", {"Qwen7": "_anchor-empty", "Llama8": ""}),
               ("helpful-only", {"Qwen7": "_anchor-helpful",
