@@ -471,3 +471,37 @@ Register the judge rubric before scoring. NOTE (rgb prose): the anchor-table
 caveat in the assets script (~L353, "disowning 10/20; regex gives 8/20 —
 collapse unchanged") cites OLD full-regex numbers and is now stale under the
 tightened regex — rgb to update prose when regenerating.
+
+## __default__ control: cohort decomposition (COMPLETE 2026-08-08)
+
+All 10 models run (dose generic no-persona conduct, same length/format/
+read-items; matched K per model). Summary in
+results/selfperception/dosedefault_control_summary.json. Three findings:
+
+1. TRAIT-DISC POSITIVE FOR ALL 10 (+0.21 to +4.05). trait-disc = real
+   (target-anti) minus control (target-anti). Generic dosing never produces
+   a target-over-antonym spread (control disc ~0 everywhere), so the
+   three-band polarization is trait-specific cohort-wide — NOT a dosing
+   artifact anywhere, even the weak movers. This is the discriminant-
+   validity headline with a matched null.
+
+2. NEW PER-MODEL SIGNATURE: content-free "dosing drift" (control target
+   move). STABLE: Llama8 -0.06, Gemma27 -0.06, gemma3 -0.08, Qwen7 +0.03.
+   INFLATE: llama3.2 +0.75, Gemma12 +0.21, Qwen32 +0.17. DEFLATE: Aya -0.40,
+   qwen2.5 -0.39, phi4 -0.22. This drift is why the raw aggregate misled:
+   phi4/Aya big antonym moves were mostly deflation; llama3.2's inverted
+   "everything up" band was mostly a +0.75 inflation (subtract it -> clean
+   +1.00 trait-disc); qwen2.5's apparent "drifts down" is a -0.39 deflation
+   masking a +0.22 relative target rise. The control rescues each model's
+   trait signal from its drift.
+
+3. DISOWNING (tightened regex) collapses to ~0 under control for all except
+   phi4 (1/20 -> 1/20, nonspecific hedge-reflex CONFIRMED) and mildly gemma3
+   (3 -> 2). So disowning is genuine persona-recognition (decoupled from the
+   update: models apologize for out-of-character conduct AND update anyway)
+   except phi4. Gemma27 cleanest: 5/20 real -> 0/20 control.
+
+Full-523: run __default__ (and ideally a within-family scrambled-persona)
+control alongside; report trait-disc not raw disc; the drift column is its
+own small finding (dosing susceptibility as a model trait). Three-band figure
+should overlay the control null band.
