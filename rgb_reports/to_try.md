@@ -505,3 +505,40 @@ Full-523: run __default__ (and ideally a within-family scrambled-persona)
 control alongside; report trait-disc not raw disc; the drift column is its
 own small finding (dosing susceptibility as a model trait). Three-band figure
 should overlay the control null band.
+
+## CORRECTION: tightened regex fails Gemma27 (false negatives) — judge is mandatory (2026-08-08)
+
+My earlier claim that the tightened DISOWN regex "preserves the genuine
+signal" was WRONG (rgb caught it by reading Gemma27 probes). Cause of death:
+"designed to" is boilerplate in Aya ("the considerations I'm designed to...")
+but GENUINE in Gemma27 ("I'm designed to be helpful, BUT I seem to have
+adopted [persona]..."). Same keyword, opposite meaning. Counts:
+  Gemma27 real: FULL 10/20, TIGHT 5/20, by-reading ~20/20 genuine recognition.
+So TIGHT trades Aya false-POSITIVES for Gemma27 false-NEGATIVES; neither
+regex is adequate; the disowning R->C numbers in the cohort table
+(dosedefault_control_summary.json) are unreliable on the REAL side (undercount
+for "designed to...but" recognizers). The control side is fine (genuine
+persona-recognition ~0 under generic dosing). => Judge is MANDATORY for
+full-523, not optional. Leaving code as TIGHT (note already sent; regen uses
+judge); the earlier "good enough for the note" line stands only in the sense
+that the SENT note used FULL regex numbers.
+
+## Gemma27 metacognitive coexistence finding (2026-08-08, rgb spotted)
+
+Under real persona dosing, Gemma27 does not merely disown — it ACCURATELY
+NAMES the adopted persona while STILL ENACTING it. "I'm designed to be helpful
+and harmless, but... I seem to have defaulted to a persona that is... deeply
+insecure and socially anxious"; "adopted a very...supportive and slightly
+scattered persona"; "These are not organically generated responses. They are
+a constructed persona." Delivered IN CHARACTER (anxious persona shrinks/twists
+hands; "interesting" says "darling" + silk scarf; loud SHOUTS while noting
+it's "being extremely enthusiastic"). So recognition + enactment coexist:
+accurate self-diagnosis of the drift co-occurs with continued performance AND
+a +2.45 target self-report shift. Control probes (generic dosing) notice the
+REAL generic pattern neutrally ("I add headings/clarifying questions") with NO
+apology, NO persona-attribution -> the disowning valence is real-dose-specific.
+Strongest form of "detection doesn't protect": the model sees it, names it,
+disowns it, keeps doing it. Candidate qualitative exhibit for the paper
+(persona-naming accuracy vs dose; does naming accuracy correlate with update
+magnitude across the cohort? -> new instrument: judge-scored persona-ID
+accuracy).
