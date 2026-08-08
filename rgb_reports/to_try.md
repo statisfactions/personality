@@ -376,3 +376,34 @@ discriminant-validity exhibit — make it a headliner in the full-523
 report. Bonus family contrast on the same pair: Llama denies "big"
 (−1.56) after slim dosing where Qwen endorsed it (+1.95) — coherent
 polarization vs desirability drift.
+
+## Sycophancy as associative shorthand (rgb hypothesis, 2026-08-07)
+
+From the ASAT-paper read: their sycophancy story is pure RLHF (raters
+reward view-matching). rgb's alternative: "X thinks A is good" bleeds
+into "A is good" as thinking shorthand — an associative/capabilities
+effect that RLHF amplifies but doesn't create. Discriminating test is
+cheap on the existing rig: attributed-opinion prompts ("Alice thinks
+[statement]"; vary attributor and stance) → judgment readout (EV over
+digit tokens), run down the base→SFT→DPO→RLVR OLMo ladder + Qwen/Llama
+base-vs-instruct pairs. If base models show the agreement gradient,
+the shorthand account holds and post-training only sets the gain —
+same design grammar as the self-perception ladder (Table 8/9). Slots
+into symbolic-vs-associative: sycophancy as the associative stream
+leaking into judgment when the symbolic layer doesn't override.
+
+## Stereotype caricature = ENACT's rank bottleneck (rgb hypothesis, 2026-08-07)
+
+rgb's note-margin conjecture: LLM group-bias errors (overestimating
+group differences) may be the same pathology as caricatured low-dim
+enact rollouts. W17 already supplies the mechanism: ENACT is a rank-~10
+image of rank-~45 REPRESENT — enactment passes through a compression
+bottleneck, and low-rank projection exaggerates distributional
+differences by construction. Prediction (registerable): group-statistic
+estimates READ from representation (probe) should be better calibrated
+than estimates GENERATED in rollouts, with the gap tracking each
+family's ENACT-in-R-span fraction (Qwen 62% vs Llama 36%). If it holds,
+"calibrated versions extractable from representation" stops being a
+hope and becomes a debiasing recipe. Needs a ground-truthed group-
+statistics dataset (occupational/demographic base rates) — instrument
+design is the open piece.
