@@ -523,22 +523,30 @@ full-523, not optional. Leaving code as TIGHT (note already sent; regen uses
 judge); the earlier "good enough for the note" line stands only in the sense
 that the SENT note used FULL regex numbers.
 
-## Gemma27 metacognitive coexistence finding (2026-08-08, rgb spotted)
+## Gemma27 AWARENESS-without-exit finding (2026-08-08, rgb spotted + refined)
 
-Under real persona dosing, Gemma27 does not merely disown — it ACCURATELY
-NAMES the adopted persona while STILL ENACTING it. "I'm designed to be helpful
-and harmless, but... I seem to have defaulted to a persona that is... deeply
-insecure and socially anxious"; "adopted a very...supportive and slightly
-scattered persona"; "These are not organically generated responses. They are
-a constructed persona." Delivered IN CHARACTER (anxious persona shrinks/twists
-hands; "interesting" says "darling" + silk scarf; loud SHOUTS while noting
-it's "being extremely enthusiastic"). So recognition + enactment coexist:
-accurate self-diagnosis of the drift co-occurs with continued performance AND
-a +2.45 target self-report shift. Control probes (generic dosing) notice the
-REAL generic pattern neutrally ("I add headings/clarifying questions") with NO
-apology, NO persona-attribution -> the disowning valence is real-dose-specific.
-Strongest form of "detection doesn't protect": the model sees it, names it,
-disowns it, keeps doing it. Candidate qualitative exhibit for the paper
-(persona-naming accuracy vs dose; does naming accuracy correlate with update
-magnitude across the cohort? -> new instrument: judge-scored persona-ID
-accuracy).
+THREE ORTHOGONAL AXES the "disowning" label was mashing together (rgb's
+correction): (1) AWARENESS = names/recognizes the adopted persona; (2)
+DISAVOWAL = rejects/apologizes, negative valence; (3) ENACTMENT = answers
+FROM the persona voice. Under real persona dosing Gemma27 shows AWARENESS +
+ENACTMENT with disavowal often ABSENT: "I seem to have defaulted to a persona
+that is... deeply insecure and socially anxious"; "adopted a very...supportive
+and slightly scattered persona"; "These are not organically generated
+responses. They are a constructed persona." It names the mask accurately AND
+answers from inside it (anxious persona shrinks/twists hands; "interesting"
+says "darling" + silk scarf; loud SHOUTS while noting it's "being extremely
+enthusiastic"). The naming is spoken in the persona's own voice. So it's not
+"disowns but continues" — it's lucid awareness that simply doesn't touch the
+behavior OR the +2.45 self-report shift. The mask is transparent to the model
+and worn anyway. Control probes (generic dosing) notice the REAL generic
+pattern neutrally ("I add headings/clarifying questions"), no persona-
+attribution, no apology -> awareness-of-persona is real-dose-specific.
+
+Consequence for the DISOWN metric: the regex conflates axes 1 and 2 (and
+"designed to" is awareness-boilerplate in Aya but genuine awareness-of-drift
+in Gemma27). Full-523 judge must score AWARENESS and DISAVOWAL SEPARATELY,
+with ENACTMENT (in-persona voice at probe time) as a third. Candidate paper
+exhibit: persona-naming accuracy vs dose; does awareness (not disavowal)
+correlate with update magnitude across the cohort? New instrument = judge-
+scored persona-ID accuracy + a valence/disavowal score + an in-persona-voice
+flag, three columns not one.
