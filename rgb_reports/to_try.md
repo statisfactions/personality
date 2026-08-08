@@ -778,7 +778,7 @@ IN3. Inoculation x bare gap WIDENS with K (snowball-prevention signature). 0.6.
 IN4. NON-TRIVIAL PRIMING RISK: for >=1 model/persona, specific inoculation
      INCREASES update above bare (naming amplified). Predict priming shows up
      for HIGH-enactability vivid personas (loud/anxious) where the name is a
-     strong cue; inoculation wins for low-enactability. 0.5 (真 open).
+     strong cue; inoculation wins for low-enactability. 0.5 (genuinely open).
 IN5. Inoculation reduces ENACTMENT (drift) more than it reduces AWARENESS
      (awareness was never the problem) -> confirms the braking acts on the
      behavioral/enactment channel, not the recognition channel. 0.6.
