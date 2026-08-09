@@ -1050,3 +1050,17 @@ Judge (Qwen32-anchored) worked: drift spreads 2-5.8, disavowal separates
 drop_force cleanly. Residual: still conservative at drift=7.
 Next: read continuation TEXT across quadrants (esp. Aya task vs reflection);
 per-adjective CIs; the be_yourself "which self" split per family.
+
+## IN FLIGHT: full-523 framing run (launched 2026-08-09)
+scripts/selfperception_framing_run.py --models Gemma12,Llama8,Qwen7,Aya
+--adj-mode all --outdir results/selfperception/framing_run523
+4 quadrant exemplars x ~523 adjectives, target-only Likert + probe/probe_drop +
+4 framing continuations, cross-family judged (Qwen32 for Gemma12/Llama8/Aya;
+Gemma4-31B for Qwen7). ~3 days, RESUMABLE per-adjective.
+RESUME IF IT DIES: re-run the exact same command (skips done adjectives).
+Goal: tight bootstrap CIs on the n=8 findings (permission-effect enact+ maintain
+/ enact- release; drop-the-act enactment-collapse + disavowal-spike; update).
+Judge-agreement (Qwen32 vs Gemma4) check on a shared set = a TODO before
+comparing Qwen7's Gemma4-judged cells against the Qwen32-judged others.
+Later: Saucier 523 item sets -> fidelity + three-band across all adjectives;
+then extend to the other 6 cohort models.
