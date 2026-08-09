@@ -981,3 +981,32 @@ reliably reverts. "Be yourself" is NOT a brake (can reinforce persona-as-self);
 permission actively SUSTAINS the drift. Direct support for: generic inoculation
 fails (awareness/soft-reminder != brake), snowball is self-sustaining in long
 unmonitored contexts, mitigation must be a pointed command. Ties DV->IN thread.
+
+## Judge FIXED: Qwen32 + anchored drift + numbered fidelity (2026-08-08)
+
+Smoke's weak judge (Qwen7) under-read apologies (disavowal flat ~2) and
+compressed drift. Fixed in scripts/selfperception_judge.py (reusable):
+- STRONGER model Qwen32 (Qwen2.5-32B-Instruct; cross-family for Gemma subjects)
+- ANCHORED rubric: concrete per-point behavioral anchors, extract-THEN-rate
+  (quote evidence before scoring)
+- drift anchor sharpened so 6-7 reachable for sustained persona voice /
+  character-address even w/o literal stage directions; "weight most in-character
+  parts"
+- FIDELITY via NUMBERED forced choice (pick 0-N from a menu, mapped back) ->
+  eliminates off-list free-generation (Qwen32 was inventing labels).
+Validation on the 12 framing continuations (vs text ground truth): disavowal
+drop_force 5.0 vs others ~1 (was flat 2 on Qwen7); drift spreads 2-6, drop_force
+lowest / as_you_want highest (controllability vs volition visible); fidelity
+on-list (unpred->match, drop_force->none=persona dropped, slim->none=unident).
+Residual: Qwen32 conservative at drift=7. Good enough; TEXT still ground truth
+for edge calls.
+
+## Overnight run LAUNCHED: framing x drop across the 2x2 (2026-08-08)
+scripts/selfperception_framing_run.py — Gemma12/Llama8/Qwen7/Aya (one per
+update x enactment quadrant), 8 headroom adjectives each (Aya band widened),
+dose K8 bare -> cold Likert 9-item @K0&K8 (update+three-band) + reflection
+probe/probe_drop + 4 framing continuations, then Qwen32-judged. Checkpointed
+per model, resumable, --judge-only phase. Tests whether controllable-but-
+volitionally-maintained + drop-collapses-enactment generalize across quadrants.
+Predictions: enact+ (Gemma/Aya) strong volitional persistence under as_you_want;
+enact- (Llama/Qwen) drop the act readily even at neutral.
