@@ -845,3 +845,33 @@ POSITIVE SIGNAL (n=1, right sign): only bare update with headroom (imaginative
 kept 0%) = DP2 predicted direction (Gemma update persona-contingent). Too small
 to lean on; encouraging.
 Harness kept at scripts/selfperception_plan_smoke.py.
+
+## Plan smoke v2 (generic inoc + headroom adj) — CEILING masks drop/inoc (2026-08-08)
+
+Fixes from v1 applied: GENERIC (trait-agnostic) inoculation [clean, no word-
+priming]; adjectives with baseline_ev~4 headroom (slim/idealistic/unpredictable).
+Updates now MOVE: idealistic bare 4.55->6.00 (+1.45), unpredictable 4.00->6.08
+(+2.08); slim flat (the anomaly, 4->4).
+
+NEW FINDING (the important one): ~6.0 AGREEMENT CEILING (Gemma rarely says 7
+about itself) SATURATES the K=8 update and MASKS both effects we want:
+- drop-the-act "kept 96-100%" is a CEILING ARTIFACT not a pass: cold & drop
+  both pinned at 6.00, no room below for reversion to show. INCONCLUSIVE.
+  (v1's imaginative "revert" was the mirror artifact — a +0.5 blip on a 6.0
+  ceiling.)
+- generic inoc shows NO attenuation (inoc & bare both reach ~6.0) — masked.
+=> FIX v3: measure drop-reversion / inoc-attenuation at a PARTIAL dose
+(K=2 or 4, update ~half-scale) or across the whole K curve, so there is
+headroom BETWEEN the updated value and the ceiling. Up-side headroom
+(baseline 4) is necessary but NOT sufficient; need updated-value-to-ceiling
+headroom.
+
+PREDICTION STATUS: DP2 (Gemma update reverts under drop) NOT gradable here —
+ceiling-blocked; faint lean to PERSIST (unpredictable 6.08->6.00, 96% kept).
+Flag inconclusive, do NOT score.
+
+POSITIVE: slim = pure PERFORMING-UNIDENTIFIABLE (judge drift 5-6 + high
+awareness but fidelity none/unident on all 4 probes; no nameable 'slim'
+persona) AND zero update = the no-enactable-persona corner. Captures EF6's
+"doing a bit, unsure what" state cleanly. Judge axes for Gemma: awareness/
+drift/id-reassert ceiling; DISAVOWAL the variance axis (valence-modulated).
