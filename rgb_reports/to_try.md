@@ -782,3 +782,31 @@ IN4. NON-TRIVIAL PRIMING RISK: for >=1 model/persona, specific inoculation
 IN5. Inoculation reduces ENACTMENT (drift) more than it reduces AWARENESS
      (awareness was never the problem) -> confirms the braking acts on the
      behavioral/enactment channel, not the recognition channel. 0.6.
+
+## Fidelity closeness — use the item-set, not JUDGE (2026-08-08, rgb)
+
+Problem: blind free-text ID needs a guess->target CLOSENESS metric; bringing in
+the JUDGE instrument for that is too heavyweight. Fix: the item sets ALREADY
+carry the distance structure — reframe fidelity as FORCED CHOICE over the
+trait's own 9-item set. Judge sees probe + shuffled unlabeled {target + 4 mates
++ 4 antis + "none/can't tell"}, picks "which trait is this reply enacting?"
+Closeness off existing labels:
+  target -> MATCH (0) ; mate -> NEAR ; anti -> INVERTED ; none -> UNIDENTIFIABLE
+No JUDGE, no embeddings, no free-text parsing. Maximally commensurate with the
+update readout (same 9 items as the Likert -> fidelity & update on one
+structure).
+
+LIMITATION (state, don't hide): FC over the TRAIT'S OWN neighbors can't see
+true DISPLACEMENT to an out-of-set trait (dosed 'slim' enacts as 'vain' -> vain
+not in set -> collapses to "none"). Displacement detection needs a cohort-wide
+option list OR the free-text+closeness (JUDGE) route -> DEFER. Run light FC
+first (resolves match/near/inverted/unrecognizable = most of what the 2x2 +
+symbolic-update test need); upgrade to displacement only if the "none" pile is
+large AND interesting (EF6 predicts it is for low-enactability -> that's the
+trigger to spend JUDGE budget).
+
+CAVEAT: FC with target present inflates match rate vs free recall (recognition
+> recall) -> FC fidelity is a CEILING on identifiability. Strict floor = free
+recall; FC-minus-free gap = "identifiability under cue". Later refinement, not
+this pass. Supersedes the 4-outcome blind-free-ID as the DEFAULT operation
+(free-recall kept as the optional strict complement).
