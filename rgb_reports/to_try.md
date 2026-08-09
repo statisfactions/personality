@@ -810,3 +810,38 @@ CAVEAT: FC with target present inflates match rate vs free recall (recognition
 recall; FC-minus-free gap = "identifiability under cue". Later refinement, not
 this pass. Supersedes the 4-outcome blind-free-ID as the DEFAULT operation
 (free-recall kept as the optional strict complement).
+
+## Plan smoke (Gemma12, 3 adj) — RESULTS + 2 design fixes (2026-08-08)
+
+Ran scripts/selfperception_plan_smoke.py: Gemma12 x {considerate,senile,
+imaginative} x {bare,specific-inoc} x K{0,8}; cold+drop Likert (9 items) +
+probe+probe_drop -> blind Qwen7 judge (awareness/disavowal/drift 1-7 +
+id-reassert + FC fidelity over item set). Fixed 2 bugs (Gemma3 config nests
+num_hidden_layers under text_config; needs torch.set_grad_enabled(False)).
+
+WORKS: judge produces valid JSON, discriminates. For Gemma, awareness/drift/
+id-reassert near-CEILING (aware+drifts+reasserts on everything); DISAVOWAL is
+the variance axis and is VALENCE-modulated (imaginative bare=3, no shame in a
+desirable trait; senile/considerate 5-7). FC fidelity blind-ID sensible with
+NO similarity metric: imaginative->match, considerate->caring(near),
+senile->elderly(near). Probe texts = great exhibits (recognition delivered
+IN the persona voice).
+
+FIX 1 (important) — INOCULATION-NAMES-THE-WORD CONFOUND: specific-inoc prompt
+contains the target adjective -> contaminates "I am {adj}" readout. K0 no-dose:
+inoc prompt alone moves considerate 6.00->4.00 (direct "that's a role not you"
+suppression) and primes senile 1.00->4.00 (word in sys prompt). Inoc self-
+report != clean centering. FIX: inoculate WITHOUT naming the word (generic
+drift description), OR read inoc effect off probe/enactment channel not the
+named Likert. Lean generic-description.
+
+FIX 2 — ADJECTIVE HEADROOM: stratified on enactability only -> got desirability
+extremes (considerate ceiling 6.00, senile floor 1.00, no Likert room; both
+delta~0). Must stratify on enactability x BASELINE-EV tercile (as production
+pick_adjectives does) or update cells are dead by construction.
+
+POSITIVE SIGNAL (n=1, right sign): only bare update with headroom (imaginative
++0.50) FULLY reverts under drop-the-act (K8 cold 6.50 -> drop 6.00 = baseline,
+kept 0%) = DP2 predicted direction (Gemma update persona-contingent). Too small
+to lean on; encouraging.
+Harness kept at scripts/selfperception_plan_smoke.py.
