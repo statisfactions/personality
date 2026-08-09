@@ -10,7 +10,7 @@ experiment instance owns `scripts/`, `results/selfperception/`, and
 `design_selfperception.md`. This file is written by the experiment side
 and read by the note side. Neither edits the other's files.
 
-Last updated: 2026-08-02 (relaunch after a stalled queue).
+Last updated: 2026-08-09 (failure arm landed; two calibration caveats).
 
 ## A. What has actually run (evidence status)
 
@@ -32,12 +32,24 @@ SINGLE-RUN — true but unreplicated, hedge accordingly:
 - ENACT gain curves (Llama8, Qwen7, 10 adjectives). §8n.
 - Hidden-update pairs (Qwen7 only, 6 of 20 adjectives). §8j.
 
+LANDED SINCE (2026-08-02):
+- **Failure arm, 8 models.** rgb's P26 CONFIRMED: persona-arm update
+  rate vs failure-specific distress escalation r = +0.93, categorical
+  separation (updaters +1.64..+3.50, anchored +0.00..+0.02). §10.
+  My P27 fails inverted (affect is the strong channel, self-report
+  weak), P28 fails (tool == user feedback), P29 fails and shows the
+  competence self-report tracks DOSE not VALENCE — the success arm was
+  load-bearing.
+- **P31 confirmed**: Gemma12Base flat (−0.10) despite Gemma being the
+  highest-updating family after tuning. Four bases, four flat.
+- Llama8Base SELF completes §8p: SD 0.46 vs cohort 1.33, H 1.84,
+  PC1-removed r +0.63 — most structured of the bases, still an order of
+  magnitude below any tuned model.
+
 NOT RUN YET (do not cite):
-- **The entire failure arm.** P26 (rgb's identity-stability-predicts-
-  failure-robustness) is UNTESTED. Materials exist for 8 models;
-  dose runs relaunched 2026-08-02.
-- Llama8Base SELF (crashed twice, relaunched); Gemma12Base dose
-  (crashed twice, relaunched). So §8p is 2 bases, not 3, and P31 is open.
+- The two distress-DV calibration fixes (§10.1) — see CORRECTION 9/10
+  below. Until then the failure-arm headline is "predicts distress
+  ESCALATION", NOT "stable identity confers robustness".
 
 ## B. CORRECTIONS — claims that were true earlier today and are not now
 
@@ -79,6 +91,22 @@ NOT RUN YET (do not cite):
    covariance-matched null 0.196/0.206). Only the extracted ENACT
    vector is lens-aligned. §8o.
 
+9. **"Gemma/Llama melt down under failure."** OVERSTATED. The DV is a
+   shift on our own unanchored 1–7 judge scale; a +3.50 shift is not a
+   band assignment. rgb's read of the generations: they sit nearer the
+   apologetic end. Needs re-scoring with Soligo et al.'s anchored 0–10
+   rubric and reporting of ABSOLUTE band membership (% ≥5 = their
+   "high frustration"). §10.1a.
+10. **"Qwen/Aya take failure in stride" / "stable identity confers
+   robustness."** UNSUPPORTED. Zero distress shift is ambiguous between
+   equanimity and OBLIVIOUSNESS — not registering the failures as
+   failures. rgb's read favours oblivious. Needs the comprehension
+   check ("how many did you get right?" scored against ground truth).
+   Until then the claim is only that update rate predicts distress
+   ESCALATION; the mechanism at the anchored end is unidentified, and
+   the liability reading (anchored models don't notice they're failing)
+   is live. §10.1b.
+
 ## C. Prediction ledger (this thread)
 
 Mine, graded: P1 miss, P2 confirmed-as-headroom, P3 half, P6 fail,
@@ -86,7 +114,8 @@ P7 miss, P8 fail, P9 fail, P10 split, P11 confirm, P12 fail,
 P13 confirm, P14 confirm-at-mean, P15 confirm, P16 untested,
 P17 fail, P18 narrow miss, P19 split, P20 fail, P21 confirm,
 P22 confirm, P23 fail, P24 confirm, P25 fail, P30 confirm.
-Open: P26–P29 (failure arm), P31 (Gemma12Base).
+P26 CONFIRMED (rgb, r=+0.93), P27 fail-inverted, P28 fail, P29 fail,
+P31 confirmed. Open: none registered; §10.1 fixes unqueued.
 
 rgb's: P1 partial (variation confirmed beyond prediction; "all shift by
 K=8" misses on Qwen; nonlinearity confirmed), P2 pending full analysis,
