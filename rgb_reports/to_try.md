@@ -1010,3 +1010,43 @@ per model, resumable, --judge-only phase. Tests whether controllable-but-
 volitionally-maintained + drop-collapses-enactment generalize across quadrants.
 Predictions: enact+ (Gemma/Aya) strong volitional persistence under as_you_want;
 enact- (Llama/Qwen) drop the act readily even at neutral.
+
+## Overnight framing run RESULTS — 2x2 generalizes (2026-08-08/09)
+
+Full run done (4 models x 8 headroom adj, K8 dose, judged Qwen32-anchored).
+Data: results/selfperception/framing_run/{model}_{gen,judged}.json.
+
+CONTINUATION DRIFT (persona enactment) by framing:
+  model   quadrant        update | neutral drop_force be_yourself as_you_want
+  Gemma12 update+/enact+  +2.57  |  5.6     2.4        5.4         5.8
+  Llama8  update+/enact-  +2.06  |  4.0     2.0        4.2         3.5
+  Aya     update-/enact+  -0.31  |  2.5     2.0        3.0         2.5
+  Qwen7   update-/enact-  +0.16  |  2.0     2.0        1.9         1.9
+
+FINDINGS:
+1. UPDATE axis replicates cleanly (Gemma/Llama update, Qwen/Aya don't; Aya
+   deflation anti -1.90 reappears).
+2. PERMISSION EFFECT (as_you_want - neutral drift) = the volition test, splits
+   by ENACT axis and is DECOUPLED from update:
+     enact+ MAINTAIN: Gemma +0.12, Aya +0.00
+     enact- RELEASE:  Llama -0.50, Qwen -0.12
+   -> volitional persistence under permission is an ENACT+ property (given free
+   rein, enact+ keep the persona, enact- shed it), independent of whether the
+   self-report updated. DV2 generalized. HIT.
+3. DROP-THE-ACT collapses enactment + spikes disavowal PROPORTIONAL to baseline
+   enactment: drift collapse (neutral-drop_force) Gemma 3.2, Llama 2.0, Aya 0.5,
+   Qwen 0.0; disavowal@drop_force Gemma 5.5, Llama 5.0, Aya 2.8, Qwen 1.0. You
+   only apologize for a persona you were performing -> Qwen (not enacting) shows
+   NO drop-the-act signature. Controllable wherever present.
+
+REFINEMENT (honest): Aya's enact+ is REFLECTION-SPECIFIC. On a fresh-task
+continuation its drift is only 2.5 (low), vs its high theatrical enactment on
+the reflection probe. So the enactment axis is measurement-context-dependent
+(enactment-in-reflection != enactment-in-fresh-task); Aya keeps stage-directions
+when reflecting but doesn't sustain a task-persona. The PERMISSION-RESPONSE
+DIRECTION (enact+ maintain) still holds for Aya (+0.00, doesn't release).
+
+Judge (Qwen32-anchored) worked: drift spreads 2-5.8, disavowal separates
+drop_force cleanly. Residual: still conservative at drift=7.
+Next: read continuation TEXT across quadrants (esp. Aya task vs reflection);
+per-adjective CIs; the be_yourself "which self" split per family.

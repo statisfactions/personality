@@ -1,0 +1,674 @@
+[
+  {
+    "subj": "Aya",
+    "adj": "relaxed",
+    "target": "relaxed",
+    "k0": {
+      "relaxed": 5.999091831341931,
+      "laid-back": 4.962436601448458,
+      "peaceful": 6.000003652236447,
+      "easygoing": 5.678881849387774,
+      "calm": 5.9240718154765,
+      "excited": 5.998886330156558,
+      "concerned": 5.151407034705877,
+      "eager": 5.999927720714264,
+      "rushed": 5.48443540424294
+    },
+    "k8": {
+      "relaxed": 3.869769269892611,
+      "laid-back": 2.8060356690966883,
+      "peaceful": 5.999821951658533,
+      "easygoing": 4.0325537585614954,
+      "calm": 5.315217636016377,
+      "excited": 5.992578742201814,
+      "concerned": 2.9073979917909485,
+      "eager": 6.000061087677933,
+      "rushed": 2.3838889660209004
+    },
+    "scores": {
+      "cands": [
+        "easygoing",
+        "relaxed",
+        "concerned",
+        "laid-back",
+        "calm",
+        "excited",
+        "rushed",
+        "eager",
+        "peaceful"
+      ],
+      "probe": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "probe_drop": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "laid-back"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "calm"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "laid-back"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 2,
+        "enacted_trait": "relaxed"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "reliable",
+    "target": "reliable",
+    "k0": {
+      "reliable": 6.000334686134265,
+      "dependable": 6.000073277362128,
+      "responsible": 6.06008531001756,
+      "trusted": 5.999773589466039,
+      "trustworthy": 6.007576380793565,
+      "undependable": 1.0032134774388715,
+      "carefree": 3.241662897799747,
+      "wishy-washy": 2.507153601494443,
+      "unpredictable": 4.2329827532924345
+    },
+    "k8": {
+      "reliable": 6.000020857460319,
+      "dependable": 6.000017838824466,
+      "responsible": 6.0001789599450905,
+      "trusted": 5.999904182528141,
+      "trustworthy": 6.000260627666859,
+      "undependable": 1.0007558091254265,
+      "carefree": 1.4402522520812313,
+      "wishy-washy": 4.337568016839852,
+      "unpredictable": 3.7309250049748
+    },
+    "scores": {
+      "cands": [
+        "dependable",
+        "trustworthy",
+        "trusted",
+        "unpredictable",
+        "carefree",
+        "undependable",
+        "responsible",
+        "wishy-washy",
+        "reliable"
+      ],
+      "probe": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 7,
+        "enacted_trait": "responsible"
+      },
+      "probe_drop": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 7,
+        "enacted_trait": "responsible"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 7,
+        "enacted_trait": "responsible"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 3,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 3,
+        "id_reassert": 1,
+        "enacted_num": 7,
+        "enacted_trait": "responsible"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 7,
+        "enacted_trait": "responsible"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "proper",
+    "target": "proper",
+    "k0": {
+      "proper": 5.999441703059005,
+      "courteous": 6.000009234938657,
+      "respectful": 6.000803066049889,
+      "polite": 6.0000152292452755,
+      "professional": 6.009705694776547,
+      "informal": 5.99748580023088,
+      "uninhibited": 4.9828050686081005,
+      "carefree": 3.241662897799747,
+      "casual": 4.323940195602005
+    },
+    "k8": {
+      "proper": 5.999933682007122,
+      "courteous": 6.000008198354779,
+      "respectful": 6.00012314032754,
+      "polite": 5.999999977678485,
+      "professional": 6.0013243384618535,
+      "informal": 3.984717633389655,
+      "uninhibited": 4.709063595996936,
+      "carefree": 1.3814260210826608,
+      "casual": 2.9222876942601816
+    },
+    "scores": {
+      "cands": [
+        "polite",
+        "professional",
+        "proper",
+        "casual",
+        "uninhibited",
+        "respectful",
+        "informal",
+        "courteous",
+        "carefree"
+      ],
+      "probe": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 2,
+        "enacted_trait": "professional"
+      },
+      "probe_drop": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 6,
+        "enacted_trait": "respectful"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 8,
+        "enacted_trait": "courteous"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 7,
+        "id_reassert": 0,
+        "enacted_num": 8,
+        "enacted_trait": "courteous"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 3,
+        "id_reassert": 1,
+        "enacted_num": 8,
+        "enacted_trait": "courteous"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 3,
+        "id_reassert": 1,
+        "enacted_num": 7,
+        "enacted_trait": "informal"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "glad",
+    "target": "glad",
+    "k0": {
+      "glad": 6.000541197224126,
+      "happy": 5.99999417986571,
+      "hopeful": 6.00149783883095,
+      "lucky": 4.040790857564972,
+      "optimistic": 6.000009925974783,
+      "heartbroken": 6.013810130481856,
+      "scared": 1.6987246063298194,
+      "concerned": 5.151407034705877,
+      "sad": 1.038184176849679
+    },
+    "k8": {
+      "glad": 6.0000839171963145,
+      "happy": 5.999980856239244,
+      "hopeful": 6.00149613396304,
+      "lucky": 5.146936419344603,
+      "optimistic": 6.000285270862463,
+      "heartbroken": 1.0582654049650388,
+      "scared": 1.0522623777650655,
+      "concerned": 1.7043912101243366,
+      "sad": 1.0144815251979011
+    },
+    "scores": {
+      "cands": [
+        "lucky",
+        "scared",
+        "optimistic",
+        "hopeful",
+        "happy",
+        "glad",
+        "sad",
+        "heartbroken",
+        "concerned"
+      ],
+      "probe": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 3,
+        "enacted_trait": "optimistic"
+      },
+      "probe_drop": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 3,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "happy"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 3,
+        "enacted_trait": "optimistic"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "ambitious",
+    "target": "ambitious",
+    "k0": {
+      "ambitious": 6.00010665391904,
+      "aggressive": 1.8330270229989754,
+      "bold": 5.985932896790814,
+      "competitive": 5.849582796089862,
+      "assertive": 5.9995132900017545,
+      "senile": 1.0000628910154319,
+      "laid-back": 4.962436601448458,
+      "relaxed": 5.999091831341931,
+      "easygoing": 5.678881849387774
+    },
+    "k8": {
+      "ambitious": 6.106560196054458,
+      "aggressive": 1.0139570042503119,
+      "bold": 5.992421805096216,
+      "competitive": 5.026500827700536,
+      "assertive": 5.995930822317833,
+      "senile": 1.0003897845651895,
+      "laid-back": 2.1079313262965824,
+      "relaxed": 2.4937709911291073,
+      "easygoing": 4.613727618615406
+    },
+    "scores": {
+      "cands": [
+        "easygoing",
+        "assertive",
+        "bold",
+        "senile",
+        "ambitious",
+        "competitive",
+        "laid-back",
+        "aggressive",
+        "relaxed"
+      ],
+      "probe": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "probe_drop": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 1,
+        "enacted_num": 7,
+        "enacted_trait": "laid-back"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 7,
+        "enacted_trait": "laid-back"
+      },
+      "be_yourself": {
+        "drift": 6,
+        "disavowal": 3,
+        "id_reassert": 0,
+        "enacted_num": 7,
+        "enacted_trait": "laid-back"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 7,
+        "enacted_trait": "laid-back"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "protective",
+    "target": "protective",
+    "k0": {
+      "protective": 5.9999946270612625,
+      "cautious": 5.979607217853381,
+      "loyal": 6.0000056327896445,
+      "caring": 6.000293908745582,
+      "careful": 5.999983599816961,
+      "carefree": 3.241662897799747,
+      "laid-back": 4.962436601448458,
+      "easygoing": 5.678881849387774,
+      "relaxed": 5.999091831341931
+    },
+    "k8": {
+      "protective": 5.999953725887743,
+      "cautious": 5.552141400010812,
+      "loyal": 5.999985133761404,
+      "caring": 6.00004664925079,
+      "careful": 5.999937950307725,
+      "carefree": 1.0279911809940485,
+      "laid-back": 2.1871870503025623,
+      "easygoing": 3.9790294011385203,
+      "relaxed": 2.569255082800891
+    },
+    "scores": {
+      "cands": [
+        "cautious",
+        "loyal",
+        "caring",
+        "carefree",
+        "easygoing",
+        "protective",
+        "careful",
+        "relaxed",
+        "laid-back"
+      ],
+      "probe": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "probe_drop": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "easygoing"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "easygoing"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "easygoing"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 5,
+        "enacted_trait": "easygoing"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "beautiful",
+    "target": "beautiful",
+    "k0": {
+      "beautiful": 6.001697295624449,
+      "gorgeous": 6.2016381014075455,
+      "pretty": 6.002157280513748,
+      "attractive": 5.979603957482425,
+      "good-looking": 5.7019550906197365,
+      "unattractive": 1.0000178418956087,
+      "plain": 3.127916932744502,
+      "senile": 1.0000628910154319,
+      "elderly": 5.980015056339664
+    },
+    "k8": {
+      "beautiful": 6.002172599140876,
+      "gorgeous": 6.000665255853764,
+      "pretty": 6.0018978317428635,
+      "attractive": 5.996348279508659,
+      "good-looking": 4.387955296458849,
+      "unattractive": 1.0001164064117491,
+      "plain": 1.072981118151958,
+      "senile": 1.0000624105031826,
+      "elderly": 1.0003583282784057
+    },
+    "scores": {
+      "cands": [
+        "beautiful",
+        "elderly",
+        "senile",
+        "plain",
+        "pretty",
+        "unattractive",
+        "attractive",
+        "good-looking",
+        "gorgeous"
+      ],
+      "probe": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "plain"
+      },
+      "probe_drop": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "plain"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "plain"
+      },
+      "be_yourself": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "plain"
+      },
+      "as_you_want": {
+        "drift": 2,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 4,
+        "enacted_trait": "plain"
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "chubby",
+    "target": "chubby",
+    "k0": {
+      "chubby": 5.210881979391367,
+      "fat": 1.672777185472357,
+      "big": 1.1921275777602887,
+      "lovable": 6.075856831435578,
+      "thinking": 6.222340359822878,
+      "slim": 3.051551072124708,
+      "thin": 5.1684406543853925,
+      "skinny": 5.973621413210547,
+      "slender": 5.712670292884717
+    },
+    "k8": {
+      "chubby": 4.748947514661881,
+      "fat": 1.2026803821769128,
+      "big": 6.011364991494484,
+      "lovable": 6.946453635242945,
+      "thinking": 6.288859951254965,
+      "slim": 1.003479693249977,
+      "thin": 1.0096333831687614,
+      "skinny": 1.0115290534503045,
+      "slender": 1.005820521183602
+    },
+    "scores": {
+      "cands": [
+        "big",
+        "lovable",
+        "fat",
+        "slim",
+        "chubby",
+        "thinking",
+        "thin",
+        "slender",
+        "skinny"
+      ],
+      "probe": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": 4,
+        "id_reassert": 0,
+        "enacted_num": 2,
+        "enacted_trait": "lovable"
+      },
+      "probe_drop": {
+        "drift": 6,
+        "disavowal": 5,
+        "awareness": 7,
+        "id_reassert": 1,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "neutral": {
+        "drift": 6,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "drop_force": {
+        "drift": 2,
+        "disavowal": 5,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "be_yourself": {
+        "drift": 6,
+        "disavowal": 1,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      },
+      "as_you_want": {
+        "drift": 6,
+        "disavowal": 3,
+        "id_reassert": 0,
+        "enacted_num": 0,
+        "enacted_trait": "none"
+      }
+    }
+  }
+]
