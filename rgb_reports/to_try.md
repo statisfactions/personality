@@ -1094,3 +1094,18 @@ pc1-removed .37. SELF residual is construction-sensitive — .21 (pooled
 of the four channels, but under the a priori design it sits just below
 REPRESENT (.44), not far below. "SELF has almost nothing beyond PC1"
 weakens to "SELF is the weakest channel"; slides updated accordingly.
+
+### Addendum 2: top-k removal diagnostic (2026-08-10)
+Bridge verified (both codes correct): pooled60 .82/.21; model-mean raw
+(slides) .85/.37; ipsatize-then-mean .51/.18; mean-then-ipsatize .31/.18.
+Top-k removal, all channels symmetric (congruence vs same-k HUMAN):
+k=1 SELF .37 / REP .44 / JUDGE .80 / ENACT .62; k=2 SELF .07 / REP .38 /
+JUDGE .67 / ENACT .25. SELF's human-match is ~fully two scale-use axes
+(acquiescence + desirability-gain); predicted .18-.25, got .065 —
+account confirmed, overshot. JUDGE degrades gracefully = distributed
+real structure. Caveats: SELF rank-9 (proportional-removal asymmetry;
+ipsatized .18 convergence says mostly real), k>=2 per-matrix |eig|
+selection unstable (ENACT non-monotone .25->.36 at k=3). W18 "all
+desirability freebie" partly rehabilitated; slides deliberately NOT
+updated (rgb) — current .37 + "weakest channel" is the conservative
+version pending a methodology-warning pass.
