@@ -1082,3 +1082,15 @@ respondent under six instructions, not ten individuals. Slide-2 beat
 survives sharpened. Construction order confirmed: corrcoef across 60
 respondents -> global z (affine, harmless) -> cluster blocks; no
 ipsatization (unlike C&C on S&G-1996).
+
+### Addendum (same day): SELF construction switched to model-mean profiles
+rgb: models-as-respondents with framings averaged is the a priori design
+(framings are a measurement facet, not individuals). Implemented in
+facet_slides.py. CORRECTION to the split quoted above: the .51/.18
+model-mean numbers were computed on IPSATIZED rows; the raw a priori
+construction (symmetric with HUMAN treatment) gives raw .85 /
+pc1-removed .37. SELF residual is construction-sensitive — .21 (pooled
+60), .18 (ipsatized model-means), .37 (raw model-means) — always lowest
+of the four channels, but under the a priori design it sits just below
+REPRESENT (.44), not far below. "SELF has almost nothing beyond PC1"
+weakens to "SELF is the weakest channel"; slides updated accordingly.

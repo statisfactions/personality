@@ -37,11 +37,11 @@ BEATS = {
         num=2,
         title="Ask models the same questions: the population is tiny — "
               "and not human-shaped",
-        sub=("Same construction with models as respondents: 60 "
-             "“people” (10 models × 6 framings), each a "
-             "523-vector of self-rating EVs. Raw congruence is a "
+        sub=("Same construction with models as respondents: n = 10 — each "
+             "model a 523-vector of self-rating EVs (6 framings averaged), "
+             "so the correlation estimate is rank-9. Raw congruence is a "
              "desirability freebie; remove each matrix's top component and "
-             "little survives."),
+             "SELF is the weakest of the four model channels."),
     ),
     "REPRESENT": dict(
         num=3,
@@ -102,11 +102,15 @@ def build_grids():
     Hm = H0.copy()
     np.fill_diagonal(Hm, 0)
 
+    # SELF respondents = models (framings averaged out as a measurement
+    # facet — the a priori design; the pooled 10x6=60 construction mixes
+    # framing-manipulation variance into "individual differences").
+    # n=10 -> the correlation estimate is rank-9; that IS the small-n point.
     resp = []
     for m in afc.MODELS:
         d = json.load(open(f"results/adjectives/selfreport/{m}_self_full.json"))
-        for f in afc.FRAMINGS:
-            resp.append([d["results"][f][a]["ev"] for a in labels])
+        resp.append(np.mean([[d["results"][f][a]["ev"] for a in labels]
+                             for f in afc.FRAMINGS], axis=0))
     S = np.corrcoef(np.array(resp).T)
     np.fill_diagonal(S, 0)
 
@@ -217,7 +221,7 @@ def summary_slide(grids_p):
     fig.update_layout(
         title=dict(text="<b>Remove each space's top component: judgment "
                         "reconstructs human structure; enactment trails; "
-                        "self-report has almost nothing left</b>",
+                        "self-report and representation weakest</b>",
                    font=dict(size=19, color=INK), x=0.019, y=0.945),
         width=1600, height=480, margin=dict(l=30, r=30, t=120, b=60),
         paper_bgcolor=SURF, plot_bgcolor=SURF, showlegend=False)
