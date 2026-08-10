@@ -1109,3 +1109,16 @@ selection unstable (ENACT non-monotone .25->.36 at k=3). W18 "all
 desirability freebie" partly rehabilitated; slides deliberately NOT
 updated (rgb) — current .37 + "weakest channel" is the conservative
 version pending a methodology-warning pass.
+
+### Addendum 3: top-k sweep to k=40 (rgb: "enact's pc4+ is still doing work")
+Confirmed — ENACT dissolves LAST (k=21; JUDGE 15, REPRESENT 11, SELF 2),
+holding a ~.3 plateau k=3-9. Concentration story inverts: JUDGE is
+top-heavy (match in top ~3 comps + shelf at 8-9; leads only k<=2), ENACT
+is spectrally distributed (many medium comps each a little human-aligned
+— counterpoint to W17's 45->10 effdim compression: what congruence
+ENACT has is spread thin, not concentrated). Predictions: SELF-flat hit,
+REPRESENT 10-15 hit (11), ENACT decay-after-5-8 MISS, JUDGE-always-
+highest MISS. Valid regime k<~10-15 only: the k>20 rebound (all curves
+to .15-.25 at k=40) is artifact — canary: rank-9 SELF "recovers" past
+k=9, impossible; zero-diagonal correction + z-scored shrinking residuals.
+Fig: results/adjectives/facet_topk_sweep.{png,html}.
