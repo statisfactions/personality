@@ -1064,3 +1064,21 @@ Judge-agreement (Qwen32 vs Gemma4) check on a shared set = a TODO before
 comparing Qwen7's Gemma4-judged cells against the Qwen32-judged others.
 Later: Saucier 523 item sets -> fidelity + three-band across all adjectives;
 then extend to the other 6 cohort models.
+
+## SELF-matrix construction audit (2026-08-10, rgb's extremity poke)
+
+rgb: is the SELF grid's PC1 just models varying in extremes-avoidance?
+Registered P1 (PC1≈extremity, |r|>.9), P2 (respondent space ~rank-1,
+R2>.6), P3 (ipsatization collapses raw congruence <.45). **P1 MISS**:
+PC1 = elevation/acquiescence (r=+.985 with respondent mean; extremity
+r=-.34), and elevation is framing-driven (eta2 .55 framing vs .18 model).
+**P2 hit** (median R2=.70; floor Llama8/direct .29). **P3 MISS**:
+ipsatized raw r(HUMAN)=.65 (from .82), pc1-removed unchanged (.23 vs
+.21) — scale-use accounts for only ~.17 of the raw congruence; the rest
+is profile-shape covariance. Shape split: model-means (n=10) .51/.18,
+framing-within-model .64/.29 — framing variance at least as
+human-congruent as model variance; the SELF "population" is partly one
+respondent under six instructions, not ten individuals. Slide-2 beat
+survives sharpened. Construction order confirmed: corrcoef across 60
+respondents -> global z (affine, harmless) -> cluster blocks; no
+ipsatization (unlike C&C on S&G-1996).
