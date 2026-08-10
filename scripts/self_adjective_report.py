@@ -108,7 +108,7 @@ def main():
 
     os.makedirs(OUT_DIR, exist_ok=True)
     tag = "full" if args.full else "smoke"
-    out = f"{OUT_DIR}/{args.model}_self_{tag}.json"
+    out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
     if os.path.exists(out):
         print(f"[skip] {out} exists")
