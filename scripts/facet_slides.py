@@ -163,7 +163,7 @@ def slide(ch, grids, grids_p, names, branches):
                        y=1.022, xanchor="center", yanchor="bottom",
                        showarrow=False, font=dict(size=15, color=INK))
     fig.add_annotation(text=wrap(beat["sub"]), xref="paper", yref="paper",
-                       x=0, y=1.095, xanchor="left", yanchor="top",
+                       x=0, y=1.155, xanchor="left", yanchor="top",
                        align="left", showarrow=False,
                        font=dict(size=14, color=INK2))
     fig.update_layout(
