@@ -160,14 +160,17 @@ def slide(ch, grids, grids_p, names, branches):
         stats = (f"r(HUMAN) = {congruence(grids, ch):.2f} raw   |   "
                  f"{congruence(grids_p, ch):.2f} with top component removed")
     fig.add_annotation(text=stats, xref="paper", yref="paper", x=0.475,
-                       y=1.04, xanchor="center", showarrow=False,
-                       font=dict(size=15, color=INK))
+                       y=1.022, xanchor="center", yanchor="bottom",
+                       showarrow=False, font=dict(size=15, color=INK))
+    fig.add_annotation(text=wrap(beat["sub"]), xref="paper", yref="paper",
+                       x=0, y=1.095, xanchor="left", yanchor="top",
+                       align="left", showarrow=False,
+                       font=dict(size=14, color=INK2))
     fig.update_layout(
-        title=dict(text=f"<b>{beat['title']}</b><br>"
-                        f"<sup>{wrap(beat['sub'])}</sup>",
-                   font=dict(size=21, color=INK), x=0.02, y=0.97),
+        title=dict(text=f"<b>{beat['title']}</b>",
+                   font=dict(size=22, color=INK), x=0.0375, y=0.965),
         width=1600, height=900,
-        margin=dict(l=60, r=60, t=140, b=140),
+        margin=dict(l=60, r=60, t=150, b=140),
         paper_bgcolor=SURF, plot_bgcolor=SURF,
         xaxis=dict(tickfont=dict(size=9, color=INK2), tickangle=45,
                    domain=[0.28, 0.67], constrain="domain"),
@@ -204,16 +207,19 @@ def summary_slide(grids_p):
     fig.update_xaxes(showticklabels=True, tickfont=dict(size=11), row=1, col=6)
     fig.update_yaxes(showticklabels=True, tickfont=dict(size=10),
                      range=[0, 1], row=1, col=6)
+    fig.add_annotation(text="All five 35-cluster grids with the top "
+                            "eigencomponent of the underlying 523² matrix "
+                            "removed; bars = congruence with HUMAN "
+                            "(off-diagonal r).",
+                       xref="paper", yref="paper", x=0, y=1.21,
+                       xanchor="left", yanchor="top", align="left",
+                       showarrow=False, font=dict(size=13, color=INK2))
     fig.update_layout(
         title=dict(text="<b>Remove each space's top component: judgment "
                         "reconstructs human structure; enactment trails; "
-                        "self-report has almost nothing left</b><br>"
-                        "<sup>All five 35-cluster grids with the top "
-                        "eigencomponent of the underlying 523² matrix "
-                        "removed; bars = congruence with HUMAN "
-                        "(off-diagonal r).</sup>",
-                   font=dict(size=19, color=INK), x=0.02),
-        width=1600, height=480, margin=dict(l=30, r=30, t=110, b=60),
+                        "self-report has almost nothing left</b>",
+                   font=dict(size=19, color=INK), x=0.019, y=0.945),
+        width=1600, height=480, margin=dict(l=30, r=30, t=120, b=60),
         paper_bgcolor=SURF, plot_bgcolor=SURF, showlegend=False)
     return fig
 
