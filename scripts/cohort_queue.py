@@ -123,10 +123,22 @@ def enact_path(repo):
     return f"results/cohort100/default_enact/{repo.replace('/', '_')}_default.pt"
 
 
-STEPS = [("self", "scripts/self_adjective_report.py",
-          ["--full"], result_path),
-         ("enact", "scripts/default_enact_capture.py",
-          [], enact_path)]
+def represent_path(repo):
+    return f"results/adjectives/acts/{repo.replace('/', '_')}__pers.pt"
+
+
+STEPS = [
+    ("self",
+     lambda r: ["scripts/self_adjective_report.py", "--model", r, "--full"],
+     result_path),
+    ("enact",
+     lambda r: ["scripts/default_enact_capture.py", "--model", r],
+     enact_path),
+    ("represent",
+     lambda r: ["scripts/extract_adjectives.py", "--models", r,
+                "--framings", "pers"],
+     represent_path),
+]
 
 
 def run_one(m, args, st, lock):
@@ -134,12 +146,12 @@ def run_one(m, args, st, lock):
     env = dict(os.environ, PYTHONPATH="scripts")
     t0 = time.time()
     ok = True
-    for step, script, extra, pathfn in STEPS:
+    for step, cmd_fn, pathfn in STEPS:
         if os.path.exists(pathfn(m["repo"])):
             continue
         log = open(f"{LOG_DIR}/{m['name']}.log", "a")
-        rc = subprocess.call([sys.executable, script, "--model", m["repo"]]
-                             + extra, stdout=log, stderr=subprocess.STDOUT,
+        rc = subprocess.call([sys.executable] + cmd_fn(m["repo"]),
+                             stdout=log, stderr=subprocess.STDOUT,
                              env=env, timeout=args.timeout * 60)
         log.close()
         if rc != 0 or not os.path.exists(pathfn(m["repo"])):
@@ -183,8 +195,7 @@ def main():
     st = load_state()
     todo = []
     for m in models:
-        if (os.path.exists(result_path(m["repo"]))
-                and os.path.exists(enact_path(m["repo"]))):
+        if all(os.path.exists(pf(m["repo"])) for _, _, pf in STEPS):
             print(f"[skip] {m['name']}: all results exist")
             continue
         if st.get(m["name"], {}).get("status") == "failed":

@@ -90,22 +90,20 @@ def main():
           f"{len(args.models)} models")
 
     for model_name in args.models:
-        if model_name not in ALL_MODELS:
-            print(f"skip unknown model {model_name}")
-            continue
+        repo = ALL_MODELS.get(model_name, model_name)  # unknown = raw HF repo
         # Skip model entirely if all its framing caches exist.
         todo = [f for f in args.framings
-                if not (OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{f}{suf}.pt").exists()
+                if not (OUT_DIR / f"{safe(repo)}__{f}{suf}.pt").exists()
                 or args.limit]
         if not todo:
             print(f"[skip] {model_name}: all framings cached")
             continue
 
-        print(f"\n===== {model_name} ({ALL_MODELS[model_name]}) =====")
+        print(f"\n===== {model_name} ({repo}) =====")
         model, tok, device = load_model(model_name)
         for framing in todo:
             template, prefix = FRAMINGS[framing]
-            out = OUT_DIR / f"{safe(ALL_MODELS[model_name])}__{framing}{suf}.pt"
+            out = OUT_DIR / f"{safe(repo)}__{framing}{suf}.pt"
             if out.exists() and not args.limit:
                 print(f"  [have] {framing}")
                 continue
