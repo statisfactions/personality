@@ -1149,3 +1149,20 @@ readout; sampled variance unmeasured. Judge ablation queued (4 variants
 incl refs-only v4 to isolate the __default__-calibration hypothesis);
 GPU chain: judge 75362 -> ablation 85865 -> cohort queue 85866.
 Registered: v3 > v4 > v2 >> v1 (refs do most of the work).
+
+## Inter-model variance in JUDGE (2026-08-11, rgb: "we never analyzed this")
+First pass, 12 tom_likely matrices, pc1-removed. (1) Wisdom-of-crowds
+survives PC1 removal: consensus r(HUMAN)=.81 vs mean individual .73.
+(2) Model-model agreement (.615 mean) > model-human (.44): shared
+consensus deviates from human in ONE direction — flattening human halo
+bundles to ~0 (annoying x mean +1.18->-.12, mean x funny +1.01->-.10,
+funny x influential +1.39->+.13, polite x smart -1.36->~0). W18
+valence-as-axis-not-binder is the dominant shared deviation in judgment
+space. (3) Inter-model disagreement concentrates in negative-trait
+interrelations (arrogant/mean/annoying/sad/sickly cells) + antonym-pole
+strength. (4) Axes: family weak (.67 vs .60); CAPABILITY TIER stronger —
+Gemma4-31B agrees with Qwen32 (.74) over own family (.53-.62); Aya is
+the cohort outlier (~.48); Gemma12-Gemma27 tightest (.84). Predictions:
+pairwise .5-.6 grazed (.615); family-dominant MISS (tier won);
+disagreement-location hit. Motivates the wide-n JUDGE-subset step (is
+big-model consensus capability-graded?).
