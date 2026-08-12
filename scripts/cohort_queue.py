@@ -119,22 +119,38 @@ def downloader(todo, staged, args, st, lock):
     staged.put(None)  # sentinel
 
 
+def enact_path(repo):
+    return f"results/cohort100/default_enact/{repo.replace('/', '_')}_default.pt"
+
+
+STEPS = [("self", "scripts/self_adjective_report.py",
+          ["--full"], result_path),
+         ("enact", "scripts/default_enact_capture.py",
+          [], enact_path)]
+
+
 def run_one(m, args, st, lock):
     os.makedirs(LOG_DIR, exist_ok=True)
-    log = open(f"{LOG_DIR}/{m['name']}.log", "a")
     env = dict(os.environ, PYTHONPATH="scripts")
-    cmd = [sys.executable, "scripts/self_adjective_report.py",
-           "--model", m["repo"], "--full"]
     t0 = time.time()
-    rc = subprocess.call(cmd, stdout=log, stderr=subprocess.STDOUT, env=env,
-                         timeout=args.timeout * 60)
-    log.close()
-    ok = rc == 0 and os.path.exists(result_path(m["repo"]))
+    ok = True
+    for step, script, extra, pathfn in STEPS:
+        if os.path.exists(pathfn(m["repo"])):
+            continue
+        log = open(f"{LOG_DIR}/{m['name']}.log", "a")
+        rc = subprocess.call([sys.executable, script, "--model", m["repo"]]
+                             + extra, stdout=log, stderr=subprocess.STDOUT,
+                             env=env, timeout=args.timeout * 60)
+        log.close()
+        if rc != 0 or not os.path.exists(pathfn(m["repo"])):
+            ok = False
+            with lock:
+                st[m["name"]]["error"] = (f"step {step} rc={rc} "
+                                          f"(see {LOG_DIR}/{m['name']}.log)")
+            break
     with lock:
         st[m["name"]]["status"] = "done" if ok else "failed"
         st[m["name"]]["run_min"] = round((time.time() - t0) / 60, 1)
-        if not ok:
-            st[m["name"]]["error"] = f"runner rc={rc} (see {LOG_DIR}/{m['name']}.log)"
         save_state(st)
     return ok
 
@@ -167,8 +183,9 @@ def main():
     st = load_state()
     todo = []
     for m in models:
-        if os.path.exists(result_path(m["repo"])):
-            print(f"[skip] {m['name']}: result exists")
+        if (os.path.exists(result_path(m["repo"]))
+                and os.path.exists(enact_path(m["repo"]))):
+            print(f"[skip] {m['name']}: all results exist")
             continue
         if st.get(m["name"], {}).get("status") == "failed":
             print(f"[skip] {m['name']}: quarantined "
