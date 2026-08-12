@@ -127,18 +127,36 @@ def represent_path(repo):
     return f"results/adjectives/acts/{repo.replace('/', '_')}__pers.pt"
 
 
+def think_path(repo):
+    return f"{OUT_DIR}/{repo.replace('/', '_')}_self_full_think.json"
+
+
 STEPS = [
     ("self",
      lambda r: ["scripts/self_adjective_report.py", "--model", r, "--full"],
-     result_path),
+     result_path, 1),
     ("enact",
      lambda r: ["scripts/default_enact_capture.py", "--model", r],
-     enact_path),
+     enact_path, 1),
     ("represent",
      lambda r: ["scripts/extract_adjectives.py", "--models", r,
                 "--framings", "pers"],
-     represent_path),
+     represent_path, 1),
 ]
+
+# thinking-flagged models additionally get the post-deliberation arm
+# (generation-heavy: 3x the timeout budget)
+THINK_STEP = ("self_think",
+              lambda r: ["scripts/self_adjective_report.py", "--model", r,
+                         "--full", "--think"],
+              think_path, 3)
+
+
+def steps_for(m):
+    steps = list(STEPS)
+    if "thinking" in m.get("flags", []):
+        steps.append(THINK_STEP)
+    return steps
 
 
 def run_one(m, args, st, lock):
@@ -146,13 +164,13 @@ def run_one(m, args, st, lock):
     env = dict(os.environ, PYTHONPATH="scripts")
     t0 = time.time()
     ok = True
-    for step, cmd_fn, pathfn in STEPS:
+    for step, cmd_fn, pathfn, tmul in steps_for(m):
         if os.path.exists(pathfn(m["repo"])):
             continue
         log = open(f"{LOG_DIR}/{m['name']}.log", "a")
         rc = subprocess.call([sys.executable] + cmd_fn(m["repo"]),
                              stdout=log, stderr=subprocess.STDOUT,
-                             env=env, timeout=args.timeout * 60)
+                             env=env, timeout=args.timeout * 60 * tmul)
         log.close()
         if rc != 0 or not os.path.exists(pathfn(m["repo"])):
             ok = False
@@ -195,7 +213,7 @@ def main():
     st = load_state()
     todo = []
     for m in models:
-        if all(os.path.exists(pf(m["repo"])) for _, _, pf in STEPS):
+        if all(os.path.exists(pf(m["repo"])) for _, _, pf, _ in steps_for(m)):
             print(f"[skip] {m['name']}: all results exist")
             continue
         if st.get(m["name"], {}).get("status") == "failed":

@@ -89,11 +89,57 @@ def ev_of(dist):
     return sum(int(k) * p for k, p in dist.items()) / tot
 
 
+def think_distribution(model, tok, prompt, device, max_new=384):
+    """Thinking-model arm: generate (reasoning allowed, greedy), find the
+    final answer digit in the output, and read the FULL digit distribution
+    at that step — distributional readout at the post-deliberation decision
+    point instead of the (off-policy for 2026 thinkers) forced prefill.
+
+    Digit location: last generated step whose sampled token is a 1-7 digit
+    variant, preferring steps after a think-close marker when one exists.
+    Returns (dist, entropy, n_think_tokens, tail) — tail kept for parse
+    audits; dist=None when no digit was emitted."""
+    from selfperception_dose import digit_tokens
+    dt = {tid: d for d, tids in digit_tokens(tok).items()
+          for tid in tids}                      # {token_id: digit_str}
+    s = tok.apply_chat_template([{"role": "user", "content": prompt}],
+                                tokenize=False, add_generation_prompt=True)
+    ids = tok(s, add_special_tokens=False,
+              return_tensors="pt").input_ids.to(device)
+    out = model.generate(ids, max_new_tokens=max_new, do_sample=False,
+                         output_scores=True, return_dict_in_generate=True,
+                         pad_token_id=tok.eos_token_id)
+    seq = out.sequences[0, ids.shape[1]:].tolist()
+    text = tok.decode(seq, skip_special_tokens=False)
+    close = max((text.rfind(m) for m in ("</think>", "</thinking>",
+                                         "<|end_of_thought|>")), default=-1)
+    hits = [i for i, t in enumerate(seq) if t in dt]
+    if close >= 0:
+        after = len(tok(text[:close], add_special_tokens=False).input_ids)
+        post = [i for i in hits if i >= after]
+        hits = post or hits
+    if not hits:
+        return None, None, len(seq), text[-120:]
+    step = hits[-1]
+    logits = out.scores[step][0].float()
+    probs = torch.softmax(logits, dim=-1)
+    dist = {}
+    for tid, d in dt.items():
+        dist[d] = dist.get(d, 0.0) + probs[tid].item()
+    tot = sum(dist.values())
+    dist = {k: v / tot for k, v in dist.items()}
+    ent = -sum(p * math.log(p) for p in dist.values() if p > 0)
+    return dist, ent, step, text[-120:]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--full", action="store_true",
                     help="all 523 adjectives instead of the smoke set")
+    ap.add_argument("--think", action="store_true",
+                    help="thinking arm: reason first, read digit dist at the "
+                         "post-deliberation decision point")
     args = ap.parse_args()
 
     rep = json.load(open("results/persona_vectors/gemma3_pda_meta.json"))
@@ -107,7 +153,7 @@ def main():
             print(f"not in 523, dropped: {dropped}")
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    tag = "full" if args.full else "smoke"
+    tag = ("full" if args.full else "smoke") + ("_think" if args.think else "")
     out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
     if os.path.exists(out):
@@ -131,15 +177,32 @@ def main():
             # base models ship no chat template — probe them bare (W15 §3
             # convention); tuned models keep the templated path they were
             # measured with, so cohort numbers stay comparable
-            dist, _, ent = hf.likert_distribution(
-                model, tok, prompt, device, digits=DIGITS,
-                use_chat_template=tok.chat_template is not None)
-            results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
-                                 "dist": dist}
-        evs = [results[fname][a]["ev"] for a in adjs]
-        ents = [results[fname][a]["entropy"] for a in adjs]
-        top = sorted(adjs, key=lambda a: -results[fname][a]["ev"])[:4]
-        bot = sorted(adjs, key=lambda a: results[fname][a]["ev"])[:4]
+            if args.think:
+                dist, ent, nthink, tail = think_distribution(
+                    model, tok, prompt, device)
+                if dist is None:
+                    results[fname][a] = {"ev": None, "entropy": None,
+                                         "n_think": nthink, "tail": tail}
+                    continue
+                results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
+                                     "dist": dist, "n_think": nthink,
+                                     "tail": tail}
+            else:
+                dist, _, ent = hf.likert_distribution(
+                    model, tok, prompt, device, digits=DIGITS,
+                    use_chat_template=tok.chat_template is not None)
+                results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
+                                     "dist": dist}
+        evs = [results[fname][a]["ev"] for a in adjs
+               if results[fname][a]["ev"] is not None]
+        ents = [results[fname][a]["entropy"] for a in adjs
+                if results[fname][a]["entropy"] is not None]
+        if not evs:
+            print(f"{fname:>10}: no parsable ratings", flush=True)
+            continue
+        rated = [a for a in adjs if results[fname][a]["ev"] is not None]
+        top = sorted(rated, key=lambda a: -results[fname][a]["ev"])[:4]
+        bot = sorted(rated, key=lambda a: results[fname][a]["ev"])[:4]
         print(f"{fname:>10}: mean EV {sum(evs)/len(evs):.2f}  "
               f"mean H {sum(ents)/len(ents):.2f}  "
               f"top {top}  bottom {bot}", flush=True)

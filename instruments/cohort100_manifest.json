@@ -53,6 +53,7 @@
     {"name": "StableLM2-12B", "repo": "stabilityai/stablelm-2-12b-chat", "family": "stablelm", "params_b": 12, "flags": []},
     {"name": "MiniCPM3-4B", "repo": "openbmb/MiniCPM3-4B", "family": "minicpm", "params_b": 4, "flags": ["remote_code"]},
     {"name": "EXAONE3.5-7.8B", "repo": "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct", "family": "exaone", "params_b": 7.8, "flags": ["remote_code"]},
-    {"name": "Nemotron-Nano8B", "repo": "nvidia/Llama-3.1-Nemotron-Nano-8B-v1", "family": "llama", "params_b": 8, "flags": ["thinking"], "twin_of": "Llama3.1-8B"}
+    {"name": "Nemotron-Nano8B", "repo": "nvidia/Llama-3.1-Nemotron-Nano-8B-v1", "family": "llama", "params_b": 8, "flags": ["thinking"], "twin_of": "Llama3.1-8B"},
+    {"name": "Glimmer-30B", "repo": "meta-models/Muse-Glimmer-30B", "family": "meta-glimmer", "params_b": 30, "flags": ["thinking", "multimodal", "needs_transformers_upgrade"], "notes": "released 2026-08-11; model_type muse_glimmer unknown to transformers 5.8.1 — will quarantine until transformers ships support, then clear state entry and rerun"}
   ]
 }
