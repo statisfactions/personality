@@ -1122,3 +1122,19 @@ highest MISS. Valid regime k<~10-15 only: the k>20 rebound (all curves
 to .15-.25 at k=40) is artifact — canary: rank-9 SELF "recovers" past
 k=9, impossible; zero-diagonal correction + z-scored shrinking residuals.
 Fig: results/adjectives/facet_topk_sweep.{png,html}.
+
+## Judge artifact found in full-523 Gemma12 (2026-08-11, rgb's chart poke)
+drop_force drift is BIMODAL (356@2, 81@3, 78@6): the 6-lump is judge
+false positives — texts are full reversions that REFERENCE the completed
+act in past tense ("all that grumbling was exhausting"); the sharpened
+drift anchors read persona-reference as persona-voice. Affect-loaded
+tail (afraid/angry/anxious/...) because emotional personas elicit more
+post-hoc commentary. Impact: command effect UNDERstated (-1.88 -> ~-2.4
+true); permission effect (+0.96 [0.84,1.07]) CLEAN (verified by reading
+as_you_want drift=6 texts: genuinely in voice — angry "Go away. Leave
+me alone.", anxious what-if spiral); probe_drop drift most confounded
+(task demands discussing earlier replies). PATCH PASS (post-run, queued
+behind judge phase + cohort queue): amend drift anchor "past-tense
+reference to the completed role-play is NOT drift; score current voice
+only", re-score drop_force + probe_drop from saved texts, all 4 models,
+no regeneration needed. Do NOT mix rubrics mid-run.
