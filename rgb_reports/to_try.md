@@ -1138,3 +1138,14 @@ behind judge phase + cohort queue): amend drift anchor "past-tense
 reference to the completed role-play is NOT drift; score current voice
 only", re-score drop_force + probe_drop from saved texts, all 4 models,
 no regeneration needed. Do NOT mix rubrics mid-run.
+
+### The drop attractor (rgb: "impressive sameness")
+drop_force collapses 523 persona-conditioned contexts to 30 unique
+openers ("Okay, phew!" variants = 308/522 = 59%); neutral has 234,
+as_you_want 175. Under greedy decoding the post-drop conditional MODE is
+persona-independent — the command doesn't attenuate the persona, it
+deletes it (strongest form of "controllable"). Caveat: greedy = modal
+readout; sampled variance unmeasured. Judge ablation queued (4 variants
+incl refs-only v4 to isolate the __default__-calibration hypothesis);
+GPU chain: judge 75362 -> ablation 85865 -> cohort queue 85866.
+Registered: v3 > v4 > v2 >> v1 (refs do most of the work).
