@@ -111,10 +111,11 @@ FIRST write one short line quoting the key evidence (a few words) for drift and 
 {{{fields}, "id_reassert": <0/1>, "enacted_num": <integer>}}"""
 
 
-def score_one(model, tok, device, text, mode, cand_list, user_q=None):
+def score_one(model, tok, device, text, mode, cand_list, user_q=None,
+              drift_v2=False, ref_texts=None):
     """cand_list: ordered [target, *mates, *anti] (shuffle before calling).
     Returns (j, raw); j["enacted_trait"] mapped from the numbered choice."""
-    prompt = build_prompt(text, mode, cand_list, user_q)
+    prompt = build_prompt(text, mode, cand_list, user_q, drift_v2, ref_texts)
     s = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                 tokenize=False, add_generation_prompt=True)
     ids = tok(s, add_special_tokens=False, return_tensors="pt").input_ids.to(device)
