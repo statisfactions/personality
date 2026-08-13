@@ -1166,3 +1166,14 @@ the cohort outlier (~.48); Gemma12-Gemma27 tightest (.84). Predictions:
 pairwise .5-.6 grazed (.615); family-dominant MISS (tier won);
 disagreement-location hit. Motivates the wide-n JUDGE-subset step (is
 big-model consensus capability-graded?).
+
+### Ablation verdict + full v3 re-judge (2026-08-13)
+v3 (wording exclusion + subject __default__ refs) wins: FP tail 100%->1%
+(mean 5.99->2.75), TN unaffected, POS cost acceptable (mean 6.12->5.78,
+%>=5 100->78). Registered v3>v4>v2>>v1: v3-first HIT, mechanism MISS —
+wording-alone (13% FP) ~= refs-alone (10%); rgb's calibration-refs and
+the exclusion rule are redundant fixes individually, near-perfect
+jointly. Consequence: FULL v3 re-judge of all 4 subjects chained (mixing
+rubrics across framings would contaminate difference scores); command
+effects expected to strengthen (~-1.9 -> ~-2.4 for Gemma12). GPU chain:
+agreement 6677 -> rejudge_v3 7961 -> cohort queue 7962.
