@@ -1197,3 +1197,20 @@ capture continuation activations, project onto persona-direction
 component ORTHOGONAL to assistant axis (no assistant-blindness).
 Desirability proxy = mean human self-endorsement, 360-adj subset
 (n~283/model).
+
+### Stereotypy measure settled + coupling prediction lands (2026-08-14)
+Measure (rgb asked): PRIMARY = within-model embedding-dispersion contrast
+(MiniLM mean pairwise cos, drop_force vs neutral); convergent = gzip
+compression-ratio contrast + distinct-trigram contrast (parameter-free).
+All three agree: Gemma12 (+.256 emb) ~ Llama8 (+.225) >> Aya (+.027) >
+Qwen7 (+.016). Registered coupling 4a HITS: stereotypy contrast orders
+exactly with command effects (-1.88/-1.88/-0.81/+0.02). KEY: Qwen7's
+NEUTRAL cohesion (.843) exceeds others' post-command state — it lives in
+the attractor; command is a no-op (already home), permission adds
+diversity (ayw its most diverse condition). Judge-free replication of
+the full quadrant table from text stats alone: Llama8 ayw cohesion rises
+(release), Gemma12 holds (maintain), Qwen7 rises from floor (invite).
+Greedy-decoding caveat: modal collapse across contexts, not
+distributional. Remaining registered designs: base-twin no-basin,
+OLMo-ladder monotonicity, template toggle (one GPU evening each,
+post-chain).
