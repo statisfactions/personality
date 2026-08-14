@@ -1177,3 +1177,23 @@ jointly. Consequence: FULL v3 re-judge of all 4 subjects chained (mixing
 rubrics across framings would contaminate difference scores); command
 effects expected to strengthen (~-1.9 -> ~-2.4 for Gemma12). GPU chain:
 agreement 6677 -> rejudge_v3 7961 -> cohort queue 7962.
+
+## Narrative-continuity vs assistant hypothesis (2026-08-14, rgb)
+rgb predicted: continuation easier for assistant-COMPATIBLE personas
+(vs socially desirable; gap small). Claude co-registered + weakest-for-
+Gemma12 + Qwen7-only-in-ayw. RESULT: REVERSED on all measurable
+channels — judged enactment (pA|B -0.13..-0.22) and headroom-normalized
+self-report uptake (pA|B -0.05..-0.21) both track assistant-DISTANCE;
+desirability ~nothing beyond it (pB|A ~0) EXCEPT Qwen7 (+0.17/+0.23,
+the desirability-gated model; fits its permission-from-floor profile).
+Both rgb and Claude MISS on sign; Claude's weakest-for-Gemma12 hit
+(uptake pA|B -0.05). TWO CAVEATS: (1) behavioral DVs structurally blind
+in the assistant-adjacent region (continued helpful-persona == plain
+text to any judge) — negatives can't refute "ease," only visibility;
+(2) reframe: uptake tracks EVIDENCE SURPRISINGNESS of own-rollout dose
+(compatible personas provide no evidence of a distinct persona), a
+Bayesian account subsuming both channels. Decisive test (future run):
+capture continuation activations, project onto persona-direction
+component ORTHOGONAL to assistant axis (no assistant-blindness).
+Desirability proxy = mean human self-endorsement, 360-adj subset
+(n~283/model).
