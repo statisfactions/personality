@@ -1249,3 +1249,18 @@ poisoned both words); v2 artifact regenerated; post-swap r(Insens,Sens)
 diagnosis MISS (flip/swap indistinguishable under kin-anti-correlation;
 the +0.97 duplicate is the discriminator); rgb's no-mechanism objection
 = the catch. Backfill inventory unchanged.
+
+## FINAL v3 cross-quadrant table (2026-08-15) — full-523, one rubric, CIs
+model    permission            command               neutral-drift
+Gemma12  +0.83 [+.72,+.94]    -2.25 [-2.39,-2.10]   4.52
+Llama8   -0.89 [-1.06,-.71]   -1.95 [-2.11,-1.79]   3.95
+Aya      -0.02 [-.11,+.07]    -0.72 [-.85,-.59]     3.36
+Qwen7    +0.37 [+.33,+.42]    +0.01 [-.02,+.03]     1.10 (floor)
+Artifact confirmed dead in shipped instrument: Gemma12 drop_force
+histogram 399@2/110@3/11@4/2@6 (was 78@6). Registered "command ~ -2.4
+after repair": landed -2.25 (direction + rough magnitude hit). All four
+volitional signatures SURVIVE the rubric repair: deepen / release /
+hold / invite-from-floor. Qwen7 permission +0.58->+0.37 under v3 with
+own-baseline refs (still decisively positive; cross-judge calibration
+r=.85, offset -.08). Cohort queue now on GPU (wide-n captures, n=525
+from birth).
