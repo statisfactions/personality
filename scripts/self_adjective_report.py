@@ -142,8 +142,10 @@ def main():
                          "post-deliberation decision point")
     args = ap.parse_args()
 
-    rep = json.load(open("results/persona_vectors/gemma3_pda_meta.json"))
-    all_adjs = sorted(rep["adjectives"].keys())
+    # canonical 525 list (Inspirational/Insensitive reinstated 2026-08-14;
+    # the human-side columns were reverse-coded in the deposit, now un-flipped)
+    from extract_adjectives import load_adjectives
+    all_adjs = sorted({a.lower() for a in load_adjectives()})
     if args.full:
         adjs = all_adjs
     else:

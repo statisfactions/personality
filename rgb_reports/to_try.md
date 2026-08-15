@@ -1214,3 +1214,22 @@ Greedy-decoding caveat: modal collapse across contexts, not
 distributional. Remaining registered designs: base-twin no-basin,
 OLMo-ladder monotonicity, template toggle (one GPU evening each,
 post-chain).
+
+## Inspirational/Insensitive RESOLVED: reverse-coded, not corrupted (2026-08-14)
+rgb revisited the drop; diagnosis upgraded: both columns are REVERSE-
+CODED in the PsychArchives deposit (same family as the pre-reversed IPIP
+.por). Evidence: means 2.09/4.76 (implausible for valence, plausible
+flipped: 5.91/3.24); profile-r vs semantic kin strongly NEGATIVE
+(Inspirational~Admirable -0.76, Insensitive~Inconsiderate -0.80,
+~Unfriendly -0.84). Fix: un-flip (8-x) and reinstate -> n=525. DONE NOW
+(before wide-n GPU phase, so all wide-n captures are 525 from birth):
+DENY_LABELS emptied, REVERSED_LABELS + un-flip in adjective_corr_cluster
+loader, self_adjective_report sources load_adjectives, human corr v2
+artifact (escs_525pda_corr_v2.json, flips verified: r(Insp,Incons)
+-0.53, r(Insens,Sens)-0.25). BACKFILL QUEUE (standing 16 + framing run,
+after current GPU chain): +2 acts forwards/model, +2x6 selfreport reads,
++2 pda personas (rollouts+vectors), tom_likely +2 rows/cols (~4k reads/
+model — the only real cost, ~10-16h cohort-wide), framing_run +2 adjs x4
+models. 523-era caches stay valid for the 523; consumers migrate to v2
+corr after backfill. 35 trait clusters FROZEN (built on clean 523;
+membership untouched).

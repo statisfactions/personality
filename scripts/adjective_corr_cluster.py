@@ -39,7 +39,15 @@ OUT_DIR = Path("results/adjectives")
 #   Inspirational -> behaves like "Inconsiderate" (r +0.53 with Inconsiderate)
 #   Insensitive   -> behaves like a surgency word (Exciting/Remarkable; and
 #                    fails the antonym check, r +0.25 with Sensitive)
-DENY_LABELS = {"Inspirational", "Insensitive"}
+# RESOLVED 2026-08-14: both columns are REVERSE-CODED in the deposit (8-x
+# applied), same processing family as the pre-reversed IPIP .por files.
+# Diagnosis: profile-r(Inspirational, Admirable) = -0.76, profile-r(
+# Insensitive, Inconsiderate) = -0.80; means 2.09/4.76 implausible for
+# their valence, plausible flipped (5.91/3.24). Fix: un-flip and keep
+# (REVERSED_LABELS); n=525. 523-era caches/artifacts remain valid for the
+# other 523 adjectives; backfill tracked in to_try.
+DENY_LABELS = set()
+REVERSED_LABELS = {"Inspirational", "Insensitive"}
 
 # Affect-axis probe set: words present in the 525 list whose human (behavioral)
 # vs lexical (model) relations are the crux. Names must match .por columns
@@ -71,6 +79,13 @@ def main():
               f"{sorted(meta.column_names_to_labels.get(c, c) for c in deny_cols)}")
     adj_cols = [c for c in df.columns if c.upper() != "ID" and c not in deny_cols]
     A = df[adj_cols].astype(float)
+    rev = [c for c in adj_cols
+           if (meta.column_names_to_labels.get(c) or c) in REVERSED_LABELS]
+    for c in rev:
+        A[c] = 8.0 - A[c]
+    if rev:
+        print(f"un-flipped {len(rev)} reverse-coded column(s): "
+              f"{sorted(meta.column_names_to_labels.get(c) or c for c in rev)}")
     print(f"loaded {POR}: {A.shape[0]} respondents x {A.shape[1]} adjectives")
     print(f"  NaN cells: {int(A.isna().sum().sum())} "
           f"({100*A.isna().sum().sum()/A.size:.2f}%); value range "
