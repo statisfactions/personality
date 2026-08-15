@@ -39,15 +39,19 @@ OUT_DIR = Path("results/adjectives")
 #   Inspirational -> behaves like "Inconsiderate" (r +0.53 with Inconsiderate)
 #   Insensitive   -> behaves like a surgency word (Exciting/Remarkable; and
 #                    fails the antonym check, r +0.25 with Sensitive)
-# RESOLVED 2026-08-14: both columns are REVERSE-CODED in the deposit (8-x
-# applied), same processing family as the pre-reversed IPIP .por files.
-# Diagnosis: profile-r(Inspirational, Admirable) = -0.76, profile-r(
-# Insensitive, Inconsiderate) = -0.80; means 2.09/4.76 implausible for
-# their valence, plausible flipped (5.91/3.24). Fix: un-flip and keep
-# (REVERSED_LABELS); n=525. 523-era caches/artifacts remain valid for the
-# other 523 adjectives; backfill tracked in to_try.
+# RESOLVED 2026-08-14 (2nd pass): the two columns are SWAPPED with each
+# other, not reverse-coded. Smoking gun: full profile search — column
+# "Inspirational" near-duplicates Unsympathetic/Inconsiderate (+0.97,
+# true-Insensitive kin); column "Insensitive" near-duplicates Eager/
+# Delightful/Expressive (+0.94, true-Inspirational kin). Mechanism:
+# they are the ONLY alphabetically out-of-order pair in the file
+# (In-sp before In-se) — transposed labels on alphabetical data, a
+# one-slot clerical swap in deposit assembly. (First-pass "reverse-coded"
+# diagnosis was wrong — flip and swap are indistinguishable under
+# kin-anti-correlation alone; rgb's mechanism objection forced the
+# discriminating test.) Fix: swap the labels back; n=525.
 DENY_LABELS = set()
-REVERSED_LABELS = {"Inspirational", "Insensitive"}
+SWAPPED_LABEL_PAIRS = [("Inspirational", "Insensitive")]
 
 # Affect-axis probe set: words present in the 525 list whose human (behavioral)
 # vs lexical (model) relations are the crux. Names must match .por columns
@@ -79,13 +83,13 @@ def main():
               f"{sorted(meta.column_names_to_labels.get(c, c) for c in deny_cols)}")
     adj_cols = [c for c in df.columns if c.upper() != "ID" and c not in deny_cols]
     A = df[adj_cols].astype(float)
-    rev = [c for c in adj_cols
-           if (meta.column_names_to_labels.get(c) or c) in REVERSED_LABELS]
-    for c in rev:
-        A[c] = 8.0 - A[c]
-    if rev:
-        print(f"un-flipped {len(rev)} reverse-coded column(s): "
-              f"{sorted(meta.column_names_to_labels.get(c) or c for c in rev)}")
+    lab = {c: (meta.column_names_to_labels.get(c) or c) for c in adj_cols}
+    for x, y in SWAPPED_LABEL_PAIRS:
+        cx = [c for c in adj_cols if lab[c] == x]
+        cy = [c for c in adj_cols if lab[c] == y]
+        if cx and cy:
+            A[[cx[0], cy[0]]] = A[[cy[0], cx[0]]].values
+            print(f"swapped transposed columns: {x} <-> {y}")
     print(f"loaded {POR}: {A.shape[0]} respondents x {A.shape[1]} adjectives")
     print(f"  NaN cells: {int(A.isna().sum().sum())} "
           f"({100*A.isna().sum().sum()/A.size:.2f}%); value range "

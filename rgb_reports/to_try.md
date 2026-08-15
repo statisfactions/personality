@@ -1233,3 +1233,19 @@ model — the only real cost, ~10-16h cohort-wide), framing_run +2 adjs x4
 models. 523-era caches stay valid for the 523; consumers migrate to v2
 corr after backfill. 35 trait clusters FROZEN (built on clean 523;
 membership untouched).
+
+### CORRECTION (same day): swap, not flip — rgb's mechanism objection was right
+rgb: "adjective checklists have no reverse-keying step; what's the
+mechanism?" Discriminating test (full profile search) overturned the
+flip diagnosis: column "Inspirational" NEAR-DUPLICATES Unsympathetic/
+Inconsiderate (+0.97, true-Insensitive kin); column "Insensitive"
+near-duplicates Eager/Delightful/Expressive (+0.94, true-Inspirational
+kin). The columns are SWAPPED with each other; mechanism is structural:
+they are the only alphabetically out-of-order adjacent pair in the file
+— transposed labels over alphabetical data, one clerical slot. Fix
+corrected to label swap (a73c344's 8-x un-flip was WRONG and would have
+poisoned both words); v2 artifact regenerated; post-swap r(Insens,Sens)
+-0.375, r(Inspir,Incons)-0.16, means 4.76/2.09. Ledger: Claude's flip
+diagnosis MISS (flip/swap indistinguishable under kin-anti-correlation;
+the +0.97 duplicate is the discriminator); rgb's no-mechanism objection
+= the catch. Backfill inventory unchanged.
