@@ -145,11 +145,13 @@ STEPS = [
 ]
 
 # thinking-flagged models additionally get the post-deliberation arm
-# (generation-heavy: 3x the timeout budget)
+# (generation-heavy: R1-class needs ~12h for 6 framings x 525; the .part
+# checkpoint resumes per framing, so a timeout only loses the framing
+# in progress)
 THINK_STEP = ("self_think",
               lambda r: ["scripts/self_adjective_report.py", "--model", r,
                          "--full", "--think"],
-              think_path, 3)
+              think_path, 6)
 
 
 def steps_for(m):
