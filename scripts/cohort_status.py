@@ -65,6 +65,18 @@ def main():
              safe_json(MANIFEST, {"models": []})["models"]]
     while True:
         st = safe_json(STATE, {})
+        # run_one never persists a 'running' status; infer the active model
+        # from the log ([run] X with no terminal '-> done/FAILED' yet)
+        try:
+            active = None
+            for line in open(QLOG, errors="replace"):
+                if line.startswith("[run] "):
+                    rest = line[6:].strip()
+                    active = None if "->" in rest else rest.split()[0]
+            if active and st.get(active, {}).get("status") == "staged":
+                st[active]["status"] = "running"
+        except Exception:
+            pass
         counts = {}
         rows = []
         for name in order + [k for k in st if k not in order]:
