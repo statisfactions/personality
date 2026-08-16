@@ -1,6 +1,9 @@
 """Five-space facet slides: HUMAN / SELF / REPRESENT / JUDGE / ENACT (interview aid).
 
-One 16:9 slide per space, each a 35x35 cluster-block heatmap (same clusters,
+v2 partition: 44 trait blocks (instruments/trait_blocks_44.json — no size
+cap, majors included).
+
+One 16:9 slide per space, each a 44-block heatmap (same clusters,
 branch order, z scale, and construction as adjective_facet_cohort.py), titled
 with the narrative beat it carries. A sixth summary slide shows the
 PC1-removed row for all five spaces plus the congruence bar — the
@@ -29,9 +32,10 @@ BEATS = {
         num=1,
         title="Personality measurement is a theory of human variance",
         sub=("Saucier 525-PDA: 700 human self-ratings on 523 adjectives, "
-             "aggregated to 35 trait clusters (pole-respecting Ward on the "
-             "human correlations). This block structure is what the Big Five "
-             "compress."),
+             "aggregated to 44 trait blocks (pole-respecting Ward on the "
+             "human correlations; coherence-filtered, no size cap — the "
+             "large blocks are the trait majors: warmth, anxiety, anger, "
+             "honesty). This block structure is what the Big Five compress."),
     ),
     "SELF": dict(
         num=2,
@@ -41,7 +45,7 @@ BEATS = {
              "model a 523-vector of self-rating EVs (6 framings averaged), "
              "so the correlation estimate is rank-9. Raw congruence is a "
              "desirability freebie; remove each matrix's top component and "
-             "SELF is the weakest of the four model channels."),
+             "SELF ties REPRESENT at the bottom of the four channels."),
     ),
     "REPRESENT": dict(
         num=3,
@@ -77,7 +81,9 @@ def build_grids():
     """Replicates adjective_facet_cohort.main()'s data path (no render)."""
     h = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
     labels = [l.lower() for l in h["labels"]]
-    tc = json.load(open("instruments/trait_clusters.json"))
+    # 44-block standing partition (v2: no size cap, majors included);
+    # the frozen 35-cluster file remains for W17-W18 continuity
+    tc = json.load(open("instruments/trait_blocks_44.json"))
     clusters = sorted(tc["pool"], key=lambda c: (c["branch"], -c["coh"]))
     H0 = np.array(h["correlation_matrix"], float)
 
@@ -211,19 +217,27 @@ def summary_slide(grids_p):
     fig.update_xaxes(showticklabels=True, tickfont=dict(size=11), row=1, col=6)
     fig.update_yaxes(showticklabels=True, tickfont=dict(size=10),
                      range=[0, 1], row=1, col=6)
-    fig.add_annotation(text="All five 35-cluster grids with the top "
+    fig.add_annotation(text="All five 44-block grids with the top "
                             "eigencomponent of the underlying 523² matrix "
                             "removed; bars = congruence with HUMAN "
                             "(off-diagonal r).",
                        xref="paper", yref="paper", x=0, y=1.21,
                        xanchor="left", yanchor="top", align="left",
                        showarrow=False, font=dict(size=13, color=INK2))
+    fig.add_annotation(text="Aggregation-free check — full-resolution 523² "
+                            "item level, top component removed: SELF 0.20, "
+                            "REPRESENT 0.31, JUDGE 0.54, ENACT 0.49. Same "
+                            "ranking; blocks are visualization, not "
+                            "load-bearing.",
+                       xref="paper", yref="paper", x=0, y=-0.22,
+                       xanchor="left", yanchor="top", align="left",
+                       showarrow=False, font=dict(size=12, color=INK2))
     fig.update_layout(
         title=dict(text="<b>Remove each space's top component: judgment "
                         "reconstructs human structure; enactment trails; "
                         "self-report and representation weakest</b>",
                    font=dict(size=19, color=INK), x=0.019, y=0.945),
-        width=1600, height=480, margin=dict(l=30, r=30, t=120, b=60),
+        width=1600, height=500, margin=dict(l=30, r=30, t=120, b=80),
         paper_bgcolor=SURF, plot_bgcolor=SURF, showlegend=False)
     return fig
 

@@ -1,0 +1,811 @@
+{
+ "procedure": "Ward on pole-respecting 1-r (escs_525pda_corr_raw.json, 523 adj), fine cut maxclust=65, keep size>=5 & coh>0.25 \u2014 NO upper size cap (v2; the 5-12 window excluded the trait majors). Branch = majority coarse-cut-8 label. Frozen trait_clusters.json (35) kept for W17-W18 continuity.",
+ "params": {
+  "fine_k": 65,
+  "size_min": 5,
+  "coh_min": 0.25,
+  "n_branch": 8
+ },
+ "pool": [
+  {
+   "tag": "mean",
+   "members": [
+    "evil",
+    "frightening",
+    "harsh",
+    "mean",
+    "dangerous",
+    "violent",
+    "abusive",
+    "cruel",
+    "hard",
+    "rough"
+   ],
+   "coh": 0.411,
+   "branch": 1,
+   "major": false
+  },
+  {
+   "tag": "weird",
+   "members": [
+    "abnormal",
+    "radical",
+    "unpredictable",
+    "insane",
+    "crazy",
+    "rebellious",
+    "rowdy",
+    "controversial",
+    "reckless",
+    "strange",
+    "weird"
+   ],
+   "coh": 0.357,
+   "branch": 1,
+   "major": false
+  },
+  {
+   "tag": "annoying",
+   "members": [
+    "irritating",
+    "offensive",
+    "difficult",
+    "insulting",
+    "aggravating",
+    "obnoxious",
+    "ridiculous",
+    "rude",
+    "annoying",
+    "embarrassing"
+   ],
+   "coh": 0.449,
+   "branch": 1,
+   "major": false
+  },
+  {
+   "tag": "arrogant",
+   "members": [
+    "conceited",
+    "egotistical",
+    "stuck-up",
+    "self-centered",
+    "snobbish",
+    "spoiled",
+    "arrogant",
+    "materialistic",
+    "cocky",
+    "greedy",
+    "selfish"
+   ],
+   "coh": 0.403,
+   "branch": 1,
+   "major": false
+  },
+  {
+   "tag": "bossy",
+   "members": [
+    "sarcastic",
+    "stubborn",
+    "demanding",
+    "dominant",
+    "opinionated",
+    "critical",
+    "intimidating",
+    "argumentative",
+    "bossy",
+    "outspoken",
+    "controlling"
+   ],
+   "coh": 0.346,
+   "branch": 1,
+   "major": false
+  },
+  {
+   "tag": "sad",
+   "members": [
+    "depressed",
+    "heartbroken",
+    "unlucky",
+    "unhappy",
+    "lonesome",
+    "alone",
+    "disappointed",
+    "lonely",
+    "neglected",
+    "sad"
+   ],
+   "coh": 0.452,
+   "branch": 2,
+   "major": false
+  },
+  {
+   "tag": "worried",
+   "members": [
+    "nervous",
+    "anxious",
+    "guilty",
+    "tense",
+    "ashamed",
+    "humiliated",
+    "embarrassed",
+    "frustrated",
+    "unsure",
+    "scared",
+    "troubled",
+    "uncomfortable",
+    "fretful",
+    "insecure",
+    "needy",
+    "worried",
+    "afraid",
+    "envious"
+   ],
+   "coh": 0.411,
+   "branch": 2,
+   "major": true
+  },
+  {
+   "tag": "obsessive",
+   "members": [
+    "jealous",
+    "obsessive",
+    "possessive",
+    "preoccupied",
+    "compulsive",
+    "rushed"
+   ],
+   "coh": 0.269,
+   "branch": 2,
+   "major": false
+  },
+  {
+   "tag": "crabby",
+   "members": [
+    "cranky",
+    "short-tempered",
+    "bitter",
+    "hostile",
+    "hot-tempered",
+    "impatient",
+    "irritable",
+    "angry",
+    "grouchy",
+    "upset",
+    "annoyed",
+    "crabby",
+    "complaining",
+    "frustrating",
+    "furious",
+    "suspicious",
+    "touchy",
+    "irritated",
+    "moody",
+    "defensive",
+    "grumpy",
+    "negative",
+    "temperamental"
+   ],
+   "coh": 0.427,
+   "branch": 2,
+   "major": true
+  },
+  {
+   "tag": "disorganized",
+   "members": [
+    "procrastinating",
+    "wasteful",
+    "forgetful",
+    "messy",
+    "left-handed",
+    "inefficient",
+    "careless",
+    "disorganized",
+    "sloppy"
+   ],
+   "coh": 0.376,
+   "branch": 3,
+   "major": false
+  },
+  {
+   "tag": "awkward",
+   "members": [
+    "clumsy",
+    "ungraceful",
+    "plain",
+    "boring",
+    "indecisive",
+    "unattractive",
+    "uncreative",
+    "wishy-washy",
+    "awkward"
+   ],
+   "coh": 0.298,
+   "branch": 3,
+   "major": false
+  },
+  {
+   "tag": "sickly",
+   "members": [
+    "exhausted",
+    "handicapped",
+    "tired",
+    "disabled",
+    "sleepy",
+    "poor",
+    "sickly"
+   ],
+   "coh": 0.358,
+   "branch": 3,
+   "major": false
+  },
+  {
+   "tag": "dumb",
+   "members": [
+    "awful",
+    "incompetent",
+    "stupid",
+    "corrupt",
+    "terrible",
+    "unintellectual",
+    "disgusting",
+    "ignorant",
+    "uneducated",
+    "bad",
+    "good-for-nothing",
+    "dumb",
+    "pathetic",
+    "phony"
+   ],
+   "coh": 0.347,
+   "branch": 3,
+   "major": true
+  },
+  {
+   "tag": "unfriendly",
+   "members": [
+    "stingy",
+    "bored",
+    "cold",
+    "unsympathetic",
+    "cheap",
+    "unfriendly",
+    "unpopular",
+    "withdrawn"
+   ],
+   "coh": 0.354,
+   "branch": 3,
+   "major": false
+  },
+  {
+   "tag": "confused",
+   "members": [
+    "foolish",
+    "helpless",
+    "irrational",
+    "confusing",
+    "disturbed",
+    "immature",
+    "inexperienced",
+    "weak",
+    "childish",
+    "unstable",
+    "confused"
+   ],
+   "coh": 0.347,
+   "branch": 3,
+   "major": false
+  },
+  {
+   "tag": "inconsiderate",
+   "members": [
+    "dishonest",
+    "disobedient",
+    "shallow",
+    "unfair",
+    "inconsiderate",
+    "unreasonable",
+    "thoughtless",
+    "undependable",
+    "unfaithful",
+    "artificial",
+    "impolite",
+    "unreliable",
+    "disrespectful",
+    "irresponsible"
+   ],
+   "coh": 0.325,
+   "branch": 3,
+   "major": true
+  },
+  {
+   "tag": "beautiful",
+   "members": [
+    "charming",
+    "cute",
+    "fashionable",
+    "glamorous",
+    "gorgeous",
+    "lovely",
+    "sexy",
+    "good-looking",
+    "handsome",
+    "stylish",
+    "adorable",
+    "graceful",
+    "sophisticated",
+    "pretty",
+    "seductive",
+    "attractive",
+    "beautiful"
+   ],
+   "coh": 0.415,
+   "branch": 4,
+   "major": true
+  },
+  {
+   "tag": "influential",
+   "members": [
+    "prominent",
+    "well-known",
+    "famous",
+    "distinguished",
+    "important",
+    "influential",
+    "powerful"
+   ],
+   "coh": 0.5,
+   "branch": 4,
+   "major": false
+  },
+  {
+   "tag": "aggressive",
+   "members": [
+    "aggressive",
+    "bold",
+    "competitive",
+    "ambitious",
+    "assertive",
+    "forward"
+   ],
+   "coh": 0.362,
+   "branch": 4,
+   "major": false
+  },
+  {
+   "tag": "brave",
+   "members": [
+    "courageous",
+    "strong",
+    "tough",
+    "adventurous",
+    "daring",
+    "brave"
+   ],
+   "coh": 0.431,
+   "branch": 4,
+   "major": false
+  },
+  {
+   "tag": "funny",
+   "members": [
+    "comical",
+    "hilarious",
+    "funny",
+    "amusing",
+    "humorous",
+    "witty"
+   ],
+   "coh": 0.645,
+   "branch": 4,
+   "major": false
+  },
+  {
+   "tag": "appealing",
+   "members": [
+    "valuable",
+    "delightful",
+    "wonderful",
+    "worthy",
+    "delighted",
+    "great",
+    "desirable",
+    "fine",
+    "admirable",
+    "appealing",
+    "terrific"
+   ],
+   "coh": 0.454,
+   "branch": 4,
+   "major": false
+  },
+  {
+   "tag": "extraordinary",
+   "members": [
+    "amazing",
+    "colorful",
+    "outstanding",
+    "interesting",
+    "fascinating",
+    "unforgettable",
+    "unusual",
+    "entertaining",
+    "unique",
+    "clever",
+    "excellent",
+    "impressive",
+    "original",
+    "exceptional",
+    "exciting",
+    "extraordinary",
+    "remarkable",
+    "awesome"
+   ],
+   "coh": 0.44,
+   "branch": 4,
+   "major": true
+  },
+  {
+   "tag": "quiet",
+   "members": [
+    "private",
+    "serious",
+    "soft-spoken",
+    "quiet",
+    "modest"
+   ],
+   "coh": 0.265,
+   "branch": 5,
+   "major": false
+  },
+  {
+   "tag": "kind-hearted",
+   "members": [
+    "encouraging",
+    "generous",
+    "supportive",
+    "warm",
+    "sensitive",
+    "friendly",
+    "giving",
+    "kind",
+    "sympathetic",
+    "caring",
+    "compassionate",
+    "concerned",
+    "warm-hearted",
+    "helpful",
+    "kind-hearted",
+    "thoughtful",
+    "understanding"
+   ],
+   "coh": 0.473,
+   "branch": 6,
+   "major": true
+  },
+  {
+   "tag": "pleasant",
+   "members": [
+    "gentle",
+    "good-natured",
+    "gracious",
+    "pleasant",
+    "cooperative",
+    "nice",
+    "agreeable",
+    "patient",
+    "neighborly",
+    "sweet",
+    "trusting",
+    "forgiving"
+   ],
+   "coh": 0.335,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "respected",
+   "members": [
+    "pleasing",
+    "popular",
+    "likeable",
+    "good",
+    "proud",
+    "respected",
+    "mature",
+    "respectable",
+    "understandable",
+    "alert",
+    "appreciated",
+    "awake",
+    "compatible",
+    "presentable",
+    "protective",
+    "well-liked"
+   ],
+   "coh": 0.363,
+   "branch": 6,
+   "major": true
+  },
+  {
+   "tag": "polite",
+   "members": [
+    "courteous",
+    "faithful",
+    "respectful",
+    "appreciative",
+    "grateful",
+    "polite",
+    "thankful",
+    "devoted",
+    "loyal"
+   ],
+   "coh": 0.422,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "trustworthy",
+   "members": [
+    "attentive",
+    "believable",
+    "clean",
+    "decent",
+    "trusted",
+    "truthful",
+    "fair",
+    "sincere",
+    "reliable",
+    "conscientious",
+    "considerate",
+    "responsible",
+    "dependable",
+    "trustworthy",
+    "ethical",
+    "genuine",
+    "honest"
+   ],
+   "coh": 0.407,
+   "branch": 6,
+   "major": true
+  },
+  {
+   "tag": "romantic",
+   "members": [
+    "affectionate",
+    "emotional",
+    "lovable",
+    "passionate",
+    "romantic",
+    "loving",
+    "sentimental"
+   ],
+   "coh": 0.42,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "outgoing",
+   "members": [
+    "familiar",
+    "sociable",
+    "outgoing",
+    "social",
+    "talkative",
+    "extraverted"
+   ],
+   "coh": 0.463,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "enthusiastic",
+   "members": [
+    "enthusiastic",
+    "eager",
+    "excited",
+    "expressive",
+    "playful",
+    "cheerful",
+    "good-humored",
+    "laughing",
+    "lively",
+    "spontaneous",
+    "impulsive",
+    "uninhibited"
+   ],
+   "coh": 0.381,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "joyful",
+   "members": [
+    "happy",
+    "hopeful",
+    "lucky",
+    "optimistic",
+    "glad",
+    "fortunate",
+    "pleased",
+    "encouraged",
+    "joyful",
+    "positive"
+   ],
+   "coh": 0.458,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "self-assured",
+   "members": [
+    "satisfied",
+    "secure",
+    "self-assured",
+    "unenvious",
+    "self-confident",
+    "well-adjusted",
+    "confident",
+    "stable",
+    "comfortable",
+    "certain"
+   ],
+   "coh": 0.435,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "relaxed",
+   "members": [
+    "laid-back",
+    "peaceful",
+    "easygoing",
+    "calm",
+    "carefree",
+    "relaxed"
+   ],
+   "coh": 0.426,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "open-minded",
+   "members": [
+    "liberal",
+    "tolerant",
+    "open-minded",
+    "democratic",
+    "open",
+    "flexible"
+   ],
+   "coh": 0.343,
+   "branch": 6,
+   "major": false
+  },
+  {
+   "tag": "talented",
+   "members": [
+    "imaginative",
+    "artistic",
+    "skilled",
+    "gifted",
+    "talented",
+    "creative",
+    "skillful"
+   ],
+   "coh": 0.497,
+   "branch": 7,
+   "major": false
+  },
+  {
+   "tag": "smart",
+   "members": [
+    "bright",
+    "educated",
+    "brilliant",
+    "intellectual",
+    "wise",
+    "intelligent",
+    "knowledgeable",
+    "smart"
+   ],
+   "coh": 0.492,
+   "branch": 7,
+   "major": false
+  },
+  {
+   "tag": "thinking",
+   "members": [
+    "perceptive",
+    "thinking",
+    "observant",
+    "interested",
+    "philosophical",
+    "curious"
+   ],
+   "coh": 0.335,
+   "branch": 7,
+   "major": false
+  },
+  {
+   "tag": "practical",
+   "members": [
+    "rational",
+    "reasonable",
+    "realistic",
+    "level-headed",
+    "logical",
+    "practical",
+    "sensible"
+   ],
+   "coh": 0.448,
+   "branch": 8,
+   "major": false
+  },
+  {
+   "tag": "organized",
+   "members": [
+    "strict",
+    "efficient",
+    "firm",
+    "thorough",
+    "consistent",
+    "systematic",
+    "neat",
+    "organized"
+   ],
+   "coh": 0.391,
+   "branch": 8,
+   "major": false
+  },
+  {
+   "tag": "busy",
+   "members": [
+    "active",
+    "dedicated",
+    "energetic",
+    "busy",
+    "involved"
+   ],
+   "coh": 0.42,
+   "branch": 8,
+   "major": false
+  },
+  {
+   "tag": "professional",
+   "members": [
+    "businesslike",
+    "constructive",
+    "accomplished",
+    "successful",
+    "experienced",
+    "self-sufficient",
+    "professional",
+    "self-supporting",
+    "independent"
+   ],
+   "coh": 0.32,
+   "branch": 8,
+   "major": false
+  },
+  {
+   "tag": "competent",
+   "members": [
+    "hard-working",
+    "direct",
+    "resourceful",
+    "determined",
+    "productive",
+    "straightforward",
+    "competent",
+    "effective",
+    "persistent",
+    "persuasive",
+    "useful",
+    "capable"
+   ],
+   "coh": 0.368,
+   "branch": 8,
+   "major": false
+  }
+ ]
+}
