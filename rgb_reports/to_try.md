@@ -1264,3 +1264,18 @@ hold / invite-from-floor. Qwen7 permission +0.58->+0.37 under v3 with
 own-baseline refs (still decisively positive; cross-judge calibration
 r=.85, offset -.08). Cohort queue now on GPU (wide-n captures, n=525
 from birth).
+
+## Cluster-free toplines (2026-08-16, rgb: are clusters load-bearing?)
+Item-level 523^2 congruence vs HUMAN (pearson, pc1-removed): JUDGE .54 >
+ENACT .49 > REP .31 > SELF .20 (raw: .74/.74/.58/.68; spearman tracks).
+Covered-294 intermediate: .65/.55/.38/.21. RANKING RESOLUTION-INVARIANT
+— no qualitative claim rests on the harvest; quote item-level as primary.
+Magnitudes are resolution-dependent, unevenly: clustering gives JUDGE
++.26 (coverage ~+.13 + aggregation ~+.13), SELF +.16 (nearly all
+aggregation = rank-9 noise soak), ENACT/REP ~+.1. Registered: ranking-
+invariant hit, drop-size hit, "SELF hurt most" MISS (JUDGE biggest
+cluster beneficiary). KEY: item-level raw JUDGE==ENACT (.74 tie);
+JUDGE dominance is coarse-grain only — converges with the top-k
+spectral finding (JUDGE top-heavy, ENACT distributed) from an
+independent instrument: the write channel carries fine-grained human
+structure, judgment the coarse.
