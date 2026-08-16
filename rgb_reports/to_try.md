@@ -1279,3 +1279,14 @@ JUDGE dominance is coarse-grain only — converges with the top-k
 spectral finding (JUDGE top-heavy, ENACT distributed) from an
 independent instrument: the write channel carries fine-grained human
 structure, judgment the coarse.
+
+### Plain 33-cut check (rgb): coherence fine, curation was load-bearing for REPRESENT
+Ward maxclust=33, no harvest (full coverage): coherence mean .36 vs
+harvested .40, only 4/33 below the .25 bar — but sizes 3-35 (sd 9.0)
+and the 229 exiled words come inside. Block congruence (pc1-rem):
+JUDGE .70 (robust), ENACT .43, SELF .26, REPRESENT .14 — REPRESENT
+COLLAPSES below SELF, breaking the ranking. The harvest's quality
+control was load-bearing specifically for REPRESENT block claims (its
+human-match lives in coherent-trait territory only). Methods line:
+ranking resolution-invariant but NOT curation-invariant at block level;
+item-level numbers are the safe citation (dodge both knobs).
