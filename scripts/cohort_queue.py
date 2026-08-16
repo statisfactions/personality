@@ -266,7 +266,9 @@ def main():
                 save_state(st)
             ok = False
         print(f"[run] {m['name']} -> {'done' if ok else 'FAILED'}", flush=True)
-        if not args.keep and not st[m["name"]].get("preexisting"):
+        # keep snapshots of FAILED models: a code fix + resume must not
+        # cost a re-download (learned 2026-08-15, 8 models re-downloaded)
+        if ok and not args.keep and not st[m["name"]].get("preexisting"):
             d = cache_dir_for(m["repo"])
             if os.path.exists(d):
                 sz = sum(f.stat().st_size for f in
