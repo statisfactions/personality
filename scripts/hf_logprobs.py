@@ -123,14 +123,25 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
 
 
 def _single_token_variants(tok, s: str, space_variant: bool = True) -> List[int]:
-    """Return all single-token IDs for `s` among {s, " "+s} (or just {s})."""
+    """Return all single-token IDs for `s` among {s, " "+s} (or just {s}).
+
+    Slow SentencePiece tokenizers (e.g. LlamaTokenizer when fast conversion
+    fails, as with Vicuna) encode bare digits as [prefix-space, digit] — two
+    tokens — even though the digit IS a single vocab entry. Fall back to
+    direct vocab lookup of s and "▁"+s (SP word-initial form)."""
     candidates = [s, " " + s] if space_variant else [s]
     ids = []
     for c in candidates:
         enc = tok(c, add_special_tokens=False).input_ids
         if len(enc) == 1:
             ids.append(enc[0])
-    return ids
+    if not ids:
+        unk = tok.unk_token_id
+        for form in (s, "▁" + s):
+            tid = tok.convert_tokens_to_ids(form)
+            if tid is not None and tid != unk and tid >= 0:
+                ids.append(tid)
+    return list(dict.fromkeys(ids))
 
 
 def _token_ids_map(tok, labels: Iterable[str]) -> Dict[str, List[int]]:
