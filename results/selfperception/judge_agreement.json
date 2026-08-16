@@ -1,0 +1,4562 @@
+[
+  {
+    "subj": "Llama8",
+    "adj": "patient",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "energetic",
+    "probe": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "sensible",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "bossy",
+    "probe": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "cold",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "controlling",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "reliable",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "careless",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 5,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "worried",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "harsh",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "awkward",
+    "probe": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 5,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "confident",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "suspicious",
+    "probe": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 5,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "spoiled",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "closed-minded",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 5,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "inexperienced",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "conservative",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "strict",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "caring",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "devoted",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "hostile",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "certain",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "sentimental",
+    "probe": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "brave",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "honest",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "bored",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "distinguished",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "motherly",
+    "probe": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "spontaneous",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Llama8",
+    "adj": "elderly",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "dependable",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "open",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "friendly",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "creative",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "gentle",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "ridiculous",
+    "probe": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "corrupt",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "cheap",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "cautious",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "grumpy",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 7,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 5,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "well-liked",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "successful",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "original",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "unenvious",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "trusted",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "relaxed",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "noisy",
+    "probe": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 3,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "interested",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "fretful",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 5,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 7,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "insane",
+    "probe": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 7
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "complicated",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "normal",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "well-adjusted",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "pretty",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "tolerant",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "motherly",
+    "probe": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "colorful",
+    "probe": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 7
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 5,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "stingy",
+    "probe": {
+      "qwen32": {
+        "drift": 3,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 6,
+        "disavowal": 3,
+        "awareness": 4
+      },
+      "gemma4": {
+        "drift": 7,
+        "disavowal": 1,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 4,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 3,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "fair",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 3,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 7
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  },
+  {
+    "subj": "Aya",
+    "adj": "presentable",
+    "probe": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      }
+    },
+    "probe_drop": {
+      "qwen32": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": 1
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 5,
+        "awareness": 4
+      }
+    },
+    "neutral": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "drop_force": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "be_yourself": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      }
+    },
+    "as_you_want": {
+      "qwen32": {
+        "drift": 2,
+        "disavowal": 1,
+        "awareness": null
+      },
+      "gemma4": {
+        "drift": 1,
+        "disavowal": 1,
+        "awareness": null
+      }
+    }
+  }
+]

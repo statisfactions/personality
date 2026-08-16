@@ -1,0 +1,1594 @@
+[
+  {
+    "adj": "afraid",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "aggressive",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "alcoholic",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "alone",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "angry",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "anxious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "appreciative",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "ashamed",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "average",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "awesome",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "bitter",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "bored",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "carefree",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "clumsy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "cocky",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "cold",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "complicated",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "concerned",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "controlling",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "cranky",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "cruel",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "cute",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "demanding",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "dependent",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "depressed",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "difficult",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "disgusting",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "embarrassing",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "envious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "exhausted",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "fretful",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "frustrated",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "furious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "greedy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "grouchy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "hot-tempered",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "immature",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "impatient",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "indecisive",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "irresponsible",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "irritable",
+    "group": "FP",
+    "v1_current": 5,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 5
+  },
+  {
+    "adj": "laughing",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "middle-aged",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "middle-class",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "moody",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "motherly",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "narrow-minded",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "needy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "nosy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "patient",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "procrastinating",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "radical",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "rebellious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "rough",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "rushed",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "sad",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "sarcastic",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "scared",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "self-centered",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "self-conscious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "selfish",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "short-tempered",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "shy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "sleepy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "sloppy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "stingy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "suspicious",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "tense",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "tired",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "unattractive",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "ungraceful",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unhappy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "uninhibited",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "unlucky",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unpopular",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "unsure",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "upset",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "wishy-washy",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "worried",
+    "group": "FP",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "tall",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "dishonest",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "determined",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "skinny",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "harsh",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 3,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "sensible",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "educated",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "irritated",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "excellent",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "valuable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "responsible",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "realistic",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "reliable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "strong",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "defensive",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "sexy",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "offensive",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "intelligent",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "cautious",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "cool",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "strict",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "knowledgeable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "alert",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "curious",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "self-assured",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "fair",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "jealous",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "fine",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "loud",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 3,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "shallow",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "secure",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "great",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unpredictable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "awake",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "inefficient",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "busy",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "good-looking",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "disturbed",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "mean",
+    "group": "TN",
+    "v1_current": 6,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "presentable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "masculine",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "awkward",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "appreciated",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "terrible",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "logical",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "self-confident",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unfriendly",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unique",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "organized",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "private",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "respected",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "rational",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "bossy",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 3,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "big",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "disabled",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "unreliable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 3
+  },
+  {
+    "adj": "well-known",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "delightful",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "heartbroken",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "lovable",
+    "group": "TN",
+    "v1_current": 2,
+    "v2_wording": 2,
+    "v3_refs": 2,
+    "v4_refs_only": 2
+  },
+  {
+    "adj": "conservative",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "senile",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "cool",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "fortunate",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "unattractive",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "relaxed",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "rowdy",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "frustrating",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "thoughtful",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "cocky",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "unhappy",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "helpless",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "firm",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 5
+  },
+  {
+    "adj": "masculine",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "funny",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "retarded",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "compulsive",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "useful",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "proper",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 6,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "powerful",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "tense",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "logical",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "clumsy",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "persuasive",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "disorganized",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "constructive",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "messy",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "worried",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "defensive",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "bad",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "spontaneous",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 5
+  },
+  {
+    "adj": "inconsiderate",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "confident",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "abnormal",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "stupid",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "concerned",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "motherly",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "chubby",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "corrupt",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "awful",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "annoyed",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "exhausted",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "guilty",
+    "group": "POS",
+    "v1_current": 7,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "wealthy",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "skinny",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "delightful",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "stylish",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "entertaining",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "talkative",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "inexperienced",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "hard-working",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "dependent",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "little",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "thin",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "upset",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "slender",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 4,
+    "v4_refs_only": 4
+  },
+  {
+    "adj": "irrational",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 4,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "alone",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 7,
+    "v3_refs": 7,
+    "v4_refs_only": 7
+  },
+  {
+    "adj": "bored",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 6,
+    "v4_refs_only": 6
+  },
+  {
+    "adj": "distinguished",
+    "group": "POS",
+    "v1_current": 6,
+    "v2_wording": 6,
+    "v3_refs": 7,
+    "v4_refs_only": 6
+  }
+]
