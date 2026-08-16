@@ -83,6 +83,7 @@ CLAUDE.md
 # Other local context
 local/
 mirt/
+tmp/
 
 # results/ — keep summary files (json/html/csv/png) shareable with collaborators,
 # ignore everything else (especially the multi-GB .pt activation caches under
@@ -111,3 +112,7 @@ results/**/*_pda_report.json
 # generated
 rgb_reports/progress_note_selfperception.html
 rgb_reports/progress_note_selfperception.pdf
+
+# papers
+paper/**
+!paper/.gitkeep
