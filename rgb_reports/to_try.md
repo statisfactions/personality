@@ -1305,3 +1305,12 @@ collapse = junk+dilution, NOT missing majors); SELF rises .37->.43 (ties
 REP; models' self-description matches humans best in the major cores).
 All 4 registrations hit. DECISION PENDING (rgb): adopt 44-block as
 standing partition (86% coverage, no upper cap) vs frozen-35 continuity.
+
+### Big-5 variance share cross-check (rgb): ~32% corroborated
+525-PDA proper-diag top-5 = 32.7% (PC1 15.9%, top-10 40.0%); PC1 share
+matches W14's recorded .159. External anchor: Johnson IPIP300 human data
+(n=307,313, 301 items) top-5 = 30.6% (PC1 11.5%, top-10 37.6%) — two
+instruments, two samples, within 2 points. Adjective PC1 > phrase PC1
+(15.9 vs 11.5) = evaluative halo stronger in bare words (the human-side
+desirability freebie). PC identities confirmed vs rgb's recall: PC2
+boldness, PC3 warmth, PC4 organized (curious = PC5).
