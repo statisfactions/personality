@@ -1290,3 +1290,18 @@ control was load-bearing specifically for REPRESENT block claims (its
 human-match lives in coherent-trait territory only). Methods line:
 ranking resolution-invariant but NOT curation-invariant at block level;
 item-level numbers are the safe citation (dodge both knobs).
+
+### Harvest size-cap audit (rgb): the 9 excluded >12 clusters are THE MAJORS
+65-cut exclusions: 18 too-small (55 w) + 3 low-coh (20 w) = junk; but 9
+too-BIG (154 w) are the trait cores, mostly MORE coherent than the kept
+mean (.40): warmth/nurturance (17, .47), trait anger (23, .43), pos-eval
+(18, .44), anxiety/neg-affect (18, .41), honesty/dependability (17, .41),
+attractiveness (17, .41), likeability (16), worthlessness (14), moral
+unreliability (14). The dashboard has been measuring peripheral shards
+while A-warmth, both N cores, and H sat outside. 44-BLOCK CHECK (shards
++ majors, 448 w): pc1-rem SELF .43 / REP .43 / JUDGE .77 / ENACT .63 —
+REP/JUDGE/ENACT within .03 of harvested-35 (numbers were robust; 33-cut
+collapse = junk+dilution, NOT missing majors); SELF rises .37->.43 (ties
+REP; models' self-description matches humans best in the major cores).
+All 4 registrations hit. DECISION PENDING (rgb): adopt 44-block as
+standing partition (86% coverage, no upper cap) vs frozen-35 continuity.
