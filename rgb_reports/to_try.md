@@ -1360,3 +1360,16 @@ THE FINAL LAYER (48/48, 62/62, 34/34 — structure surviving to unembed;
 massive-channel/format thread?). Mid is nearer peak for most non-Qwen.
 PAPER: state mid as the convention, cite sweep as robustness; flag the
 four_grid 2/3 vs slides mid inconsistency when consolidating numbers.
+
+### Massive-dims cutoff sensitivity (rgb): set marginal, statistic invariant
+Spectra (x median, pda rollout basis, mid layer): only 1-2 true monsters
+per model (Gemma12 3509x!, phi4 186x, Qwen7 95/90x, Llama8 62x); rest of
+each 20x-set lives at 20-40x with shoulder at 14-18x — membership churns
++-2-3 dims for +-30% threshold; Aya's set is EMPTY at 20x (top 18x,
+winsorize a no-op there). BUT grid-level: REPRESENT 523^2 cosine grids
+at 10x/20x/50x correlate r>=0.999 (Gemma12 exactly 1.0000) — marginal
+members are barely compressed by the std-cap. The binary choice is what
+matters: winsorize-vs-raw r=0.34 for Gemma12 (the monster owns every
+cosine otherwise); ~irrelevant for Aya (0.999). Methods line: any
+cutoff in 10-50x equivalent; the procedure is sensitive only to the
+dimension that motivated it.
