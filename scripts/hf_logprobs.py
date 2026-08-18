@@ -112,11 +112,39 @@ def pick_device() -> str:
     return "cpu"
 
 
+# Chat templates for pre-template-convention instruct models, so every
+# instrument arm sees them as chat models (otherwise: silently bare in the
+# self arm, ValueError in enact/represent). Format per the model's own
+# deployment docs (FastChat conversation registry for Vicuna v1.5).
+_FALLBACK_TEMPLATES = {
+    "vicuna": (
+        "{% if messages[0]['role'] != 'system' %}"
+        "{{ 'A chat between a curious user and an artificial intelligence "
+        "assistant. The assistant gives helpful, detailed, and polite "
+        "answers to the user\\'s questions. ' }}{% endif %}"
+        "{% for message in messages %}"
+        "{% if message['role'] == 'system' %}{{ message['content'] + ' ' }}"
+        "{% elif message['role'] == 'user' %}"
+        "{{ 'USER: ' + message['content'] + ' ' }}"
+        "{% elif message['role'] == 'assistant' %}"
+        "{{ 'ASSISTANT: ' + message['content'] + '</s>' }}"
+        "{% endif %}{% endfor %}"
+        "{% if add_generation_prompt %}{{ 'ASSISTANT:' }}{% endif %}"),
+}
+
+
 def load_model(name_or_repo: str, device: str | None = None, dtype=None):
     device = device or pick_device()
     dtype = dtype if dtype is not None else torch.bfloat16
     repo = resolve(name_or_repo)
     tok = AutoTokenizer.from_pretrained(repo)
+    if tok.chat_template is None:
+        for key, tmpl in _FALLBACK_TEMPLATES.items():
+            if key in repo.lower():
+                tok.chat_template = tmpl
+                print(f"[hf_logprobs] injected fallback chat template "
+                      f"({key}) for {repo}")
+                break
     model = AutoModelForCausalLM.from_pretrained(repo, dtype=dtype, device_map=device)
     model.eval()
     return model, tok, device
