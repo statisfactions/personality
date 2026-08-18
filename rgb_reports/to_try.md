@@ -1331,3 +1331,19 @@ Somewhat, no referent, one-at-a-time). FUTURE ARM (post-wide-n, do not
 change mid-cohort): escs-faithful framing with exact anchors + referent
 clause; delta vs current pda framing = wording-sensitivity measurement.
 Cite wording via the deposit (saucier525Pda2018).
+
+### Same-sex-referent audit (rgb: "control wasn't successful given PC3")
+Compliance ~ZERO where observable: 'masculine' rating bimodal (217@1,
+240@6-7; literal compliance predicts pileup at 4); 75% of respondents
+|masc-fem|>=3. PC3 score ~ masc-fem proxy r=-.38 (PC2 -.20, PC4 -.22).
+BUT perfect-compliance simulation (remove proxy-sex group means, n=523
+masc231/fem292): PC3 22.7->20.6, PC1/PC2 unchanged, warmth still PC3 at
+same loading; total sex-mean variance = 3.3%. Verdict: instruction
+disobeyed AND unnecessary — PC3 is genuine within-sex communion, sex-
+tilted not sex-made. No-instruction counterfactual bounded ~= observed.
+BONUS: 360PDA.por header repaired (single byte 0x3A->0x39 in date field
+"19:70207"->"19970207" — also confirms 1997 administration; fixed copy
+360PDA_fixed.por, original untouched); 1128 resp, 696 overlap with the
+525's 700 — panel joins now possible. Our pda framing wording is
+closest to 360-PDA Form S (accuracy anchors, Extremely..Extremely),
+not the 525's characteristic/typical form.
