@@ -1347,3 +1347,16 @@ BONUS: 360PDA.por header repaired (single byte 0x3A->0x39 in date field
 525's 700 — panel joins now possible. Our pda framing wording is
 closest to 360-PDA Form S (accuracy anchors, Extremely..Extremely),
 not the 525's characteristic/typical form.
+
+### REPRESENT layer choice audit (rgb: "did we pick layer by human-match?")
+NO — two fixed a-priori conventions: adjective_geom/four_grid = 2/3
+depth; facet-cohort channel sims (slides) = mid (pda_meta n//2). The
+layer sweep (facet_geometry_layer_sweep.json) is the robustness check,
+not the source: r@peak > r@fixed for EVERY model (+.05-.15), so fixed
+depth is CONSERVATIVE (no selection bonus; congruences underestimates).
+Peak depth is a family parameter: Qwen ~.64-.70 (2/3 correct for Qwen),
+Llama/Phi4/Aya/Falcon ~.41-.47 (mid correct), Gemma-3 family peaks AT
+THE FINAL LAYER (48/48, 62/62, 34/34 — structure surviving to unembed;
+massive-channel/format thread?). Mid is nearer peak for most non-Qwen.
+PAPER: state mid as the convention, cite sweep as robustness; flag the
+four_grid 2/3 vs slides mid inconsistency when consolidating numbers.
