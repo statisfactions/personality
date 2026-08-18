@@ -1314,3 +1314,20 @@ instruments, two samples, within 2 points. Adjective PC1 > phrase PC1
 (15.9 vs 11.5) = evaluative halo stronger in bare words (the human-side
 desirability freebie). PC identities confirmed vs rgb's recall: PC2
 boldness, PC3 warmth, PC4 organized (curious = PC5).
+
+## ESCS 525-PDA administration wording recovered (2026-08-17, rgb)
+The deposit ships the actual instrument (data/escs_525pda/525-PDA.pdf):
+"How Accurately Can You Describe Yourself?" — construct is
+"characteristic, usual, or typical of you" (accuracy secondary); anchors
+Very/Moderately/Slightly; referent "in relation to other persons you
+know of the same sex as you"; alphabetical 3-column bubble grid, all 525
+in view. CAVEATS FOR HUMAN-MODEL COMPARISON: human 4 = "uncertain/
+meaning unclear/refuse" (a don't-know channel, not a neutral midpoint);
+human 1 doubles as "cannot be applied to me" (inapplicability channel —
+'pregnant' is their worked example!) — so human floor/midpoint mass is
+semantically mixed exactly where our placebo/physical adjectives live.
+Our pda framing = loose paraphrase (accuracy-only, Extremely/Very/
+Somewhat, no referent, one-at-a-time). FUTURE ARM (post-wide-n, do not
+change mid-cohort): escs-faithful framing with exact anchors + referent
+clause; delta vs current pda framing = wording-sensitivity measurement.
+Cite wording via the deposit (saucier525Pda2018).
