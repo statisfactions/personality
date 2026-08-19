@@ -1373,3 +1373,21 @@ matters: winsorize-vs-raw r=0.34 for Gemma12 (the monster owns every
 cosine otherwise); ~irrelevant for Aya (0.999). Methods line: any
 cutoff in 10-50x equivalent; the procedure is sensitive only to the
 dimension that motivated it.
+
+## JUDGE coherence via PSD-violation (2026-08-19, rgb's Higham pointer)
+rgb suggested nearest-correlation-matrix (Higham) for JUDGE. Inverted
+into a measurement first: negative-eigenvalue mass of the symmetrized
+(EV-4)/3 matrix (unit diag) = "could this be ANY population's
+covariance?" HUMAN 0.00% (truly PSD); shuffle null 42.9%; individual
+models 8.4-38.9% (Llama3.2 8.4 flat-judge, Falcon 16.5, Llama8 22.5,
+Qwen/Gemma/Phi4 ~28-35, Aya 38.9 worst). Models sit ~2/3 of the way to
+random: locally sensible, globally non-realizable — person-attribution
+structure is pairwise semantics, NOT a population model (paper-grade for
+the two-objects framing). CONSENSUS 20.5%: 12-model averaging should
+crush idiosyncratic noise ~12x, so the surviving mass is SHARED
+incoherence — the cohort jointly holds a non-realizable theory.
+TOOLING: adopt Higham projection (statsmodels corr_nearest or APM) for
+PSD-requiring analyses; ROBUSTNESS TODO: re-run W16 judge varimax on
+projected matrix (original ran on min-eig -37 indefinite input).
+Caveat pending: entry-noise attenuation account not fully excluded for
+individuals (consensus argument covers the shared part).
