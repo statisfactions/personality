@@ -1429,3 +1429,16 @@ human +1.64, sym +0.65, base+sym +0.85 (whisper of restoration, <half
 human). With double-centering (additive) also null, base-rate accounts
 are excluded both ways: the negative-bundle refusal is RELATIONAL.
 Fig: introspect_full/fig_judge_baserate.png.
+
+### Signed spectral treatment of JUDGE (rgb: negatives make spectra weird)
+PC1-removal retroactively SAFE (top |eig| = +136 general factor vs -35;
+top-k sweep clean through k=4, sign-mixed k>=5 — small-k claims stand).
+Negative spectrum is CONCENTRATED not diffuse: one big mode (-35) +
+fast tail (-8.3, -6.6...). The modes are interpretable: neg-1 = STIGMA
+axis (retarded/blind/senile/disgusting/stupid vs thinking/awake/
+lovable/valuable) — asymmetric-charity policy toward stigmatized
+attributes breaks transitivity; neg-2 = STATE-VS-TRAIT (bored/scared/
+embarrassed vs ordinary/normal) — episodic vs dispositional readings
+can't co-embed. Adopt signed decomposition S = S+ - S- as standing
+convention: S+ carries human-congruence analyses; S- modes reported as
+findings (post-training policy fingerprints as negative curvature).
