@@ -1418,3 +1418,14 @@ pairwise-judgment baseline needed (typicality/category-induction lit or
 collect) before claiming models are un-humanlike here. Models-vs-chance
 calibration stands. Also resolves W16's 'directional asymmetry
 valence-vs-variance undisentangled': mostly NEITHER — pair-specific.
+
+### Base-rate-corrected JUDGE 2x2 (rgb): halo-refusal is NOT base-rate
+Consensus, 44 blocks, {raw,sym} x {none,base-corrected via fitted
+lengths}: overall r(HUMAN) 0.836-0.870 (base adds +.008 over slides
+version; correction mostly cancels under symmetrization as expected).
+NEGATIVE QUADRANT (14 neg blocks): 0.748 -> 0.747 — flattening SURVIVES
+exactly (Claude registered survives/<0.1: hit). Cell annoying x mean:
+human +1.64, sym +0.65, base+sym +0.85 (whisper of restoration, <half
+human). With double-centering (additive) also null, base-rate accounts
+are excluded both ways: the negative-bundle refusal is RELATIONAL.
+Fig: introspect_full/fig_judge_baserate.png.
