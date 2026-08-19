@@ -1401,3 +1401,20 @@ RESULT: control PASSES — human 0->0, null 42.9->43.5, models move <=5pt
 the additive-heavy judges; Gemma family unmoved; Phi4/Aya tick up). The
 non-realizability lives in the INTERACTION structure. Finding survives
 its best benign account.
+
+### Length-readout model (rgb) falsified as main account; Tversky reframe
+rgb's model: B[i,j] = |v_j| cos(theta) (population-scaled projection) =>
+antisymmetric part of log|B| should be rank-1 (l_j - l_i). RESULT:
+rank-1 R2 = 0.19 (Gemma12) / 0.31 (Llama8) / 0.34 (Qwen32) / 0.26
+(CONSENSUS — pair noise averaged, so the shortfall is structural);
+length-correction never reduces negmass (32.4->32.5 etc.); fitted
+lengths anti-correlate with human SD (-0.22). Asymmetry is dominated by
+PAIR-SPECIFIC directional effects => TVERSKY similarity (inclusion/
+salience: furious->angry >> angry->furious), non-metric by nature —
+unifies PSD violation + asymmetry + local-not-global coherence. HONEST
+REFRAME of the coherence stat: human 0% is self-report COVARIANCE,
+model 30% is pairwise JUDGMENT — different construct classes; human
+pairwise-judgment baseline needed (typicality/category-induction lit or
+collect) before claiming models are un-humanlike here. Models-vs-chance
+calibration stands. Also resolves W16's 'directional asymmetry
+valence-vs-variance undisentangled': mostly NEITHER — pair-specific.
