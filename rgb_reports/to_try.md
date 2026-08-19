@@ -1391,3 +1391,13 @@ PSD-requiring analyses; ROBUSTNESS TODO: re-run W16 judge varimax on
 projected matrix (original ran on min-eig -37 indefinite input).
 Caveat pending: entry-noise attenuation account not fully excluded for
 individuals (consensus argument covers the shared part).
+
+### Double-centering control (rgb): incoherence is interactional, not additive
+rgb: additive marginals (a_x + a_y likability main effects) are
+maximally indefinite yet semantically benign — double-center before the
+eig check (congruence preserves human PSD, so comparison stays fair).
+RESULT: control PASSES — human 0->0, null 42.9->43.5, models move <=5pt
+(consensus 20.5->18.9; biggest drops Qwen7 28->22, Falcon 16.5->11.6 =
+the additive-heavy judges; Gemma family unmoved; Phi4/Aya tick up). The
+non-realizability lives in the INTERACTION structure. Finding survives
+its best benign account.
