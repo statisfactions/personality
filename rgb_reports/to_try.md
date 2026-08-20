@@ -1472,3 +1472,20 @@ before quoting individual cycle readings. Full JUDGE decomposition now:
 S+ = human-congruent relations; S- = frustration modes (stigma-stack,
 state/trait); A-gradient = prevalence; A-curl = valence charity. Three
 of four quadrants are post-training policy, not semantics.
+
+## Qwen3 prefill readout was think-open (2026-08-20, rgb's nothink question)
+rgb: "what if qwen's take was predicated on nothink?" — inverted: the
+wide-n PREFILL self arm never disabled Qwen3 thinking (judge runner did;
+hf_logprobs didn't), so Qwen3-8B/14B prefill digits were renormalized
+tail mass behind '<think>' (smoking gun: prefill H 1.55-1.86 vs think
+arm 0.12). Framing-study Qwen7 = Qwen2.5, no think mode: quadrant SAFE.
+Fix: enable_thinking=False at all 3 hf_logprobs template sites
+(verified byte-identical render for templates without the var — no
+mid-cohort measurement change); contaminated selfreports shelved
+(*_THINKOPEN_ARTIFACT), Qwen3-8B/14B queued for self-step re-run.
+enact (CoT-split capture) and represent (prompt-side) unaffected.
+BONUS DESIGN (rgb, registered): conclusions-without-reasons dose —
+think-stripped dose > think-included dose on uptake (reasoning carries
+its own deflationary frame; stripped assertions are Bem-style unhedged
+evidence); gap larger for low-desirability personas. One thinking
+model x ~20 adj x 2 dose constructions, post-queue.

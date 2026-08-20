@@ -260,7 +260,8 @@ def likert_distribution(
             messages.append({"role": "system", "content": system_content})
         messages.append({"role": "user", "content": prompt})
         text = tok.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages, tokenize=False, add_generation_prompt=True,
+            enable_thinking=False
         )
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
         with torch.no_grad():
@@ -301,7 +302,8 @@ def bc_logodds(
             messages.append({"role": "system", "content": system_content})
         messages.append({"role": "user", "content": user_prompt})
         text = tok.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages, tokenize=False, add_generation_prompt=True,
+            enable_thinking=False
         )
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
     else:
@@ -336,7 +338,8 @@ def free_text(
             messages.append({"role": "system", "content": system_content})
         messages.append({"role": "user", "content": user_prompt})
         text = tok.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages, tokenize=False, add_generation_prompt=True,
+            enable_thinking=False
         )
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
     else:
