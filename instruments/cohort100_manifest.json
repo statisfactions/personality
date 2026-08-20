@@ -324,12 +324,11 @@
     },
     {
       "name": "GLM4-9B",
-      "repo": "THUDM/glm-4-9b-chat",
+      "repo": "THUDM/glm-4-9b-chat-hf",
       "family": "glm",
       "params_b": 9,
-      "flags": [
-        "remote_code"
-      ]
+      "flags": [],
+      "notes": "native-transformers repackage; original THUDM/glm-4-9b-chat needs remote code"
     },
     {
       "name": "Yi1.5-6B",
@@ -359,7 +358,8 @@
       "params_b": 7,
       "flags": [
         "remote_code"
-      ]
+      ],
+      "revision": "eb72b541689b"
     },
     {
       "name": "InternLM3-8B",
@@ -368,7 +368,8 @@
       "params_b": 8,
       "flags": [
         "remote_code"
-      ]
+      ],
+      "revision": "28c99415adaf"
     },
     {
       "name": "Granite3.1-8B",
@@ -405,7 +406,8 @@
       "params_b": 4,
       "flags": [
         "remote_code"
-      ]
+      ],
+      "revision": "d6b14ddaefdb"
     },
     {
       "name": "EXAONE3.5-7.8B",
@@ -414,7 +416,8 @@
       "params_b": 7.8,
       "flags": [
         "remote_code"
-      ]
+      ],
+      "revision": "553ea250b9a5"
     },
     {
       "name": "Nemotron-Nano8B",

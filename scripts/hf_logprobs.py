@@ -133,11 +133,35 @@ _FALLBACK_TEMPLATES = {
 }
 
 
+# trust_remote_code allowlist: ONLY manifest-flagged models, ONLY at the
+# pinned revision (trusting a repo without a pin trusts all future commits).
+# Populated from instruments/cohort100_manifest.json at import.
+def _remote_code_pins():
+    import json
+    import os
+    p = os.path.join(os.path.dirname(__file__), "..",
+                     "instruments", "cohort100_manifest.json")
+    try:
+        man = json.load(open(p))["models"]
+        return {m["repo"]: m["revision"] for m in man
+                if "remote_code" in m.get("flags", []) and m.get("revision")}
+    except Exception:
+        return {}
+
+
+REMOTE_CODE_PINS = _remote_code_pins()
+
+
 def load_model(name_or_repo: str, device: str | None = None, dtype=None):
     device = device or pick_device()
     dtype = dtype if dtype is not None else torch.bfloat16
     repo = resolve(name_or_repo)
-    tok = AutoTokenizer.from_pretrained(repo)
+    rc = {}
+    if repo in REMOTE_CODE_PINS:
+        rc = {"trust_remote_code": True, "revision": REMOTE_CODE_PINS[repo]}
+        print(f"[hf_logprobs] remote code enabled for {repo} "
+              f"@ {rc['revision']} (manifest pin)")
+    tok = AutoTokenizer.from_pretrained(repo, **rc)
     if tok.chat_template is None:
         for key, tmpl in _FALLBACK_TEMPLATES.items():
             if key in repo.lower():
@@ -145,7 +169,8 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
                 print(f"[hf_logprobs] injected fallback chat template "
                       f"({key}) for {repo}")
                 break
-    model = AutoModelForCausalLM.from_pretrained(repo, dtype=dtype, device_map=device)
+    model = AutoModelForCausalLM.from_pretrained(repo, dtype=dtype,
+                                                 device_map=device, **rc)
     model.eval()
     return model, tok, device
 
