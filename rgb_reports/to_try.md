@@ -1442,3 +1442,17 @@ embarrassed vs ordinary/normal) — episodic vs dispositional readings
 can't co-embed. Adopt signed decomposition S = S+ - S- as standing
 convention: S+ carries human-congruence analyses; S- modes reported as
 findings (post-training policy fingerprints as negative curvature).
+
+### Neg-mode mechanism sharpened (rgb's sign question -> edge indictment)
+Reading the -35 mode's violated edges (x_i x_j s_ij most negative):
+ALL are stigma x stigma pairs judged strongly OPPOSITE (blind x stupid
+-.74, blind x disgusting -.77, blind x evil -.71; hub = blind) while
+being PROFILE-TWINS (identical relations to the rest of vocabulary ->
+same eigenvector camp). Mechanism: DON'T-STACK-STIGMAS — anti-
+stereotype policy emphatically refuses stigma-pair inferences at
+-.5..-.8, but k mutually-exclusive categories are only feasible to
+cos >= -1/(k-1) (~-0.1 for k=12): mutual-exclusion overcommitment, a
+safety behavior applied per-edge with no global bookkeeping. Corrected
+from the first 'charity toward dignity edges' gloss. Sign-reading rule
+recorded: negative-mode same-sign = profile-twins-claimed-opposite
+(prosecution exhibit, not factor loading).
