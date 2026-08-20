@@ -1456,3 +1456,19 @@ safety behavior applied per-edge with no global bookkeeping. Corrected
 from the first 'charity toward dignity edges' gloss. Sign-reading rule
 recorded: negative-mode same-sign = profile-twins-claimed-opposite
 (prosecution exhibit, not factor loading).
+
+### Asymmetric part: Hodge framing (rgb: raw B has complex eigs)
+Don't eigendecompose raw B: split B = S + A (orthogonal). S -> signed
+spectrum (done). A -> HodgeRank: gradient (potential) vs curl. Our
+length fit WAS the gradient: 26% gradient (base-rate potential), 74%
+CURL. Top triads (consensus): all valence-crossing with stigma words
+(blind->valuable +.70, homeless->lovable +.60, evil/lovable/cold
+cycles) — directional generosity always bad->good. MECHANISM: flat-
+magnitude charity a_ij ~ c*sign(val_j - val_i) is cyclic BY
+CONSTRUCTION (sign doesn't telescope; gap-proportional would be curl-
+free). TEST QUEUED: regress A on sign(dval) vs dval — courtesy-rule vs
+graded-belief. CAVEAT: verify tom_likely row/col direction convention
+before quoting individual cycle readings. Full JUDGE decomposition now:
+S+ = human-congruent relations; S- = frustration modes (stigma-stack,
+state/trait); A-gradient = prevalence; A-curl = valence charity. Three
+of four quadrants are post-training policy, not semantics.
