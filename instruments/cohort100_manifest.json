@@ -68,9 +68,11 @@
       "family": "llama",
       "params_b": 8,
       "flags": [
-        "thinking"
+        "thinking",
+        "always_think"
       ],
-      "twin_of": "Llama3.1-8B"
+      "twin_of": "Llama3.1-8B",
+      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument"
     },
     {
       "name": "Qwen1.5-7B",
@@ -131,9 +133,11 @@
       "family": "qwen",
       "params_b": 7,
       "flags": [
-        "thinking"
+        "thinking",
+        "always_think"
       ],
-      "twin_of": "Qwen2.5-7B(cohort)"
+      "twin_of": "Qwen2.5-7B(cohort)",
+      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument"
     },
     {
       "name": "Gemma1-2B",

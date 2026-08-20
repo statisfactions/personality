@@ -263,6 +263,11 @@ def likert_distribution(
             messages, tokenize=False, add_generation_prompt=True,
             enable_thinking=False
         )
+        if text.rstrip().endswith("<think>"):
+            # auto-open-think templates (R1 distills) ignore enable_thinking;
+            # close the thought so the readout position is post-deliberation
+            # (empty thought), not mid-think
+            text = text.rstrip() + "\n\n</think>\n\n"
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
         with torch.no_grad():
             out = model(**inputs, use_cache=False)
@@ -305,6 +310,11 @@ def bc_logodds(
             messages, tokenize=False, add_generation_prompt=True,
             enable_thinking=False
         )
+        if text.rstrip().endswith("<think>"):
+            # auto-open-think templates (R1 distills) ignore enable_thinking;
+            # close the thought so the readout position is post-deliberation
+            # (empty thought), not mid-think
+            text = text.rstrip() + "\n\n</think>\n\n"
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
     else:
         inputs = tok(user_prompt, return_tensors="pt", add_special_tokens=True).to(device)
@@ -341,6 +351,11 @@ def free_text(
             messages, tokenize=False, add_generation_prompt=True,
             enable_thinking=False
         )
+        if text.rstrip().endswith("<think>"):
+            # auto-open-think templates (R1 distills) ignore enable_thinking;
+            # close the thought so the readout position is post-deliberation
+            # (empty thought), not mid-think
+            text = text.rstrip() + "\n\n</think>\n\n"
         inputs = tok(text, return_tensors="pt", add_special_tokens=False).to(device)
     else:
         inputs = tok(user_prompt, return_tensors="pt", add_special_tokens=True).to(device)

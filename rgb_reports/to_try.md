@@ -1489,3 +1489,17 @@ think-stripped dose > think-included dose on uptake (reasoning carries
 its own deflationary frame; stripped assertions are Bem-style unhedged
 evidence); gap larger for low-desirability personas. One thinking
 model x ~20 adj x 2 dose constructions, post-queue.
+
+### Mode-match gradient (rgb): nothink is trained for hybrids, imposed for R1-class
+Template audit: R1 distills AUTO-OPEN <think> and ignore enable_thinking
+-> their completed prefill selfreports were think-open contaminated too
+(shelved; state cleared). Fix: render guard closes an auto-opened
+thought (empty-deliberation readout position — the R1 analog of Qwen3's
+nothink render). Nemotron: no auto-open, prefill sane. STANDING DESIGN
+NOTE (rgb): prefill-vs-think delta is interpretable as "deliberation
+shift" ONLY where nothink is a trained mode (Qwen3 hybrids); for
+always-thinkers it is mode-violation + deliberation confounded, and the
+field is drifting toward always-think — prefill EV has a shelf life as
+the primary SELF instrument; think-arm readout is the successor.
+Manifest: always_think flag added (R1 pair). Population analyses should
+carry mode-match (native/hybrid/imposed) as a covariate.
