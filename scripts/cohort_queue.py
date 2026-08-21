@@ -151,7 +151,7 @@ STEPS = [
 THINK_STEP = ("self_think",
               lambda r: ["scripts/self_adjective_report.py", "--model", r,
                          "--full", "--think"],
-              think_path, 6)
+              think_path, 10)
 
 
 def steps_for(m):
@@ -213,6 +213,16 @@ def main():
         sys.exit(1 if verify(models) else 0)
 
     st = load_state()
+    # auto-retry: clear failed entries at startup unless gated (needs a
+    # human license click) or marked permanent (recorded incompatibility)
+    cleared = [k for k, v in st.items()
+               if v.get("status") == "failed" and not v.get("permanent")
+               and "GatedRepo" not in str(v.get("error", ""))]
+    for k in cleared:
+        del st[k]
+    if cleared:
+        save_state(st)
+        print(f"[retry] cleared {len(cleared)} failed: {cleared}")
     todo = []
     for m in models:
         if all(os.path.exists(pf(m["repo"])) for _, _, pf, _ in steps_for(m)):

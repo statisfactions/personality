@@ -64,6 +64,10 @@ def rollout_split_states(model, tok, input_ids, device, max_new_tokens,
                                      add_special_tokens=False).input_ids)
         split = min(split, end - 1)
     outputs = model(seq[:end].unsqueeze(0), output_hidden_states=True)
+    if outputs.hidden_states is None:
+        # some remote-code models only honor the config flag, not the kwarg
+        model.config.output_hidden_states = True
+        outputs = model(seq[:end].unsqueeze(0))
 
     def span_mean(a, b):
         if b - a < 1:
