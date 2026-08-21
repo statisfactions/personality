@@ -1522,3 +1522,20 @@ speaks to superposition-vs-embedding memory thread). Encoder-strength
 caveat: mpnet moves R2 .20->.25, conclusions unchanged; a frontier
 embedder is the remaining robustness step. Cohort-wide version cheap
 on cached acts when wanted.
+
+### Encoder ladder + lineage test (rgb: "no such thing as a textual-only model")
+Gemma12 acts residualized against 4-rung ladder: CV-R2 glove.840B .29 /
+MiniLM .20 / mpnet .25 / EmbeddingGemma-300m(SAME FAMILY) .20; residual
+pc1-rm congruence FLAT .28-.31 at every rung; residual merge z +2.0 to
++2.8 everywhere (glove & EmbeddingGemma highest). Registered same-fam
+claws back more R2: MISS — no lineage bleed detected at 300m scale
+(caveat: EmbeddingGemma is small + heavily distilled; not equivalent to
+gemini-embedding-001-vs-Trinity, so Anima's confound remains THEIRS to
+answer, unresolved here). Registered residual holds >0.25: HIT. Net:
+"intrinsic" claim is now LADDER-STABLE (static floor included — the
+defensible form: human-congruent covariance and the antonym merge are
+not shared with any tested embedder incl. a family sibling, and the R2
+profile is flat rather than capacity-decaying). rgb's epistemic point
+stands as the SCOPE of the claim: residualization licenses only
+relational statements; ladder-profile is the strongest available form.
+Cohort-wide ladder queued post-GPU-pass.
