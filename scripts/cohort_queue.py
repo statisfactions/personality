@@ -215,9 +215,24 @@ def main():
     st = load_state()
     # auto-retry: clear failed entries at startup unless gated (needs a
     # human license click) or marked permanent (recorded incompatibility)
-    cleared = [k for k, v in st.items()
-               if v.get("status") == "failed" and not v.get("permanent")
-               and "GatedRepo" not in str(v.get("error", ""))]
+    def _retryable(k, v):
+        if v.get("status") != "failed" or v.get("permanent"):
+            return False
+        if "GatedRepo" in str(v.get("error", "")):
+            # license may have been stamped since: cheap access probe
+            repo = next((m["repo"] for m in models if m["name"] == k), None)
+            if not repo:
+                return False
+            try:
+                from huggingface_hub import hf_hub_download
+                hf_hub_download(repo, "config.json")
+                print(f"[retry] gated access now OK: {k}")
+                return True
+            except Exception:
+                return False
+        return True
+
+    cleared = [k for k, v in st.items() if _retryable(k, v)]
     for k in cleared:
         del st[k]
     if cleared:
