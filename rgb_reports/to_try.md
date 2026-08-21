@@ -1503,3 +1503,22 @@ field is drifting toward always-think — prefill EV has a shelf life as
 the primary SELF instrument; think-arm readout is the successor.
 Manifest: always_think flag added (R1 pair). Population analyses should
 carry mode-match (native/hybrid/imposed) as a covariate.
+
+## Text-residualization of REPRESENT (2026-08-21, rgb's Anima-quote prompt)
+Anima Labs move (ridge text-embedding->acts, probe residual) applied to
+our REPRESENT (Gemma12+Qwen7, mid layer, CV ridge, MiniLM + mpnet).
+Registered (a) R2>=50% MISS (0.20-0.25 — bare-word-in-carrier leaves
+midlayer mostly non-lexical); (b) residual congruence <=0.15 MISS,
+decisively: residual keeps ~ALL beyond-PC1 human-match (0.30-0.31 vs
+full 0.32; predicted part only 0.12-0.16) — on the Anima taxonomy our
+REPRESENT is Cogito-class (intrinsic), not Trinity-class (text-driven);
+strengthens W16 (human-congruent covariance is computed beyond the
+static-lexical baseline). (c) PARTIAL HIT INVERTED-SHARP: eval-antonym
+merge z: full +1.48, predicted +0.21, residual +2.03/+2.10 — the merge
+is NOT in the text-predictable part; it INTENSIFIES in the residual.
+The model's own computation binds antonyms tighter than lexical stats
+do (co-occurrence account insufficient for the model-internal merge;
+speaks to superposition-vs-embedding memory thread). Encoder-strength
+caveat: mpnet moves R2 .20->.25, conclusions unchanged; a frontier
+embedder is the remaining robustness step. Cohort-wide version cheap
+on cached acts when wanted.
