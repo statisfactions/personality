@@ -1580,3 +1580,15 @@ knob = FORCED extension (s1 "Wait") + distributional readout as the
 faithfulness meter — EV/entropy movement = real computation, frozen
 readout = padding; the budget where the readout stops moving is the
 BEHAVIORAL effective ceiling.
+
+## Wide-cohort slide grids — first big-n numbers (2026-08-22)
+SELF n=64 models (full-rank at block level!), REPRESENT n=63 cohort
+mean, JUDGE/ENACT unchanged (12/10, labeled). 44-block pc1-removed:
+JUDGE .77 >> ENACT .63 > REPRESENT .41 > SELF .28. GRADING PRIOR
+CLAIMS: (1) "SELF ties REPRESENT" (rank-9 estimate, .43/.43) was a
+SMALL-N ARTIFACT — at n=64 SELF drops to .28, clearly below REPRESENT;
+W18's original ranking (SELF weakest) VINDICATED at scale. (2)
+REPRESENT is remarkably scale-stable: .43 (10 models) -> .41 (63) —
+the cohort-mean geometry was already converged at n=10. Slides in
+figs/slides_wide/ (facet_slides_wide.py; JUDGE/ENACT wide capture =
+the deferred JUDGE-subset decision if wanted).
