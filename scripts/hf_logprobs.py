@@ -152,6 +152,23 @@ def _remote_code_pins():
 REMOTE_CODE_PINS = _remote_code_pins()
 
 
+def _shim_transformers_4x_api():
+    """Remote-code modeling files written against transformers 4.x import
+    symbols 5.x removed. Inject harmless stand-ins (typing/feature-probe
+    helpers only — never behavioral APIs) so pinned custom code imports."""
+    import transformers.utils as tu
+    if not hasattr(tu, "LossKwargs"):
+        from typing_extensions import TypedDict
+
+        class LossKwargs(TypedDict, total=False):
+            pass
+
+        tu.LossKwargs = LossKwargs
+    for mod in (tu, tu.import_utils):
+        if not hasattr(mod, "is_torch_fx_available"):
+            mod.is_torch_fx_available = lambda: False
+
+
 def load_model(name_or_repo: str, device: str | None = None, dtype=None):
     device = device or pick_device()
     dtype = dtype if dtype is not None else torch.bfloat16
@@ -159,6 +176,7 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
     rc = {}
     if repo in REMOTE_CODE_PINS:
         rc = {"trust_remote_code": True, "revision": REMOTE_CODE_PINS[repo]}
+        _shim_transformers_4x_api()
         print(f"[hf_logprobs] remote code enabled for {repo} "
               f"@ {rc['revision']} (manifest pin)")
     tok = AutoTokenizer.from_pretrained(repo, **rc)

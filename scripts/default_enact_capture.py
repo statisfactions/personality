@@ -44,11 +44,16 @@ def rollout_split_states(model, tok, input_ids, device, max_new_tokens,
     (full, cot, answer, text_with_specials, n_resp)."""
     torch.manual_seed(seed)
     prompt_len = input_ids.shape[1]
-    out_ids = model.generate(input_ids, do_sample=temperature > 0,
-                             temperature=temperature or None,
-                             top_p=top_p if temperature > 0 else None,
-                             max_new_tokens=max_new_tokens,
-                             pad_token_id=tok.eos_token_id)
+    gen_kw = dict(do_sample=temperature > 0,
+                  temperature=temperature or None,
+                  top_p=top_p if temperature > 0 else None,
+                  max_new_tokens=max_new_tokens,
+                  pad_token_id=tok.eos_token_id)
+    try:
+        out_ids = model.generate(input_ids, **gen_kw)
+    except TypeError:
+        # legacy-cache custom code (InternLM2.5): regenerate cache-free
+        out_ids = model.generate(input_ids, use_cache=False, **gen_kw)
     seq = out_ids[0]
     end = seq.shape[0]
     while end > prompt_len and seq[end - 1].item() == tok.eos_token_id:
