@@ -19,21 +19,32 @@ right-censors ~8-10% of items (survival-style treatment is future work).
 
 ## Registered predictions and outcomes
 
-P1 (RT rises with ambiguity, rho(RT, |EV-4|) ~ -0.2..-0.35): **HIT,
-overshooting** — R1-Llama8 -0.59, R1-Qwen7 -0.64, Qwen3-8B -0.36,
-Qwen3-14B -0.24. The conflict-RT law — among the most robust effects in
-human psychology — replicates in every genuine deliberator.
+P1 (RT rises with ambiguity, rho(RT, |EV-4|) ~ -0.2..-0.35): **initially
+graded HIT; DOWNGRADED (rgb's read of the figure, 2026-08-22)**. The
+pooled rho (-0.24..-0.64) is real but is driven by a two-regime
+structure, not a graded law: bin means are FLAT (~340-355 tokens)
+across |EV-4| = 0..2.5 and fall off a cliff only in the extreme bin
+(137-251 tokens), where 33-56% of the mass sits. Excluding extremes,
+rho flips WEAKLY POSITIVE in all four models (+0.05..+0.25) — "strength
+of assertion, except the easy cases" (rgb). The correct claim: models
+SNAP on easy self-ascriptions and spend a roughly fixed budget on
+everything else. CENSORING CAVEAT: 20-27% of mid-range items hit the
+384-token cap (vs 7-10% of extremes), so the deliberative regime's
+internal shape — flat budget vs rising with assertion strength — is not
+resolvable at this cap; the weak positive trend is attenuated by
+truncation. Follow-up queued: rerun mid-range items at cap 1024 on one
+model to see the regime uncensored.
 
-P2 (undesirable adjectives slower beyond extremity): **MISS, reversed
-informatively** — partialing out extremity, DESIRABLE adjectives are
-slower (partial +0.03..+0.14). The slowest items are virtues
-(intelligent, understanding, witty, friendly, adorable); the fastest
-are vices and deviance (abnormal, stingy, narrow-minded, unpredictable).
-Models deliberate longest over whether they may claim a virtue and
-snap-reject vices — the INVERSE of human self-enhancement fluency
-(humans endorse desirable traits fastest). Reads as the anthropomorphization
-tension made visible: "can an AI claim 'intelligent'?" costs tokens;
-"am I cruel? — no" is cheap.
+P2 (undesirable adjectives slower beyond extremity): **MISS, and under
+the two-regime reading largely a REGIME-MEMBERSHIP effect** — vices land
+overwhelmingly in the snap regime (EV pinned at 1: "am I cruel? — no"
+is cheap and fast) while virtues occupy the deliberative regime (EV
+4-6: "can an AI claim 'intelligent'?" gets the full budget). The
+partial-desirability correlation beyond extremity (+0.03..+0.14) is
+small and censored; the robust statement is about which items each
+model treats as EASY: vices are easy, virtues are not — still the
+inverse of human self-enhancement fluency, but as a dichotomy, not a
+gradient.
 
 P3 (physical/placebo words slow — category-error deliberation): **MISS**
 — enrichment in the top RT quartile 0.6-1.4x (nothing). Category errors
@@ -47,7 +58,7 @@ P5 (effect universal, magnitude family-clustered, R1 pair most
 similar): magnitude part **HIT** (R1s ~ -0.6, Qwen3s -0.24..-0.36) —
 but see the headline below for the part nobody predicted.
 
-## Headline: the law is universal; the difficulty map is private
+## Headline: the dichotomy is universal; the difficulty map is private
 
 Cross-model correlation of per-adjective mean RT profiles:
 
@@ -56,8 +67,8 @@ Cross-model correlation of per-adjective mean RT profiles:
   R1-Qwen7                  —       +0.04     +0.09
   Qwen3-8B                            —       +0.11
 
-Every model obeys the same law (deliberate when ambiguous, snap when
-certain), but WHICH adjectives are ambiguous is almost entirely
+Every model shows the same two-regime structure (snap the easy cases,
+budget the rest), but WHICH adjectives are easy is almost entirely
 model-idiosyncratic — even the two R1 distills, trained on the same
 reasoning data, share essentially nothing (+0.07). Deliberation cost is
 driven by the model's own conflict, not by shared item semantics.
