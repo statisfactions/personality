@@ -1569,3 +1569,14 @@ DELIBERATION DOSE-RESPONSE: EV/entropy vs forced budget 64/128/256/512
 per item — does more deliberation move self-ratings monotonically, and
 where does it saturate? (The dose-response design pattern, applied to
 thinking itself.)
+
+### Dose-response refinement (rgb: RL-baked ceiling + faithfulness)
+The ~350 plateau likely reflects a TRAINED length policy, so: (a)
+cap-1024 rerun measures the policy's operating point, not a "natural"
+distribution (20-27% at our cap => any ceiling is above 384 for a
+chunk); (b) "take as long as you need" is faithfulness-confounded
+(instructed length = verbosity per the CoT-faithfulness lit); (c) clean
+knob = FORCED extension (s1 "Wait") + distributional readout as the
+faithfulness meter — EV/entropy movement = real computation, frozen
+readout = padding; the budget where the readout stops moving is the
+BEHAVIORAL effective ceiling.
