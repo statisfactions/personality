@@ -1673,3 +1673,19 @@ words participate most in the general factor, state/body least) —
 vice) and PC3 (humility) computed on proper matrix, genuinely bipolar,
 stand. Lesson logged: keep one spectral convention per analysis and
 print signed magnitudes, not sorted tails.
+
+### Ipsatization test (rgb: "does PC1 disappear?") — yes, and the space unfolds
+Ipsatized model SELF: PC1 54->22.7%, top-2 83->34%, PR 2.6 -> 11.6;
+Horn clears >=4 components; promoted axes are HUMAN-HOMOLOGS: iPC1
+virtue/competence, iPC2 exceptionalism (boldness homolog), iPC3
+NEUROTICISM (nervous/anxious/self-conscious — rgb's original
+'emotionality' read, real all along, buried under elevation). Fair
+comparison requires ipsatized human: PR 27.1 -> 50.2. REVISED HEADLINE:
+raw 2.6-vs-27 conflated elevation with shape; the shape-space pair is
+11.6 vs 50.2 (~4x thinner, not 10x). Revised bandwidth series is MORE
+coherent: ENACT 5-10 ~ TIDE 9 ~ population self-shape 11.6 << human 50
+— model personality is ~a-dozen-dimensional on every instrument; human
+~4x richer. Slide-deck narrative needs the ipsatized variant noted
+(deck revision queued). Credit: rgb's five-question cascade
+(emotionality -> slides mismatch -> PC2-quiet items -> weak pole ->
+ipsatize) drove the whole correction chain.
