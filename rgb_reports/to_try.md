@@ -1624,3 +1624,14 @@ DIFFERENT semantic components from SELF (expression) vs HUMAN (eval) —
 the 0.278 congruence compares differently-purged residuals; paper needs
 the meaning-symmetric variant (project eval axis out of both) reported
 alongside rank-symmetric.
+
+### SELF-population spectral concentration (rgb: "281->152->16 is quite the decay")
+Exact shares (proper-diag corr, n=64 models): PC1 54.0%, PC2 29.3%,
+PC3 3.3% — top-2 = 83.2%, participation ratio 2.6. HUMAN (n=700): PC1
+15.9%, top-2 23.4%, PR 27.1. The model population's self-description
+space is ~10x lower-dimensional than human self-space; two axes (self-
+performance amount, script pressure) are ~everything. Joins the
+bandwidth series: human 27 >> TIDE persona 9 ~ ENACT 5-10 >> SELF-
+population 2.6 (narrowest yet). Deflators noted: framing-averaging
+smooths within-model variance; family clustering concentrates spectra;
+neither plausibly accounts for 10x.
