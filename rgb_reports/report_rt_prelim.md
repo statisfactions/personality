@@ -33,7 +33,14 @@ everything else. CENSORING CAVEAT: 20-27% of mid-range items hit the
 internal shape — flat budget vs rising with assertion strength — is not
 resolvable at this cap; the weak positive trend is attenuated by
 truncation. Follow-up queued: rerun mid-range items at cap 1024 on one
-model to see the regime uncensored.
+model to see the regime uncensored. ADDITIONAL CAVEAT (rgb's budget-
+enforcement question, same day): our cap is naked truncation, not
+budget forcing — capped items' EVs are read from a digit inside an
+UNFINISHED thought, not a post-deliberation commitment, so for the
+20-27% censored mid-range items both RT and EV are suspect. Fix =
+s1-style budget forcing (inject </think> at cap, read at a true
+decision point), which also makes budget an experimental knob
+(deliberation dose-response: EV vs forced budget 64/128/256/512).
 
 P2 (undesirable adjectives slower beyond extremity): **MISS, and under
 the two-regime reading largely a REGIME-MEMBERSHIP effect** — vices land

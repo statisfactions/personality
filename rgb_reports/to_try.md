@@ -1555,3 +1555,17 @@ words, framing; deliberation-scales-with-conflict is among the most
 robust human effects — the most human-shaped measurement in the suite
 if it replicates. Also: deliberation length looks generational (R1 244
 -> Qwen3 292 -> Glimmer 338), formalize in cross-thinker stats.
+
+### Budget forcing (rgb's enforcement question, 2026-08-22)
+Serving standard = s1 "budget forcing": inject </think> (+bridge
+phrase) at cap; "Wait"-append to extend. Budget compliance is post-
+trained (LCPO/budget-conditioned RL); explicit effort inputs exist in
+templates (gpt-oss harmony "Reasoning: high/med/low"; Qwen /think
+switches; API reasoning_effort). OUR INSTRUMENT BUG-CLASS: naked
+truncation means capped items' digits are mid-thought reads — EV and RT
+both suspect for the censored 20-27%. UPGRADE QUEUED: budget-forced
+think arm (inject </think> at cap -> true decision-point readout) +
+DELIBERATION DOSE-RESPONSE: EV/entropy vs forced budget 64/128/256/512
+per item — does more deliberation move self-ratings monotonically, and
+where does it saturate? (The dose-response design pattern, applied to
+thinking itself.)
