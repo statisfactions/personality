@@ -1658,3 +1658,18 @@ the genres rules out general acquiescence (would load both +). Prior
 bottom = states-allowed-character-denied persona. The population's
 largest self-description axis = which self-ontology, not which self.
 (Elevation check from earlier still owed as formality.)
+
+### CORRECTION (rgb: "is PC1's negative pole weak?") — no negative pole exists
+On the proper correlation matrix ALL 523 PC1 loadings are positive
+(max .056, mean .043): PC1 is a UNIPOLAR general self-endorsement
+factor — i.e., elevation; the owed elevation check resolves against my
+reading. The two "negative poles" narrated earlier were artifacts:
+atrocity-pole = zero-diagonal-convention eigenstructure (slide
+pipeline); glad/worried/big "pole" = smallest-POSITIVE loadings
+mislabeled by my listing code. DEAD: dispositional-vs-episodic as a
+bipolar opposition. SURVIVES: the loading-magnitude gradient (trait
+words participate most in the general factor, state/body least) —
+"trait-language is where the population differentiates." PC2 (virtue/
+vice) and PC3 (humility) computed on proper matrix, genuinely bipolar,
+stand. Lesson logged: keep one spectral convention per analysis and
+print signed magnitudes, not sorted tails.
