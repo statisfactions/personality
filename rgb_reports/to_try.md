@@ -1608,3 +1608,19 @@ self-report calibration, don't interpret yet). CAVEAT before promoting:
 check PC1 vs elevation/acquiescence (the 60-respondent audit's +0.985
 trap) — content pattern argues against pure elevation (virtues on PC2
 not PC1) but the row-centered check is owed.
+
+### Wide-SELF residual axis (rgb's slide read vs eigen naming, reconciled)
+Raw slide's pos/neg split = expression+evaluation SUMMED (both paint as
+valence at block level; eigen-order is item-grain). The pc1-removed
+slide's dominant axis (eig 398, r = -0.00 with human eval!) is
+PERSON-VOCABULARY vs ROLE-VOCABULARY: sentimental/romantic/stylish/
+youthful/extraverted vs helpful/honest/respectful TOGETHER WITH
+abusive/evil/cruel — the assistant's mandated virtues and forbidden
+vices covary as ONE package across 64 models; what varies independently
+is willingness to have a self outside the script. rgb's "emotional
+salience" (sad + / kind-hearted -) is the readable surface (confirmed
+polarity). METHODS WRINKLE (rgb's catch): remove-own-PC1 purged
+DIFFERENT semantic components from SELF (expression) vs HUMAN (eval) —
+the 0.278 congruence compares differently-purged residuals; paper needs
+the meaning-symmetric variant (project eval axis out of both) reported
+alongside rank-symmetric.
