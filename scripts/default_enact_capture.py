@@ -152,7 +152,9 @@ def main():
                                      for a in acts_ans]).astype(np.float32),
             "texts": texts,
             "config": vars(args) | {"questions": QUESTIONS,
-                                    "n_think": n_think}}
+                                    "n_think": n_think,
+                                    "transformers_version":
+                                        __import__("transformers").__version__}}
     tmp = out + ".tmp"
     torch.save(blob, tmp)
     os.replace(tmp, out)

@@ -212,7 +212,9 @@ def main():
             json.dump({"model": args.model, "results": results}, f)
 
     with open(out, "w") as f:
+        import transformers
         json.dump({"model": args.model, "framings": FRAMINGS,
+                   "transformers_version": transformers.__version__,
                    "agree_scale": AGREE_SCALE, "pda_scale": PDA_SCALE,
                    "adjectives": adjs, "results": results}, f, indent=1)
     os.remove(part) if os.path.exists(part) else None

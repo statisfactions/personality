@@ -122,7 +122,9 @@ def main():
             acts = np.stack(acts)  # (n_adj, n_layers+1, hidden)
             torch.save({"acts": acts, "adjectives": adjectives,
                         "framing": framing, "template": template,
-                        "model": repo}, out)
+                        "model": repo,
+                        "transformers_version":
+                            __import__("transformers").__version__}, out)
             print(f"    saved {acts.shape} -> {out}")
         del model, tok
         gc.collect()
