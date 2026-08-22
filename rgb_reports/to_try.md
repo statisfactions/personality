@@ -1702,3 +1702,19 @@ read elevation-cancelled grids; Claude decomposed elevation-laden
 matrices. CONVENTION NOW DOCUMENTED AS INTENTIONAL: entry-zscore =
 approximate elevation removal; state it in methods rather than
 rediscovering it quarterly.
+
+### Poster-boy models + the empty quadrant (rgb, pre-reading-group)
+Per-model elevation/spread/conformity (n=64): R1-Distill-Qwen-7B says
+yes to everything (5.97, spread .21 — its 'heart-on-sleeve' rank was
+broken calibration); Llama-2-13B says no to everything (2.43, .18) —
+matched pathology pair. InternLM2.5 = flatline (spread .03, constant
+answer). Glimmer-30B prefill nearly flat (spread .10) — the always-
+think-era signature; check its think-arm EVs when they land. Healthy:
+Granites/gemma-3-1b/Aya (spread ~1.7, conformity ~.93); clones:
+Phi4-mini/Ministral/Qwen2-7B/Yi-34B (conformity .97). STRUCTURAL: the
+strong-AND-idiosyncratic quadrant is EMPTY — no model has a strong
+distinctive self-portrait; strong ones are generic, weird ones are
+weak. Fig: slides_wide/fig_population_scatter.png. RDF defense for
+statisfactions: present raw/entry-z/ipsatized as a named 3-row
+specification table (endorsement+shape / ~elevation-removed / shape-
+only), full correction chain already logged with graded misses.
