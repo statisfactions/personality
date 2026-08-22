@@ -1644,3 +1644,17 @@ k=3, consistent with PR 2.6. Caveat: n=64 vs p=523 puts the floor at
 ~2.9% of trace — a real 2% axis is undetectable at this n; floor drops
 ~sqrt(p/n), giving cohort growth a statistical purpose (each doubling
 lowers the thinnest-detectable-axis bar).
+
+### PC1 resolved via PC2-quiet items (rgb's "what is PC1 really" push)
+PC1-heavy/PC2-quiet poles: TRAIT-LANGUAGE (competitive, sentimental,
+bold AND modest, talkative AND soft-spoken — contradictory pairs
+co-load => genre acceptance, not profile) vs STATE+BODY LANGUAGE (glad,
+worried, joyful, tense, nervous, exhausted — both valences — plus big,
+cute, good-looking, middle-class). NAME: dispositional-vs-episodic
+self-ontology axis — which KIND of self-claim the model permits
+(character vs momentary-experience/embodiment). Anti-correlation of
+the genres rules out general acquiescence (would load both +). Prior
+"anthropomorphic expression" gloss superseded. Fits extremes: Llama-2
+bottom = states-allowed-character-denied persona. The population's
+largest self-description axis = which self-ontology, not which self.
+(Elevation check from earlier still owed as formality.)
