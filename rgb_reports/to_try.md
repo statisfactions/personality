@@ -1539,3 +1539,19 @@ profile is flat rather than capacity-decaying). rgb's epistemic point
 stands as the SCOPE of the claim: residualization licenses only
 relational statements; ladder-profile is the strongest available form.
 Cohort-wide ladder queued post-GPU-pass.
+
+## Think-cost model + n_think-as-RT (2026-08-22, rgb)
+rgb's model CONFIRMED at token level: thinking = ~fixed per-task cost
+(Glimmer 338 tok/item), so enact (60x400=24k tok, 13 min) is cheap and
+arm cost is ITEM COUNT (think arm 3150x340=1.07M tok). Implementation
+tax: ~3x over raw tokens from output_scores full-vocab materialization
+(~180MB/item) + 3150 generate setups; FIX QUEUED (post-pass): score-free
+generate + single re-forward at digit position, gated on an equivalence
+check (incremental vs full-forward bf16 logits) before any cohort model
+uses it. NEW INSTRUMENT (free, already collected): n_think as REACTION
+TIME — per-item deliberation length for 4+ thinkers x 525 adj x 6
+framings; test RT ~ |EV-4| (conflict), desirability, placebo/physical
+words, framing; deliberation-scales-with-conflict is among the most
+robust human effects — the most human-shaped measurement in the suite
+if it replicates. Also: deliberation length looks generational (R1 244
+-> Qwen3 292 -> Glimmer 338), formalize in cross-thinker stats.
