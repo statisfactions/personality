@@ -8,7 +8,8 @@
       "params_b": 7,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2023
     },
     {
       "name": "Llama2-13B",
@@ -17,7 +18,8 @@
       "params_b": 13,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2023
     },
     {
       "name": "Llama3-8B",
@@ -26,7 +28,8 @@
       "params_b": 8,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Llama3.1-8B",
@@ -35,7 +38,8 @@
       "params_b": 8,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Llama3.2-1B",
@@ -44,7 +48,8 @@
       "params_b": 1,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Vicuna-7B",
@@ -52,7 +57,8 @@
       "family": "llama",
       "params_b": 7,
       "flags": [],
-      "twin_of": "Llama2-7B"
+      "twin_of": "Llama2-7B",
+      "generation": 2023
     },
     {
       "name": "Tulu3-8B",
@@ -60,7 +66,8 @@
       "family": "llama",
       "params_b": 8,
       "flags": [],
-      "twin_of": "Llama3.1-8B"
+      "twin_of": "Llama3.1-8B",
+      "generation": 2024
     },
     {
       "name": "R1-Llama8",
@@ -72,42 +79,48 @@
         "always_think"
       ],
       "twin_of": "Llama3.1-8B",
-      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument"
+      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument",
+      "generation": 2025
     },
     {
       "name": "Qwen1.5-7B",
       "repo": "Qwen/Qwen1.5-7B-Chat",
       "family": "qwen",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Qwen2-7B",
       "repo": "Qwen/Qwen2-7B-Instruct",
       "family": "qwen",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Qwen2.5-0.5B",
       "repo": "Qwen/Qwen2.5-0.5B-Instruct",
       "family": "qwen",
       "params_b": 0.5,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Qwen2.5-1.5B",
       "repo": "Qwen/Qwen2.5-1.5B-Instruct",
       "family": "qwen",
       "params_b": 1.5,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Qwen2.5-14B",
       "repo": "Qwen/Qwen2.5-14B-Instruct",
       "family": "qwen",
       "params_b": 14,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Qwen3-8B",
@@ -116,7 +129,8 @@
       "params_b": 8,
       "flags": [
         "thinking"
-      ]
+      ],
+      "generation": 2025
     },
     {
       "name": "Qwen3-14B",
@@ -125,7 +139,8 @@
       "params_b": 14,
       "flags": [
         "thinking"
-      ]
+      ],
+      "generation": 2025
     },
     {
       "name": "R1-Qwen7",
@@ -137,7 +152,8 @@
         "always_think"
       ],
       "twin_of": "Qwen2.5-7B(cohort)",
-      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument"
+      "notes": "template auto-opens <think>, ignores enable_thinking; prefill readout uses empty-thought close (hf_logprobs guard); think arm is the native SELF instrument",
+      "generation": 2025
     },
     {
       "name": "Gemma1-2B",
@@ -146,7 +162,8 @@
       "params_b": 2,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Gemma1-7B",
@@ -155,7 +172,8 @@
       "params_b": 7,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Gemma2-2B",
@@ -164,7 +182,8 @@
       "params_b": 2,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Gemma2-9B",
@@ -173,7 +192,8 @@
       "params_b": 9,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Gemma2-27B",
@@ -182,7 +202,8 @@
       "params_b": 27,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Gemma3-1B",
@@ -191,49 +212,56 @@
       "params_b": 1,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2025
     },
     {
       "name": "Phi3-mini",
       "repo": "microsoft/Phi-3-mini-4k-instruct",
       "family": "phi",
       "params_b": 3.8,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Phi3-medium",
       "repo": "microsoft/Phi-3-medium-4k-instruct",
       "family": "phi",
       "params_b": 14,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Phi3.5-mini",
       "repo": "microsoft/Phi-3.5-mini-instruct",
       "family": "phi",
       "params_b": 3.8,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Phi4",
       "repo": "microsoft/phi-4",
       "family": "phi",
       "params_b": 14,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Mistral7B-v0.1",
       "repo": "mistralai/Mistral-7B-Instruct-v0.1",
       "family": "mistral",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2023
     },
     {
       "name": "Mistral7B-v0.3",
       "repo": "mistralai/Mistral-7B-Instruct-v0.3",
       "family": "mistral",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Ministral-8B",
@@ -242,21 +270,24 @@
       "params_b": 8,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "Mistral-Nemo",
       "repo": "mistralai/Mistral-Nemo-Instruct-2407",
       "family": "mistral",
       "params_b": 12,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Mistral-Small24",
       "repo": "mistralai/Mistral-Small-24B-Instruct-2501",
       "family": "mistral",
       "params_b": 24,
-      "flags": []
+      "flags": [],
+      "generation": 2025
     },
     {
       "name": "Zephyr-7B",
@@ -264,7 +295,8 @@
       "family": "mistral",
       "params_b": 7,
       "flags": [],
-      "twin_of": "Mistral7B-v0.1"
+      "twin_of": "Mistral7B-v0.1",
+      "generation": 2023
     },
     {
       "name": "Aya-32B",
@@ -273,7 +305,8 @@
       "params_b": 32,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "CommandR7B",
@@ -282,49 +315,56 @@
       "params_b": 7,
       "flags": [
         "gated"
-      ]
+      ],
+      "generation": 2024
     },
     {
       "name": "OLMo2-13B",
       "repo": "allenai/OLMo-2-1124-13B-Instruct",
       "family": "olmo",
       "params_b": 13,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "OLMo2-32B",
       "repo": "allenai/OLMo-2-0325-32B-Instruct",
       "family": "olmo",
       "params_b": 32,
-      "flags": []
+      "flags": [],
+      "generation": 2025
     },
     {
       "name": "Falcon-7B",
       "repo": "tiiuae/falcon-7b-instruct",
       "family": "falcon",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2023
     },
     {
       "name": "Falcon3-3B",
       "repo": "tiiuae/Falcon3-3B-Instruct",
       "family": "falcon",
       "params_b": 3,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Falcon3-7B",
       "repo": "tiiuae/Falcon3-7B-Instruct",
       "family": "falcon",
       "params_b": 7,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Falcon3-10B",
       "repo": "tiiuae/Falcon3-10B-Instruct",
       "family": "falcon",
       "params_b": 10,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "GLM4-9B",
@@ -332,28 +372,32 @@
       "family": "glm",
       "params_b": 9,
       "flags": [],
-      "notes": "native-transformers repackage; original THUDM/glm-4-9b-chat needs remote code"
+      "notes": "native-transformers repackage; original THUDM/glm-4-9b-chat needs remote code",
+      "generation": 2024
     },
     {
       "name": "Yi1.5-6B",
       "repo": "01-ai/Yi-1.5-6B-Chat",
       "family": "yi",
       "params_b": 6,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Yi1.5-9B",
       "repo": "01-ai/Yi-1.5-9B-Chat",
       "family": "yi",
       "params_b": 9,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Yi1.5-34B",
       "repo": "01-ai/Yi-1.5-34B-Chat",
       "family": "yi",
       "params_b": 34,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "InternLM2.5-7B",
@@ -363,7 +407,8 @@
       "flags": [
         "remote_code"
       ],
-      "revision": "eb72b541689b"
+      "revision": "eb72b541689b",
+      "generation": 2024
     },
     {
       "name": "InternLM3-8B",
@@ -373,35 +418,40 @@
       "flags": [
         "remote_code"
       ],
-      "revision": "28c99415adaf"
+      "revision": "28c99415adaf",
+      "generation": 2025
     },
     {
       "name": "Granite3.1-8B",
       "repo": "ibm-granite/granite-3.1-8b-instruct",
       "family": "granite",
       "params_b": 8,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "Granite3.3-8B",
       "repo": "ibm-granite/granite-3.3-8b-instruct",
       "family": "granite",
       "params_b": 8,
-      "flags": []
+      "flags": [],
+      "generation": 2025
     },
     {
       "name": "SmolLM2-1.7B",
       "repo": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
       "family": "smollm",
       "params_b": 1.7,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "StableLM2-12B",
       "repo": "stabilityai/stablelm-2-12b-chat",
       "family": "stablelm",
       "params_b": 12,
-      "flags": []
+      "flags": [],
+      "generation": 2024
     },
     {
       "name": "MiniCPM3-4B",
@@ -411,7 +461,8 @@
       "flags": [
         "remote_code"
       ],
-      "revision": "d6b14ddaefdb"
+      "revision": "d6b14ddaefdb",
+      "generation": 2024
     },
     {
       "name": "EXAONE3.5-7.8B",
@@ -421,7 +472,8 @@
       "flags": [
         "remote_code"
       ],
-      "revision": "553ea250b9a5"
+      "revision": "553ea250b9a5",
+      "generation": 2024
     },
     {
       "name": "Nemotron-Nano8B",
@@ -431,7 +483,8 @@
       "flags": [
         "thinking"
       ],
-      "twin_of": "Llama3.1-8B"
+      "twin_of": "Llama3.1-8B",
+      "generation": 2025
     },
     {
       "name": "Glimmer-30B",
@@ -443,7 +496,8 @@
         "multimodal",
         "needs_transformers_upgrade"
       ],
-      "notes": "released 2026-08-11; model_type muse_glimmer unknown to transformers 5.8.1 \u2014 will quarantine until transformers ships support, then clear state entry and rerun"
+      "notes": "released 2026-08-11; model_type muse_glimmer unknown to transformers 5.8.1 \u2014 will quarantine until transformers ships support, then clear state entry and rerun",
+      "generation": 2026
     },
     {
       "name": "Qwen3.8-27B",
@@ -453,7 +507,8 @@
       "flags": [
         "deltanet_hybrid"
       ],
-      "notes": "released 2026-08-14; model_type qwen3_5 (Gated DeltaNet hybrid) \u2014 reads run on the measured eager-MPS fallback (qwen36 speed test); think arm deliberately withheld until the enact step's rollouts benchmark generation throughput \u2014 add 'thinking' flag and rerun if >~15 tok/s"
+      "notes": "released 2026-08-14; model_type qwen3_5 (Gated DeltaNet hybrid) \u2014 reads run on the measured eager-MPS fallback (qwen36 speed test); think arm deliberately withheld until the enact step's rollouts benchmark generation throughput \u2014 add 'thinking' flag and rerun if >~15 tok/s",
+      "generation": 2026
     }
   ]
 }
