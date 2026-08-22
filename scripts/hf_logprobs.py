@@ -187,8 +187,20 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
                 print(f"[hf_logprobs] injected fallback chat template "
                       f"({key}) for {repo}")
                 break
-    model = AutoModelForCausalLM.from_pretrained(repo, dtype=dtype,
-                                                 device_map=device, **rc)
+    try:
+        model = AutoModelForCausalLM.from_pretrained(repo, dtype=dtype,
+                                                     device_map=device, **rc)
+    except ValueError as e:
+        if "Unrecognized configuration" not in str(e):
+            raise
+        # multimodal archs (e.g. muse_glimmer) register under the
+        # image-text auto-class only; text-only usage is fine (Gemma-3
+        # pattern: same generate/logits/hidden-states surface)
+        from transformers import AutoModelForImageTextToText
+        model = AutoModelForImageTextToText.from_pretrained(
+            repo, dtype=dtype, device_map=device, **rc)
+        print(f"[hf_logprobs] loaded {repo} via AutoModelForImageTextToText "
+              f"(text-only usage)")
     if rc and "internlm2" in repo.lower():
         # InternLM2.x custom prepare_inputs_for_generation assumes legacy
         # tuple caches (TypeError on 5.x Cache objects). The base impl
