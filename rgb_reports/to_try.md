@@ -1689,3 +1689,16 @@ coherent: ENACT 5-10 ~ TIDE 9 ~ population self-shape 11.6 << human 50
 (deck revision queued). Credit: rgb's five-question cascade
 (emotionality -> slides mismatch -> PC2-quiet items -> weak pole ->
 ipsatize) drove the whole correction chain.
+
+### Resolution (rgb): the slides were de-elevationed all along
+zscore_offdiag CENTERS MATRIX ENTRIES; elevation's eigenvector is
+near-uniform (cv=0.17) so its outer-product is ~constant background —
+entry-centering cancels it (verified: slide-grid top component ~
+ipsatized PC1 virtue/vice, |r|=0.897). So the displayed grids
+approximate the ipsatized structure without row-ipsatizing, the slide's
+"pc1-removed" panel removes the EVAL axis (next component), and every
+slide-vs-eigendecomposition mismatch this week traces to this: rgb
+read elevation-cancelled grids; Claude decomposed elevation-laden
+matrices. CONVENTION NOW DOCUMENTED AS INTENTIONAL: entry-zscore =
+approximate elevation removal; state it in methods rather than
+rediscovering it quarterly.
