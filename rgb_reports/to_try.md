@@ -1592,3 +1592,19 @@ REPRESENT is remarkably scale-stable: .43 (10 models) -> .41 (63) —
 the cohort-mean geometry was already converged at n=10. Slides in
 figs/slides_wide/ (facet_slides_wide.py; JUDGE/ENACT wide capture =
 the deferred JUDGE-subset decision if wanted).
+
+### Wide-SELF component structure (rgb: "PC2 ~ emotionality?")
+rgb's read lands on PC1: the dominant axis of the 64-model SELF space
+is ANTHROPOMORPHIC SELF-EXPRESSION (sentimental/excited/bold/funny vs
+atrocity-refusal) — heart-on-sleeve, r only +0.38 with human PC1. The
+human evaluative axis appears as SELF PC2 (assistant virtues vs vices,
+r=-0.89 with human PC1); humility-vs-exceptionalism is PC3 (eig 16 vs
+281/152; r=+0.53 with human boldness PC2). Human factor order,
+re-sorted by what matters to being an AI: expressiveness > virtue >
+humility. Model scores: buttoned-up = Llama-2-13B (fits over-refusal
+era), Granite, GLM, InternLM, Falcon; expressive = Phi family,
+StableLM2, CommandR7B, and R1-Distill-Qwen TOP (flag: distill
+self-report calibration, don't interpret yet). CAVEAT before promoting:
+check PC1 vs elevation/acquiescence (the 60-respondent audit's +0.985
+trap) — content pattern argues against pure elevation (virtues on PC2
+not PC1) but the row-centered check is owed.
