@@ -1635,3 +1635,12 @@ bandwidth series: human 27 >> TIDE persona 9 ~ ENACT 5-10 >> SELF-
 population 2.6 (narrowest yet). Deflators noted: framing-averaging
 smooths within-model variance; family clustering concentrates spectra;
 neither plausibly accounts for 10x.
+
+### Horn parallel analysis (rgb: "is PC4 above noise?")
+Permutation null (K=50, p95): PC1 282 vs 15, PC2 153 vs 14.3 — clear by
+19x/11x; PC3 17.4 vs 14.0 — RETAINED NARROWLY (humility axis, the
+whisper); PC4 11.6 vs 13.6 — NOISE (PC5+ likewise). Formal retention
+k=3, consistent with PR 2.6. Caveat: n=64 vs p=523 puts the floor at
+~2.9% of trace — a real 2% axis is undetectable at this n; floor drops
+~sqrt(p/n), giving cohort growth a statistical purpose (each doubling
+lowers the thinnest-detectable-axis bar).
