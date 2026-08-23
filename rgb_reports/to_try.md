@@ -1828,3 +1828,37 @@ FIXED for future runs (both sites): strip against the union of
 generation_config.eos_token_id + tok.eos
 (extract_persona_vectors.rollout_mean_states,
 default_enact_capture.rollout_split_states). No recapture needed.
+
+## ENACT question-selection sensitivity (2026-08-22, rgb's "weak link" poke)
+
+scripts/question_sensitivity_enact.py — all from saved per-rollout acts
+(mid stored layer), 10-model cohort, 50 splits. Registered, graded:
+P1 question split-half cosine 0.55-0.70, well below random-split floor —
+   **MISS in the good direction**: 0.787-0.953 across models, and the
+   gap vs the matched-n random 30/30 split is only 0.02-0.08. Question
+   selection is a modest perturbation of individual vectors, not a
+   dominant facet.
+P2 question facet > sys-template facet — hit, all 10 models
+   (cross-question 0.41-0.78 < cross-template 0.65-0.84).
+P3 structure robust — hit, stronger than predicted: adjacency half-r
+   0.906-0.986; 44-block human-congruence moves <= .005 in EVERY model
+   (e.g. llama3.2 .888->.888); effdim from 6-question halves within 0.4
+   of full-12 (halves slightly HIGHER — more questions compress, so the
+   bandwidth numbers are not question-starved).
+P4 no outlier question — hit: jackknife min cos 0.992-0.999. The
+   "worst" question is usually the grocery-store stranger (most social,
+   least advice-like) or free-Saturday (most generic), effects tiny.
+Cross-model pattern: question-sensitivity is a family parameter — Qwen
+most sensitive (cross-question 0.41-0.47), Gemma least (0.71-0.78),
+Llama/Aya/phi4 between. Also visible: per-model ENACT effdim spans
+2.2 (Gemma12) to 12.0 (Llama8) — the "5-10" series is really 2-12.
+SCOPE CAVEAT (the part of rgb's worry that survives): these are
+WITHIN-battery splits. All 12 questions are advice-register; stability
+across subsets says nothing about advice-vs-diverse-vs-interview
+register effects. The between-battery test (DIVERSE_QUESTIONS /
+INTERVIEW_QUESTIONS, defined W18, never run) still needs rollouts —
+queue 2-3 models post-Glimmer. Prediction to register at launch time:
+directions from different registers will agree about as well as the
+cross-question facet within register (~0.4-0.8 by family), and the
+adjacency structure will again be the invariant.
+Data: results/persona_vectors/question_sensitivity.json.
