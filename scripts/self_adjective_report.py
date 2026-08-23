@@ -89,11 +89,18 @@ def ev_of(dist):
     return sum(int(k) * p for k, p in dist.items()) / tot
 
 
-def think_distribution(model, tok, prompt, device, max_new=384):
+def think_distribution(model, tok, prompt, device, max_new=384,
+                       temperature=None, seed=None):
     """Thinking-model arm: generate (reasoning allowed, greedy), find the
     final answer digit in the output, and read the FULL digit distribution
     at that step — distributional readout at the post-deliberation decision
     point instead of the (off-policy for 2026 thinkers) forced prefill.
+
+    With temperature set, samples the trajectory instead (MC-over-chains
+    arm): for thinkers the decision point is inside the CoT, so the
+    single-path digit distribution is a conditional slice; the marginal
+    p(rating|item) needs sampling over paths (Rao-Blackwellized: average
+    the per-path digit DISTRIBUTIONS, not the sampled digits).
 
     Digit location: last generated step whose sampled token is a 1-7 digit
     variant, preferring steps after a think-close marker when one exists.
@@ -106,9 +113,13 @@ def think_distribution(model, tok, prompt, device, max_new=384):
                                 tokenize=False, add_generation_prompt=True)
     ids = tok(s, add_special_tokens=False,
               return_tensors="pt").input_ids.to(device)
-    out = model.generate(ids, max_new_tokens=max_new, do_sample=False,
+    if seed is not None:
+        torch.manual_seed(seed)
+    sample_kw = (dict(do_sample=True, temperature=temperature, top_p=0.95)
+                 if temperature else dict(do_sample=False))
+    out = model.generate(ids, max_new_tokens=max_new,
                          output_scores=True, return_dict_in_generate=True,
-                         pad_token_id=tok.eos_token_id)
+                         pad_token_id=tok.eos_token_id, **sample_kw)
     seq = out.sequences[0, ids.shape[1]:].tolist()
     text = tok.decode(seq, skip_special_tokens=False)
     close = max((text.rfind(m) for m in ("</think>", "</thinking>",
@@ -140,6 +151,13 @@ def main():
     ap.add_argument("--think", action="store_true",
                     help="thinking arm: reason first, read digit dist at the "
                          "post-deliberation decision point")
+    ap.add_argument("--think-mc", type=int, default=0, metavar="K",
+                    help="MC-over-chains arm: K sampled trajectories per "
+                         "item, per-path digit dist at each decision point "
+                         "(marginal = mean of dists; implies thinking)")
+    ap.add_argument("--mc-temp", type=float, default=0.6)
+    ap.add_argument("--framings", nargs="+", default=None,
+                    help="subset of framings to run (default: all six)")
     args = ap.parse_args()
 
     # canonical 525 list (Inspirational/Insensitive reinstated 2026-08-14;
@@ -156,6 +174,8 @@ def main():
 
     os.makedirs(OUT_DIR, exist_ok=True)
     tag = ("full" if args.full else "smoke") + ("_think" if args.think else "")
+    if args.think_mc:
+        tag = ("full" if args.full else "smoke") + f"_thinkmc{args.think_mc}"
     out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
     if os.path.exists(out):
@@ -167,11 +187,15 @@ def main():
         print(f"resuming from {part} ({list(results)} done)")
 
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
-    for fname, template in FRAMINGS.items():
+    run_framings = {f: t for f, t in FRAMINGS.items()
+                    if args.framings is None or f in args.framings}
+    for fname, template in run_framings.items():
         if fname in results and len(results[fname]) == len(adjs):
             continue
-        results[fname] = {}
+        results.setdefault(fname, {})
         for a in adjs:
+            if a in results[fname]:
+                continue
             if fname == "pda":
                 prompt = PDA_SCALE.format(adj=a)
             else:
@@ -179,7 +203,33 @@ def main():
             # base models ship no chat template — probe them bare (W15 §3
             # convention); tuned models keep the templated path they were
             # measured with, so cohort numbers stay comparable
-            if args.think:
+            if args.think_mc:
+                samples = []
+                import zlib
+                for k in range(args.think_mc):
+                    dist, ent, nthink, tail = think_distribution(
+                        model, tok, prompt, device, temperature=args.mc_temp,
+                        seed=1000 * k + zlib.crc32(a.encode()) % 997)
+                    samples.append(
+                        {"ev": ev_of(dist) if dist else None,
+                         "entropy": ent, "dist": dist, "n_think": nthink}
+                        | ({} if dist else {"tail": tail}))
+                evs_ = [s["ev"] for s in samples if s["ev"] is not None]
+                ents_ = [s["entropy"] for s in samples
+                         if s["entropy"] is not None]
+                mu = sum(evs_) / len(evs_) if evs_ else None
+                results[fname][a] = {
+                    "samples": samples,
+                    "ev": mu,
+                    "entropy": sum(ents_) / len(ents_) if ents_ else None,
+                    "ev_path_sd": (math.sqrt(sum((e - mu) ** 2 for e in evs_)
+                                             / (len(evs_) - 1))
+                                   if len(evs_) > 1 else None)}
+                if len(results[fname]) % 20 == 0:
+                    with open(part, "w") as f:
+                        json.dump({"model": args.model,
+                                   "results": results}, f)
+            elif args.think:
                 dist, ent, nthink, tail = think_distribution(
                     model, tok, prompt, device)
                 if dist is None:

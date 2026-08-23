@@ -1933,3 +1933,28 @@ replicates per item (60 adj x 2 framings x 5 seeds, small GPU job) to
 compare within-item across-seed vs across-framing variance — if seeds
 churn as much as framings, "respondent-absent" is definitive. Queued as
 optional pre-statisfactions ammunition.
+
+## MC-over-chains SELF readout (2026-08-23, rgb's diagnosis)
+
+rgb: reasoning models break the EV protocol — the decision point is
+inside the CoT, so the answer-token distribution is post-decisional
+transcription (hence the R1s' low entropy + irreproducibility), and
+you have to fall back on sampling. Formalization: p(rating|item) =
+sum_traj p(traj|item) p(rating|traj); greedy think arm reads the
+modal-path slice; the marginal needs MC over chains. Estimator:
+Rao-Blackwellized — sample K chains, keep the per-path digit
+DISTRIBUTION at each decision point, average distributions (lower
+variance than counting sampled digits). Decomposition the old entropy
+number conflated: within-path entropy (transcription confidence) vs
+across-path EV variance (deliberation chaos). Non-thinkers = K=1
+special case; nothing historical re-runs. Self-diagnosing: MC needed
+iff across-path variance large.
+IMPLEMENTED: self_adjective_report.py --think-mc K --mc-temp 0.6
+--framings ... (per-path samples + marginal ev + ev_path_sd saved;
+crc32 seeds; 20-adj checkpoints). QUEUED behind the cohort stragglers
+(run_mc_after_glimmer.sh waits for GPU): R1-Qwen7 smoke x 4 framings x
+K=8; Glimmer smoke x 2 framings x K=5 (validation).
+REGISTERED: P1 R1s path-dominated (across-path EV sd >> within-path
+entropy implies); P2 Glimmer/Qwen3 path-stable (MC marginal r>0.9 with
+greedy read); P3 R1 MC marginal MORE framing-stable than any single
+path but still << healthy — partial rescue at best.
