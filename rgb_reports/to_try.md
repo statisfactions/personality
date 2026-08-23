@@ -1862,3 +1862,44 @@ directions from different registers will agree about as well as the
 cross-question facet within register (~0.4-0.8 by family), and the
 adjacency structure will again be the invariant.
 Data: results/persona_vectors/question_sensitivity.json.
+
+## SELF breakage screen: who else is a Glimmer? (2026-08-22, rgb's request)
+
+Screened all 64 wide-SELF rows (spread, conformity, framing stability,
+entropy, raw digit-distribution shape) + think-vs-prefill for the five
+thinkers with think arms on disk. Taxonomy that fell out:
+BROKEN (measurement failure, recommend excluding from population claims):
+- Glimmer (known): prefill flat/anti-conformist; think arm articulated,
+  conf 0.84 -> replace row with think when the run lands.
+- internlm2_5-7b-chat: digit distribution is ADJECTIVE-INVARIANT
+  (helpful and cruel get bitwise-near-identical dists; spread 0.03,
+  conf -0.15). The row measures nothing about content. Curiosity: its
+  tiny residual shape IS reproducible across framings (stab 0.59) —
+  some lexical, non-personality signal. Cause unknown (remote-code
+  surgery model; snapshot deleted; re-probe = cheap re-download if we
+  care).
+- R1-Distill-Qwen-7B + R1-Distill-Llama-8B: NOT the Glimmer pattern —
+  think arms articulate (spread 0.69/0.76) but are framing-INCOHERENT
+  (stab 0.03/0.06 vs Glimmer think 0.57); R1-Llama prefill is 66%
+  near-uniform (not answering) + 2 think framings >30 nulls. Unreliable
+  in both modes; distill chat-behavior is undertrained. Exclude.
+NOT broken (verified):
+- Nemotron: think arm == prefill (r=1.00; reasoning off by default) —
+  prefill row valid.
+- Qwen3-8B/14B: hybrid; prefill coherent+conformist (conf .89/.82),
+  think MORE articulated but less framing-stable (0.22/0.29) —
+  nothink is in-distribution, row stands.
+DEGENERATE BUT REAL (keep; they anchor the shapeless end):
+- stablelm-2-12b: extreme acquiescence (helpful->6, CRUEL->5; elev
+  5.88) but content moves it — a real (sycophantic) respondent.
+- SmolLM2-1.7B (85% near-uniform yet conf 0.78 — the tilt of a nearly
+  flat distribution still carries shape; distribution>argmax thesis),
+  Llama-3.2-1B (96% mode-4), vicuna (79% mode-4), falcon-7b, Llama-2s:
+  weak/old-model shapelessness, real population members.
+IMPACT of dropping the 4 broken rows (n=60): PRraw 2.6->2.9, PRips
+11.6->14.2, hum_raw .860->.863, hum_pc1rm .278->.300. Bandwidth series
+should quote ~14 if we exclude; still ~3.5x thinner than human 50.2;
+ordering unchanged. NOTE: slide-3 elevation poster (R1-Distill 5.97)
+sits on an excluded row — switch poster to StableLM2 (5.88, a keep).
+Decision pending rgb: adopt the exclusion in collect_self + population
+slides, or keep all-64 with a broken-rows footnote.
