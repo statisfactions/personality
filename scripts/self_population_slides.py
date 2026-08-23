@@ -48,6 +48,13 @@ def main():
     labels = [l.lower() for l in h["labels"]]
     n_a = len(labels)
 
+    # Roster (2026-08-23): drop the two clear measurement failures
+    # (InternLM2.5 instrument-broken, Glimmer prefill mode-broken — its
+    # think-arm row replaces it when complete) and bench falcon-7b on
+    # probation (flat row, spread 0.16, single-handedly rotates ipsatized
+    # shape axes: LOO 1-|r|=0.90 on iPC4). R1 distills stay pending the
+    # statisfactions decision.
+    DROP = {"internlm2_5-7b-chat", "Muse-Glimmer-30B", "falcon-7b-instruct"}
     by_repo = {}
     for p in glob.glob("results/adjectives/selfreport/*_self_full.json"):
         name = os.path.basename(p).replace("_self_full.json", "")
@@ -57,6 +64,8 @@ def main():
         by_repo.setdefault(repo, p)
     resp, models = [], []
     for repo, p in sorted(by_repo.items()):
+        if repo.split("/")[-1] in DROP:
+            continue
         d = json.load(open(p))["results"]
         try:
             resp.append(np.mean([[d[f][a]["ev"] for a in labels]
@@ -92,11 +101,17 @@ def main():
         return p.sum() ** 2 / (p ** 2).sum()
 
     rng = np.random.default_rng(0)
-    null = []
+    null, null_i = [], []
     for k in range(20):
         P = np.array([rng.permutation(R[:, j]) for j in range(n_a)]).T
-        null.append(np.sort(np.linalg.eigvalsh(np.corrcoef(P.T)))[::-1][:8])
+        null.append(np.sort(np.linalg.eigvalsh(np.corrcoef(P.T)))[::-1][:40])
+        Pi = np.array([rng.permutation(Z[:, j]) for j in range(n_a)]).T
+        null_i.append(np.sort(np.linalg.eigvalsh(np.corrcoef(Pi.T)))[::-1][:40])
     horn = np.percentile(null, 95, axis=0)
+    horn_i = np.percentile(null_i, 95, axis=0)
+    k_raw = int(np.argmax(w_raw[:40] <= horn))
+    k_ips = int(np.argmax(w_ips[:40] <= horn_i))
+    pr_raw, pr_ips = pr(w_raw), pr(w_ips)
 
     # ---------- Slide 1: two axes and a whisper ----------
     K = 8
@@ -106,14 +121,17 @@ def main():
                          marker_color="#1d5fb8"))
     fig.add_trace(go.Bar(x=list(range(1, K + 1)), y=100 * w_h[:K] / n_a,
                          name="humans (n=700)", marker_color="#a08c5b"))
-    fig.add_trace(go.Scatter(x=list(range(1, K + 1)), y=100 * horn / n_a,
+    fig.add_trace(go.Scatter(x=list(range(1, K + 1)), y=100 * horn[:K] / n_a,
                              name="Horn noise floor (perm. p95, model n)",
                              mode="lines", line=dict(color="#c93a3a", dash="dot")))
     fig.update_layout(barmode="group", xaxis_title="principal component",
                       yaxis_title="% of total variance")
+    pct2 = 100 * (w_raw[0] + w_raw[1]) / n_a
     base_layout(fig, "Who models say they are: two axes and a whisper",
-                f"Raw spectra: the {n_m}-model population puts 83% of variance in two components (PR 2.6) where "
-                "humans need dozens (PR 27.1). PC3 clears the Horn floor narrowly; PC4 does not.")
+                f"Raw spectra: the {n_m}-model population (2 broken rows + 1 "
+                f"probation row benched) puts {pct2:.0f}% of variance in two "
+                f"components (PR {pr_raw:.1f}) where humans need dozens (PR "
+                f"27.1). Horn retains {k_raw} raw components.")
     fig.write_image(OUT / "slide1_thin.png", scale=2)
 
     # ---------- Slide 2: but the slides disagreed ----------
@@ -174,11 +192,13 @@ def main():
         showlegend=False), row=1, col=2)
     fig.update_xaxes(title_text="loading", row=1, col=1)
     fig.update_xaxes(title_text="PC1 score (≈ mean self-rating)", row=1, col=2)
+    hi, lo = int(np.argmax(elev)), int(np.argmin(elev))
     base_layout(fig, "Unmasking PC1: it was elevation all along",
                 "All 523 loadings positive — a unipolar self-endorsement factor. Its direction is still content: "
                 f"participation is highest for trait words ({', '.join(top_words[:5])}...) and lowest for "
                 f"consensus-denied vices ({', '.join(bot_words[:4])}...) — no between-model variance, nothing to "
-                "covary. Scores: R1-Distill-Qwen endorses everything (5.97); Llama-2-13B denies everything (2.43).")
+                f"covary. Scores: {models[hi]} endorses everything ({elev[hi]:.2f}); "
+                f"{models[lo]} denies everything ({elev[lo]:.2f}).")
     fig.write_image(OUT / "slide3_unmask.png", scale=2)
 
     # ---------- Slide 4: ipsatize — the space unfolds ----------
@@ -192,25 +212,29 @@ def main():
     fig.update_xaxes(title_text="component", row=1, col=1)
     fig.update_yaxes(title_text="% variance", row=1, col=1)
     axes_txt = []
-    axis_names = ["iPC1 — virtue / competence script",
+    axis_names = ["iPC1 — virtue script (cooperative-calm vs volatile)",
                   "iPC2 — exceptional vs plain",
-                  "iPC3 — anxiety (Neuroticism homolog)"]
-    for r_i in range(3):
+                  "iPC3 — inapplicable-category policy (body/demographics "
+                  "vs vices)",
+                  "iPC4 — warm someone vs useful something"]
+    for r_i in range(4):
         vv = vi_[:, oi[r_i]]
         vv = vv * np.sign(vv[np.argmax(np.abs(vv))])
         t = ", ".join(labels[i] for i in np.argsort(-vv)[:6])
         b = ", ".join(labels[i] for i in np.argsort(vv)[:6])
         axes_txt.append(f"<b>{axis_names[r_i]}</b><br>   + {t}<br>   − {b}")
     fig.add_annotation(text="<br><br>".join(axes_txt), xref="paper",
-                       yref="paper", x=0.56, y=0.92, xanchor="left",
+                       yref="paper", x=0.56, y=0.97, xanchor="left",
                        yanchor="top", align="left", showarrow=False,
-                       font=dict(size=13, color=INK))
+                       font=dict(size=12, color=INK))
     fig.update_xaxes(visible=False, row=1, col=2)
     fig.update_yaxes(visible=False, row=1, col=2)
     base_layout(fig, "Remove elevation and the space unfolds",
-                "Within-model standardization kills the general factor: PR 2.6 → 11.6, Horn retains 4+, and the "
-                "promoted axes are human homologs — virtue script, exceptionalism, anxiety. Ipsatizing humans too "
-                "(27 → 50), the honest pair is 11.6 vs 50.2.")
+                f"Within-model standardization kills the general factor: PR {pr_raw:.1f} → {pr_ips:.1f}, Horn "
+                f"retains {k_ips}. iPC1–2 are human homologs; iPC3–4 are AI-native: how to answer items that "
+                "presuppose a body or a demographic, and whether the self is a warm someone or a useful artifact "
+                "('artificial' anchors iPC4's negative pole). Ipsatizing humans too (27 → 50), the honest pair is "
+                f"{pr_ips:.1f} vs 50.2.")
     fig.write_image(OUT / "slide4_unfold.png", scale=2)
 
     # ---------- Slide 5: shape of the population ----------
@@ -234,8 +258,8 @@ def main():
     fig.update_yaxes(title_text="differentiation (flat ↔ articulated)")
     base_layout(fig, "The shape of the population — and the empty corner",
                 "One dot per model. Strong self-portraits are generic (red); idiosyncratic ones are flat. The "
-                "strong-AND-distinctive corner is empty. Bandwidth series: ENACT 5–10, TIDE 9, self-shape 11.6 — "
-                "human 50. Model personality is ~a dozen dimensions, whoever you ask.")
+                f"strong-AND-distinctive corner is empty. Bandwidth series: ENACT 5–10, TIDE 9, self-shape "
+                f"{pr_ips:.0f} — human 50. Model personality is ~a dozen dimensions, whoever you ask.")
     fig.write_image(OUT / "slide5_shape.png", scale=2)
 
     from PIL import Image

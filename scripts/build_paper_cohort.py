@@ -45,6 +45,10 @@ STATUS = {
         "pending statisfactions)",
     "meta-models/Muse-Glimmer-30B":
         "ok:think-arm row (prefill SELF row mode-broken, excluded)",
+    "tiiuae/falcon-7b-instruct":
+        "flagged:flat-row leverage (spread 0.16; single-handedly rotates "
+        "ipsatized shape axes, LOO 1-|r|=0.90 on iPC4 — benched from "
+        "shape analyses)",
 }
 
 # repo (or prefix) -> bibkey; entries below
@@ -396,19 +400,18 @@ def main():
     with open(f"{PAPER}/_data/cohort_table_small.md", "w") as fp:
         fp.write("\n".join(lines))
 
-    THINK_ABBR = {"none": "—", "hybrid": "hyb", "always": "alw",
-                  "toggle (off by default)": "tog"}
+    THINK_ABBR = {"none": "—", "hybrid": "hybrid", "always": "always",
+                  "toggle (off by default)": "toggle"}
     seen = set()
-    body = [[r["display"], str(r["params_b"]), str(r["generation"]),
+    body = [[r["display"], str(r["generation"]),
              r["channels"], THINK_ABBR[r["thinking"]],
              r["status"].split(":")[0], cite_cell(r, seen)]
             for r in wide_rows]
-    lines = render_pipe(["Model", "B", "Gen", "Channels", "Think", "Status",
-                         "Citation"], body, cap=[0, 0, 0, 0, 0, 0, 26])
+    lines = render_pipe(["Model", "Gen", "Channels", "Think", "Status",
+                         "Citation"], body, cap=[0, 0, 0, 0, 0, 26])
     lines.append("\n: The wide cohort. Channels: S = SELF, R = REPRESENT, "
                  "E = default-persona ENACT rollouts, T = thinking-mode SELF "
-                 "arm. Think: hyb = hybrid reasoner, alw = always-think, "
-                 "tog = toggle (off by default). Status: excluded/flagged "
+                 "arm. Status: excluded/flagged "
                  "rows per the measurement-failure taxonomy (see text). "
                  "Citations are shown at first occurrence. "
                  "{#tbl-cohort-large}\n")

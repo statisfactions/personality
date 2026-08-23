@@ -2040,3 +2040,38 @@ projections, and lets the implication matrix be compared at factor
 grain against any channel). Registered for v2: same ordering
 (REPRESENT/HUMAN > JUDGE) survives the varimax basis.
 Data: results/persona/cube_implication_matrix.json.
+
+## iPC4 named + falcon-7b probation + deck rebuilt (2026-08-23)
+
+rgb: "slides say 4 dims survive — what's iPC4?" Chased it:
+- At all-64 iPC4 was appearance-vs-vice but its score extremes were
+  Glimmer and falcon-7b. rgb caught the inconsistency: falcon-7b was a
+  "keep" in the breakage screen, yet I used it as breakage evidence.
+  LEVERAGE TEST: leave-one-out axis rotation — dropping falcon-7b
+  rotates iPC4 by 1-|r| = 0.90 vs 0.001-0.008 for every other row
+  (including both R1s). One flat row (spread 0.16, raw
+  appearance-vice contrast +0.32) was single-handedly steering the
+  fourth axis: the Glimmer mechanism (ipsatizing a near-flat profile
+  amplifies noise) below the exclusion threshold. NEW STATUS TIER:
+  probation/flagged for flat-row leverage — falcon-7b benched from
+  shape analyses, stays in elevation/population counts. Added to
+  build_paper_cohort STATUS.
+- Roster for the deck (pending statisfactions on R1s): n=61 = 64 minus
+  2 clear-broken (InternLM2.5, Glimmer-prefill) minus falcon
+  (probation). R1s STAY.
+- At n=61 the contested zone reshuffles: appearance-vs-vice PROMOTES
+  to iPC3 (7.7%; anxiety folds into iPC1's volatile pole) and a new
+  robust iPC4 (5.5%, max LOO rotation 0.103) appears: affectionate/
+  emotional/warm-hearted/thankful vs ARTIFICIAL/rational/helpful/
+  useful — "warm someone vs useful something," with 'artificial'
+  anchoring the negative pole. iPC3-4 are AI-NATIVE axes (no human
+  homolog by construction: applicability policy for body/demographic
+  items; self-as-person vs self-as-artifact).
+- HORN CORRECTION: "4+ survive" undersold badly — at n=61 ipsatized
+  Horn retains k=11 (PR 14.0); raw Horn 3 (PR 2.8). Bandwidth series
+  now: ENACT 5-10, TIDE 9, self-shape 14, human 50.
+- Deck rebuilt on the n=61 roster with live-computed captions (posters,
+  PR/Horn, axes); slide 4 shows all four named axes.
+CAVEAT for reading group: ranks 3-4 identities are roster-sensitive
+(that's WHY falcon mattered); iPC1-2 are anchors, the contested zone
+should be presented as such.
