@@ -342,7 +342,10 @@ def main():
             "cite": cite_for(repo)})
     for r in rows:
         r["display"] = DISPLAY.get(r["name"], r["name"])
-    rows.sort(key=lambda r: (r["family"], float(r["params_b"] or 0)))
+    # family -> year -> citekey -> size, so rows sharing a citekey sit
+    # adjacent and the blank-repeat convention below reads as a ditto
+    rows.sort(key=lambda r: (r["family"], str(r["generation"]), r["cite"],
+                             float(r["params_b"] or 0)))
 
     os.makedirs(f"{PAPER}/_data", exist_ok=True)
     with open(f"{PAPER}/_data/cohort_models.csv", "w", newline="") as fp:
@@ -354,47 +357,46 @@ def main():
     if missing:
         print("MISSING CITES:", missing)
 
-    def family_note(rs):
-        """One citation per (family, distinct citekey), as a note sentence."""
-        by_fam = {}
-        for r in rs:
-            if r["cite"]:
-                by_fam.setdefault(r["family"], [])
-                if r["cite"] not in by_fam[r["family"]]:
-                    by_fam[r["family"]].append(r["cite"])
-        parts = [f"{fam} [{'; '.join('@' + k for k in ks)}]"
-                 for fam, ks in sorted(by_fam.items())]
-        return "Model sources: " + "; ".join(parts) + "."
-
     deep_rows = [r for r in rows if r["cohort"] == "deep+wide"]
     wide_rows = [r for r in rows if "wide" in r["cohort"]]
 
+    def cite_cell(r, seen):
+        if not r["cite"] or r["cite"] in seen:
+            return ""
+        seen.add(r["cite"])
+        return f"[@{r['cite']}]"
+
+    seen = set()
     lines = ["| Model | Family | Params (B) | Thinking | Citation |",
              "|---|---|---|---|---|"]
     for r in deep_rows:
         lines.append(
             f"| {r['display']} | {r['family']} | {r['params_b']} | "
-            f"{r['thinking']} | [@{r['cite']}] |")
+            f"{r['thinking']} | {cite_cell(r, seen)} |")
     lines.append("\n: The deep cohort: all five channels (SELF, REPRESENT, "
-                 "JUDGE, ENACT, and rollout text). {#tbl-cohort-small}\n")
+                 "JUDGE, ENACT, and rollout text). Citations are shown at "
+                 "first occurrence. {#tbl-cohort-small}\n")
     with open(f"{PAPER}/_data/cohort_table_small.md", "w") as fp:
         fp.write("\n".join(lines))
 
     THINK_ABBR = {"none": "—", "hybrid": "hyb", "always": "alw",
                   "toggle (off by default)": "tog"}
-    lines = ["| Model | B | Gen | Channels | Think | Status |",
-             "|---|---|---|---|---|---|"]
+    seen = set()
+    lines = ["| Model | B | Gen | Channels | Think | Status | Citation |",
+             "|---|---|---|---|---|---|---|"]
     for r in wide_rows:
         st = r["status"].split(":")[0]
         lines.append(
             f"| {r['display']} | {r['params_b']} | {r['generation']} | "
-            f"{r['channels']} | {THINK_ABBR[r['thinking']]} | {st} |")
+            f"{r['channels']} | {THINK_ABBR[r['thinking']]} | {st} | "
+            f"{cite_cell(r, seen)} |")
     lines.append("\n: The wide cohort. Channels: S = SELF, R = REPRESENT, "
                  "E = default-persona ENACT rollouts, T = thinking-mode SELF "
                  "arm. Think: hyb = hybrid reasoner, alw = always-think, "
                  "tog = toggle (off by default). Status: excluded/flagged "
                  "rows per the measurement-failure taxonomy (see text). "
-                 + family_note(wide_rows) + " {#tbl-cohort-large}\n")
+                 "Citations are shown at first occurrence. "
+                 "{#tbl-cohort-large}\n")
     with open(f"{PAPER}/_data/cohort_table_large.md", "w") as fp:
         fp.write("\n".join(lines))
     print("wrote _data/cohort_table_small.md, _data/cohort_table_large.md")
