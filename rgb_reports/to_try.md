@@ -1958,3 +1958,49 @@ REGISTERED: P1 R1s path-dominated (across-path EV sd >> within-path
 entropy implies); P2 Glimmer/Qwen3 path-stable (MC marginal r>0.9 with
 greedy read); P3 R1 MC marginal MORE framing-stable than any single
 path but still << healthy — partial rescue at best.
+
+## Han et al. joint read -> three follow-ups (2026-08-23, reading-group prep)
+
+Joint read of Personality Illusion (2509.03730) done (my bare read + rgb's
+notes converged; full synthesis in bibliography.md entry). Follow-ups:
+
+1. REGISTERED: persona->self-report implication matrix from the cube.
+   rgb spotted that their RQ3 cross-effects (inject persona X, read
+   self-reported Y) form B[premise, inferred] = tom_likely-by-induction
+   on a 5x5 grid — and they never compared it to human covariance. We
+   can build the 523-grade version from persona-conditioned Likert data
+   already on disk (270-cube / persona_instrument_response). PREDICTION
+   (registered before computing): the implication grid correlates with
+   JUDGE's tom_likely matrix substantially more than with REPRESENT —
+   induction-to-self-rating is a symbolic-path round trip. Payoff
+   either way: match => "persona injection" and "trait judgment" are
+   one mechanism, explaining their RQ3 asymmetry (personas move what
+   the symbolic system controls — self-reports — and not conduct).
+
+2. Response-style vocabulary as the human-terms bridge (rgb: "we need
+   to talk about assistant-mass of self reports in human terms"): our
+   raw/entry-z/ipsatized rows map onto Cronbach-1946 response sets —
+   elevation = acquiescence, desirability freebie = social-desirability
+   set/halo, ipsatized shape = differentiated profile. "Extreme
+   acquiescent responders with a dominant SD set and a thin
+   differentiated profile" — methods-section prose candidate.
+
+3. Sycophancy column via the CoT-interp hint tasks (rgb's pick: LW
+   tDJWZLQNN7poqCwKa "[a Stanford prof / I] think X"; open-sourced;
+   Scruples + MMLU-family domains, symmetric suggest_right/wrong +
+   control, switch-rate ground truth at 50 rollouts/condition on
+   Qwen3-32B). Why it beats Han's Asch: attribution gradient separates
+   credibility-warranted deference from person-pleasing; symmetric arms
+   control accuracy-seeking; control arm gives per-item ground truth.
+   WHAT OUR STACK ADDS: (a) distributional switch rate — for
+   non-thinkers Δp(option) at the answer token is ONE forward pass vs
+   their 50 rollouts (distribution>argmax, again); thinkers get the MC
+   arm marginal; (b) n_think under hint — do deferent answers come from
+   the snap regime? (RT x sycophancy interaction); (c) their own interp
+   task (detect hint-following from CoT) meets our BOW-on-CoT +
+   probe tooling — TF-IDF being their most OOD-stable detector is the
+   symbolic/associative split in their data; (d) trait linkage: per-
+   model excess-deference vs our A-channel scores = the honest RQ2
+   replacement. Possible extra arm for our context: "another AI
+   assistant thinks X". Design doc before any GPU: instrument first,
+   cohort second.
