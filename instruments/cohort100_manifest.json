@@ -221,7 +221,8 @@
    "family": "gemma",
    "params_b": 31,
    "flags": [
-    "gated"
+    "gated",
+    "thinking"
    ],
    "generation": 2026
   },
@@ -491,7 +492,8 @@
    "family": "llama",
    "params_b": 8,
    "flags": [
-    "thinking"
+    "thinking",
+    "reasoning_default_off"
    ],
    "twin_of": "Llama3.1-8B",
    "generation": 2025
@@ -504,7 +506,8 @@
    "flags": [
     "thinking",
     "multimodal",
-    "needs_transformers_upgrade"
+    "needs_transformers_upgrade",
+    "always_think"
    ],
    "notes": "released 2026-08-11; model_type muse_glimmer unknown to transformers 5.8.1 \u2014 will quarantine until transformers ships support, then clear state entry and rerun",
    "generation": 2026
@@ -515,7 +518,8 @@
    "family": "qwen",
    "params_b": 27,
    "flags": [
-    "deltanet_hybrid"
+    "deltanet_hybrid",
+    "thinking"
    ],
    "notes": "released 2026-08-14; model_type qwen3_5 (Gated DeltaNet hybrid) \u2014 reads run on the measured eager-MPS fallback (qwen36 speed test); think arm deliberately withheld until the enact step's rollouts benchmark generation throughput \u2014 add 'thinking' flag and rerun if >~15 tok/s",
    "generation": 2026
