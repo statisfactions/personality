@@ -2004,3 +2004,39 @@ notes converged; full synthesis in bibliography.md entry). Follow-ups:
    replacement. Possible extra arm for our context: "another AI
    assistant thinks X". Design doc before any GPU: instrument first,
    cohort second.
+
+## Cube implication matrix: RESULT, prediction MISSED (2026-08-23)
+
+Dug out the 270-cube per rgb. The W12 Likert cells stored per-persona
+injected z's AND scored traits (cross_correlation computed in W12,
+never analyzed off-diagonal). Assembled B[injected, reported] for all
+90 Likert cells; projected HUMAN/JUDGE/REPRESENT/ENACT into the same
+trait basis via the cube's own marker-pole double difference
+(scripts/cube_implication_matrix.py).
+RAW comparison is UNDISCRIMINATING (everything matches everything
+0.85-0.95): at 5x5 grain one evaluative axis (N-vs-rest) dominates all
+five matrices (top-axis loadings near-identical). After rank-1
+evaluative-axis removal, the discrimination is real and STABLE across
+all 10 models:
+  IMPLICATION residual matches REPRESENT 0.72 ~= HUMAN 0.70
+                            >> JUDGE 0.54 ~= ENACT 0.55  (10/10 models
+  put REPRESENT/HUMAN on top, JUDGE below — sign-consistent).
+**REGISTERED PREDICTION (implication ~= JUDGE >> REPRESENT) MISSED.**
+The injection->self-rating round trip carries the ASSOCIATIVE/
+representational covariance structure, not the judgment geometry. In
+hindsight mechanistically sensible: the persona description conditions
+ratings through its embedding in the residual stream (a
+representational echo — consistent with W7 §11.5.9 internalization
+being representational at r~0.73), while tom_likely is an explicit
+inference task. "Symbolic-path round trip" was the wrong model.
+Han-relevant: their RQ3 "inconsistent secondary effects" (keyword
+personas, 2 traits) — the dosed version shows cross-effects are
+SYSTEMATIC and human-covariance-shaped (raw 0.92, residual 0.70) —
+persona injection moves self-reports coherently, not noisily. FG
+conditions barely change the pattern (structure survives faking).
+Caveat: 5x5 grain, ~30 markers; v2 = rgb's varimax route (human
+varimax loadings over all 523 rebuild Big5 — better-estimated
+projections, and lets the implication matrix be compared at factor
+grain against any channel). Registered for v2: same ordering
+(REPRESENT/HUMAN > JUDGE) survives the varimax basis.
+Data: results/persona/cube_implication_matrix.json.
