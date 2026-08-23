@@ -1777,3 +1777,21 @@ framing facet is not exchangeable noise: it has its own signal ordering
 that mirrors the symbolic-vs-associative split. (c) Slides not yet
 updated (population deck slide-4 axis-3 + summary footnote candidates).
 Data: results/adjectives/self_framing_sensitivity.json.
+
+### Glimmer-Thinking early read (2026-08-22, 2/6 framings in)
+rgb's hope confirmed, decisively. Prefill Glimmer was noise: sd .17-.25
+(flat), shape r with cohort mean = -0.19, cross-framing stability .14.
+Think arm (direct + assistant complete): sd 1.63/1.96 (fully
+articulated), cross-framing r .57 (ordinary), shape conformity with the
+cohort mean = 0.84 — it snaps straight onto the universal assistant
+shape once measured on-policy. Content sane: endorses harmless/polite/
+respectful/thinking/ARTIFICIAL, denies cruel/abusive/evil/ELDERLY (the
+nonsense-for-an-LLM category handled correctly). r(think, prefill) =
+.10-.15 — the prefill carried none of the signal. Prefill shelf-life
+thesis confirmed on the first always-think model: for the 2026
+generation the think arm is the primary SELF instrument, not a
+robustness check. n_think median 354, capped only 2-6%. Follow-ups when
+the run lands: swap Glimmer's row in the wide-SELF collection (EXCLUDE
+currently drops _think — needs an explicit prefer-think-for-always-think
+rule), and un-flag Glimmer from the framing-stability bottom (that spot
+was a prefill flatness artifact).
