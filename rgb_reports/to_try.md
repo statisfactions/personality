@@ -2075,3 +2075,20 @@ rgb: "slides say 4 dims survive — what's iPC4?" Chased it:
 CAVEAT for reading group: ranks 3-4 identities are roster-sensitive
 (that's WHY falcon mattered); iPC1-2 are anchors, the contested zone
 should be presented as such.
+
+### iPC5-11 naming + rank-stability boundary (2026-08-23, rgb)
+Bootstrap over models (200 reps, n=61): identity |r| and P(same rank)
+by axis — iPC1 .88/.88, iPC2 .86/.81, iPC3 .78/.75, iPC4 .66/.51,
+then the CLIFF: iPC5+ all ~.5 identity, P(same rank) .12-.28, tail
+compresses (rank 7->6, 9->7, 11->9 median). Boundary: FOUR nameable
+rank-stable axes; ranks 5-11 are a MIXING ZONE — clears Horn (k=11) so
+the bandwidth is real, but individual identities don't survive
+resampling ("bandwidth without axis-hood"). Only iPC5 merits a
+tentative name: AGENCY VS FELT-STATE (active/ambitious/organized vs
+fortunate/satisfied/heartbroken — negative pole mixes valences, so
+it's dispositions-vs-states; rhymes with JUDGE's state-vs-trait
+frustration mode). iPC6-7 vague (abrasive-vs-gentle w/ masculine
+loading; conventionalism), 8-11 unnamed. Slide 4 updated: iPC5 added
+with tentative marker + bootstrap note. Tool note: bootstrap chosen
+over jackknife (LOO under-perturbs at n=61; resampling gives the
+sampling distribution of the spectrum directly).

@@ -216,13 +216,19 @@ def main():
                   "iPC2 — exceptional vs plain",
                   "iPC3 — inapplicable-category policy (body/demographics "
                   "vs vices)",
-                  "iPC4 — warm someone vs useful something"]
-    for r_i in range(4):
+                  "iPC4 — warm someone vs useful something",
+                  "iPC5 — agency vs felt-state (tentative: rank unstable "
+                  "from here)"]
+    for r_i in range(5):
         vv = vi_[:, oi[r_i]]
         vv = vv * np.sign(vv[np.argmax(np.abs(vv))])
         t = ", ".join(labels[i] for i in np.argsort(-vv)[:6])
         b = ", ".join(labels[i] for i in np.argsort(vv)[:6])
         axes_txt.append(f"<b>{axis_names[r_i]}</b><br>   + {t}<br>   − {b}")
+    axes_txt.append(
+        "<i>Bootstrap (models resampled, 200×): iPC1–4 keep identity and "
+        "rank (P(same rank) .88/.81/.75/.51); from iPC5 the spectrum is a "
+        "mixing zone (P ≈ .2–.3) — real bandwidth, unstable identities.</i>")
     fig.add_annotation(text="<br><br>".join(axes_txt), xref="paper",
                        yref="paper", x=0.56, y=0.97, xanchor="left",
                        yanchor="top", align="left", showarrow=False,
