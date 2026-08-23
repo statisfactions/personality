@@ -366,13 +366,30 @@ def main():
         seen.add(r["cite"])
         return f"[@{r['cite']}]"
 
+    def render_pipe(header, body_rows, cap=None):
+        """Pipe table with content-proportional delimiter widths: pandoc
+        takes relative column widths from the DASH COUNTS in the delimiter
+        row when lines run long, so equal dashes would mean equal-width
+        p{} columns. cap[i] (optional) limits column i's dash count — used
+        where the rendered content is shorter than the source (citekeys
+        render as "(Author, year)")."""
+        cols = list(zip(*([header] + body_rows)))
+        w = [max(3, max(len(c) for c in col)) for col in cols]
+        d = [min(w[i], cap[i]) if cap and cap[i] else w[i]
+             for i in range(len(w))]
+        def line(cells):
+            return "| " + " | ".join(c.ljust(w[i])
+                                     for i, c in enumerate(cells)) + " |"
+        out = [line(header), "|" + "|".join("-" * (d[i] + 2)
+                                            for i in range(len(w))) + "|"]
+        out += [line(r) for r in body_rows]
+        return out
+
     seen = set()
-    lines = ["| Model | Family | Params (B) | Thinking | Citation |",
-             "|---|---|---|---|---|"]
-    for r in deep_rows:
-        lines.append(
-            f"| {r['display']} | {r['family']} | {r['params_b']} | "
-            f"{r['thinking']} | {cite_cell(r, seen)} |")
+    body = [[r["display"], r["family"], str(r["params_b"]), r["thinking"],
+             cite_cell(r, seen)] for r in deep_rows]
+    lines = render_pipe(["Model", "Family", "Params (B)", "Thinking",
+                         "Citation"], body, cap=[0, 0, 0, 0, 26])
     lines.append("\n: The deep cohort: all five channels (SELF, REPRESENT, "
                  "JUDGE, ENACT, and rollout text). Citations are shown at "
                  "first occurrence. {#tbl-cohort-small}\n")
@@ -382,14 +399,12 @@ def main():
     THINK_ABBR = {"none": "—", "hybrid": "hyb", "always": "alw",
                   "toggle (off by default)": "tog"}
     seen = set()
-    lines = ["| Model | B | Gen | Channels | Think | Status | Citation |",
-             "|---|---|---|---|---|---|---|"]
-    for r in wide_rows:
-        st = r["status"].split(":")[0]
-        lines.append(
-            f"| {r['display']} | {r['params_b']} | {r['generation']} | "
-            f"{r['channels']} | {THINK_ABBR[r['thinking']]} | {st} | "
-            f"{cite_cell(r, seen)} |")
+    body = [[r["display"], str(r["params_b"]), str(r["generation"]),
+             r["channels"], THINK_ABBR[r["thinking"]],
+             r["status"].split(":")[0], cite_cell(r, seen)]
+            for r in wide_rows]
+    lines = render_pipe(["Model", "B", "Gen", "Channels", "Think", "Status",
+                         "Citation"], body, cap=[0, 0, 0, 0, 0, 0, 26])
     lines.append("\n: The wide cohort. Channels: S = SELF, R = REPRESENT, "
                  "E = default-persona ENACT rollouts, T = thinking-mode SELF "
                  "arm. Think: hyb = hybrid reasoner, alw = always-think, "
