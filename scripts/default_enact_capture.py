@@ -55,8 +55,14 @@ def rollout_split_states(model, tok, input_ids, device, max_new_tokens,
         # legacy-cache custom code (InternLM2.5): regenerate cache-free
         out_ids = model.generate(input_ids, use_cache=False, **gen_kw)
     seq = out_ids[0]
+    # strip against the generation_config eos union — turn-enders like
+    # Phi-4's <|end|> differ from tok.eos and would land in the span means
+    stop_ids = {tok.eos_token_id}
+    gc_eos = getattr(model.generation_config, "eos_token_id", None)
+    stop_ids.update(gc_eos if isinstance(gc_eos, (list, tuple))
+                    else [gc_eos] if gc_eos is not None else [])
     end = seq.shape[0]
-    while end > prompt_len and seq[end - 1].item() == tok.eos_token_id:
+    while end > prompt_len and seq[end - 1].item() in stop_ids:
         end -= 1
     if end - prompt_len < 1:
         return None, None, None, "", 0

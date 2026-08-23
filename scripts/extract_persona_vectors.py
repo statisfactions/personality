@@ -246,9 +246,18 @@ def rollout_mean_states(model, tokenizer, input_ids, device, max_new_tokens,
             pad_token_id=tokenizer.eos_token_id,
         )
     seq = out_ids[0]
-    # Strip trailing eos/pad from the response span.
+    # Strip trailing terminators from the response span. generation_config
+    # eos is often a LIST that differs from tokenizer.eos_token_id (Phi-4
+    # ends turns with <|end|> while tok.eos is <|endoftext|>) — a survivor
+    # here lands in the activation mean while skip_special_tokens hides it
+    # from the text (2026-08-22 audit: r=.86 with the predicted 1/n weight
+    # at the final layer).
+    stop_ids = {tokenizer.eos_token_id}
+    gc_eos = getattr(model.generation_config, "eos_token_id", None)
+    stop_ids.update(gc_eos if isinstance(gc_eos, (list, tuple))
+                    else [gc_eos] if gc_eos is not None else [])
     end = seq.shape[0]
-    while end > prompt_len and seq[end - 1].item() == tokenizer.eos_token_id:
+    while end > prompt_len and seq[end - 1].item() in stop_ids:
         end -= 1
     start = prompt_len + skip_first
     if end - start < 1:

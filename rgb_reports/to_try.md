@@ -1795,3 +1795,36 @@ the run lands: swap Glimmer's row in the wide-SELF collection (EXCLUDE
 currently drops _think — needs an explicit prefer-think-for-always-think
 rule), and un-flag Glimmer from the framing-stability bottom (that spot
 was a prefill flatness artifact).
+
+## Terminator-token audit of ENACT spans (2026-08-22, rgb's code read)
+
+rgb, reading extract_persona_vectors: apply_chat_template closes the user
+turn + opens the model turn inside prompt_len (correct, front of span is
+clean), but the trailing strip matches ONLY tokenizer.eos_token_id while
+generation stops on the generation_config eos LIST — so a turn-ender that
+differs from tok.eos survives inside the activation mean, hidden from the
+text by skip_special_tokens. Audit results:
+- Config sweep (8 standing families): Llama/Qwen/Aya terminate with a
+  token == tok.eos (stripped, clean); Gemma-3 (<end_of_turn> vs <eos>)
+  and Phi-4 (<|end|> vs <|endoftext|>) are mismatch cases.
+- Wide-n __default__ capture (51 models, saved text keeps specials):
+  ZERO models >5% affected — median cap-hit rate is 100% at the
+  100-token budget, so a terminator is almost never emitted. (The dual
+  bias: nearly every wide-capture span ends MID-SENTENCE — uniform
+  across models, but worth remembering.)
+- Cohort-10 W17 personas: Gemma finished only 0.3-1.4% of rollouts (too
+  verbose) — my Gemma-massive-channel-artifact speculation from earlier
+  today is DEAD, graded down. Phi4 is the one live case: 24% finished,
+  per-persona finished-frac 0-0.93 (menace wing finishes early — short
+  refusals), avg_window=60 means the terminator enters only when
+  n_resp<=60.
+- Projection test (phi4-mini CPU forward for h(<|end|>), 524 saved
+  persona vectors): r(proj onto h_eot, predicted 1/n weight) = 0.861 at
+  the FINAL layer (~7% of vector norm) — the artifact is real and lands
+  exactly where predicted — but at mid-layer 16 where ENACT reads,
+  r=-0.14, ~1% share, sign-confounded with refusal content. W17/W18
+  phi4 conclusions unaffected.
+FIXED for future runs (both sites): strip against the union of
+generation_config.eos_token_id + tok.eos
+(extract_persona_vectors.rollout_mean_states,
+default_enact_capture.rollout_split_states). No recapture needed.
