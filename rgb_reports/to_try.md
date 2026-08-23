@@ -1903,3 +1903,33 @@ ordering unchanged. NOTE: slide-3 elevation poster (R1-Distill 5.97)
 sits on an excluded row — switch poster to StableLM2 (5.88, a keep).
 Decision pending rgb: adopt the exclusion in collect_self + population
 slides, or keep all-64 with a broken-rows footnote.
+
+### R1 rescue attempt (2026-08-23, rgb: "it'd be nice to rescue the R1s")
+
+Exclusion decision POSTPONED to the statisfactions conversation (rgb).
+Rescue avenues tried on the existing think-arm data, all graded:
+1. Censoring: ACQUITTED — capping only 2-5% on most framings (except
+   R1-Llama pda 48%); clean-only (finished + closed + digit) stability
+   stays 0.03/0.06. Not our budget's fault.
+2. Sampling noise: N/A BY DESIGN — think arms are greedy, so the
+   instability is deterministic sensitivity to prompt wording.
+3. Snap-regime sub-instrument: R1-Qwen snaps on pda/observer (med
+   n_think 49-64 vs ~340) but the pairwise matrix is flat everywhere
+   (all pairs <= 0.17; pda-observer 0.02). No coherent subset.
+4. Coarse-grain (Spearman-Brown at 44 blocks, expected ~0.4 if item
+   noise independent): R1-Qwen -0.06 (fails utterly), R1-Llama 0.27
+   (partial, still unusable) vs Glimmer 0.72 on the same test.
+KEY CHARACTERIZATION for the discussion: the R1s are CONFIDENTLY
+incoherent — decision-point entropy 0.06-0.22 (hard commitment to a
+digit) yet the digit doesn't reproduce under paraphrase, and the two
+R1s share no signal (cross-model clean-shape r 0.06, echoing the RT
+finding that even the two distills' difficulty maps are private).
+Proposed taxonomy for the exclusion argument (distinct mechanisms, not
+RDF cherry-picking): instrument-broken (InternLM: adjective-invariant
+dists), mode-broken (Glimmer-nothink: off-policy prefill, think arm
+healthy), respondent-absent (R1s: no framing-stable self-report exists
+at any grain). Last live rescue would need NEW data: sampled multi-seed
+replicates per item (60 adj x 2 framings x 5 seeds, small GPU job) to
+compare within-item across-seed vs across-framing variance — if seeds
+churn as much as framings, "respondent-absent" is definitive. Queued as
+optional pre-statisfactions ammunition.
