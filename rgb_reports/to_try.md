@@ -1718,3 +1718,62 @@ weak. Fig: slides_wide/fig_population_scatter.png. RDF defense for
 statisfactions: present raw/entry-z/ipsatized as a named 3-row
 specification table (endorsement+shape / ~elevation-removed / shape-
 only), full correction chain already logged with graded misses.
+
+## SELF framing sensitivity at wide-n (2026-08-22, rgb's request)
+
+The population story ran on 6-framing-averaged model-mean profiles (the a
+priori design). scripts/self_framing_sensitivity.py decomposes the full
+64 x 6 x 523 tensor and re-runs the story inside each framing.
+Registered predictions, graded:
+P1 elevation eta2 framing .45-.60 > model — **MISS, inverted**: wide-64
+   gives model .52 / framing .25. But standing-10 subset reproduces the
+   old audit (.21/.52): the inversion is COHORT COMPOSITION, not a bug.
+   The standing cohort was elevation-homogeneous modern mid-size
+   instructs; the wide cohort spans Llama2-2.4 to R1-distill-6.0.
+   Framing didn't shrink; between-model elevation variance grew 3x.
+P2 within-model cross-framing > between-model — hit: .69 vs .57
+   (vs .53 for neither — the universal-assistant-shape floor is high).
+P3 pda/person top human-match, assistant bottom — half hit: assistant is
+   the bottom (raw .57; pc1-removed CI [-.06,.03] — NO shape signal
+   beyond desirability), but the top is OBSERVER, not pda.
+P4 raw PC1 unipolar in every framing — hit: 98-100% positive loadings,
+   r(elevation) .984-.999 in all six.
+P5 per-framing ipsatized PR 10-16 — ~hit: 12.5-17.9 (mean6 11.6 is the
+   MINIMUM — averaging concentrates shared variance; thinness robust,
+   quote "12-18 per framing, 11.6 averaged" vs human 50).
+P6 best framing beats mean, SELF stays last — **half MISS, the big one**:
+   observer alone hits pc1-removed r=.479, CI [.34,.54],
+   P(>mean6)=1.00, P(>REPRESENT .41)=.69. SELF-as-observer would rank
+   third, at or above REPRESENT. The framing gradient (observer .48 >
+   pda .34 > person .31 > outputs .23 > direct .22 > assistant -.02) is
+   a route-to-judgment gradient: the more the framing asks for an
+   external viewpoint ("people who interact with me would describe me
+   as..."), the more human-congruent the shape — i.e. observer-SELF
+   recruits the JUDGE machinery (symbolic path), direct-SELF stays in
+   the self-endorsement basin. Leave-one-out: dropping assistant raises
+   mean6 .278->.311; dropping observer drops it to .249.
+Other findings:
+- assistant framing is the outlier everywhere: elevation 5.18 vs ~4.05
+  all others (the HHH sentence injects a full point of desirability),
+  least correlated with the other framings (.58-.65 vs .60-.80 block),
+  PRraw 2.0 (thinnest), zero beyond-PC1 congruence. It's a desirability
+  meter, not a self-report.
+- Ipsatized axes: iPC1 (virtue script) and iPC2 (exceptionalism) are
+  framing-stable (best-match |r| .80-.94); iPC3 ANXIETY IS NOT
+  (.14-.57) — the Neuroticism homolog is a property of the average,
+  fragile per framing. Downgrade the slide-4 axis-3 claim accordingly.
+- Per-model framing stability: r(stability, conformity)=.72 — stable
+  self-reporters are generic-shaped. CAVEAT: bottom of the ranking
+  (Glimmer .14, StableLM .23, R1-distill .35) is a FLATNESS artifact
+  (raw spread .10-.30 vs median .79; ipsatizing a flat profile
+  amplifies noise); gemma-2-2b (.37 stab at .69 spread) is the cleanest
+  genuinely framing-sensitive model. r(stability, raw spread)=.46.
+- Elevation ordering across models: Kendall W=.31 (assistant top for
+  most models; the rest weakly ordered).
+Implications: (a) the .28 channel number is a CONVENTION — honest range
+".28 averaged, .48 best-framing (observer), ~0 worst (assistant)"; the
+channel ranking's SELF<REPRESENT gap is not framing-robust. (b) The
+framing facet is not exchangeable noise: it has its own signal ordering
+that mirrors the symbolic-vs-associative split. (c) Slides not yet
+updated (population deck slide-4 axis-3 + summary footnote candidates).
+Data: results/adjectives/self_framing_sensitivity.json.
