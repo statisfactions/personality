@@ -227,8 +227,11 @@ def main():
         axes_txt.append(f"<b>{axis_names[r_i]}</b><br>   + {t}<br>   − {b}")
     axes_txt.append(
         "<i>Bootstrap (models resampled, 200×): iPC1–4 keep identity and "
-        "rank (P(same rank) .88/.81/.75/.51); from iPC5 the spectrum is a "
-        "mixing zone (P ≈ .2–.3) — real bandwidth, unstable identities.</i>")
+        "rank (P(same rank) .88/.81/.75/.51);<br>from iPC5 the spectrum is a "
+        "mixing zone (P ≈ .2–.3) — real bandwidth, unstable identities.<br>"
+        "Humans, same treatment (700 resampled, C&C-ipsatized): Horn 30, "
+        "identity survives to ~PC13 —<br>the criterion that stops models at "
+        "4 named axes stops humans at ~13.</i>")
     fig.add_annotation(text="<br><br>".join(axes_txt), xref="paper",
                        yref="paper", x=0.56, y=0.97, xanchor="left",
                        yanchor="top", align="left", showarrow=False,

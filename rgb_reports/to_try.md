@@ -2092,3 +2092,27 @@ loading; conventionalism), 8-11 unnamed. Slide 4 updated: iPC5 added
 with tentative marker + bootstrap note. Tool note: bootstrap chosen
 over jackknife (LOO under-perturbs at n=61; resampling gives the
 sampling distribution of the spectrum directly).
+
+### Human 525-PDA, same treatment (2026-08-23, rgb "for completeness")
+scripts/human_axis_stability.py (respondent-level .por, deny/swap fixes,
+NaN mean-imputed <1%, C&C ipsatize; 200-rep bootstrap over respondents).
+RAW: PR 27.2, Horn retains 23. PC1 = BIPOLAR adjustment/evaluative
+(well-adjusted vs unhappy — unlike the models' UNIPOLAR elevation:
+humans' first axis is substantive, models' is a response artifact);
+PC2 = exceptional-vs-ordinary (the models' iPC2 twin — strongest
+cross-population axis); PC3 warmth/femininity vs masculine-wealth;
+PC4 serious vs joyful; PC5 conventionality vs openness; PC6 calm vs
+extraverted. Recognizably lexical-Big-Five after the evaluative pair.
+IPSATIZED: PR 50.5, Horn retains 30. PC1 confidence/adjustment (N),
+PC2 modest-kind vs extraordinary-cocky, PC3 rational vs warm (T/F),
+PC4 neat-tense vs messy-relaxed, PC5 intellect(+depressive tinge),
+PC6 slim/attractive vs outgoing/loud/fat — humans HAVE an appearance
+axis, but it binds to extraversion/body-size, NOT to vice-denial: the
+model iPC3 (body-vs-vice) is the applicability-policy variant of it.
+RANK STABILITY: humans hold far deeper — raw P(same rank) >= .97
+through PC5, identity |r| >= .59 through PC13, cliff (~.5) at PC14-15;
+ipsatized solid through PC7-8 (PC4-5 swap-prone .67/.62), cliff also
+~PC14. THE COMPARISON LINE: the identity criterion that stops models
+at 4 named axes stops humans at ~13; bandwidth 14 vs 50, axis-hood
+4 vs 13 — both ~3x. Slide 4 note updated with the human row.
+Data: results/adjectives/human_axis_stability.json.
