@@ -2116,3 +2116,33 @@ ipsatized solid through PC7-8 (PC4-5 swap-prone .67/.62), cliff also
 at 4 named axes stops humans at ~13; bandwidth 14 vs 50, axis-hood
 4 vs 13 — both ~3x. Slide 4 note updated with the human row.
 Data: results/adjectives/human_axis_stability.json.
+
+### Varimax vs unrotated identity cliffs (2026-08-23, rgb's memory check)
+rgb: "I remember the varimax identity cliff being closer — like 6."
+GRADED: rgb HIT — human raw varimax cliff is 5-6 (k=5 all five factors
+certify at P(cong>=.90)>=.5, with F5/O borderline 0.50; k=6's placidity
+factor recovers at 0.09 — W14's 3% replicated). The ~13 in the deck was
+UNROTATED eigenvector identity — a different object: eigenvalue gaps
+protect variance-ordered axes; varimax factor-hood additionally demands
+stable item clusters, and past the last real cluster the rotation
+assembles its extra factor from tail smear.
+New facts from running the varimax bootstrap on all three matrices:
+- Human ipsatized is MORE varimax-stable than raw: 7/7 certify at k=7
+  (cliff ~8; k=9 factors 8-9 collapse to 0.09/0.01). Ipsatization
+  firms up the mid factors by draining the evaluative bloat.
+- Model population (n=61, ipsatized): my registered prediction
+  (cliff 3-4) MISSED — only ONE factor certifies (P .51-.73), all
+  others churn. BUT the matched-n control rescues the models: three
+  61-person human "studies" (self-referenced bootstrap, exactly
+  parallel design) certify ZERO factors at any k (P <= .29). The
+  varimax criterion is n-starved at 61 for everyone; the models' one
+  certifiable factor (evaluative) actually beats matched-n humans.
+  (First control attempt had a design flaw — human draws referenced
+  the 700-sample solution while models self-referenced; redone
+  parallel.)
+VERDICT for the deck: at population n, unrotated identity is the
+workable criterion (models 4, humans ~13); varimax factor-hood is the
+asymptotic criterion (humans 5 raw / 7 ipsatized; model asymptote
+unknowable until the cohort grows). Slide-4 note now carries both.
+Open: the model varimax asymptote is a wide-n-cohort-growth question —
+each new generation of models is another ~10 respondents.

@@ -229,9 +229,11 @@ def main():
         "<i>Bootstrap (models resampled, 200×): iPC1–4 keep identity and "
         "rank (P(same rank) .88/.81/.75/.51);<br>from iPC5 the spectrum is a "
         "mixing zone (P ≈ .2–.3) — real bandwidth, unstable identities.<br>"
-        "Humans, same treatment (700 resampled, C&C-ipsatized): Horn 30, "
-        "identity survives to ~PC13 —<br>the criterion that stops models at "
-        "4 named axes stops humans at ~13.</i>")
+        "Humans, same treatment (700, C&C-ipsatized): Horn 30, unrotated "
+        "identity to ~PC13 (vs models' 4).<br>Stricter varimax factor-hood: "
+        "humans certify 5 raw / 7 ipsatized factors (the W14 cliff at 6); "
+        "at n=61 varimax<br>certifies ~nothing for anyone — matched-n human "
+        "studies get 0 stable factors, models get 1 (the evaluative).</i>")
     fig.add_annotation(text="<br><br>".join(axes_txt), xref="paper",
                        yref="paper", x=0.56, y=0.97, xanchor="left",
                        yanchor="top", align="left", showarrow=False,
