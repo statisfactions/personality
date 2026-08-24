@@ -284,22 +284,42 @@ def main():
     wh_ips = np.sort(np.linalg.eigvalsh(np.corrcoef(Zh.T)))[::-1]
     L5, _ = kfactors(np.corrcoef(Mh.T), 5)
     L7, _ = kfactors(np.corrcoef(Zh.T), 7)
-    Ct = np.array([[tuck(L5[:, i], L7[:, j]) for j in range(7)]
-                   for i in range(5)])
-    fig = make_subplots(rows=1, cols=2, column_widths=[0.42, 0.58],
-                        subplot_titles=["human spectrum before / after "
-                                        "ipsatization",
-                                        "the 7 certified varimax factors "
-                                        "(ipsatized)"])
-    Kh = 10
-    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
-                         y=100 * wh_raw[:Kh] / n_ah,
-                         name="raw", marker_color="#a08c5b"), row=1, col=1)
-    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
-                         y=100 * wh_ips[:Kh] / n_ah,
-                         name="ipsatized", marker_color="#1d5fb8"), row=1, col=1)
-    fig.update_xaxes(title_text="component", row=1, col=1)
-    fig.update_yaxes(title_text="% variance", row=1, col=1)
+    whi, vhi = np.linalg.eigh(np.corrcoef(Zh.T))
+    ohi = np.argsort(-whi)
+    fig = make_subplots(
+        rows=2, cols=2, row_heights=[0.74, 0.26], vertical_spacing=0.09,
+        specs=[[{"type": "xy"}, {"type": "xy"}],
+               [{"type": "xy", "colspan": 2}, None]],
+        subplot_titles=["ipsatized, unrotated (PCs)",
+                        "ipsatized, varimax (the 7 certified factors)",
+                        "human spectrum before / after ipsatization"])
+
+    def pole_txt(vec, n=5):
+        t = ", ".join(labels_h[i] for i in np.argsort(-vec)[:n])
+        b = ", ".join(labels_h[i] for i in np.argsort(vec)[:n])
+        return t, b
+
+    upc_names = ["uPC1 — adjustment/confidence",
+                 "uPC2 — modest-kind vs extraordinary-cocky",
+                 "uPC3 — rational vs warm",
+                 "uPC4 — neat-tense vs messy-relaxed",
+                 "uPC5 — intellect (depressive tinge)",
+                 "uPC6 — appearance fused with (intro)version",
+                 "uPC7 — (unnamed)"]
+    left_txt = []
+    for j in range(7):
+        vv = vhi[:, ohi[j]]
+        vv = vv * np.sign(vv[np.argmax(np.abs(vv))])
+        t, b = pole_txt(vv)
+        left_txt.append(f"<b>{upc_names[j]}</b><br>   + {t}<br>   − {b}")
+    left_txt.append(
+        "<i>Unrotated PCs are variance-ordered blends: uPC3 straddles "
+        "hF2/hF3,<br>uPC6 fuses appearance with E.</i>")
+    fig.add_annotation(text="<br><br>".join(left_txt), xref="paper",
+                       yref="paper", x=0.0, y=0.99, xanchor="left",
+                       yanchor="top", align="left", showarrow=False,
+                       font=dict(size=10, color=INK))
+
     fac_names = [
         "hF1 — Neuroticism (distress vs security)",
         "hF2 — Agreeableness (warmth vs arrogance)",
@@ -310,22 +330,32 @@ def main():
         "hF7 — moral condemnation (the stigma factor)"]
     fac_txt = []
     for j in range(7):
-        t = ", ".join(labels_h[i] for i in np.argsort(-L7[:, j])[:5])
-        b = ", ".join(labels_h[i] for i in np.argsort(L7[:, j])[:5])
+        t, b = pole_txt(L7[:, j])
         fac_txt.append(f"<b>{fac_names[j]}</b><br>   + {t}<br>   − {b}")
     fac_txt.append(
-        "<i>Raw→ipsatized congruence: A .90, C .87, O .85 (invariant), "
-        "N .76; the raw charisma factor<br>(Exciting/Extraordinary vs "
-        "Plain/Shy) SPLITS into attractiveness (.65), extraversion (.58), "
-        "and<br>confidence→N (.61). The two bonus factors are liberated E "
-        "and the stigma factor — JUDGE's<br>stigma clique has a human "
-        "self-report cousin.</i>")
+        "<i>Raw→ipsatized congruence: A .90, C .87, O .85, N .76; the raw "
+        "charisma factor<br>(Exciting/Extraordinary vs Plain/Shy) splits "
+        "into attractiveness (.65), E (.58),<br>confidence→N (.61). Bonus "
+        "factors: liberated E + the stigma factor (JUDGE's<br>stigma clique "
+        "has a human self-report cousin).</i>")
     fig.add_annotation(text="<br><br>".join(fac_txt), xref="paper",
-                       yref="paper", x=0.47, y=0.95, xanchor="left",
+                       yref="paper", x=0.53, y=0.99, xanchor="left",
                        yanchor="top", align="left", showarrow=False,
-                       font=dict(size=11, color=INK))
-    fig.update_xaxes(visible=False, row=1, col=2)
-    fig.update_yaxes(visible=False, row=1, col=2)
+                       font=dict(size=10, color=INK))
+    for c in (1, 2):
+        fig.update_xaxes(visible=False, row=1, col=c)
+        fig.update_yaxes(visible=False, row=1, col=c)
+
+    Kh = 12
+    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
+                         y=100 * wh_raw[:Kh] / n_ah,
+                         name="raw", marker_color="#a08c5b"), row=2, col=1)
+    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
+                         y=100 * wh_ips[:Kh] / n_ah,
+                         name="ipsatized", marker_color="#1d5fb8"),
+                  row=2, col=1)
+    fig.update_xaxes(title_text="component", row=2, col=1)
+    fig.update_yaxes(title_text="% variance", row=2, col=1)
     base_layout(fig, "Appendix: humans under the same treatment",
                 "The 700-respondent 525-PDA through the identical pipeline: "
                 "raw PR 27.2 / Horn 23; ipsatized PR 50.5 / Horn 30; varimax "
