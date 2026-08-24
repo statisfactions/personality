@@ -2223,3 +2223,25 @@ orthographic artifact. Channel-table summary: REPRESENT certifies
 count alone doesn't discriminate reliable-and-human from
 reliable-and-alien. W14's "2-factor evaluative core" was about
 HUMAN-MATCHED structure and stands; internal structure is richer.
+
+### Slide 7 + rgb's centering/rotation bets graded (2026-08-23)
+rgb registered: "slide 7 is ipsatized-vs-not; rotating will just add
+more nonsense." GRADED, both halves miss informatively:
+1. Rotation-adds-nonsense: MISS with a twist — the hyphen/form
+   variance is already IN the unrotated top-6 (rPC3 is 60% hyphenated
+   in its top-20); varimax doesn't create it, it QUARANTINES it into
+   one factor (80%), leaving the other five cleaner. Rotation as
+   nonsense-localizer, not nonsense-generator.
+2. Centering-is-the-action: MISS — double-centering is a near-NO-OP
+   for REPRESENT (2x2 diagnostics identical to 2 decimals; same six
+   factors certify at .88-1.00). Mechanism: the acts were mean-centered
+   at grid construction, so the hubness/elevation analog barely exists
+   — there is nothing to unmask. The treatment that transformed SELF
+   (PR 2.8->14) and humans (27->50) is inert on REPRESENT. That
+   INERTNESS is the slide-7 finding: three populations, three
+   different responses to the same decomposition — humans (structure
+   under a halo), SELF (structure under a response artifact),
+   REPRESENT (structure with no general factor at all, but partly
+   organized by orthography and category rather than persons).
+Slide 7 added (unrotated-vs-varimax panels, raw-vs-centered spectrum
+along the bottom, per-PC hyphen annotations). Deck = 7 slides.

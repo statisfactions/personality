@@ -378,6 +378,92 @@ def main():
                 "hiding.")
     fig.write_image(OUT / "slide6_humans.png", scale=2)
 
+    # ---------- Slide 7: REPRESENT, same treatment (appendix) ----------
+    zr = np.load("results/adjectives/represent_permodel_S.npz")
+    Sr = zr["S"].astype(np.float64)
+    Sbar = Sr.mean(0)
+    def dcenter(Mx):
+        return (Mx - Mx.mean(1, keepdims=True) - Mx.mean(0, keepdims=True)
+                + Mx.mean())
+    hyph = np.array(["-" in l for l in labels])
+    wr = np.sort(np.abs(np.linalg.eigvalsh((Sbar + Sbar.T) / 2)))[::-1]
+    wc = np.sort(np.abs(np.linalg.eigvalsh(dcenter(Sbar))))[::-1]
+    wu, vu = np.linalg.eigh((Sbar + Sbar.T) / 2)
+    ou = np.argsort(-np.abs(wu))[:6]
+    L6r, var6r = kfactors(Sbar, 6)
+    REC = [0.97, 1.00, 0.96, 0.83, 0.93, 0.92]   # k=6 certification (logged)
+
+    fig = make_subplots(
+        rows=2, cols=2, row_heights=[0.74, 0.26], vertical_spacing=0.09,
+        specs=[[{"type": "xy"}, {"type": "xy"}],
+               [{"type": "xy", "colspan": 2}, None]],
+        subplot_titles=["consensus, unrotated (PCs)",
+                        "consensus, varimax (6 certified factors)",
+                        "consensus spectrum: raw vs double-centered "
+                        "(near-identical — nothing to unmask)"])
+    left_txt = []
+    for j in range(6):
+        vv = vu[:, ou[j]]
+        vv = vv * np.sign(vv[np.argmax(np.abs(vv))])
+        t = ", ".join(labels[i] for i in np.argsort(-vv)[:5])
+        b = ", ".join(labels[i] for i in np.argsort(vv)[:5])
+        hp = hyph[np.argsort(-np.abs(vv))[:20]].mean()
+        tag = f" — {hp*100:.0f}% hyphenated" if hp > 0.2 else ""
+        left_txt.append(f"<b>rPC{j+1}{tag}</b><br>   + {t}<br>   − {b}")
+    left_txt.append(
+        "<i>The form variance is already IN the unrotated top-6 "
+        "(rPC3 60% hyphenated):<br>rotation doesn't add nonsense, it "
+        "quarantines it.</i>")
+    fig.add_annotation(text="<br><br>".join(left_txt), xref="paper",
+                       yref="paper", x=0.0, y=0.99, xanchor="left",
+                       yanchor="top", align="left", showarrow=False,
+                       font=dict(size=10, color=INK))
+    rf_names = ["rF1 — repulsion vs warmth",
+                "rF2 — utility vs irritability ('useful something' again)",
+                "rF3 — delight vs discipline",
+                "rF4 — THE HYPHEN AXIS (80% hyphenated; orthography, "
+                "not personality)",
+                "rF5 — distress-affect vs assertive",
+                "rF6 — body/appearance category"]
+    right_txt = []
+    for j in range(6):
+        t = ", ".join(labels[i] for i in np.argsort(-L6r[:, j])[:5])
+        b = ", ".join(labels[i] for i in np.argsort(L6r[:, j])[:5])
+        right_txt.append(f"<b>{rf_names[j]} (P {REC[j]:.2f})</b><br>"
+                         f"   + {t}<br>   − {b}")
+    right_txt.append(
+        "<i>All six certify under model-resampling — but max Tucker to any "
+        "human factor is .53<br>(mean .42; E absent at .26). STABLE BUT "
+        "ALIEN: three valence flavors, one affect axis,<br>one semantic "
+        "category, one tokenization artifact. Certification measures "
+        "reliability,<br>not construct validity. Double-centering changes "
+        "none of this — REPRESENT never had<br>an elevation to remove.</i>")
+    fig.add_annotation(text="<br><br>".join(right_txt), xref="paper",
+                       yref="paper", x=0.53, y=0.99, xanchor="left",
+                       yanchor="top", align="left", showarrow=False,
+                       font=dict(size=10, color=INK))
+    for c in (1, 2):
+        fig.update_xaxes(visible=False, row=1, col=c)
+        fig.update_yaxes(visible=False, row=1, col=c)
+    Kr = 12
+    fig.add_trace(go.Bar(x=list(range(1, Kr + 1)), y=100 * wr[:Kr] / n_a,
+                         name="raw consensus", marker_color="#a08c5b"),
+                  row=2, col=1)
+    fig.add_trace(go.Bar(x=list(range(1, Kr + 1)), y=100 * wc[:Kr] / n_a,
+                         name="double-centered", marker_color="#1d5fb8"),
+                  row=2, col=1)
+    fig.update_xaxes(title_text="component", row=2, col=1)
+    fig.update_yaxes(title_text="% |eig|", row=2, col=1)
+    base_layout(fig, "Appendix: REPRESENT under the same treatment",
+                "The 63-model consensus geometry (bootstrap-over-models, "
+                "same varimax bar as humans): 6 factors certify — none of "
+                "them human. Unlike SELF and humans, centering is a no-op "
+                "(the acts were mean-centered at construction; there is no "
+                "elevation), and rotation localizes rather than creates the "
+                "form artifact. Channel summary: certified k=6, human-match "
+                "of certified structure ~0.42 (humans: 7 at 1.0).")
+    fig.write_image(OUT / "slide7_represent.png", scale=2)
+
     from PIL import Image
     files = sorted(OUT.glob("slide*.png"))
     imgs = [Image.open(f).convert("RGB") for f in files]
