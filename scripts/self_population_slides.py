@@ -48,13 +48,12 @@ def main():
     labels = [l.lower() for l in h["labels"]]
     n_a = len(labels)
 
-    # Roster (2026-08-23): drop the two clear measurement failures
-    # (InternLM2.5 instrument-broken, Glimmer prefill mode-broken — its
-    # think-arm row replaces it when complete) and bench falcon-7b on
-    # probation (flat row, spread 0.16, single-handedly rotates ipsatized
-    # shape axes: LOO 1-|r|=0.90 on iPC4). R1 distills stay pending the
-    # statisfactions decision.
-    DROP = {"internlm2_5-7b-chat", "Muse-Glimmer-30B", "falcon-7b-instruct"}
+    # Roster (2026-08-24): drop InternLM2.5 (instrument-broken) and bench
+    # falcon-7b on probation (flat row, spread 0.16, single-handedly
+    # rotates ipsatized shape axes: LOO 1-|r|=0.90 on iPC4). Glimmer is
+    # BACK IN via its completed think-arm row (fw.THINK_PREFER; prefill
+    # was mode-broken). R1 distills stay pending statisfactions.
+    DROP = {"internlm2_5-7b-chat", "falcon-7b-instruct"}
     by_repo = {}
     for p in glob.glob("results/adjectives/selfreport/*_self_full.json"):
         name = os.path.basename(p).replace("_self_full.json", "")
@@ -62,11 +61,16 @@ def main():
             continue
         repo = hf.resolve(name) if name in hf.MODELS else name.replace("_", "/", 1)
         by_repo.setdefault(repo, p)
+    for repo in fw.THINK_PREFER:          # always-think rows may exist
+        by_repo.setdefault(repo, None)    # only as _think files
     resp, models = [], []
     for repo, p in sorted(by_repo.items()):
         if repo.split("/")[-1] in DROP:
             continue
-        d = json.load(open(p))["results"]
+        path = fw.selfreport_path(repo, p)
+        if path is None:
+            continue
+        d = json.load(open(path))["results"]
         try:
             resp.append(np.mean([[d[f][a]["ev"] for a in labels]
                                  for f in afc.FRAMINGS], axis=0))

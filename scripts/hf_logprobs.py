@@ -158,7 +158,10 @@ def _shim_transformers_4x_api():
     helpers only — never behavioral APIs) so pinned custom code imports."""
     import transformers.utils as tu
     if not hasattr(tu, "LossKwargs"):
-        from typing_extensions import TypedDict
+        # stdlib typing, NOT typing_extensions: remote code mixes this into
+        # bases with 5.x TypedDicts (FlashAttentionKwargs) and the two
+        # TypedDict metaclasses conflict (InternLM3)
+        from typing import TypedDict
 
         class LossKwargs(TypedDict, total=False):
             pass
@@ -167,6 +170,39 @@ def _shim_transformers_4x_api():
     for mod in (tu, tu.import_utils):
         if not hasattr(mod, "is_torch_fx_available"):
             mod.is_torch_fx_available = lambda: False
+    # 4.x->5.x rename adapter: some pinned code calls
+    # create_causal_mask(..., input_embeds=) (EXAONE 3.5); 5.x spells it
+    # inputs_embeds. Pure kwarg alias, applied before the remote module
+    # binds the name at import.
+    import transformers.masking_utils as _mu
+    if not getattr(_mu.create_causal_mask, "_alias_shim", False):
+        _orig_ccm = _mu.create_causal_mask
+
+        def _ccm(*a, **k):
+            if "input_embeds" in k:
+                k["inputs_embeds"] = k.pop("input_embeds")
+            return _orig_ccm(*a, **k)
+
+        _ccm._alias_shim = True
+        _mu.create_causal_mask = _ccm
+    # legacy tied-weights format adapter: 4.x remote code declares
+    # _tied_weights_keys as a LIST (tie to input embeddings); 5.x expects a
+    # {target: source} dict (MiniCPM3). Convert with the documented old
+    # semantics before 5.x reads it.
+    from transformers import modeling_utils as _mou
+    if not getattr(_mou.PreTrainedModel.get_expanded_tied_weights_keys,
+                   "_list_shim", False):
+        _orig_gtw = _mou.PreTrainedModel.get_expanded_tied_weights_keys
+
+        def _gtw(self, *a, **k):
+            t = getattr(self, "_tied_weights_keys", None)
+            if isinstance(t, list):
+                emb = "model.embed_tokens.weight"
+                self.__class__._tied_weights_keys = {kk: emb for kk in t}
+            return _orig_gtw(self, *a, **k)
+
+        _gtw._list_shim = True
+        _mou.PreTrainedModel.get_expanded_tied_weights_keys = _gtw
 
 
 def load_model(name_or_repo: str, device: str | None = None, dtype=None):
@@ -209,6 +245,12 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
         from transformers.generation.utils import GenerationMixin
         model.prepare_inputs_for_generation = types.MethodType(
             GenerationMixin.prepare_inputs_for_generation, model)
+        # its forward also routes any cache through the removed
+        # DynamicCache.from_legacy_cache — disable caching entirely
+        # (slower generation, correct everywhere: enact/represent/forwards)
+        model.config.use_cache = False
+        if getattr(model, "generation_config", None) is not None:
+            model.generation_config.use_cache = False
         print(f"[hf_logprobs] swapped legacy prepare_inputs_for_generation "
               f"({repo})")
     model.eval()

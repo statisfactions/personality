@@ -34,7 +34,7 @@ def collect_tensor(labels):
         by_repo.setdefault(repo, p)
     T, models = [], []
     for repo, p in sorted(by_repo.items()):
-        d = json.load(open(p))["results"]
+        d = json.load(open(fw.selfreport_path(repo, p)))["results"]
         try:
             T.append([[d[f][a]["ev"] for a in labels] for f in FR])
             models.append(repo.split("/")[-1])

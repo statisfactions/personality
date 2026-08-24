@@ -2245,3 +2245,37 @@ more nonsense." GRADED, both halves miss informatively:
    organized by orthography and category rather than persons).
 Slide 7 added (unrotated-vs-varimax panels, raw-vs-centered spectrum
 along the bottom, per-PC hyphen annotations). Deck = 7 slides.
+
+## Overnight pass (2026-08-24, autonomous while rgb sleeps)
+
+QUEUE DRAINED: Glimmer think arm COMPLETE (all 6 framings, 0 nulls,
+elevation 3.49, spread 1.83, cross-framing stability 0.48, med n_think
+362, capped 3%) — a normal articulated respondent on-policy. Gemma4
+default-enact captured (modern trio now complete on E). Four stragglers
+FAILED on distinct remote-code x transformers-5.15 breaks, all fixed:
+- InternLM2.5 (enact): forward routes caches through removed
+  DynamicCache.from_legacy_cache -> config.use_cache=False at load in
+  the existing InternLM hook (fixes enact/represent/all forwards).
+- InternLM3 (self): our LossKwargs shim used typing_extensions.TypedDict
+  which metaclass-conflicts with 5.x typing.TypedDict bases -> stdlib
+  typing.TypedDict.
+- EXAONE3.5 (self->enact): remote code calls create_causal_mask(...,
+  input_embeds=) vs 5.x inputs_embeds -> kwarg alias wrapper in shim.
+- MiniCPM3 (self): _tied_weights_keys declared as 4.x LIST, 5.x wants
+  {target: source} dict -> legacy-format adapter on
+  get_expanded_tied_weights_keys (ties to model.embed_tokens.weight,
+  the documented old semantics).
+REQUEUED (waits for the MC runner to release the GPU). InternLM2.5's
+old selfreport renamed *_PRERETRY so the retry RE-RUNS self: the
+adjective-invariance retest (model-vs-harness for the exclusion
+dossier) is now armed.
+GLIMMER THINK-ROW SWAP LANDED (the 2026-08-22 follow-up):
+fw.THINK_PREFER + selfreport_path() prefer the think file for
+always-think models; wired into collect_self, the population-deck
+loader (Glimmer back IN the roster, n=62), and
+self_framing_sensitivity.collect_tensor. New headline numbers
+essentially unchanged: PRraw 2.8, PRips 14.3 (was 14.0 at n=61) —
+adding one articulated on-policy row doesn't move the thinness story.
+Deck rebuilt (live captions absorbed the roster change); cohort tables
+regenerated (Glimmer now SRET). R1-Qwen MC run started 1:29AM (~3h
+expected), Glimmer MC after; requeued stragglers after that.

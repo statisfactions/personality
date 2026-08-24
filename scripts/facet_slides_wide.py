@@ -27,7 +27,20 @@ import hf_logprobs as hf
 OUT = Path("results/persona_vectors/figs/slides_wide")
 SELF_DIR = "results/adjectives/selfreport"
 ACTS_DIR = "results/adjectives/acts"
-EXCLUDE = re.compile(r"Base|SFT|DPO|_bare|THINKOPEN|_think|_smoke")
+EXCLUDE = re.compile(r"Base|SFT|DPO|_bare|THINKOPEN|_think|_smoke|_PRERETRY")
+
+# Always-think models: the forced-prefill SELF row is off-policy noise
+# (Glimmer: prefill shape r=-0.19 with cohort vs think 0.84); prefer the
+# think-arm file when it exists (2026-08-24 swap, ledgered 2026-08-22).
+THINK_PREFER = {"meta-models/Muse-Glimmer-30B"}
+
+
+def selfreport_path(repo, default_path):
+    if repo in THINK_PREFER:
+        p = f"{SELF_DIR}/{repo.replace('/', '_')}_self_full_think.json"
+        if os.path.exists(p):
+            return p
+    return default_path
 
 
 def collect_self(labels):
@@ -40,7 +53,7 @@ def collect_self(labels):
         by_repo.setdefault(repo, p)
     resp, models = [], []
     for repo, p in sorted(by_repo.items()):
-        d = json.load(open(p))["results"]
+        d = json.load(open(selfreport_path(repo, p)))["results"]
         try:
             resp.append(np.mean([[d[f][a]["ev"] for a in labels]
                                  for f in afc.FRAMINGS], axis=0))
