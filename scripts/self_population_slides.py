@@ -273,6 +273,68 @@ def main():
                 f"{pr_ips:.0f} — human 50. Model personality is ~a dozen dimensions, whoever you ask.")
     fig.write_image(OUT / "slide5_shape.png", scale=2)
 
+    # ---------- Slide 6: humans, same treatment (appendix) ----------
+    from adjective_factor_bootstrap import kfactors, tuck
+    from human_axis_stability import load_human
+    Mh, labels_h = load_human()
+    Zh = (Mh - Mh.mean(1, keepdims=True)) / np.maximum(
+        Mh.std(1, keepdims=True), 1e-9)
+    n_ah = Mh.shape[1]
+    wh_raw = np.sort(np.linalg.eigvalsh(np.corrcoef(Mh.T)))[::-1]
+    wh_ips = np.sort(np.linalg.eigvalsh(np.corrcoef(Zh.T)))[::-1]
+    L5, _ = kfactors(np.corrcoef(Mh.T), 5)
+    L7, _ = kfactors(np.corrcoef(Zh.T), 7)
+    Ct = np.array([[tuck(L5[:, i], L7[:, j]) for j in range(7)]
+                   for i in range(5)])
+    fig = make_subplots(rows=1, cols=2, column_widths=[0.42, 0.58],
+                        subplot_titles=["human spectrum before / after "
+                                        "ipsatization",
+                                        "the 7 certified varimax factors "
+                                        "(ipsatized)"])
+    Kh = 10
+    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
+                         y=100 * wh_raw[:Kh] / n_ah,
+                         name="raw", marker_color="#a08c5b"), row=1, col=1)
+    fig.add_trace(go.Bar(x=list(range(1, Kh + 1)),
+                         y=100 * wh_ips[:Kh] / n_ah,
+                         name="ipsatized", marker_color="#1d5fb8"), row=1, col=1)
+    fig.update_xaxes(title_text="component", row=1, col=1)
+    fig.update_yaxes(title_text="% variance", row=1, col=1)
+    fac_names = [
+        "hF1 — Neuroticism (distress vs security)",
+        "hF2 — Agreeableness (warmth vs arrogance)",
+        "hF3 — Conscientiousness (order)",
+        "hF4 — Attractiveness (split off the raw charisma halo)",
+        "hF5 — Intellect / Openness",
+        "hF6 — Extraversion (clean only after ipsatizing)",
+        "hF7 — moral condemnation (the stigma factor)"]
+    fac_txt = []
+    for j in range(7):
+        t = ", ".join(labels_h[i] for i in np.argsort(-L7[:, j])[:5])
+        b = ", ".join(labels_h[i] for i in np.argsort(L7[:, j])[:5])
+        fac_txt.append(f"<b>{fac_names[j]}</b><br>   + {t}<br>   − {b}")
+    fac_txt.append(
+        "<i>Raw→ipsatized congruence: A .90, C .87, O .85 (invariant), "
+        "N .76; the raw charisma factor<br>(Exciting/Extraordinary vs "
+        "Plain/Shy) SPLITS into attractiveness (.65), extraversion (.58), "
+        "and<br>confidence→N (.61). The two bonus factors are liberated E "
+        "and the stigma factor — JUDGE's<br>stigma clique has a human "
+        "self-report cousin.</i>")
+    fig.add_annotation(text="<br><br>".join(fac_txt), xref="paper",
+                       yref="paper", x=0.47, y=0.95, xanchor="left",
+                       yanchor="top", align="left", showarrow=False,
+                       font=dict(size=11, color=INK))
+    fig.update_xaxes(visible=False, row=1, col=2)
+    fig.update_yaxes(visible=False, row=1, col=2)
+    base_layout(fig, "Appendix: humans under the same treatment",
+                "The 700-respondent 525-PDA through the identical pipeline: "
+                "raw PR 27.2 / Horn 23; ipsatized PR 50.5 / Horn 30; varimax "
+                "certifies 5 raw / 7 ipsatized factors (bootstrap cong ≥ .90"
+                "). Ipsatization here does what it did for models — drains "
+                "scale-use variance and unmasks structure the halo was "
+                "hiding.")
+    fig.write_image(OUT / "slide6_humans.png", scale=2)
+
     from PIL import Image
     files = sorted(OUT.glob("slide*.png"))
     imgs = [Image.open(f).convert("RGB") for f in files]

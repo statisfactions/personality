@@ -2146,3 +2146,31 @@ asymptotic criterion (humans 5 raw / 7 ipsatized; model asymptote
 unknowable until the cohort grows). Slide-4 note now carries both.
 Open: the model varimax asymptote is a wide-n-cohort-growth question —
 each new generation of models is another ~10 respondents.
+
+### Human appendix slide + Big-Five-under-ipsatization (2026-08-23, rgb)
+Slide 6 added to the population deck (appendix; slide 4 untouched):
+human spectrum before/after ipsatization + the 7 certified varimax
+factors. THE SHIFT ANSWER: A .90 / C .87 / O .85 raw->ipsatized
+congruence (invariant); N .76 (sheds evaluative content); and the raw
+"charisma halo" factor (Exciting/Extraordinary vs Plain/Shy — raw F2,
+where E hides) SPLITS THREE WAYS under ipsatization: attractiveness
+(.65), extraversion (.58), confidence->N (.61). The two bonus
+ipsatized factors: hF6 = CLEAN EXTRAVERSION (only exists as its own
+factor after scale-use variance is drained) and hF7 = MORAL
+CONDEMNATION (Evil/Corrupt/Insane/Awful) — the human self-report
+cousin of JUDGE's stigma clique. Human iF4 attractiveness = cousin of
+model iPC3 body axis (but bound to embodied covariance, not
+applicability policy).
+QUEUED (rgb: "worth thinking about how these work for REPRESENT"):
+channel factor-hood via bootstrap-over-models of the cohort-mean
+similarity matrix — REPRESENT has n=63 grids (JUDGE 12, ENACT 10), so
+"resample models, refactor the consensus grid, Tucker-match" is
+well-posed and gives a certified-factor count per channel comparable
+to human 5/7. Registered predictions: REPRESENT consensus certifies
+2-3 (evaluative core + affect-presence; W14's model collapse), JUDGE
+certifies MORE than REPRESENT (its varimax was the clean human-like
+one, W16), ENACT fewest (assistant-axis compression). Caveat to
+respect: model-resampling tests consensus stability, not respondent
+diversity — the SELF-population treatment stays the only true
+population PCA; also adjective-resampling (W14 §5) remains the
+item-facet twin.
