@@ -2279,3 +2279,29 @@ adding one articulated on-policy row doesn't move the thinness story.
 Deck rebuilt (live captions absorbed the roster change); cohort tables
 regenerated (Glimmer now SRET). R1-Qwen MC run started 1:29AM (~3h
 expected), Glimmer MC after; requeued stragglers after that.
+
+## MC-over-chains RESULTS: predictions graded (2026-08-24)
+
+R1-Qwen7 (smoke x 4 framings x K=8) + Glimmer (smoke x 2 x K=5) done.
+P1 (path-dominated) — HIT, and it's UNIVERSAL: across-path EV sd vs
+   within-path digit sd = 1.50 vs 0.11 (14x) for R1, 0.62 vs 0.03
+   (20x) for Glimmer. Transcription is always confident; deliberation
+   is where the uncertainty lives. The model-quality parameter is the
+   ABSOLUTE across-path sd: R1 re-asked the same item spreads +-1.5 EV
+   points on a 7-point scale (the greedy read was pseudo-random);
+   Glimmer 0.62. Honest note: because within-path sd is tiny, the
+   Rao-Blackwell variance gain over digit-counting was small in
+   absolute terms — the real value of the design is the decomposition
+   itself (ev_path_sd vs entropy), which is the diagnostic.
+P2 (Glimmer MC marginal r>0.9 with greedy) — PARTIAL: pda 0.92 hits,
+   direct 0.81 misses the bar. Greedy is a good-not-perfect proxy for
+   the marginal even in a path-stable model.
+P3 (R1 marginal more framing-stable than single paths, still <<
+   healthy) — HIT: MC marginal stability 0.23 vs greedy -0.00 on the
+   same smoke set (Glimmer greedy same-framings 0.54). Marginalizing
+   recovers real-but-weak structure. For the statisfactions dossier
+   the R1 verdict is now MEASURED, not inferred: even the correct
+   estimator gives a weakly-stable marginal (0.23), far below healthy
+   — "respondent-absent" softens one notch to "marginal exists but is
+   too unstable to use," exclusion recommendation unchanged.
+Data: *_self_smoke_thinkmc8/5.json.
