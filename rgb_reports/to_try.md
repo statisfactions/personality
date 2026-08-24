@@ -2187,3 +2187,39 @@ purity filter empty) — the human stigma factor is UNIPOLAR, the same
 shape as model elevation; slide previously printed a fake pole, now
 marked unipolar. Varimax panel switched to purity-ranked; unrotated
 panel keeps strongest (blending is its point).
+
+## REPRESENT factor-hood RESULT: stable but alien (2026-08-23)
+
+represent_factor_hood.py (63 per-model grids cached to
+represent_permodel_S.npz; bootstrap-over-models of the consensus mean,
+same varimax certification bar as humans). REGISTERED PREDICTION
+(2-3 certified: evaluative core + affect-presence) **MISSED on count**:
+the consensus certifies SIX factors (all P>=.88 at k=6; cliff at k=7).
+But none of them is a human factor — max cross-congruence to the human
+ipsatized 7 is 0.53, mean best ~0.42, E essentially absent (0.26).
+STABLE BUT ALIEN. The six:
+  rF1 repulsion vs warmth (bad/awful vs compassionate/caring)
+  rF2 UTILITY vs irritability (effective/useful/capable/valuable vs
+      grumpy/rude) — the "useful something" axis lives in the
+      associative geometry too (echo of SELF iPC4 warm-vs-useful)
+  rF3 delight vs discipline (lovely/adorable/hilarious vs
+      systematic/careful/strict)
+  rF4 THE HYPHEN AXIS: top-20 loaders 80% hyphenated vs 6% base rate,
+      r=.62 with the hyphenation indicator (well-to-do/self-sufficient/
+      good-for-nothing/wishy-washy — mixed valence, pure form). A
+      tokenization/orthography factor, bootstrap-stable BECAUSE form is
+      stable. Object lesson: certification measures reliability, not
+      construct validity.
+  rF5 distress-affect vs assertive (disappointed/worried/ashamed vs
+      bold/direct) — the affect-presence axis (the predicted part)
+  rF6 body/appearance category (young/slim/tall/clean vs interpersonal
+      nuisance)
+So: valence occupies THREE flavors (not one axis — W18 valence-as-axis,
+intensified), affect one, plus a semantic-category axis and an
+orthographic artifact. Channel-table summary: REPRESENT certifies
+6 (5 semantic + 1 orthographic), mean human-match of certified factors
+~0.42 — vs humans 7 certified at 1.0 by construction. The two-number
+(certified k, human-match) pair is the right per-channel summary;
+count alone doesn't discriminate reliable-and-human from
+reliable-and-alien. W14's "2-factor evaluative core" was about
+HUMAN-MATCHED structure and stands; internal structure is richer.
