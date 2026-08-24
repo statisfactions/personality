@@ -2174,3 +2174,16 @@ respect: model-resampling tests consensus stability, not respondent
 diversity — the SELF-population treatment stays the only true
 population PCA; also adjective-resampling (W14 §5) remains the
 item-facet twin.
+
+### Purity-ranked pole words on slide 6 (2026-08-23, rgb)
+rgb: strongest loadings, or purer words? EMPIRICAL: purity ranking
+(loading^2 / communality, floor |l|>=.25) does NOT produce nonsense —
+pure markers still load .40-.66 with only 7 factors extracted — and is
+more diagnostic: A+ gains Generous (drops cross-loading Kind/Warm),
+Attractiveness+ surfaces Cute/Young/Youthful (hidden age component),
+Intellect+ becomes Deep/Imaginative/Gifted (O-flavored). BONUS CATCH:
+hF7 stigma has NO real negative pole (best "negative" loaders .25;
+purity filter empty) — the human stigma factor is UNIPOLAR, the same
+shape as model elevation; slide previously printed a fake pole, now
+marked unipolar. Varimax panel switched to purity-ranked; unrotated
+panel keeps strongest (blending is its point).

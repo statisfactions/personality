@@ -328,10 +328,23 @@ def main():
         "hF5 — Intellect / Openness",
         "hF6 — Extraversion (clean only after ipsatizing)",
         "hF7 — moral condemnation (the stigma factor)"]
+    # purity-ranked poles: loading^2 share of the word's communality,
+    # floor |l| >= .25 (pure markers still load .40-.66 here; the check
+    # also exposed hF7's negative pole as nonexistent — unipolar)
+    h2c = (L7 ** 2).sum(1)
     fac_txt = []
     for j in range(7):
-        t, b = pole_txt(L7[:, j])
-        fac_txt.append(f"<b>{fac_names[j]}</b><br>   + {t}<br>   − {b}")
+        parts = []
+        for sign, mark in ((1, "+"), (-1, "−")):
+            lj = sign * L7[:, j]
+            pur = np.where(lj > 0.25, lj ** 2 / np.maximum(h2c, 1e-9), -1)
+            top = [i for i in np.argsort(-pur)[:5] if pur[i] > 0]
+            if len(top) < 2:
+                parts.append(f"   {mark} (no real pole — unipolar)")
+            else:
+                parts.append(f"   {mark} " + ", ".join(labels_h[i]
+                                                       for i in top))
+        fac_txt.append(f"<b>{fac_names[j]}</b><br>" + "<br>".join(parts))
     fac_txt.append(
         "<i>Raw→ipsatized congruence: A .90, C .87, O .85, N .76; the raw "
         "charisma factor<br>(Exciting/Extraordinary vs Plain/Shy) splits "
