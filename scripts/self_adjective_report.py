@@ -109,8 +109,13 @@ def think_distribution(model, tok, prompt, device, max_new=384,
     from selfperception_dose import digit_tokens
     dt = {tid: d for d, tids in digit_tokens(tok).items()
           for tid in tids}                      # {token_id: digit_str}
+    # enable_thinking=True: hybrid templates default it OFF (Gemma4 —
+    # its 2026-08-24 "think arm" was a silent prefill duplicate, n_think=0
+    # for all 3138 items); Qwen3-family defaults ON; templates without the
+    # variable ignore it.
     s = tok.apply_chat_template([{"role": "user", "content": prompt}],
-                                tokenize=False, add_generation_prompt=True)
+                                tokenize=False, add_generation_prompt=True,
+                                enable_thinking=True)
     ids = tok(s, add_special_tokens=False,
               return_tensors="pt").input_ids.to(device)
     if seed is not None:

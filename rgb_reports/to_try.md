@@ -2325,3 +2325,27 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
   PERMANENTLY (state note; 4th strike).
 - EXAONE: running (monitor armed); Gemma4/Qwen3.8 think arms follow
   after next restart picks up InternLM3-enact.
+
+## Reboot #5, EXAONE landed, Gemma4 "think arm" was a no-op (2026-08-25)
+
+- Watchdog resets: ResetCounter diags at 23:54 (Aug 24) and 00:29
+  (Aug 25) — "Boot faults: wdog,reset_in_1", no kernel panic; thermal
+  pressure elevated minutes before. The machine is hard-resetting
+  under sustained 27-31B MPS load, ~every few hours now (5 total).
+  Hardware/thermal, not our code. Checkpointing absorbs it; each reset
+  costs <= one framing of the running think arm.
+- EXAONE: DONE after the shared forward_with_hidden_states helper
+  (kwarg -> config flag -> decoder-stack hooks) fixed the represent
+  path too. Wide cohort now complete except MiniCPM3 (benched).
+- Gemma4 "think arm" completed suspiciously fast: n_think = 0 for all
+  3138 items, r(think, prefill) = 1.00 — Gemma4's template defaults
+  enable_thinking=False, so think_distribution's plain
+  apply_chat_template never engaged reasoning. Shelved as
+  *_think_NOTHINK_ARTIFACT.json (the THINKOPEN convention's twin). FIX:
+  apply_chat_template(..., enable_thinking=True) in the think arm
+  (Qwen3-family defaults ON — Qwen3.8's arm IS thinking, median 101
+  tokens, clean </think>; templates without the variable ignore it).
+  Gemma4 requeued for a real think arm; Qwen3.8 resumes from part.
+- Nemotron's toggle is system-prompt-based ("detailed thinking on"),
+  untouched by this fix — its think arm remains == prefill by design;
+  flagged reasoning_default_off already.
