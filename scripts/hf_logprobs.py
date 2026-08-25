@@ -455,3 +455,37 @@ def free_text(
     prompt_len = inputs["input_ids"].shape[1]
     generated = out[0, prompt_len:]
     return tok.decode(generated, skip_special_tokens=True).strip()
+
+
+def forward_with_hidden_states(model, **inputs):
+    """Forward pass that always yields hidden states. Tries the kwarg, then
+    the config flag, then forward hooks on the decoder stack (new-style
+    remote code — EXAONE — swallows both; hooks work regardless)."""
+    out = model(**inputs, output_hidden_states=True)
+    if out.hidden_states is not None:
+        return out
+    model.config.output_hidden_states = True
+    out = model(**inputs)
+    if out.hidden_states is not None:
+        return out
+    import torch.nn as nn
+    stack = None
+    for mod in model.modules():
+        if (isinstance(mod, nn.ModuleList) and len(mod) >= 8
+                and len({type(x) for x in mod}) == 1):
+            if stack is None or len(mod) > len(stack):
+                stack = mod
+    states, handles = [], []
+    handles.append(stack[0].register_forward_pre_hook(
+        lambda m, args: states.append(args[0])))
+    for lyr in stack:
+        handles.append(lyr.register_forward_hook(
+            lambda m, args, o: states.append(
+                o[0] if isinstance(o, tuple) else o)))
+    try:
+        out = model(**inputs)
+    finally:
+        for hd in handles:
+            hd.remove()
+    out.hidden_states = tuple(states)
+    return out

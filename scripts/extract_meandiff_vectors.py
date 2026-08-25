@@ -131,7 +131,8 @@ def hidden_states_for_text(model, tokenizer, text, device, split_prefix=None,
         start = 1 if n_total > 1 else 0
 
     with torch.no_grad():
-        outputs = model(**inputs, output_hidden_states=True)
+        import hf_logprobs as _hf
+        outputs = _hf.forward_with_hidden_states(model, **inputs)
 
     # Cast to fp32 BEFORE averaging: bf16 has ~3 significant digits, and the
     # trait signal is ~0.15% of activation norm, so a bf16-accumulated mean

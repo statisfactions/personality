@@ -74,35 +74,7 @@ def rollout_split_states(model, tok, input_ids, device, max_new_tokens,
         split = prompt_len + len(tok(text[:m.end()],
                                      add_special_tokens=False).input_ids)
         split = min(split, end - 1)
-    outputs = model(seq[:end].unsqueeze(0), output_hidden_states=True)
-    if outputs.hidden_states is None:
-        # some remote-code models only honor the config flag, not the kwarg
-        model.config.output_hidden_states = True
-        outputs = model(seq[:end].unsqueeze(0))
-    if outputs.hidden_states is None:
-        # last resort (EXAONE: new-style remote code whose kwargs plumbing
-        # swallows the flag entirely): capture per-layer states with forward
-        # hooks on the decoder stack — harness-side, no remote-code changes
-        import torch.nn as nn
-        stack = None
-        for mod in model.modules():
-            if (isinstance(mod, nn.ModuleList) and len(mod) >= 8
-                    and len({type(x) for x in mod}) == 1):
-                if stack is None or len(mod) > len(stack):
-                    stack = mod
-        states, handles = [], []
-        handles.append(stack[0].register_forward_pre_hook(
-            lambda m, args: states.append(args[0])))
-        for lyr in stack:
-            handles.append(lyr.register_forward_hook(
-                lambda m, args, out: states.append(
-                    out[0] if isinstance(out, tuple) else out)))
-        try:
-            outputs = model(seq[:end].unsqueeze(0))
-        finally:
-            for hd in handles:
-                hd.remove()
-        outputs.hidden_states = tuple(states)
+    outputs = hf.forward_with_hidden_states(model, input_ids=seq[:end].unsqueeze(0))
 
     def span_mean(a, b):
         if b - a < 1:
