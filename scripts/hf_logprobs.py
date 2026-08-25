@@ -237,10 +237,11 @@ def load_model(name_or_repo: str, device: str | None = None, dtype=None):
             repo, dtype=dtype, device_map=device, **rc)
         print(f"[hf_logprobs] loaded {repo} via AutoModelForImageTextToText "
               f"(text-only usage)")
-    if rc and "internlm2" in repo.lower():
+    if rc and "internlm" in repo.lower():
         # InternLM2.x custom prepare_inputs_for_generation assumes legacy
         # tuple caches (TypeError on 5.x Cache objects). The base impl
-        # handles this arch fine; swap the method in-process.
+        # handles this arch fine; swap the method in-process. InternLM3
+        # shares the cache disease via to_legacy_cache() in forward.
         import types
         from transformers.generation.utils import GenerationMixin
         model.prepare_inputs_for_generation = types.MethodType(

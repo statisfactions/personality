@@ -2305,3 +2305,23 @@ P3 (R1 marginal more framing-stable than single paths, still <<
    — "respondent-absent" softens one notch to "marginal exists but is
    too unstable to use," exclusion recommendation unchanged.
 Data: *_self_smoke_thinkmc8/5.json.
+
+### Stragglers-first pass results (2026-08-24 evening)
+Reordered manifest (stragglers front), killed the Gemma4 think arm
+(rgb's call), requeued. Results:
+- InternLM2.5: FULLY CAPTURED (self 13.8min + enact + represent) with
+  the use_cache-kill loader. INVARIANCE RETEST VERDICT: MODEL, NOT
+  HARNESS — the retry reproduces adjective-invariant digit
+  distributions exactly (spread 0.013, helpful-cruel gap flips sign,
+  old-vs-new profile r=0.11 — even the "reproducible lexical residue"
+  was within-run numerics). Exclusion cause now VERIFIED. Its
+  enact/represent rows are usable; its SELF row is not.
+- InternLM3: metaclass shim worked (SELF captured) but enact hit
+  to_legacy_cache — hook extended internlm2->internlm (cache kill for
+  the family); enact pending next restart.
+- MiniCPM3: got past loading (tied-weights shim) but its custom
+  attention computes WRONG SHAPES under 5.x (reshape 95x2560 vs
+  364800) — behavioral incompatibility, not shimmable. BENCHED
+  PERMANENTLY (state note; 4th strike).
+- EXAONE: running (monitor armed); Gemma4/Qwen3.8 think arms follow
+  after next restart picks up InternLM3-enact.
