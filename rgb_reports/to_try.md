@@ -2349,3 +2349,8 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
 - Nemotron's toggle is system-prompt-based ("detailed thinking on"),
   untouched by this fix — its think arm remains == prefill by design;
   flagged reasoning_default_off already.
+- Gemma4 REAL think arm verified at first checkpoint (2026-08-25 ~02:45):
+  direct framing 525/525, median n_think 316, zero no-think items, zero
+  nulls. Deliberation-budget series gains a point: R1 244 -> Qwen3
+  292-311 -> Gemma4 316 -> Glimmer 338-362. ~2h per framing at 31B;
+  full arm ~12-15h, then Qwen3.8's remaining five framings.
