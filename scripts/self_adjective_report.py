@@ -244,6 +244,10 @@ def main():
                 results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
                                      "dist": dist, "n_think": nthink,
                                      "tail": tail}
+                if len(results[fname]) % 20 == 0:   # watchdog-reset insurance
+                    with open(part, "w") as f:
+                        json.dump({"model": args.model,
+                                   "results": results}, f)
             else:
                 dist, _, ent = hf.likert_distribution(
                     model, tok, prompt, device, digits=DIGITS,
