@@ -181,6 +181,9 @@ def _shim_transformers_4x_api():
         def _ccm(*a, **k):
             if "input_embeds" in k:
                 k["inputs_embeds"] = k.pop("input_embeds")
+            # 4.x-era param 5.x derives internally; redundant with
+            # position_ids in these remote-code call sites (EXAONE)
+            k.pop("cache_position", None)
             return _orig_ccm(*a, **k)
 
         _ccm._alias_shim = True
