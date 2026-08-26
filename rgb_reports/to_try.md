@@ -2354,3 +2354,11 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
   nulls. Deliberation-budget series gains a point: R1 244 -> Qwen3
   292-311 -> Gemma4 316 -> Glimmer 338-362. ~2h per framing at 31B;
   full arm ~12-15h, then Qwen3.8's remaining five framings.
+- 2026-08-25 17:45: queue + Gemma4 think died WITHOUT a reboot
+  (uptime intact), coincident with a Claude Code session teardown —
+  nohup+disown did not survive the harness reaping its process group.
+  Gemma4 had 2/6 framings checkpointed (assistant: mean EV 5.01 — the
+  HHH framing inflating again). Relaunched via
+  subprocess.Popen(start_new_session=True) so the queue owns its own
+  session id; this is the launch form to use from now on (and what
+  resume_stack.sh should adopt).
