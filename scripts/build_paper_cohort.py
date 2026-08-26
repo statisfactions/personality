@@ -281,15 +281,26 @@ def cite_for(repo):
     return ""
 
 
-def coverage(repo, alt=None):
+# Channel letters: S SELF, R REPRESENT, J JUDGE, E persona ENACT (the
+# cohort-10 write-side extraction), D default-persona rollouts (the wide-n
+# __default__ capture — a different, weaker object). D is hidden from the
+# tables for now (rgb 2026-08-26); flip to True to show it.
+SHOW_DEFAULT_ENACT = False
+
+
+def coverage(repo, alt=None, deep=False):
     names = [repo.replace("/", "_")] + ([alt] if alt else [])
-    ch = []
-    for tag, pat in [("S", "results/adjectives/selfreport/{n}_self_full.json"),
-                     ("R", "results/adjectives/acts/{n}__pers.pt"),
-                     ("E", "results/cohort100/default_enact/{n}_default.pt"),
-                     ("T", "results/adjectives/selfreport/{n}_self_full_think*.json")]:
-        if any(glob.glob(pat.format(n=n)) for n in names):
-            ch.append(tag)
+    pats = [("S", "results/adjectives/selfreport/{n}_self_full.json"),
+            ("R", "results/adjectives/acts/{n}__pers.pt"),
+            ("T", "results/adjectives/selfreport/{n}_self_full_think*.json")]
+    if SHOW_DEFAULT_ENACT:
+        pats.insert(2, ("D", "results/cohort100/default_enact/{n}_default.pt"))
+    ch = [tag for tag, pat in pats
+          if any(glob.glob(pat.format(n=n)) for n in names)]
+    if deep:            # cohort-10 program: JUDGE + persona ENACT captured
+        ch = [c for c in ch if c not in "JE"]
+        ch.insert(min(2, len(ch)), "J")
+        ch.insert(min(3, len(ch)), "E")
     return "".join(ch)
 
 
@@ -316,7 +327,7 @@ def main():
             "name": e["name"], "repo": repo, "family": e["family"],
             "params_b": e["params_b"], "generation": e.get("generation", ""),
             "cohort": "deep+wide" if repo in deep_repos else "wide",
-            "channels": coverage(repo),
+            "channels": coverage(repo, deep=repo in deep_repos),
             "thinking": think_mode(e.get("flags", [])),
             "status": status, "cite": cite_for(repo)})
     DEEP_META = {  # family, params_b, generation for standing-cohort rows
@@ -409,9 +420,11 @@ def main():
             for r in wide_rows]
     lines = render_pipe(["Model", "Gen", "Channels", "Think", "Status",
                          "Citation"], body, cap=[0, 0, 0, 0, 0, 26])
-    lines.append("\n: The wide cohort. Channels: S = SELF, R = REPRESENT, "
-                 "E = default-persona ENACT rollouts, T = thinking-mode SELF "
-                 "arm. Status: excluded/flagged "
+    chan_legend = ("Channels: S = SELF, R = REPRESENT, J = JUDGE, E = persona "
+                   "ENACT, T = thinking-mode SELF arm"
+                   + (", D = default-persona rollouts" if SHOW_DEFAULT_ENACT
+                      else "") + ". ")
+    lines.append("\n: The wide cohort. " + chan_legend + "Status: excluded/flagged "
                  "rows per the measurement-failure taxonomy (see text). "
                  "Citations are shown at first occurrence. "
                  "{#tbl-cohort-large}\n")
