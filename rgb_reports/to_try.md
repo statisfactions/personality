@@ -2362,3 +2362,8 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
   subprocess.Popen(start_new_session=True) so the queue owns its own
   session id; this is the launch form to use from now on (and what
   resume_stack.sh should adopt).
+- 19:50 slowdown explained: Low Power Mode on battery (rgb unplugged
+  the machine for a while), not thermal throttling — my speculation
+  graded wrong; no OS thermal warnings recorded, correctly. Expect
+  ~15 s/item to resume on wall power; the 15-min throughput probe
+  measures the recovered rate.
