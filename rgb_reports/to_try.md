@@ -2367,3 +2367,12 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
   graded wrong; no OS thermal warnings recorded, correctly. Expect
   ~15 s/item to resume on wall power; the 15-min throughput probe
   measures the recovered rate.
+- Throughput verdict (20:50): post-bounce rate identical (20 items /
+  15 min ≈ 45 s/item) → the "3x slowdown" was MY BASELINE ERROR, not
+  the machine. The ~15 s/item figure came from assuming the first
+  framing finished when its monitor fired; the file timestamps say
+  direct+assistant (1050 items) took ~16h → ~45-55 s/item all along.
+  Sanity: 31B bf16 on MPS ≈ 7-8 tok/s × ~300 think tokens ≈ 40 s.
+  Low Power Mode was real but brief. HONEST ETA: Gemma4 ~25h more,
+  Qwen3.8 ~25h after → ~2 days for both think arms. Bounce cost <20
+  items; harmless.
