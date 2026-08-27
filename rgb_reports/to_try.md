@@ -2445,3 +2445,24 @@ DESIGN BACKLOG (rgb, so it isn't forgotten):
   numbers are consistent with a SINGLE random split of the same kind
   of data; no method mismatch needed to explain the k=3-4 gap. We'll
   report split-means with the sd (he reported point values).
+
+## 525 backfill: the two reinstated adjectives (2026-08-26, rgb reminder)
+
+Inspirational/Insensitive (reinstated 2026-08-14) are missing from
+every extraction that predates the reinstatement. INVENTORY (scan):
+- SELF: 17 files at 523 (standing deep-10 short names, base/SFT/DPO
+  rungs, Gemma4 both arms) vs 60 at 525. Cost trivial: 2 adj x 6
+  framings per model (+ think arms for Glimmer/Gemma4/Qwen3.8).
+- REPRESENT acts: 13 __pers.pt at 523 (deep-10 + Gemma4 + Qwen32 +
+  Aya-8b...) vs 53 at 525. Cost trivial: 2 adj x 4 framings.
+- ENACT: all 10 cohort persona sets at 524 (523 + __default__).
+  Cost moderate: 2 personas x 60 rollouts x 10 models (~1h total).
+- JUDGE: all tom_likely matrices at 523. Cost REAL: +2 rows and +2
+  cols = ~2,100 pair prompts per model x 12 models (~10-16h cohort-
+  wide, per the 2026-08-14 estimate).
+PLAN: a backfill mode per extraction script that appends only missing
+adjectives to existing files (never re-runs the full set); run in
+cost order SELF -> REPRESENT -> ENACT -> JUDGE; JUDGE last and only
+when the GPU is idle for a day. Until then, analyses that join to
+human data keep using the 523 intersection (escs_525pda_corr_raw.json
+labels = 523), and the paper's "523" footnote stays accurate.
