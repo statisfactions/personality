@@ -2436,3 +2436,12 @@ DESIGN BACKLOG (rgb, so it isn't forgotten):
    human vs model-population ipsatized scree); adopt his split-half-
    variables index alongside our bootstrap in the paper's stability
    table.
+- Split-sampling check (rgb): Saucier doesn't say how many splits; over
+  100 random splits of our human ipsatized data his Table-5 values land
+  INSIDE the 5-95% band for 7 of 9 k (percentile ranks 16-91%); the two
+  exceptions are k=3 (91st pct) and k=4 (97th: his .84 vs our median .67,
+  sd .08 — the widest split-to-split spread of any k, i.e. the genuine
+  instability zone where one lucky split reads high). Verdict: his
+  numbers are consistent with a SINGLE random split of the same kind
+  of data; no method mismatch needed to explain the k=3-4 gap. We'll
+  report split-means with the sd (he reported point values).
