@@ -2376,3 +2376,63 @@ Reordered manifest (stragglers front), killed the Gemma4 think arm
   Low Power Mode was real but brief. HONEST ETA: Gemma4 ~25h more,
   Qwen3.8 ~25h after → ~2 days for both think arms. Bounce cost <20
   items; harmless.
+
+## Saucier (1997) replication + design backlog (2026-08-26, rgb)
+
+Read tmp/Saucier1997.pdf (JPSP 73:1296). Fig 1 = first 25 eigenvalues,
+ipsatized self-ratings, four variable selections (all 500 / 455
+nonphysical / 252 broad dispositions / 239 dispositions+states);
+elbows after 3 and 5. Stability = SPLIT-HALF-VARIABLES (adjectives
+split randomly; PCA+varimax each half on full N; factor SCORES
+correlated across halves, matched 1:1) averaged with Tucker congruence
+vs the acquaintance sample; Everett's respondent-split (our bootstrap)
+noted as systematically higher. Table 5 all-500: .94 .85 .84 .78 .73
+.76 .64 .61 .58 (k=2..10); >.75 only k<=3 -> "three mega-factors."
+scripts/saucier_replication.py, registered + graded:
+P1 human replicates Table 5 within .05 — PARTIAL: k=2 .94 exact,
+   k=5-10 within .04 (.74 .71 .79 .67 .62 .61), but k=3-4 low (.77,
+   .67 vs .85, .84). k=4 dips exist in his own nonphysical row (.55);
+   our 525 includes the 25 Mini-Marker adds; scoring method
+   unspecified in his text. Qualitative pattern replicates: k=2 very
+   stable, plateau ~.6-.7 beyond.
+P2 model population lower & faster-decaying — MISS: ipsatized n=63
+   gives .85 .77 .82 .70 .66 .64 .62 .65 .60 ≈ HUMAN PARITY on the
+   item facet. (Raw model pop 1.00->.80: the unipolar elevation
+   general factor replicates from any item half — the unipolarity
+   finding in one line.) Reconciliation with the respondent bootstrap
+   (models certify 1 vs humans 5-7): the two facets measure different
+   things — item-split stability = factors are spread across many
+   items; person-resampling = factors are stable across who answers.
+   Models: item-robust, person-starved. Saucier AVERAGES the two; we
+   should report both rows (his convention, statisfactions-friendly).
+P3 REPRESENT high & flat (>=.8) — MISS, informative: three models
+   (Gemma3-12B / Qwen2.5-7B / Llama3.1-8B, hidden dims as
+   observations) give .93-.96 at k=2, .82-.93 at k=3, then ~.6 flat.
+   REPRESENT has 2-3 ITEM-REPLICABLE factors (the valence pair) — my
+   ORIGINAL bootstrap prediction was right on the item facet. The 6
+   model-resampling-certified factors ride on specific item sets
+   (the hyphen factor lives on ~32 words) and fail item-half
+   replication. Item-split stability is the natural detector for
+   item-specific artifacts; model-resampling can't see them because
+   the items never change.
+BANDS (rgb): the 525PDA_words.txt order has 7 alphabetical bands of
+exactly 75 = the 7 PAGES of Saucier's 75-per-page form (alphabet
+restarts at 75,150,...,450). NOT his four variable selections — those
+come from Study 1 prototype classifications (Angleitner categories,
+15 judges) which are NOT in the deposit (no value labels/notes;
+"list available from me"). Page bands are a nuisance facet (position
+effects) worth a control someday; category segmentation would need
+his prototype scores or our own reclassification.
+DESIGN BACKLOG (rgb, so it isn't forgotten):
+1. A standard "cooking" module for each instrument: raw / entry-z /
+   ipsatized / PC1-removed recipes as named functions, one place, so
+   every analysis cooks identically (the slide-vs-generation centering
+   confusion was exactly this). Doubles as the understandable analysis
+   subset for the paper's code release.
+2. hf_logprobs.py is misnamed — it's the extraction helper; logprob->EV
+   is one cooking, MC-over-chains another. Rename to
+   extraction_helper.py with an import shim (40+ scripts import it).
+3. Saucier Fig 1 replicated (results/adjectives/figs/saucier_fig1.png,
+   human vs model-population ipsatized scree); adopt his split-half-
+   variables index alongside our bootstrap in the paper's stability
+   table.
