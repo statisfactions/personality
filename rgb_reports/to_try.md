@@ -2466,7 +2466,9 @@ cost order SELF -> REPRESENT -> ENACT -> JUDGE; JUDGE last and only
 when the GPU is idle for a day. Until then, analyses that join to
 human data keep using the 523 intersection (escs_525pda_corr_raw.json
 labels = 523), and the paper's "523" footnote stays accurate.
-- Reboot #6 (~20:50, 2026-08-26): watchdog again. Gemma4 think arm was
+- Reboot #6 (~20:50, 2026-08-26): cause NOT a logged watchdog reset this
+  time (no new ResetCounter diag; latest is 08-25 00:29) — a deliberate
+  restart or a different fault. Gemma4 think arm was
   at observer 500/525 (5th of 6 framings); the 20-adjective
   checkpoints held it. Queue relaunched session-detached; Gemma4
   resumes with ~1 framing left, then Qwen3.8 (5 framings).
