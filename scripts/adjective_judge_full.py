@@ -98,7 +98,8 @@ def batch_ev_entropy(model, tok, device, texts, digit_ids):
     return ev, H
 
 
-def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode):
+def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
+              backfill=False):
     adjectives = load_adjectives()
     if limit:
         adjectives = adjectives[:limit]
@@ -112,11 +113,23 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode):
     B = np.full((n, n), np.nan, np.float32)
     Hent = np.full((n, n), np.nan, np.float32)
     done = 0
+    full_pairs = pairs
     if os.path.exists(path) and not limit:
         z = np.load(path, allow_pickle=True)
-        if list(z["adjectives"]) == adjectives and int(z["done"]) <= len(pairs):
+        old_adj = [str(a) for a in z["adjectives"]]
+        if old_adj == adjectives and int(z["done"]) <= len(pairs):
             B, Hent, done = z["B"].copy(), z["Hent"].copy(), int(z["done"])
             print(f"[resume] {short}: {done}/{len(pairs)} pairs done")
+        elif backfill and set(old_adj) < set(adjectives):
+            # 525 extension: keep every old cell, run only pairs touching
+            # the new adjectives (both directions), then mark complete
+            pos = {a: adjectives.index(a) for a in old_adj}
+            oi = [pos[a] for a in old_adj]
+            B[np.ix_(oi, oi)] = z["B"]; Hent[np.ix_(oi, oi)] = z["Hent"]
+            new_idx = {i for i, a in enumerate(adjectives) if a not in pos}
+            pairs = [(i, j) for (i, j) in pairs if i in new_idx or j in new_idx]
+            print(f"[backfill] {short}: +{len(new_idx)} adjectives -> "
+                  f"{len(pairs)} pairs")
         else:
             print(f"[restart] {short}: checkpoint mismatch, starting over")
 
@@ -164,6 +177,10 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode):
     gc.collect()
     if torch.backends.mps.is_available():
         torch.mps.empty_cache()
+    if pairs is not full_pairs:   # backfill: mark complete for the full list
+        np.savez(path, B=B, Hent=Hent, adjectives=np.array(adjectives),
+                 done=len(full_pairs), n_pairs=len(full_pairs))
+
     return path, adjectives, B, Hent
 
 
@@ -200,6 +217,9 @@ def main():
     ap.add_argument("--batch-size", type=int, default=32)
     ap.add_argument("--ckpt-batches", type=int, default=50)
     ap.add_argument("--limit", type=int, default=None, help="first N adjectives (smoke)")
+    ap.add_argument("--backfill", action="store_true",
+                    help="extend existing matrices to the 525 list: run only "
+                         "pairs touching adjectives the file lacks")
     args = ap.parse_args()
     for short in args.models:
         if short not in MODELS:
@@ -208,7 +228,7 @@ def main():
               f"both_dir={args.both_directions} =====")
         path, adj, B, Hent = run_model(short, args.both_directions,
                                        args.batch_size, args.ckpt_batches,
-                                       args.limit, args.mode)
+                                       args.limit, args.mode, backfill=args.backfill)
         if not args.limit:
             stats = headline(short, adj, B)
             stats["mean_entropy"] = float(np.nanmean(Hent))

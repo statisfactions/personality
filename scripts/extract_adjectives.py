@@ -77,6 +77,9 @@ def main():
                     choices=list(FRAMINGS))
     ap.add_argument("--limit", type=int, default=None,
                     help="only first N adjectives (smoke test)")
+    ap.add_argument("--backfill", action="store_true",
+                    help="append only adjectives missing from existing caches "
+                         "(525 extension); never recompute present rows")
     ap.add_argument("--bare", action="store_true",
                     help="no chat template (base/staged ckpts w/o one); '_bare' suffix")
     args = ap.parse_args()
@@ -94,7 +97,7 @@ def main():
         # Skip model entirely if all its framing caches exist.
         todo = [f for f in args.framings
                 if not (OUT_DIR / f"{safe(repo)}__{f}{suf}.pt").exists()
-                or args.limit]
+                or args.limit or args.backfill]
         if not todo:
             print(f"[skip] {model_name}: all framings cached")
             continue
@@ -104,13 +107,24 @@ def main():
         for framing in todo:
             template, prefix = FRAMINGS[framing]
             out = OUT_DIR / f"{safe(repo)}__{framing}{suf}.pt"
+            prior = None
             if out.exists() and not args.limit:
-                print(f"  [have] {framing}")
-                continue
+                if not args.backfill:
+                    print(f"  [have] {framing}")
+                    continue
+                prior = torch.load(out, map_location="cpu", weights_only=False)
+                have = {str(a).lower() for a in prior["adjectives"]}
+                todo_adj = [a for a in adjectives if a.lower() not in have]
+                if not todo_adj:
+                    print(f"  [have] {framing}: complete ({len(have)})")
+                    continue
+                print(f"  [backfill] {framing}: +{len(todo_adj)} {todo_adj}")
+            else:
+                todo_adj = adjectives
             print(f"  {framing}: {template!r} (read span after {prefix!r}), "
                   f"chat_template={not args.bare}")
             acts = []
-            for adj in adjectives:
+            for adj in todo_adj:
                 text = template.format(adj=adj.lower())
                 a = mdx.hidden_states_for_text(
                     model, tok, text, device,
@@ -120,7 +134,11 @@ def main():
                 # 65504 ceiling to inf, corrupting the whole cache.
                 acts.append(a.numpy())
             acts = np.stack(acts)  # (n_adj, n_layers+1, hidden)
-            torch.save({"acts": acts, "adjectives": adjectives,
+            saved_adjs = todo_adj
+            if prior is not None:
+                acts = np.concatenate([np.asarray(prior["acts"]), acts])
+                saved_adjs = list(prior["adjectives"]) + todo_adj
+            torch.save({"acts": acts, "adjectives": saved_adjs,
                         "framing": framing, "template": template,
                         "model": repo,
                         "transformers_version":

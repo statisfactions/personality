@@ -36,8 +36,8 @@ def main():
     if os.path.exists(out):
         print(f"[skip] {out} exists")
         return
-    h = json.load(open("results/adjectives/escs_525pda_corr_raw.json"))
-    labels = [l.lower() for l in h["labels"]]
+    from extract_adjectives import load_adjectives   # canonical 525
+    labels = sorted({a.lower() for a in load_adjectives()})
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     res = {}
     for a in labels:

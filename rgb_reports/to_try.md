@@ -2603,3 +2603,28 @@ confound, measurable per adjective (state words: implied >> direct);
 (2) with the level pinned, phi's item-level human match rises to
 ~.80, matching/exceeding column-centering; (3) fitted median P lands
 around .3-.4.
+
+## One queue, not a queue of queues (2026-08-28, rgb)
+
+rgb: 525 extension FIRST, then base rates. Reordered into a single
+detached pipeline (scripts/run_post_think_pipeline.sh) that waits for
+the cohort queue (think arms) to exit, then runs:
+  1. scripts/backfill_525.py — SELF (self_adjective_report --backfill:
+     loads the existing file, runs only missing adjectives, rewrites;
+     think files get --think) -> REPRESENT (extract_adjectives
+     --backfill: appends rows to existing __pers.pt) -> ENACT
+     (extract_persona_vectors --adjectives inspirational insensitive
+     --tag pda_backfill --no-save-acts, then the two checkpoints are
+     copied into {model}_pda_ckpt and finalize_from_checkpoints
+     rebuilds the aggregate model-free — the separate tag is what
+     stops a 2-adjective run from overwriting the full pda.pt) ->
+     JUDGE (adjective_judge_full --backfill: expands the 523 matrix,
+     runs only pairs touching new adjectives both directions, marks
+     complete for the full list).
+  2. base_rate_query.py (now on the 525 list) for the 12 JUDGE models
+  3. judge_base_rate_fit.py per model (CPU)
+The earlier base-rate-only runner (would have run on 523) was killed.
+Seeds note: the ENACT backfill's two conditions get ci=1,2 seeds
+(collide with abnormal/abusive from the original run) — harmless,
+different prompts. Every backfill step is idempotent (skips files
+already at 525).

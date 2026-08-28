@@ -163,6 +163,9 @@ def main():
     ap.add_argument("--mc-temp", type=float, default=0.6)
     ap.add_argument("--framings", nargs="+", default=None,
                     help="subset of framings to run (default: all six)")
+    ap.add_argument("--backfill", action="store_true",
+                    help="if the output exists, load it and run ONLY the "
+                         "adjectives it lacks (525 extension), then rewrite")
     args = ap.parse_args()
 
     # canonical 525 list (Inspirational/Insensitive reinstated 2026-08-14;
@@ -183,10 +186,19 @@ def main():
         tag = ("full" if args.full else "smoke") + f"_thinkmc{args.think_mc}"
     out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
-    if os.path.exists(out):
-        print(f"[skip] {out} exists")
-        return
     results = {}
+    if os.path.exists(out):
+        if not args.backfill:
+            print(f"[skip] {out} exists")
+            return
+        results = json.load(open(out))["results"]
+        missing = {f: [a for a in adjs if a not in results.get(f, {})]
+                   for f in results}
+        print(f"[backfill] {out}: missing per framing "
+              f"{ {f: len(v) for f, v in missing.items()} }")
+        if not any(missing.values()):
+            print("[backfill] nothing to do")
+            return
     if os.path.exists(part):
         results = json.load(open(part))["results"]
         print(f"resuming from {part} ({list(results)} done)")
