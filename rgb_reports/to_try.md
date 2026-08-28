@@ -2554,3 +2554,33 @@ only for the human comparison. Re-examine the JUDGE decomposition
   centered variance is directional; roughly half of that is the
   marginal (r-c) gradient, the rest curl; column-centering keeps the
   generosity half of the gradient because it is content.
+
+## JUDGE as an implied joint distribution (phi correlations) (2026-08-28, rgb)
+
+rgb: cor(a,b) ~ (P(b|a)P(a) - P(a)P(b)) / sqrt(var a var b) — put JUDGE
+on HUMAN's footing via the implied joint. Base rates recovered from the
+asymmetry: Bayes gives P(b|a)/P(a|b) = P(b)/P(a), so a Hodge-gradient
+solve on log B yields log P up to one constant; curl = Bayes-
+inconsistency. tmp/judge_phi.py, EV->P linear ((EV-1)/6), scale swept.
+REGISTERED: (1) phi matches HUMAN >= column-centering at block level
+and gives a meaningful item-level r; (2) recovered base rates r>.5
+with human mean self-rating.
+RESULTS: consistency — the single-base-rate gradient explains 55% of
+the directional log-ratio variance (45% curl = the model's implicit
+theory is Bayes-INCONSISTENT by that much; a new, interpretable JUDGE
+statistic). (2) MISS: r(recovered log P, human mean rating) = +.26;
+r with the incidence marginal +.78. The recovered "base rates" are
+STATE-incidence flavored — highest: frustrated, disappointed,
+uncomfortable, awake, thinking, exhausted; lowest: retarded, blind,
+tiny, artificial, dumb, handicapped — "how often is a person b" not
+"what fraction of people are b." (1) ~TIE/slightly worse: phi block
+sym .867-.886 (col-centered .918), pc1-removed .777-.817 (.811),
+item-level .747-.772 (col-centered .798, raw .740); scale sensitivity
+modest. Interpretation: column-centering IS the first-order phi —
+cov = P(a)[P(b|a) - P(b)] with P(a) and the variance normalization
+dropped — and the extra machinery adds noise from a crude linear
+scale map and an unidentified P scale rather than signal. Keep the
+principled derivation as the JUSTIFICATION for column-centering in
+the methods (it motivates the recipe from Bayes), keep column-
+centering as the recipe. Queued: fit a monotone EV->P map by
+maximizing Bayes-consistency (non-circular), then re-check phi.
