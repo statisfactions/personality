@@ -2536,3 +2536,21 @@ CANONICAL COOKING for JUDGE (cooking-module spec): subtract column
 means (incidence of the inferred trait), keep asymmetric; symmetrize
 only for the human comparison. Re-examine the JUDGE decomposition
 (Hodge gradient = incidence?) and the W16 varimax under this recipe.
+- CORRECTION (rgb asked how "asymmetry share" was measured): I had
+  printed ||M-M'||/||M||, which is neither a share (antisym share =
+  (ratio/2)^2) nor centering-invariant (column-centering injects a
+  gradient term c_a-c_b). Proper numbers (tmp/judge_asym.py,
+  antisymmetric variance share of the off-diagonal): raw incl. grand
+  mean 0.8% (denominator swamped by the 4.18 constant); GRAND-MEAN
+  REMOVED 13.3% — the honest figure, and it is NOT manufactured by
+  centering. Hodge split of that antisymmetric part: 58% gradient /
+  42% curl. The gradient potential is EXACTLY generosity minus
+  incidence (r(phi, r-c) = 1.00 — algebraic identity for the complete
+  graph), so column-centering removes the incidence half of the
+  gradient (share 42% gradient after) and double-centering removes
+  both (0% gradient, pure curl, antisym 8.3%). "The incidence term was
+  masking the directional structure" is RETRACTED: the ratio grew
+  because the denominator shrank. What stands: ~13% of JUDGE's
+  centered variance is directional; roughly half of that is the
+  marginal (r-c) gradient, the rest curl; column-centering keeps the
+  generosity half of the gradient because it is content.
