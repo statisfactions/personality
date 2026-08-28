@@ -2473,3 +2473,25 @@ labels = 523), and the paper's "523" footnote stays accurate.
   at observer 500/525 (5th of 6 framings); the 20-adjective
   checkpoints held it. Queue relaunched session-detached; Gemma4
   resumes with ~1 framing left, then Qwen3.8 (5 framings).
+
+## Response style transfers across instruments: SELF <-> JUDGE (2026-08-27, rgb)
+
+rgb: does answer bias/variance on SELF predict the same on JUDGE?
+Per-model style statistics (level, spread, entropy, extremity) on the
+six-framing SELF EVs vs the tom_likely JUDGE EV matrix, n=9 shared
+models (tmp/style_xfer.py; results/adjectives/self_judge_style_transfer.json).
+REGISTERED: entropy transfers (r>.6), level does NOT (<.3).
+RESULT: entropy r=+.95 (rho .98) — HIT, far stronger: peakedness is a
+model-level decoding/calibration trait (Gemma4 .04/.11, Phi4 1.27/1.27,
+FalconMamba 1.67/1.66). Level r=+.77 (rho .82) — MISS: acquiescence
+DOES transfer (Phi4 high on both, Qwen low on both). Extremity .74,
+spread .58. The human response-style story (Cronbach 1946: acquiescence
+and extremity as person traits that generalize across questionnaires)
+replicates with models as the persons.
+COROLLARIES (queued): (1) partial style (level, entropy) out of every
+cross-channel human-match comparison before claiming content differences;
+(2) JUDGE's mean level carries model acquiescence — re-examine the
+HodgeRank gradient/base-rate term with level partialed; (3) a
+model-level "response style" block (level, entropy) belongs in the
+cohort table / population scatter as covariates. Rerun with the three
+deep-cohort aliases resolved pending (n=12).
