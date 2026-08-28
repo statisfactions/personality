@@ -2584,3 +2584,22 @@ principled derivation as the JUSTIFICATION for column-centering in
 the methods (it motivates the recipe from Bayes), keep column-
 centering as the recipe. Queued: fit a monotone EV->P map by
 maximizing Bayes-consistency (non-circular), then re-check phi.
+
+## Direct base rates + joint LS for JUDGE (2026-08-28, rgb)
+
+rgb: "ask all the base rates and least squares." Instrument written:
+scripts/base_rate_query.py — one-premise twin of tom_likely ("Consider
+a randomly chosen person. How likely is this person to be {b}?", same
+scale and digit readout), 523 queries per model. Combiner:
+scripts/judge_base_rate_fit.py — minimize sum(Y_ab - (l_b - l_a))^2 +
+lam*sum(d_b - l_b)^2 (complete-graph Laplacian + lam*I), reports the
+coherence r(direct, pairs-implied psi), fitted level, and the phi
+matrix vs HUMAN. Runner queued behind the think arms
+(run_base_rates_after_queue.sh, 12 JUDGE models, minutes each).
+REGISTERED: (1) coherence r(d, psi) moderate, ~.5-.6 — the direct
+prompt is trait-flavored ("fraction of people") while the implied
+rates are state-incidence flavored; the gap IS the state/trait
+confound, measurable per adjective (state words: implied >> direct);
+(2) with the level pinned, phi's item-level human match rises to
+~.80, matching/exceeding column-centering; (3) fitted median P lands
+around .3-.4.
