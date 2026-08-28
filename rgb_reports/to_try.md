@@ -2506,3 +2506,33 @@ deep-cohort aliases resolved pending (n=12).
   (HodgeRank base-rate term = acquiescence) is therefore weakened;
   corollary (1) (partial entropy/extremity out of cross-channel
   comparisons) stands.
+
+## JUDGE cooking: column-centering is the right recipe (2026-08-27, rgb)
+
+rgb: "if JUDGE is a->b the natural centering is across the b's first —
+correcting for incidence of b — without symmetry first." Tested on the
+12-model cohort-mean asymmetric tom_likely matrix (tmp/judge_centering.py).
+REGISTERED: column-centered lands BETWEEN raw and double-centered on
+human match. MISS — it lands ABOVE both:
+  cooking            sym-match  pc1-removed
+  raw                  .862       .765
+  column-centered      .918       .811   <- best on both
+  row-centered         .889       .724
+  double-centered      .891       .709
+.811 PC1-removed is the highest human congruence any channel has
+posted. MECHANISM: the two marginals are different objects. Column
+means (incidence of b) are a nuisance — lowest: retarded, blind, tiny,
+senile, artificial (inapplicable/low-base-rate terms); highest:
+complex, valuable, lovable, awake, thinking (near-universal); r with
+human desirability only .52. Row means (premise generosity) are
+CONTENT — r=.80 with human desirability (generous premises ARE the
+desirable traits: the halo structure humans have too); removing them
+deletes signal, which is why double-centering under-performs. Our
+earlier double-centering over-corrected. Directional block-level
+matches are equal (a->b rows .871, b<-a cols .871). Asymmetry after
+column-centering .71 of norm (raw .18) — the incidence term was
+masking the directional structure.
+CANONICAL COOKING for JUDGE (cooking-module spec): subtract column
+means (incidence of the inferred trait), keep asymmetric; symmetrize
+only for the human comparison. Re-examine the JUDGE decomposition
+(Hodge gradient = incidence?) and the W16 varimax under this recipe.
