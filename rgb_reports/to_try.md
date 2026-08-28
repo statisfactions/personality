@@ -2495,3 +2495,14 @@ HodgeRank gradient/base-rate term with level partialed; (3) a
 model-level "response style" block (level, entropy) belongs in the
 cohort table / population scatter as covariates. Rerun with the three
 deep-cohort aliases resolved pending (n=12).
+- n=12 rerun (deep-cohort aliases fixed): entropy r=+.93 (rho .96) HOLDS;
+  extremity .71; spread .54; LEVEL DROPS to r=+.29 — the three small
+  deep models split it (Llama-3.2-3B SELF 3.77 / JUDGE 4.67; Qwen2.5-3B
+  4.59 / 3.72). Level transfer was a 9-model artifact; my original
+  prediction (level does NOT transfer, <.3) is graded a HIT at n=12,
+  the n=9 MISS retracted. Standing conclusion: entropy (and extremity)
+  are model-level response-style traits that generalize across
+  instruments; acquiescence LEVEL is instrument-specific. Corollary (2)
+  (HodgeRank base-rate term = acquiescence) is therefore weakened;
+  corollary (1) (partial entropy/extremity out of cross-channel
+  comparisons) stands.
