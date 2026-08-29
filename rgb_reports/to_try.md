@@ -2628,3 +2628,14 @@ Seeds note: the ENACT backfill's two conditions get ci=1,2 seeds
 (collide with abnormal/abusive from the original run) — harmless,
 different prompts. Every backfill step is idempotent (skips files
 already at 525).
+- Qwen3.8-27B think arm at ~30% GPU (rgb): confirmed kernel fallback —
+  transformers: "The fast path is not available ... Falling back to torch
+  implementation" (flash-linear-attention + causal-conv1d are CUDA/Triton;
+  no MPS build). The Gated-DeltaNet layers run a sequential torch
+  recurrence, so the GPU idles between small kernels (CPU 33%). Per-item
+  cost is still ~35 s (1,895 items in 18.7h) — comparable to Gemma4's
+  45 s — so it's latency-bound, not throughput-starved; ~12h remain.
+  OPTIMIZATION QUEUED (future runs, not mid-run): batch prompts in the
+  think arm (left-pad, per-sequence digit location) — raises utilization
+  for every model, and the MC arm batches its K paths for free (same
+  prompt, K sequences). Biggest win precisely for deltanet hybrids.
