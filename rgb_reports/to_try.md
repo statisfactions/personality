@@ -2639,3 +2639,9 @@ already at 525).
   think arm (left-pad, per-sequence digit location) — raises utilization
   for every model, and the MC arm batches its K paths for free (same
   prompt, K sequences). Biggest win precisely for deltanet hybrids.
+- 2026-08-29: cohort queue DONE (54 done / 2 failed): Qwen3.8 think arm
+  hit the step TIMEOUT with ~4 framings checkpointed (deltanet fallback
+  made it ~30h); MiniCPM3 = the permanent bench. The post-think pipeline
+  (525 backfill -> base rates -> LS fit) starts now, per rgb's ordering;
+  a detached waiter relaunches the cohort queue afterwards so Qwen3.8
+  resumes from its checkpoints (~12h remaining, within the timeout).
