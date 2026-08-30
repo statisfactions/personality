@@ -2807,3 +2807,13 @@ resume (last in chain) is now moot — its arm will be redone.
   calibration stays queued as the principled check, and if it lands
   near EV/8 the harking worry dissolves. judge_base_rate_fit's EV2P
   to be switched to EV/8.
+- Human P(a) (rgb): under the SAME EV/8 map, humans' mean base rate on
+  the 525-PDA is 0.52 (median .54; frac >=5 gives .55) — the pool is
+  desirability-skewed (highest: reliable/trustworthy/honest ~.82;
+  lowest: homeless/evil/insane ~.14). So the models' stated median
+  ~.68-.74 is inflated by ~.15-.20 over humans, NOT wildly
+  miscalibrated — softening my earlier "inflated level" framing. Also
+  the phi convention medP=.3-.4 is BELOW the human level; medP~.5 is
+  the human-matched choice (and was the best cohort pc1rm, .817).
+  r(human P(a), Llama stated) = .26 — stated rates barely track human
+  prevalence, same magnitude as the psi coherence.
