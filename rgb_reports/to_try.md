@@ -2703,3 +2703,12 @@ force-close (GPU-days) are required.
   mass audit of the wide cohort (smoke set x 1 framing per model) is
   queued for an idle GPU window; the placement check (A/B/C) on the 3B
   models reports first-digit positions meanwhile.
+- 2026-08-29 (rgb): AUDITS FIRST. Killed the pipeline mid-ENACT (Aya,
+  per-condition checkpoints; ~minutes lost) and all waiters; replaced
+  every runner with ONE chain (scripts/run_gpu_chain.sh): forced-close
+  smoke (Qwen3-8B @384 and @1024 for the budget dose, Qwen3.8-27B @384,
+  Glimmer @384) -> digit-mass audit -> cue-placement check -> 525
+  backfill (idempotent) -> base rates -> LS -> cohort queue (Qwen3.8
+  resume, deferred until the smoke says whether its 2,985 unforced items
+  can be mixed with forced-close ones or the arm must be redone).
+  --max-new flag added to the think arm (tag suffix _b{N}).

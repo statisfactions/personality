@@ -219,6 +219,8 @@ def main():
     ap.add_argument("--mc-temp", type=float, default=0.6)
     ap.add_argument("--framings", nargs="+", default=None,
                     help="subset of framings to run (default: all six)")
+    ap.add_argument("--max-new", type=int, default=384,
+                    help="think arms: generation budget (tokens)")
     ap.add_argument("--force-close", action="store_true",
                     help="think arms: if the cap is hit mid-reasoning, append "
                          "the model's close marker and read the forced answer")
@@ -245,6 +247,8 @@ def main():
         tag = ("full" if args.full else "smoke") + f"_thinkmc{args.think_mc}"
     if args.force_close:
         tag += "_fc"
+    if args.max_new != 384:
+        tag += f"_b{args.max_new}"
     out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
     results = {}
@@ -286,7 +290,8 @@ def main():
                 import zlib
                 for k in range(args.think_mc):
                     dist, ent, nthink, text, meta = think_distribution(
-                        model, tok, prompt, device, temperature=args.mc_temp,
+                        model, tok, prompt, device, max_new=args.max_new,
+                        temperature=args.mc_temp,
                         seed=1000 * k + zlib.crc32(a.encode()) % 997,
                         force_close=args.force_close, model_name=args.model)
                     samples.append(
@@ -310,8 +315,8 @@ def main():
                                    "results": results}, f)
             elif args.think:
                 dist, ent, nthink, text, meta = think_distribution(
-                    model, tok, prompt, device, force_close=args.force_close,
-                    model_name=args.model)
+                    model, tok, prompt, device, max_new=args.max_new,
+                    force_close=args.force_close, model_name=args.model)
                 if dist is None:
                     results[fname][a] = {"ev": None, "entropy": None,
                                          "n_think": nthink, "text": text,
