@@ -2655,3 +2655,41 @@ already at 525).
   mean within-path 0.09; Glimmer 0.36 vs 0.02 — the single-path entropy
   UNDERSTATES a thinker's uncertainty by ~10x. Report: marginal EV (RB),
   total variance, marginal entropy, and the within/across split.
+
+## MAJOR CORRECTION: think-arm censoring is 52-89%, not 2-27% (2026-08-29)
+
+Found while checking the digit heuristic (rgb: "think_distribution
+takes the last digit"). The stored 120-char tails carry the generation's
+end-of-turn token when it finished naturally; counting those:
+  Qwen3-14B 37% finished | Qwen3-8B 11% | R1-Qwen7 ~13% | R1-Llama8 ~13%
+  | Glimmer ~37% | Gemma4 48% | Nemotron 100% (no thinking)
+i.e. at max_new=384 the MAJORITY of think-arm items hit the cap while
+still reasoning. The earlier "capped 2-6% / 20-27%" numbers were WRONG
+because they keyed on the chosen digit's step (n_think >= 383), not on
+whether the sequence finished. Two markers were also missed: Gemma4
+closes reasoning with <channel|> (answer then <turn|>), Glimmer with
+<|eom|> then <|start|>assistant<|message|> ... <|eot|>; neither is in
+think_distribution's close list, so for them hits = ALL digits and the
+last-digit rule happened to pick the final answer when one existed.
+CONSEQUENCES: (1) for capped items the stored EV is the distribution at
+the LAST NUMBER MENTIONED MID-DELIBERATION ("I think 7 is safe...
+Provide 7") — a tentative-answer read, not a decision-point read; that
+it was nonetheless coherent (Glimmer conformity 0.84) is a finding
+about tentative answers, not about decisions. (2) The RT instrument:
+n_think for capped items = position of the last digit mention, not
+deliberation length; report_rt_prelim's censoring caveat (20-27%) is
+understated ~3x — corrected in the report. (3) The MC-arm marginals
+inherit the same censoring. (4) Style-transfer entropy numbers used
+prefill files, unaffected.
+FIXES (code): think_distribution now (a) knows the Gemma4/Glimmer
+close markers, (b) stores the FULL generated text + explicit
+finished/closed flags + sequence length, (c) has --force-close: at the
+cap, append the model's close marker and answer prefix and read the
+forced decision digit (s1-style budget forcing) — the censored read
+becomes an explicit budget-constrained decision instead of a silent
+mid-thought grab.
+REGISTERED (smoke-set experiment, queued for GPU): mid-thought
+last-mention EV vs forced-close decision EV on Qwen3-8B and Glimmer —
+r > .85, mean |dEV| < 0.4, forced-close entropy LOWER. If it holds, the
+existing arms stand with the caveat; if not, full re-runs with
+force-close (GPU-days) are required.

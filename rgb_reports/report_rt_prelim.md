@@ -105,3 +105,16 @@ prefills for all thinkers.
 ## Fig
 
 fig_rt_conflict.png — binned RT vs |EV-4| curves, all four models.
+
+> **Correction (2026-08-29).** The censoring figures above (20–27% of
+> mid-range items cap-censored) are understated by roughly 3×. Counting
+> end-of-turn tokens in the stored generation tails, the fraction of
+> think-arm items that *finished* within the 384-token budget is:
+> Qwen3-14B 37%, Qwen3-8B 11%, R1-Qwen7 ≈13%, R1-Llama8 ≈13%, Glimmer
+> ≈37%, Gemma4 48%. The earlier statistic keyed on the chosen digit's
+> position rather than on sequence completion. For capped items the
+> recorded EV is the distribution at the last number mentioned while
+> still deliberating (a tentative-answer read), and `n_think` is that
+> position, not deliberation length. The two-regime shape should be
+> re-derived on finished items only, or on forced-close re-runs
+> (`--force-close`), before any RT claim is carried into the paper.
