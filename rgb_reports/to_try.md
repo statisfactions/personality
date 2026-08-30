@@ -2832,3 +2832,19 @@ resume (last in chain) is now moot — its arm will be redone.
   (Correction, rgb: the extremes are shrunk toward 0.5, not sitting at
   the bounds — across-respondent averaging is a SECOND compression on
   top of the bounded scale; the anchor calibration must undo both.)
+- Llama stated-vs-implied drift structure (rgb): SEMI-CONCENTRATED —
+  top 5% of adjectives carry 37% of squared drift (top 10%: 50%),
+  kurtosis 5.8, but a long shoulder (113/523 beyond 1.5z). The
+  direction is legible (post-hoc read, not registered): implied >>
+  stated = stigma + distress (retarded, prejudiced, abusive, corrupt,
+  depressed, exhausted, anxious) — the conditionals treat condemned
+  traits and states as common while the DIRECT query says rare;
+  stated >> implied = breezy positives (cool, glamorous, exciting,
+  fine, great). Reading: the direct prevalence instrument inherits
+  SOCIAL DESIRABILITY (polite answers: bad things rare, nice things
+  common) while the asymmetry-implied rates encode the candid
+  co-occurrence beliefs — i.e., even prevalence judgments are
+  desirability-laden when asked directly, and the pairwise route
+  bypasses it. If this replicates across the cohort (base rates for
+  the other 11 land with the chain), it's a paper point: the
+  stated-vs-implied gap is an SDR meter for prevalence.
