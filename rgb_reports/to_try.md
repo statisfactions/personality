@@ -2817,3 +2817,15 @@ resume (last in chain) is now moot — its arm will be redone.
   the human-matched choice (and was the best cohort pc1rm, .817).
   r(human P(a), Llama stated) = .26 — stated rates barely track human
   prevalence, same magnitude as the psi coherence.
+- Tail compression (rgb): the human P(a) extremes (.14/.82) are the
+  EV/8 map's own bounds leaking through (mean ratings ~1.15 and ~6.6)
+  — true tail prevalences (homeless ~0.002) are ~100x outside what a
+  bounded Likert map can express. Mid-scale P is fine; tail p(1-p) is
+  inflated for rare traits (deflating their phi correlations — shared
+  bias across human and model matrices, so comparisons survive,
+  absolutes don't). CALIBRATION DESIGN OF CHOICE (registered, ahead of
+  the Bayes-consistency fit): logit-linear monotone EV->P map anchored
+  to REAL population statistics for the ~dozen anchorable adjectives
+  (homeless, blind, unemployed, elderly, ...) — external ground truth,
+  non-circular, stretches the tails, and makes stated P(a) an actual
+  probability claim.
