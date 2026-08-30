@@ -1,0 +1,11 @@
+# LLM-personality data release (Tier 1) — 20260630
+# rgb track. EXCLUDES raw *_pda.pt (~65 GB) and *_pda_ckpt checkpoints.
+# Each *.tar.gz = small/text products; each *.tar = big .pt binaries.
+# See README inside persona_vectors_products / judge_likert for formats.
+
+ 17G	adjectives_20260630.tar
+2.3G	repe_20260630.tar
+ 23M	judge_likert_20260630.tar.gz
+ 45M	persona_20260630.tar.gz
+145M	persona_vectors_products_20260630.tar.gz
+ 28M	surveys_misc_20260630.tar.gz
