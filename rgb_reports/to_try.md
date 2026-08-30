@@ -2848,3 +2848,16 @@ resume (last in chain) is now moot — its arm will be redone.
   bypasses it. If this replicates across the cohort (base rates for
   the other 11 land with the chain), it's a paper point: the
   stated-vs-implied gap is an SDR meter for prevalence.
+- CORRECTION to the SDR-meter reading (rgb's "rejection of negative
+  correlations" poke): the stigma drift is a STATED-SIDE effect, not an
+  implied-side one. Directional means: stigma IN 4.45 vs OUT 4.48
+  (NO level asymmetry — the conditionals treat stigma prevalence as
+  middling, psi ~ average; rgb's mental model of refused negative
+  generalization survives untouched); the drift comes from the DIRECT
+  query rating stigma words extra-rare (desirability politeness).
+  Distress is the genuinely-common case (IN 5.03 vs OUT 4.35, a real
+  level asymmetry); breezy positives are genuinely implied-rare
+  (OUT 4.94 halo vs IN 4.50). "Rare vs more-rare" isn't needed either:
+  low-low cells are ~2 per stigma word. So the SDR-meter reading gets
+  CLEANER: for stigma the stated-vs-implied gap is pure direct-
+  instrument politeness, with the pairwise side neutral.
