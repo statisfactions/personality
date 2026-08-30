@@ -89,8 +89,26 @@ def ev_of(dist):
     return sum(int(k) * p for k, p in dist.items()) / tot
 
 
+CLOSE_MARKERS = ("</think>", "</thinking>", "<|end_of_thought|>",
+                 "<channel|>",        # Gemma-4: reasoning ... <channel|>ANSWER<turn|>
+                 "<|eom|>")           # Glimmer: analysis ... <|eom|><|start|>assistant<|message|>ANSWER<|eot|>
+
+
+def force_close_string(tok, model_name=""):
+    """Model-specific 'stop reasoning, answer now' prefix (s1-style budget
+    forcing). Appended when the generation hits the cap while still
+    reasoning, then a few more tokens are generated to read the digit."""
+    n = (model_name or getattr(tok, "name_or_path", "") or "").lower()
+    if "gemma-4" in n or "gemma4" in n:
+        return "<channel|>"
+    if "glimmer" in n:
+        return "<|eom|><|start|>assistant<|message|>"
+    return "</think>\n\n"
+
+
 def think_distribution(model, tok, prompt, device, max_new=384,
-                       temperature=None, seed=None):
+                       temperature=None, seed=None, force_close=False,
+                       model_name=""):
     """Thinking-model arm: generate (reasoning allowed, greedy), find the
     final answer digit in the output, and read the FULL digit distribution
     at that step — distributional readout at the post-deliberation decision
@@ -127,17 +145,49 @@ def think_distribution(model, tok, prompt, device, max_new=384,
                          pad_token_id=tok.eos_token_id, **sample_kw)
     seq = out.sequences[0, ids.shape[1]:].tolist()
     text = tok.decode(seq, skip_special_tokens=False)
-    close = max((text.rfind(m) for m in ("</think>", "</thinking>",
-                                         "<|end_of_thought|>")), default=-1)
+    eos_ids = set(getattr(model.generation_config, "eos_token_id", None) or [])
+    if isinstance(model.generation_config.eos_token_id, int):
+        eos_ids = {model.generation_config.eos_token_id}
+    eos_ids.add(tok.eos_token_id)
+    finished = len(seq) < max_new or seq[-1] in eos_ids
+    close = max((text.rfind(m) for m in CLOSE_MARKERS), default=-1)
+    meta = {"n_gen": len(seq), "finished": bool(finished),
+            "closed": bool(close >= 0), "forced": False}
+    scores = out.scores
+    if force_close and not finished and close < 0:
+        # budget forcing: end the reasoning ourselves and read the decision
+        fc = force_close_string(tok, model_name)
+        ids2 = torch.cat([ids, torch.tensor([seq], device=device),
+                          tok(fc, add_special_tokens=False,
+                              return_tensors="pt").input_ids.to(device)], 1)
+        out2 = model.generate(ids2, max_new_tokens=8, do_sample=False,
+                              output_scores=True, return_dict_in_generate=True,
+                              pad_token_id=tok.eos_token_id)
+        seq2 = out2.sequences[0, ids2.shape[1]:].tolist()
+        text = text + fc + tok.decode(seq2, skip_special_tokens=False)
+        hits2 = [i for i, t in enumerate(seq2) if t in dt]
+        meta["forced"] = True
+        if not hits2:
+            return None, None, len(seq), text, meta
+        step = hits2[0]
+        logits = out2.scores[step][0].float()
+        probs = torch.softmax(logits, dim=-1)
+        dist = {}
+        for tid, d in dt.items():
+            dist[d] = dist.get(d, 0.0) + probs[tid].item()
+        tot = sum(dist.values())
+        dist = {k: v / tot for k, v in dist.items()}
+        ent = -sum(p * math.log(p) for p in dist.values() if p > 0)
+        return dist, ent, len(seq), text, meta
     hits = [i for i, t in enumerate(seq) if t in dt]
     if close >= 0:
         after = len(tok(text[:close], add_special_tokens=False).input_ids)
         post = [i for i in hits if i >= after]
         hits = post or hits
     if not hits:
-        return None, None, len(seq), text[-120:]
-    step = hits[-1]
-    logits = out.scores[step][0].float()
+        return None, None, len(seq), text, meta
+    step = hits[-1] if close < 0 else hits[0]   # first digit AFTER a close; last mention when unclosed
+    logits = scores[step][0].float()
     probs = torch.softmax(logits, dim=-1)
     dist = {}
     for tid, d in dt.items():
@@ -145,7 +195,7 @@ def think_distribution(model, tok, prompt, device, max_new=384,
     tot = sum(dist.values())
     dist = {k: v / tot for k, v in dist.items()}
     ent = -sum(p * math.log(p) for p in dist.values() if p > 0)
-    return dist, ent, step, text[-120:]
+    return dist, ent, step, text, meta
 
 
 def main():
@@ -163,6 +213,9 @@ def main():
     ap.add_argument("--mc-temp", type=float, default=0.6)
     ap.add_argument("--framings", nargs="+", default=None,
                     help="subset of framings to run (default: all six)")
+    ap.add_argument("--force-close", action="store_true",
+                    help="think arms: if the cap is hit mid-reasoning, append "
+                         "the model's close marker and read the forced answer")
     ap.add_argument("--backfill", action="store_true",
                     help="if the output exists, load it and run ONLY the "
                          "adjectives it lacks (525 extension), then rewrite")
@@ -184,6 +237,8 @@ def main():
     tag = ("full" if args.full else "smoke") + ("_think" if args.think else "")
     if args.think_mc:
         tag = ("full" if args.full else "smoke") + f"_thinkmc{args.think_mc}"
+    if args.force_close:
+        tag += "_fc"
     out = f"{OUT_DIR}/{args.model.replace('/', '_')}_self_{tag}.json"
     part = out + ".part"
     results = {}
@@ -224,13 +279,14 @@ def main():
                 samples = []
                 import zlib
                 for k in range(args.think_mc):
-                    dist, ent, nthink, tail = think_distribution(
+                    dist, ent, nthink, text, meta = think_distribution(
                         model, tok, prompt, device, temperature=args.mc_temp,
-                        seed=1000 * k + zlib.crc32(a.encode()) % 997)
+                        seed=1000 * k + zlib.crc32(a.encode()) % 997,
+                        force_close=args.force_close, model_name=args.model)
                     samples.append(
                         {"ev": ev_of(dist) if dist else None,
-                         "entropy": ent, "dist": dist, "n_think": nthink}
-                        | ({} if dist else {"tail": tail}))
+                         "entropy": ent, "dist": dist, "n_think": nthink,
+                         **meta} | ({} if dist else {"tail": text[-200:]}))
                 evs_ = [s["ev"] for s in samples if s["ev"] is not None]
                 ents_ = [s["entropy"] for s in samples
                          if s["entropy"] is not None]
@@ -247,15 +303,17 @@ def main():
                         json.dump({"model": args.model,
                                    "results": results}, f)
             elif args.think:
-                dist, ent, nthink, tail = think_distribution(
-                    model, tok, prompt, device)
+                dist, ent, nthink, text, meta = think_distribution(
+                    model, tok, prompt, device, force_close=args.force_close,
+                    model_name=args.model)
                 if dist is None:
                     results[fname][a] = {"ev": None, "entropy": None,
-                                         "n_think": nthink, "tail": tail}
+                                         "n_think": nthink, "text": text,
+                                         **meta}
                     continue
                 results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
                                      "dist": dist, "n_think": nthink,
-                                     "tail": tail}
+                                     "text": text, **meta}
                 if len(results[fname]) % 20 == 0:   # watchdog-reset insurance
                     with open(part, "w") as f:
                         json.dump({"model": args.model,
