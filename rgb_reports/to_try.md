@@ -2774,3 +2774,15 @@ resume (last in chain) is now moot — its arm will be redone.
   P = 0.72 (linear EV->P map inflates the level — the calibration fix
   applies here too). Pinned-level phi item-level r vs HUMAN 0.504 for
   this single model (vs its col-centered baseline — see next line).
+- Pinned-phi diagnosis: for Llama, phi with the fitted level (median
+  P=0.72) drops item-level human match to .504 vs .682 unpinned and
+  .723 col-centered. Rescaling the FITTED SHAPE to median .3 recovers
+  .682 exactly — the damage is 100% the inflated LEVEL (the linear
+  (EV-1)/6 map reads the direct queries hot: Bernoulli variance
+  collapses as P->1, distorting phi), not the shape. So: the direct
+  queries' RELATIVE rates are usable now; the absolute level needs the
+  monotone EV->P calibration before pinning. Interim recipe: fitted
+  shape + conventional level (median .3-.4); col-centered still edges
+  phi at item level for single models (.723 vs .682) — the robustness
+  row currently WINS on raw human match; phi's claim is construct
+  alignment, not fit, until calibration lands.
