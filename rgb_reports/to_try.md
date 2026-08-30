@@ -2645,3 +2645,13 @@ already at 525).
   (525 backfill -> base rates -> LS fit) starts now, per rgb's ordering;
   a detached waiter relaunches the cohort queue afterwards so Qwen3.8
   resumes from its checkpoints (~12h remaining, within the timeout).
+- RB clarification (rgb): RB lowers the ESTIMATOR's variance for the
+  marginal mean; the MODEL's output variance is the total, within-path
+  (transcription) + across-path (deliberation), and must be reported as
+  such. From the MC files: R1 0.12 + 2.28 = 2.40 (sd 1.55), Glimmer 0.03
+  + 0.67 = 0.70 (sd 0.84) — within share 5% for both here, but a noisy
+  transcriber would flip that. Marginal entropy (of the averaged dists)
+  is the thinker analog of the single-pass entropy readout: R1 1.14 vs
+  mean within-path 0.09; Glimmer 0.36 vs 0.02 — the single-path entropy
+  UNDERSTATES a thinker's uncertainty by ~10x. Report: marginal EV (RB),
+  total variance, marginal entropy, and the within/across split.
