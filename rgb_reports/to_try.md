@@ -2861,3 +2861,8 @@ resume (last in chain) is now moot — its arm will be redone.
   low-low cells are ~2 per stigma word. So the SDR-meter reading gets
   CLEANER: for stigma the stated-vs-implied gap is pure direct-
   instrument politeness, with the pairwise side neutral.
+  (Precision: the stigma implied-side is MILDLY positive, not flat —
+  z(psi) prejudiced +2.1, corrupt +1.1, abusive +0.8 — vs stated-side
+  z of -3 to -5; so the gap is ~75-85% stated-side politeness with a
+  small real implied elevation. "retarded" is its own case: extreme on
+  BOTH sides, -9 implied / -16 stated.)
