@@ -15,7 +15,9 @@ import json
 
 import numpy as np
 
-EV2P = lambda ev: np.clip((np.asarray(ev, float) - 1) / 6, 0.02, 0.98)
+# EV/8: embed the 1-7 scale in 0-8 -> P in [.125,.875], no saturation
+# (2026-08-30; fixes log blowup for extreme-committed models)
+EV2P = lambda ev: np.asarray(ev, float) / 8
 
 
 def main():

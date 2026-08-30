@@ -2795,3 +2795,15 @@ resume (last in chain) is now moot — its arm will be redone.
   so the simple-to-explain variant (raw stated rates, level
   calibrated) loses almost nothing vs the joint fit. Paper recipe can
   be the simple one; the joint fit stays as the coherence diagnostic.
+- EV/8 map (rgb, harking-acknowledged): embed the 1-7 scale in 0-8 so
+  P = EV/8 spans [.125,.875] and never saturates. RESULT: fixes the
+  clip-heavy models completely (col-vs-phi agreement Qwen-3B .315 ->
+  .930, Aya .534 -> .959), changes nothing where things were fine
+  (Llama pairwise .679 vs .678; cohort block .884/.814 vs .884/.812),
+  and nudges raw-stated up (.528 -> .553; stated level still inflated,
+  median .68 — the level problem is the scale's, not the map's).
+  ADOPTED as phi's default EV->P map: a priori simple, declared, not
+  outcome-tuned (chosen to avoid saturation); the Bayes-consistency
+  calibration stays queued as the principled check, and if it lands
+  near EV/8 the harking worry dissolves. judge_base_rate_fit's EV2P
+  to be switched to EV/8.
