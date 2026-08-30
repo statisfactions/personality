@@ -2829,3 +2829,6 @@ resume (last in chain) is now moot — its arm will be redone.
   (homeless, blind, unemployed, elderly, ...) — external ground truth,
   non-circular, stretches the tails, and makes stated P(a) an actual
   probability claim.
+  (Correction, rgb: the extremes are shrunk toward 0.5, not sitting at
+  the bounds — across-respondent averaging is a SECOND compression on
+  top of the bounded scale; the anchor calibration must undo both.)
