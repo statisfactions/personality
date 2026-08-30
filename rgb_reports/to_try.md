@@ -2739,3 +2739,11 @@ RT instrument becomes real (n_think = actual deliberation length for
 checkpoint, Qwen3.8 and Glimmer smokes switched to @1024 (do THEY
 finish?), then the audits and backfill as before. Qwen3.8's full-arm
 resume (last in chain) is now moot — its arm will be redone.
+- Base-rate presentation decision (rgb 2026-08-30): the paper uses the
+  DIRECT prevalence estimates as the base rates (simple to explain);
+  the joint LS fit is the COHERENCE CHECK, and the per-adjective shift
+  between stated (direct) and implied (pairwise psi) rates is itself
+  signal — stated-vs-implied inconsistency localized to words
+  (registered: concentrates on state words, implied >> direct).
+  Smoking the instrument now on Llama-3.2-3B (CPU, 525 single
+  forwards) since it has never run.

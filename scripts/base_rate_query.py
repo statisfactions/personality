@@ -31,6 +31,7 @@ OUT_DIR = "results/adjectives/introspect_full"
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
+    ap.add_argument("--device", default=None)
     args = ap.parse_args()
     out = f"{OUT_DIR}/{args.model}_base_rate.json"
     if os.path.exists(out):
@@ -38,7 +39,8 @@ def main():
         return
     from extract_adjectives import load_adjectives   # canonical 525
     labels = sorted({a.lower() for a in load_adjectives()})
-    model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
+    model, tok, device = hf.load_model(args.model, device=args.device,
+                                       dtype=torch.bfloat16)
     res = {}
     for a in labels:
         dist, _, ent = hf.likert_distribution(
