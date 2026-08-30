@@ -327,6 +327,7 @@ def likert_distribution(
     digits: Tuple[str, ...] = ("1", "2", "3", "4", "5"),
     use_chat_template: bool = True,
     system_content: str = "",
+    return_mass: bool = False,
 ) -> Tuple[Dict[str, float], str, float]:
     """Distribution over Likert digits at the final-token position.
 
@@ -363,6 +364,12 @@ def likert_distribution(
     dist = _prob_per_label(logits, ids_map)
     argmax = max(dist, key=lambda k: dist[k])
     h = -sum(p * math.log(p) for p in dist.values() if p > 0)
+    if return_mass:
+        # total probability the model puts on ANY digit variant at the read
+        # position — the faithfulness check for a renormalized dist
+        pr = torch.softmax(logits, -1)
+        mass = float(sum(pr[t].item() for ids in ids_map.values() for t in ids))
+        return dist, argmax, h, mass
     return dist, argmax, h
 
 

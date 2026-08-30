@@ -319,11 +319,12 @@ def main():
                         json.dump({"model": args.model,
                                    "results": results}, f)
             else:
-                dist, _, ent = hf.likert_distribution(
+                dist, _, ent, mass = hf.likert_distribution(
                     model, tok, prompt, device, digits=DIGITS,
-                    use_chat_template=tok.chat_template is not None)
+                    use_chat_template=tok.chat_template is not None,
+                    return_mass=True)
                 results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
-                                     "dist": dist}
+                                     "dist": dist, "digit_mass": mass}
         evs = [results[fname][a]["ev"] for a in adjs
                if results[fname][a]["ev"] is not None]
         ents = [results[fname][a]["entropy"] for a in adjs
