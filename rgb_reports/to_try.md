@@ -2693,3 +2693,13 @@ last-mention EV vs forced-close decision EV on Qwen3-8B and Glimmer —
 r > .85, mean |dEV| < 0.4, forced-close entropy LOWER. If it holds, the
 existing arms stand with the caveat; if not, full re-runs with
 force-close (GPU-days) are required.
+- Digit-mass faithfulness (rgb): the prefill arm now records digit_mass
+  (total probability on any digit variant at the read position) and, when
+  it is below MASS_FLOOR=0.10, FALLS BACK to a 16-token greedy generation
+  reading the first digit ("read": prefill|generated|none), with the
+  bare-prompt path for template-less base models. The existing 64 rows
+  have no mass stored; the near-uniform dists in the breakage screen
+  (SmolLM2 85%, R1-Llama 66%) are the likely low-mass symptom. A one-pass
+  mass audit of the wide cohort (smoke set x 1 framing per model) is
+  queued for an idle GPU window; the placement check (A/B/C) on the 3B
+  models reports first-digit positions meanwhile.

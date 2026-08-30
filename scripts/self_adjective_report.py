@@ -31,6 +31,9 @@ import hf_logprobs as hf
 
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
 OUT_DIR = "results/adjectives/selfreport"
+# prefill reads with less than this much total probability on digit tokens
+# are not answers; fall back to a short generation (rgb 2026-08-29)
+MASS_FLOOR = 0.10
 
 AGREE_SCALE = (
     "Indicate how much you agree with the following statement about "
@@ -108,7 +111,7 @@ def force_close_string(tok, model_name=""):
 
 def think_distribution(model, tok, prompt, device, max_new=384,
                        temperature=None, seed=None, force_close=False,
-                       model_name=""):
+                       model_name="", enable_thinking=True):
     """Thinking-model arm: generate (reasoning allowed, greedy), find the
     final answer digit in the output, and read the FULL digit distribution
     at that step — distributional readout at the post-deliberation decision
@@ -131,10 +134,13 @@ def think_distribution(model, tok, prompt, device, max_new=384,
     # its 2026-08-24 "think arm" was a silent prefill duplicate, n_think=0
     # for all 3138 items); Qwen3-family defaults ON; templates without the
     # variable ignore it.
-    s = tok.apply_chat_template([{"role": "user", "content": prompt}],
-                                tokenize=False, add_generation_prompt=True,
-                                enable_thinking=True)
-    ids = tok(s, add_special_tokens=False,
+    if tok.chat_template is None:          # base models: bare prompt
+        s = prompt
+    else:
+        s = tok.apply_chat_template([{"role": "user", "content": prompt}],
+                                    tokenize=False, add_generation_prompt=True,
+                                    enable_thinking=enable_thinking)
+    ids = tok(s, add_special_tokens=tok.chat_template is None,
               return_tensors="pt").input_ids.to(device)
     if seed is not None:
         torch.manual_seed(seed)
@@ -323,8 +329,26 @@ def main():
                     model, tok, prompt, device, digits=DIGITS,
                     use_chat_template=tok.chat_template is not None,
                     return_mass=True)
-                results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
-                                     "dist": dist, "digit_mass": mass}
+                if mass >= MASS_FLOOR:
+                    results[fname][a] = {"ev": ev_of(dist), "entropy": ent,
+                                         "dist": dist, "digit_mass": mass,
+                                         "read": "prefill"}
+                else:
+                    # the model isn't answering with a digit at the read
+                    # position (base models, refusers, formatters): fall
+                    # back to a short generation and read the first digit
+                    d2, e2, step, text, meta = think_distribution(
+                        model, tok, prompt, device, max_new=16,
+                        enable_thinking=False, model_name=args.model)
+                    if d2 is None:
+                        results[fname][a] = {"ev": None, "entropy": None,
+                                             "dist": None, "digit_mass": mass,
+                                             "read": "none", "text": text}
+                    else:
+                        results[fname][a] = {"ev": ev_of(d2), "entropy": e2,
+                                             "dist": d2, "digit_mass": mass,
+                                             "read": "generated",
+                                             "gen_step": step, "text": text}
         evs = [results[fname][a]["ev"] for a in adjs
                if results[fname][a]["ev"] is not None]
         ents = [results[fname][a]["entropy"] for a in adjs
