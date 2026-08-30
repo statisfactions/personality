@@ -2762,3 +2762,15 @@ resume (last in chain) is now moot — its arm will be redone.
   Bayes-consistency, non-circular) replacing the linear map —
   REGISTERED: calibration lifts Qwen/Aya col-vs-phi agreement above
   .85; (c) col-centering reported as the robustness row.
+- Base-rate smoke LANDED (Llama-3.2-3B, CPU, 525 direct queries + LS
+  fit; instrument works end-to-end). Coherence r(direct, pairs-implied)
+  = +0.34 — BELOW the registered .5-.6 (miss, interesting direction:
+  the model's stated prevalences and its conditionals disagree more
+  than expected). The stated-vs-implied divergence localizes exactly as
+  registered: DIRECT extremes are trait/desirability-like (lowest
+  retarded/abusive/prejudiced, highest effective/valuable); the JOINT
+  fit's top rates are the STATE words (uncomfortable/depressed/
+  frustrated/exhausted) pulled up by the conditionals. Fitted median
+  P = 0.72 (linear EV->P map inflates the level — the calibration fix
+  applies here too). Pinned-level phi item-level r vs HUMAN 0.504 for
+  this single model (vs its col-centered baseline — see next line).
