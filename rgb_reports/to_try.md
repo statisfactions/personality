@@ -2747,3 +2747,18 @@ resume (last in chain) is now moot — its arm will be redone.
   (registered: concentrates on state words, implied >> direct).
   Smoking the instrument now on Llama-3.2-3B (CPU, 525 single
   forwards) since it has never run.
+- Phi stability check (rgb: keep phi if ~as stable as column-centering):
+  split-half over models: phi .930 item / .975 block vs col-centering
+  .938 / .978 — INDISTINGUISHABLE; level knob mild (r=.964 across
+  medP .2-.5) and pinned once direct base rates land. Per-model
+  col-vs-phi agreement mean .862 BUT two outliers: Qwen-3B r=.315 (12%
+  of EVs at the low clip) and Aya r=.534 (9%/12% at both clips) — the
+  linear (EV-1)/6 map + [.02,.98] clip amplifies log-noise exactly
+  where EVs pin to the scale ends. So: phi is as stable as
+  col-centering EXCEPT for clip-heavy (extreme-committed) models.
+  DECISION: keep phi as JUDGE's comparison matrix (it targets the same
+  construct as the human baseline), with (a) direct base rates pinning
+  the level, (b) the monotone EV->P calibration (fit by
+  Bayes-consistency, non-circular) replacing the linear map —
+  REGISTERED: calibration lifts Qwen/Aya col-vs-phi agreement above
+  .85; (c) col-centering reported as the robustness row.
