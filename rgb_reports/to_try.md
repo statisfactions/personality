@@ -2786,3 +2786,12 @@ resume (last in chain) is now moot — its arm will be redone.
   phi at item level for single models (.723 vs .682) — the robustness
   row currently WINS on raw human match; phi's claim is construct
   alignment, not fit, until calibration lands.
+- Third variant (rgb): phi with the RAW direct P-hat (shape AND level
+  stated, no LS blending). Llama: .528 as-is (level median .74 — same
+  inflation), .666 with the level rescaled to medP .3 — vs pairwise
+  shape .682, joint fit .504/.682, col-centered .723. The direct and
+  pairwise SHAPES only agree at r=.34 (the coherence number), yet give
+  nearly identical human match once the level is conventionalized —
+  so the simple-to-explain variant (raw stated rates, level
+  calibrated) loses almost nothing vs the joint fit. Paper recipe can
+  be the simple one; the joint fit stays as the coherence diagnostic.
