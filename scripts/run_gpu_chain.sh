@@ -12,8 +12,8 @@ run() { caffeinate -i $PY "$@"; }
 echo "=== chain start $(date)" >> $L/gpu_chain.log
 run scripts/self_adjective_report.py --model Qwen/Qwen3-8B --think --force-close >> $L/forced_close_smoke.log 2>&1
 run scripts/self_adjective_report.py --model Qwen/Qwen3-8B --think --force-close --max-new 1024 >> $L/forced_close_smoke.log 2>&1
-run scripts/self_adjective_report.py --model Qwen/Qwen3.8-27B --think --force-close >> $L/forced_close_smoke.log 2>&1
-run scripts/self_adjective_report.py --model meta-models/Muse-Glimmer-30B --think --force-close >> $L/forced_close_smoke.log 2>&1
+run scripts/self_adjective_report.py --model Qwen/Qwen3.8-27B --think --force-close --max-new 1024 >> $L/forced_close_smoke.log 2>&1
+run scripts/self_adjective_report.py --model meta-models/Muse-Glimmer-30B --think --force-close --max-new 1024 >> $L/forced_close_smoke.log 2>&1
 echo "=== forced-close smoke done $(date)" >> $L/gpu_chain.log
 run scripts/digit_mass_audit.py >> $L/digit_mass_audit.log 2>&1
 echo "=== mass audit done $(date)" >> $L/gpu_chain.log

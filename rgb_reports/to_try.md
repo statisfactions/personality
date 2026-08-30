@@ -2712,3 +2712,30 @@ force-close (GPU-days) are required.
   resume, deferred until the smoke says whether its 2,985 unforced items
   can be mixed with forced-close ones or the arm must be redone).
   --max-new flag added to the think arm (tag suffix _b{N}).
+
+## Forced-close smoke RESULT: think arms must be redone (2026-08-30)
+
+Qwen3-8B, smoke x 6 framings. REGISTERED: forced-close vs old
+last-mention r > .85, |dEV| < 0.4, forced entropy lower. GRADED:
+- @384: 88% of items hit the cap (307/348 forced; 39 finished). On the
+  forced items r = 0.66, mean |dEV| = 1.26 (!), mean EV old 4.39 vs
+  forced 3.82; forced entropy 0.20 vs 0.10 — ALL THREE MISS. Finished
+  items match old exactly (r = 1.00; sanity). The mid-deliberation
+  last-mention is NOT a proxy for the decision: the model's tentative
+  number differs from its concluded answer by > 1 scale point on
+  average, and the concluded answer is LESS committed, not more.
+- @1024 (partial, 214 items): 92% finish naturally, median n_gen 586 —
+  Qwen3-8B's natural budget is ~600 tokens; 384 was under-budget by
+  ~2x. @384-forced vs @1024-natural: r = 0.91, |dEV| = 0.46 — forcing
+  is a decent stand-in for a real conclusion, last-mention is not.
+VERDICT: every existing think arm (52-89% capped) is a
+tentative-answer instrument, not a decision instrument. The
+decision-point think arms need REDOING at max_new=1024 with
+--force-close as backstop. Cost: Qwen3-8B/14B ~10-15h each, Gemma4
+~24h+, Glimmer ~60h, Qwen3.8 ~50h (R1s skipped: respondent-absent
+anyway) — roughly a GPU-week; rgb's call on scope. Upside: at 1024 the
+RT instrument becomes real (n_think = actual deliberation length for
+~92% of items). Chain revised: Qwen3-8B @1024 resumes from its
+checkpoint, Qwen3.8 and Glimmer smokes switched to @1024 (do THEY
+finish?), then the audits and backfill as before. Qwen3.8's full-arm
+resume (last in chain) is now moot — its arm will be redone.
