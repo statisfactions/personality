@@ -2866,3 +2866,17 @@ resume (last in chain) is now moot — its arm will be redone.
   z of -3 to -5; so the gap is ~75-85% stated-side politeness with a
   small real implied elevation. "retarded" is its own case: extreme on
   BOTH sides, -9 implied / -16 stated.)
+
+## @1024 forced-close smokes: budgets + old-arm damage (2026-08-30)
+
+Finished rates at max_new=1024 (smoke x 6 framings): Qwen3-8B 93%
+(median n_gen 604), Qwen3.8-27B 99% (median 122!), Glimmer 99% (median
+417). Qwen3.8 is a SHORT thinker — its full arm's 384 budget was
+mostly adequate?? No: old-arm damage below. Old-arm (last-mention /
+mixed) vs @1024 natural decision on the same items:
+  Qwen3.8-27B  old-arm vs @1024 decision: n=329  r=0.997  mean|dEV|=0.03  mean old 4.05 new 4.03
+  Glimmer      old-arm vs @1024 decision: n=348  r=0.789  mean|dEV|=0.79  mean old 3.65 new 3.94
+  Qwen3-8B     old-arm vs @1024 decision: n=348  r=0.690  mean|dEV|=1.15  mean old 4.39 new 3.63
+Redo budgets: at these medians, full 525x6 arms cost ~Qwen3-8B 15h,
+Qwen3.8 ~6h (!), Glimmer ~35h, Gemma4 TBD (~2x its 384 arm) — the
+Qwen3.8 redo is cheap because it thinks briefly when allowed to finish.
