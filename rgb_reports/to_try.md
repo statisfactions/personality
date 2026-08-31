@@ -2884,3 +2884,32 @@ Qwen3.8 redo is cheap because it thinks briefly when allowed to finish.
   set(int) on generation_config.eos_token_id (int-eos models; the
   smokes all happened to be list-eos). Fixed; backfill subprocesses
   pick the fix up automatically; audit re-queued after the chain.
+
+## Cue-placement check RESULTS (2026-08-30, GPU run, 4 deep models)
+
+REGISTERED: A~B r>.95 |dEV|<.2; B lower entropy; A~C r>.9 with parse
+outliers. GRADED:
+- A vs C (user-cue prefill vs free-generated digit): r = .999-1.000
+  on ALL FOUR, 99-100% parsed, first digit at position 0 — the prefill
+  read IS the generated answer, exactly. HIT, stronger than
+  registered. rgb's non-digit-token worry: for instruct models the
+  answer digit is the first emitted token; the prefill readout is
+  faithful. (Base models remain the open case; mass audit covers the
+  wide cohort.)
+- A vs B (user-turn cue vs assistant-turn prefill): MATTERS, model-
+  dependently — gemma3 r=.968 |dEV|=.24; llama3.2 .941/.41;
+  qwen2.5 .767/.62; phi4 .883/1.74 with mean EV 5.07 -> 3.33 (!).
+  Direction varies (llama/qwen UP in-turn, phi4/gemma DOWN). Entropy
+  HIGHER in-turn for all four (e.g. phi4 1.21 -> 1.60) — my "prefill
+  commits" prediction MISSED, opposite. Placement is effectively a
+  SEVENTH FRAMING with variance comparable to the six wording
+  framings; phi4 treats answering inside its own turn very differently
+  from answering a form.
+CONSEQUENCE: prefill (user-cue) vs think-arm (in-turn, post-CoT) reads
+differ by placement as well as deliberation — the think-vs-prefill
+comparisons carry a placement confound of up to this size. Where we
+compared within-model (Gemma4 think==prefill r=1.00) the confound was
+absent by construction of the result; cross-arm level differences
+should not be interpreted without a placement covariate. Paper:
+Likert Readings section should state placement as a measured facet
+with these numbers.
