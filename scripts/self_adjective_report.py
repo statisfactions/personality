@@ -151,9 +151,9 @@ def think_distribution(model, tok, prompt, device, max_new=384,
                          pad_token_id=tok.eos_token_id, **sample_kw)
     seq = out.sequences[0, ids.shape[1]:].tolist()
     text = tok.decode(seq, skip_special_tokens=False)
-    eos_ids = set(getattr(model.generation_config, "eos_token_id", None) or [])
-    if isinstance(model.generation_config.eos_token_id, int):
-        eos_ids = {model.generation_config.eos_token_id}
+    _eos = getattr(model.generation_config, "eos_token_id", None)
+    eos_ids = (set(_eos) if isinstance(_eos, (list, tuple, set))
+               else {_eos} if _eos is not None else set())
     eos_ids.add(tok.eos_token_id)
     finished = len(seq) < max_new or seq[-1] in eos_ids
     close = max((text.rfind(m) for m in CLOSE_MARKERS), default=-1)

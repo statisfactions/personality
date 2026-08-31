@@ -2880,3 +2880,7 @@ mixed) vs @1024 natural decision on the same items:
 Redo budgets: at these medians, full 525x6 arms cost ~Qwen3-8B 15h,
 Qwen3.8 ~6h (!), Glimmer ~35h, Gemma4 TBD (~2x its 384 arm) — the
 Qwen3.8 redo is cheap because it thinks briefly when allowed to finish.
+- Mass audit crashed 2 min in: my force-close refactor did
+  set(int) on generation_config.eos_token_id (int-eos models; the
+  smokes all happened to be list-eos). Fixed; backfill subprocesses
+  pick the fix up automatically; audit re-queued after the chain.
