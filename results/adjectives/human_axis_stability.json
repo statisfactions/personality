@@ -1,0 +1,584 @@
+{
+ "n_respondents": 700,
+ "n_adjectives": 525,
+ "raw": {
+  "pr": 27.22072219867906,
+  "horn_k": 23,
+  "axes": [
+   {
+    "rank": 1,
+    "pct_var": 15.917316240731047,
+    "pos": [
+     "Well-adjusted",
+     "Well-Liked",
+     "Respected",
+     "Positive",
+     "Cheerful",
+     "Confident",
+     "Considerate",
+     "Self-assured"
+    ],
+    "neg": [
+     "Unhappy",
+     "Unpopular",
+     "Confused",
+     "Unfriendly",
+     "Negative",
+     "Unstable",
+     "Insecure",
+     "Sad"
+    ]
+   },
+   {
+    "rank": 2,
+    "pct_var": 7.39882188815743,
+    "pos": [
+     "Extraordinary",
+     "Remarkable",
+     "Cocky",
+     "Exciting",
+     "Exceptional",
+     "Fascinating",
+     "Bold",
+     "Powerful"
+    ],
+    "neg": [
+     "Ordinary",
+     "Average",
+     "Normal",
+     "Quiet",
+     "Honest",
+     "Soft-spoken",
+     "Predictable",
+     "Faithful"
+    ]
+   },
+   {
+    "rank": 3,
+    "pct_var": 3.9819541680659314,
+    "pos": [
+     "Caring",
+     "Warm-hearted",
+     "Kind-hearted",
+     "Compassionate",
+     "Sympathetic",
+     "Motherly",
+     "Afraid",
+     "Emotional"
+    ],
+    "neg": [
+     "Masculine",
+     "Well-to-do",
+     "Wealthy",
+     "Self-confident",
+     "Athletic",
+     "Rich",
+     "Unsympathetic",
+     "Self-assured"
+    ]
+   },
+   {
+    "rank": 4,
+    "pct_var": 2.9490153842063918,
+    "pos": [
+     "Serious",
+     "Logical",
+     "Critical",
+     "Thorough",
+     "Realistic",
+     "Systematic",
+     "Responsible",
+     "Practical"
+    ],
+    "neg": [
+     "Laughing",
+     "Joyful",
+     "Lovely",
+     "Carefree",
+     "Gorgeous",
+     "Hilarious",
+     "Cheerful",
+     "Pretty"
+    ]
+   },
+   {
+    "rank": 5,
+    "pct_var": 2.352347584055577,
+    "pos": [
+     "Neat",
+     "Conservative",
+     "Fashionable",
+     "Traditional",
+     "Glamorous",
+     "Predictable",
+     "Average",
+     "Stylish"
+    ],
+    "neg": [
+     "Intelligent",
+     "Messy",
+     "Open-minded",
+     "Imaginative",
+     "Unusual",
+     "Deep",
+     "Thinking",
+     "Liberal"
+    ]
+   },
+   {
+    "rank": 6,
+    "pct_var": 1.8917587023785147,
+    "pos": [
+     "Calm",
+     "Relaxed",
+     "Quiet",
+     "Peaceful",
+     "Laid-back",
+     "Easygoing",
+     "Soft-spoken",
+     "Plain"
+    ],
+    "neg": [
+     "Talkative",
+     "Colorful",
+     "Emotional",
+     "Sociable",
+     "Feminine",
+     "Social",
+     "Extraverted",
+     "Stylish"
+    ]
+   },
+   {
+    "rank": 7,
+    "pct_var": 1.8252350443573457,
+    "pos": [
+     "Quiet",
+     "Soft-spoken",
+     "Slim",
+     "Slender",
+     "Beautiful",
+     "Good-looking",
+     "Thin",
+     "Gorgeous"
+    ],
+    "neg": [
+     "Outgoing",
+     "Noisy",
+     "Loud",
+     "Talkative",
+     "Outspoken",
+     "Extraverted",
+     "Forward",
+     "Fat"
+    ]
+   },
+   {
+    "rank": 8,
+    "pct_var": 1.3216100611912445,
+    "pos": [
+     "Disabled",
+     "Elderly",
+     "Handicapped",
+     "Sickly",
+     "Religious",
+     "Good-for-nothing",
+     "Retarded",
+     "Unemployed"
+    ],
+    "neg": [
+     "Sarcastic",
+     "Procrastinating",
+     "Well",
+     "Indecisive",
+     "Casual",
+     "Selfish",
+     "Healthy",
+     "Wishy-washy"
+    ]
+   }
+  ],
+  "stability": [
+   {
+    "rank": 1,
+    "med_abs_r": 0.9953377077681675,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 2,
+    "med_abs_r": 0.9886903894856491,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 3,
+    "med_abs_r": 0.9676765397235568,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 4,
+    "med_abs_r": 0.9350258019907591,
+    "p_same_rank": 0.98,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 5,
+    "med_abs_r": 0.9055459195271527,
+    "p_same_rank": 0.975,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 6,
+    "med_abs_r": 0.8270428373974676,
+    "p_same_rank": 0.665,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 7,
+    "med_abs_r": 0.8362516294724436,
+    "p_same_rank": 0.665,
+    "p_within_1": 0.995
+   },
+   {
+    "rank": 8,
+    "med_abs_r": 0.8405428539078164,
+    "p_same_rank": 0.915,
+    "p_within_1": 0.98
+   },
+   {
+    "rank": 9,
+    "med_abs_r": 0.7154468935468778,
+    "p_same_rank": 0.57,
+    "p_within_1": 0.91
+   },
+   {
+    "rank": 10,
+    "med_abs_r": 0.6919987684412888,
+    "p_same_rank": 0.47,
+    "p_within_1": 0.945
+   },
+   {
+    "rank": 11,
+    "med_abs_r": 0.6497294945483931,
+    "p_same_rank": 0.46,
+    "p_within_1": 0.85
+   },
+   {
+    "rank": 12,
+    "med_abs_r": 0.6274008665454469,
+    "p_same_rank": 0.49,
+    "p_within_1": 0.875
+   },
+   {
+    "rank": 13,
+    "med_abs_r": 0.592680769528537,
+    "p_same_rank": 0.475,
+    "p_within_1": 0.84
+   },
+   {
+    "rank": 14,
+    "med_abs_r": 0.540608101292152,
+    "p_same_rank": 0.28,
+    "p_within_1": 0.665
+   },
+   {
+    "rank": 15,
+    "med_abs_r": 0.5015415680395867,
+    "p_same_rank": 0.245,
+    "p_within_1": 0.665
+   }
+  ]
+ },
+ "ipsatized": {
+  "pr": 50.45758972869089,
+  "horn_k": 30,
+  "axes": [
+   {
+    "rank": 1,
+    "pct_var": 10.273249553306714,
+    "pos": [
+     "Well-adjusted",
+     "Confident",
+     "Self-assured",
+     "Self-confident",
+     "Joyful",
+     "Positive",
+     "Popular",
+     "Appealing"
+    ],
+    "neg": [
+     "Insecure",
+     "Troubled",
+     "Sad",
+     "Confused",
+     "Crabby",
+     "Irritated",
+     "Unhappy",
+     "Worried"
+    ]
+   },
+   {
+    "rank": 2,
+    "pct_var": 5.778189830250959,
+    "pos": [
+     "Ordinary",
+     "Kind",
+     "Kind-hearted",
+     "Average",
+     "Gentle",
+     "Agreeable",
+     "Polite",
+     "Considerate"
+    ],
+    "neg": [
+     "Extraordinary",
+     "Cocky",
+     "Exceptional",
+     "Bold",
+     "Remarkable",
+     "Intimidating",
+     "Brilliant",
+     "Fascinating"
+    ]
+   },
+   {
+    "rank": 3,
+    "pct_var": 3.6188907000847,
+    "pos": [
+     "Realistic",
+     "Logical",
+     "Systematic",
+     "Practical",
+     "Rational",
+     "Businesslike",
+     "Competent",
+     "Cold"
+    ],
+    "neg": [
+     "Warm",
+     "Warm-hearted",
+     "Laughing",
+     "Colorful",
+     "Motherly",
+     "Feminine",
+     "Affectionate",
+     "Delightful"
+    ]
+   },
+   {
+    "rank": 4,
+    "pct_var": 2.4860741756624787,
+    "pos": [
+     "Neat",
+     "Fashionable",
+     "Stylish",
+     "Anxious",
+     "Tense",
+     "Touchy",
+     "Short-tempered",
+     "Glamorous"
+    ],
+    "neg": [
+     "Sloppy",
+     "Messy",
+     "Calm",
+     "Relaxed",
+     "Open-minded",
+     "Disrespectful",
+     "Laid-back",
+     "Tolerant"
+    ]
+   },
+   {
+    "rank": 5,
+    "pct_var": 2.376388469993345,
+    "pos": [
+     "Thinking",
+     "Smart",
+     "Intelligent",
+     "Complex",
+     "Complicated",
+     "Deep",
+     "Depressed",
+     "Thoughtful"
+    ],
+    "neg": [
+     "Secure",
+     "Cruel",
+     "Obnoxious",
+     "Terrible",
+     "Corrupt",
+     "Evil",
+     "Awful",
+     "Carefree"
+    ]
+   },
+   {
+    "rank": 6,
+    "pct_var": 2.000767800019024,
+    "pos": [
+     "Slim",
+     "Thin",
+     "Slender",
+     "Good-looking",
+     "Skinny",
+     "Attractive",
+     "Soft-spoken",
+     "Quiet"
+    ],
+    "neg": [
+     "Outgoing",
+     "Talkative",
+     "Outspoken",
+     "Chubby",
+     "Fat",
+     "Loud",
+     "Noisy",
+     "Extraverted"
+    ]
+   },
+   {
+    "rank": 7,
+    "pct_var": 1.7111658388453415,
+    "pos": [
+     "Insane",
+     "Evil",
+     "Retarded",
+     "Abusive",
+     "Good-for-nothing",
+     "Dangerous",
+     "Homeless",
+     "Violent"
+    ],
+    "neg": [
+     "Wishy-washy",
+     "Procrastinating",
+     "Easygoing",
+     "Selfish",
+     "Envious",
+     "Laid-back",
+     "Disorganized",
+     "Good-natured"
+    ]
+   },
+   {
+    "rank": 8,
+    "pct_var": 1.3164490533009428,
+    "pos": [
+     "Intelligent",
+     "Conceited",
+     "Feminine",
+     "Bright",
+     "Interested",
+     "Liberal",
+     "Self-centered",
+     "Egotistical"
+    ],
+    "neg": [
+     "Overworked",
+     "Hard-working",
+     "Rough",
+     "Courageous",
+     "Masculine",
+     "Brave",
+     "Employed",
+     "Important"
+    ]
+   }
+  ],
+  "stability": [
+   {
+    "rank": 1,
+    "med_abs_r": 0.9888313312463831,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 2,
+    "med_abs_r": 0.980181718342649,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 3,
+    "med_abs_r": 0.9571329910408091,
+    "p_same_rank": 1.0,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 4,
+    "med_abs_r": 0.8656727679823241,
+    "p_same_rank": 0.665,
+    "p_within_1": 0.995
+   },
+   {
+    "rank": 5,
+    "med_abs_r": 0.8079512606803909,
+    "p_same_rank": 0.62,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 6,
+    "med_abs_r": 0.8267253651930329,
+    "p_same_rank": 0.88,
+    "p_within_1": 1.0
+   },
+   {
+    "rank": 7,
+    "med_abs_r": 0.8330123026191931,
+    "p_same_rank": 0.885,
+    "p_within_1": 0.99
+   },
+   {
+    "rank": 8,
+    "med_abs_r": 0.7242045727795061,
+    "p_same_rank": 0.6,
+    "p_within_1": 0.875
+   },
+   {
+    "rank": 9,
+    "med_abs_r": 0.6653068693757274,
+    "p_same_rank": 0.37,
+    "p_within_1": 0.905
+   },
+   {
+    "rank": 10,
+    "med_abs_r": 0.6370286762880807,
+    "p_same_rank": 0.335,
+    "p_within_1": 0.83
+   },
+   {
+    "rank": 11,
+    "med_abs_r": 0.6230725895073319,
+    "p_same_rank": 0.36,
+    "p_within_1": 0.795
+   },
+   {
+    "rank": 12,
+    "med_abs_r": 0.5769640602648465,
+    "p_same_rank": 0.405,
+    "p_within_1": 0.8
+   },
+   {
+    "rank": 13,
+    "med_abs_r": 0.5404293196953669,
+    "p_same_rank": 0.3,
+    "p_within_1": 0.685
+   },
+   {
+    "rank": 14,
+    "med_abs_r": 0.5201692805438596,
+    "p_same_rank": 0.245,
+    "p_within_1": 0.66
+   },
+   {
+    "rank": 15,
+    "med_abs_r": 0.49778053001234523,
+    "p_same_rank": 0.185,
+    "p_within_1": 0.565
+   }
+  ]
+ }
+}
