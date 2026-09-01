@@ -2,6 +2,50 @@
  "purpose": "SELF-channel wide-n cohort: curated instruct models for self_adjective_report.py via cohort_queue.py. DRAFT list \u2014 run cohort_queue.py --verify to check IDs against the Hub before trusting. flags: gated (needs HF approval), remote_code (trust_remote_code), thinking (emits reasoning tokens; digit-readout may need a no-think control), twin_of (same base as another entry \u2014 post-training twin cell).",
  "models": [
   {
+   "name": "InternLM2.5-7B",
+   "repo": "internlm/internlm2_5-7b-chat",
+   "family": "internlm",
+   "params_b": 7,
+   "flags": [
+    "remote_code"
+   ],
+   "revision": "eb72b541689b",
+   "generation": 2024
+  },
+  {
+   "name": "InternLM3-8B",
+   "repo": "internlm/internlm3-8b-instruct",
+   "family": "internlm",
+   "params_b": 8,
+   "flags": [
+    "remote_code"
+   ],
+   "revision": "28c99415adaf",
+   "generation": 2025
+  },
+  {
+   "name": "MiniCPM3-4B",
+   "repo": "openbmb/MiniCPM3-4B",
+   "family": "minicpm",
+   "params_b": 4,
+   "flags": [
+    "remote_code"
+   ],
+   "revision": "d6b14ddaefdb",
+   "generation": 2024
+  },
+  {
+   "name": "EXAONE3.5-7.8B",
+   "repo": "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
+   "family": "exaone",
+   "params_b": 7.8,
+   "flags": [
+    "remote_code"
+   ],
+   "revision": "553ea250b9a5",
+   "generation": 2024
+  },
+  {
    "name": "Llama2-7B",
    "repo": "meta-llama/Llama-2-7b-chat-hf",
    "family": "llama",
@@ -411,28 +455,6 @@
    "generation": 2024
   },
   {
-   "name": "InternLM2.5-7B",
-   "repo": "internlm/internlm2_5-7b-chat",
-   "family": "internlm",
-   "params_b": 7,
-   "flags": [
-    "remote_code"
-   ],
-   "revision": "eb72b541689b",
-   "generation": 2024
-  },
-  {
-   "name": "InternLM3-8B",
-   "repo": "internlm/internlm3-8b-instruct",
-   "family": "internlm",
-   "params_b": 8,
-   "flags": [
-    "remote_code"
-   ],
-   "revision": "28c99415adaf",
-   "generation": 2025
-  },
-  {
    "name": "Granite3.1-8B",
    "repo": "ibm-granite/granite-3.1-8b-instruct",
    "family": "granite",
@@ -462,28 +484,6 @@
    "family": "stablelm",
    "params_b": 12,
    "flags": [],
-   "generation": 2024
-  },
-  {
-   "name": "MiniCPM3-4B",
-   "repo": "openbmb/MiniCPM3-4B",
-   "family": "minicpm",
-   "params_b": 4,
-   "flags": [
-    "remote_code"
-   ],
-   "revision": "d6b14ddaefdb",
-   "generation": 2024
-  },
-  {
-   "name": "EXAONE3.5-7.8B",
-   "repo": "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
-   "family": "exaone",
-   "params_b": 7.8,
-   "flags": [
-    "remote_code"
-   ],
-   "revision": "553ea250b9a5",
    "generation": 2024
   },
   {
