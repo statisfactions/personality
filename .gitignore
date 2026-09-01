@@ -116,3 +116,6 @@ rgb_reports/progress_note_selfperception.pdf
 # papers
 paper/**
 !paper/.gitkeep
+# framing study run523: judged tables (incl. v3) + gen transcripts are jsonl —
+# re-include them (the *_part.jsonl generation checkpoints elsewhere stay ignored)
+!results/selfperception/framing_run523/*.jsonl
