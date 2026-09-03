@@ -342,10 +342,13 @@ def main():
     ap.add_argument("--out", default="results/persona_vectors")
     args = ap.parse_args()
 
-    if args.pda:
+    if args.pda and not args.adjectives:
         from extract_adjectives import load_adjectives
         adjectives = sorted({a.lower() for a in load_adjectives()})
     else:
+        # explicit --adjectives wins even with --pda (2026-09-03 fix: --pda
+        # used to override it, so the 525 backfill re-ran FULL 525-condition
+        # captures instead of 2-adjective patches — 2 models x ~1.5 GPU-days)
         adjectives = args.adjectives or (
             SMOKE_ADJECTIVES if args.smoke else
             SCALED30_ADJECTIVES if args.scaled30 else None)

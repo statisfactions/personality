@@ -58,27 +58,28 @@ def step_represent():
 
 
 def step_enact():
-    for p in sorted(glob.glob("results/persona_vectors/*_pda_texts.json")):
-        short = os.path.basename(p).replace("_pda_texts.json", "")
-        if MISSING <= {k.lower() for k in json.load(open(p))}:
+    for p in sorted(glob.glob("results/persona_vectors/enact_mid/*.npz")):
+        short = os.path.basename(p).replace(".npz", "")
+        z = np.load(p, allow_pickle=True)
+        if MISSING <= {str(a).lower() for a in z["adjectives"]}:
             continue
-        # separate tag so the 2-adjective run cannot overwrite the full
-        # aggregate; then move its checkpoints into the pda ckpt dir and
-        # rebuild the aggregate model-free
-        run(PY + ["scripts/extract_persona_vectors.py", "--model", short, "--pda",
-                  "--adjectives", *sorted(MISSING), "--tag", "pda_backfill",
-                  "--no-save-acts"], f"enact {short}")
-        src = f"results/persona_vectors/{short}_pda_backfill_ckpt"
-        dst = f"results/persona_vectors/{short}_pda_ckpt"
-        moved = 0
-        for a in sorted(MISSING):
-            f = f"{src}/{a}.pt"
-            if os.path.exists(f) and os.path.isdir(dst):
-                shutil.copy2(f, f"{dst}/{a}.pt"); moved += 1
-        print(f"[enact {short}] moved {moved} checkpoints -> {dst}", flush=True)
-        if moved:
-            run(PY + ["scripts/finalize_from_checkpoints.py", "--model", short],
-                f"finalize {short}")
+        # (2026-09-03 rework) the old path moved checkpoints the extractor
+        # had already deleted, so the aggregate never updated. New path:
+        # run the (now honored) 2-adjective subset under its own tag, then
+        # merge the vectors into enact_mid re-referenced to the ORIGINAL
+        # grand (scripts/merge_enact_backfill.py). If a full-525 rerun
+        # already exists from the pre-fix era (Aya, Gemma12), reuse it.
+        tx = f"results/persona_vectors/{short}_pda_backfill_texts.json"
+        have = set()
+        if os.path.exists(tx):
+            have = {k.lower() for k in json.load(open(tx))}
+        if not MISSING <= have:
+            run(PY + ["scripts/extract_persona_vectors.py", "--model", short,
+                      "--pda", "--adjectives", *sorted(MISSING),
+                      "--tag", "pda_backfill", "--no-save-acts"],
+                f"enact {short}")
+        run(PY + ["scripts/merge_enact_backfill.py", "--model", short],
+            f"merge {short}")
 
 
 def step_judge():
