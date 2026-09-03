@@ -3018,3 +3018,30 @@ declarative belief) promoted to primary — with the registered
 dissociation bet that the humility pole will SPLIT (self-report says
 "I may be dumb/helpless", JUDGE will say assistants are UNLIKELY dumb).
 Def-3 (REPRESENT under framing) stays the fallback geometry probe.
+
+## ENACT backfill bug: --pda swallowed --adjectives (2026-09-03, caught pre-reboot)
+
+The enact backfill step was silently re-running FULL 525-condition
+captures per model: extract_persona_vectors' --pda branch ignored an
+explicit --adjectives subset. Cost before catch: Aya ~1 day, Gemma12
+~1.9 days, Gemma27 ~14h partial (killed at pause) — ~3.5 GPU-days for
+what should have been minutes/model. Compounding: the step's
+checkpoint-move + finalize path could NEVER fire (the extractor
+rmtree's its ckpt dir on success), so the two completed reruns hadn't
+updated enact_mid either — "moved 0 checkpoints" in the log was the
+tell rgb's reboot request surfaced.
+FIX (committed): (1) --adjectives now wins over --pda; (2) step_enact
+runs the honored 2-adjective subset then merge_enact_backfill.py
+re-references vectors to the ORIGINAL grand (subset-run directions are
+vs their own 3-role grand — raw cond_mean recovered via the stored
+backfill grand, then re-centered on npz grand); (3) Aya + Gemma12
+merged to 525 straight from their pre-fix full reruns (norms and
+nearest-neighborhoods in-distribution).
+SILVER LINING: Aya/Gemma12 now have complete independent 525-condition
+ENACT re-captures (~5 weeks after the originals, same seed/recipe) —
+a free session-stability replication asset for the ENACT channel.
+Gemma27's stale partial ckpt dir (2GB) is reused for __default__ and
+auto-cleaned by the fixed run. Chain paused for rgb's reboot; resume =
+nohup bash scripts/run_gpu_chain_resume.sh & (remaining: 8 quick enact
+patches, JUDGE backfill, base rates x12 + fits, mass-audit rerun,
+cohort queue).
