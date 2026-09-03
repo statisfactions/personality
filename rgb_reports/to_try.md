@@ -2977,3 +2977,21 @@ Run: 63 models x 6 framings x 523 adj (labels still corr-json 523;
   slightly LESS stable, not more.
 - Null worth keeping: cohort entropy is FLAT across framings
   (.80-.84). Framing moves level and shape, never confidence.
+
+## Assistant-axis closeness vs framing redistribution (2026-09-02, REGISTERED)
+
+Def-2 of the HHH question: cos(ENACT dir_a, assistant axis) per adjective
+(free — enact_mid npz already stores the Lu axis), vs the assistant-framing
+RESIDUAL delta (compression partialed: delta ~ base + base^2). Context: the
+raw cluster table exposed my HHH-redistribution read as partly a RANGE-
+COMPRESSION artifact (r(delta, baseline) = -.53, quadratic R2 .38); the
+residual keeps three poles: anti-harm (abusive/violent/prejudiced),
+anti-romance/appearance (seductive/sexy/attractive/beautiful), pro-humility
+(helpless/ridiculous/foolish/dumb/confused).
+Predictions:
+- P7: r(residual delta, axis-closeness) positive but modest, ~+.3
+  (write-read gaps run large).
+- P8: the humility pole MISALIGNS (endorsed under assistant framing but
+  not near the write-side axis); excluding the ~15 humility words RAISES
+  the correlation.
+- P9: anti-romance pole aligns (those words sit far from the axis).
