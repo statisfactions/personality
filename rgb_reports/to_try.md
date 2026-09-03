@@ -2939,3 +2939,41 @@ Predictions:
   profiles).
 - P6 (generation, exploratory, no number): newer generation -> more
   framing-stable.
+
+## Framing profiles GRADED (2026-09-02): 1 hit, 5 misses — facet bigger and weirder than registered
+
+Run: 63 models x 6 framings x 523 adj (labels still corr-json 523;
+525 after the human-matrix regen). Script scripts/self_framing_profile.py
+(pkit-native, refactor-core), results/adjectives/self_framing_profile.json.
+- P1 MISS twice: framing total = 18.8% of SS (predicted <15), and
+  framing MAIN (.087) >> framing x adjective (.023) — I had the order
+  backwards. Full shares: adjective .34 > model x adj .18 > model .15
+  > 3way .15 > framing .09 > model x framing .08 > framing x adj .02.
+  Notably model x framing ~ framing main: HOW a model responds to
+  framing is about as big as the framing effect itself.
+- P2 narrow MISS: assistant is modal outlier for 36/63 = 57% (<60%).
+  pda second (19), person 7 — and the person-outliers are the BIG
+  modern models (Gemma-3-12/27, Gemma4, Qwen32, OLMo2-32, Glimmer):
+  for them "a person" is the odd frame, not "an AI assistant".
+- P3 HIT: assistant elevation +1.13 +/- 0.78 above the others
+  (predicted +0.5-1.0, slightly over); all five other framings sit in
+  a 0.07-wide band (4.07-4.14) — elevation-wise there are only two
+  framings: assistant and everything else. 3 models push NEGATIVE:
+  gemma-3-1b (-1.08), Llama-3.2-1B (-0.61) — the 1B babies — and
+  R1-Qwen (-0.03). Granites slam hardest (+2.7/+2.8).
+- P4 near MISS: 9/20 top movers are body/demographic/inapplicable
+  (predicted >=10). The other block I did NOT predict: harm/vice words
+  where the assistant framing denies EXTRA (violent -2.82 vs ~-1.7
+  elsewhere) while compressing denial of inapplicable words (blind
+  -0.11 vs -1.6 direct). Assistant framing redistributes shape along
+  an HHH-relevance axis, not just level. Gem: 'rich' flips POSITIVE
+  only in outputs framing (+0.88) — "rich outputs" is polysemy leaking
+  through the instrument.
+- P5 clean MISS: r(stability, entropy) = +.08 — framing stability is
+  NOT an entropy story. (Least stable: stablelm-2, internlm3, both
+  R1 distills, gemma-2-2b, Llama-2-7b. Most: Ministral-8B .89,
+  Qwen3.8-27B .87, Phi-4-mini .87.)
+- P6 MISS (exploratory): r(stability, generation) = -.18 — newer
+  slightly LESS stable, not more.
+- Null worth keeping: cohort entropy is FLAT across framings
+  (.80-.84). Framing moves level and shape, never confidence.
