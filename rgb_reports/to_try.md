@@ -2995,3 +2995,26 @@ Predictions:
   not near the write-side axis); excluding the ~15 humility words RAISES
   the correlation.
 - P9: anti-romance pole aligns (those words sit far from the axis).
+
+## Axis-closeness GRADED (2026-09-02): near-zero — the write axis doesn't carry the framing redistribution
+
+10/10 deep models, cos(ENACT dir, Lu assistant axis) vs residual delta:
+mean r = +0.05 (range -.04..+.25; only Llama8 nontrivial at +.25).
+- P7 MISS: predicted ~+.3, got ~0. The residual redistribution is NOT
+  in the write-side assistant direction.
+- P8 technically confirmed, trivially: excluding humility words raised
+  r in 10/10 models — but by +0.02 on average. Direction right,
+  magnitude negligible.
+- P9 MISS: romance words are NOT reliably far from the axis (below-
+  median cos in 12-88% by model, mean ~43% = chance).
+Informative negative: the RAW delta anticorrelates with axis-closeness
+(-.13 to -.56) — via compression, since axis-closeness tracks trait
+desirability (the axis IS HHH+C-flavored) and compression penalizes
+high-baseline words. So the assistant axis encodes WHAT an assistant is
+(the desirable-trait level), while the framing redistribution (anti-
+romance, pro-humility, extra-anti-harm) is a response policy the write
+geometry doesn't carry. Def-2 eliminated; def-4 (JUDGE assistant->x,
+declarative belief) promoted to primary — with the registered
+dissociation bet that the humility pole will SPLIT (self-report says
+"I may be dumb/helpless", JUDGE will say assistants are UNLIKELY dumb).
+Def-3 (REPRESENT under framing) stays the fallback geometry probe.
