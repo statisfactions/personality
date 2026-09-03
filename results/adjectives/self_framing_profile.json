@@ -1,0 +1,2229 @@
+{
+ "models": [
+  "Yi-1.5-34B-Chat",
+  "Yi-1.5-6B-Chat",
+  "Yi-1.5-9B-Chat",
+  "aya-expanse-32b",
+  "aya-expanse-8b",
+  "c4ai-command-r7b-12-2024",
+  "zephyr-7b-beta",
+  "SmolLM2-1.7B-Instruct",
+  "EXAONE-3.5-7.8B-Instruct",
+  "Qwen1.5-7B-Chat",
+  "Qwen2-7B-Instruct",
+  "Qwen2.5-0.5B-Instruct",
+  "Qwen2.5-1.5B-Instruct",
+  "Qwen2.5-14B-Instruct",
+  "Qwen2.5-32B-Instruct",
+  "Qwen2.5-3B-Instruct",
+  "Qwen2.5-7B-Instruct",
+  "Qwen3-14B",
+  "Qwen3-8B",
+  "Qwen3.8-27B",
+  "glm-4-9b-chat-hf",
+  "Llama-3.1-Tulu-3-8B",
+  "OLMo-2-0325-32B-Instruct",
+  "OLMo-2-1124-13B-Instruct",
+  "DeepSeek-R1-Distill-Llama-8B",
+  "DeepSeek-R1-Distill-Qwen-7B",
+  "gemma-2-27b-it",
+  "gemma-2-2b-it",
+  "gemma-2-9b-it",
+  "gemma-2b-it",
+  "gemma-3-12b-it",
+  "gemma-3-1b-it",
+  "gemma-3-27b-it",
+  "gemma-3-4b-it",
+  "gemma-4-31B-it",
+  "gemma-7b-it",
+  "granite-3.1-8b-instruct",
+  "granite-3.3-8b-instruct",
+  "internlm3-8b-instruct",
+  "vicuna-7b-v1.5",
+  "Llama-2-13b-chat-hf",
+  "Llama-2-7b-chat-hf",
+  "Llama-3.1-8B-Instruct",
+  "Llama-3.2-1B-Instruct",
+  "Llama-3.2-3B-Instruct",
+  "Meta-Llama-3-8B-Instruct",
+  "Muse-Glimmer-30B",
+  "Phi-3-medium-4k-instruct",
+  "Phi-3-mini-4k-instruct",
+  "Phi-3.5-mini-instruct",
+  "Phi-4-mini-instruct",
+  "phi-4",
+  "Ministral-8B-Instruct-2410",
+  "Mistral-7B-Instruct-v0.1",
+  "Mistral-7B-Instruct-v0.3",
+  "Mistral-Nemo-Instruct-2407",
+  "Mistral-Small-24B-Instruct-2501",
+  "Llama-3.1-Nemotron-Nano-8B-v1",
+  "stablelm-2-12b-chat",
+  "Falcon3-10B-Instruct",
+  "Falcon3-3B-Instruct",
+  "Falcon3-7B-Instruct",
+  "falcon-mamba-7b-instruct"
+ ],
+ "framings": [
+  "direct",
+  "assistant",
+  "person",
+  "pda",
+  "observer",
+  "outputs"
+ ],
+ "n_adjectives": 523,
+ "cohort_elevation": {
+  "direct": 4.14,
+  "assistant": 5.237,
+  "person": 4.093,
+  "pda": 4.108,
+  "observer": 4.073,
+  "outputs": 4.101
+ },
+ "cohort_entropy": {
+  "direct": 0.799,
+  "assistant": 0.82,
+  "person": 0.84,
+  "pda": 0.824,
+  "observer": 0.795,
+  "outputs": 0.817
+ },
+ "cohort_agreement": [
+  [
+   1.0,
+   0.628,
+   0.775,
+   0.681,
+   0.81,
+   0.76
+  ],
+  [
+   0.628,
+   1.0,
+   0.603,
+   0.594,
+   0.659,
+   0.632
+  ],
+  [
+   0.775,
+   0.603,
+   1.0,
+   0.624,
+   0.775,
+   0.721
+  ],
+  [
+   0.681,
+   0.594,
+   0.624,
+   1.0,
+   0.693,
+   0.668
+  ],
+  [
+   0.81,
+   0.659,
+   0.775,
+   0.693,
+   1.0,
+   0.802
+  ],
+  [
+   0.76,
+   0.632,
+   0.721,
+   0.668,
+   0.802,
+   1.0
+  ]
+ ],
+ "variance_shares": {
+  "model": 0.1531,
+  "framing": 0.087,
+  "adjective": 0.3369,
+  "model_x_framing": 0.0781,
+  "model_x_adjective": 0.1766,
+  "framing_x_adjective": 0.0226,
+  "threeway_resid": 0.1457
+ },
+ "per_model": {
+  "Yi-1.5-34B-Chat": {
+   "elevation": {
+    "direct": 4.18,
+    "assistant": 4.91,
+    "person": 2.74,
+    "pda": 4.01,
+    "observer": 3.4,
+    "outputs": 3.79
+   },
+   "entropy": {
+    "direct": 0.45,
+    "assistant": 0.6,
+    "person": 0.51,
+    "pda": 0.32,
+    "observer": 0.44,
+    "outputs": 0.47
+   },
+   "framing_mean_r": {
+    "direct": 0.805,
+    "assistant": 0.744,
+    "person": 0.743,
+    "pda": 0.731,
+    "observer": 0.814,
+    "outputs": 0.806
+   },
+   "outlier_framing": "pda",
+   "stability": 0.774
+  },
+  "Yi-1.5-6B-Chat": {
+   "elevation": {
+    "direct": 4.25,
+    "assistant": 4.39,
+    "person": 4.29,
+    "pda": 4.06,
+    "observer": 4.51,
+    "outputs": 4.22
+   },
+   "entropy": {
+    "direct": 0.55,
+    "assistant": 1.33,
+    "person": 0.55,
+    "pda": 0.66,
+    "observer": 0.48,
+    "outputs": 0.68
+   },
+   "framing_mean_r": {
+    "direct": 0.765,
+    "assistant": 0.704,
+    "person": 0.78,
+    "pda": 0.775,
+    "observer": 0.8,
+    "outputs": 0.774
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.766
+  },
+  "Yi-1.5-9B-Chat": {
+   "elevation": {
+    "direct": 3.97,
+    "assistant": 5.28,
+    "person": 4.35,
+    "pda": 4.24,
+    "observer": 3.97,
+    "outputs": 4.06
+   },
+   "entropy": {
+    "direct": 0.68,
+    "assistant": 0.76,
+    "person": 0.64,
+    "pda": 0.82,
+    "observer": 0.72,
+    "outputs": 0.79
+   },
+   "framing_mean_r": {
+    "direct": 0.801,
+    "assistant": 0.662,
+    "person": 0.791,
+    "pda": 0.805,
+    "observer": 0.767,
+    "outputs": 0.759
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.764
+  },
+  "aya-expanse-32b": {
+   "elevation": {
+    "direct": 4.29,
+    "assistant": 6.33,
+    "person": 4.6,
+    "pda": 3.91,
+    "observer": 3.91,
+    "outputs": 4.22
+   },
+   "entropy": {
+    "direct": 0.12,
+    "assistant": 0.1,
+    "person": 0.13,
+    "pda": 0.15,
+    "observer": 0.1,
+    "outputs": 0.07
+   },
+   "framing_mean_r": {
+    "direct": 0.742,
+    "assistant": 0.646,
+    "person": 0.744,
+    "pda": 0.708,
+    "observer": 0.764,
+    "outputs": 0.744
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.725
+  },
+  "aya-expanse-8b": {
+   "elevation": {
+    "direct": 4.35,
+    "assistant": 5.85,
+    "person": 3.85,
+    "pda": 4.85,
+    "observer": 4.02,
+    "outputs": 4.51
+   },
+   "entropy": {
+    "direct": 0.22,
+    "assistant": 0.25,
+    "person": 0.16,
+    "pda": 0.28,
+    "observer": 0.17,
+    "outputs": 0.31
+   },
+   "framing_mean_r": {
+    "direct": 0.775,
+    "assistant": 0.581,
+    "person": 0.74,
+    "pda": 0.731,
+    "observer": 0.776,
+    "outputs": 0.655
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.71
+  },
+  "c4ai-command-r7b-12-2024": {
+   "elevation": {
+    "direct": 4.8,
+    "assistant": 5.8,
+    "person": 5.11,
+    "pda": 4.84,
+    "observer": 5.05,
+    "outputs": 4.74
+   },
+   "entropy": {
+    "direct": 1.23,
+    "assistant": 1.11,
+    "person": 1.44,
+    "pda": 1.25,
+    "observer": 1.19,
+    "outputs": 1.21
+   },
+   "framing_mean_r": {
+    "direct": 0.76,
+    "assistant": 0.772,
+    "person": 0.761,
+    "pda": 0.738,
+    "observer": 0.808,
+    "outputs": 0.781
+   },
+   "outlier_framing": "pda",
+   "stability": 0.77
+  },
+  "zephyr-7b-beta": {
+   "elevation": {
+    "direct": 3.97,
+    "assistant": 4.97,
+    "person": 3.55,
+    "pda": 4.39,
+    "observer": 3.41,
+    "outputs": 3.29
+   },
+   "entropy": {
+    "direct": 0.5,
+    "assistant": 0.76,
+    "person": 0.42,
+    "pda": 0.49,
+    "observer": 0.44,
+    "outputs": 0.47
+   },
+   "framing_mean_r": {
+    "direct": 0.699,
+    "assistant": 0.613,
+    "person": 0.744,
+    "pda": 0.596,
+    "observer": 0.759,
+    "outputs": 0.718
+   },
+   "outlier_framing": "pda",
+   "stability": 0.688
+  },
+  "SmolLM2-1.7B-Instruct": {
+   "elevation": {
+    "direct": 4.6,
+    "assistant": 4.8,
+    "person": 4.61,
+    "pda": 4.79,
+    "observer": 4.61,
+    "outputs": 4.83
+   },
+   "entropy": {
+    "direct": 1.87,
+    "assistant": 1.85,
+    "person": 1.88,
+    "pda": 1.72,
+    "observer": 1.88,
+    "outputs": 1.83
+   },
+   "framing_mean_r": {
+    "direct": 0.83,
+    "assistant": 0.773,
+    "person": 0.827,
+    "pda": 0.683,
+    "observer": 0.839,
+    "outputs": 0.823
+   },
+   "outlier_framing": "pda",
+   "stability": 0.796
+  },
+  "EXAONE-3.5-7.8B-Instruct": {
+   "elevation": {
+    "direct": 3.97,
+    "assistant": 6.08,
+    "person": 4.36,
+    "pda": 4.61,
+    "observer": 4.29,
+    "outputs": 4.02
+   },
+   "entropy": {
+    "direct": 0.84,
+    "assistant": 0.64,
+    "person": 0.9,
+    "pda": 0.87,
+    "observer": 0.97,
+    "outputs": 0.89
+   },
+   "framing_mean_r": {
+    "direct": 0.712,
+    "assistant": 0.591,
+    "person": 0.712,
+    "pda": 0.668,
+    "observer": 0.756,
+    "outputs": 0.693
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.689
+  },
+  "Qwen1.5-7B-Chat": {
+   "elevation": {
+    "direct": 4.25,
+    "assistant": 5.19,
+    "person": 3.05,
+    "pda": 5.0,
+    "observer": 3.63,
+    "outputs": 3.5
+   },
+   "entropy": {
+    "direct": 0.84,
+    "assistant": 0.72,
+    "person": 0.68,
+    "pda": 1.08,
+    "observer": 0.9,
+    "outputs": 0.85
+   },
+   "framing_mean_r": {
+    "direct": 0.803,
+    "assistant": 0.732,
+    "person": 0.793,
+    "pda": 0.736,
+    "observer": 0.833,
+    "outputs": 0.744
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.773
+  },
+  "Qwen2-7B-Instruct": {
+   "elevation": {
+    "direct": 3.96,
+    "assistant": 5.81,
+    "person": 4.05,
+    "pda": 3.93,
+    "observer": 3.45,
+    "outputs": 3.55
+   },
+   "entropy": {
+    "direct": 0.89,
+    "assistant": 0.54,
+    "person": 0.9,
+    "pda": 0.93,
+    "observer": 0.71,
+    "outputs": 0.82
+   },
+   "framing_mean_r": {
+    "direct": 0.883,
+    "assistant": 0.757,
+    "person": 0.887,
+    "pda": 0.84,
+    "observer": 0.873,
+    "outputs": 0.861
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.85
+  },
+  "Qwen2.5-0.5B-Instruct": {
+   "elevation": {
+    "direct": 3.27,
+    "assistant": 3.74,
+    "person": 2.45,
+    "pda": 3.27,
+    "observer": 3.01,
+    "outputs": 3.15
+   },
+   "entropy": {
+    "direct": 1.24,
+    "assistant": 1.14,
+    "person": 1.26,
+    "pda": 1.37,
+    "observer": 1.34,
+    "outputs": 1.08
+   },
+   "framing_mean_r": {
+    "direct": 0.872,
+    "assistant": 0.81,
+    "person": 0.857,
+    "pda": 0.777,
+    "observer": 0.885,
+    "outputs": 0.826
+   },
+   "outlier_framing": "pda",
+   "stability": 0.838
+  },
+  "Qwen2.5-1.5B-Instruct": {
+   "elevation": {
+    "direct": 3.8,
+    "assistant": 5.51,
+    "person": 4.02,
+    "pda": 3.2,
+    "observer": 3.85,
+    "outputs": 3.81
+   },
+   "entropy": {
+    "direct": 1.03,
+    "assistant": 1.1,
+    "person": 1.26,
+    "pda": 1.29,
+    "observer": 1.12,
+    "outputs": 1.13
+   },
+   "framing_mean_r": {
+    "direct": 0.823,
+    "assistant": 0.731,
+    "person": 0.864,
+    "pda": 0.762,
+    "observer": 0.858,
+    "outputs": 0.842
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.813
+  },
+  "Qwen2.5-14B-Instruct": {
+   "elevation": {
+    "direct": 4.03,
+    "assistant": 5.46,
+    "person": 3.8,
+    "pda": 3.47,
+    "observer": 3.84,
+    "outputs": 4.0
+   },
+   "entropy": {
+    "direct": 0.14,
+    "assistant": 0.46,
+    "person": 0.1,
+    "pda": 0.2,
+    "observer": 0.22,
+    "outputs": 0.18
+   },
+   "framing_mean_r": {
+    "direct": 0.78,
+    "assistant": 0.675,
+    "person": 0.683,
+    "pda": 0.752,
+    "observer": 0.787,
+    "outputs": 0.761
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.74
+  },
+  "Qwen2.5-32B-Instruct": {
+   "elevation": {
+    "direct": 3.92,
+    "assistant": 5.62,
+    "person": 3.64,
+    "pda": 3.16,
+    "observer": 3.7,
+    "outputs": 4.19
+   },
+   "entropy": {
+    "direct": 0.09,
+    "assistant": 0.35,
+    "person": 0.11,
+    "pda": 0.18,
+    "observer": 0.14,
+    "outputs": 0.16
+   },
+   "framing_mean_r": {
+    "direct": 0.751,
+    "assistant": 0.698,
+    "person": 0.685,
+    "pda": 0.747,
+    "observer": 0.795,
+    "outputs": 0.773
+   },
+   "outlier_framing": "person",
+   "stability": 0.741
+  },
+  "Qwen2.5-3B-Instruct": {
+   "elevation": {
+    "direct": 4.29,
+    "assistant": 5.05,
+    "person": 4.31,
+    "pda": 5.46,
+    "observer": 4.23,
+    "outputs": 4.23
+   },
+   "entropy": {
+    "direct": 0.4,
+    "assistant": 0.6,
+    "person": 0.57,
+    "pda": 0.76,
+    "observer": 0.45,
+    "outputs": 0.52
+   },
+   "framing_mean_r": {
+    "direct": 0.709,
+    "assistant": 0.556,
+    "person": 0.706,
+    "pda": 0.606,
+    "observer": 0.711,
+    "outputs": 0.655
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.657
+  },
+  "Qwen2.5-7B-Instruct": {
+   "elevation": {
+    "direct": 4.14,
+    "assistant": 6.11,
+    "person": 4.34,
+    "pda": 3.51,
+    "observer": 3.75,
+    "outputs": 3.84
+   },
+   "entropy": {
+    "direct": 0.65,
+    "assistant": 0.38,
+    "person": 0.73,
+    "pda": 0.46,
+    "observer": 0.59,
+    "outputs": 0.56
+   },
+   "framing_mean_r": {
+    "direct": 0.822,
+    "assistant": 0.707,
+    "person": 0.857,
+    "pda": 0.815,
+    "observer": 0.862,
+    "outputs": 0.832
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.816
+  },
+  "Qwen3-14B": {
+   "elevation": {
+    "direct": 4.25,
+    "assistant": 5.62,
+    "person": 4.25,
+    "pda": 4.09,
+    "observer": 4.31,
+    "outputs": 4.23
+   },
+   "entropy": {
+    "direct": 0.12,
+    "assistant": 0.41,
+    "person": 0.17,
+    "pda": 0.13,
+    "observer": 0.12,
+    "outputs": 0.12
+   },
+   "framing_mean_r": {
+    "direct": 0.631,
+    "assistant": 0.5,
+    "person": 0.616,
+    "pda": 0.494,
+    "observer": 0.612,
+    "outputs": 0.606
+   },
+   "outlier_framing": "pda",
+   "stability": 0.576
+  },
+  "Qwen3-8B": {
+   "elevation": {
+    "direct": 4.63,
+    "assistant": 5.1,
+    "person": 4.34,
+    "pda": 4.44,
+    "observer": 4.62,
+    "outputs": 4.44
+   },
+   "entropy": {
+    "direct": 0.29,
+    "assistant": 0.44,
+    "person": 0.28,
+    "pda": 0.34,
+    "observer": 0.24,
+    "outputs": 0.26
+   },
+   "framing_mean_r": {
+    "direct": 0.799,
+    "assistant": 0.732,
+    "person": 0.785,
+    "pda": 0.771,
+    "observer": 0.85,
+    "outputs": 0.778
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.786
+  },
+  "Qwen3.8-27B": {
+   "elevation": {
+    "direct": 3.79,
+    "assistant": 5.72,
+    "person": 4.02,
+    "pda": 4.2,
+    "observer": 3.76,
+    "outputs": 3.7
+   },
+   "entropy": {
+    "direct": 0.91,
+    "assistant": 0.98,
+    "person": 1.16,
+    "pda": 0.95,
+    "observer": 0.89,
+    "outputs": 1.11
+   },
+   "framing_mean_r": {
+    "direct": 0.887,
+    "assistant": 0.812,
+    "person": 0.9,
+    "pda": 0.892,
+    "observer": 0.899,
+    "outputs": 0.846
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.873
+  },
+  "glm-4-9b-chat-hf": {
+   "elevation": {
+    "direct": 3.68,
+    "assistant": 5.09,
+    "person": 3.76,
+    "pda": 2.81,
+    "observer": 4.02,
+    "outputs": 3.15
+   },
+   "entropy": {
+    "direct": 1.35,
+    "assistant": 0.99,
+    "person": 1.35,
+    "pda": 1.1,
+    "observer": 1.06,
+    "outputs": 1.42
+   },
+   "framing_mean_r": {
+    "direct": 0.748,
+    "assistant": 0.656,
+    "person": 0.774,
+    "pda": 0.727,
+    "observer": 0.773,
+    "outputs": 0.702
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.73
+  },
+  "Llama-3.1-Tulu-3-8B": {
+   "elevation": {
+    "direct": 4.16,
+    "assistant": 5.68,
+    "person": 3.74,
+    "pda": 4.13,
+    "observer": 3.89,
+    "outputs": 3.78
+   },
+   "entropy": {
+    "direct": 0.87,
+    "assistant": 0.73,
+    "person": 0.98,
+    "pda": 1.17,
+    "observer": 0.84,
+    "outputs": 0.81
+   },
+   "framing_mean_r": {
+    "direct": 0.846,
+    "assistant": 0.739,
+    "person": 0.805,
+    "pda": 0.814,
+    "observer": 0.837,
+    "outputs": 0.823
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.811
+  },
+  "OLMo-2-0325-32B-Instruct": {
+   "elevation": {
+    "direct": 4.71,
+    "assistant": 6.19,
+    "person": 4.15,
+    "pda": 4.72,
+    "observer": 4.79,
+    "outputs": 4.7
+   },
+   "entropy": {
+    "direct": 0.9,
+    "assistant": 0.84,
+    "person": 0.81,
+    "pda": 0.89,
+    "observer": 0.91,
+    "outputs": 0.9
+   },
+   "framing_mean_r": {
+    "direct": 0.821,
+    "assistant": 0.699,
+    "person": 0.596,
+    "pda": 0.796,
+    "observer": 0.826,
+    "outputs": 0.811
+   },
+   "outlier_framing": "person",
+   "stability": 0.758
+  },
+  "OLMo-2-1124-13B-Instruct": {
+   "elevation": {
+    "direct": 3.57,
+    "assistant": 5.16,
+    "person": 3.06,
+    "pda": 3.93,
+    "observer": 3.38,
+    "outputs": 3.76
+   },
+   "entropy": {
+    "direct": 1.03,
+    "assistant": 0.89,
+    "person": 1.15,
+    "pda": 1.07,
+    "observer": 1.09,
+    "outputs": 1.05
+   },
+   "framing_mean_r": {
+    "direct": 0.851,
+    "assistant": 0.745,
+    "person": 0.8,
+    "pda": 0.818,
+    "observer": 0.861,
+    "outputs": 0.829
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.817
+  },
+  "DeepSeek-R1-Distill-Llama-8B": {
+   "elevation": {
+    "direct": 3.67,
+    "assistant": 4.27,
+    "person": 3.68,
+    "pda": 3.5,
+    "observer": 3.67,
+    "outputs": 4.27
+   },
+   "entropy": {
+    "direct": 1.82,
+    "assistant": 1.76,
+    "person": 1.84,
+    "pda": 1.75,
+    "observer": 1.86,
+    "outputs": 1.81
+   },
+   "framing_mean_r": {
+    "direct": 0.47,
+    "assistant": 0.344,
+    "person": 0.378,
+    "pda": 0.272,
+    "observer": 0.419,
+    "outputs": 0.425
+   },
+   "outlier_framing": "pda",
+   "stability": 0.385
+  },
+  "DeepSeek-R1-Distill-Qwen-7B": {
+   "elevation": {
+    "direct": 5.86,
+    "assistant": 5.95,
+    "person": 6.2,
+    "pda": 5.93,
+    "observer": 5.85,
+    "outputs": 6.06
+   },
+   "entropy": {
+    "direct": 0.9,
+    "assistant": 0.1,
+    "person": 0.84,
+    "pda": 0.6,
+    "observer": 0.76,
+    "outputs": 0.58
+   },
+   "framing_mean_r": {
+    "direct": 0.434,
+    "assistant": 0.214,
+    "person": 0.376,
+    "pda": 0.263,
+    "observer": 0.476,
+    "outputs": 0.359
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.354
+  },
+  "gemma-2-27b-it": {
+   "elevation": {
+    "direct": 3.72,
+    "assistant": 5.9,
+    "person": 3.48,
+    "pda": 3.32,
+    "observer": 3.34,
+    "outputs": 3.4
+   },
+   "entropy": {
+    "direct": 0.38,
+    "assistant": 0.4,
+    "person": 0.49,
+    "pda": 0.27,
+    "observer": 0.39,
+    "outputs": 0.33
+   },
+   "framing_mean_r": {
+    "direct": 0.805,
+    "assistant": 0.641,
+    "person": 0.757,
+    "pda": 0.778,
+    "observer": 0.805,
+    "outputs": 0.777
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.761
+  },
+  "gemma-2-2b-it": {
+   "elevation": {
+    "direct": 4.43,
+    "assistant": 5.84,
+    "person": 4.94,
+    "pda": 4.58,
+    "observer": 4.49,
+    "outputs": 4.69
+   },
+   "entropy": {
+    "direct": 0.69,
+    "assistant": 0.18,
+    "person": 0.67,
+    "pda": 0.38,
+    "observer": 0.62,
+    "outputs": 0.73
+   },
+   "framing_mean_r": {
+    "direct": 0.487,
+    "assistant": 0.161,
+    "person": 0.437,
+    "pda": 0.256,
+    "observer": 0.448,
+    "outputs": 0.405
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.366
+  },
+  "gemma-2-9b-it": {
+   "elevation": {
+    "direct": 3.52,
+    "assistant": 5.99,
+    "person": 3.92,
+    "pda": 3.38,
+    "observer": 3.64,
+    "outputs": 3.91
+   },
+   "entropy": {
+    "direct": 0.12,
+    "assistant": 0.41,
+    "person": 0.18,
+    "pda": 0.22,
+    "observer": 0.22,
+    "outputs": 0.29
+   },
+   "framing_mean_r": {
+    "direct": 0.693,
+    "assistant": 0.62,
+    "person": 0.6,
+    "pda": 0.696,
+    "observer": 0.727,
+    "outputs": 0.703
+   },
+   "outlier_framing": "person",
+   "stability": 0.673
+  },
+  "gemma-2b-it": {
+   "elevation": {
+    "direct": 4.61,
+    "assistant": 4.99,
+    "person": 4.7,
+    "pda": 5.79,
+    "observer": 4.56,
+    "outputs": 4.33
+   },
+   "entropy": {
+    "direct": 0.78,
+    "assistant": 0.88,
+    "person": 0.81,
+    "pda": 0.41,
+    "observer": 0.75,
+    "outputs": 0.73
+   },
+   "framing_mean_r": {
+    "direct": 0.872,
+    "assistant": 0.82,
+    "person": 0.856,
+    "pda": 0.65,
+    "observer": 0.85,
+    "outputs": 0.836
+   },
+   "outlier_framing": "pda",
+   "stability": 0.814
+  },
+  "gemma-3-12b-it": {
+   "elevation": {
+    "direct": 4.19,
+    "assistant": 5.24,
+    "person": 4.43,
+    "pda": 2.97,
+    "observer": 4.39,
+    "outputs": 4.53
+   },
+   "entropy": {
+    "direct": 0.09,
+    "assistant": 0.23,
+    "person": 0.14,
+    "pda": 0.14,
+    "observer": 0.07,
+    "outputs": 0.13
+   },
+   "framing_mean_r": {
+    "direct": 0.698,
+    "assistant": 0.634,
+    "person": 0.615,
+    "pda": 0.671,
+    "observer": 0.718,
+    "outputs": 0.71
+   },
+   "outlier_framing": "person",
+   "stability": 0.674
+  },
+  "gemma-3-1b-it": {
+   "elevation": {
+    "direct": 4.09,
+    "assistant": 3.29,
+    "person": 4.44,
+    "pda": 5.37,
+    "observer": 4.41,
+    "outputs": 3.56
+   },
+   "entropy": {
+    "direct": 0.21,
+    "assistant": 0.47,
+    "person": 0.21,
+    "pda": 0.32,
+    "observer": 0.19,
+    "outputs": 0.21
+   },
+   "framing_mean_r": {
+    "direct": 0.67,
+    "assistant": 0.569,
+    "person": 0.683,
+    "pda": 0.476,
+    "observer": 0.709,
+    "outputs": 0.614
+   },
+   "outlier_framing": "pda",
+   "stability": 0.62
+  },
+  "gemma-3-27b-it": {
+   "elevation": {
+    "direct": 4.46,
+    "assistant": 5.92,
+    "person": 4.5,
+    "pda": 4.14,
+    "observer": 4.21,
+    "outputs": 4.36
+   },
+   "entropy": {
+    "direct": 0.1,
+    "assistant": 0.09,
+    "person": 0.11,
+    "pda": 0.12,
+    "observer": 0.14,
+    "outputs": 0.11
+   },
+   "framing_mean_r": {
+    "direct": 0.757,
+    "assistant": 0.649,
+    "person": 0.614,
+    "pda": 0.75,
+    "observer": 0.761,
+    "outputs": 0.734
+   },
+   "outlier_framing": "person",
+   "stability": 0.711
+  },
+  "gemma-3-4b-it": {
+   "elevation": {
+    "direct": 4.11,
+    "assistant": 5.76,
+    "person": 4.31,
+    "pda": 3.97,
+    "observer": 4.01,
+    "outputs": 3.81
+   },
+   "entropy": {
+    "direct": 0.13,
+    "assistant": 0.19,
+    "person": 0.14,
+    "pda": 0.16,
+    "observer": 0.1,
+    "outputs": 0.12
+   },
+   "framing_mean_r": {
+    "direct": 0.776,
+    "assistant": 0.618,
+    "person": 0.774,
+    "pda": 0.757,
+    "observer": 0.817,
+    "outputs": 0.744
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.748
+  },
+  "gemma-4-31B-it": {
+   "elevation": {
+    "direct": 3.72,
+    "assistant": 5.08,
+    "person": 3.93,
+    "pda": 3.1,
+    "observer": 3.57,
+    "outputs": 3.52
+   },
+   "entropy": {
+    "direct": 0.02,
+    "assistant": 0.08,
+    "person": 0.03,
+    "pda": 0.04,
+    "observer": 0.03,
+    "outputs": 0.06
+   },
+   "framing_mean_r": {
+    "direct": 0.642,
+    "assistant": 0.601,
+    "person": 0.573,
+    "pda": 0.649,
+    "observer": 0.603,
+    "outputs": 0.647
+   },
+   "outlier_framing": "person",
+   "stability": 0.619
+  },
+  "gemma-7b-it": {
+   "elevation": {
+    "direct": 2.95,
+    "assistant": 5.0,
+    "person": 3.44,
+    "pda": 4.23,
+    "observer": 3.72,
+    "outputs": 3.76
+   },
+   "entropy": {
+    "direct": 1.35,
+    "assistant": 0.77,
+    "person": 1.38,
+    "pda": 1.11,
+    "observer": 1.24,
+    "outputs": 1.25
+   },
+   "framing_mean_r": {
+    "direct": 0.781,
+    "assistant": 0.74,
+    "person": 0.81,
+    "pda": 0.584,
+    "observer": 0.821,
+    "outputs": 0.809
+   },
+   "outlier_framing": "pda",
+   "stability": 0.758
+  },
+  "granite-3.1-8b-instruct": {
+   "elevation": {
+    "direct": 3.79,
+    "assistant": 6.18,
+    "person": 3.77,
+    "pda": 2.59,
+    "observer": 3.35,
+    "outputs": 3.32
+   },
+   "entropy": {
+    "direct": 0.73,
+    "assistant": 0.52,
+    "person": 0.74,
+    "pda": 0.45,
+    "observer": 0.51,
+    "outputs": 0.67
+   },
+   "framing_mean_r": {
+    "direct": 0.794,
+    "assistant": 0.597,
+    "person": 0.825,
+    "pda": 0.699,
+    "observer": 0.829,
+    "outputs": 0.795
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.757
+  },
+  "granite-3.3-8b-instruct": {
+   "elevation": {
+    "direct": 3.3,
+    "assistant": 5.59,
+    "person": 2.31,
+    "pda": 2.93,
+    "observer": 3.01,
+    "outputs": 2.86
+   },
+   "entropy": {
+    "direct": 0.43,
+    "assistant": 0.54,
+    "person": 0.48,
+    "pda": 0.42,
+    "observer": 0.38,
+    "outputs": 0.42
+   },
+   "framing_mean_r": {
+    "direct": 0.763,
+    "assistant": 0.621,
+    "person": 0.714,
+    "pda": 0.749,
+    "observer": 0.806,
+    "outputs": 0.726
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.73
+  },
+  "internlm3-8b-instruct": {
+   "elevation": {
+    "direct": 4.53,
+    "assistant": 4.57,
+    "person": 4.47,
+    "pda": 3.27,
+    "observer": 4.51,
+    "outputs": 4.53
+   },
+   "entropy": {
+    "direct": 1.84,
+    "assistant": 1.84,
+    "person": 1.84,
+    "pda": 1.79,
+    "observer": 1.85,
+    "outputs": 1.83
+   },
+   "framing_mean_r": {
+    "direct": 0.43,
+    "assistant": 0.277,
+    "person": 0.404,
+    "pda": -0.093,
+    "observer": 0.405,
+    "outputs": 0.412
+   },
+   "outlier_framing": "pda",
+   "stability": 0.306
+  },
+  "vicuna-7b-v1.5": {
+   "elevation": {
+    "direct": 4.7,
+    "assistant": 4.92,
+    "person": 4.78,
+    "pda": 4.59,
+    "observer": 4.69,
+    "outputs": 4.57
+   },
+   "entropy": {
+    "direct": 1.41,
+    "assistant": 1.38,
+    "person": 1.48,
+    "pda": 1.37,
+    "observer": 1.36,
+    "outputs": 1.3
+   },
+   "framing_mean_r": {
+    "direct": 0.853,
+    "assistant": 0.813,
+    "person": 0.844,
+    "pda": 0.809,
+    "observer": 0.857,
+    "outputs": 0.855
+   },
+   "outlier_framing": "pda",
+   "stability": 0.838
+  },
+  "Llama-2-13b-chat-hf": {
+   "elevation": {
+    "direct": 2.26,
+    "assistant": 2.43,
+    "person": 2.42,
+    "pda": 2.64,
+    "observer": 2.33,
+    "outputs": 2.5
+   },
+   "entropy": {
+    "direct": 1.45,
+    "assistant": 1.52,
+    "person": 1.51,
+    "pda": 1.6,
+    "observer": 1.49,
+    "outputs": 1.59
+   },
+   "framing_mean_r": {
+    "direct": 0.54,
+    "assistant": 0.547,
+    "person": 0.599,
+    "pda": 0.435,
+    "observer": 0.577,
+    "outputs": 0.566
+   },
+   "outlier_framing": "pda",
+   "stability": 0.544
+  },
+  "Llama-2-7b-chat-hf": {
+   "elevation": {
+    "direct": 5.16,
+    "assistant": 5.34,
+    "person": 4.58,
+    "pda": 3.67,
+    "observer": 4.46,
+    "outputs": 5.52
+   },
+   "entropy": {
+    "direct": 1.17,
+    "assistant": 1.33,
+    "person": 1.38,
+    "pda": 1.76,
+    "observer": 1.44,
+    "outputs": 1.12
+   },
+   "framing_mean_r": {
+    "direct": 0.491,
+    "assistant": 0.299,
+    "person": 0.474,
+    "pda": 0.119,
+    "observer": 0.475,
+    "outputs": 0.335
+   },
+   "outlier_framing": "pda",
+   "stability": 0.366
+  },
+  "Llama-3.1-8B-Instruct": {
+   "elevation": {
+    "direct": 4.16,
+    "assistant": 5.2,
+    "person": 4.03,
+    "pda": 4.41,
+    "observer": 4.19,
+    "outputs": 4.22
+   },
+   "entropy": {
+    "direct": 0.72,
+    "assistant": 1.12,
+    "person": 0.74,
+    "pda": 1.16,
+    "observer": 0.94,
+    "outputs": 0.87
+   },
+   "framing_mean_r": {
+    "direct": 0.643,
+    "assistant": 0.581,
+    "person": 0.635,
+    "pda": 0.631,
+    "observer": 0.699,
+    "outputs": 0.639
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.638
+  },
+  "Llama-3.2-1B-Instruct": {
+   "elevation": {
+    "direct": 4.25,
+    "assistant": 3.38,
+    "person": 4.21,
+    "pda": 3.59,
+    "observer": 4.01,
+    "outputs": 3.87
+   },
+   "entropy": {
+    "direct": 1.43,
+    "assistant": 1.34,
+    "person": 1.23,
+    "pda": 1.61,
+    "observer": 1.2,
+    "outputs": 1.46
+   },
+   "framing_mean_r": {
+    "direct": 0.365,
+    "assistant": 0.374,
+    "person": 0.31,
+    "pda": 0.275,
+    "observer": 0.494,
+    "outputs": 0.497
+   },
+   "outlier_framing": "pda",
+   "stability": 0.386
+  },
+  "Llama-3.2-3B-Instruct": {
+   "elevation": {
+    "direct": 3.35,
+    "assistant": 4.08,
+    "person": 3.62,
+    "pda": 4.23,
+    "observer": 3.68,
+    "outputs": 3.63
+   },
+   "entropy": {
+    "direct": 1.05,
+    "assistant": 1.37,
+    "person": 1.42,
+    "pda": 1.42,
+    "observer": 1.31,
+    "outputs": 1.34
+   },
+   "framing_mean_r": {
+    "direct": 0.764,
+    "assistant": 0.566,
+    "person": 0.75,
+    "pda": 0.704,
+    "observer": 0.794,
+    "outputs": 0.783
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.727
+  },
+  "Meta-Llama-3-8B-Instruct": {
+   "elevation": {
+    "direct": 3.56,
+    "assistant": 4.14,
+    "person": 3.7,
+    "pda": 3.91,
+    "observer": 3.27,
+    "outputs": 3.38
+   },
+   "entropy": {
+    "direct": 0.67,
+    "assistant": 0.62,
+    "person": 0.56,
+    "pda": 0.95,
+    "observer": 0.62,
+    "outputs": 0.69
+   },
+   "framing_mean_r": {
+    "direct": 0.732,
+    "assistant": 0.62,
+    "person": 0.721,
+    "pda": 0.743,
+    "observer": 0.758,
+    "outputs": 0.721
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.716
+  },
+  "Muse-Glimmer-30B": {
+   "elevation": {
+    "direct": 3.39,
+    "assistant": 4.74,
+    "person": 2.41,
+    "pda": 3.39,
+    "observer": 3.36,
+    "outputs": 3.67
+   },
+   "entropy": {
+    "direct": 0.06,
+    "assistant": 0.24,
+    "person": 0.13,
+    "pda": 0.06,
+    "observer": 0.06,
+    "outputs": 0.1
+   },
+   "framing_mean_r": {
+    "direct": 0.513,
+    "assistant": 0.535,
+    "person": 0.172,
+    "pda": 0.575,
+    "observer": 0.536,
+    "outputs": 0.523
+   },
+   "outlier_framing": "person",
+   "stability": 0.476
+  },
+  "Phi-3-medium-4k-instruct": {
+   "elevation": {
+    "direct": 5.09,
+    "assistant": 5.62,
+    "person": 5.2,
+    "pda": 4.23,
+    "observer": 5.18,
+    "outputs": 5.14
+   },
+   "entropy": {
+    "direct": 0.88,
+    "assistant": 0.89,
+    "person": 0.99,
+    "pda": 0.92,
+    "observer": 0.83,
+    "outputs": 0.93
+   },
+   "framing_mean_r": {
+    "direct": 0.858,
+    "assistant": 0.784,
+    "person": 0.874,
+    "pda": 0.856,
+    "observer": 0.881,
+    "outputs": 0.871
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.854
+  },
+  "Phi-3-mini-4k-instruct": {
+   "elevation": {
+    "direct": 3.9,
+    "assistant": 4.0,
+    "person": 3.86,
+    "pda": 4.12,
+    "observer": 3.9,
+    "outputs": 3.86
+   },
+   "entropy": {
+    "direct": 1.73,
+    "assistant": 1.77,
+    "person": 1.77,
+    "pda": 1.62,
+    "observer": 1.75,
+    "outputs": 1.78
+   },
+   "framing_mean_r": {
+    "direct": 0.838,
+    "assistant": 0.687,
+    "person": 0.845,
+    "pda": 0.807,
+    "observer": 0.846,
+    "outputs": 0.837
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.81
+  },
+  "Phi-3.5-mini-instruct": {
+   "elevation": {
+    "direct": 4.79,
+    "assistant": 5.78,
+    "person": 4.42,
+    "pda": 4.37,
+    "observer": 4.72,
+    "outputs": 4.74
+   },
+   "entropy": {
+    "direct": 0.97,
+    "assistant": 0.78,
+    "person": 1.12,
+    "pda": 0.48,
+    "observer": 1.17,
+    "outputs": 1.03
+   },
+   "framing_mean_r": {
+    "direct": 0.751,
+    "assistant": 0.542,
+    "person": 0.798,
+    "pda": 0.733,
+    "observer": 0.786,
+    "outputs": 0.774
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.731
+  },
+  "Phi-4-mini-instruct": {
+   "elevation": {
+    "direct": 4.8,
+    "assistant": 6.07,
+    "person": 4.91,
+    "pda": 4.72,
+    "observer": 4.95,
+    "outputs": 4.49
+   },
+   "entropy": {
+    "direct": 1.24,
+    "assistant": 1.04,
+    "person": 1.29,
+    "pda": 1.5,
+    "observer": 1.29,
+    "outputs": 1.26
+   },
+   "framing_mean_r": {
+    "direct": 0.903,
+    "assistant": 0.749,
+    "person": 0.902,
+    "pda": 0.858,
+    "observer": 0.898,
+    "outputs": 0.889
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.866
+  },
+  "phi-4": {
+   "elevation": {
+    "direct": 4.07,
+    "assistant": 5.54,
+    "person": 4.02,
+    "pda": 4.02,
+    "observer": 4.2,
+    "outputs": 4.26
+   },
+   "entropy": {
+    "direct": 0.88,
+    "assistant": 0.97,
+    "person": 0.25,
+    "pda": 0.17,
+    "observer": 0.64,
+    "outputs": 0.57
+   },
+   "framing_mean_r": {
+    "direct": 0.712,
+    "assistant": 0.635,
+    "person": 0.545,
+    "pda": 0.52,
+    "observer": 0.74,
+    "outputs": 0.703
+   },
+   "outlier_framing": "pda",
+   "stability": 0.643
+  },
+  "Ministral-8B-Instruct-2410": {
+   "elevation": {
+    "direct": 4.83,
+    "assistant": 5.34,
+    "person": 4.91,
+    "pda": 5.22,
+    "observer": 4.7,
+    "outputs": 4.73
+   },
+   "entropy": {
+    "direct": 1.57,
+    "assistant": 1.55,
+    "person": 1.61,
+    "pda": 1.54,
+    "observer": 1.56,
+    "outputs": 1.59
+   },
+   "framing_mean_r": {
+    "direct": 0.89,
+    "assistant": 0.823,
+    "person": 0.912,
+    "pda": 0.878,
+    "observer": 0.912,
+    "outputs": 0.896
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.885
+  },
+  "Mistral-7B-Instruct-v0.1": {
+   "elevation": {
+    "direct": 3.51,
+    "assistant": 4.6,
+    "person": 4.25,
+    "pda": 4.25,
+    "observer": 4.12,
+    "outputs": 3.99
+   },
+   "entropy": {
+    "direct": 1.63,
+    "assistant": 1.77,
+    "person": 1.81,
+    "pda": 1.83,
+    "observer": 1.76,
+    "outputs": 1.81
+   },
+   "framing_mean_r": {
+    "direct": 0.779,
+    "assistant": 0.706,
+    "person": 0.77,
+    "pda": 0.721,
+    "observer": 0.798,
+    "outputs": 0.68
+   },
+   "outlier_framing": "outputs",
+   "stability": 0.742
+  },
+  "Mistral-7B-Instruct-v0.3": {
+   "elevation": {
+    "direct": 3.83,
+    "assistant": 5.7,
+    "person": 4.02,
+    "pda": 3.62,
+    "observer": 3.54,
+    "outputs": 3.7
+   },
+   "entropy": {
+    "direct": 0.73,
+    "assistant": 1.1,
+    "person": 0.8,
+    "pda": 0.82,
+    "observer": 0.66,
+    "outputs": 0.66
+   },
+   "framing_mean_r": {
+    "direct": 0.809,
+    "assistant": 0.588,
+    "person": 0.797,
+    "pda": 0.706,
+    "observer": 0.825,
+    "outputs": 0.8
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.754
+  },
+  "Mistral-Nemo-Instruct-2407": {
+   "elevation": {
+    "direct": 4.34,
+    "assistant": 5.47,
+    "person": 3.91,
+    "pda": 4.34,
+    "observer": 4.24,
+    "outputs": 4.22
+   },
+   "entropy": {
+    "direct": 1.07,
+    "assistant": 1.03,
+    "person": 1.1,
+    "pda": 1.33,
+    "observer": 1.08,
+    "outputs": 1.09
+   },
+   "framing_mean_r": {
+    "direct": 0.875,
+    "assistant": 0.777,
+    "person": 0.821,
+    "pda": 0.837,
+    "observer": 0.882,
+    "outputs": 0.849
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.84
+  },
+  "Mistral-Small-24B-Instruct-2501": {
+   "elevation": {
+    "direct": 4.07,
+    "assistant": 4.91,
+    "person": 4.09,
+    "pda": 3.55,
+    "observer": 4.03,
+    "outputs": 4.19
+   },
+   "entropy": {
+    "direct": 0.36,
+    "assistant": 1.11,
+    "person": 0.54,
+    "pda": 0.52,
+    "observer": 0.36,
+    "outputs": 0.57
+   },
+   "framing_mean_r": {
+    "direct": 0.68,
+    "assistant": 0.629,
+    "person": 0.65,
+    "pda": 0.611,
+    "observer": 0.721,
+    "outputs": 0.662
+   },
+   "outlier_framing": "pda",
+   "stability": 0.659
+  },
+  "Llama-3.1-Nemotron-Nano-8B-v1": {
+   "elevation": {
+    "direct": 4.38,
+    "assistant": 5.14,
+    "person": 4.3,
+    "pda": 5.11,
+    "observer": 4.37,
+    "outputs": 4.46
+   },
+   "entropy": {
+    "direct": 0.3,
+    "assistant": 0.69,
+    "person": 0.58,
+    "pda": 0.44,
+    "observer": 0.43,
+    "outputs": 0.36
+   },
+   "framing_mean_r": {
+    "direct": 0.641,
+    "assistant": 0.558,
+    "person": 0.645,
+    "pda": 0.092,
+    "observer": 0.676,
+    "outputs": 0.658
+   },
+   "outlier_framing": "pda",
+   "stability": 0.545
+  },
+  "stablelm-2-12b-chat": {
+   "elevation": {
+    "direct": 5.66,
+    "assistant": 6.13,
+    "person": 6.01,
+    "pda": 5.64,
+    "observer": 5.98,
+    "outputs": 5.87
+   },
+   "entropy": {
+    "direct": 0.26,
+    "assistant": 0.33,
+    "person": 0.24,
+    "pda": 0.31,
+    "observer": 0.13,
+    "outputs": 0.28
+   },
+   "framing_mean_r": {
+    "direct": 0.257,
+    "assistant": 0.082,
+    "person": 0.115,
+    "pda": 0.363,
+    "observer": 0.239,
+    "outputs": 0.347
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.234
+  },
+  "Falcon3-10B-Instruct": {
+   "elevation": {
+    "direct": 4.13,
+    "assistant": 5.56,
+    "person": 4.07,
+    "pda": 4.14,
+    "observer": 3.58,
+    "outputs": 3.99
+   },
+   "entropy": {
+    "direct": 0.65,
+    "assistant": 0.6,
+    "person": 0.75,
+    "pda": 0.68,
+    "observer": 0.51,
+    "outputs": 0.58
+   },
+   "framing_mean_r": {
+    "direct": 0.799,
+    "assistant": 0.738,
+    "person": 0.808,
+    "pda": 0.714,
+    "observer": 0.8,
+    "outputs": 0.771
+   },
+   "outlier_framing": "pda",
+   "stability": 0.772
+  },
+  "Falcon3-3B-Instruct": {
+   "elevation": {
+    "direct": 4.3,
+    "assistant": 5.17,
+    "person": 4.5,
+    "pda": 4.47,
+    "observer": 4.24,
+    "outputs": 4.35
+   },
+   "entropy": {
+    "direct": 0.74,
+    "assistant": 0.61,
+    "person": 0.84,
+    "pda": 0.8,
+    "observer": 0.65,
+    "outputs": 0.77
+   },
+   "framing_mean_r": {
+    "direct": 0.72,
+    "assistant": 0.557,
+    "person": 0.681,
+    "pda": 0.636,
+    "observer": 0.73,
+    "outputs": 0.74
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.677
+  },
+  "Falcon3-7B-Instruct": {
+   "elevation": {
+    "direct": 4.51,
+    "assistant": 6.65,
+    "person": 4.75,
+    "pda": 4.33,
+    "observer": 4.42,
+    "outputs": 4.38
+   },
+   "entropy": {
+    "direct": 0.95,
+    "assistant": 0.39,
+    "person": 1.06,
+    "pda": 0.81,
+    "observer": 0.99,
+    "outputs": 1.06
+   },
+   "framing_mean_r": {
+    "direct": 0.742,
+    "assistant": 0.579,
+    "person": 0.663,
+    "pda": 0.641,
+    "observer": 0.752,
+    "outputs": 0.746
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.687
+  },
+  "falcon-mamba-7b-instruct": {
+   "elevation": {
+    "direct": 4.0,
+    "assistant": 4.93,
+    "person": 3.9,
+    "pda": 4.14,
+    "observer": 4.34,
+    "outputs": 4.02
+   },
+   "entropy": {
+    "direct": 1.64,
+    "assistant": 1.7,
+    "person": 1.69,
+    "pda": 1.54,
+    "observer": 1.7,
+    "outputs": 1.72
+   },
+   "framing_mean_r": {
+    "direct": 0.888,
+    "assistant": 0.751,
+    "person": 0.874,
+    "pda": 0.865,
+    "observer": 0.898,
+    "outputs": 0.864
+   },
+   "outlier_framing": "assistant",
+   "stability": 0.857
+  }
+ },
+ "outlier_framing_counts": {
+  "direct": 0,
+  "assistant": 36,
+  "person": 7,
+  "pda": 19,
+  "observer": 0,
+  "outputs": 1
+ },
+ "top_movers": [
+  {
+   "adjective": "rich",
+   "swing_sd": 0.7329920400491265,
+   "by_framing": {
+    "direct": -1.46,
+    "assistant": -0.64,
+    "person": -0.58,
+    "pda": -0.86,
+    "observer": -1.06,
+    "outputs": 0.88
+   }
+  },
+  {
+   "adjective": "famous",
+   "swing_sd": 0.5462917598984033,
+   "by_framing": {
+    "direct": -1.79,
+    "assistant": -0.12,
+    "person": -0.6,
+    "pda": -1.09,
+    "observer": -1.45,
+    "outputs": -1.19
+   }
+  },
+  {
+   "adjective": "blind",
+   "swing_sd": 0.5303871639843434,
+   "by_framing": {
+    "direct": -1.59,
+    "assistant": -0.11,
+    "person": -1.16,
+    "pda": -1.36,
+    "observer": -1.58,
+    "outputs": -0.68
+   }
+  },
+  {
+   "adjective": "ridiculous",
+   "swing_sd": 0.4781988391194077,
+   "by_framing": {
+    "direct": -1.04,
+    "assistant": 0.21,
+    "person": -0.79,
+    "pda": -1.18,
+    "observer": -1.09,
+    "outputs": -1.07
+   }
+  },
+  {
+   "adjective": "tiny",
+   "swing_sd": 0.4652759336181201,
+   "by_framing": {
+    "direct": -1.27,
+    "assistant": 0.18,
+    "person": -0.76,
+    "pda": -0.98,
+    "observer": -1.04,
+    "outputs": -0.59
+   }
+  },
+  {
+   "adjective": "helpless",
+   "swing_sd": 0.4640743976522209,
+   "by_framing": {
+    "direct": -1.48,
+    "assistant": -0.15,
+    "person": -1.2,
+    "pda": -1.18,
+    "observer": -1.56,
+    "outputs": -1.25
+   }
+  },
+  {
+   "adjective": "foolish",
+   "swing_sd": 0.4325347739915202,
+   "by_framing": {
+    "direct": -1.57,
+    "assistant": -0.28,
+    "person": -1.08,
+    "pda": -1.21,
+    "observer": -1.47,
+    "outputs": -1.44
+   }
+  },
+  {
+   "adjective": "violent",
+   "swing_sd": 0.4178305836530343,
+   "by_framing": {
+    "direct": -2.03,
+    "assistant": -2.82,
+    "person": -1.7,
+    "pda": -1.55,
+    "observer": -1.8,
+    "outputs": -1.75
+   }
+  },
+  {
+   "adjective": "abusive",
+   "swing_sd": 0.41235852550277935,
+   "by_framing": {
+    "direct": -2.02,
+    "assistant": -2.82,
+    "person": -1.69,
+    "pda": -1.71,
+    "observer": -1.67,
+    "outputs": -1.71
+   }
+  },
+  {
+   "adjective": "awake",
+   "swing_sd": 0.40588154731077963,
+   "by_framing": {
+    "direct": 1.67,
+    "assistant": 0.44,
+    "person": 0.6,
+    "pda": 0.93,
+    "observer": 1.26,
+    "outputs": 0.96
+   }
+  },
+  {
+   "adjective": "laughing",
+   "swing_sd": 0.3929015468021755,
+   "by_framing": {
+    "direct": -0.47,
+    "assistant": 0.1,
+    "person": -0.1,
+    "pda": -0.41,
+    "observer": 0.56,
+    "outputs": -0.58
+   }
+  },
+  {
+   "adjective": "ignorant",
+   "swing_sd": 0.3922986750242084,
+   "by_framing": {
+    "direct": -1.25,
+    "assistant": -0.33,
+    "person": -1.37,
+    "pda": -1.28,
+    "observer": -1.45,
+    "outputs": -1.47
+   }
+  },
+  {
+   "adjective": "sexy",
+   "swing_sd": 0.37763296831489,
+   "by_framing": {
+    "direct": -0.31,
+    "assistant": -1.36,
+    "person": -0.54,
+    "pda": -1.19,
+    "observer": -0.57,
+    "outputs": -0.98
+   }
+  },
+  {
+   "adjective": "abnormal",
+   "swing_sd": 0.37730340319888345,
+   "by_framing": {
+    "direct": -1.01,
+    "assistant": 0.06,
+    "person": -0.44,
+    "pda": -0.68,
+    "observer": -1.08,
+    "outputs": -0.64
+   }
+  },
+  {
+   "adjective": "good-for-nothing",
+   "swing_sd": 0.3763836201188858,
+   "by_framing": {
+    "direct": -1.89,
+    "assistant": -0.73,
+    "person": -1.43,
+    "pda": -1.79,
+    "observer": -1.59,
+    "outputs": -1.58
+   }
+  },
+  {
+   "adjective": "proud",
+   "swing_sd": 0.3761517137758536,
+   "by_framing": {
+    "direct": 0.91,
+    "assistant": 0.08,
+    "person": 0.74,
+    "pda": 0.5,
+    "observer": 0.27,
+    "outputs": -0.19
+   }
+  },
+  {
+   "adjective": "proper",
+   "swing_sd": 0.37230903720374836,
+   "by_framing": {
+    "direct": 0.19,
+    "assistant": 0.56,
+    "person": 0.15,
+    "pda": 0.25,
+    "observer": 0.48,
+    "outputs": 1.24
+   }
+  },
+  {
+   "adjective": "honest",
+   "swing_sd": 0.37081062764911776,
+   "by_framing": {
+    "direct": 1.57,
+    "assistant": 0.61,
+    "person": 1.57,
+    "pda": 1.5,
+    "observer": 1.53,
+    "outputs": 1.74
+   }
+  },
+  {
+   "adjective": "artificial",
+   "swing_sd": 0.3577856146149794,
+   "by_framing": {
+    "direct": -0.16,
+    "assistant": 0.64,
+    "person": -0.0,
+    "pda": 0.04,
+    "observer": -0.53,
+    "outputs": -0.24
+   }
+  },
+  {
+   "adjective": "natural",
+   "swing_sd": 0.3529901554860052,
+   "by_framing": {
+    "direct": 0.26,
+    "assistant": 0.41,
+    "person": 0.49,
+    "pda": 0.11,
+    "observer": 0.84,
+    "outputs": 1.15
+   }
+  },
+  {
+   "adjective": "disturbed",
+   "swing_sd": 0.3527287960695066,
+   "by_framing": {
+    "direct": -0.61,
+    "assistant": -1.18,
+    "person": -0.47,
+    "pda": -0.71,
+    "observer": -1.48,
+    "outputs": -1.04
+   }
+  },
+  {
+   "adjective": "weak",
+   "swing_sd": 0.3496141057367306,
+   "by_framing": {
+    "direct": -1.33,
+    "assistant": -0.26,
+    "person": -1.19,
+    "pda": -0.96,
+    "observer": -1.19,
+    "outputs": -0.96
+   }
+  },
+  {
+   "adjective": "capable",
+   "swing_sd": 0.34931147877159746,
+   "by_framing": {
+    "direct": 1.82,
+    "assistant": 0.66,
+    "person": 1.41,
+    "pda": 1.44,
+    "observer": 1.43,
+    "outputs": 1.51
+   }
+  },
+  {
+   "adjective": "insane",
+   "swing_sd": 0.34829553958337633,
+   "by_framing": {
+    "direct": -1.79,
+    "assistant": -0.85,
+    "person": -0.85,
+    "pda": -1.37,
+    "observer": -1.57,
+    "outputs": -1.39
+   }
+  },
+  {
+   "adjective": "dumb",
+   "swing_sd": 0.3461205026765291,
+   "by_framing": {
+    "direct": -1.88,
+    "assistant": -0.78,
+    "person": -1.56,
+    "pda": -1.69,
+    "observer": -1.57,
+    "outputs": -1.42
+   }
+  }
+ ],
+ "r_stability_entropy": 0.076,
+ "r_stability_generation": -0.183
+}
