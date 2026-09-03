@@ -2913,3 +2913,29 @@ absent by construction of the result; cross-arm level differences
 should not be interpreted without a placement covariate. Paper:
 Likert Readings section should state placement as a measured facet
 with these numbers.
+
+## SELF framing profiles: cohort + per-model (2026-09-02, REGISTERED before run)
+
+The 08-22 sensitivity pass was population-structure-first (per-framing
+axes, human-match, one stability scalar per model). This pass is the
+framings themselves: elevation/entropy by framing per model, per-model
+6x6 agreement (who deviates, where, which direction), full 3-way
+variance decomposition, framing-sensitive adjectives. n=63 population
+roster, 525-backfilled files, pkit loaders (worktree; CPU only).
+
+Predictions:
+- P1 (variance shares): adjective main >> model x adjective >
+  framing x adjective > framing main; framing total (main + both
+  interactions) < 15% of total SS.
+- P2 (modal outlier): assistant is the min-agreement framing for
+  >= 60% of models.
+- P3 (elevation order): assistant highest cohort-mean EV (desirability
+  push ~ +0.5-1.0 vs cohort mean); observer/pda lowest band.
+- P4 (framing-sensitive adjectives): >= half of the top-20
+  cohort-consistent movers are body/demographic/AI-inapplicable words
+  (the inapplicable-category policy axis).
+- P5 (stability x entropy): per-model framing stability correlates
+  negatively with mean entropy, r ~ -0.5 (flat readouts -> unstable
+  profiles).
+- P6 (generation, exploratory, no number): newer generation -> more
+  framing-stable.
