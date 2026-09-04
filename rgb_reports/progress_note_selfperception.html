@@ -84,6 +84,15 @@ blockquote { border-left: 3px solid #ccc; margin-left: 0;
 padding-left: 1rem; color: #444; }
 ul { padding-left: 1.4rem; }
 li { margin: 0.25rem 0; }
+
+@media print {
+html { font-size: 15px; }
+body { max-width: none; }
+table { display: table; overflow-x: visible; width: auto;
+font-size: 0.62rem; }
+th, td { padding: 0.12rem 0.28rem; }
+tr { break-inside: avoid; }
+}
 </style>
 </head>
 <body>
