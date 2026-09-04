@@ -22,7 +22,7 @@ else from this view.
 
 # REPRESENT
 
-**Models' Residual-stream Represents are More Complex**
+**Models' Residual-stream Representations are More Complex**
 
 Gathered as midlayer residual-stream states on adjective input tokens in
 a personality frame, recentered on all adjectives.  Mean cosine similarity
@@ -32,7 +32,7 @@ quite different from human.
 
 # JUDGE
 
-**Models' Understandings of Trait Relations**
+**Asking the Models for Trait Relations**
 
 We directly ask the models "How likely is a very {X} person to be {Y}?"  And
 the models step up: this is the best match of human behavior.  Here we
@@ -40,7 +40,7 @@ zscore the entries and symmetrize.
 
 # ENACT
 
-**But, Asked to Enact this Understanding, Models Fall Short**
+**But, Tasked to Enact this Understanding, Models Fall Short**
 
 This time we ask models to enact the given attributes when answering
 user questions.  We again gather mid-layer activations, and recenter
@@ -55,3 +55,6 @@ at least, seem to have trouble being funny without being annoying.
 If you remove each instrument's top principal component, the visual shapes 
 become notably different, and the congruence with human falls notably,
 except for JUDGE.
+
+Congruence bars: faded = full, solid = PC1 removed.
+
