@@ -5,57 +5,53 @@
      {n_self} / {n_rep} are filled in from the data at build time. -->
 
 # HUMAN
-**Personality measurement is a theory of human variance**
+**Measured Human Self-Report Correlations**
 
-Saucier 525-PDA: 700 human self-ratings on 523 adjectives, aggregated
-to 44 trait blocks (pole-respecting Ward on the human correlations;
-coherence-filtered, no size cap — the large blocks are the trait
-majors: warmth, anxiety, anger, honesty). This block structure is what
-the Big Five compress.
+Correlations from Saucier's 525-PDA.  For visualization, these are clustered
+by a signed version of Ward's minimum variance (so antonyms stay separate).
+Cell value is the mean of the pairwise correlations, with cluster cohesion on
+the diagonal.
 
 # SELF
-**Ask models the same questions: the population is tiny — and not
-human-shaped**
+**The Same for Models**
 
-Same construction with models as respondents: n = {n_self} deployed
-instruct models (wide-n cohort + standing; 6 framings averaged) — the
-correlation estimate is now full-rank at block level. Raw congruence
-is a desirability freebie; the top-component-removed number is the
-honest one.
+n = {n_self} small instruct models, mean value across 6 question framings.
+Correlations drop the scale here, but model's absolute variance is much
+smaller.  It's also easy to see the desirability block washes out everything
+else from this view.
 
 # REPRESENT
-**Models represent something richer — but human-shaped mostly in the
-top component**
 
-Residual-stream cosine between adjective activations (pers framing,
-mid layer), {n_rep}-model cohort mean (wide-n capture). More structure
-than SELF, but beyond the shared evaluative axis it organizes traits
-its own way.
+**Models' Residual-stream Represents are More Complex**
+
+Gathered as midlayer residual-stream states on adjective input tokens in
+a personality frame, recentered on all adjectives.  Mean cosine similarity
+across attributes in the clusters across models is shown below.
+Note the strong diagonal (cluster cohesion), but the off-diagonal
+quite different from human.
 
 # JUDGE
-**Asked about trait relations, models reconstruct human structure**
 
-“How likely is a {X} person to be {Y}?” — EV over the answer
-distribution, symmetrized, 10-model cohort mean. Explicit judgment
-recovers the human covariance the other channels lose — including
-with the top component removed.  [cohort-12 channel — not wide-n
-captured]
+**Models' Understandings of Trait Relations**
+
+We directly ask the models "How likely is a very {X} person to be {Y}?"  And
+the models step up: this is the best match of human behavior.  Here we
+zscore the entries and symmetrize.
 
 # ENACT
-**But models play the traits out at lower fidelity**
 
-Cosine between persona-vector directions extracted from each model's
-own trait-enacting rollouts, 10-model cohort mean. Enactment keeps
-some human structure — less than judgment. Part is difficulty of
-enacting; part may be intrinsic.
+**But, Asked to Enact this Understanding, Models Fall Short**
+
+This time we ask models to enact the given attributes when answering
+user questions.  We again gather mid-layer activations, and recenter
+across attributes, to come up with enacted-persona vectors.  Again,
+cosine similarity, meaned across models, is shown below.  These models,
+at least, seem to have trouble being funny without being annoying.
 
 # SUMMARY
-**Remove each space's top component: judgment reconstructs human
-structure; enactment trails; self-report and representation weakest**
 
-All five 44-block grids with the top eigencomponent of the underlying
-523² matrix removed; bars = congruence with HUMAN (off-diagonal r).
+**Correspondence with Humans is Often Shallow**
 
-Aggregation-free check — full-resolution 523² item level, top
-component removed: SELF 0.20, REPRESENT 0.31, JUDGE 0.54, ENACT 0.49.
-Same ranking; blocks are visualization, not load-bearing.
+If you remove each instrument's top principal component, the visual shapes 
+become notably different, and the congruence with human falls notably,
+except for JUDGE.

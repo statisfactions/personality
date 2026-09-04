@@ -164,7 +164,7 @@ def main():
         fig.write_html(f"{stem}.html")
         fig.write_image(f"{stem}.png", scale=2)
         print(f"saved {stem}.png")
-    fig = fs.summary_slide(grids_p, cap=caps.get("SUMMARY"))
+    fig = fs.summary_slide(grids_p, grids=grids, cap=caps.get("SUMMARY"))
     fig.write_html(OUT / "slide6_summary.html")
     fig.write_image(OUT / "slide6_summary.png", scale=2)
     for ch in ["SELF", "REPRESENT", "JUDGE", "ENACT"]:

@@ -192,7 +192,7 @@ def slide(ch, grids, grids_p, names, branches):
     return fig
 
 
-def summary_slide(grids_p, cap=None):
+def summary_slide(grids_p, grids=None, cap=None):
     order = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
     fig = make_subplots(rows=1, cols=6, column_titles=order + ["congruence"],
                         horizontal_spacing=0.015,
@@ -209,9 +209,15 @@ def summary_slide(grids_p, cap=None):
                                font=dict(size=13, color=INK),
                                row=1, col=ci + 1)
     chans = ["SELF", "REPRESENT", "JUDGE", "ENACT"]
+    cols = ["#a08c5b", "#1d5fb8", "#2e7d43", "#c93a3a"]
+    faded = ["rgba({},{},{},0.30)".format(int(c[1:3], 16), int(c[3:5], 16),
+                                          int(c[5:7], 16)) for c in cols]
+    if grids is not None:  # before (raw, faded) behind after (pc1-removed)
+        fig.add_trace(go.Bar(x=chans,
+                             y=[congruence(grids, c) for c in chans],
+                             marker_color=faded, name="raw"), row=1, col=6)
     fig.add_trace(go.Bar(x=chans, y=[congruence(grids_p, c) for c in chans],
-                         marker_color=["#a08c5b", "#1d5fb8", "#2e7d43",
-                                       "#c93a3a"]), row=1, col=6)
+                         marker_color=cols, name="top removed"), row=1, col=6)
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
     fig.update_xaxes(showticklabels=True, tickfont=dict(size=11), row=1, col=6)
