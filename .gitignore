@@ -115,3 +115,7 @@ paper/**
 # framing study run523: judged tables (incl. v3) + gen transcripts are jsonl —
 # re-include them (the *_part.jsonl generation checkpoints elsewhere stay ignored)
 !results/selfperception/framing_run523/*.jsonl
+# 2026-09-03 enact-backfill artifacts: same regenerable-heavy class as
+# _pda_texts/_pda_report above (the _backfill infix slips past those)
+results/**/*_pda_backfill_texts.json
+results/**/*_pda_backfill_report.json
