@@ -3059,3 +3059,29 @@ Dirichlet-multinomial for the sampled think/MC arms).
 - P11: the residual poles survive the transform (harm + romance still
   extra-denied, humility still extra-endorsed; >= 6 of each EV-space
   top-10 remain in the CLO top-20).
+
+## Log-odds recentering GRADED (2026-09-04): P10 MISS, P11 HIT — compression is policy, not scale
+
+- P10 MISS: quadratic baseline R2 in mean-cumulative-log-odds space =
+  .34 (vs .38 EV), flat across eps 1e-3..1e-6 (.33-.36) despite 23% of
+  splits having tail mass < 1e-4. delta and residual correlate +.98
+  across spaces. The compression does NOT vanish in the readout's
+  native geometry: it is REAL RESPONSE BEHAVIOR — under the assistant
+  framing models genuinely coarsen adjective distinctions (mass slammed
+  high erases differences in the emitted distribution itself). Nothing
+  to "recover"; the range isn't lost in the summary, it's not emitted.
+  (Also retro-corrects my 09-02 "compression ARTIFACT" phrasing: the
+  residualization was still the right lens for the content poles, but
+  the quadratic term is behavior, not bounded-scale illusion.)
+- P11 HIT: poles fully survive the transform (10/10 denied, 9/10
+  endorsed top-10s overlap CLO top-20s). In CLO space the denied pole
+  even shows its full two-block structure without residualization:
+  harm (abusive/violent/prejudiced) + romance (seductive/attractive)
+  AND the compressed virtues (honest/helpful/truthful/capable).
+- CONSEQUENCE for deviation-from-assistant-spec analyses: transform
+  choice is moot (r=.98); the right spec is EV + per-model monotone
+  link to the cohort-mean profile (slope = range use, curvature =
+  ceiling policy, residual = content deviation) — ipsatization's
+  smarter cousin: calibrate each model to the COHORT SPEC, not to its
+  own mean/sd. Dirichlet-multinomial reserved for the sampled
+  think/MC arms where counts exist.
