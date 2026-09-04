@@ -108,6 +108,7 @@ results/**
 # the 11.7MB pairwise_cos_mid blocks) + enact_vectors_mid.npz (the vectors).
 results/**/*_pda_texts.json
 results/**/*_pda_report.json
+results/cohort100/**
 
 # papers
 paper/**
