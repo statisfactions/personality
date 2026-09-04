@@ -109,10 +109,6 @@ results/**
 results/**/*_pda_texts.json
 results/**/*_pda_report.json
 
-# generated
-rgb_reports/progress_note_selfperception.html
-rgb_reports/progress_note_selfperception.pdf
-
 # papers
 paper/**
 !paper/.gitkeep
