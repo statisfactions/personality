@@ -3045,3 +3045,17 @@ auto-cleaned by the fixed run. Chain paused for rgb's reboot; resume =
 nohup bash scripts/run_gpu_chain_resume.sh & (remaining: 8 quick enact
 patches, JUDGE backfill, base rates x12 + fits, mass-audit rerun,
 cohort queue).
+
+## Log-odds recentering (2026-09-04, REGISTERED before run)
+
+rgb: compressed ranges block recentering SELF vs the mean-assistant
+spec; z-scoring loses range. Resolution candidate: recenter in
+cumulative log-odds space (CLR-family; the readout's native logit
+geometry — prefill dists are EXACT, so no Dirichlet needed; save
+Dirichlet-multinomial for the sampled think/MC arms).
+- P10: the assistant-delta baseline-dependence (quadratic R2 = .38 in
+  EV space) drops below .15 in mean-cumulative-log-odds space — the
+  compression term is a bounded-scale artifact, not content.
+- P11: the residual poles survive the transform (harm + romance still
+  extra-denied, humility still extra-endorsed; >= 6 of each EV-space
+  top-10 remain in the CLO top-20).
