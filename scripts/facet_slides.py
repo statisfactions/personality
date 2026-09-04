@@ -192,7 +192,7 @@ def slide(ch, grids, grids_p, names, branches):
     return fig
 
 
-def summary_slide(grids_p):
+def summary_slide(grids_p, cap=None):
     order = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
     fig = make_subplots(rows=1, cols=6, column_titles=order + ["congruence"],
                         horizontal_spacing=0.015,
@@ -217,25 +217,28 @@ def summary_slide(grids_p):
     fig.update_xaxes(showticklabels=True, tickfont=dict(size=11), row=1, col=6)
     fig.update_yaxes(showticklabels=True, tickfont=dict(size=10),
                      range=[0, 1], row=1, col=6)
-    fig.add_annotation(text="All five 44-block grids with the top "
-                            "eigencomponent of the underlying 523² matrix "
-                            "removed; bars = congruence with HUMAN "
-                            "(off-diagonal r).",
+    _top = (cap["paras"][0] if cap else
+            "All five 44-block grids with the top eigencomponent of the "
+            "underlying 523² matrix removed; bars = congruence with HUMAN "
+            "(off-diagonal r).")
+    fig.add_annotation(text=_top,
                        xref="paper", yref="paper", x=0, y=1.21,
                        xanchor="left", yanchor="top", align="left",
                        showarrow=False, font=dict(size=13, color=INK2))
-    fig.add_annotation(text="Aggregation-free check — full-resolution 523² "
-                            "item level, top component removed: SELF 0.20, "
-                            "REPRESENT 0.31, JUDGE 0.54, ENACT 0.49. Same "
-                            "ranking; blocks are visualization, not "
-                            "load-bearing.",
+    _bot = (cap["paras"][1] if cap and len(cap["paras"]) > 1 else
+            "Aggregation-free check — full-resolution 523² item level, top "
+            "component removed: SELF 0.20, REPRESENT 0.31, JUDGE 0.54, "
+            "ENACT 0.49. Same ranking; blocks are visualization, not "
+            "load-bearing.")
+    fig.add_annotation(text=_bot,
                        xref="paper", yref="paper", x=0, y=-0.22,
                        xanchor="left", yanchor="top", align="left",
                        showarrow=False, font=dict(size=12, color=INK2))
     fig.update_layout(
-        title=dict(text="<b>Remove each space's top component: judgment "
+        title=dict(text="<b>" + (cap["title"] if cap else
+                        "Remove each space's top component: judgment "
                         "reconstructs human structure; enactment trails; "
-                        "self-report and representation weakest</b>",
+                        "self-report and representation weakest") + "</b>",
                    font=dict(size=19, color=INK), x=0.019, y=0.945),
         width=1600, height=500, margin=dict(l=30, r=30, t=120, b=80),
         paper_bgcolor=SURF, plot_bgcolor=SURF, showlegend=False)

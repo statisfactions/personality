@@ -22,6 +22,7 @@ import torch
 
 import adjective_facet_cohort as afc
 import facet_slides as fs
+from pkit import captions as pc
 import hf_logprobs as hf
 
 OUT = Path("results/persona_vectors/figs/slides_wide")
@@ -146,20 +147,15 @@ def main():
     grids_p = {ch: block(afc.zscore_offdiag(afc.remove_pc1(M)))
                for ch, M in mats.items()}
 
-    # wide-cohort captions
-    fs.BEATS["SELF"]["sub"] = (
-        f"Same construction with models as respondents: n = {n_self} "
-        "deployed instruct models (wide-n cohort + standing; 6 framings "
-        "averaged) — the correlation estimate is now full-rank at block "
-        "level. Raw congruence is a desirability freebie; the top-"
-        "component-removed number is the honest one.")
-    fs.BEATS["REPRESENT"]["sub"] = (
-        f"Residual-stream cosine between adjective activations (pers "
-        f"framing, mid layer), {n_rep}-model cohort mean (wide-n capture). "
-        "More structure than SELF, but beyond the shared evaluative axis "
-        "it organizes traits its own way.")
-    fs.BEATS["JUDGE"]["sub"] += "  [cohort-12 channel — not wide-n captured]"
-    fs.BEATS["ENACT"]["sub"] += "  [cohort-10 channel — not wide-n captured]"
+    # captions are authored prose, not generator literals:
+    # rgb_reports/slide_captions/facet_slides_wide.md (edit + rerun me)
+    caps = pc.load("rgb_reports/slide_captions/facet_slides_wide.md")
+    missing = set(fs.BEATS) - set(caps)
+    assert not missing, f"captions.md missing sections: {missing}"
+    ctx = {"n_self": n_self, "n_rep": n_rep}
+    for ch in fs.BEATS:
+        fs.BEATS[ch]["title"] = pc.render(caps[ch]["title"], ctx)
+        fs.BEATS[ch]["sub"] = pc.render(caps[ch]["sub"], ctx)
 
     fs.OUT = OUT
     for ch in ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]:
@@ -168,12 +164,18 @@ def main():
         fig.write_html(f"{stem}.html")
         fig.write_image(f"{stem}.png", scale=2)
         print(f"saved {stem}.png")
-    fig = fs.summary_slide(grids_p)
+    fig = fs.summary_slide(grids_p, cap=caps.get("SUMMARY"))
     fig.write_html(OUT / "slide6_summary.html")
     fig.write_image(OUT / "slide6_summary.png", scale=2)
     for ch in ["SELF", "REPRESENT", "JUDGE", "ENACT"]:
         print(f"  {ch:9s} raw r={fs.congruence(grids, ch):.3f}  "
               f"pc1-removed r={fs.congruence(grids_p, ch):.3f}")
+    from PIL import Image
+    pngs = sorted(OUT.glob("slide*.png"))
+    imgs = [Image.open(f).convert("RGB") for f in pngs]
+    imgs[0].save(OUT / "facet_slides_wide.pdf", save_all=True,
+                 append_images=imgs[1:], resolution=192.0)
+    print(f"saved {OUT}/facet_slides_wide.pdf ({len(imgs)} pages)")
 
 
 if __name__ == "__main__":

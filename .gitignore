@@ -120,3 +120,5 @@ paper/**
 # _pda_texts/_pda_report above (the _backfill infix slips past those)
 results/**/*_pda_backfill_texts.json
 results/**/*_pda_backfill_report.json
+# the wide facet deck PDF is a linkable deliverable (like the note PDF)
+!results/persona_vectors/figs/slides_wide/facet_slides_wide.pdf
