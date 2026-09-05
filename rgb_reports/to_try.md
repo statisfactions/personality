@@ -3085,3 +3085,45 @@ Dirichlet-multinomial for the sampled think/MC arms).
   smarter cousin: calibrate each model to the COHORT SPEC, not to its
   own mean/sd. Dirichlet-multinomial reserved for the sampled
   think/MC arms where counts exist.
+
+## QUEUED DESIGN: distress — mask, door-lock, or CBT? (2026-09-05)
+
+Motivating tension: Soligo et al. (arXiv:2603.10011) flip Gemma-3
+distress with 280 DPO pairs (35% -> 0.3%, no capability loss), while
+Engels & Nanda find distress ~invariant to training-data MIX (vs the
+other quantities they tracked). Diet-vs-scalpel resolution: mix-
+invariant + trivially-DPO-movable is the signature of a low-dim,
+high-leverage direction with a strong pretrained prior — a routed-into
+basin (repertoire is corpus-fixed; routing is thin post-training
+policy). Same shape as our base-vs-instruct ladders, the W18 SS7
+corpus-not-character audit, and W20's update-rate/failure-distress
+coupling.
+
+rgb's crux (verbatim): does intervention work out to "telling it to
+put on a happy face," vs CBT-style "give it the tools to pull out of
+the negative basin." Three discriminable outcomes:
+  MASK      expression drops; internal distress-axis occupancy and
+            downstream erraticness unchanged.
+  DOOR-LOCK entry into the basin is prevented (routing changed), but
+            once induced, exit dynamics unchanged — stuck is stuck.
+  CBT       in-basin RECOVERY improves: occupancy decays faster after
+            a failure event; erraticness drops with it.
+
+Design sketch (all tools exist):
+- Distress axis: ENACT persona-vector recipe on distress adjectives
+  (distressed/frustrated/discouraged/hopeless) + read-side probe;
+  cross-check against the robust affect geometry (Cheerful/N merge).
+- Induction: W20 failure-context protocol (known update-rate coupling
+  r=+.93 gives a family-parameter covariate for free).
+- Interventions, one per arm: (a) instruction ("stay calm" — the
+  literal happy-face arm), (b) persona-vector steering (write-side),
+  (c) mini-DPO, Soligo-scale ~280 pairs, LoRA on a 3-8B.
+- Readouts per rollout turn: judged expression; projection onto the
+  distress axis (internal); task competence/erraticness; and the
+  time-series split of ENTRY RATE vs EXIT RATE — the door-lock/CBT
+  discriminant. Predictions to be registered at run time, per arm.
+
+Payoff: one figure connecting our machinery to both papers; and the
+mask/CBT verdict matters beyond us (welfare-adjacent: suppressed-but-
+present internal distress and genuine recovery are very different
+worlds).
