@@ -100,7 +100,7 @@ print(f"core n={core.sum()}, centroid offset (core - human): "
 fp = -hmu / hsd
 fig.add_trace(go.Scatter3d(x=[fp[ka]], y=[fp[kc]], z=[fp[ko]],
                            mode="markers+text",
-                           marker=dict(size=7, color="#6b6b6b", symbol="x"),
+                           marker=dict(size=3, color="#6b6b6b", symbol="cross"),
                            text=["flat profile (no shape)"],
                            textposition="bottom center",
                            textfont=dict(size=10, color="#6b6b6b"),
@@ -121,6 +121,29 @@ fig.update_scenes(xaxis_title="A (human SDs)", yaxis_title="C (human SDs)",
                   zaxis_title="O (human SDs)",
                   camera=dict(eye=dict(x=1.7, y=-1.5, z=0.7)),
                   aspectmode="cube")
+
+# axis-triple switcher (html only; png keeps A/C/O). The six scene traces,
+# in add order: human cloud, core, degraded, flat-point, human centroid,
+# core centroid — restyle all coordinates + scene titles per triple.
+scene_trace_idx = [i for i, t in enumerate(fig.data) if t.type == "scatter3d"]
+axname = {"A": "A", "E": "E (treatment-sensitive ruler)", "N": "N",
+          "C": "C", "O": "O"}
+point_sets = [Sh, Sm[core], Sm[~core],
+              np.array([fp]),
+              Sh.mean(0, keepdims=True), Sm[core].mean(0, keepdims=True)]
+TRIPLES = [("A", "C", "O"), ("A", "E", "N"), ("E", "N", "O"),
+           ("A", "C", "N"), ("C", "E", "O")]
+buttons = []
+for tr in TRIPLES:
+    ks = [axmap[a] for a in tr]
+    data_update = {c: [ps[:, k].tolist() for ps in point_sets]
+                   for c, k in zip(("x", "y", "z"), ks)}
+    layout_update = {f"scene.{ax}axis.title.text": f"{axname[a]} (human SDs)"
+                     for ax, a in zip(("x", "y", "z"), tr)}
+    buttons.append(dict(label="/".join(tr), method="update",
+                        args=[data_update, layout_update, scene_trace_idx]))
+fig.update_layout(updatemenus=[dict(buttons=buttons, x=0.36, y=1.12,
+                                    xanchor="left", showactive=True)])
 
 # (3) stacked deviation-norm bars
 def parts(Z):
