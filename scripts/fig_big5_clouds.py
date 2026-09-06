@@ -67,16 +67,36 @@ ka, kc, ko = axmap["A"], axmap["C"], axmap["O"]
 fig.add_trace(go.Scatter3d(x=Sh[:, ka], y=Sh[:, kc], z=Sh[:, ko], mode="markers",
                            marker=dict(size=2, color=HCOL, opacity=.25),
                            name="human", showlegend=False), row=1, col=2)
-fig.add_trace(go.Scatter3d(x=Sm[:, ka], y=Sm[:, kc], z=Sm[:, ko], mode="markers",
+# degraded tail (robust d>=3.5; independently = the known-casualty roster,
+# streak r=-.54 with framing stability): hollow, so the core reads
+med = np.median(Sm, 0)
+mad = np.median(np.abs(Sm - med), 0) * 1.4826
+dd = np.sqrt((((Sm - med) / mad) ** 2).sum(1))
+core = dd < 3.5
+fig.add_trace(go.Scatter3d(x=Sm[core, ka], y=Sm[core, kc], z=Sm[core, ko],
+                           mode="markers",
                            marker=dict(size=4, color=MCOL, opacity=.9),
-                           text=list(R.index), hoverinfo="text",
-                           name="model", showlegend=False), row=1, col=2)
-for S, col, nm in [(Sh, "#444444", "human centroid"),
-                   (Sm, "#7a2020", "model centroid")]:
+                           text=[n for n, c in zip(R.index, core) if c],
+                           hoverinfo="text", name="model (core)",
+                           showlegend=False), row=1, col=2)
+fig.add_trace(go.Scatter3d(x=Sm[~core, ka], y=Sm[~core, kc], z=Sm[~core, ko],
+                           mode="markers",
+                           marker=dict(size=4, color="rgba(201,58,58,0)",
+                                       line=dict(color="#b98080", width=2),
+                                       symbol="circle-open"),
+                           text=[n for n, c in zip(R.index, core) if not c],
+                           hoverinfo="text", name="degraded instruments",
+                           showlegend=False), row=1, col=2)
+print(f"core n={core.sum()}, centroid offset (core - human): "
+      f"A {Sm[core, ka].mean()-Sh[:, ka].mean():+.2f}  "
+      f"C {Sm[core, kc].mean()-Sh[:, kc].mean():+.2f}  "
+      f"O {Sm[core, ko].mean()-Sh[:, ko].mean():+.2f}")
+for S, col, nm, tp in [(Sh, "#444444", "human centroid", "bottom center"),
+                       (Sm[core], "#7a2020", "core-model centroid", "top center")]:
     fig.add_trace(go.Scatter3d(x=[S[:, ka].mean()], y=[S[:, kc].mean()],
                                z=[S[:, ko].mean()], mode="markers+text",
                                marker=dict(size=9, color=col, symbol="diamond"),
-                               text=[nm], textposition="top center",
+                               text=[nm], textposition=tp,
                                textfont=dict(size=11, color=col),
                                showlegend=False), row=1, col=2)
 print("centroid offset (model - human): "
@@ -96,10 +116,10 @@ def parts(Z):
     return (np.median(np.linalg.norm(on, axis=1)),
             np.median(np.linalg.norm(off, axis=1)))
 hon, hoff = parts(Mi)
-mon, moff = parts(Ri)
-fig.add_trace(go.Bar(x=["human", "model"], y=[hon, mon], name="in-Big5",
+mon, moff = parts(Ri[core])          # degraded tail excluded (marked in cloud)
+fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hon, mon], name="in-Big5",
                      marker_color="#1d5fb8"), row=1, col=3)
-fig.add_trace(go.Bar(x=["human", "model"], y=[hoff, moff], name="off-Big5",
+fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hoff, moff], name="off-Big5",
                      marker_color="#9db8dd"), row=1, col=3)
 for xi, (a, b) in enumerate([(hon, hoff), (mon, moff)]):
     fig.add_annotation(text=f"{b/(a+b):.0%} off", x=xi, y=a + b, yshift=10,
