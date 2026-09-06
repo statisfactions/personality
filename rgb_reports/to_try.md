@@ -3234,3 +3234,21 @@ phi with fitted shape + pinned level is the default; fitted-level phi
 is a diagnostic row only. (Phi4 at medP .69 survives because its
 conditionals aren't saturated — the interaction, not level alone,
 is the killer.)
+
+## Origin-vs-direction for the degraded tail (2026-09-06): BOTH, quantified
+
+rgb's question: trending somewhere, or just toward the origin?
+Decomposition (uncentered 5D score frame; normative line = origin ->
+human centroid at t=16.6):
+- ORIGIN COLLAPSE is real: degraded median t = 13.4 vs core 19.9;
+  item-space normativeness r(profile, human mean profile) .60 vs .89.
+  Degraded models lose the shared kind>cruel normative profile.
+- BUT the off-line part is DIRECTIONAL, not noise: PC1 of degraded
+  residuals carries 74% of their variance (isotropic 5D noise at n=16
+  ~ 20-35%), mean-residual norm 3.4 vs median individual 5.5, and the
+  shared direction is cos +0.80 with the CORE models' own mean
+  residual lean. Degradation = shrink the normative component AND
+  amplify the deviation axis the healthy population already leans
+  along. Caption version: the tail slides origin-ward while
+  exaggerating the cohort's own main deviation direction — not an
+  alien trajectory.
