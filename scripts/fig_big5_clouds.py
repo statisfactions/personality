@@ -126,8 +126,7 @@ fig.update_scenes(xaxis_title="A (human SDs)", yaxis_title="C (human SDs)",
 # in add order: human cloud, core, degraded, flat-point, human centroid,
 # core centroid — restyle all coordinates + scene titles per triple.
 scene_trace_idx = [i for i, t in enumerate(fig.data) if t.type == "scatter3d"]
-axname = {"A": "A", "E": "E (treatment-sensitive ruler)", "N": "N",
-          "C": "C", "O": "O"}
+axname = {a: a for a in "AENCO"}
 point_sets = [Sh, Sm[core], Sm[~core],
               np.array([fp]),
               Sh.mean(0, keepdims=True), Sm[core].mean(0, keepdims=True)]
@@ -163,6 +162,12 @@ fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hoff, moff]
 for xi, (a, b) in enumerate([(hon, hoff), (mon, moff)]):
     fig.add_annotation(text=f"{b/(a+b):.0%} off", x=xi, y=a + b, yshift=10,
                        showarrow=False, font=dict(size=11), row=1, col=3)
+fig.add_annotation(
+    text=("E's loading vector is the only one that differs materially between "
+          "raw- and ipsatized-derived solutions (congruence .67 vs .77–.90 "
+          "for A/C/O/N); E positions are correspondingly convention-dependent."),
+    xref="paper", yref="paper", x=0.36, y=-0.16, xanchor="left",
+    showarrow=False, font=dict(size=11, color="#666666"))
 fig.update_layout(barmode="stack", width=1500, height=560,
                   paper_bgcolor="#f5f4ef", plot_bgcolor="#f5f4ef",
                   title=dict(text="<b>Two objects: level and shape — models vs humans on the human Big5 ruler</b>",
