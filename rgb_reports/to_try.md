@@ -3200,3 +3200,21 @@ genuinely WIDER than humans on warmth-shape — real, not artifact),
 E/N/C 0.74-0.85, O 0.64, off-ruler 0.62. Convention resolution:
 use UNWEIGHTED scoring for the cloud (no norm division) — sidesteps
 the flag entirely; weighted variant to the robustness row.
+
+## CORRECTION + streak diagnosis (2026-09-06, rgb's outlier catch)
+
+rgb: the cloud's diagonal is ~15 outliers; core blob unreadable.
+Diagnosed: the outliers are the KNOWN-CASUALTY roster (internlm2.5/3,
+both R1 distills, Llama-2s, falcon-7b, vicuna, stablelm, sub-2B) and
+the streak is the model-cloud PC1 (67% of 5D score variance, toward
+low-A/high-N): r=-.54 with framing stability, +.40 with elevation
+extremity. It is the INSTRUMENT-DEGRADATION AXIS in Big5 clothes —
+off the assistant manifold toward the troubled corner.
+DOWNGRADE IN PLACE: earlier today's "A 1.26 — models genuinely wider
+than humans on warmth-shape" and "human-width on Big5 axes" were
+TAIL-DRIVEN. Core blob (n=49, robust d<3.5): SD ratios 0.24-0.46 on
+ALL five axes — the thin population holds everywhere once degraded
+instruments are marked. Weighting-decomposition numbers above carry
+the same contamination caveat.
+Figure v4: degraded tail hollow-gray (independent justification:
+stability + known roster, not just distance), core cloud solid.
