@@ -3147,3 +3147,17 @@ pairs-implied) ranges +0.19 (Llama) .. +0.76 (Phi4); fitted medP .41-.72
 before any use (Aya was the EV/8 clip-fix model; .22 vs its .959
 column-centering agreement smells like a fit pathology, not a real
 divergence).
+
+## Big5-cloud figure: off-ruler residual bar (2026-09-06, REGISTERED)
+
+Fig design (rgb): two-object display — elevation strip + ipsatized
+shape cloud in fixed raw-human Big5 ruler (A/C/O spatial, E/N bars) +
+rgb's addition: a RESIDUAL-NORM bar per population = share of each
+respondent's ipsatized profile norm OUTSIDE the 5-dim Big5 subspace.
+This operationalizes the surprise that per-axis thinness ~1 while
+total shape variance is ~5x lower: the thinness should live OFF-ruler.
+- P12: median off-Big5 residual share ~0.70 human vs ~0.50 model,
+  distributions cleanly separated (little overlap).
+- Caveat registered: human single-administration item noise inflates
+  the human residual; models are 6-framing means. Direction of bias
+  favors the prediction — treat a small gap as suspect.
