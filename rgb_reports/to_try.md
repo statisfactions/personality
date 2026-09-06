@@ -3184,3 +3184,19 @@ size ratio trace to ITEM WEIGHTING — human-norm 1/sd weighting
 up-weights items humans agree on (incl. AI-native items) and inflates
 model spread. Norm-weighted vs unweighted is a real methods choice;
 take to statisfactions with the RDF table.
+
+## Weighting decomposition (2026-09-06): expansion is NOT off-ruler-concentrated
+
+rgb's hypothesis: the 1/sd width expansion should land mostly on
+off-Big5 directions. MISS-leaning: weighting inflates on-axis ratios
+(A 1.26->1.45, C 0.85->1.12, O 0.64->0.83) MORE than off-ruler
+(0.62->0.72), because item weight is ~uncorrelated with in-ruler mass
+(r=+0.14) — high-weight items sit everywhere. The real correlate:
+r(item weight, model/human item-SD ratio) = +0.68 — MODELS DIVERGE
+FROM EACH OTHER MOST ON EXACTLY THE ITEMS HUMANS AGREE ON (consensus
+items incl. AI-native ones). Sentence-worthy on its own.
+CLEAN (unweighted) width picture for the figure: A 1.26 (models
+genuinely WIDER than humans on warmth-shape — real, not artifact),
+E/N/C 0.74-0.85, O 0.64, off-ruler 0.62. Convention resolution:
+use UNWEIGHTED scoring for the cloud (no norm division) — sidesteps
+the flag entirely; weighted variant to the robustness row.
