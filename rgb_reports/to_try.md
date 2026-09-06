@@ -3127,3 +3127,23 @@ Payoff: one figure connecting our machinery to both papers; and the
 mask/CBT verdict matters beyond us (welfare-adjacent: suppressed-but-
 present internal distress and genuine recovery are very different
 worlds).
+
+## JUDGE 525 backfill no-op caught + base-rate fit toplines (2026-09-06)
+
+THIRD silent no-op of the backfill saga: adjective_judge_full's local
+load_adjectives() reads the CORR-JSON labels, which stayed 523 until
+the human-matrix regen — which we ran LAST (dependency inversion). So
+the Sep-3 "judge backfill" resumed-and-skipped all 12 models (rc=0,
+"[skip] already complete", npz mtimes still June). Fixed by ordering:
+corr json regenerated to 525 (raw + ipsatized, swap-fix), judge
+backfill relaunched (real branch now fires: +2 adjectives, ~2k
+pairs/model, ~1-2h total) with base-rate re-fits chained behind
+(the 523-era fits crash on 525 labels).
+
+Base-rate fit toplines (523-era; will refresh): coherence r(direct,
+pairs-implied) ranges +0.19 (Llama) .. +0.76 (Phi4); fitted medP .41-.72
+(level inflation cases: Aya .72, Phi4 .69, Llama .67); r(phi, HUMAN)
+.56-.74 for eleven models — and AYA AT .221, a wild outlier to AUDIT
+before any use (Aya was the EV/8 clip-fix model; .22 vs its .959
+column-centering agreement smells like a fit pathology, not a real
+divergence).
