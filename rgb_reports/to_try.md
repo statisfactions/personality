@@ -3161,3 +3161,26 @@ total shape variance is ~5x lower: the thinness should live OFF-ruler.
 - Caveat registered: human single-administration item noise inflates
   the human residual; models are 6-framing means. Direction of bias
   favors the prediction — treat a small gap as suspect.
+
+## P12 GRADED: MISS twice over — the off-Big5 share doesn't discriminate (2026-09-06)
+
+Registered 0.70 human vs 0.50 model: got 0.37 vs 0.25 (uncentered) —
+inflated by the shared NORMATIVE profile, which lives mostly in-ruler
+for both populations (and coexists with PR 50 because the eigen-
+spectrum describes item-centered variation; my computation didn't
+center). Centered (deviation-from-own-population-mean) version:
+HUMAN 0.85 vs MODEL 0.82 — nearly IDENTICAL. Individual differences
+are ~85% off-Big5 for BOTH populations; the ruler captures ~15% of
+what makes any respondent distinctive, human or model.
+CORRECTED PICTURE: the model/human difference is NOT subspace share.
+It is (a) SIZE — model deviations ~0.45x human per adjective — and
+(b) ORGANIZATION — human off-ruler variance resolves into ~45
+replicable axes (PR 50), model into few + AI-native ones (PR 14).
+FIGURE v2: elevation strip + A/C/O shape cloud + STACKED deviation-
+norm bars (height = deviation norm, segments = in/off Big5): shows
+models vary less overall while the split stays proportional.
+OPEN CONVENTION FLAG: per-axis cloud widths (0.78-1.40) vs the 0.45
+size ratio trace to ITEM WEIGHTING — human-norm 1/sd weighting
+up-weights items humans agree on (incl. AI-native items) and inflates
+model spread. Norm-weighted vs unweighted is a real methods choice;
+take to statisfactions with the RDF table.
