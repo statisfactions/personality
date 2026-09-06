@@ -95,6 +95,16 @@ print(f"core n={core.sum()}, centroid offset (core - human): "
       f"A {Sm[core, ka].mean()-Sh[:, ka].mean():+.2f}  "
       f"C {Sm[core, kc].mean()-Sh[:, kc].mean():+.2f}  "
       f"O {Sm[core, ko].mean()-Sh[:, ko].mean():+.2f}")
+# the raw-space origin = a FLAT (shapeless) profile; in human-SD frame it
+# sits at -hmu/hsd — the landmark the degraded tail slides toward
+fp = -hmu / hsd
+fig.add_trace(go.Scatter3d(x=[fp[ka]], y=[fp[kc]], z=[fp[ko]],
+                           mode="markers+text",
+                           marker=dict(size=7, color="#6b6b6b", symbol="x"),
+                           text=["flat profile (no shape)"],
+                           textposition="bottom center",
+                           textfont=dict(size=10, color="#6b6b6b"),
+                           showlegend=False), row=1, col=2)
 for S, col, nm, tp in [(Sh, "#444444", "human centroid", "bottom center"),
                        (Sm[core], "#7a2020", "core-model centroid", "top center")]:
     fig.add_trace(go.Scatter3d(x=[S[:, ka].mean()], y=[S[:, kc].mean()],
