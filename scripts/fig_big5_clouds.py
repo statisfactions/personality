@@ -27,7 +27,11 @@ Mi, Ri = pkit.measures.ipsatize(M), pkit.measures.ipsatize(R.values)
 
 w, v = pkit.axes.eig_axes(M, kmax=5)
 L = pkit.axes.varimax(v * np.sqrt(w))
-Q, _ = np.linalg.qr(L)
+# symmetric (Loewdin) orthogonalization: varimax loading columns are NOT
+# orthogonal (unequal sqrt-eigenvalue scaling + rotation; cos up to .47
+# here) — this is the closest orthonormal frame to them, order-independent
+U, sv, Vt = np.linalg.svd(L, full_matrices=False)
+Q = U @ Vt
 adj = list(R.columns)
 MARKERS = {"A": "kind-hearted", "E": "exciting", "N": "troubled",
            "C": "thorough", "O": "intelligent"}
