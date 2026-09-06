@@ -3252,3 +3252,15 @@ human centroid at t=16.6):
   along. Caption version: the tail slides origin-ward while
   exaggerating the cohort's own main deviation direction — not an
   alien trajectory.
+
+## Units fixed on the cloud (2026-09-06): axes now in human SDs — and my offsets shrink 2.5x
+
+rgb couldn't caption the raw projection units (correctly). Axes now
+human-standardized per factor (human mean 0, SD 1); bars relative to
+human median deviation norm = 1. CORRECTION RIDER: my earlier prose
+("~1.6 human-SDs high on intellect") conflated raw projection units
+with SDs — true offsets: core centroid A +0.65, C +0.24, O +0.84
+human SDs. The healthy-assistant shape sits INSIDE the human cloud
+(0.2-0.8 SD), not outside it. Caption: "axes are scores on human-
+derived Big5 factors, in human-sample SD units; bars are deviation
+norms relative to the human median."

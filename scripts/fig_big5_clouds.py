@@ -43,13 +43,17 @@ for name, m_ in MARKERS.items():
         Q[:, k] = -Q[:, k]
     axmap[name] = k
 Sh, Sm = Mi @ Q, Ri @ Q                      # unweighted, common frame
+# display units: human-standardized per axis (human mean 0, SD 1) — axes
+# read in HUMAN SDs, the standard score convention; geometry unchanged
+hmu, hsd = Sh.mean(0), Sh.std(0)
+Sh, Sm = (Sh - hmu) / hsd, (Sm - hmu) / hsd
 
 fig = make_subplots(
     rows=1, cols=3, column_widths=[0.16, 0.56, 0.22],
     specs=[[{"type": "xy"}, {"type": "scene"}, {"type": "xy"}]],
     subplot_titles=["elevation<br>(raw mean rating)",
                     "shape cloud — fixed human Big5 ruler (A / C / O)",
-                    "deviation norm<br>(in vs off Big5)"])
+                    "deviation norm, relative<br>to human median"])
 
 # (1) elevation strip
 rng = np.random.default_rng(0)
@@ -103,8 +107,8 @@ print("centroid offset (model - human): "
       f"A {Sm[:, ka].mean()-Sh[:, ka].mean():+.2f}  "
       f"C {Sm[:, kc].mean()-Sh[:, kc].mean():+.2f}  "
       f"O {Sm[:, ko].mean()-Sh[:, ko].mean():+.2f}")
-fig.update_scenes(xaxis_title="A (kind-hearted+)", yaxis_title="C (thorough+)",
-                  zaxis_title="O (intelligent+)",
+fig.update_scenes(xaxis_title="A (human SDs)", yaxis_title="C (human SDs)",
+                  zaxis_title="O (human SDs)",
                   camera=dict(eye=dict(x=1.7, y=-1.5, z=0.7)),
                   aspectmode="cube")
 
@@ -117,6 +121,8 @@ def parts(Z):
             np.median(np.linalg.norm(off, axis=1)))
 hon, hoff = parts(Mi)
 mon, moff = parts(Ri[core])          # degraded tail excluded (marked in cloud)
+scale = hon + hoff                   # display: human median total = 1.0
+hon, hoff, mon, moff = hon/scale, hoff/scale, mon/scale, moff/scale
 fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hon, mon], name="in-Big5",
                      marker_color="#1d5fb8"), row=1, col=3)
 fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hoff, moff], name="off-Big5",
