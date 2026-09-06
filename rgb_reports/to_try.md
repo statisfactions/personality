@@ -3218,3 +3218,19 @@ instruments are marked. Weighting-decomposition numbers above carry
 the same contamination caveat.
 Figure v4: degraded tail hollow-gray (independent justification:
 stability + known roster, not just distance), core cloud solid.
+
+## JUDGE 525 COMPLETE + Aya anomaly RESOLVED (2026-09-06)
+
+All 12 tom_likely matrices at 525 (rerun finished 14:34); refits ~
+unchanged (others .56-.74). Aya .222 SURVIVES the refit and is now
+diagnosed: her B matrix is HEALTHY (column-centered human-match .709,
+mid-pack). The pathology is fitted-level x saturation interaction:
+Aya has the most desirability-inflated direct instrument (fitted
+medP .72) AND the most extreme-committed conditionals (23.9% of
+cells >= 6.5) — cov = J - PP' collapses when both saturate. Pinned
+convention (fitted shape, medP=.5) recovers .574; Qwen7 .666, Phi4
+.744 under the same treatment. CONVENTION REAFFIRMED for the paper:
+phi with fitted shape + pinned level is the default; fitted-level phi
+is a diagnostic row only. (Phi4 at medP .69 survives because its
+conditionals aren't saturated — the interaction, not level alone,
+is the killer.)
