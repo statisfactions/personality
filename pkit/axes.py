@@ -17,6 +17,9 @@ def participation_ratio(w):
     """PR = (sum w)^2 / sum w^2 over positive eigenvalues."""
     p = np.asarray(w, float)
     p = p[p > 0]
+    # guard: no positive eigenvalues -> zero effective dimensions, not 0/0 NaN
+    if p.size == 0:
+        return 0.0
     return float(p.sum() ** 2 / (p ** 2).sum())
 
 
