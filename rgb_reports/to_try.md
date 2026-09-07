@@ -3289,3 +3289,25 @@ almost none for their absence (absence is negation, not vocabulary).
 Endorse-everything therefore buys A/E/N mass wholesale. Same
 phenomenon as the affect-presence axis and the unipolar hF7 — the
 lexical asymmetry, surfacing as constraint geometry.
+
+## Treatment fork resolved by triangulation: POLAR decomposition (2026-09-06)
+
+rgb hesitant to ipsatize (plane + induced E-N corr) but model
+elevations are wider than human — level must be handled somehow.
+Three treatments compared on identical pipeline:
+- ipsatize: plane eig 0.14, E-N -.69 (constraint artifacts); core
+  centroid A +.65 C +.24 O +.84.
+- u-blind ruler on raw: no constraint (eig .35, elev-decoupled) BUT
+  centroids flip to A -1.6 C -1.9 — amplitude deficit masquerading as
+  direction (ipsatization's per-respondent SD was silently amplitude-
+  normalizing).
+- POLAR (level = u-projection; amplitude = ||perp component||;
+  direction = unit vector, scored on u-blind ruler): plane gone
+  (eig .48), E-N -.40, and core centroid A +.66 C +.25 O +.84 —
+  REPRODUCES the ipsatized direction story exactly. The shape
+  conclusions are treatment-robust; the artifacts were separable.
+  Amplitude gets its own clean number: model median 40% of human.
+  Residual elevation couplings (E +.32, C +.24) are now DATA
+  (compression policy), not construction.
+Two-object display becomes THREE-object: level strip, direction
+cloud, amplitude bars. Proposed as the paper's convention.
