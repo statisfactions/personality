@@ -24,11 +24,18 @@ def entropy_from_dist(dist):
     return float(-(p * np.log(p)).sum())
 
 
-def ipsatize(M):
-    """C&C's within-person z: standardize each ROW (person) across items."""
+def ipsatize(M, eps=1e-12):
+    """C&C's within-person z: standardize each ROW (person) across items.
+
+    eps guards the constant-row case (sd = 0 -> a flat profile maps to
+    zeros, i.e. "no shape", rather than NaN). Note the identity: the
+    result equals sqrt(k) times the unit-normalized mean-centered row
+    (the C&G "shape" component) — ipsatizing IS the shape extraction,
+    up to that constant.
+    """
     mu = np.nanmean(M, axis=1, keepdims=True)
     sd = np.nanstd(M, axis=1, keepdims=True)
-    return (M - mu) / sd
+    return (M - mu) / (sd + eps)
 
 
 def zscore_offdiag(S):

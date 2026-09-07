@@ -3311,3 +3311,18 @@ Three treatments compared on identical pipeline:
   (compression policy), not construction.
 Two-object display becomes THREE-object: level strip, direction
 cloud, amplitude bars. Proposed as the paper's convention.
+
+## rgb deconfounds the treatment table (2026-09-07)
+
+polar()'s direction = ipsatize()/sqrt(k) EXACTLY (verified cos 1.000000;
+the u-projection removal IS mean-centering). So yesterday's three-row
+comparison was confounded: the respondent transform was identical in
+the "ipsatized" and "polar" rows — ALL the improvement (plane 0.14 ->
+0.48, E-N -.69 -> -.40) came from the RULER (Ten Berge mean-partialled
+loadings vs raw-frame loadings). Clean statement of the convention:
+respondent side = C&G shape extraction (mean-center + unit-normalize,
+equivalently ipsatize); ruler side = loadings orthogonalized to the
+constant vector (Ten Berge 1999). The plane was never caused by
+ipsatizing the data — it appears when perp-u data is scored on a frame
+still carrying u's shadow. Also: pkit.measures.ipsatize now guards
+sd=0 (flat profile -> zeros, not NaN), per rgb.
