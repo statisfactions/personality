@@ -3326,3 +3326,19 @@ constant vector (Ten Berge 1999). The plane was never caused by
 ipsatizing the data — it appears when perp-u data is scored on a frame
 still carrying u's shadow. Also: pkit.measures.ipsatize now guards
 sd=0 (flat profile -> zeros, not NaN), per rgb.
+
+## rgb's reframe: rejection is intertwingled with the measured trait (2026-09-07)
+
+The deep version of the plane/vocabulary findings: because A/E/N
+vocabulary is unipolar (139:1), wholesale rejection is SEMANTICALLY
+indistinguishable from low presence-traits — elevation removal is a
+theoretical commitment (call it style), not hygiene, and its cost is
+concentrated exactly where the lexicon is one-sided (cheap for C/O,
+expensive for A/E/N). This is Block (1965) vs Cronbach on response
+sets, unresolved for humans because you can't rerun a person under
+altered instructions. FOR MODELS WE CAN AND DID: elevation eta2 =
+.52 model-stable (trait-like) / .25 framing-labile (policy-like) —
+the style/substance split is estimable, not assumed. Paper posture:
+display elevation (don't discard), flag shape as conditional on the
+style reading, one sentence on the unipolarity cost. Bibliography
+TODO: Block (1965), The Challenge of Response Sets.
