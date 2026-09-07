@@ -3342,3 +3342,23 @@ the style/substance split is estimable, not assumed. Paper posture:
 display elevation (don't discard), flag shape as conditional on the
 style reading, one sentence on the unipolarity cost. Bibliography
 TODO: Block (1965), The Challenge of Response Sets.
+
+## Gain model + raw-PC1 + elevation-health (2026-09-07, REGISTERED before runs)
+
+OLS gain model: likert_mfa = lambda_mf + beta_mf * t_ma + eps, with
+t_m = framing-averaged centered profile, per-(m,f) closed-form slopes.
+- P13: beta_assistant is the LOWEST framing beta in >= 70% of the
+  population models (compression-is-policy as a slope).
+- P14: within-model r(lambda_mf, beta_mf) across framings is negative,
+  mean r <= -0.4 (level trades against expressiveness).
+Raw (unipsatized) model-population PC1:
+- P15: PC1 scores ~ elevation (r > .95) but PC1 LOADINGS are not
+  uniform — r(loadings, u) in .5-.8, with the non-uniform part aligned
+  to the human evaluation axis (desirability-selective endorsement,
+  the participation gradient at cohort scale).
+Elevation-extremes health check (granites, gemma-2s, Llama-2s, 1Bs,
+R1s): registered guess — the HIGH-elevation extremes are stylistic
+(real shape: adjective-SD > 0.3, stability > .6, digit-mass healthy),
+the LOW/flat extremes include the known-broken (internlm flatline,
+R1-Qwen endorse-all flat); i.e., bizarre-high is a style, bizarre-low
+is where the bodies are.
