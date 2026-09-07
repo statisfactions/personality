@@ -3362,3 +3362,39 @@ R1s): registered guess — the HIGH-elevation extremes are stylistic
 the LOW/flat extremes include the known-broken (internlm flatline,
 R1-Qwen endorse-all flat); i.e., bizarre-high is a style, bizarre-low
 is where the bodies are.
+
+## P13-P15 GRADED (2026-09-07): right directions, two sign/threshold surprises
+
+GAIN MODEL (63 models): mean beta by framing — direct 1.19 > observer
+1.11 > outputs 1.04 > pda 0.94 > person 0.92 > ASSISTANT 0.79. The
+compression-as-slope is real and assistant is the cohort's flattest
+frame, but P13 MISSES its bar: assistant is the per-model minimum in
+only 49% (vs registered 70%). P14 narrow MISS: within-model
+r(lambda, beta) mean -0.33 (negative in 73%; registered <= -0.4).
+Level trades against expressiveness, more heterogeneously than bet.
+
+RAW PC1 ANATOMY: 51% of cohort variance; scores = elevation r=.980
+(P15 clause 1 HIT); loadings cos .97 with uniform (clause 2 HIT); but
+the non-uniform residual is at cos -0.80 with the human evaluation
+axis — OPPOSITE my registered sign. Loading extremes: the elevation
+gradient expresses in the VICES (cruel/unfair/corrupt/dishonest move
+most; respectful/helpful/honest/kind move least). Mechanism: the
+desirable vocabulary is ceiling-pinned for everyone, so between-model
+elevation variance lives almost entirely in how far a model lets
+itself endorse NEGATIVE self-descriptions. Raw PC1 = a vice-
+endorsement / self-criticism-permission gradient, not generic
+acquiescence. (Ceiling compression, third appearance.)
+
+ELEVATION-EXTREMES HEALTH: the discriminator is FLATNESS, not
+elevation direction — my "high=style, low=bodies" guess was wrong at
+both ends. Broken-flat (adjSD<0.3, n=11): Llama-2s, internlms,
+falcon-7b, both R1s, stablelm-2, vicuna, SmolLM2, Llama-3.2-1B, and
+NEW CASUALTY Phi-3-mini (not on prior rosters). Healthy extremes at
+both ends: Qwen2.5-0.5B (elev 3.15, SD .78, stab .84 — tiny but
+sound), granite-3.3 (3.33 baseline + the +2.7 assistant push, SD
+1.76), Ministral/Phi-4-mini/command-r7b/Phi-3-medium at ~5.0. Two of
+the top-elevation models ARE bodies (stablelm 5.88, R1-Qwen 5.97,
+both flat). Flat-list and degradation-streak rosters overlap but
+differ (streak-only: gemma-2b, Mistral-v0.1, Mistral-Small,
+Qwen2.5-1.5B; flat-only: Phi-3-mini) — two failure modes, two
+instruments.
