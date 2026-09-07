@@ -3279,3 +3279,13 @@ E-N score correlation (-.69 vs -.15 raw) is mostly CONSTRAINT-INDUCED
 Any between-factor correlation claims on ipsatized scores must carry
 this; A/C/O comparisons are the constraint-safe subspace (another
 reason the default view was the right one).
+
+Addendum (same day): WHY the constraint lands on A/E/N — pole-vocabulary
+imbalance. Items loaded >|.05| per pole: E 139 vs 1(!), N 135 vs 4,
+A 105 vs 19 — versus C 88 vs 36 and O 58 vs 72 (balanced/slightly
+reversed). In this pool E and N are effectively UNIPOLAR: the lexicon
+has hundreds of words for presence of excitement/warmth/distress and
+almost none for their absence (absence is negation, not vocabulary).
+Endorse-everything therefore buys A/E/N mass wholesale. Same
+phenomenon as the affect-presence axis and the unipolar hF7 — the
+lexical asymmetry, surfacing as constraint geometry.
