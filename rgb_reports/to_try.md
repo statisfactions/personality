@@ -3264,3 +3264,18 @@ human SDs. The healthy-assistant shape sits INSIDE the human cloud
 (0.2-0.8 SD), not outside it. Caption: "axes are scores on human-
 derived Big5 factors, in human-sample SD units; bars are deviation
 norms relative to the human median."
+
+## rgb's planarity catch (2026-09-06): A/E/N plane = the ipsatization constraint itself
+
+Human (and model) clouds are near-planar in the A/E/N view (smallest
+eigenvalue of the 3x3 score correlation: 0.14 ipsatized vs 0.58 raw;
+A/C/O: 0.61). Mechanism VERIFIED: ipsatization removes each profile's
+uniform component = one linear constraint; the uniform direction is
+81% inside the 5D frame with coordinates (.39, .54, .57) on A/E/N and
+~nothing on C/O — cos(.999) with the observed null combination. The
+plane is treatment geometry, not psychology. Corollary: ipsatized
+E-N score correlation (-.69 vs -.15 raw) is mostly CONSTRAINT-INDUCED
+— the classic ipsative negative bias localized to the affect triple.
+Any between-factor correlation claims on ipsatized scores must carry
+this; A/C/O comparisons are the constraint-safe subspace (another
+reason the default view was the right one).

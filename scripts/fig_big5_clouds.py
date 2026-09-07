@@ -141,7 +141,7 @@ for tr in TRIPLES:
                      for ax, a in zip(("x", "y", "z"), tr)}
     buttons.append(dict(label="/".join(tr), method="update",
                         args=[data_update, layout_update, scene_trace_idx]))
-fig.update_layout(updatemenus=[dict(buttons=buttons, x=0.36, y=1.12,
+fig.update_layout(updatemenus=[dict(buttons=buttons, x=0.25, y=0.90,
                                     xanchor="left", showactive=True)])
 
 # (3) stacked deviation-norm bars
@@ -165,7 +165,10 @@ for xi, (a, b) in enumerate([(hon, hoff), (mon, moff)]):
 fig.add_annotation(
     text=("E's loading vector is the only one that differs materially between "
           "raw- and ipsatized-derived solutions (congruence .67 vs .77–.90 "
-          "for A/C/O/N); E positions are correspondingly convention-dependent."),
+          "for A/C/O/N);<br>E positions are correspondingly convention-dependent. "
+          "In the A/E/N view both clouds are near-planar BY CONSTRUCTION: "
+          "ipsatization's one linear constraint (profile ⊥ uniform) lies "
+          "almost entirely in the A/E/N subspace (cos .999)."),
     xref="paper", yref="paper", x=0.36, y=-0.16, xanchor="left",
     showarrow=False, font=dict(size=11, color="#666666"))
 fig.update_layout(barmode="stack", width=1500, height=560,
