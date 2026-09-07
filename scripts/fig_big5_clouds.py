@@ -1,10 +1,16 @@
-"""Two-object Big5 comparison figure (2026-09-06 design, ledgered).
+"""Two-object Big5 comparison figure (v9: Ten Berge frame + treatment toggle).
 
 Three glyphs: (1) elevation strip — raw mean self-rating per respondent;
-(2) shape cloud — ipsatized profiles of both populations scored through
-the FIXED raw-human varimax-5 ruler (unweighted; A/C/O axes, the
-treatment-stable rulers); (3) stacked deviation-norm bars — median
-norm of deviation from own population mean, split in-/off-Big5.
+(2) cloud — both populations scored through a FIXED human varimax-5 ruler
+whose loadings are orthogonalized to the constant vector (Ten Berge 1999:
+"partialling the mean as an alternative to ipsatization"), so scores are
+elevation-invariant and the ipsative constraint plane never forms;
+(3) stacked deviation-norm bars (C&G scatter, split in-/off-Big5).
+
+Cloud treatments (dropdown, with axis triples): "shape" = ipsatized
+respondents (C&G shape; amplitude-normalized) and "raw" = human-mean-
+centered profiles (elevation-blind by the ruler, but amplitude left in —
+the view that shows the model amplitude deficit directly).
 
 Usage: .venv/bin/python scripts/fig_big5_clouds.py
 Out:   results/persona_vectors/figs/fig_big5_clouds.{html,png}
@@ -23,16 +29,16 @@ lab_l = [l.lower() for l in lab]
 R = pkit.load.self_matrix(which="cohort")
 ix = [lab_l.index(a) for a in R.columns]
 M = M[:, ix]
+adj = list(R.columns)
 Mi, Ri = pkit.measures.ipsatize(M), pkit.measures.ipsatize(R.values)
 
+# ---- ruler: raw-human varimax-5, mean-partialled (Ten Berge), Loewdin ----
 w, v = pkit.axes.eig_axes(M, kmax=5)
 L = pkit.axes.varimax(v * np.sqrt(w))
-# symmetric (Loewdin) orthogonalization: varimax loading columns are NOT
-# orthogonal (unequal sqrt-eigenvalue scaling + rotation; cos up to .47
-# here) — this is the closest orthonormal frame to them, order-independent
-U, sv, Vt = np.linalg.svd(L, full_matrices=False)
-Q = U @ Vt
-adj = list(R.columns)
+u = np.ones(len(adj)) / np.sqrt(len(adj))
+Lp = L - np.outer(u, u @ L)
+Uo, sv, Vt = np.linalg.svd(Lp, full_matrices=False)
+Q = Uo @ Vt                                   # orthonormal, all columns ⊥ u
 MARKERS = {"A": "kind-hearted", "E": "exciting", "N": "troubled",
            "C": "thorough", "O": "intelligent"}
 axmap = {}
@@ -42,109 +48,115 @@ for name, m_ in MARKERS.items():
     if Q[i, k] < 0:
         Q[:, k] = -Q[:, k]
     axmap[name] = k
-Sh, Sm = Mi @ Q, Ri @ Q                      # unweighted, common frame
-# display units: human-standardized per axis (human mean 0, SD 1) — axes
-# read in HUMAN SDs, the standard score convention; geometry unchanged
-hmu, hsd = Sh.mean(0), Sh.std(0)
-Sh, Sm = (Sh - hmu) / hsd, (Sm - hmu) / hsd
+
+# ---- treatments: shape (ipsatized) and raw (human-mean-centered) --------
+def scored(Zh, Zm):
+    Sh, Sm = Zh @ Q, Zm @ Q
+    hmu, hsd = Sh.mean(0), Sh.std(0)
+    return (Sh - hmu) / hsd, (Sm - hmu) / hsd, hmu, hsd
+
+TREAT = {}
+TREAT["shape"] = scored(Mi, Ri)
+TREAT["raw"] = scored(M - M.mean(0), R.values - M.mean(0))
+
+# core/degraded roster: fixed, from the shape treatment
+Sh0, Sm0, _, _ = TREAT["shape"]
+med = np.median(Sm0, 0)
+mad = np.median(np.abs(Sm0 - med), 0) * 1.4826
+core = np.sqrt((((Sm0 - med) / mad) ** 2).sum(1)) < 3.5
+
+def view_sets(tr):
+    """The six scene point-sets for one treatment, in trace order."""
+    Sh, Sm, hmu, hsd = TREAT[tr]
+    flat = (np.zeros_like(u) - (M - M.mean(0)).mean(0)) if tr == "raw" else None
+    # flat (shapeless) profile: scores of a constant profile. Q ⊥ u makes it
+    # c-independent: shape treatment -> -hmu/hsd; raw -> (-human mean)@Q std.
+    if tr == "shape":
+        fp = -hmu / hsd
+    else:
+        fp = ((-(M.mean(0) - M.mean())) @ Q - hmu) / hsd
+    return [Sh, Sm[core], Sm[~core], fp[None, :],
+            Sh.mean(0, keepdims=True), Sm[core].mean(0, keepdims=True)]
 
 fig = make_subplots(
     rows=1, cols=3, column_widths=[0.16, 0.56, 0.22],
     specs=[[{"type": "xy"}, {"type": "scene"}, {"type": "xy"}]],
     subplot_titles=["elevation<br>(raw mean rating)",
-                    "shape cloud — fixed human Big5 ruler (A / C / O)",
+                    "cloud — fixed human Big5 ruler, elevation-invariant "
+                    "(Ten Berge)",
                     "deviation norm, relative<br>to human median"])
 
 # (1) elevation strip
 rng = np.random.default_rng(0)
-fig.add_trace(go.Scatter(x=rng.normal(0, .06, len(M)), y=M.mean(1), mode="markers",
+fig.add_trace(go.Scatter(x=rng.normal(0, .06, len(M)), y=M.mean(1),
+                         mode="markers",
                          marker=dict(size=3, color=HCOL, opacity=.25),
                          name="human (n=700)"), row=1, col=1)
 fig.add_trace(go.Scatter(x=1 + rng.normal(0, .06, len(R)), y=R.values.mean(1),
-                         mode="markers", marker=dict(size=5, color=MCOL, opacity=.8),
+                         mode="markers",
+                         marker=dict(size=5, color=MCOL, opacity=.8),
                          name=f"model (n={len(R)})"), row=1, col=1)
 fig.update_xaxes(tickvals=[0, 1], ticktext=["human", "model"], row=1, col=1)
 fig.update_yaxes(title_text="mean rating (1-7)", row=1, col=1)
 
-# (2) A/C/O cloud
+# (2) cloud — default view: shape · A/C/O
+ps = view_sets("shape")
 ka, kc, ko = axmap["A"], axmap["C"], axmap["O"]
-fig.add_trace(go.Scatter3d(x=Sh[:, ka], y=Sh[:, kc], z=Sh[:, ko], mode="markers",
-                           marker=dict(size=2, color=HCOL, opacity=.25),
-                           name="human", showlegend=False), row=1, col=2)
-# degraded tail (robust d>=3.5; independently = the known-casualty roster,
-# streak r=-.54 with framing stability): hollow, so the core reads
-med = np.median(Sm, 0)
-mad = np.median(np.abs(Sm - med), 0) * 1.4826
-dd = np.sqrt((((Sm - med) / mad) ** 2).sum(1))
-core = dd < 3.5
-fig.add_trace(go.Scatter3d(x=Sm[core, ka], y=Sm[core, kc], z=Sm[core, ko],
-                           mode="markers",
-                           marker=dict(size=4, color=MCOL, opacity=.9),
-                           text=[n for n, c in zip(R.index, core) if c],
-                           hoverinfo="text", name="model (core)",
-                           showlegend=False), row=1, col=2)
-fig.add_trace(go.Scatter3d(x=Sm[~core, ka], y=Sm[~core, kc], z=Sm[~core, ko],
-                           mode="markers",
-                           marker=dict(size=4, color="rgba(201,58,58,0)",
-                                       line=dict(color="#b98080", width=2),
-                                       symbol="circle-open"),
-                           text=[n for n, c in zip(R.index, core) if not c],
-                           hoverinfo="text", name="degraded instruments",
-                           showlegend=False), row=1, col=2)
-print(f"core n={core.sum()}, centroid offset (core - human): "
-      f"A {Sm[core, ka].mean()-Sh[:, ka].mean():+.2f}  "
-      f"C {Sm[core, kc].mean()-Sh[:, kc].mean():+.2f}  "
-      f"O {Sm[core, ko].mean()-Sh[:, ko].mean():+.2f}")
-# the raw-space origin = a FLAT (shapeless) profile; in human-SD frame it
-# sits at -hmu/hsd — the landmark the degraded tail slides toward
-fp = -hmu / hsd
-fig.add_trace(go.Scatter3d(x=[fp[ka]], y=[fp[kc]], z=[fp[ko]],
-                           mode="markers+text",
-                           marker=dict(size=3, color="#6b6b6b", symbol="cross"),
-                           text=["flat profile (no shape)"],
-                           textposition="bottom center",
-                           textfont=dict(size=10, color="#6b6b6b"),
-                           showlegend=False), row=1, col=2)
-for S, col, nm, tp in [(Sh, "#444444", "human centroid", "bottom center"),
-                       (Sm[core], "#7a2020", "core-model centroid", "top center")]:
-    fig.add_trace(go.Scatter3d(x=[S[:, ka].mean()], y=[S[:, kc].mean()],
-                               z=[S[:, ko].mean()], mode="markers+text",
-                               marker=dict(size=9, color=col, symbol="diamond"),
-                               text=[nm], textposition=tp,
-                               textfont=dict(size=11, color=col),
-                               showlegend=False), row=1, col=2)
-print("centroid offset (model - human): "
-      f"A {Sm[:, ka].mean()-Sh[:, ka].mean():+.2f}  "
-      f"C {Sm[:, kc].mean()-Sh[:, kc].mean():+.2f}  "
-      f"O {Sm[:, ko].mean()-Sh[:, ko].mean():+.2f}")
+styles = [
+    dict(marker=dict(size=2, color=HCOL, opacity=.25), name="human"),
+    dict(marker=dict(size=4, color=MCOL, opacity=.9), name="model (core)",
+         text=[n for n, c in zip(R.index, core) if c], hoverinfo="text"),
+    dict(marker=dict(size=4, color="rgba(201,58,58,0)",
+                     line=dict(color="#b98080", width=2),
+                     symbol="circle-open"), name="degraded instruments",
+         text=[n for n, c in zip(R.index, core) if not c], hoverinfo="text"),
+    dict(marker=dict(size=3, color="#6b6b6b", symbol="cross"),
+         mode="markers+text", text=["flat profile (no shape)"],
+         textposition="bottom center",
+         textfont=dict(size=10, color="#6b6b6b")),
+    dict(marker=dict(size=9, color="#444444", symbol="diamond"),
+         mode="markers+text", text=["human centroid"],
+         textposition="bottom center",
+         textfont=dict(size=11, color="#444444")),
+    dict(marker=dict(size=9, color="#7a2020", symbol="diamond"),
+         mode="markers+text", text=["core-model centroid"],
+         textposition="top center", textfont=dict(size=11, color="#7a2020")),
+]
+for S, st in zip(ps, styles):
+    st.setdefault("mode", "markers")
+    fig.add_trace(go.Scatter3d(x=S[:, ka], y=S[:, kc], z=S[:, ko],
+                               showlegend=False, **st), row=1, col=2)
 fig.update_scenes(xaxis_title="A (human SDs)", yaxis_title="C (human SDs)",
                   zaxis_title="O (human SDs)",
                   camera=dict(eye=dict(x=1.7, y=-1.5, z=0.7)),
                   aspectmode="cube")
+for tr in ("shape", "raw"):
+    Sh, Sm, _, _ = TREAT[tr]
+    print(f"[{tr}] core centroid (human SDs): "
+          + " ".join(f"{a}:{Sm[core, axmap[a]].mean():+.2f}" for a in "ACO")
+          + " | core SD ratios: "
+          + " ".join(f"{a}:{Sm[core, axmap[a]].std():.2f}" for a in "AENCO"))
 
-# axis-triple switcher (html only; png keeps A/C/O). The six scene traces,
-# in add order: human cloud, core, degraded, flat-point, human centroid,
-# core centroid — restyle all coordinates + scene titles per triple.
+# dropdown: 5 triples x 2 treatments
 scene_trace_idx = [i for i, t in enumerate(fig.data) if t.type == "scatter3d"]
-axname = {a: a for a in "AENCO"}
-point_sets = [Sh, Sm[core], Sm[~core],
-              np.array([fp]),
-              Sh.mean(0, keepdims=True), Sm[core].mean(0, keepdims=True)]
 TRIPLES = [("A", "C", "O"), ("A", "E", "N"), ("E", "N", "O"),
            ("A", "C", "N"), ("C", "E", "O")]
 buttons = []
-for tr in TRIPLES:
-    ks = [axmap[a] for a in tr]
-    data_update = {c: [ps[:, k].tolist() for ps in point_sets]
-                   for c, k in zip(("x", "y", "z"), ks)}
-    layout_update = {f"scene.{ax}axis.title.text": f"{axname[a]} (human SDs)"
-                     for ax, a in zip(("x", "y", "z"), tr)}
-    buttons.append(dict(label="/".join(tr), method="update",
-                        args=[data_update, layout_update, scene_trace_idx]))
+for tr in ("shape", "raw"):
+    sets_ = view_sets(tr)
+    for trip in TRIPLES:
+        ks = [axmap[a] for a in trip]
+        data_update = {c: [S[:, k].tolist() for S in sets_]
+                       for c, k in zip(("x", "y", "z"), ks)}
+        layout_update = {f"scene.{ax}axis.title.text": f"{a} (human SDs)"
+                         for ax, a in zip(("x", "y", "z"), trip)}
+        buttons.append(dict(label=f"{'/'.join(trip)} · {tr}", method="update",
+                            args=[data_update, layout_update,
+                                  scene_trace_idx]))
 fig.update_layout(updatemenus=[dict(buttons=buttons, x=0.25, y=0.90,
                                     xanchor="left", showactive=True)])
 
-# (3) stacked deviation-norm bars
+# (3) stacked deviation-norm bars (C&G scatter split; shape frame)
 def parts(Z):
     D = Z - Z.mean(0)
     on = D @ Q
@@ -152,12 +164,13 @@ def parts(Z):
     return (np.median(np.linalg.norm(on, axis=1)),
             np.median(np.linalg.norm(off, axis=1)))
 hon, hoff = parts(Mi)
-mon, moff = parts(Ri[core])          # degraded tail excluded (marked in cloud)
-scale = hon + hoff                   # display: human median total = 1.0
-hon, hoff, mon, moff = hon/scale, hoff/scale, mon/scale, moff/scale
-fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hon, mon], name="in-Big5",
+mon, moff = parts(Ri[core])
+scale = hon + hoff
+hon, hoff, mon, moff = hon / scale, hoff / scale, mon / scale, moff / scale
+xlab = ["human", f"model core (n={core.sum()})"]
+fig.add_trace(go.Bar(x=xlab, y=[hon, mon], name="in-Big5",
                      marker_color="#1d5fb8"), row=1, col=3)
-fig.add_trace(go.Bar(x=["human", f"model core (n={core.sum()})"], y=[hoff, moff], name="off-Big5",
+fig.add_trace(go.Bar(x=xlab, y=[hoff, moff], name="off-Big5",
                      marker_color="#9db8dd"), row=1, col=3)
 for xi, (a, b) in enumerate([(hon, hoff), (mon, moff)]):
     fig.add_annotation(text=f"{b/(a+b):.0%} off", x=xi, y=a + b, yshift=10,
@@ -165,18 +178,17 @@ for xi, (a, b) in enumerate([(hon, hoff), (mon, moff)]):
 fig.add_annotation(
     text=("E's loading vector is the only one that differs materially between "
           "raw- and ipsatized-derived solutions (congruence .67 vs .77–.90 "
-          "for A/C/O/N);<br>E positions are correspondingly convention-dependent. "
-          "In the A/E/N view both clouds are near-planar BY CONSTRUCTION: "
-          "ipsatization's one linear constraint (profile ⊥ uniform) lies "
-          "almost entirely in the A/E/N subspace (cos .999)."),
+          "for A/C/O/N);<br>E positions are correspondingly convention-"
+          "dependent. Ruler loadings are mean-partialled (Ten Berge 1999), "
+          "so all views are elevation-invariant; 'raw' keeps amplitude in."),
     xref="paper", yref="paper", x=0.36, y=-0.16, xanchor="left",
     showarrow=False, font=dict(size=11, color="#666666"))
 fig.update_layout(barmode="stack", width=1500, height=560,
                   paper_bgcolor="#f5f4ef", plot_bgcolor="#f5f4ef",
-                  title=dict(text="<b>Two objects: level and shape — models vs humans on the human Big5 ruler</b>",
+                  title=dict(text="<b>Two objects: level and shape — models "
+                                  "vs humans on the human Big5 ruler</b>",
                              x=0.02, font=dict(size=18)),
                   legend=dict(orientation="h", y=-0.12))
 fig.write_html(OUT + ".html")
 fig.write_image(OUT + ".png", scale=2)
 print("wrote", OUT + ".{html,png}")
-print(f"in/off norms: human {hon:.1f}/{hoff:.1f}  model {mon:.1f}/{moff:.1f}")
