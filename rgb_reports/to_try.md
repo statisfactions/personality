@@ -3448,3 +3448,10 @@ model performing the assistant role's self-presentation norms, and
 role-knowledge scales — coheres with big-model person-outlier framing.
 Frontier implication: desirability slam GROWS with scale; compression/
 vice-endorsement dynamics more relevant at the frontier, not less.
+
+Addendum (2026-09-07): rgb expected per-frame centering to change t —
+it can't (centering commutes with averaging; all-linear chain), and
+the identity cloud==implied-traits follows. The nonlinear freedom that
+COULD matter — amplitude-weighted vs amplitude-equalized template —
+is inert: cos(t, t_eq) median .998 (min .929, broken tail), beta table
+unchanged (assistant 0.79 both ways). Robustness row for the paper.
