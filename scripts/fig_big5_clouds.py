@@ -180,7 +180,10 @@ fig.add_annotation(
           "raw- and ipsatized-derived solutions (congruence .67 vs .77–.90 "
           "for A/C/O/N);<br>E positions are correspondingly convention-"
           "dependent. Ruler loadings are mean-partialled (Ten Berge 1999), "
-          "so all views are elevation-invariant; 'raw' keeps amplitude in."),
+          "so all views are elevation-invariant; 'raw' keeps amplitude in. "
+          "Cloud positions equal the gain model's implied trait scores "
+          "exactly (shape = direction convention, raw = amplitude-in; "
+          "r=1.0000 per axis) — the table and the cloud are one object."),
     xref="paper", yref="paper", x=0.36, y=-0.16, xanchor="left",
     showarrow=False, font=dict(size=11, color="#666666"))
 fig.update_layout(barmode="stack", width=1500, height=560,
