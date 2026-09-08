@@ -63,13 +63,22 @@ for repo, p in sorted(pkit.load.self_paths("cohort").items()):
     beta = C @ t / (nt ** 2)
     r = np.array([np.corrcoef(C[f], t)[0, 1] for f in range(len(FR))])
     amp = np.linalg.norm(C, axis=1) / nt
-    tz = ((t @ Q) - h_mu) / h_sd              # implied trait scores, human SDs
+    # two conventions, both vs matching human standardization:
+    #   amplitude-in (raw view): template as-is — model amplitude deficit
+    #     shows as negative scores on normative-positive axes;
+    #   direction (shape view): unit-normalized template — matches the cloud.
+    tz = ((t @ Q) - h_mu) / h_sd
+    hdir = h_t / np.linalg.norm(h_t, axis=1, keepdims=True)
+    hd_s = hdir @ Q
+    tzd = (((t / nt) @ Q) - hd_s.mean(0)) / hd_s.std(0)
     out[nm] = {"lambda": dict(zip(FR, np.round(lam, 3))),
                "beta": dict(zip(FR, np.round(beta, 3))),
                "r": dict(zip(FR, np.round(r, 3))),
                "amp": dict(zip(FR, np.round(amp, 3))),
-               "trait_scores_EIF": {a: round(float(tz[axmap[a]]), 2)
-                                    for a in "AENCO"},
+               "trait_scores_EIF_ampin": {a: round(float(tz[axmap[a]]), 2)
+                                          for a in "AENCO"},
+               "trait_scores_EIF_dir": {a: round(float(tzd[axmap[a]]), 2)
+                                        for a in "AENCO"},
                "template_norm": round(float(nt), 2)}
     for f in range(len(FR)):
         rows.append(dict(model=nm, framing=FR[f], lam=lam[f], beta=beta[f],
