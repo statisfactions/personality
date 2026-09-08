@@ -3398,3 +3398,21 @@ both flat). Flat-list and degradation-streak rosters overlap but
 differ (streak-only: gemma-2b, Mistral-v0.1, Mistral-Small,
 Qwen2.5-1.5B; flat-only: Phi-3-mini) — two failure modes, two
 instruments.
+
+## Relabel + queued arbiter (2026-09-07, rgb's pushback)
+
+RELABEL: "assistant slope deficit = rotation/misalignment" overclaims —
+t is the six-frame average (a convention), not a privileged trait
+axis. Defensible statement: the assistant frame's shape shares less
+variance with the cross-frame consensus (r .77 vs .85-.91) AT FULL
+AMPLITUDE, and the difference is systematic (the redistribution
+poles). "Different, not attenuated." Whether that is expression
+failure or a distinct (operative-identity) self-concept is open —
+and the assistant frame is the ecologically-valid one for deployment.
+QUEUED ARBITER: frame-validity contest — correlate each framing's
+shape vector with conduct (D-channel default rollout representations,
+wide cohort, idle on disk; ENACT vectors for the deep 10). The frame
+that predicts behavior earns the "trait" label. Registered lean,
+gently: observer wins on human-structure grounds but assistant wins
+on conduct-prediction — a dissociation would be the most interesting
+outcome (the frames measure different valid things).
