@@ -3435,3 +3435,16 @@ TAXONOMY: flat (adjSD) / frame-deaf (lam-range, ~same axis) /
 frame-incoherent (beta spread, stablelm) / displaced (streak) — four
 signatures, four cheap instruments, for the statisfactions roster
 conversation.
+
+## rgb's eyeball #3: assistant push scales with SIZE (2026-09-07)
+
+Healthy models (n=44): r(log params, assistant push) = +.42; partials
+split cleanly — push~size|gen = +.43, push~gen|size = -.12. SIZE, not
+generation (inverting the standing "generation beats size in SELF
+space" prior for this quantity). Family ladders mostly monotone:
+gemma-2 +1.21/+2.32/+2.45, Yi +0.13/+1.16/+1.29, qwen2.5 -> +1.90 at
+32B; gemma-3 messy (1B near-broken). Reading (loose): the push is the
+model performing the assistant role's self-presentation norms, and
+role-knowledge scales — coheres with big-model person-outlier framing.
+Frontier implication: desirability slam GROWS with scale; compression/
+vice-endorsement dynamics more relevant at the frontier, not less.
