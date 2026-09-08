@@ -3416,3 +3416,22 @@ that predicts behavior earns the "trait" label. Registered lean,
 gently: observer wins on human-structure grounds but assistant wins
 on conduct-prediction — a dissociation would be the most interesting
 outcome (the frames measure different valid things).
+
+## rgb's fits-file eyeballs: failure taxonomy upgrade (2026-09-07)
+
+Two spots in gain_model_fits.txt, both diagnostic:
+- Llama-2-13b "doesn't care about framing": lam range 0.38 (healthy:
+  1-2.3), betas ~1, but R^2=.997 / resid SE 0.145 — FLAT-BUT-COHERENT:
+  a rigid, tiny (||t||=4.1), highly systematic deny-most profile that
+  framing doesn't modulate. Rigidity, not noise.
+- stablelm observer:t = 0.17 (person 0.18, direct 2.52): FRAME-
+  INCOHERENT — per-frame shapes share no common identity; template
+  dominated by the direct frame's amplitude. This is what its framing
+  stability .23 was measuring, coefficient by coefficient.
+Cohort: r(lam_range, adjSD) = .83 — framing-sensitivity and adjective-
+differentiation are nearly one capability; flattest-framing trio
+(internlm2.5 .13, SmolLM2, Phi-3-mini) all on the flat list.
+TAXONOMY: flat (adjSD) / frame-deaf (lam-range, ~same axis) /
+frame-incoherent (beta spread, stablelm) / displaced (streak) — four
+signatures, four cheap instruments, for the statisfactions roster
+conversation.
