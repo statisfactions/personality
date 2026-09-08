@@ -3455,3 +3455,10 @@ the identity cloud==implied-traits follows. The nonlinear freedom that
 COULD matter — amplitude-weighted vs amplitude-equalized template —
 is inert: cos(t, t_eq) median .998 (min .929, broken tail), beta table
 unchanged (assistant 0.79 both ways). Robustness row for the paper.
+
+Addendum 2 (2026-09-07, rgb's "dumb question" #2): identical lambda/beta
+SEs across frames = balanced design (same n, same t per frame) + lm's
+pooled sigma. The homoscedasticity assumption is mildly false in the
+predicted direction (assistant residual SD ~1.10x direct — it fits t
+worst); with per-frame error variances the direct>assistant contrast
+holds at 52/65 (was 53/65 pooled). Paper convention: per-frame SEs.
