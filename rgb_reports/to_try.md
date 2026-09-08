@@ -3506,3 +3506,17 @@ escs-faithful arm queued); (e) placement confound in think-vs-prefill
 level comparisons; (f) ENACT provenance mix (Aya/Gemma12 = fresh full
 reruns, rest = originals; doubles as replication asset); (g) E-ruler
 convention dependence (footnoted on fig).
+
+## Joint vs two-stage estimation (2026-09-08, rgb's PGM point)
+
+rgb: a Bayes PGM could estimate lambda/beta/t JOINTLY; two-stage
+catches nonconformity but doesn't change estimates. Verified via the
+joint MLE (rank-1 SVD of C per model): healthy models — estimates
+estimator-invariant (median cos(t2, tsvd) .9982); chokes — joint
+sharpens (Nemotron pda beta .09->.05, Glimmer person .47->.31), t
+stable; broken — internlm3 cos .041, NO rank-1 structure, estimators
+diverge completely. ADOPTED: joint-SVD as robustness row + cos(t2,
+tsvd) as a one-number template-existence health screen. Bayes PGM's
+remaining value-adds (t-uncertainty into beta SEs, cohort partial pooling,
+choke-as-mixture, Dirichlet layer for MC arms) = the brms/Stan handoff
+to statisfactions when hierarchical questions become load-bearing.
