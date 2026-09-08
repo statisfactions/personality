@@ -3462,3 +3462,18 @@ pooled sigma. The homoscedasticity assumption is mildly false in the
 predicted direction (assistant residual SD ~1.10x direct — it fits t
 worst); with per-frame error variances the direct>assistant contrast
 holds at 52/65 (was 53/65 pooled). Paper convention: per-frame SEs.
+
+## Glimmer person-frame anomaly + think-redo LAUNCHED (2026-09-07)
+
+rgb's eyeball: Glimmer topline OK but frames must differ. Localized:
+five frames cohere (r .54-.70); the PERSON frame is alien (r .13-.21
+with all others, template-r .39, R2 .154, lam 2.41 vs 3.4-4.7).
+Echoes the big-model person-outlier pattern at pathological amplitude
+— BUT Glimmer's SELF is the pre-v2 censored think arm (old vs @1024:
+r .789, |dEV| .79), so artifact-vs-genuine is undecidable until the
+redo. REDO CHAIN LAUNCHED on the idle GPU (run_think_redo.sh):
+Glimmer full @1024+fc first (~35h, answers this), Qwen3-8B (~15h),
+then Gemma4 + Qwen3-14B damage smokes. Outputs tagged _fc_b1024;
+validate-then-swap. Registered lean: person-frame alienness SURVIVES
+the redo at reduced amplitude (genuine pattern + censoring noise on
+top).
