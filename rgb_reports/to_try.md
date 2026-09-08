@@ -3477,3 +3477,32 @@ then Gemma4 + Qwen3-14B damage smokes. Outputs tagged _fc_b1024;
 validate-then-swap. Registered lean: person-frame alienness SURVIVES
 the redo at reduced amplitude (genuine pattern + censoring noise on
 top).
+
+## Skeleton audit + frame-choke census (2026-09-08, rgb's "any other skeletons?")
+
+DIGIT-MASS: no raw (unnormalized) digit probs are stored in _self_full
+files — mass exists only in the audit (smoke x direct). For the worst
+~14 models, >99% of first-position mass is OUTSIDE digits — the
+renormalized dist is a conditional "if a digit came next." AUDIT
+CAVEATS FOUND: (1) mass is first-position-only (preamble-style models
+score 0 even when their digit arrives 2 tokens later); (2) the
+fallback is a 16-token generation parsed for any digit — "parsed 0%"
+means verbose preamble, not brokenness; (3) phi-4: median mass 0.00
+yet stability .87 and a textbook beta table — LOW MASS != INVALID
+(relative digit logits stay systematic). AUDIT v2 queued post-redo-
+chain: 64-token generation, EV_gen vs EV_prefill per model — the real
+faithfulness check. Scale of concern: 18/64 models >5% items below
+floor.
+FRAME-CHOKES (rgb caught Nemotron x pda: modal-'5' 97.9%, r .19,
+R^2 .035): census says rare + idiosyncratic — 4 cells/324 healthy:
+Nemotron pda, Llama-2-7b pda, Glimmer person, gemma-2-2b assistant.
+Adopted: per-cell flag r<.4 in the release diagnostics.
+SKELETON INVENTORY (current, honest): (a) Gemma4/Qwen3-14B think-arm
+damage untested (smokes in the running redo chain); (b) low-mass
+reads pending audit v2; (c) STALE 523-ERA CACHES: facet_channel_sims
+.npz (July), self_framing_profile.json, both decks — regenerate on
+525; (d) ESCS administration-wording mismatch (contaminated channels;
+escs-faithful arm queued); (e) placement confound in think-vs-prefill
+level comparisons; (f) ENACT provenance mix (Aya/Gemma12 = fresh full
+reruns, rest = originals; doubles as replication asset); (g) E-ruler
+convention dependence (footnoted on fig).
