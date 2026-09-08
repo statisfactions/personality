@@ -3520,3 +3520,26 @@ tsvd) as a one-number template-existence health screen. Bayes PGM's
 remaining value-adds (t-uncertainty into beta SEs, cohort partial pooling,
 choke-as-mixture, Dirichlet layer for MC arms) = the brms/Stan handoff
 to statisfactions when hierarchical questions become load-bearing.
+
+## QUEUED DESIGN: reference-group arms (2026-09-08, rgb)
+
+Saucier/ESCS instructs comparison "to people of the same sex" — human
+data is reference-grouped; our model framings are ABSOLUTE. This is
+the reference-group effect (Heine et al. 2002, the cross-cultural
+Big Five confound) sitting inside our human-vs-model comparison.
+Mechanistic stakes, from findings we already have: absolute rating
+forces the desirable-item ceiling (compression-is-policy, the raw-PC1
+vice-endorsement gradient) — a comparative instruction gives low
+answers somewhere to live and could UNPIN the ceiling. If model
+scatter (now 40% of human) recovers under explicit reference groups,
+part of the thin-population claim is instrument, not psychology.
+THREE ARMS (prefill-cheap, post-redo GPU):
+  1. vs-other-assistants — does the population self-differentiate
+     when invited? (direct probe of cloud thinness)
+  2. vs-typical-humans — where does each model place assistants
+     relative to people (should rhyme with JUDGE assistant->x)
+  3. ESCS-faithful ("compared to other people") — the administration-
+     matched bridge; folds in the contaminated-channels queue item.
+Predictions to register at run time: elevation toward 4 under arm 1;
+amplitude ratio rises; vice-gradient PC1 attenuates.
+Bibliography TODO: Heine, Lehman, Peng & Greenholtz (2002).
