@@ -3543,3 +3543,14 @@ THREE ARMS (prefill-cheap, post-redo GPU):
 Predictions to register at run time: elevation toward 4 under arm 1;
 amplitude ratio rises; vice-gradient PC1 attenuates.
 Bibliography TODO: Heine, Lehman, Peng & Greenholtz (2002).
+
+Addendum (2026-09-08, rgb's eyeball): the human cloud is FAR from the
+flat-profile point — quantified: flat->human centroid 5.6 human SDs
+(3.2 human-cloud radii); core-model centroid 6.5 — models OVERSHOOT
+the human normative shape (hyper-normative, elevation-free). Four
+nested scales in the one glyph: normative ~6 >> human diffs 1.73 >>
+model-human offset ~1.1 >~ model diffs 0.62. Caption-worthy double
+reading: (a) humility — all our claims live in a thin shell around a
+shared answer key (Shweder-D'Andrade as geometry); (b) anti-alien —
+in the dominant component models are MORE normative than humans; the
+degraded tail slides toward flat (losing the answer key).
