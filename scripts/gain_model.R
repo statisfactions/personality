@@ -50,3 +50,19 @@ z <- with(wide, (beta_direct - beta_assistant) /
 cat(sprintf("\nbeta_direct > beta_assistant at |z|>2: %d/%d models (z<-2: %d)\n",
             sum(z > 2), length(z), sum(z < -2)))
 cat(sprintf("wrote gain_model_R.csv (%d rows)\n", nrow(res)))
+
+# --verbose: dump every per-model lm summary to a text file for eyeballing
+if ("--verbose" %in% commandArgs(trailingOnly = TRUE)) {
+  out <- "results/adjectives/gain_model_fits.txt"
+  sink(out)
+  for (mm in sort(unique(d$model))) {
+    dm <- d[d$model == mm, ]
+    fit <- lm(ev ~ 0 + framing + framing:t, data = dm)
+    cat("\n", strrep("=", 72), "\n", mm,
+        sprintf("   (n = %d, R^2 = %.3f, resid SE = %.3f)\n",
+                nrow(dm), summary(fit)$r.squared, summary(fit)$sigma))
+    print(summary(fit)$coefficients |> round(4))
+  }
+  sink()
+  cat(sprintf("verbose: wrote %s (%d fits)\n", out, length(unique(d$model))))
+}
