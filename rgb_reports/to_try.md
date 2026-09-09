@@ -3554,3 +3554,17 @@ reading: (a) humility — all our claims live in a thin shell around a
 shared answer key (Shweder-D'Andrade as geometry); (b) anti-alien —
 in the dominant component models are MORE normative than humans; the
 degraded tail slides toward flat (losing the answer key).
+
+## E's humanlike spread explained (2026-09-08, rgb's conditional-spread eyeball)
+
+Core SD ratios: A .39, E .66, N .31, C .43, O .39 — E most human-
+spread. rgb's mechanism (single population axis carries E) confirmed,
+one slot over: with degraded excluded (SD>=.5 core, n=50), the model
+population's PC1 itself is the E-carrier — 45% of loading mass on E
+vs 1-3% per other factor (50% off-ruler), carrying 91% of model
+E-variance; mPC2/3 are ~95% off-ruler (AI-native axes). rgb's
+"PC1 scattered" was the FULL-roster PC1 = the degradation streak;
+remove it and the exceptionalism axis (deck iPC2) is promoted to PC1.
+Sentence: models differ on-ruler along essentially ONE dimension —
+claimed exceptionalism (E) — plus AI-native off-ruler axes; A/N/C/O
+population differences are crumbs.
