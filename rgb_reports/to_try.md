@@ -3568,3 +3568,18 @@ remove it and the exceptionalism axis (deck iPC2) is promoted to PC1.
 Sentence: models differ on-ruler along essentially ONE dimension —
 claimed exceptionalism (E) — plus AI-native off-ruler axes; A/N/C/O
 population differences are crumbs.
+
+## Core vs full population axes, both treatments (2026-09-08)
+
+Cross-roster congruences: RAW PCs robust (.95/.95/1.0) — vice-
+endorsement PC1 (46% core, r_elev .91) and evaluation PC2 (cos_eval
+.82) are healthy-population properties, not casualty artifacts.
+IPSATIZED full PC1 (degradation, anti-eval -.75) VANISHES from core
+(cos .19 — it leaves with the excluded models); full iPC2
+(exceptionalism) promotes to core PC1 (cos .90, E-mass .45, 19%).
+Core shape hierarchy: PC1 exceptionalism, PC2 vice-shape
+differentiation (dishonest/cruel/abusive, 13%), PC3 AI-native
+applicability (artificial/famous/opinionated/homeless, 8%).
+Paper summary: healthy models vary in four registers — vice-
+endorsement level, evaluation emphasis, exceptionalism, applicability
+policy — each roster-robust or cleanly attributed.
