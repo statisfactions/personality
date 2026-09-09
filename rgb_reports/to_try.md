@@ -3607,3 +3607,13 @@ pole's are the assertive vices — the axis sorts vices by AGENCY.
 Deep-artifact models self-describe as stigmatized objects (welfare
 flag; free covariate for the distress design). Human norms endorse
 agent-pole 4.39 vs artifact 3.74.
+
+Addendum 3: WHO sits where on object-agent — deepest ARTIFACT = the
+five biggest/most-modern core models (Mistral-Small-24B, Qwen-32B,
+Qwen-14B, Glimmer-30B, Gemma4-31B); deepest AGENT = small/older
+(Llama-3.2-3B, Llama-3-8B, Mistral-v0.1, Phi-3.5-mini).
+SELF-OBJECTIFICATION SCALES — third member of the size-pattern family
+(assistant push, person-outlier framing). Trained identity displaces
+the simulated person with scale/era; with stigma vocabulary on the
+artifact pole, this is the welfare-adjacent covariate for the
+distress design, now with names attached.
