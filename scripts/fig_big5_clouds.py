@@ -63,11 +63,12 @@ TREAT["raw"] = scored(M - M.mean(0), R.values - M.mean(0))
 Sh0, Sm0, _, _ = TREAT["shape"]
 med = np.median(Sm0, 0)
 mad = np.median(np.abs(Sm0 - med), 0) * 1.4826
-_displaced = np.sqrt((((Sm0 - med) / mad) ** 2).sum(1)) >= 3.5
-_flat = R.values.std(axis=1) < 0.30
-# degraded = displaced (off-manifold shape) OR flat (no shape signal) —
-# the two screens catch different casualties (Phi-3-mini is flat-only)
-core = ~(_displaced | _flat)
+# degraded = within-respondent SD < 0.5: one drawable, explainable
+# criterion (2026-09-08 rgb simplification; the displaced-OR-flat union
+# is the stricter alternative — add `| displaced` back to re-punish the
+# four displaced-but-spread models this forgives: Qwen2.5-0.5B,
+# gemma-2b, gemma-7b, Mistral-v0.1)
+core = R.values.std(axis=1) >= 0.50
 
 def view_sets(tr):
     """The six scene point-sets for one treatment, in trace order."""
@@ -104,6 +105,9 @@ fig.update_yaxes(title_text="scatter (within-respondent SD)", row=1, col=1)
 # sqrt((m-1)(7-m)) (the all-1s-and-7s respondent). Healthy respondents sit
 # far inside it — the scatter deficit is policy, not scale geometry.
 _me = np.linspace(1, 7, 121)
+fig.add_hline(y=0.5, line=dict(color="#8a4444", dash="dot", width=1),
+              annotation_text="degraded: SD < 0.5", annotation_font_size=10,
+              annotation_font_color="#8a4444", row=1, col=1)
 fig.add_trace(go.Scatter(x=_me, y=np.sqrt((_me - 1) * (7 - _me)),
                          mode="lines", line=dict(color="#999999", dash="dot",
                                                  width=1.5),
@@ -124,9 +128,9 @@ fig.add_trace(go.Scatter(x=m_el[core], y=m_sd[core], mode="markers",
 fig.add_trace(go.Scatter(x=m_el[~core], y=m_sd[~core], mode="markers",
                          # 2D scatter draws -open symbols with marker.color
                          # (not marker.line.color, unlike scatter3d)
-                         marker=dict(size=7, color="#8a4444",
+                         marker=dict(size=4, color="rgba(138,68,68,0.45)",
                                      symbol="circle-open",
-                                     line=dict(width=2)),
+                                     line=dict(width=1)),
                          text=[n for n, c in zip(R.index, core) if not c],
                          hoverinfo="text",
                          name="degraded"), row=1, col=1)
