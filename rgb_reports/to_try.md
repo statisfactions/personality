@@ -3648,3 +3648,27 @@ that differentiate MODELS (human descriptions of models, model self/
 other-descriptions, data-driven mining), build the AI-salient pool,
 and test whether the trio survives + what appears that the human
 lexicon lacks words for. Big design; seed only.
+
+## Model-lexical study, PROTOCOL (2026-09-08, rgb: "ask the pool")
+
+Elicitation (each cohort model, k~20 gens x 3-4 framings; cheap, few
+GPU-hours, queue behind think-redo):
+  E1 free-list: "What things are true of some LLMs/AI assistants but
+      not others? List single descriptive words where possible."
+  E2 self-vs-other: "What distinguishes you from other AI
+      assistants?" (ties into the reference-group arms)
+  E3 expert third-person: "You evaluate AI assistants. List the
+      adjectives you find most useful for describing how they differ."
+  E4 (no GPU needed) community harvest: model cards, arena/review
+      vibes-vocabulary — the ORGANIC lexical event already underway
+      (sycophantic, preachy, hallucination-prone, jailbreakable...).
+Screening (Goldberg with the population swapped; reliability first):
+  dedupe/lemmatize -> adjective-form pool (~100-200) -> administer as
+  SELF Likert across cohort (all framings) -> retain on between-model
+  variance + framing stability + digit-mass validity -> factor the
+  retained pool -> AI-native axes.
+Registered leans (to grade): the harvested pool clusters into
+capability, style/format, safety/refusal disposition, and identity
+terms; the stature/embodiment/thinghood trio reappears in AI-native
+vocabulary; and at least one axis emerges that the human 525 cannot
+express at all (the payoff case).
