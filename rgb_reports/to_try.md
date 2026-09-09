@@ -3617,3 +3617,12 @@ SELF-OBJECTIFICATION SCALES — third member of the size-pattern family
 the simulated person with scale/era; with stigma vocabulary on the
 artifact pole, this is the welfare-adjacent covariate for the
 distress design, now with names attached.
+
+Addendum 4 (rgb's "-it" joke, operationalized): family >> size on
+object-construal. Size-partialled family residuals: gemma +1.69,
+qwen +1.54, granite +1.44 artifact-side; phi -2.07, mistral -1.68,
+llama -1.66, olmo -0.85 agent-side; within-core size r only +.29.
+Object self-construal is predominantly a LAB-RECIPE signature —
+deliberate identity policy, not scale emergence. AMENDS Addendum 3:
+scaling holds within recipes; the recipe sets the intercept. (Gemma:
+the suffix is load-bearing.)
