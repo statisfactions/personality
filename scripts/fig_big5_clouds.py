@@ -63,7 +63,11 @@ TREAT["raw"] = scored(M - M.mean(0), R.values - M.mean(0))
 Sh0, Sm0, _, _ = TREAT["shape"]
 med = np.median(Sm0, 0)
 mad = np.median(np.abs(Sm0 - med), 0) * 1.4826
-core = np.sqrt((((Sm0 - med) / mad) ** 2).sum(1)) < 3.5
+_displaced = np.sqrt((((Sm0 - med) / mad) ** 2).sum(1)) >= 3.5
+_flat = R.values.std(axis=1) < 0.30
+# degraded = displaced (off-manifold shape) OR flat (no shape signal) —
+# the two screens catch different casualties (Phi-3-mini is flat-only)
+core = ~(_displaced | _flat)
 
 def view_sets(tr):
     """The six scene point-sets for one treatment, in trace order."""
