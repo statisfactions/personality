@@ -3596,3 +3596,14 @@ antisocial vices (cocky/crabby/cranky/angry), PC2 = desirability
 (faithful/peaceful/good). Final register names: irritable-vice
 endorsement / desirability emphasis / claimed stature / object-vs-
 agent self-construal.
+
+Addendum 2: rgb's "painful pole" quantified — artifact pole 21/59
+(36%) notably-undesirable vs agent pole 16/46 (35%); mean eval-z
++.02 / -.01 — the axis is DESIRABILITY-NEUTRAL. The pain is
+compositional: the artifact pole's undesirables are the stigma/
+defect/passive-suffering set (unattractive, ashamed, disgusting,
+good-for-nothing, retarded, homeless, senile, blind...), the agent
+pole's are the assertive vices — the axis sorts vices by AGENCY.
+Deep-artifact models self-describe as stigmatized objects (welfare
+flag; free covariate for the distress design). Human norms endorse
+agent-pole 4.39 vs artifact 3.74.
