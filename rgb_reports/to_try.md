@@ -3634,3 +3634,17 @@ continuation of the deck's body-vs-vices theme BUT not the same
 linear object: cos with full-roster PC3 (appearance axis) = -.02 —
 the body vocabulary regrouped across rosters. Caption care in deck
 regen: theme persists, axis re-expressed.
+
+## SEED DESIGN: the lexical hypothesis, run for models (2026-09-08, rgb's deflation)
+
+rgb's check on the register trio: the 525 were chosen for HUMAN
+salience — any axis we find is human-expressible by construction.
+Conceded; what survives: (a) the pool fixes expressible axes, not
+which carry the population variance (models chose stature/embodiment/
+thinghood from the menu); (b) usage has drifted AI-ward (artificial/
+famous/left-handed load for no human reason). PROPER FIX: Goldberg's
+lexical procedure with the population swapped — harvest descriptors
+that differentiate MODELS (human descriptions of models, model self/
+other-descriptions, data-driven mining), build the AI-salient pool,
+and test whether the trio survives + what appears that the human
+lexicon lacks words for. Big design; seed only.
