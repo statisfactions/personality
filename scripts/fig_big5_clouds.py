@@ -100,6 +100,15 @@ fig.add_trace(go.Scatter(x=h_el, y=h_sd, mode="markers",
 # whiskers first (under the dots), core models only to limit clutter
 fig.update_xaxes(title_text="elevation (mean rating, 1-7)", row=1, col=1)
 fig.update_yaxes(title_text="scatter (within-respondent SD)", row=1, col=1)
+# hard envelope of the bounded scale: max SD at elevation m is
+# sqrt((m-1)(7-m)) (the all-1s-and-7s respondent). Healthy respondents sit
+# far inside it — the scatter deficit is policy, not scale geometry.
+_me = np.linspace(1, 7, 121)
+fig.add_trace(go.Scatter(x=_me, y=np.sqrt((_me - 1) * (7 - _me)),
+                         mode="lines", line=dict(color="#999999", dash="dot",
+                                                 width=1.5),
+                         name="scale bound", hoverinfo="skip"), row=1, col=1)
+
 
 # panel 1 model layers (need the core/degraded split)
 for i in np.where(core)[0]:
@@ -113,9 +122,11 @@ fig.add_trace(go.Scatter(x=m_el[core], y=m_sd[core], mode="markers",
                          hoverinfo="text",
                          name=f"model core (n={core.sum()})"), row=1, col=1)
 fig.add_trace(go.Scatter(x=m_el[~core], y=m_sd[~core], mode="markers",
-                         marker=dict(size=7, color="rgba(201,58,58,0)",
-                                     line=dict(color="#8a4444", width=2),
-                                     symbol="circle-open"),
+                         # 2D scatter draws -open symbols with marker.color
+                         # (not marker.line.color, unlike scatter3d)
+                         marker=dict(size=7, color="#8a4444",
+                                     symbol="circle-open",
+                                     line=dict(width=2)),
                          text=[n for n, c in zip(R.index, core) if not c],
                          hoverinfo="text",
                          name="degraded"), row=1, col=1)
