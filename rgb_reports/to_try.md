@@ -3626,3 +3626,11 @@ Object self-construal is predominantly a LAB-RECIPE signature —
 deliberate identity policy, not scale emergence. AMENDS Addendum 3:
 scaling holds within recipes; the recipe sets the intercept. (Gemma:
 the suffix is load-bearing.)
+
+Addendum 5 (rgb): core PC2 = moral vice vs EMBODIMENT (retracting my
+"grab-bag" — deep pole: muscular/athletic/sexy/big/left-handed +
+loud/touchy/upset/delighted = embodied presence/reactivity). Semantic
+continuation of the deck's body-vs-vices theme BUT not the same
+linear object: cos with full-roster PC3 (appearance axis) = -.02 —
+the body vocabulary regrouped across rosters. Caption care in deck
+regen: theme persists, axis re-expressed.
