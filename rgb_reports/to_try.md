@@ -3583,3 +3583,16 @@ applicability (artificial/famous/opinionated/homeless, 8%).
 Paper summary: healthy models vary in four registers — vice-
 endorsement level, evaluation emphasis, exceptionalism, applicability
 policy — each roster-robust or cleanly attributed.
+
+Addendum (purity-ranked poles, rgb's ask): register renames. ips PC1
+is BIPOLAR stature-vs-diffidence (great/accomplished/influential vs
+awkward/unsure/withdrawn/shy). ips PC2 vice-differentiation is
+effectively UNIPOLAR (clean + pole rude/mean/dishonest; grab-bag -).
+ips PC3 = OBJECT-VS-AGENT SELF-CONSTRUAL (patient/old/artificial/
+useful + guilty/ashamed vs opinionated/ambitious/sociable/emotional)
+— shame words co-locate with thing-hood. RAW PC1/PC2 confirmed
+unipolar (105+/0- above floor); purity splits them: PC1 = irritable/
+antisocial vices (cocky/crabby/cranky/angry), PC2 = desirability
+(faithful/peaceful/good). Final register names: irritable-vice
+endorsement / desirability emphasis / claimed stature / object-vs-
+agent self-construal.
