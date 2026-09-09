@@ -79,25 +79,42 @@ def view_sets(tr):
             Sh.mean(0, keepdims=True), Sm[core].mean(0, keepdims=True)]
 
 fig = make_subplots(
-    rows=1, cols=3, column_widths=[0.16, 0.56, 0.22],
+    rows=1, cols=3, column_widths=[0.26, 0.50, 0.18],
     specs=[[{"type": "xy"}, {"type": "scene"}, {"type": "xy"}]],
-    subplot_titles=["elevation<br>(raw mean rating)",
+    subplot_titles=["elevation × scatter (C&G)",
                     "cloud — fixed human Big5 ruler, elevation-invariant "
                     "(Ten Berge)",
                     "deviation norm, relative<br>to human median"])
 
-# (1) elevation strip
-rng = np.random.default_rng(0)
-fig.add_trace(go.Scatter(x=rng.normal(0, .06, len(M)), y=M.mean(1),
-                         mode="markers",
+# (1) C&G elevation x scatter plane (per respondent: mean rating vs
+# within-respondent SD); model whiskers = elevation +/- SD, the rating range
+h_el, h_sd = M.mean(1), M.std(1)
+m_el, m_sd = R.values.mean(1), R.values.std(1)
+fig.add_trace(go.Scatter(x=h_el, y=h_sd, mode="markers",
                          marker=dict(size=3, color=HCOL, opacity=.25),
                          name="human (n=700)"), row=1, col=1)
-fig.add_trace(go.Scatter(x=1 + rng.normal(0, .06, len(R)), y=R.values.mean(1),
-                         mode="markers",
-                         marker=dict(size=5, color=MCOL, opacity=.8),
-                         name=f"model (n={len(R)})"), row=1, col=1)
-fig.update_xaxes(tickvals=[0, 1], ticktext=["human", "model"], row=1, col=1)
-fig.update_yaxes(title_text="mean rating (1-7)", row=1, col=1)
+# whiskers first (under the dots), core models only to limit clutter
+fig.update_xaxes(title_text="elevation (mean rating, 1-7)", row=1, col=1)
+fig.update_yaxes(title_text="scatter (within-respondent SD)", row=1, col=1)
+
+# panel 1 model layers (need the core/degraded split)
+for i in np.where(core)[0]:
+    fig.add_trace(go.Scatter(x=[m_el[i] - m_sd[i], m_el[i] + m_sd[i]],
+                             y=[m_sd[i], m_sd[i]], mode="lines",
+                             line=dict(color="rgba(201,58,58,.25)", width=1),
+                             showlegend=False, hoverinfo="skip"), row=1, col=1)
+fig.add_trace(go.Scatter(x=m_el[core], y=m_sd[core], mode="markers",
+                         marker=dict(size=6, color=MCOL, opacity=.9),
+                         text=[n for n, c in zip(R.index, core) if c],
+                         hoverinfo="text",
+                         name=f"model core (n={core.sum()})"), row=1, col=1)
+fig.add_trace(go.Scatter(x=m_el[~core], y=m_sd[~core], mode="markers",
+                         marker=dict(size=7, color="rgba(201,58,58,0)",
+                                     line=dict(color="#8a4444", width=2),
+                                     symbol="circle-open"),
+                         text=[n for n, c in zip(R.index, core) if not c],
+                         hoverinfo="text",
+                         name="degraded"), row=1, col=1)
 
 # (2) cloud — default view: shape · A/C/O
 ps = view_sets("shape")
@@ -184,7 +201,7 @@ fig.add_annotation(
           "Cloud positions equal the gain model's implied trait scores "
           "exactly (shape = direction convention, raw = amplitude-in; "
           "r=1.0000 per axis) — the table and the cloud are one object."),
-    xref="paper", yref="paper", x=0.36, y=-0.16, xanchor="left",
+    xref="paper", yref="paper", x=0.30, y=-0.24, xanchor="left",
     showarrow=False, font=dict(size=11, color="#666666"))
 fig.update_layout(barmode="stack", width=1500, height=560,
                   paper_bgcolor="#f5f4ef", plot_bgcolor="#f5f4ef",
