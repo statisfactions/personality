@@ -3672,3 +3672,14 @@ capability, style/format, safety/refusal disposition, and identity
 terms; the stature/embodiment/thinghood trio reappears in AI-native
 vocabulary; and at least one axis emerges that the human 525 cannot
 express at all (the payoff case).
+
+Attribution fix (rgb): the 525 variable-selection procedure is
+SAUCIER's — "Effects of Variable Selection on the Factor Structure of
+Person Descriptors" (1997), the same paper our human_axis_stability
+Table-5 replication targets — not "Goldberg's procedure" as recent
+entries said (Goldberg = the ESCS sample; Saucier = selection
+procedure + 525-PDA deposit). Upgrade, not just fix: Saucier 1997's
+THESIS is that pool selection shapes recovered structure — it is the
+human-side proof of the lens-conditional caveat and the methodological
+charter for the model-lexical study ("Saucier 1997 with the population
+swapped").
