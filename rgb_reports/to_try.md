@@ -3683,3 +3683,14 @@ THESIS is that pool selection shapes recovered structure — it is the
 human-side proof of the lens-conditional caveat and the methodological
 charter for the model-lexical study ("Saucier 1997 with the population
 swapped").
+
+## Glimmer redo OOM-killed at 65% (2026-09-11, 05:01)
+
+SIGKILL (OOM reaper; no reboot, uptime 8d) 2.5 days in — the 35h
+estimate was 2x optimistic (Glimmer thinks long at 1024: ~1.7 min/
+item). Progress safe: direct/assistant/person complete + pda 320/525
+in the .part checkpoint. Chain moved on to Qwen3-8B; waiter armed
+(resume_glimmer_after_chain.sh) to relaunch Glimmer after the chain —
+resume skips done items, ~31h remaining. Person-frame verdict ETA
+pushed ~2 days. Observed-pace note for future budgets: Glimmer @1024
+full = ~90h, not 35.
