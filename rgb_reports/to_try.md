@@ -3732,3 +3732,14 @@ human sampling noise. Channel ladder vs roof: SELF .28, REPRESENT
 .41, ENACT .63, JUDGE .77, ceiling .92 (pc1-removed, item-level).
 Paper gets the strong form: no channel's human-match gap is excusable
 as noise; the divergence is an object of study.
+
+Gap (a) REFRAMED per rgb's actual question — incremental predictive
+validity: does SELF_m predict ENACT_m over the cohort baseline?
+Residualized design (idio-self vs idio-enact, LOO baselines):
+pairwise mean r +0.009 (5/10 positive, p=.48) — NULL; amplitude mean
+r -0.061 (2/10 positive, p=.098) — marginal ANTI-prediction
+(distinctively-claimed adjectives trend toward weaker-than-typical
+vectors; eyebrow only at n=10). Together with the second-order RSA
+null: self-report predicts enactment neither across models nor
+incrementally within them — the incremental-validity form of the
+Peng et al. dissociation, in geometry. Enact-section ready.
