@@ -3724,3 +3724,11 @@ framings-as-channels (6-dim). ADOPT from KMB: the NOISE CEILING —
 split-half reliability of the human population RDM bounds achievable
 human-match; check whether JUDGE .67-.74 is AT ceiling (cheap, high
 payoff for the paper's best number).
+
+Noise ceiling COMPUTED (same day): human RDM split-half r .907 raw /
+.735 pc1-removed -> external-match ceilings .975 / .920. JUDGE .67-.77
+is decidedly BELOW ceiling — the shortfall is real divergence, not
+human sampling noise. Channel ladder vs roof: SELF .28, REPRESENT
+.41, ENACT .63, JUDGE .77, ceiling .92 (pc1-removed, item-level).
+Paper gets the strong form: no channel's human-match gap is excusable
+as noise; the divergence is an object of study.
