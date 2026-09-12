@@ -191,3 +191,13 @@ the qualifier matters, and the LLM contrast (§15.7: models' self-reports carry
 **Ten Berge (1999), "A legitimate case of component analysis of ipsative measures, and partialling the mean as an alternative to ipsatization."** Multivariate Behavioral Research 34(1), 89-102. doi:10.1207/S15327906MBR3401_5. Literally our u-blind-ruler move, pre-named: **partial the constant vector out of the loadings** rather than ipsatizing the respondents, so scores are elevation-invariant without imposing the per-person constraint. The citation for scoring raw profiles on elevation-orthogonalized factors.
 
 **Furr (2008), "A framework for profile similarity: integrating similarity, normativeness, and distinctiveness."** Journal of Personality 76(5), 1267-1316. doi:10.1111/j.1467-6494.2008.00521.x. The **normativeness / distinctiveness** split for personality profiles: overall similarity is dominated by the shared normative profile; what distinguishes people is the deviation from it. Our origin-collapse analysis (degraded models lose normativeness r .89->.60) and the uncentered-vs-centered off-Big5 share correction are this framework applied to a model population.
+
+## Second-order comparison machinery (RSA lineage — 2026-09-12)
+
+> Named after the fact: the channel-vs-human "match" numbers and the SELF↔ENACT null are representational similarity analysis — the neuroscience solution to comparing systems with incommensurable representation spaces via a shared stimulus set.
+
+**Kriegeskorte, Mur & Bandettini (2008), "Representational similarity analysis — connecting the branches of systems neuroscience."** Frontiers in Systems Neuroscience 2:4. doi:10.3389/neuro.06.004.2008. The RDM-comparison framework; our adjective set = the stimulus set, the human correlation matrix = the reference RDM, per-model activation cosine grids = the system RDMs. Cite as the frame for the cross-channel structure section.
+
+**Mantel (1967), "The detection of disease clustering and a generalized regression approach."** Cancer Research 27(2), 209-216. The permutation test for correlating distance matrices (pairs of distances are not independent); used for the SELF↔ENACT second-order null (r=-.045, p=.86).
+
+**Kornblith, Norouzi, Lee & Hinton (2019), "Similarity of Neural Network Representations Revisited."** ICML / arXiv:1905.00414. CKA — the modern NN-side kin of RSA; the natural robustness row if a reviewer asks whether the grid-correlation index drives our congruence conclusions.
