@@ -3743,3 +3743,18 @@ vectors; eyebrow only at n=10). Together with the second-order RSA
 null: self-report predicts enactment neither across models nor
 incrementally within them — the incremental-validity form of the
 Peng et al. dissociation, in geometry. Enact-section ready.
+
+## Gap (b) CLOSED with a rescued artifact (2026-09-12)
+
+Represent<->self, n=66 grids cached (represent_model_grids.npz — 
+per-model mid-layer winsorized RDMs, reusable). Full-roster Mantel
+r=+.469 p=.001 LOOKED like population coupling — core-only it
+COLLAPSES to +.031 (p=.85): pure degradation-axis artifact (broken
+models weird in both channels). Survivor: incremental within-model
+prediction among healthy models — mean r +.008, 25/40 positive,
+p=.026 — tiny but real idiosyncratic SELF-REPRESENT shared variance.
+GRADIENT for the paper: SELF<->REPRESENT sliver (read-read);
+SELF<->ENACT nothing (read-write) — differential predictive validity
+form of the dissociation. STANDING RULE reinforced: every cross-
+channel population claim gets the core-only robustness row; the
+degradation axis couples channels spuriously.
