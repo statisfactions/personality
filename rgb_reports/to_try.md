@@ -3694,3 +3694,16 @@ in the .part checkpoint. Chain moved on to Qwen3-8B; waiter armed
 resume skips done items, ~31h remaining. Person-frame verdict ETA
 pushed ~2 days. Observed-pace note for future budgets: Glimmer @1024
 full = ~90h, not 35.
+
+## Paper scope lock + gap 1 of 3 closed (2026-09-12)
+
+rgb's results-section outline adopted (five channels + one cross-
+channel machinery section after Enact + early roadmap fig). CUT LIST
+(pending rgb veto): distress design, model-lexical study (harvest =
+cited artifact), frame-validity contest, reference-group arms (one
+limitation sentence). Gaps: (a) SELF<->ENACT second-order RSA — RUN:
+Mantel r = -0.045, p = .86 (n=10; rgb's "probably not" registered and
+HIT — read/write dissociation at population second order); (b)
+represent-predicts-self RSA needs per-model REPRESENT grids (~80GB
+overnight CPU IO job, awaiting go); (c) playacting-awareness poke —
+small GPU instrument, needs rgb design pass, queue behind redo chain.
