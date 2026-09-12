@@ -3707,3 +3707,20 @@ HIT — read/write dissociation at population second order); (b)
 represent-predicts-self RSA needs per-model REPRESENT grids (~80GB
 overnight CPU IO job, awaiting go); (c) playacting-awareness poke —
 small GPU instrument, needs rgb design pass, queue behind redo chain.
+
+## RSA seating chart for our channels (2026-09-12, rgb's KMB mapping)
+
+Methods-table version: ENACT/REPRESENT = true KMB systems (each model
+a brain, adjectives the stimuli, per-model RDMs, second-order only).
+SELF = scalar channel, structurally identical to human self-report —
+the POPULATION is the system, respondents play the voxel role
+(human 525x525 corr = the human population RDM; our facet grids were
+population-RSA all along). JUDGE = intermediate: P(.|a) rows are
+patterns in the SHARED adjective space — commensurable, gets both
+first- and second-order comparisons. The SELF<->ENACT Mantel was
+deliberately mixed-order (first where commensurable, second where
+not); fully-second-order robustness = SELF per-model RDMs via
+framings-as-channels (6-dim). ADOPT from KMB: the NOISE CEILING —
+split-half reliability of the human population RDM bounds achievable
+human-match; check whether JUDGE .67-.74 is AT ceiling (cheap, high
+payoff for the paper's best number).
