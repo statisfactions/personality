@@ -3758,3 +3758,9 @@ SELF<->ENACT nothing (read-write) — differential predictive validity
 form of the dissociation. STANDING RULE reinforced: every cross-
 channel population claim gets the core-only robustness row; the
 degradation axis couples channels spuriously.
+
+Cluster-grid figure finalized on adopted conventions (2026-09-12):
+JUDGE panel switched from deck-legacy symmetrized-EV to the pinned-phi
+cooking — congruence RISES to .825 pc1-removed (90% of the .92
+ceiling; was .77). Recipe block (fig_cluster_grids_recipe.txt) is the
+caption's methods paragraph. Raw medoid band names kept per rgb.
