@@ -3764,3 +3764,20 @@ JUDGE panel switched from deck-legacy symmetrized-EV to the pinned-phi
 cooking — congruence RISES to .825 pc1-removed (90% of the .92
 ceiling; was .77). Recipe block (fig_cluster_grids_recipe.txt) is the
 caption's methods paragraph. Raw medoid band names kept per rgb.
+
+## Two-level clarification: score-space PC1 vs grid top component (2026-09-12, rgb probe)
+
+For HUMANS: ipsatization and pc1-removal are near-orthogonal
+operations (ipsatize removes elevation, leaves evaluation-PC1 at .93;
+grid pc1-removal takes evaluation, never touches elevation — a
+correlation matrix contains no level). E moves under ipsatization
+(ruler .67) because it's a rotated factor, not PC1. For SELF: the
+"different story" (PC1=elevation r=.98) lives in SCORE space only —
+the grid's top component is cos .85 with the HUMAN grid's, .83 with
+the human evaluation axis, .09 with uniform: the grids remove
+approximately the SAME shared evaluation axis from both populations
+(model version tinted by vice-gradient, .61). Caption paragraph:
+elevation is a score-space phenomenon (cloud fig, C&G/Ten Berge);
+evaluation is a covariance-space phenomenon (grids, top-component
+removal); the grid operation is semantically fair, not just
+operationally symmetric.
