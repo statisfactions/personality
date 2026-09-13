@@ -1,0 +1,16 @@
+Per-channel cooking (all 525 adjectives; entry-z = off-diagonal z-score):
+HUMAN: raw item correlations over 700 ESCS respondents; zero diagonal; entry-z.
+SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=50);
+  item correlations over models-as-respondents; zero diagonal; entry-z.
+REPRESENT: per-model mid-layer activations at the read position (pers framing),
+  massive dims winsorized (meta or 20x-median rule); column-centered cosine;
+  zero diagonal; entry-z; mean over core models (n=40).
+JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
+  level pinned to medP=.5 -> implied phi (EV/8 map); entry-z; mean (n=12).
+ENACT: per-model persona vectors, meta massive dims winsorized;
+  column-centered cosine; zero diagonal; entry-z; mean (n=10).
+Top-component removal: subtract the largest eigencomponent of each 525^2
+matrix BEFORE block aggregation. Blocks: 44 pole-respecting Ward clusters
+(blocks44), branch-ordered; band labels = largest cluster's human medoid.
+Congruence r: off-diagonal Pearson vs HUMAN at block level.
+Human split-half external-match ceiling: raw .975 / top-removed .92.

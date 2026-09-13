@@ -51,15 +51,19 @@ for i, n in enumerate(rn):
         pass
 mats["REPRESENT"] = z["grids"][keepR].astype(np.float32).mean(0)
 
+from pkit import cooking
 acc = []
 for p in glob.glob("results/adjectives/introspect_full/*_tom_likely_dir.npz"):
     zj = np.load(p, allow_pickle=True)
     ja = [str(a).lower() for a in zj["adjectives"]]
     B = np.asarray(zj["B"], float)
-    B = 0.5 * (B + B.T)
     B = B[np.ix_([ja.index(l) for l in labels], [ja.index(l) for l in labels])]
-    np.fill_diagonal(B, 0)
-    acc.append(measures.zscore_offdiag(B))
+    # ADOPTED cooking (ledger 2026-09-06): fitted shape from pairs-only
+    # psi, level PINNED to the human-matched medP=.5; implied phi.
+    psi = cooking.pairs_potential(B)
+    P = np.clip(np.exp(psi - np.median(psi) + np.log(0.5)), 0.01, 0.99)
+    phi = cooking.implied_phi(cooking.EV2P(B), P)
+    acc.append(measures.zscore_offdiag(phi))
 mats["JUDGE"] = np.mean(acc, 0)
 
 acc = []
@@ -118,8 +122,7 @@ def render(rows, fname, labeled_first=True, figh=None):
                     nm = max(band, key=lambda c_: len(c_["members"]))["label"]
                     ax.text(-1.2, (lo + hi - 1) / 2, nm, fontsize=5.5,
                             ha="right", va="center")
-                if nr > 1:
-                    ax.set_ylabel(tag, fontsize=8, labelpad=34)
+                ax.set_ylabel(tag, fontsize=8, labelpad=40)
         cax = fig.add_subplot(gs[ri, 5])
         plt.colorbar(im, cax=cax).ax.tick_params(labelsize=6)
     fig.savefig(fname, bbox_inches="tight", dpi=300)
@@ -128,6 +131,27 @@ def render(rows, fname, labeled_first=True, figh=None):
 render([("top comp. removed", grids_p)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
 render([("raw", grids), ("top comp. removed", grids_p)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
+RECIPES = """Per-channel cooking (all 525 adjectives; entry-z = off-diagonal z-score):
+HUMAN: raw item correlations over 700 ESCS respondents; zero diagonal; entry-z.
+SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=%d);
+  item correlations over models-as-respondents; zero diagonal; entry-z.
+REPRESENT: per-model mid-layer activations at the read position (pers framing),
+  massive dims winsorized (meta or 20x-median rule); column-centered cosine;
+  zero diagonal; entry-z; mean over core models (n=%d).
+JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
+  level pinned to medP=.5 -> implied phi (EV/8 map); entry-z; mean (n=%d).
+ENACT: per-model persona vectors, meta massive dims winsorized;
+  column-centered cosine; zero diagonal; entry-z; mean (n=%d).
+Top-component removal: subtract the largest eigencomponent of each 525^2
+matrix BEFORE block aggregation. Blocks: 44 pole-respecting Ward clusters
+(blocks44), branch-ordered; band labels = largest cluster's human medoid.
+Congruence r: off-diagonal Pearson vs HUMAN at block level.
+Human split-half external-match ceiling: raw .975 / top-removed .92.""" % (
+    int(core.sum()), len(keepR), len(glob.glob(
+        "results/adjectives/introspect_full/*_tom_likely_dir.npz")),
+    len(glob.glob("results/persona_vectors/enact_mid/*.npz")))
+open("results/persona_vectors/figs/fig_cluster_grids_recipe.txt", "w").write(RECIPES)
+print(RECIPES)
 for c in CH[1:]:
     m_ = ~np.eye(44, dtype=bool)
     print(f"{c}: raw r={np.corrcoef(grids[c][m_], grids['HUMAN'][m_])[0,1]:.3f}  "

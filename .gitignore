@@ -124,3 +124,4 @@ results/**/*_pda_backfill_report.json
 !results/persona_vectors/figs/slides_wide/facet_slides_wide.pdf
 !results/persona_vectors/figs/fig_cluster_grids.pdf
 !results/persona_vectors/figs/fig_cluster_grids_full.pdf
+!results/persona_vectors/figs/fig_cluster_grids_recipe.txt
