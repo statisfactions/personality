@@ -122,3 +122,5 @@ results/**/*_pda_backfill_texts.json
 results/**/*_pda_backfill_report.json
 # the wide facet deck PDF is a linkable deliverable (like the note PDF)
 !results/persona_vectors/figs/slides_wide/facet_slides_wide.pdf
+!results/persona_vectors/figs/fig_cluster_grids.pdf
+!results/persona_vectors/figs/fig_cluster_grids_full.pdf
