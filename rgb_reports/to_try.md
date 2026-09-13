@@ -3858,3 +3858,36 @@ ipsatized one does not. Recommendation for the paper: keep the raw +
 top-removed rows as the symmetric main recipe (unchanged), and add the
 ipsatized pair as the appendix panel that shows WHY SELF collapses —
 the r .90 vs .29 contrast is the response-problem figure rgb asked for.
+
+## Cluster grids switched to RAW units (2026-09-13, rgb probe)
+
+rgb: entry-z was a crutch from when JUDGE was an EV matrix; with phi
+cooking every channel is a correlation-like coefficient in [-1,1], so
+draw raw values on a shared colorbar. Done (fig_cluster_grids_paper.py,
+ipsatize_grids.py; raw row +-.6, top-removed row +-.3). Congruence r is
+affine-invariant, so the only numeric changes come from (i) averaging
+per-model matrices in raw units instead of entry-z-then-average and
+(ii) a phi clip (below). Old -> new, top-removed: SELF .328 (same),
+REPRESENT .408 (same), JUDGE .825 -> .815, ENACT .630 -> .617. Raw row
+unchanged to 2 decimals.
+What raw units show that z hid: SELF's off-diagonal MEAN is +.41
+(HUMAN +.06, REPRESENT .00, JUDGE +.05, ENACT .00) — the SELF raw
+panel is a saturated red slab; the halo is a level shift of the whole
+grid, not just a block pattern. REPRESENT's block sd is .09 (others
+.16-.27): activation cosines are genuinely compressed, and the panel
+reads pale on the shared scale — that is the honest picture, but a
+caption sentence should say why (anisotropy; column-centered cosine
+over 525 near-parallel activation rows).
+PHI CLIP (needs rgb's yes; amendment to 09-06 adopted cooking):
+implied phi is unbounded when pinned-level P hits the .01/.99 clip and
+the implied joint goes incoherent. Aya 4.3% and Qwen-3B 4.7% of entries
+have |phi|>1 (extremes -16.7 / -22.6); every other model < 0.3%.
+Entry-z was silently absorbing this (inflated sd -> those two models
+down-weighted in the cohort mean); in raw averaging they would
+dominate, so phi is clipped to [-1,1]. Effect: cohort top-removed
++.008, Aya per-model .833 -> .853, Qwen-3B .764 -> .784; all others
+unchanged to 3 decimals. Alternatives tested (P clipped to [.05,.95]
+or [.1,.9]) land within .003 of the same place.
+REPRESENT cache now carries raw cosines (key `cos`, f16) next to the
+legacy entry-z grids; represent_cache_cos.py rebuilt it with a
+bit-identity gate (z-match r = 1.00000 on all 66).

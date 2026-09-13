@@ -1,22 +1,30 @@
-Per-channel cooking (all 525 adjectives; entry-z = off-diagonal z-score):
+Per-channel cooking (all 525 adjectives). UNITS: every grid is a
+correlation-like coefficient in [-1, 1], drawn in raw units on a shared
+colorbar (raw row +-0.6, top-removed row +-0.3). No entry-z anywhere
+(2026-09-13; congruence r is affine-invariant, so this changes colors, not
+numbers, except that per-model matrices are now averaged in raw units).
 NOTE: no within-respondent (ipsative) centering anywhere — HUMAN and SELF are
   correlations of RAW ratings across respondents (correlation standardizes
   each item across respondents, not within them). Elevation's influence is
   handled at the matrix level by the top-component-removal row, identically
   for both populations; ipsatizing first would impose the Clemans constraint
-  on both matrices.
-HUMAN: raw item correlations over 700 ESCS respondents; zero diagonal; entry-z.
+  on both matrices (see fig_cluster_grids_ipsatize for what that does).
+HUMAN: raw item Pearson r over 700 ESCS respondents; zero diagonal.
 SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=50);
-  item correlations over models-as-respondents; zero diagonal; entry-z.
+  item Pearson r over models-as-respondents; zero diagonal.
 REPRESENT: per-model mid-layer activations at the read position (pers framing),
   massive dims winsorized (meta or 20x-median rule); column-centered cosine;
-  zero diagonal; entry-z; mean over core models (n=40).
+  zero diagonal; mean over core models (n=40).
 JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
-  level pinned to medP=.5 -> implied phi (EV/8 map); entry-z; mean (n=12).
+  level pinned to medP=.5 -> implied phi (EV/8 map), CLIPPED to [-1, 1]
+  (an implied phi outside the coefficient's range marks an incoherent
+  implied joint; affects 4-5% of entries for Aya and Qwen-3B, <0.3%
+  elsewhere); mean (n=12).
 ENACT: per-model persona vectors, meta massive dims winsorized;
-  column-centered cosine; zero diagonal; entry-z; mean (n=10).
-Top-component removal: subtract the largest eigencomponent of each 525^2
-matrix BEFORE block aggregation. Blocks: 44 pole-respecting Ward clusters
-(blocks44), branch-ordered; band labels = largest cluster's human medoid.
-Congruence r: off-diagonal Pearson vs HUMAN at block level.
+  column-centered cosine; zero diagonal; mean (n=10).
+Top-component removal: subtract the off-diagonal mean, then the largest
+eigencomponent of each 525^2 matrix, BEFORE block aggregation (same
+eigenvector as the former entry-z path). Blocks: 44 pole-respecting Ward
+clusters (blocks44), branch-ordered; band labels = largest cluster's human
+medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
 Human split-half external-match ceiling: raw .975 / top-removed .92.

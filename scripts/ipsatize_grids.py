@@ -1,8 +1,8 @@
 """Ipsatization poke on the cluster grids (2026-09-13, rgb probe; P16).
 
 Question: does within-respondent standardization (C&C ipsative z) move
-the HUMAN grid much? The SELF grid? Same blocks44 machinery as
-fig_cluster_grids_paper.py; only HUMAN and SELF live in score space, so
+the HUMAN grid much? The SELF grid? Same blocks44 machinery and raw
+correlation units as fig_cluster_grids_paper.py; only HUMAN and SELF live in score space, so
 only they can be ipsatized. Renders a 2x4 figure (raw / top-removed x
 HUMAN raw, HUMAN ips, SELF raw, SELF ips) and prints the grid-vs-grid
 correlation table.
@@ -21,11 +21,21 @@ cl = pkit.facets.clusters("blocks44")
 m44 = ~np.eye(44, dtype=bool)
 
 
+m525 = ~np.eye(len(labels), dtype=bool)
+
+
 def corr_grid(X):
-    """X: respondents x 525 -> zero-diag entry-z corr matrix."""
+    """X: respondents x 525 -> zero-diag Pearson matrix (raw units)."""
     S = np.corrcoef(X.T)
     np.fill_diagonal(S, 0)
-    return measures.zscore_offdiag(S)
+    return S
+
+
+def center(M):
+    """Subtract the off-diagonal mean (units kept) before top-component removal."""
+    A = M.copy()
+    A[m525] -= A[m525].mean()
+    return A
 
 
 def blockify(M):
@@ -42,7 +52,7 @@ mats = {"HUMAN raw": corr_grid(Hm),
 # sanity: rebuilt raw should match the cached corr json
 Hc = pkit.load.human_corr().values.copy(); np.fill_diagonal(Hc, 0)
 print("HUMAN raw rebuild vs cached corr json: r = %.4f" %
-      measures.offdiag_corr(mats["HUMAN raw"], measures.zscore_offdiag(Hc)))
+      measures.offdiag_corr(mats["HUMAN raw"], Hc))
 
 # ---- SELF: core instruct models (sd >= .5), framing-mean EVs -----------
 R = pkit.load.self_matrix(which="cohort")
@@ -54,8 +64,7 @@ print("core models n=%d" % core.sum())
 
 CH = ["HUMAN raw", "HUMAN ips", "SELF raw", "SELF ips"]
 grids = {c: blockify(mats[c]) for c in CH}
-grids_p = {c: blockify(measures.zscore_offdiag(measures.remove_pc1(mats[c])))
-           for c in CH}
+grids_p = {c: blockify(measures.remove_pc1(center(mats[c]))) for c in CH}
 
 
 def r(a, b):
@@ -77,9 +86,9 @@ for a in ["raw", "ips"]:
               f"both top-removed r = {r(grids_p['SELF '+a], grids_p['HUMAN '+b]):.3f}")
 
 # eigen-spectrum of the 525 matrices: how big is the top component?
-print("\ntop-eigenvalue share of |spectrum| (525 zero-diag entry-z):")
+print("\ntop-eigenvalue share of |spectrum| (525 zero-diag, centered):")
 for c in CH:
-    w = np.linalg.eigvalsh(mats[c])
+    w = np.linalg.eigvalsh(center(mats[c]))
     print(f"  {c:10s} top/sum|w| = {np.abs(w).max()/np.abs(w).sum():.3f}")
 
 # which blocks move most under ipsatization (row-wise r, raw vs ips)?
@@ -96,10 +105,11 @@ for pop in ["HUMAN", "SELF"]:
 branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 fig, axes = plt.subplots(2, 4, figsize=(7.0, 3.9))
+VLIM = {"raw": 0.6, "top comp. removed": 0.3}  # shared with fig_cluster_grids_paper
 for ri, (tag, G) in enumerate([("raw", grids), ("top comp. removed", grids_p)]):
     for ci, c in enumerate(CH):
         ax = axes[ri, ci]
-        im = ax.imshow(G[c], cmap="RdBu_r", vmin=-2, vmax=2)
+        im = ax.imshow(G[c], cmap="RdBu_r", vmin=-VLIM[tag], vmax=VLIM[tag])
         for b in branch_breaks:
             ax.axhline(b - .5, color="k", lw=.3, alpha=.5)
             ax.axvline(b - .5, color="k", lw=.3, alpha=.5)
@@ -114,7 +124,8 @@ for ri, (tag, G) in enumerate([("raw", grids), ("top comp. removed", grids_p)]):
             refname = "HUMAN raw" if c in ("HUMAN ips", "SELF raw") else "HUMAN ips"
             ax.set_xlabel(f"r = {r(G[c], G[refname]):.2f} vs {refname}",
                           fontsize=6.5, labelpad=2)
-fig.colorbar(axes[0, 0].images[0], ax=axes, shrink=0.6).ax.tick_params(labelsize=6)
+for ri in range(2):
+    fig.colorbar(axes[ri, 0].images[0], ax=axes[ri, :], shrink=0.85).ax.tick_params(labelsize=6)
 out = "results/persona_vectors/figs/fig_cluster_grids_ipsatize"
 fig.savefig(out + ".pdf", bbox_inches="tight", dpi=300)
 fig.savefig(out + ".png", bbox_inches="tight", dpi=200)
