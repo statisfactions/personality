@@ -132,6 +132,12 @@ render([("top comp. removed", grids_p)], "results/persona_vectors/figs/fig_clust
 render([("raw", grids), ("top comp. removed", grids_p)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
 RECIPES = """Per-channel cooking (all 525 adjectives; entry-z = off-diagonal z-score):
+NOTE: no within-respondent (ipsative) centering anywhere — HUMAN and SELF are
+  correlations of RAW ratings across respondents (correlation standardizes
+  each item across respondents, not within them). Elevation's influence is
+  handled at the matrix level by the top-component-removal row, identically
+  for both populations; ipsatizing first would impose the Clemans constraint
+  on both matrices.
 HUMAN: raw item correlations over 700 ESCS respondents; zero diagonal; entry-z.
 SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=%d);
   item correlations over models-as-respondents; zero diagonal; entry-z.
