@@ -3781,3 +3781,15 @@ elevation is a score-space phenomenon (cloud fig, C&G/Ten Berge);
 evaluation is a covariance-space phenomenon (grids, top-component
 removal); the grid operation is semantically fair, not just
 operationally symmetric.
+
+## Qwen3-8B think-arm redo VALIDATED (2026-09-13, overnight)
+
+@1024+force-close full arm vs the censored-era arm: r .40-.66 per
+framing, |dEV| 0.82-1.74 — the old arm is unusable; shelved as
+_CENSORED_ARTIFACT. SCIENCE IN THE DIFF: levels DROP in every framing
+under the clean protocol (observer 4.77->3.28, pda 3.32->2.27) —
+mid-deliberation tentative values run systematically HIGH; Qwen3-8B
+talks itself DOWN toward its concluded answer in all six frames.
+(The tentative-vs-decided gap now has a direction, at least for this
+model: deliberation deflates self-ratings.) Chain now on the hybrid
+smokes; Glimmer resume (~31h) after.
