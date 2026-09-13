@@ -3793,3 +3793,68 @@ talks itself DOWN toward its concluded answer in all six frames.
 (The tentative-vs-decided gap now has a direction, at least for this
 model: deliberation deflates self-ratings.) Chain now on the hybrid
 smokes; Glimmer resume (~31h) after.
+
+## P16 REGISTERED: ipsatized grids (2026-09-13, rgb probe, BEFORE looking)
+
+rgb's poke: if the HUMAN grid barely moves under ipsatization while
+the SELF grid moves dramatically, SELF's response problem becomes
+visually obvious. Gain-model reasoning: under likert = lambda_m +
+beta_m * t_a, ipsatizing a model's row yields (t_a - mean t)/sd t,
+IDENTICAL across models, so the whole shared desirability profile
+drops out of the across-model correlation and only scaled shape
+residuals remain. For humans, the row mean over 525 signed
+adjectives is ~acquiescence, not evaluation, so evaluation survives.
+Predictions (44-block grid, off-diagonal Pearson):
+- P16a HUMAN raw vs HUMAN ipsatized >= .90.
+- P16b SELF raw vs SELF ipsatized <= .50.
+- P16c SELF ipsatized ~ SELF top-removed: >= .75 (ipsatization does
+  the top-component job for SELF).
+- P16d HUMAN ipsatized vs HUMAN top-removed <= .80 (for humans it
+  does NOT do that job; evaluation remains).
+- P16e Cross congruence SELF-ips vs HUMAN-ips (no top removal) BELOW
+  the raw .84 and near or below the top-removed .33, because one
+  side keeps evaluation and the other loses it.
+
+## P16 GRADED (2026-09-13): 3 hits, 1 miss, 1 half — and the mover is GAIN, not elevation
+
+scripts/ipsatize_grids.py; fig_cluster_grids_ipsatize.pdf (2x4: raw /
+top-removed x HUMAN raw, HUMAN ips, SELF raw, SELF ips). Core n=50.
+- P16a HIT: HUMAN raw vs ips grid r = .903 (just clears .90).
+- P16b HIT, hard: SELF raw vs ips r = .292. The two-block halo
+  (positives co-elevated, negatives co-depressed) vanishes; what is
+  left is a faint grid with the first-branch block and a few
+  diagonal facets. Row-level: negative blocks (mean, dumb, annoying,
+  inconsiderate) FLIP sign (row r -.27 to -.02); humans' median row
+  r .94, SELF .44.
+- P16c MISS: SELF ips vs SELF top-removed r = .445 (predicted >= .75).
+  Ipsatization is NOT top-component removal for SELF, even after
+  disattenuation (~.54). They remove different things (below).
+- P16d HIT: HUMAN ips vs HUMAN top-removed r = .419: ipsatizing
+  humans leaves the evaluation component intact (top/sum|w| .147 ->
+  .098, still the dominant component).
+- P16e HALF: SELF ips vs HUMAN ips = .514 — below the raw .84 (hit)
+  but well ABOVE the top-removed .33 (miss on the "near or below"
+  clause). Both top-removed: .310, i.e. the ipsatized pair lands where
+  the top-removed pair does.
+DECOMPOSITION (the actual finding): for SELF, CENTER-ONLY leaves the
+grid at r .933 with raw; SCALE-ONLY (divide by within-model sd) takes
+it to .243. The mover is the per-model GAIN, not elevation. Under the
+gain model the across-model covariance of items i,j carries
+var(beta)*t_i*t_j — a rank-1 desirability term that IS the two-block
+halo; dividing each model by its own sd deletes var(beta) and the
+halo with it. Centering removes var(lambda)*11', a flat offset that a
+correlation matrix already ignores. So the "self response problem",
+stated precisely: the cross-model covariance structure of SELF is
+mostly models differing in how hard they lean on the same desirability
+profile. Humans have no comparable gain axis (median row r .94).
+RELIABILITY (before validity): SELF grid split-half (200 halves, SB
+to n=50): raw .94, top-removed .82, ips .81, ips+top .61. HUMAN (n=700):
+.99 / .96 / .97 / .94. The ips SELF grid is real, not noise — and it
+is TIER-STABLE: rebuilt from sd-tier subsets (0.5-1 / 1-1.5 / 1.5+)
+it correlates .93/.83/.73 with the full ips grid, whereas the RAW grid
+rebuilt per tier correlates only .57/.64/.32 with the full raw grid.
+The raw SELF grid depends on which gain tier you include; the
+ipsatized one does not. Recommendation for the paper: keep the raw +
+top-removed rows as the symmetric main recipe (unchanged), and add the
+ipsatized pair as the appendix panel that shows WHY SELF collapses —
+the r .90 vs .29 contrast is the response-problem figure rgb asked for.
