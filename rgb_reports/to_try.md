@@ -3930,3 +3930,44 @@ display fix (.815); it touches phi only — the sink pattern lives in
 psi and is untouched. Queued: the sink-sign-by-size finding belongs in
 the JUDGE section's base-rate paragraph (one sentence + the 12-model
 table), not the appendix.
+
+## CORRECTION to the sink-sign-by-size table (2026-09-13, same day)
+
+I tiered by memory, not by roster: Phi4 is Phi-4-MINI (3.8B), Aya is
+aya-expanse-8B. Re-tiered by parameters: <=4B = Qwen-3B, Gemma-3-4B,
+Llama-3.2-3B, Phi-4-mini; 7-12B = Qwen7, FalconMamba, Llama8, Aya,
+Gemma12; >=27B = Gemma27, Qwen32, Gemma4-31B. The size trend survives
+but with two exceptions: r(sink-eval, log params) = .58 Pearson / .47
+Spearman over 12; .82 without Phi-4-mini (positive sink at 3.8B — the
+HHH prior again, its usual idiosyncrasy). Aya (8B) sits on the
+negative side of its tier. Claim downgraded from "flips with scale" to
+"trends with scale, Phi-4-mini the outlier"; the sink pattern itself
+(negative states vs HHH positives) stands. Standard cooking is now the
+CLIPPED phi (rgb 2026-09-13).
+
+## JUDGE cooking-stage + size-tier grids (2026-09-13, rgb request)
+
+scripts/fig_judge_cooking.py -> fig_judge_cooking.pdf (HUMAN | phi
+directed | phi symmetric [adopted, clipped] | nearest correlation
+matrix) and fig_judge_size.pdf (HUMAN | <=4B n=4 | 7-12B n=5 | >=27B
+n=3). Raw units, cohort means of per-model cooked matrices.
+Cooking stages, congruence raw / top-removed: directed .870/.766 ->
+symmetric .882/.815 -> nearest-corr .915/.846. Directed and symmetric
+phi agree at r .89-.97 per model, so the symmetrization is mild; the
+NEAREST CORRELATION MATRIX (Higham 2002, pkit.measures.nearest_corr)
+is the big step: every model's symmetric phi is far from PSD (40-236
+negative eigenvalues of 525; min eig -5 Llama-3B to -136 Qwen-3B),
+the projection moves the matrices 8-60% in relative Frobenius norm,
+and congruence RISES by .03. That is the S- frustration-mode story
+made into a repair: HUMAN is PSD by construction (a covariance), so
+projecting JUDGE onto the PSD cone deletes exactly the incoherence
+humans cannot have. NOT adopted as cooking (method change; and .03 is
+inside the ceiling gap .846 vs .92) — recorded as the appendix panel
+that shows where the remaining JUDGE-HUMAN gap lives: about a third
+of it is non-PSD mass.
+Size tiers: top-removed .789 / .778 / .787 — FLAT. Raw: mid tier .887
+vs .85 for both ends. The <=4B panel shows the negative-state sinks
+as full blue stripes (rows AND columns of the stigma blocks), the
+>=27B panel does not; the sink flips sign but the block structure it
+sits on is the same at every size — congruence does not depend on
+which way the sink points.

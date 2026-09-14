@@ -110,3 +110,25 @@ def offdiag_corr(A, B):
     if a.std() == 0 or b.std() == 0:
         return 0.0
     return float(np.corrcoef(a, b)[0, 1])
+
+
+def nearest_corr(A, tol=1e-7, max_iter=200):
+    """Higham (2002) nearest correlation matrix: alternating projections
+    onto the PSD cone and the unit-diagonal affine set, with Dykstra's
+    correction. A: symmetric with (ideally) unit diagonal. Returns the
+    PSD unit-diagonal matrix nearest in Frobenius norm."""
+    A = np.asarray(A, float)
+    Y = A.copy()
+    dS = np.zeros_like(A)
+    for _ in range(max_iter):
+        R = Y - dS
+        w, V = np.linalg.eigh(R)
+        X = (V * np.clip(w, 0, None)) @ V.T          # project onto PSD
+        dS = X - R
+        Y_new = X.copy()
+        np.fill_diagonal(Y_new, 1.0)                 # project onto unit diagonal
+        if np.linalg.norm(Y_new - Y) / max(np.linalg.norm(Y), 1e-12) < tol:
+            Y = Y_new
+            break
+        Y = Y_new
+    return Y
