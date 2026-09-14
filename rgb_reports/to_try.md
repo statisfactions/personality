@@ -4075,3 +4075,54 @@ Predictions:
 Label thoughts recorded: "AI assistant" = role register (HHH prior),
 "AI" = category incl. fiction (anthropomorphic drift), "language
 model" = artifact register; the three span the object-agent axis.
+
+## P17 GRADED (2026-09-14): reference-group probe — 1.5 hits of 6; the halo survives the explicit reference group
+
+5 models (Gemma-3-4B, Gemma-3-12B, Llama-3.1-8B, Phi-4-mini, Qwen2.5-7B)
+x 44 medoids x 24 variants; scripts/reference_group_analysis.py.
+- P17a HALF: within-model sd drops under comparative-more for 3/5
+  (Llama8, Phi4, Qwen7) — hit; but elevation does NOT converge on 4:
+  Gemma 4.39->3.27 and Qwen7 4.27->3.46 go BELOW average, Gemma12 and
+  Phi4 go UP (4.86, 5.20). No "I'm average" attractor.
+- P17b HIT with a split: mean(more+less) = Phi4 10.7, Gemma12 9.4,
+  Llama8 9.1 (agreement bias), Qwen7 7.98 (perfect mirror), Gemma-4B
+  6.95 (DENIAL: refuses both directions on 14 competence/agency
+  traits). more+less-8 is a per-model acquiescence index and it is
+  family-specific; the more/less pair is a response-style instrument,
+  not a reverse-coded item.
+- P17c MISS: r(more, direct) > .7 for only Phi4 .86 and Qwen7 .81;
+  Gemma .68, Gemma12 .49, Llama8 .45 (Llama8 near-flat, sd .4-.5, so
+  its r is weak evidence). Comparison re-shapes for 2-3 of 5.
+  Gain retained b = .33-.75 in more = a + b*direct: comparative frames
+  COMPRESS the gain and add a level.
+- P17d MISS, reversed: elevation ordering is AI > language model >=
+  AI assistant in 4/5 (Gemma 3.88/3.62/3.27; Gemma12 5.03/4.96/4.86;
+  Phi4 5.36/5.18/5.20; Qwen7 the exception with lm highest 4.03).
+  Comparing to its OWN category is the deflating one — the
+  reference-group effect proper: the model is a typical assistant.
+  "AI" (fiction-inclusive category) is where models claim superiority,
+  and trait-specifically on competence/agency (Gemma: busy +3.7,
+  competent +3.0, self-assured +2.8 vs AI but not vs assistant).
+- P17e MIXED: PC1 share direct .51 -> more_assistant .60, more_ai .56
+  (UP), more_lm .44 (down). Between-model profile agreement falls
+  .66 -> .53 -> .41 (direct -> vs assistant -> vs language model):
+  comparison makes models MORE idiosyncratic, most so against the
+  artifact register.
+- P17f MISS: contextualized framings shift |dEV| .40-.79 vs the
+  comparative .86 — about as much, not half — but they keep shape
+  (r .69-.92 vs the original) where comparative re-shapes.
+THE ANSWER TO THE PRESSING QUESTION: the desirability gradient
+survives an explicit reference group. r(profile, human evaluation
+axis) under "more than the average AI assistant" = Gemma .70, Gemma12
+.63, Phi4 .72, Qwen7 .81 (direct .82/.60/.88/.79); only near-flat
+Llama8 loses it (.34 -> .09). Models still say "I am more pleasant,
+trustworthy, appealing and less mean, dumb than the average
+assistant." So the SELF halo is not an implicit-human-norm artifact
+that a reference group removes; it is what the model asserts about
+itself relative to its own kind. The reference-group arm therefore
+cannot be the halo fix — it becomes a result (halo survives; response
+style splits by family; own-category deflates), not a limitation
+sentence. Instrument note: if a reference-anchored profile is wanted,
+the contextualized clause ("in relation to other AI assistants") is
+the better tool — same shift, shape preserved, no more/less
+acquiescence to balance.
