@@ -4316,3 +4316,19 @@ at the cost of losing 40% of the roster to reticence; (spectral) its
 spectrum matches the human PR almost exactly at n=23. Both need the
 12 large models (running) and, ideally, a second pair prompt (e.g.
 "compared with most AI assistants") to firm the split-halves.
+
+## "quiet" — the evaluation-neutral medoid as a test case (2026-09-14, rgb's eye)
+
+Mean |r| of the quiet row, rank among 44 (1 = least connected):
+HUMAN .09 (rank 1; correlates outgoing -.36, relaxed +.24, aggressive
+-.23 — the introversion marker, orthogonal to evaluation). More-or-
+less d: .15 (rank 1; awkward +.48, kind-hearted -.45, self-assured
+-.41, aggressive -.40 — the human pattern). Direct: .30 (rank 20;
+worried +.85, confused +.77, awkward +.73, sad +.72). PDA .39 (rank
+20). 6-framing SELF .39 (rank 6; awkward/weird/sad/worried .65-.77).
+The absolute instruments absorb quiet into the negative-state halo;
+the comparative self restores it to its human position as an
+evaluation-neutral trait. Not a flatness artifact: quiet's between-
+model sd under d is .83 vs a medoid median of .78. This is the
+cleanest single-adjective illustration of what the pair does — a
+candidate for the SELF section's worked example.
