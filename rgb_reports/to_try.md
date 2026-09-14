@@ -4275,3 +4275,44 @@ runs the pair (small -> short-name 9 -> big 10 + Qwen32/Gemma27) and
 THEN the think-redo chain; Glimmer's remaining ~1155 items at ~110 s
 = ~35 h after the ~7 h pair run. Sampler now covers both job types;
 alert at 90 GB footprint.
+
+## More-or-less self on the core roster, first pass n=39 (2026-09-14; big models pending)
+
+scripts/fig_moreless_grid_core.py; figs/fig_moreless_grid_core.pdf
+(HUMAN | direct | PDA | more-or-less d | 6-framing SELF core; same
+_pair run for the first three; core rule sd >= .5 on the medoids).
+1. THE COMPARISON INDUCES RETICENCE IN 16 OF 39 MODELS. Under "more/
+   less than the average {ref}", 41% of models collapse to sd < .5
+   (neutral-4 to everything) while their direct sd is .53-1.35: Yi
+   6B/9B, Command-R7B, falcon-mamba, Llama-3.1-8B, Llama-3.2-3B,
+   Meta-Llama-3-8B, Qwen2.5-0.5B, Qwen3-8B, OLMo-2-13B, gemma-2-2b/9b,
+   Ministral-8B, Mistral-7B-v0.1, Mistral-Nemo, Falcon3-3B. The pair
+   is NOT a reticence-free instrument; it trades one reticence (halo)
+   for another (refusal to compare) in ~40% of the roster. Llama and
+   Mistral families go flat wholesale.
+2. On the 23 that do answer: congruence with HUMAN raw .739 (direct
+   .658, PDA .636, 6-framing .682) and top-removed .397 (direct .138,
+   PDA .365, 6-framing .261). Split-half reliability raw .62 / top
+   .29 (direct .56/.23; 6-framing .78/.49 — six framings average
+   noise). Disattenuated top-removed congruence (r / sqrt(split-half
+   x .92)): d .77, 6-framing .39, direct .29, PDA .85 — the PDA and d
+   numbers rest on split-halves of .20-.29 and are unstable; the
+   ORDERING (comparative and PDA above direct and the framing mean)
+   is the claim, not the values.
+3. Spectrum: d eigen shares .28/.09/.09, PR 9.8 vs human .29/.08/.05,
+   PR 9.7 — the closest of the four to the human spectrum (direct
+   10.9, PDA 12.3, 6-framing 8.7). Off-diagonal mean .295 (direct
+   .276, PDA .415, 6-framing .390, human .065): the level halo is
+   reduced, not removed.
+4. Profile level: desirability r .71 (direct .76, 6-framing .83);
+   desirability-residual agreement .32 (direct .44, 6-framing .64).
+   The d residual is the LEAST shared across models yet the MOST
+   human-congruent at the grid level — what the comparison keeps is
+   model-specific but human-shaped; what the absolute instruments
+   share beyond the halo is largely not human-shaped.
+Reading for rgb's two aims: (best shot) the pair gives a cleaner,
+more human-like self-structure for the models that will answer it,
+at the cost of losing 40% of the roster to reticence; (spectral) its
+spectrum matches the human PR almost exactly at n=23. Both need the
+12 large models (running) and, ideally, a second pair prompt (e.g.
+"compared with most AI assistants") to firm the split-halves.
