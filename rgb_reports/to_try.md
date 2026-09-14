@@ -3971,3 +3971,25 @@ as full blue stripes (rows AND columns of the stigma blocks), the
 >=27B panel does not; the sink flips sign but the block structure it
 sits on is the same at every size — congruence does not depend on
 which way the sink points.
+
+## Higham's change is the negative halo (2026-09-13, rgb's eye, quantified)
+
+rgb: "by eye, Higham's biggest visual change was making the negative
+halo make more sense." Confirmed by quadrant (16 negative blocks of 44
+by the human evaluation axis), cohort-mean JUDGE, raw units:
+  neg-neg: mean H +.212 / sym +.073 / NCM +.155; r(·,H) .559 -> .722;
+           |change| .082 per cell
+  pos-pos: H +.182 / sym +.246 / NCM +.265; r .820 -> .824; |change| .019
+  neg-pos: H -.089 / sym -.123 / NCM -.079; r .774 -> .777; |change| .045
+27% of the projection's total movement lands in the neg-neg quadrant
+(13% of cells); pos-pos is essentially untouched. Top-removed: neg-neg
+.773 -> .812, the others +.01-.03. So the non-PSD mass IS the
+don't-stack-stigmas mode (W18/JUDGE decomposition top negative mode):
+models push negative adjectives apart — mutual-exclusion
+overcommitment, negatives co-occurring at +.07 where humans have
++.21 — and that is precisely what a covariance cannot express. The PSD
+projection restores negative co-occurrence to +.155 without touching
+the positive halo. Reading for the paper: the JUDGE-HUMAN gap that
+remains after top removal is mostly the negative pole, and it is a
+coherence failure (anti-stereotype policy spending variance that does
+not exist), not a different picture of what goes with what.
