@@ -4258,3 +4258,20 @@ comparative prompts = 13k plain-logprob calls, ~4-6 h of light GPU
 alongside Glimmer, no think arm). That is the cheap next step if rgb
 wants the reticence-cleaned SELF for the paper; the 30B ToM check
 (Qwen32, Gemma27) can ride in the same run.
+
+## Reboot #3 (2026-09-14 14:38) — concurrency, my call (ledgered as a miss)
+
+Glimmer's 100-item recycle reloaded at 14:29 (fresh process: 57 GB
+footprint, 40 GB of it the compressed load-time CPU copy) while the
+comparative pair run was loading its next 7-14B model. Two model loads
+in flight on 128 GB -> reboot. I had called the pair run "light" and
+run it alongside Glimmer, against the standing one-heavy-job rule;
+Glimmer's clean 3-day run earlier was ALONE. Rule restated for the
+chain script: one model-loading job at a time, no exceptions for
+"light" ones — the load transient, not the steady state, is what
+kills the box. State preserved: Glimmer .part at direct/assistant/
+person 525 + pda 420; pair run 9/32 files. New scripts/gpu_chain_serial.sh
+runs the pair (small -> short-name 9 -> big 10 + Qwen32/Gemma27) and
+THEN the think-redo chain; Glimmer's remaining ~1155 items at ~110 s
+= ~35 h after the ~7 h pair run. Sampler now covers both job types;
+alert at 90 GB footprint.
