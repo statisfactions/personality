@@ -75,7 +75,11 @@ def main():
         out = f"{OUT}/{m.replace('/', '_')}{args.tag}.json"
         if os.path.exists(out):
             print("[skip]", out); continue
-        model, tok, device = hf.load_model(m, dtype=torch.bfloat16)
+        try:
+            model, tok, device = hf.load_model(m, dtype=torch.bfloat16)
+        except Exception as e:      # missing shard / dead download / gated: skip, keep the chain moving
+            print(f"[fail {m}] {type(e).__name__}: {str(e)[:160]}", flush=True)
+            continue
         res = {}
         for vn, fn in V.items():
             res[vn] = {}
