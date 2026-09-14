@@ -18,6 +18,8 @@ __all__ = ["axes", "cooking", "extraction", "facets", "load",
 
 def __getattr__(name):
     if name == "extraction":
-        from . import extraction
-        return extraction
+        # importlib, not `from . import`: the latter re-enters this hook
+        # via _handle_fromlist before the submodule is bound (recursion)
+        import importlib
+        return importlib.import_module(".extraction", __name__)
     raise AttributeError(f"module 'pkit' has no attribute {name!r}")

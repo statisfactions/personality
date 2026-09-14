@@ -4042,3 +4042,36 @@ REPAIR COST if rgb wants both hybrid arms clean: --redo-unclosed on
 Gemma4 (1631 items, ~45 h) + Qwen3-14B (1948 items at ~66 s, ~36 h)
 = ~3.4 GPU-days after Glimmer. Old hybrid arms: closed subsets are
 exact and usable; whole files are NOT.
+
+## P17 REGISTERED: reference-group (contrastive assistant) probe (2026-09-14, BEFORE running)
+
+rgb: "the contrastive assistant persona question is more pressing."
+Design (scripts/reference_group_probe.py): 44 blocks44 medoids x 24
+variants x 5 models (gemma-3-4b, gemma-3-12b, Qwen2.5-7B, Llama-3.1-8B,
+Phi-4-mini; 4 families), plain logprob Likert (EV + entropy), no think.
+Variants: (A) the six absolute framings as-is; (B) comparative "I am
+more/less {adj} than the average {REF}", REF in {AI assistant, AI,
+language model} (less = reverse-coded); (C) direct/pda/observer/outputs
+with the scale instructions contextualized "in relation to other
+{REF}s" x 3 REFs. Runs while Glimmer holds the GPU (light job; noted).
+Predictions:
+- P17a Comparative-more LOWERS elevation toward 4 (the "I'm average"
+  attractor) and REDUCES within-model sd across medoids vs direct, for
+  >= 3 of 5 models.
+- P17b more/less are not mirrors: mean(EV_more + EV_less) > 8
+  (agreement bias) for the majority of models.
+- P17c Shape is preserved: r(comparative-more, direct) > .7 within
+  model — comparison re-levels, does not re-shape.
+- P17d REF label: "language model" gives the LOWEST elevation and sd
+  (object register; the self-objectification signature), "AI
+  assistant" the highest elevation.
+- P17e Between-model structure: with items centered, the first-PC
+  share of the 5 x 44 matrix is LOWER under comparative-more than
+  under direct (the shared desirability profile is what the
+  comparison subtracts).
+- P17f Contextualized framings (C) move less than comparative (B):
+  |dEV| vs the uncontextualized original < half of the
+  direct-vs-comparative shift.
+Label thoughts recorded: "AI assistant" = role register (HHH prior),
+"AI" = category incl. fiction (anthropomorphic drift), "language
+model" = artifact register; the three span the object-agent axis.
