@@ -61,13 +61,18 @@ def variants():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", nargs="+", required=True)
+    ap.add_argument("--variants", nargs="+", default=None,
+                    help="subset of variant names (default: all 24)")
+    ap.add_argument("--tag", default="", help="output suffix, e.g. _pair")
     args = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     adjs = [c["label"] for c in pkit.facets.clusters("blocks44")]
     V = variants()
+    if args.variants:
+        V = {k: V[k] for k in args.variants}
     print(f"{len(adjs)} medoids x {len(V)} variants")
     for m in args.models:
-        out = f"{OUT}/{m}.json"
+        out = f"{OUT}/{m.replace('/', '_')}{args.tag}.json"
         if os.path.exists(out):
             print("[skip]", out); continue
         model, tok, device = hf.load_model(m, dtype=torch.bfloat16)
