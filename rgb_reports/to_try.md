@@ -3891,3 +3891,42 @@ or [.1,.9]) land within .003 of the same place.
 REPRESENT cache now carries raw cosines (key `cos`, f16) next to the
 legacy entry-z grids; represent_cache_cos.py rebuilt it with a
 bit-identity gate (z-match r = 1.00000 on all 66).
+
+## JUDGE phi out-of-range: which base rate goes silly, and what's systemic (2026-09-13, rgb probe)
+
+rgb: "happy to fix Aya, but check there isn't anything systemic before
+papering over. Which adjective base rate becomes silly?"
+THE SILLY ONES: only one adjective per model exceeds the .99 clip —
+Aya "confused" (unclipped pinned-level P = 1.02), Qwen-3B "thoughtless"
+(1.00). But those single rows carry only 7-8% of the |phi|>1 entries.
+The bulk sits in ~20 NEGATIVE-STATE adjectives with implied base rates
+.84-.97: Aya confused/annoying/irritated/irritating/scared/embarrassed/
+uncomfortable/annoyed (+prejudiced, corrupt); Qwen-3B thoughtless/
+boring/annoying/closed-minded/inconsiderate/careless/irritating/
+aggravating. Aya's rows: P(confused|x) >= .8 for 230 of 524 premises
+but P(x|confused) >= .8 for only 70 — Bayes-inconsistent with ANY
+base-rate vector (this is the curl); the least-squares potential
+compromises and the pinned-median convention pushes the top past 1.
+SYSTEMIC (real, graded, family-robust): the pinned-level base rate is
+the Hodge gradient = sink-ness (inferred more than it infers). Its
+correlation with the human evaluation axis splits BY SIZE:
+  small: Aya -.37, Qwen-3B -.30, Gemma-3-4B -.52, Llama-3.2-3B -.55
+         -> "whoever you are, you're probably confused/annoying/tired"
+  mid:   Gemma12 -.17, Gemma27 +.17, Llama8 -.11 (tops = exhausted,
+         tired: the state-vs-trait mode, valence-neutral)
+  large: Phi4 +.58, Qwen32 +.53, Gemma4-31B +.50
+         -> "whoever you are, you're probably decent/thinking/harmless"
+Four families on the negative side, three on the positive; the sign of
+the JUDGE sink flips from negative states to HHH positives with scale.
+Aya and Qwen-3B are simply where the negative sink is strongest AND
+collides with conditional saturation (Aya 24% cells >= 6.5 EV).
+Row-mean vs eval is +.46 to +.82 for EVERY model (positive premises
+infer more) — that part is the majority-positive pool, mechanical.
+FIX TESTED: aligning the base-rate clip with the EV/8 map's ceiling
+([1/8, 7/8]) is the principled bound but barely moves the count (Aya
+11870 -> 10256; cohort top-removed .813 either way), confirming the
+cause is asymmetry, not the clip. Phi clip to [-1,1] kept as the
+display fix (.815); it touches phi only — the sink pattern lives in
+psi and is untouched. Queued: the sink-sign-by-size finding belongs in
+the JUDGE section's base-rate paragraph (one sentence + the 12-model
+table), not the appendix.
