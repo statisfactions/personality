@@ -4332,3 +4332,21 @@ evaluation-neutral trait. Not a flatness artifact: quiet's between-
 model sd under d is .83 vs a medoid median of .78. This is the
 cleanest single-adjective illustration of what the pair does — a
 candidate for the SELF section's worked example.
+
+## Lit sweep: Geng, Abend, Hovy & Frermann, arXiv:2609.12704 (2026-09-14, rgb)
+
+Single-model (Qwen2.5-7B) trait-vector geometry vs human impression
+structure (SWCPQ fictional-character crowd ratings, 385 bipolar scales):
+Mantel .765 raw, competence+warmth PCs (Rosenberg 1968), held-out
+dialogue projection median r .40, "speech persona" failure mode,
+harmful-pole refusal under trait-only prompting. Full entry +
+positioning map in bibliography.md. Overlap: our ENACT/REPRESENT-vs-
+HUMAN raw congruence for one model, uncontrolled for the evaluation
+axis. Ours that they lack: SELF + JUDGE channels, 66 models, noise
+ceiling + top-component control, embedding regress (their closing
+conjecture, tested), coherence. Their self-report dismissal is answered
+by P16-P18: SELF is not for recovering human structure, it measures
+how models present themselves. QUEUED (cheap, paper-strengthening):
+map SWCPQ scales to our adjective poles and add impression structure
+as a second human reference on the 44 blocks — the two-objects account
+predicts congruence at least as high as against self-report.
