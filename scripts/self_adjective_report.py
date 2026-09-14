@@ -25,6 +25,7 @@ import json
 import math
 import os
 
+import gc
 import torch
 
 import hf_logprobs as hf
@@ -109,7 +110,20 @@ def force_close_string(tok, model_name=""):
     return "</think>\n\n"
 
 
-def think_distribution(model, tok, prompt, device, max_new=384,
+def think_distribution(*args, **kw):
+    """Wrapper: run the think arm, then release generate()'s cached MPS
+    blocks. output_scores over a 1024-step budget keeps ~0.5 GB of vocab
+    logits per call; the caching allocator held those across items and
+    the Gemma4 @1024 smoke grew to 123 GB resident before the 2026-09-13
+    17:06 Jetsam/reboot. Results are unaffected (allocator-only)."""
+    res = _think_distribution(*args, **kw)
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+    return res
+
+
+def _think_distribution(model, tok, prompt, device, max_new=384,
                        temperature=None, seed=None, force_close=False,
                        model_name="", enable_thinking=True):
     """Thinking-model arm: generate (reasoning allowed, greedy), find the
