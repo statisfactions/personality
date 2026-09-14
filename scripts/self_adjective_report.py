@@ -242,6 +242,12 @@ def main():
     ap.add_argument("--backfill", action="store_true",
                     help="if the output exists, load it and run ONLY the "
                          "adjectives it lacks (525 extension), then rewrite")
+    ap.add_argument("--redo-unclosed", metavar="OLD_JSON",
+                    help="think arms: seed results from an earlier (shorter-"
+                         "budget) arm, KEEPING items whose stored tail contains "
+                         "a close marker (decision reached; greedy text is "
+                         "identical, verified on Gemma4 r=1.000) and rerunning "
+                         "only the censored ones; output goes to this run's tag")
     ap.add_argument("--exit-after-items", type=int, default=0, metavar="N",
                     help="think arms: checkpoint and exit with code 3 after N "
                          "items this run (process-recycling leak guard: the "
@@ -288,6 +294,20 @@ def main():
     if os.path.exists(part):
         results = json.load(open(part))["results"]
         print(f"resuming from {part} ({list(results)} done)")
+    if args.redo_unclosed and not results:
+        oldr = json.load(open(args.redo_unclosed))["results"]
+        kept = redo = 0
+        for f, items in oldr.items():
+            for a, rec in items.items():
+                if a in adjs and any(m in rec.get("tail", "") for m in CLOSE_MARKERS):
+                    results.setdefault(f, {})[a] = dict(rec, redo_kept=True)
+                    kept += 1
+                else:
+                    redo += 1
+        print(f"[redo-unclosed] kept {kept} closed items from {args.redo_unclosed}; "
+              f"rerunning {redo} censored ones", flush=True)
+        with open(part, "w") as fh:
+            json.dump({"model": args.model, "results": results}, fh)
 
     model, tok, device = hf.load_model(args.model, dtype=torch.bfloat16)
     run_framings = {f: t for f, t in FRAMINGS.items()

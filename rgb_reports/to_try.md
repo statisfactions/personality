@@ -3993,3 +3993,30 @@ the positive halo. Reading for the paper: the JUDGE-HUMAN gap that
 remains after top removal is mostly the negative pole, and it is a
 coherence failure (anti-stereotype policy spending variance that does
 not exist), not a different picture of what goes with what.
+
+## Gemma4 @1024 smoke VALIDATED (2026-09-14): half the old arm is exact, half is censoring garbage
+
+No prediction registered for Gemma4 specifically (standing lean from
+Qwen3-8B: "old arm unusable"). Result is sharper than that. The 58x6
+@1024+force-close smoke vs the Sep-4 @384 full arm, per framing r
+.66-.84 — but split by whether the OLD generation reached Gemma4's
+close marker (<channel|>) inside its 384 budget:
+  old closed   n=180: r = 1.000, mean |dEV| 0.00  (identical text —
+               all 348 old tails found verbatim in the new texts;
+               greedy decoding is deterministic on MPS here)
+  old unclosed n=168: r = 0.324, mean |dEV| 1.47, mean shift -0.03
+So Gemma4's old arm is a pure censoring artifact with NO directional
+bias (unlike Qwen3-8B, which deflates under deliberation): where the
+model finished, the last-mention read WAS the decision; where it was
+cut mid-reasoning, the last-mention read is noise (r .32). My earlier
+"cap-hit 3-6%" proxy was wrong — n_think stores the digit step, not
+the generation length; the true censored share by tail is 45-58% per
+framing (1631 of 3150 items). Clean-arm texture: entropy 0.00-0.01 in
+every framing (one-hot decisions), finished .84-1.00, forced 0-16%,
+n_think median 283-408 — Gemma4 needs ~400 tokens and 384 cut half
+of them off by a hair.
+REPAIR PATH (not a rerun): --redo-unclosed mode reruns only the 1631
+censored items @1024+force-close and merges with the 1519 exact ones
+(~45 h at ~100 s/item, process-recycled). Needs rgb's go (2-day GPU
+slot vs the playacting poke); until then the old Gemma4 arm is
+usable only for the closed subset and is NOT to be used whole.
