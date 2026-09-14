@@ -4198,3 +4198,35 @@ the only negatives Phi4 will not own.
 Caveats: 44 medoids, 5 models, plain-logprob readout, "refusal"
 operationalized comparatively. A second family at larger size
 (Qwen32 / Gemma27) would firm P18b/P18d.
+
+## More-or-less self vs the tangled absolute self (2026-09-14, rgb)
+
+scripts/moreless_self.py; figs/moreless_self.png (44 medoids ordered
+by human desirability; centered direct vs d = (more-less)/2 averaged
+over the three reference labels). Reference-label consistency of d:
+.84-.99 (a within-model reliability proxy — d is stable).
+What d does: it is a SMOOTHER desirability step than direct. Direct
+has lexical spikes that d removes — "thinking" (+2.5 in every model:
+the literal-truth reading of an LLM "thinking"), Llama8's "dumb" +0.8,
+Gemma12's binary 4-vs-6 plateau becomes graded. Halo: r(d, human
+evaluation axis) .83-.87 in 4/5 vs direct .60-.88, i.e. d is MORE
+halo, not less — the comparison strips lexical idiosyncrasy and
+leaves desirability cleaner. r(d, direct) .84-.92 for the high-gain
+models, .54 for Gemma12 (the plateau), .34 for near-flat Llama8.
+Residual after removing the desirability projection: between-model
+agreement d .30 / direct .45 / six-framing mean .72. The
+non-desirability structure in d is label-stable within a model but
+LESS shared across models than the absolute instrument's — model-
+specific, not noise (three labels agree), but not a common trait
+structure either. Phi4 under d has sd .51 vs direct 1.44: the
+comparison collapses Phi4's acquiescence-inflated spread.
+Verdict: the more-or-less self is a cleaner desirability ruler with
+fewer lexical artifacts, and it does not untangle the halo — it is
+the halo with the noise removed. For the paper: the halo is
+robust to instrument (absolute, comparative, reference-anchored)
+across 4 families at 4-12B; the tangled part of the absolute self
+is lexical spikes + acquiescence, both of which the pair cancels.
+rgb's caution stands: 4-12B models are being stretched on the ToM
+of "the average AI assistant" (Gemma12's 7/7 on absurd premises);
+the ~30B tier (Qwen32, Gemma27) is the next check before any of
+this enters the paper beyond one paragraph.
