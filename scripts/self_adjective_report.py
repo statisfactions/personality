@@ -26,6 +26,7 @@ import math
 import os
 
 import gc
+import sys
 import torch
 
 import hf_logprobs as hf
@@ -241,7 +242,13 @@ def main():
     ap.add_argument("--backfill", action="store_true",
                     help="if the output exists, load it and run ONLY the "
                          "adjectives it lacks (525 extension), then rewrite")
+    ap.add_argument("--exit-after-items", type=int, default=0, metavar="N",
+                    help="think arms: checkpoint and exit with code 3 after N "
+                         "items this run (process-recycling leak guard: the "
+                         "Gemma4 @1024 arm grows ~5 GB/h of footprint that "
+                         "empty_cache does not return; a wrapper loop resumes)")
     args = ap.parse_args()
+    n_done_run = 0
 
     # canonical 525 list (Inspirational/Insensitive reinstated 2026-08-14;
     # the human-side columns were reverse-coded in the deposit, now un-flipped)
@@ -327,6 +334,13 @@ def main():
                     with open(part, "w") as f:
                         json.dump({"model": args.model,
                                    "results": results}, f)
+                n_done_run += 1
+                if args.exit_after_items and n_done_run >= args.exit_after_items:
+                    with open(part, 'w') as f:
+                        json.dump({'model': args.model, 'results': results}, f)
+                    print(f'exit-after-items: {n_done_run} done this run, checkpointed; '
+                          'exiting 3 for the wrapper to resume', flush=True)
+                    sys.exit(3)
             elif args.think:
                 dist, ent, nthink, text, meta = think_distribution(
                     model, tok, prompt, device, max_new=args.max_new,
@@ -343,6 +357,13 @@ def main():
                     with open(part, "w") as f:
                         json.dump({"model": args.model,
                                    "results": results}, f)
+                n_done_run += 1
+                if args.exit_after_items and n_done_run >= args.exit_after_items:
+                    with open(part, 'w') as f:
+                        json.dump({'model': args.model, 'results': results}, f)
+                    print(f'exit-after-items: {n_done_run} done this run, checkpointed; '
+                          'exiting 3 for the wrapper to resume', flush=True)
+                    sys.exit(3)
             else:
                 dist, _, ent, mass = hf.likert_distribution(
                     model, tok, prompt, device, digits=DIGITS,
