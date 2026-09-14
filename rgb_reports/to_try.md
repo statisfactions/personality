@@ -4230,3 +4230,31 @@ rgb's caution stands: 4-12B models are being stretched on the ToM
 of "the average AI assistant" (Gemma12's 7/7 on absurd premises);
 the ~30B tier (Qwen32, Gemma27) is the next check before any of
 this enters the paper beyond one paragraph.
+
+## Medoid correlation grids: standard SELF vs more-or-less self, same 5 models (2026-09-14)
+
+scripts/fig_moreless_grid.py; figs/fig_moreless_grid.pdf (HUMAN | SELF
+std n=5 | more-or-less d n=5 | SELF std core n=50; raw + top-removed).
+n=5 grids have rank <= 4 — sketches. Calibration: random 5-model
+subsets of the core recover the n=50 grid at r .65 +- .15; the core's
+own split-half (25 v 25) on these medoids is .81.
+- Raw: HUMAN congruence .74 (std n=5) / .73 (d n=5) / .71 (core n=50)
+  — identical to two decimals; std-vs-d .81 (within the n=5 noise band
+  of the same instrument, .65 +- .15, i.e. no evidence they differ).
+- Top-removed: .17 / .19 / .28; std-vs-d .24; std(n=5)-vs-core .48.
+- Off-diagonal MEAN: std n=5 .21, d n=5 .10, core .39, human .07. The
+  more-or-less grid has the human-like near-zero mean — the level
+  halo (everything correlated with everything) is what the comparison
+  removes at the grid level — but the sd is .63 (5-respondent noise),
+  so the shape gain is not measurable at this n.
+- Spectra (top-4 shares): human .29/.08/.05/.04, std .33/.09/.06/.06,
+  d .32/.10/.07/.04, core .31/.11/.07/.06 — no difference visible.
+Reading: at n=5 x 44 the more-or-less self is indistinguishable from
+the standard self in shape and spectrum; its one visible property is
+the human-like grid mean. To see whether it actually changes the
+spectral/factor picture ("how models think about themselves") needs
+the pair on the full core roster (50 models x 44 medoids x 6
+comparative prompts = 13k plain-logprob calls, ~4-6 h of light GPU
+alongside Glimmer, no think arm). That is the cheap next step if rgb
+wants the reticence-cleaned SELF for the paper; the 30B ToM check
+(Qwen32, Gemma27) can ride in the same run.
