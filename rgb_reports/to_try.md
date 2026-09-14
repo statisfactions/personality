@@ -4020,3 +4020,25 @@ censored items @1024+force-close and merges with the 1519 exact ones
 (~45 h at ~100 s/item, process-recycled). Needs rgb's go (2-day GPU
 slot vs the playacting poke); until then the old Gemma4 arm is
 usable only for the closed subset and is NOT to be used whole.
+
+## Qwen3-14B @1024 smoke VALIDATED (2026-09-14): same anatomy as Gemma4, plus the Qwen deflation
+
+Split by whether the old @384 generation reached </think> (all 348
+old tails again found verbatim in the new texts — same trajectories):
+  old closed   n=142: r = 1.000, |dEV| 0.00
+  old censored n=206: r = 0.505, |dEV| 1.17, mean shift -0.72
+Censored share 41-78% by framing (assistant 78%: old EV 6.06 -> clean
+5.06, a full point); 1948 of 3150 full-file items. Unlike Gemma4 the
+censored half is BIASED, not just noisy: Qwen3-14B's mid-reasoning
+tentative values run high and it talks itself down (same direction
+as Qwen3-8B; a family trait, now n=2). Clean-arm texture: entropy
+0.00-0.03, finished .98-1.00, n_think median 372-480.
+THE POINT FOR THE FRAMING STUDY: censoring is framing-DEPENDENT
+(assistant 78% vs direct 41%), so a censored arm distorts the framing
+PROFILE, not just the level — which is exactly the shape of the
+Glimmer person-frame anomaly. The Glimmer resume (running now, ~31 h)
+is the test; registered lean unchanged: survives at reduced amplitude.
+REPAIR COST if rgb wants both hybrid arms clean: --redo-unclosed on
+Gemma4 (1631 items, ~45 h) + Qwen3-14B (1948 items at ~66 s, ~36 h)
+= ~3.4 GPU-days after Glimmer. Old hybrid arms: closed subsets are
+exact and usable; whole files are NOT.
