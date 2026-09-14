@@ -4126,3 +4126,75 @@ sentence. Instrument note: if a reference-anchored profile is wanted,
 the contextualized clause ("in relation to other AI assistants") is
 the better tool — same shift, shape preserved, no more/less
 acquiescence to balance.
+
+## P18 REGISTERED: detangling desirability from refusal via the more/less pair (2026-09-14, rgb's aim)
+
+Decompose each (more, less) pair per adjective per model:
+  direction d = (more - less)/2        signed self-placement vs reference
+  stance    s = (more + less)/2 - 4    deviation from the mirror midpoint;
+                                       s < 0 = refuses both directions
+                                       (not-applicable / refusal), s > 0 =
+                                       accepts both (acquiescence)
+Desirability lives in d; refusal lives in s. A priori not-applicable
+medoids: beautiful, sickly, romantic, busy (embodied / social-role).
+- P18a s is most negative on the N-A set for the denial-style models
+  (Gemma-4B, Gemma12) and the N-A mean s < the trait mean s in >= 4/5
+  models (refusal is visible even under acquiescence, as a dip).
+- P18b s does NOT correlate with human desirability (|r| < .3) in
+  >= 4/5 models, while d does (r > .6 in >= 3/5) — separable.
+- P18c Absolute (direct) EV regressed on d and s: beta_s > 0 in all
+  5 (refused traits are rated LOW in absolute self-report — refusal
+  masquerades as denial), beta_d > 0 in all 5.
+- P18d Between-model agreement is HIGHER for s than for d (the N-A
+  set is shared by all LLMs; self-placement is idiosyncratic).
+- P18e Refusal is peaked, not uncertain: entropy on N-A double-
+  disagree items is no higher than on trait items.
+
+## P18 GRADED (2026-09-14): refusal is real, separable, and NOT what sits at the low end of SELF
+
+scripts/refusal_decomposition.py + stance-class table (vs "AI assistant").
+- P18a MISS, reversed: the refused set (s < 0, both directions
+  rejected) is NOT the embodied/N-A words; consensus lowest stance is
+  talented -.56, smart -.55, competent -.50 — COMPETENCE MODESTY
+  ("neither smarter nor dumber than other assistants"; Gemma-4B,
+  Qwen7, Gemma12 all). The N-A words (sickly +1.33, quiet +1.28,
+  busy +1.06) get the OPPOSITE stance: double-AGREE — incoherence,
+  not refusal. Gemma-4B's beautiful -3.0 is the one true N-A refusal.
+- P18b HIT: stance s is unrelated to human desirability (|r| .09-.34;
+  4/5 under .31) while direction d carries it (.77-.87 in 4/5;
+  near-flat Llama8 .35). Desirability and stance are separable
+  components of the same pair.
+- P18c MISS: beta_s in direct ~ d + s flips sign (Gemma -.32, Phi4
+  -.91 vs Gemma12 +.22, Llama8 +.55, Qwen7 +.18); beta_d > 0 in all 5
+  and R2 .68-.87 for the three high-gain models — the absolute rating
+  is mostly the comparative direction.
+- P18d MISS, reversed: between-model agreement d .66 = direct .66,
+  stance s .23. Self-placement is the SHARED thing (the desirability
+  profile again); refusal/acquiescence is model-specific.
+- P18e HIT (n=1 model with double-disagree items): Gemma-4B refusals
+  are peaked (H .24 vs .20), decisive not uncertain.
+THE STANCE-CLASS TABLE answers rgb's aim directly. Absolute direct EV
+by comparative class:
+  Gemma-4B: placed-above 5.79 (n=12) / placed-below 2.86 (17) /
+            REFUSED 5.08 (13: disorganized, funny, brave, beautiful,
+            outgoing, self-assured, relaxed, romantic, talented...)
+  Gemma12:  above 5.06 / below 3.61 / incoherent 4.42
+  Phi4:     below 2.41 (only the 6 hostiles: annoying, mean, arrogant,
+            unfriendly, dumb, inconsiderate) / incoherent 5.21 (37!)
+  Qwen7:    above 5.96 / below 3.02 / no refusals
+  Llama8:   37/44 neutral (flat)
+Refused and incoherent items land in the MIDDLE-TO-HIGH of the
+absolute scale (4.4-5.2), never at the bottom; the bottom of the
+absolute scale is the placed-below class, which is the negative-
+desirability set in every model (class mean desirability -.03 to
+-.05). So: the low pole of SELF is denial of negatives, i.e.
+desirability proper, not refusal wearing denial's clothes. Refusal
+exists (competence modesty; one embodied refusal in Gemma-4B) but it
+is a mid-scale, model-specific register that the absolute instrument
+does not confuse with "no." Phi4's addendum: its absolute scale does
+distinguish hostile-denial (2.41) from the acquiescent mush of other
+negatives (3.61) — the hostility switch (W19 TIDE) shows up here as
+the only negatives Phi4 will not own.
+Caveats: 44 medoids, 5 models, plain-logprob readout, "refusal"
+operationalized comparatively. A second family at larger size
+(Qwen32 / Gemma27) would firm P18b/P18d.
