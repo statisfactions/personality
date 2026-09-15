@@ -4423,3 +4423,20 @@ decisive-no / don't-know / confident-yes is a per-model register
 worth one figure (P(4) vs comparative entropy, 49 points, three
 corners). The absolute channel remains the self-description
 instrument; its halo is the model's actual self-presentation.
+
+## Figure: comparative-pair calibration registers (2026-09-14)
+
+scripts/fig_compare_registers.py -> figs/fig_compare_registers.pdf.
+Left: per model, mean P(4) vs mean entropy over the six comparative
+prompts, size = spread of the more-or-less self, color = family.
+Right: arrow from the direct framing to the comparative, per model.
+Counts at the dotted thresholds (P(4) >= .75; H >= 1.2): decisive
+rejection 6, don't-know 15, confident comparison 28 (direct framing
+for contrast: 3 / 9 — the comparison doubles the don't-know corner
+and triples the decisive one). Family pattern visible by eye: Qwen
+and Gemma climb toward decisive rejection WITH SIZE (gemma-3-1b/4b
+confident at P(4) ~0 -> gemma-3-12b/27b .3-.45 -> gemma-2-9b and
+Gemma4-31B .97-.98; Qwen2.5-1.5B/3B confident -> 14B/32B/Qwen3-8B
+.8-.9); Llama and Mistral drift right into don't-know at every size;
+Cohere and small Gemma stay confident. Calibration style is a family
+trait with a size gradient inside the calibrated families.
