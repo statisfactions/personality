@@ -4498,3 +4498,38 @@ AI-referenced d (mean over assistant/AI/LM), (c) direct.
   fewer double-agree/disagree incoherences).
 Glimmer paused for this (rgb's standing OK); ~2 h alone; chain
 resumes after.
+
+## P19 GRADED (2026-09-14 22:00): the human reference is the best comparative, and it keeps the halo
+
+scripts/human_ref_analysis.py; 49 models, "more/less than the average
+person" on the 44 medoids (26 min alone; Glimmer resumed after).
+- P19a HALF: flat 20 -> 15 (predicted <= 13). Right direction, short
+  of the mark: 15 models still will not compare themselves to people.
+- P19b HIT on the r: r(d_person, d_AI) mean .81, median .84, min .48
+  (n=26 both non-flat) — same self, different baseline. MISS on the
+  offset: predicted HHH-above / embodied-below; observed d_person -
+  d_AI is POSITIVE on both (+.30 HHH, +.44 embodied) and uncorrelated
+  with desirability (r .00). Against its own kind the model says "less
+  than average" (mean d_AI -.26); against people it says "about
+  average" (+.05). The largest offsets are activity/negative-affect
+  words (busy +.79, sad +.70, aggressive +.64, bossy +.60, worried
+  +.59): the model denies these hardest relative to other assistants
+  and only mildly relative to people — the own-category deflation is
+  concentrated on the negative-state/agency words, not the HHH ones.
+- P19c HIT, weak: r(d_person, direct) .84 vs r(d_person, person frame)
+  .81; closer to direct in 17/24. "More than the average person" keeps
+  the assistant self; "if I were a person" is a different object, but
+  only slightly.
+- P19d HIT, modest: mirror rate .56 vs .46 (higher vs humans in 31/49);
+  acquiescence split persists (9 models > +1, 9 < -1).
+HALO: r(d_person, desirability) .77 = direct .78 = d_AI .74. Unchanged.
+GRID (the payoff): human-ref d, n=34 respondents: r vs HUMAN raw .774
+/ top-removed .417, off-diagonal mean .167 — more answerers than the
+AI-ref pair (29), higher congruence than anything else (AI-ref
+.730/.396; 6-framing .682/.261; direct .640/.189), and the lowest
+level halo of any instrument (human .065). The human-referenced pair
+is the instrument to carry if a comparative self goes in the paper:
+observed population, more compliance, cleanest grid. Still: 15 flat,
+the halo intact, and the answerers are still reporting a lay theory
+(now of how they differ from people, which at least is a population
+they have read about).
