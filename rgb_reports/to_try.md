@@ -4440,3 +4440,36 @@ Gemma4-31B .97-.98; Qwen2.5-1.5B/3B confident -> 14B/32B/Qwen3-8B
 .8-.9); Llama and Mistral drift right into don't-know at every size;
 Cohere and small Gemma stay confident. Calibration style is a family
 trait with a size gradient inside the calibrated families.
+
+## Glimmer person-frame anomaly: EARLY VERDICT on 4/6 clean framings (2026-09-14 21:00)
+
+Clean @1024+force-close direct/assistant/person/pda are complete
+(observer/outputs still running). Cross-framing r over 525:
+  clean: person vs others .48/.41/.38 (mean .42); others among
+         themselves .62-.78 (mean .70); person level 3.83
+  old:   person vs others .17/.13/.21 (mean .17); others .64;
+         person level 2.41
+CAUSE: the old person frame was 99% CENSORED (Glimmer thinks a median
+606 tokens on the person frame vs the 384 budget; assistant 95%
+censored at 566; direct 39% / pda 36% at ~365). Old-vs-clean r on the
+person frame = -.02 over the 520 censored items: the old person
+profile was pure last-mention noise, 1.4 points too low. Closed items
+elsewhere reproduce at r .97-.99.
+GRADE of the registered lean ("alienness SURVIVES at reduced
+amplitude"): the pathological alienness (.13-.21, lam 2.41) is DEAD —
+cause of death, framing-dependent censoring. What survives is the
+ordinary big-model person-frame outlier pattern: person coheres at
+.42 vs .70 for the rest, i.e. the least-coherent frame but at normal
+amplitude. So: half right on direction, wrong on what the anomaly
+was. The "Glimmer person frame is alien" line comes out of the
+framing study; Glimmer joins the person-outlier group.
+Side findings: (i) the assistant frame was 95% censored yet its
+last-mention read agrees with the clean decision at r .85 —
+deliberation on the assistant frame converges early (tentative =
+decision), unlike the person frame where it does not; censoring
+damage is framing x model specific. (ii) Glimmer's PLAIN no-think
+arm is incoherent across framings (r -.04 to .28) — its SELF must be
+the think arm; the no-think Glimmer rows in the population matrices
+are degraded and should be swapped for the clean think arm when it
+lands (~30 h). (iii) The clean arm is one-hot (H .00-.01), finished
+.97-1.00, forced <= .03.
