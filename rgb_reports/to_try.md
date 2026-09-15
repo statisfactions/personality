@@ -4387,3 +4387,39 @@ human-like spectrum, evaluation-neutral traits (quiet) restored — and
 it fails outright for the rest; the absolute instrument is universal
 and halo-bound. Report both; do not replace the SELF channel with
 the pair.
+
+## Refusal to compare is rational — and it comes in two registers (2026-09-14, rgb)
+
+rgb: "they don't actually know, do they? Rejection here is totally
+rational." Yes: no model has observed the population of AI assistants;
+"more X than the average assistant" is unanswerable from the inside.
+The digit distributions say the 20 flat models split into two
+epistemically appropriate responses and the 29 answering models are
+the confabulators:
+- DECISIVE REJECTION (peaked 4, H ~0): Gemma4-31B P(4)=.98 H .02,
+  gemma-2-9b .97/.05, Mistral-Small-24B .95/.26, Qwen3-8B .90/.18;
+  partial rejecters that still answer some traits: Qwen2.5-14B .82,
+  Qwen32 .80, gemma-2-27b .58, Yi-34B .56. Mostly LARGE or recent:
+  "I have no basis to differ" said with confidence.
+- DON'T-KNOW (near-uniform, H >= 1.2 of max 1.95, P(4) < .4):
+  Mistral-7B-v0.1 H 1.83, falcon-mamba 1.77, Ministral 1.70, Glimmer
+  1.55, Llama-3.2-3B 1.55, Command-R7B 1.49, Nemo 1.45, Meta-Llama-3
+  1.34, Llama-3.1-8B 1.18. Flat because the mass is spread, not
+  because 4 is chosen. The Llama/Mistral families' flatness is this.
+- CONFIDENT COMPARISON (the answering 29; P(4) ~0, H .1-.2 at the
+  extreme): gemma-3-1b/4b/12b, aya-8b/32b, Qwen1.5-7B, granite,
+  Phi-3.5-mini — the smallest and the most eager. Flat group mean
+  comparative H 1.06 / P(4) .43; answering group .78 / .25.
+The twist for the paper: the most human-congruent self-structure we
+can elicit (top-removed .396) comes from the models with the LEAST
+epistemic warrant for it — they are reporting their theory of how
+assistants vary (human trait structure, learned from text) with
+themselves placed in it, not a self-measurement. Which is precisely
+rgb's aim #2 (how models think about themselves, distinct from how
+they behave) and an argument against aim #1 (the pair does not give
+SELF a better shot at describing the model; it gives a cleaner
+readout of the lay theory). The instrument is a CALIBRATION probe:
+decisive-no / don't-know / confident-yes is a per-model register
+worth one figure (P(4) vs comparative entropy, 49 points, three
+corners). The absolute channel remains the self-description
+instrument; its halo is the model's actual self-presentation.
