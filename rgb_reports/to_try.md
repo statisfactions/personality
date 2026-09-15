@@ -4350,3 +4350,40 @@ how models present themselves. QUEUED (cheap, paper-strengthening):
 map SWCPQ scales to our adjective poles and add impression structure
 as a second human reference on the 44 blocks — the two-objects account
 predicts congruence at least as high as against self-report.
+
+## More-or-less self on the FULL core roster, n=49 (2026-09-14 17:10; pair run complete)
+
+Same script, all 49 core models (gemma-2b-it skipped: cache missing a
+shard; sweep later). Results hold from the n=39 pass:
+- Flat under comparison: 20 of 49 (41%) — adds Gemma4-31B (direct sd
+  1.38 -> d sd .24: answers "neither" to nearly every comparison),
+  OLMo-2-32B (.46), Mistral-Small-24B (flat in direct too, .32), and
+  Glimmer no-think (flat everywhere, .20). Refusal-to-compare is not a
+  small-model phenomenon.
+- On the 29 that answer: congruence raw .730 / top-removed .396 vs
+  direct .640/.189, PDA .652/.344, 6-framing .682/.261. Split-half raw
+  .63 / top .32 (6-framing .79/.49). Disattenuated top-removed: d .73,
+  PDA .69, 6-framing .39, direct .36. PR 10.1 (human 9.7; 6-framing
+  8.7; direct 11.9). Off-diag mean .274 (human .065).
+- Grid-vs-grid top-removed: d vs 6-framing .22, d vs direct .16 — the
+  comparative self's non-halo structure is a DIFFERENT structure from
+  the absolute self's, and the human-congruent one.
+30B ToM CHECK (rgb's caution): the absurd-premise 7/7 attractor is
+GONE at 24-34B — no double-7s on sickly/beautiful in any of the ten
+(Gemma27 sickly 1.2/7.0 coherent; Aya-32B 1.0/7.0; Gemma27 claims
+"more beautiful than the average assistant" 6.8/4.0). Response style
+persists: acquiescence index Qwen32 -.90 (denial), gemma-2-27b -.83,
+Yi-34B -.39 vs OLMo-32B +1.40 (8 double-agrees, 20% mirror), Gemma27
++1.03, Aya-32B +.94. Mirror rates 20-100%. And the new failure at
+size is refusal-to-compare: Gemma4-31B 91% "mirror" because it
+answers 4/4 to everything. So size fixes the ToM-of-the-premise
+problem but not the response-style split, and adds the neutral
+collapse. rgb's caution was right for the 4-12B tier and the fix
+does not come for free at 30B.
+Paper stance (one paragraph in SELF): the comparative pair is the
+best-behaved self-structure we can elicit for the ~60% of models
+that will compare themselves — human-congruent after top removal,
+human-like spectrum, evaluation-neutral traits (quiet) restored — and
+it fails outright for the rest; the absolute instrument is universal
+and halo-bound. Report both; do not replace the SELF channel with
+the pair.

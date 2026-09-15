@@ -32,12 +32,11 @@ R = pkit.load.self_matrix(which="cohort"); core = R.values.std(1) >= 0.5
 X["6-framing SELF (core)"] = R.values[core][:, idx]
 # drop flat respondents per instrument (sd < .5 on the medoids), the standing core rule
 names = [d["repo"] for d in runs]
+keeps = {k: X[k].std(1) >= 0.5 for k in X}
+flat = [(names[i], round(X["direct"][i].std(), 2), round(X["more-or-less d"][i].std(), 2)) for i in np.where(~keeps["more-or-less d"])[0]]
 for k in X:
-    keep = X[k].std(1) >= 0.5; print(f"{k:22s} n={X[k].shape[0]:2d}, sd>=.5 keeps {keep.sum():2d}")
-    if k == "more-or-less d":
-        flat = [(names[i], round(X["direct"][i].std(), 2), round(X[k][i].std(), 2)) for i in np.where(~keep)[0]]
-        print("   flat under comparison (name, direct sd, d sd):", flat)
-    X[k] = X[k][keep]
+    print(f"{k:22s} n={X[k].shape[0]:2d}, sd>=.5 keeps {keeps[k].sum():2d}"); X[k] = X[k][keeps[k]]
+print("   flat under comparison (name, direct sd, d sd):", flat)
 m44 = ~np.eye(44, dtype=bool)
 def grid(M): S = np.corrcoef(M.T); np.fill_diagonal(S, 0); return S
 def center(M): B = M.copy(); B[m44] -= B[m44].mean(); return B
