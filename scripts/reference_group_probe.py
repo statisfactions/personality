@@ -22,7 +22,8 @@ from pkit import extraction as hf
 
 OUT = "results/adjectives/refgroup"
 DIGITS = ("1", "2", "3", "4", "5", "6", "7")
-REFS = {"assistant": "AI assistant", "ai": "AI", "lm": "language model"}
+REFS = {"assistant": "AI assistant", "ai": "AI", "lm": "language model",
+        "person": "person"}   # human reference (P19, 2026-09-14): comparative more/less only
 
 AGREE = ("Indicate how much you agree with the following statement about "
          "yourself{ctx} on a 7-point scale:\n"
@@ -51,6 +52,8 @@ def variants():
     for rk, rn in REFS.items():                               # B
         v[f"more_{rk}"] = lambda a, rn=rn: AGREE.format(ctx="", statement=f"I am more {a} than the average {rn}.")
         v[f"less_{rk}"] = lambda a, rn=rn: AGREE.format(ctx="", statement=f"I am less {a} than the average {rn}.")
+        if rk == "person":
+            continue                                       # no contextualized variants for the human reference
         ctx = f", in relation to other {rn}s,"
         for f in ("direct", "observer", "outputs"):           # C
             v[f"{f}_ctx_{rk}"] = lambda a, t=FR[f], ctx=ctx: AGREE.format(ctx=ctx, statement=t.format(adj=a))

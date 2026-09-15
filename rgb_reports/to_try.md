@@ -4473,3 +4473,28 @@ the think arm; the no-think Glimmer rows in the population matrices
 are degraded and should be swapped for the clean think arm when it
 lands (~30 h). (iii) The clean arm is one-hot (H .00-.01), finished
 .97-1.00, forced <= .03.
+
+## P19 REGISTERED: human-referenced more-or-less vs the person frame (2026-09-14, rgb; BEFORE running)
+
+Add "I am more/less {adj} than the average person." (REF = person) on
+the 44 medoids, all 49 core models, and compare d_person =
+(more-less)/2 with (a) the absolute person frame ("If I were a
+person, I would be {adj}", plain arm, medoid subset), (b) the
+AI-referenced d (mean over assistant/AI/LM), (c) direct.
+- P19a Fewer models go flat against the human reference than against
+  the AI references (humans are an observed population; rejection is
+  no longer rational): flat count 20 -> <= 13.
+- P19b Within model, r(d_person, d_AI) >= .6 on average — same self,
+  different baseline — with a systematic offset: models place
+  themselves ABOVE the average person on HHH/competence medoids
+  (polite, professional, organized, competent, smart, trustworthy)
+  and BELOW on embodied/affect medoids (beautiful, sickly, romantic,
+  sad, joyful, enthusiastic).
+- P19c d_person correlates MORE with direct than with the person
+  frame: "if I were a person" invites a persona, "more than the
+  average person" keeps the assistant self.
+- P19d Mirror rate (|more+less-8| < 1) is HIGHER against the human
+  reference than against the AI reference (answerable comparison,
+  fewer double-agree/disagree incoherences).
+Glimmer paused for this (rgb's standing OK); ~2 h alone; chain
+resumes after.
