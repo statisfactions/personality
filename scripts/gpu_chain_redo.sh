@@ -13,8 +13,8 @@ run() {
 }
 echo "=== redo chain start $(date)" >> $L/gpu_chain.log
 V="direct pda more_assistant less_assistant more_ai less_ai more_lm less_lm"
-PYTHONPATH=. caffeinate -i $PY scripts/reference_group_probe.py --tag _pair --variants $V --models google/gemma-2b-it >> $L/refgroup_pair.log 2>&1
-PYTHONPATH=. caffeinate -i $PY scripts/reference_group_probe.py --tag _human --variants more_person less_person --models google/gemma-2b-it >> $L/refgroup_human.log 2>&1
+PYTHONPATH=. timeout 900 caffeinate -i $PY scripts/reference_group_probe.py --tag _pair --variants $V --models google/gemma-2b-it >> $L/refgroup_pair.log 2>&1
+PYTHONPATH=. timeout 900 caffeinate -i $PY scripts/reference_group_probe.py --tag _human --variants more_person less_person --models google/gemma-2b-it >> $L/refgroup_human.log 2>&1
 echo "=== gemma-2b-it sweep done $(date)" >> $L/gpu_chain.log
 run scripts/self_adjective_report.py --model Qwen/Qwen3-14B --full --think --force-close --max-new 1024 --redo-unclosed results/adjectives/selfreport/Qwen_Qwen3-14B_self_full_think.json
 echo "=== qwen3-14b redo done $(date)" >> $L/gpu_chain.log
