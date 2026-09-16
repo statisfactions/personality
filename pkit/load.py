@@ -39,9 +39,13 @@ def _self_file(model, arm="auto"):
     """Resolve a model identifier to its selfreport JSON path.
     arm: "auto" (THINK_PREFER-aware), "prefill", "think"."""
     repo = roster.resolve(model)
+    # protocol v2 (@1024 + force-close) think arms take precedence over the
+    # censored @384 arms (2026-09-13/16: Qwen3-8B, Glimmer validated; old arms
+    # shelved as *_CENSORED_ARTIFACT so they no longer resolve)
+    think = ["_self_full_think_fc_b1024.json", "_self_full_think.json"]
     suffixes = {"prefill": ["_self_full.json"],
-                "think": ["_self_full_think.json"],
-                "auto": (["_self_full_think.json", "_self_full.json"]
+                "think": think,
+                "auto": (think + ["_self_full.json"]
                          if repo in roster.THINK_PREFER
                          else ["_self_full.json"])}[arm]
     for s in suffixes:

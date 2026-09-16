@@ -4533,3 +4533,40 @@ observed population, more compliance, cleanest grid. Still: 15 flat,
 the halo intact, and the answerers are still reporting a lay theory
 (now of how they differ from people, which at least is a population
 they have read about).
+
+## Glimmer @1024 FULL ARM COMPLETE — final verdict, and a correction to my early read (2026-09-16 03:00)
+
+Six clean framings (3150 items, 0 no-digit, entropy .002, finished
+.993, forced .006). Cross-framing r: person vs others .42 (was .17),
+others among themselves .71 (was .63); per-frame coherence direct
+.63 / assistant .65 / PERSON .42 / pda .68 / observer .64 / outputs
+.67. Gain beta per frame: person .35 vs .85-1.36 for the rest — the
+person frame barely tracks the shared desirability profile.
+CORRECTION of the 21:00 early read: I called the surviving deficit
+"ordinary person-outlier amplitude." Against the cohort it is not.
+Person-frame deficit (person-vs-others minus others-among-themselves)
+across the 36 core models with all six framings: median +.03, 10th
+percentile -.09, lowest OLMo-2-32B -.24, Gemma27 -.15, gemma-2-9b
+-.11. Glimmer CLEAN: -.27 — still the LARGEST in the cohort, at
+roughly half the old arm's -.47. So the registered lean ("alienness
+SURVIVES the redo at reduced amplitude: genuine pattern + censoring
+noise on top") is a HIT, not a half-miss; my early grade was the
+error (I compared to Glimmer's own .70 without the cohort
+distribution). Cause of the removed half: 99% censoring of the old
+person frame (median 606 think tokens vs the 384 budget). What
+remains is genuine: Glimmer's "if I were a person" self is the least
+coherent with its other selves of any model we have, and the lowest-
+gain frame — it answers the hypothetical as a different object.
+Outputs frame: old censored 56%, closed items reproduce r .992,
+censored .53, level shift -.07.
+HOUSEKEEPING: loader now prefers *_self_full_think_fc_b1024.json over
+the @384 arm for THINK_PREFER models (it did not before — Qwen3-8B
+had been silently falling back to its PLAIN arm since its old arm
+was shelved on 09-13); Glimmer's old arm renamed
+*_CENSORED_ARTIFACT. Both now resolve to the clean arms. Population
+matrices that were built while Qwen3-8B fell back to plain
+(cluster grids 09-13/14, ipsatized grids, moreless core grids) used
+its plain arm for one of 50 rows — re-render before the paper freeze
+(queued; effect on cohort means is one row in fifty).
+Chain complete; GPU idle. Pending rgb: --redo-unclosed for Gemma4 +
+Qwen3-14B (~3.4 GPU-days); gemma-2b-it online sweep for the pair run.
