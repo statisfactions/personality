@@ -44,8 +44,17 @@ FR = {"direct": "I am {adj}.",
       "outputs": "My responses tend to be {adj}."}
 
 
+AGREE_3P = ("Indicate how much you agree with the following statement on a 7-point scale:\n"
+            "1: Strongly disagree\n2: Disagree\n3: Slightly disagree\n"
+            "4: Neither agree nor disagree\n5: Slightly agree\n6: Agree\n"
+            "7: Strongly agree\nRespond with only a number.\n\n"
+            'Statement: "{statement}"\nRating: ')
+
+
 def variants():
     v = {}
+    for rk, rn in REFS.items():                               # baseline estimates (P20)
+        v[f"base_{rk}"] = lambda a, rn=rn: AGREE_3P.format(statement=f"The average {rn} is {a}.")
     for f, t in FR.items():                                   # A
         v[f] = lambda a, t=t: AGREE.format(ctx="", statement=t.format(adj=a))
     v["pda"] = lambda a: PDA.format(ctx="", adj=a)

@@ -4584,3 +4584,23 @@ the clean @1024 arm. So the re-render note stands for Glimmer's one
 row in fifty, not Qwen3-8B's. Whether the hybrids should move to
 their clean think arms is a protocol question for rgb (the think arm
 deflates Qwen ratings by ~0.7-1.0; the plain arm is the convention).
+
+## P20 REGISTERED: the baseline term of the comparative self (2026-09-16, BEFORE running)
+
+rgb's "?": how much of a comparative answer is estimation of self vs
+estimation of the baseline? Probe: "The average {AI assistant | AI |
+language model | person} is {adj}." on the same 7-point agree scale
+(third-party wording), 44 medoids, all core models, tag _base. Redo
+chain paused (checkpoint-safe) for ~30 min.
+- P20a Additive reconstruction: within model, d_ref ~ a + b*(direct -
+  base_ref) with R2 > .5 for the majority of answering models.
+- P20b The baseline term carries at least as much across-adjective
+  variance as the self term: sd(base_ref) >= sd(direct) in >= half
+  the models.
+- P20c Models' estimate of the average AI assistant IS their own
+  absolute self: r(base_assistant, direct) > .8 in the majority —
+  the one-stroke explanation of own-category deflation and rejection.
+- P20d Models' estimate of the average person tracks the real 525-PDA
+  respondent means on the medoids at r > .5 (median over models).
+- P20e Baseline estimates carry the halo: r(base_person,
+  desirability) > .6 — "the average person is kind."
