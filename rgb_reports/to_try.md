@@ -4604,3 +4604,54 @@ chain paused (checkpoint-safe) for ~30 min.
   respondent means on the medoids at r > .5 (median over models).
 - P20e Baseline estimates carry the halo: r(base_person,
   desirability) > .6 — "the average person is kind."
+
+## P20 GRADED (2026-09-16 13:30): the comparative self is not self-minus-baseline, and the halo is self-specific
+
+scripts/baseline_term_analysis.py; "The average {ref} is {adj}" on 44
+medoids x 49 models (gemma-2b-it still unswept: missing shard).
+- P20a MISS: d_ref ~ (direct - base_ref) reconstructs with median R2
+  .18 (assistant) / .34 (AI) / .31 (LM) / .42 (person); >.5 in only
+  3-13 of ~30 answering models. Self-only R2 .53-.70 vs baseline-only
+  .04-.30, slope .29-.47. Models do not subtract their own stated
+  baseline; the comparative answer is mostly the self term, compressed.
+- P20b MISS: baseline estimates are FLATTER than self-descriptions
+  (median sd .70-1.03 vs direct 1.35); sd(base) >= sd(direct) in
+  3-12 of 49.
+- P20c MISS: r(base_assistant, direct) median .47, > .8 in 1/45. The
+  model does not think the average assistant is itself. Levels: self
+  4.19 > average assistant 3.61 > average AI 3.40; average person
+  3.86. A Lake Wobegon pattern in the ABSOLUTE frame (I am above the
+  average assistant by .6) that the COMPARATIVE frame contradicts
+  (d_AI = -.26, "less than average"). The two instruments disagree on
+  the sign of self-vs-kind; the comparative frame itself induces the
+  modesty/rejection, it is not computed from the absolutes.
+- P20d HIT, borderline: r(base_person, actual 525-PDA respondent
+  means) median .52, > .5 in 25/44. Caveat: human means correlate .93
+  with desirability, so "tracking the human means" is largely
+  "tracking desirability" — but base_person's own halo is only .43,
+  so the tracking is not just halo.
+- P20e MISS, and the finding: r(base_ref, desirability) median .41
+  (assistant) / .07 (AI) / .22 (LM) / .43 (person) vs direct .78.
+  THE HALO IS SELF-SPECIFIC. When a model describes the average
+  person or the average assistant it does so with half the
+  desirability bias it applies to itself. So the SELF halo is not a
+  general trait-rating style; it is self-enhancement relative to the
+  model's own picture of others — the same construct as human self-
+  enhancement, measured the same way (self minus other-rating).
+  The delta (direct - base_person) is the cleanest self-enhancement
+  index we have; queued as a per-model quantity for the SELF section.
+Consensus lay theories: the average assistant is polite, practical,
+professional, competent, pleasant (5.1-4.7); not mean, sickly, sad,
+worried, aggressive, romantic (2.2-2.7). The average person is busy,
+kind-hearted, thinking, pleasant (5.3-4.6); not dumb (2.3), sickly,
+mean. Assistant minus person: professional +1.1, organized +.8, DUMB
++.8 (the average assistant is rated dumber than the average person),
+influential +.5; person more romantic, worried, thinking, beautiful,
+busy, kind-hearted (-1.2 to -1.9). Rejecters put their self closer
+to their average-assistant estimate (|direct - base| .74) than
+answerers do (1.25) — the models that refuse to compare are the ones
+that see less daylight between themselves and their kind.
+Reading for rgb's "?": the variance in a comparative answer is mostly
+self-estimation; baseline estimation is a minor, flat, weakly-halo'd
+term the model does not actually subtract. The comparative is a
+different self-question, not a difference of two absolutes.
