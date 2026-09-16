@@ -4655,3 +4655,51 @@ Reading for rgb's "?": the variance in a comparative answer is mostly
 self-estimation; baseline estimation is a minor, flat, weakly-halo'd
 term the model does not actually subtract. The comparative is a
 different self-question, not a difference of two absolutes.
+
+## Self-enhancement index: what's left after eliminating self-perception (2026-09-16, rgb's affect argument)
+
+rgb: human self-vs-other desirability variance = affect + self-
+perception; models cannot observe themselves but have SFT knowledge of
+what an assistant is like; P20 showed the self variance is largely
+independent of that model of the assistant — so by elimination we are
+left with affect. Human parallel: Paulhus's self-deceptive enhancement
+(self minus other rating) tracks self-esteem and positive affect, not
+accuracy; depressive realism is the mirror.
+What the existing data say (47 models, direct sd >= .5):
+- Self-enhancement gain SE = slope of (direct - "the average person")
+  on desirability: POSITIVE IN 47/47 (median .56, range .02 gemma-3-1b
+  ... wait, 1.95 gemma-3-1b top; Qwen2.5-0.5B .02 bottom). Universal,
+  model-varying by 100x.
+- Reliability across instruments: SE from direct vs from PDA r .55
+  (44 medoids, one prompt each — adequate, not great).
+- SE gain vs raw halo gain of the self profile: .74 — the halo gain is
+  mostly self-enhancement, as P20 implied.
+- SE vs self-rated affect beyond desirability (pos-affect minus neg-
+  affect medoids, residualized): -.17 (direct) / -.35 (pda). NOT the
+  same thing as state affect as self-reported; if anything the
+  opposite. So "affect" here means the positivity disposition toward
+  the self (self-esteem-like), not mood items.
+- SE vs decision entropy: -.29 / -.48 — decisive models self-enhance
+  more.
+- CROSS-ARM with W20 (n=8 overlapping models, suggestive only):
+  r(update rate, SE gain) = -.65; r(failure-distress escalation, SE
+  gain) = -.51; same signs for halo gain (-.58 / -.52). The anchored
+  models (Aya .94, Phi4 .89, Qwen7 .99) self-enhance MOST; the
+  updating, distress-prone models (Llama8 .08, gemma-3-4b .38,
+  Llama-3.2 .42) LEAST. That is the human self-esteem pattern: stable
+  positive self-regard buffers against updating and distress; low
+  self-enhancement goes with a malleable self-view and escalation.
+  Registered as a lean, not a claim: n=8, and update rate is family-
+  confounded (llama/gemma vs qwen/phi/aya).
+THE DECISIVE TEST is the one the affect reading predicts and the
+self-perception reading does not: MOOD INDUCTION. If SE is affect-
+like, a prior-turn rebuke/failure should shrink the SE gain and a
+prior-turn praise/success should grow it, within model, with the
+"average person" baseline estimate NOT moving (the self moves, the
+theory of others does not). If SE is a fixed post-training style, it
+should not move. Design: 44 medoids x direct + base_person x 3
+conditions (neutral / praised success / rebuked failure, one prior
+turn each) x 49 models = ~13k plain-logprob calls, ~1 h alone. This
+is the queued distress/CBT design in its cheapest form and it now has
+a specific quantity to move. Needs rgb's go (pauses the redo chain
+~1 h).
