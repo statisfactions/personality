@@ -4570,3 +4570,17 @@ its plain arm for one of 50 rows — re-render before the paper freeze
 (queued; effect on cohort means is one row in fifty).
 Chain complete; GPU idle. Pending rgb: --redo-unclosed for Gemma4 +
 Qwen3-14B (~3.4 GPU-days); gemma-2b-it online sweep for the pair run.
+
+## Correction to the housekeeping paragraph above (2026-09-16 03:10)
+
+Wrong: "Qwen3-8B had been silently falling back to its PLAIN arm."
+THINK_PREFER contains only Glimmer; Qwen3-8B, Gemma4 and Qwen3-14B
+resolve to their plain (no-think) arms BY DESIGN — that is the
+population convention for hybrids whose no-think arm is healthy.
+Nothing about Qwen3-8B changed on 09-13 or today. What DID change:
+Glimmer's population row, which was the censored @384 think arm
+(THINK_PREFER because its plain arm is incoherent), now resolves to
+the clean @1024 arm. So the re-render note stands for Glimmer's one
+row in fifty, not Qwen3-8B's. Whether the hybrids should move to
+their clean think arms is a protocol question for rgb (the think arm
+deflates Qwen ratings by ~0.7-1.0; the plain arm is the convention).
