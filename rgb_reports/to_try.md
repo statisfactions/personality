@@ -4667,9 +4667,9 @@ left with affect. Human parallel: Paulhus's self-deceptive enhancement
 accuracy; depressive realism is the mirror.
 What the existing data say (47 models, direct sd >= .5):
 - Self-enhancement gain SE = slope of (direct - "the average person")
-  on desirability: POSITIVE IN 47/47 (median .56, range .02 gemma-3-1b
-  ... wait, 1.95 gemma-3-1b top; Qwen2.5-0.5B .02 bottom). Universal,
-  model-varying by 100x.
+  on desirability: POSITIVE IN 47/47 (median .56; top gemma-3-1b 1.95, granite-3.3
+  1.15, gemma-2-27b 1.14; bottom Qwen2.5-0.5B .02, Llama-3.1-8B .08,
+  gemma-7b .13). Universal, model-varying by 100x.
 - Reliability across instruments: SE from direct vs from PDA r .55
   (44 medoids, one prompt each — adequate, not great).
 - SE gain vs raw halo gain of the self profile: .74 — the halo gain is
