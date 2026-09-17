@@ -4856,3 +4856,18 @@ convention, and state that the "no centering" reading fails for the
 positive-manifold channel. The JUDGE > ENACT > {SELF, REPRESENT}
 ordering survives all three; the SELF-vs-REPRESENT order does not,
 so do not lean on it.
+
+## pkit.channels: the five channel matrices centralized (2026-09-17, rgb's refactor note)
+
+pkit/channels.py now owns the adopted cooking: members() per channel
+(HUMAN respondents, SELF core models, REPRESENT/JUDGE/ENACT per-model
+matrices), cohort_matrix(), channel_matrices(), center(),
+top_removed() (grand-mean centering + top eigencomponent), blockify(),
+congruence(). fig_cluster_grids_paper.py and channel_similarity_matrix.py
+call it; the gate reproduces the published numbers exactly (raw
+.850/.808/.882/.841, top-removed .340/.408/.815/.617, and the full 5x5).
+Three tests added (center/top-removed invariants, cohort_matrix
+kinds, congruence affine invariance); 45 pass. Line-specific scripts
+(ipsatize_grids, fig_judge_cooking, represent_self_prediction,
+moreless grids) still build their own variants by design; any new
+cross-channel script should start from pkit.channels.

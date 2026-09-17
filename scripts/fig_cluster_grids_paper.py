@@ -15,101 +15,37 @@ affine-invariant, so the only numbers that move are from the averaging
 change and the phi clip; both old and new are printed.
 Usage: .venv/bin/python scripts/fig_cluster_grids_paper.py
 """
-import glob
-import json
-import os
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
 import pkit
-from pkit import cooking, measures
+from pkit import measures
 
 labels = pkit.load.adjectives()
 FR = pkit.load.FRAMINGS
 PHI_CLIP = 1.0  # phi outside [-1,1] = incoherent implied joint (Aya/Qwen-3B tails)
 
-# ---- channel matrices (525, fresh, raw units, zero diagonal) ----------
-mats, mats_z = {}, {}   # raw-averaged / entry-z-averaged (legacy) cohort means
-
-H = pkit.load.human_corr().values.copy()
-np.fill_diagonal(H, 0)
-mats["HUMAN"] = H
-
-R = pkit.load.self_matrix(which="cohort")
-core = R.values.std(1) >= 0.50
-Sc = np.corrcoef(R.values[core].T)
-np.fill_diagonal(Sc, 0)
-mats["SELF"] = Sc
-
-z = np.load("results/adjectives/represent_model_grids.npz", allow_pickle=True)
-rn = [str(x) for x in z["names"]]
-keepR = []
-for i, n in enumerate(rn):
-    try:
-        d = json.load(open(pkit.load._self_file(n.replace("_", "/", 1))))["results"]
-        X = np.array([[d[f][a]["ev"] for a in labels] for f in FR])
-        if X.mean(0).std() >= 0.50:
-            keepR.append(i)
-    except Exception:
-        pass
-mats["REPRESENT"] = z["cos"][keepR].astype(np.float32).mean(0).astype(np.float64)
-mats_z["REPRESENT"] = z["grids"][keepR].astype(np.float32).mean(0)
-
-acc = []
-for p in glob.glob("results/adjectives/introspect_full/*_tom_likely_dir.npz"):
-    zj = np.load(p, allow_pickle=True)
-    ja = [str(a).lower() for a in zj["adjectives"]]
-    B = np.asarray(zj["B"], float)
-    B = B[np.ix_([ja.index(l) for l in labels], [ja.index(l) for l in labels])]
-    # ADOPTED cooking (ledger 2026-09-06): fitted shape from pairs-only
-    # psi, level PINNED to the human-matched medP=.5; implied phi.
-    psi = cooking.pairs_potential(B)
-    P = np.clip(np.exp(psi - np.median(psi) + np.log(0.5)), 0.01, 0.99)
-    phi = np.clip(cooking.implied_phi(cooking.EV2P(B), P), -PHI_CLIP, PHI_CLIP)
-    np.fill_diagonal(phi, 0)
-    acc.append(phi)
-mats["JUDGE"] = np.mean(acc, 0)
-mats_z["JUDGE"] = np.mean([measures.zscore_offdiag(a) for a in acc], 0)
-nJ = len(acc)
-
-acc = []
-for p in glob.glob("results/persona_vectors/enact_mid/*.npz"):
-    m = os.path.basename(p).replace(".npz", "")
-    ze = np.load(p, allow_pickle=True)
-    ea = [str(a).lower() for a in ze["adjectives"]]
-    E = np.asarray(ze["dir"], np.float64)[[ea.index(l) for l in labels]]
-    meta = json.load(open(f"results/persona_vectors/{m}_pda_meta.json"))
-    Xe = measures.cos_sim(measures.winsorize(E, np.asarray(meta["massive_dims"], int)))
-    np.fill_diagonal(Xe, 0)
-    acc.append(Xe)
-mats["ENACT"] = np.mean(acc, 0)
-mats_z["ENACT"] = np.mean([measures.zscore_offdiag(a) for a in acc], 0)
-nE = len(acc)
+# ---- channel matrices from pkit.channels (single source of the cooking) ----
+from pkit import channels as chn
+mats, mem = chn.channel_matrices(labels, with_members=True)
+core_n = mem["SELF"][1].shape[0]; keepR = mem["REPRESENT"][2]; nJ = mem["JUDGE"][1].shape[0]; nE = mem["ENACT"][1].shape[0]
+PHI_CLIP = chn.PHI_CLIP
+# legacy entry-z-averaged cohort means, printed for comparison only
+mats_z = {c: np.mean([measures.zscore_offdiag(m) for m in mem[c][1]], 0) for c in ["JUDGE", "ENACT"]}
+_z = np.load(chn.REPRESENT_CACHE, allow_pickle=True); _rn = [str(x) for x in _z["names"]]
+mats_z["REPRESENT"] = _z["grids"][[_rn.index(n) for n in keepR]].astype(np.float32).mean(0)
 
 CH = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
 cl = pkit.facets.clusters("blocks44")
 m44 = ~np.eye(44, dtype=bool)
 
 
-def blockify(M):
-    return pkit.facets.block(M, cl).values
-
-
-def center(M):
-    """Subtract the off-diagonal mean (keeps units; the centering half of entry-z)."""
-    A = M.copy()
-    A[m525] -= A[m525].mean()
-    return A
-
-
-m525 = ~np.eye(len(labels), dtype=bool)
+blockify, center = chn.blockify, chn.center
 grids = {c: blockify(mats[c]) for c in CH}
-# top-component removal on the CENTERED matrix: identical eigenvector to the
-# old entry-z path (scaling does not move eigenvectors), units preserved
-grids_p = {c: blockify(measures.remove_pc1(center(mats[c]))) for c in CH}
+# top-component removal on the grand-mean-centered matrix (pkit.channels.top_removed)
+grids_p = {c: blockify(chn.top_removed(mats[c])) for c in CH}
 
 
 def r(a, b):
@@ -192,7 +128,7 @@ eigenvector as the former entry-z path). Blocks: 44 pole-respecting Ward
 clusters (blocks44), branch-ordered; band labels = largest cluster's human
 medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
 Human split-half external-match ceiling: raw .975 / top-removed .92.""" % (
-    VLIM["raw"], VLIM["top comp. removed"], int(core.sum()), len(keepR), nJ, nE)
+    VLIM["raw"], VLIM["top comp. removed"], core_n, len(keepR), nJ, nE)
 open("results/persona_vectors/figs/fig_cluster_grids_recipe.txt", "w").write(RECIPES)
 print(RECIPES)
 print("\ncongruence vs HUMAN (44-block). 'legacy' = entry-z per model then averaged:")

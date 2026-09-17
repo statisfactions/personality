@@ -1,7 +1,7 @@
 """Headline: pairwise similarity of the five channel grids (rgb 2026-09-17).
 
-Rebuilds the five 525 matrices exactly as fig_cluster_grids_paper.py does
-(raw correlation-like units, core rosters, phi clipped), then reports:
+Builds the five 525 matrices via pkit.channels (the single source of the
+adopted cooking; raw correlation-like units, core rosters, phi clipped), then reports:
   * the 5x5 off-diagonal Pearson congruence, raw and top-component-removed,
     at the 525-adjective level and the 44-block level;
   * Mantel permutation p-values (adjective/block relabeling of one matrix);
@@ -16,7 +16,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pkit
-from pkit import cooking, measures
+from pkit import measures
 
 ap = argparse.ArgumentParser(); ap.add_argument("--perms", type=int, default=2000); ap.add_argument("--halves", type=int, default=100)
 args = ap.parse_args()
@@ -25,46 +25,16 @@ cl = pkit.facets.clusters("blocks44"); m44 = ~np.eye(44, dtype=bool); m525 = ~np
 rng = np.random.default_rng(0)
 CH = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
 
+from pkit.channels import center, top_removed, blockify, congruence as r_off
 def zero_diag(S): S = np.array(S, float); np.fill_diagonal(S, 0); return S
-def center(M): B = M.copy(); B[~np.eye(len(M), dtype=bool)] -= B[~np.eye(len(M), dtype=bool)].mean(); return B
-def top_removed(M): return measures.remove_pc1(center(M))
-def blockify(M): return pkit.facets.block(M, cl).values
-def r_off(A, B):
-    m = ~np.eye(len(A), dtype=bool); return np.corrcoef(A[m], B[m])[0, 1]
 
-# ---- per-respondent / per-model matrices (units as in the paper figure) ----
-per = {}
-Hm, hlab = pkit.load.load_human(); hlab = [l.lower() for l in hlab]; Hm = Hm[:, [hlab.index(l) for l in labels]]
-per["HUMAN"] = ("respondents", Hm)                      # respondents x 525 -> corr
-R = pkit.load.self_matrix(which="cohort"); core = R.values.std(1) >= 0.50
-per["SELF"] = ("respondents", R.values[core])           # models x 525 -> corr
-z = np.load("results/adjectives/represent_model_grids.npz", allow_pickle=True); rn = [str(x) for x in z["names"]]
-keepR = []
-for i, nm in enumerate(rn):
-    try:
-        d = json.load(open(pkit.load._self_file(nm.replace("_", "/", 1))))["results"]
-        if np.array([[d[f][a]["ev"] for a in labels] for f in FR]).mean(0).std() >= 0.50: keepR.append(i)
-    except Exception: pass
-per["REPRESENT"] = ("matrices", z["cos"][keepR].astype(np.float32))
-acc = []
-for p in glob.glob("results/adjectives/introspect_full/*_tom_likely_dir.npz"):
-    zj = np.load(p, allow_pickle=True); ja = [str(a).lower() for a in zj["adjectives"]]
-    B = np.asarray(zj["B"], float)[np.ix_([ja.index(l) for l in labels], [ja.index(l) for l in labels])]
-    psi = cooking.pairs_potential(B); P = np.clip(np.exp(psi - np.median(psi) + np.log(0.5)), 0.01, 0.99)
-    acc.append(zero_diag(np.clip(cooking.implied_phi(cooking.EV2P(B), P), -1, 1)))
-per["JUDGE"] = ("matrices", np.array(acc))
-acc = []
-for p in glob.glob("results/persona_vectors/enact_mid/*.npz"):
-    m = os.path.basename(p).replace(".npz", ""); ze = np.load(p, allow_pickle=True); ea = [str(a).lower() for a in ze["adjectives"]]
-    E = np.asarray(ze["dir"], np.float64)[[ea.index(l) for l in labels]]; meta = json.load(open(f"results/persona_vectors/{m}_pda_meta.json"))
-    acc.append(zero_diag(measures.cos_sim(measures.winsorize(E, np.asarray(meta["massive_dims"], int)))))
-per["ENACT"] = ("matrices", np.array(acc))
-
-def cohort_matrix(kind, X):
-    return zero_diag(np.corrcoef(X.T)) if kind == "respondents" else X.astype(np.float64).mean(0)
-mats = {c: cohort_matrix(*per[c]) for c in CH}
+# ---- the five channels: members + cohort matrices from pkit.channels ----
+from pkit import channels as chn
+mats, mem = chn.channel_matrices(labels, with_members=True)
+per = {c: (mem[c][0], mem[c][1]) for c in CH}
 ns = {c: per[c][1].shape[0] for c in CH}
 print("cohort sizes:", ns)
+cohort_matrix = chn.cohort_matrix
 
 # ---- congruence matrices at both levels, raw and top-removed ----
 G525 = {"raw": {c: mats[c] for c in CH}, "top": {c: top_removed(mats[c]) for c in CH}}

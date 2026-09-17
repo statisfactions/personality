@@ -440,3 +440,40 @@ class TestLoadHuman:
         assert M.shape[1] == len(labels) == 525
         assert M.shape[0] > 100
         assert np.all(np.isfinite(M))
+
+
+# --------------------------------------------------------------------- channels
+from pkit import channels  # noqa: E402
+
+
+def test_channels_center_and_top_removed_invariants():
+    rng = np.random.default_rng(0)
+    X = rng.normal(size=(30, 12))
+    S = np.corrcoef(X.T) + 0.4          # positive-manifold matrix like SELF
+    np.fill_diagonal(S, 0.0)
+    C = channels.center(S)
+    m = ~np.eye(12, dtype=bool)
+    assert abs(C[m].mean()) < 1e-12                      # off-diagonal mean removed
+    assert np.allclose(C - S, (C - S)[0, 1] * m)         # a single scalar shift off-diagonal
+    T = channels.top_removed(S)
+    w, V = np.linalg.eigh(C)
+    k = np.argmax(np.abs(w))
+    assert abs(V[:, k] @ T @ V[:, k]) < 1e-8             # removed component is gone
+    uni = np.ones(12) / np.sqrt(12)
+    assert abs(V[:, k] @ uni) < 0.5                       # centered top axis is not the level vector
+
+
+def test_channels_cohort_matrix_two_kinds():
+    rng = np.random.default_rng(1)
+    X = rng.normal(size=(20, 6))
+    R = channels.cohort_matrix("respondents", X)
+    assert R.shape == (6, 6) and np.allclose(np.diag(R), 0) and np.allclose(R, R.T)
+    mats = rng.normal(size=(4, 6, 6))
+    M = channels.cohort_matrix("matrices", mats)
+    assert np.allclose(M, mats.mean(0))
+
+
+def test_channels_congruence_affine_invariant():
+    rng = np.random.default_rng(2)
+    A = rng.normal(size=(9, 9)); B = 3.0 * A - 0.7 + rng.normal(scale=1e-9, size=(9, 9))
+    assert abs(channels.congruence(A, B) - 1.0) < 1e-6

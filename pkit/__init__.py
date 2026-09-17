@@ -10,9 +10,9 @@ pkit.extraction and is imported lazily on first attribute access.
     H = pkit.load.human_corr()             # human 525 x 525
     fit = pkit.cooking.cook("Llama")       # base-rate LS fit -> phi
 """
-from . import axes, cooking, facets, load, measures, paths, roster  # noqa: F401
+from . import axes, channels, cooking, facets, load, measures, paths, roster  # noqa: F401
 
-__all__ = ["axes", "cooking", "extraction", "facets", "load",
+__all__ = ["axes", "channels", "cooking", "extraction", "facets", "load",
            "measures", "paths", "roster"]
 
 

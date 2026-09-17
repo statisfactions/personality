@@ -10,7 +10,7 @@ NOTE: no within-respondent (ipsative) centering anywhere — HUMAN and SELF are
   for both populations; ipsatizing first would impose the Clemans constraint
   on both matrices (see fig_cluster_grids_ipsatize for what that does).
 HUMAN: raw item Pearson r over 700 ESCS respondents; zero diagonal.
-SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=50);
+SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=49);
   item Pearson r over models-as-respondents; zero diagonal.
 REPRESENT: per-model mid-layer activations at the read position (pers framing),
   massive dims winsorized (meta or 20x-median rule); column-centered cosine;
