@@ -4766,3 +4766,41 @@ belonging to rgb (Archipelago Launcher.py, running since Sep 14
 needs ~100 GB and had the machine to itself for its 10-h smoke.
 Not killed (rgb's). Gemma4 rerun resumes when the box is free; the
 40-item recycle script is in place. Qwen3-14B's repair is unaffected.
+
+## HEADLINE MATRIX: pairwise congruence of the five channel grids (2026-09-17, rgb's plan)
+
+scripts/channel_similarity_matrix.py -> figs/fig_channel_similarity.pdf
+(lower = raw, upper = top-removed, diagonal = split-half reliability).
+Same cooking as the paper grids (raw units, core rosters, phi clipped);
+cohorts HUMAN 700 / SELF 49 / REPRESENT 40 / JUDGE 12 / ENACT 10.
+44-block, RAW:               44-block, TOP COMPONENT REMOVED:
+        HUM  SELF REP  JUD  ENA         HUM  SELF REP  JUD  ENA
+HUMAN   -    .85  .81  .88  .84  HUMAN   -    .34  .41  .82  .62
+SELF    .85  -    .79  .75  .76  SELF    .34  -    .22  .28  .22
+REPR    .81  .79  -    .71  .79  REPR    .41  .22  -    .32  .54
+JUDGE   .88  .75  .71  -    .81  JUDGE   .82  .28  .32  -    .60
+ENACT   .84  .76  .79  .81  -    ENACT   .62  .22  .54  .60  -
+525-adjective level (same ordering, lower values: raw .50-.77, top-
+removed .17-.58) — the block level is the paper's, the 525 level is
+the appendix's.
+Split-half reliability (Spearman-Brown, 44-block, raw / top-removed):
+HUMAN .99/.96, SELF .94/.81, REPRESENT 1.00/.98, JUDGE .99/.97, ENACT
+.99/.98 — the model channels' cohort means are stable; disattenuation
+moves nothing by more than .05 (SELF-HUMAN top .34 -> .39, JUDGE-HUMAN
+.82 -> .85). The gaps are real, not noise.
+MANTEL p: every cell at the permutation floor (< .0005 at 2000
+relabelings, 44 and 525 levels, raw and top-removed). As rgb
+suspected, they carry no information beyond "not chance"; report
+once in the methods ("all pairwise Mantel p < .001") and let the
+effect sizes and the reliabilities do the work.
+READING: (1) raw, everything agrees with everything at .71-.88 — the
+shared evaluation axis. (2) Top-removed, the matrix has a shape:
+JUDGE-HUMAN .82 near the human ceiling; ENACT-HUMAN .62; a model-
+internal cluster ENACT-JUDGE .60 / ENACT-REPRESENT .54 (the read-
+write map) / JUDGE-REPRESENT .32; and SELF alone at .22-.34 with
+every other channel including its own kind. SELF is the odd channel
+out not only against humans but against the model's other three
+readouts — the halo-stripped self-report shares little structure
+with what the model represents, judges, or enacts. That is the one-
+paragraph headline, and the frames matrix from yesterday is its
+footnote (no self-report variant escapes it).
