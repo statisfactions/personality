@@ -119,3 +119,22 @@ ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8); ax.set_yticks(range
 ax.set_title("Channel congruence on 44 blocks: lower = raw, upper = top component removed,\ndiagonal = split-half reliability (raw / top-removed)", fontsize=8)
 fig.colorbar(im, shrink=.75); fig.tight_layout(); out = "results/persona_vectors/figs/fig_channel_similarity"
 fig.savefig(out + ".pdf", dpi=300); fig.savefig(out + ".png", dpi=160); print("\nwrote", out)
+
+# ---- reasonableness of top-component removal: are the removed axes the same axis? ----
+print("\ntop component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
+tops, shares = {}, {}
+for c in CH:
+    A = center(mats[c]); w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w)); v = V[:, k] * np.sign(V[labels.index("kind"), k])
+    tops[c] = v; shares[c] = abs(w[k]) / np.abs(w).sum()
+Hfull = zero_diag(pkit.load.human_corr().values.copy()); wh, Vh = np.linalg.eigh(Hfull); evax = Vh[:, np.argmax(wh)]; evax *= np.sign(evax[labels.index("kind")])
+uni = np.ones(n) / np.sqrt(n)
+print(f"{'':10s}" + "".join(f"{c:>10s}" for c in CH) + f"{'human-eval':>11s}{'uniform':>9s}{'share':>7s}")
+for a in CH:
+    print(f"{a:10s}" + "".join(f"{abs(float(tops[a] @ tops[b])):10.2f}" for b in CH) + f"{abs(float(tops[a] @ evax)):11.2f}{abs(float(tops[a] @ uni)):9.2f}{shares[a]:7.2f}")
+# second components too (is anything else shared?)
+print("\nsecond component cosines (|cos|):")
+sec = {}
+for c in CH:
+    A = center(mats[c]); w, V = np.linalg.eigh(A); o = np.argsort(-np.abs(w)); sec[c] = V[:, o[1]]
+print(f"{'':10s}" + "".join(f"{c:>10s}" for c in CH))
+for a in CH: print(f"{a:10s}" + "".join(f"{abs(float(sec[a] @ sec[b])):10.2f}" for b in CH))

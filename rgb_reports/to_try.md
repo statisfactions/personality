@@ -4804,3 +4804,23 @@ readouts — the halo-stripped self-report shares little structure
 with what the model represents, judges, or enacts. That is the one-
 paragraph headline, and the frames matrix from yesterday is its
 footnote (no self-report variant escapes it).
+
+## Is removing the top component fair to all five? Cosines of the removed axes (2026-09-17, rgb)
+
+Top eigenvector of each centered 525 matrix, |cos| pairwise: .77-.92
+(HUMAN-JUDGE .92, HUMAN-REPRESENT .87, HUMAN-ENACT .87, HUMAN-SELF
+.86; the lowest pair REPRESENT-ENACT .77). Every channel's top axis
+is the human evaluation axis at .84-.93 and essentially orthogonal to
+uniform (.03-.14; JUDGE .33 — its top carries a little level). So the
+same axis is removed from all five; the operation is semantically
+symmetric, not just operationally. Share of |spectrum| in that axis:
+SELF .23 > ENACT .19 > HUMAN .15 > JUDGE .14 > REPRESENT .07 — SELF
+leans hardest on evaluation (the gain-model halo again), REPRESENT
+least (activation cosines are compressed; evaluation is only 7% of
+its spectrum, which is why its raw and top-removed congruences differ
+least).
+SECOND components: HUMAN-JUDGE |cos| .84; everything else <= .40
+(SELF-HUMAN .40, JUDGE-ENACT .36). Judgment shares the human
+structure's SECOND axis as well as its first, which is what the
+top-removed JUDGE-HUMAN .82 is made of; no other channel has a
+recognizable human second axis. Added to channel_similarity_matrix.py.
