@@ -4871,3 +4871,35 @@ kinds, congruence affine invariance); 45 pass. Line-specific scripts
 (ipsatize_grids, fig_judge_cooking, represent_self_prediction,
 moreless grids) still build their own variants by design; any new
 cross-channel script should start from pkit.channels.
+
+## Why ipsatized SELF clears more Horn components: not the noise estimate, not level (2026-09-17, rgb)
+
+Core n=49 x 525, Horn parallel analysis (95th pct) by treatment:
+  raw                        k=4   PR 3.8   eig1 share .42   null eig1 .034
+  center only (remove level) k=5   PR 4.4   eig1 share .45   null .034
+  scale only (divide by sd)  k=1   PR 1.1   eig1 share .97   null .035
+  ipsatized (both)           k=9   PR 15.4  eig1 share .17   null .034
+- The NOISE estimate is untouched: the permutation null's top
+  eigenvalue is .034 of trace under every treatment. The level does
+  not inflate it.
+- LEVEL is not the raw top component either: removing it (center
+  only) leaves eig1 at .45 and k at 5. The raw top component is the
+  GAIN term var(beta) t t' — models leaning on the same desirability
+  profile by different amounts.
+- Scaling alone is catastrophic (k=1, eig1 .97): with level present,
+  lambda_m / sd_m becomes a huge model-varying multiplier on a
+  constant vector — the matrix goes rank-1.
+- Only both steps together remove the gain term (center kills lambda,
+  then dividing by sd equalizes beta), after which the per-item
+  re-standardization inside the correlation matrix redistributes the
+  trace from the one desirability component onto the residual
+  structure: eig1 falls to .17 and nine components clear the null.
+  So the answer to rgb's question is "the per-item rescaling, but
+  only after the level is out — and it is the item re-
+  standardization that follows, not the rescaling itself, that lifts
+  the residual components over the unchanged noise floor."
+Caveat that stands from 08-23: bandwidth, not identity. Split-half
+component matching at Tucker >= .9 with 24-model halves recovers
+~1 component under raw/center and 0 under ipsatized — the nine
+ipsatized components are real as a subspace, individually unstable
+past the first two (the mixing-zone finding).
