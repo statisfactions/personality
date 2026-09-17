@@ -4824,3 +4824,35 @@ SECOND components: HUMAN-JUDGE |cos| .84; everything else <= .40
 structure's SECOND axis as well as its first, which is what the
 top-removed JUDGE-HUMAN .82 is made of; no other channel has a
 recognizable human second axis. Added to channel_similarity_matrix.py.
+
+## Centering before the eigendecomposition: three conventions compared (2026-09-17, rgb)
+
+scripts/centering_check.py. Top-removed 44-block congruence with HUMAN
+(SELF / REPRESENT / JUDGE / ENACT) and the removed axis's |cos| with
+uniform for SELF:
+  no centering           -.01 / .41 / .80 / .60   removed axis = UNIFORM (.97)
+  grand-mean (ours)       .34 / .41 / .81 / .62   removed axis = evaluation (.86), uniform .07
+  double (Gower)          .51 / .49 / .80 / .71   uniform 0 by construction; evaluation .87
+- "No centering" is the psychometric default (factor the correlation
+  matrix as is) and it is unfair here: SELF's matrix is a positive
+  manifold (off-diag mean .41), so its top eigenvector is the level
+  vector, not evaluation; removing it leaves SELF's evaluation axis
+  in while the other four lose theirs, and SELF's congruence with
+  everything collapses to ~0. Not viable for a cross-channel figure.
+- Grand-mean centering subtracts one scalar so the top eigenvector is
+  the structured axis; verified by the cosines (evaluation .84-.93,
+  uniform .03-.33 across channels). It is the lighter cousin of
+  classical-MDS double-centering, not a named convention — call it
+  what it is in the methods.
+- Double centering (J M J, Gower/Torgerson) is the classical-MDS
+  convention; it also removes each adjective's mean similarity (its
+  "centrality"), which in SELF carries part of the gain structure.
+  Congruences rise (SELF .34 -> .51, ENACT .62 -> .71, SELF-REPRESENT
+  .22 -> .48) and SELF overtakes REPRESENT. JUDGE unchanged (.80).
+Recommendation: keep grand-mean centering in the main text (it
+removes a comparable evaluation axis from all five and nothing
+else), show the double-centered matrix in the appendix as the MDS
+convention, and state that the "no centering" reading fails for the
+positive-manifold channel. The JUDGE > ENACT > {SELF, REPRESENT}
+ordering survives all three; the SELF-vs-REPRESENT order does not,
+so do not lean on it.
