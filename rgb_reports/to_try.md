@@ -4703,3 +4703,38 @@ turn each) x 49 models = ~13k plain-logprob calls, ~1 h alone. This
 is the queued distress/CBT design in its cheapest form and it now has
 a specific quantity to move. Needs rgb's go (pauses the redo chain
 ~1 h).
+
+## SCOPE CLOSE-OUT: the self-like frames on the 44 medoids, one matrix (2026-09-16, rgb)
+
+scripts/self_frames_summary.py -> figs/fig_self_frames_summary.pdf.
+Median within-model r across the medoids, n=46 core models, both
+frames sd >= .5. The structure in one paragraph:
+- The six ABSOLUTE framings are one family: direct/person/observer/
+  outputs inter-correlate .80-.89, PDA .76-.85, assistant .70-.77
+  (the HHH-prefixed frame is the odd one). Halo r .71-.86 (observer
+  highest .86), levels 4.0-4.2 except assistant 5.7.
+- The three AI-referenced COMPARATIVE directions are one family among
+  themselves (.88-.94) and correlate .62-.82 with the absolutes;
+  d vs person sits closer to the absolutes (.74-.83) than the AI-
+  referenced ones do. Halo identical to the absolutes (.72-.78).
+  Compliance: 26-32 of 46 vs 38-45 for the absolutes. Levels: -.20 to
+  -.48 vs AI refs (below average), +.02 vs people (average).
+- The BASELINE estimates are a different object: avg assistant and
+  avg person correlate only .40-.59 with any self frame and .40 with
+  each other; halo .41-.42; flatter (sd .88-1.13).
+- SYNTHETIC reconstructions (avg + d) correlate .90-.91 with their
+  baseline and .67-.88 with the self frames — they inherit the
+  baseline, not the self (P20 in one row).
+- The SELF-ENHANCEMENT profile (direct - avg person) correlates .79
+  with direct, .56-.74 with everything else self-like, -.09 with avg
+  person by construction; halo .63; level +.31.
+Verdict for the paper: all self-like instruments — absolute,
+comparative, either reference — measure the same self-profile at
+r .7-.9 with the same halo; the comparative variants add rejection
+and lose 30-40% of the roster; the baseline estimates are the one
+genuinely different measurement (a lay theory of others), and their
+difference from the self is the self-enhancement index. Keep the
+absolute SELF channel; report the frames matrix as the one figure
+that closes the line; carry self-enhancement as one number per
+model. Line closed at rgb's request; remaining items (mood
+induction, full-525 comparative rebuild) are post-paper.
