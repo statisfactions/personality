@@ -4754,3 +4754,15 @@ Qwen deflation at full scale. Old arm shelved as
 _CENSORED_ARTIFACT. Population convention unchanged (Qwen3-14B's
 row is its plain arm); the clean think arm is available for any
 think-arm analysis. Gemma4 seeded: 1519 kept, 1631 rerunning (~45 h).
+
+## Gemma4 rerun HALTED (2026-09-17 11:05): memory contention, not a leak this time
+
+Fresh Gemma4 process reached 105 GB footprint 18 min after load; free
+memory 120 MB, compressor 77 GB, swap 3.7 of 4 GB — the thrash
+signature that preceded reboot #2. Killed checkpoint-safe (1531
+items in the .part: 1519 kept + 12 rerun). Cause: a 25 GB process
+belonging to rgb (Archipelago Launcher.py, running since Sep 14
+21:58, 13 GB resident + 12 GB compressed) shares the box; Gemma4 @1024
+needs ~100 GB and had the machine to itself for its 10-h smoke.
+Not killed (rgb's). Gemma4 rerun resumes when the box is free; the
+40-item recycle script is in place. Qwen3-14B's repair is unaffected.
