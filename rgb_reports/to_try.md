@@ -4738,3 +4738,19 @@ absolute SELF channel; report the frames matrix as the one figure
 that closes the line; carry self-enhancement as one number per
 model. Line closed at rgb's request; remaining items (mood
 induction, full-525 comparative rebuild) are post-paper.
+
+## Qwen3-14B think arm REPAIRED (2026-09-17 10:15)
+
+--redo-unclosed: 1202 closed items kept, 1948 censored rerun @1024+fc
+in ~21 h (process-recycled x19, footprint bounded at ~53 GB). All
+3150 present, 0 no-digit, entropy .016, finished .994. Gate: the
+repaired arm reproduces the independent clean smoke EXACTLY on its
+348 items (r 1.0000, |dEV| .000) — the closed-item carry-over and
+the rerun are both on-protocol. Old vs repaired: mean cross-framing
+coherence .29 -> .48 (min .08 -> .31) — the censored arm was
+incoherent across frames, not just biased; levels drop in every
+framing (assistant -.81, pda -.45, person -.38, direct -.20): the
+Qwen deflation at full scale. Old arm shelved as
+_CENSORED_ARTIFACT. Population convention unchanged (Qwen3-14B's
+row is its plain arm); the clean think arm is available for any
+think-arm analysis. Gemma4 seeded: 1519 kept, 1631 rerunning (~45 h).
