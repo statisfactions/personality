@@ -4919,3 +4919,19 @@ inside the process instead of pushing the system into the
 compressor/swap, and recycle every 25 items. Checkpoint 192/1631
 intact. If it OOMs instead of running, next step is a static KV
 cache (fixed shapes) gated on the smoke for bit identity.
+
+## MPS watermark caps hold (2026-09-17 23:00): the Gemma4 leak was the allocator's over-commit
+
+With PYTORCH_MPS_HIGH_WATERMARK_RATIO=1.0 / LOW=0.8, the Gemma4 @1024
+process oscillates 64-92 GB over its first 40 min with NO upward
+trend, compressed memory flat at 33 GB, swap 17 MB, zero errors, 20
+items checkpointed. The uncapped default (HIGH 1.7) lets the MPS
+caching allocator over-commit to 170% of the device's recommended
+working set, which on a 128 GB box is exactly the reboot: the
+allocator kept cached blocks instead of releasing them until the
+system was in the compressor. The cap makes it garbage-collect at
+the low watermark. This is the actual fix for reboots #2 and #4
+(#1 unexplained, #3 concurrency); process recycling was treating the
+symptom. RULE: every MPS generation job runs with these two env
+vars (added to the chain launcher); the recycle stays as belt and
+braces. Gemma4 rerun ETA ~Sunday at ~30 items/h.
