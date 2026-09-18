@@ -4903,3 +4903,19 @@ component matching at Tucker >= .9 with 24-model halves recovers
 ~1 component under raw/center and 0 under ipsatized — the nine
 ipsatized components are real as a subspace, individually unstable
 past the first two (the mixing-zone finding).
+
+## Reboot #4 (2026-09-17 ~17:56): Gemma4 rerun alone, 40-item recycle, no competitor (ledgered 22:30)
+
+Sampler's last line 17:54: footprint 100 GB, compressed 32 GB, swap
+4.5 GB — then reboot. The 40-item cycle did not bound it; the growth
+is faster on the full 525-adjective run than on the 58-adjective
+smoke (which peaked at 96 GB after 10 h). Working hypothesis: MPS
+graph/kernel cache keyed by sequence shape — 525 distinct prompts x
+variable generation lengths = many more compiled shapes than the
+smoke, and that cache is CPU-side (the MALLOC_SMALL block seen in the
+09-13 footprint). Mitigation for the relaunch: cap the MPS allocator
+(PYTORCH_MPS_HIGH_WATERMARK_RATIO=1.0, LOW=0.8) so allocation fails
+inside the process instead of pushing the system into the
+compressor/swap, and recycle every 25 items. Checkpoint 192/1631
+intact. If it OOMs instead of running, next step is a static KV
+cache (fixed shapes) gated on the smoke for bit identity.
