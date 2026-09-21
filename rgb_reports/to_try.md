@@ -4935,3 +4935,39 @@ the low watermark. This is the actual fix for reboots #2 and #4
 symptom. RULE: every MPS generation job runs with these two env
 vars (added to the chain launcher); the recycle stays as belt and
 braces. Gemma4 rerun ETA ~Sunday at ~30 items/h.
+
+## Gemma4 think arm REPAIRED (2026-09-20 19:43)
+
+--redo-unclosed: 1519 closed items kept, 1631 censored rerun @1024+fc.
+Wall clock 2026-09-17 18:00 -> 09-20 19:43 with two pauses (MATS
+assessment 09-19 12:21-16:21; Silksong 09-19 22:58 -> 09-20 01:45) and
+one shared-GPU stretch (Slay the Spire 2, cycles 100-130 min instead
+of 45-55). Under PYTORCH_MPS_HIGH_WATERMARK_RATIO=1.0 / LOW=0.8 with a
+25-item process recycle the footprint stayed a 64-94 GB sawtooth with
+no trend and swap flat (<300 MB) for the whole run: the watermark caps
+are the fix for the reboot mechanism (#2/#4), confirmed at full scale.
+The outputs framing runs ~4 min/item vs ~2 for the others (more items
+think to the cap).
+
+Arm: 3150 present, 3 no-digit, entropy .003; of the 1631 rerun items
+85.6% closed on their own, 14.3% force-closed. GATE: the repaired arm
+reproduces the independent clean smoke EXACTLY on its 348 items
+(r 1.0000, |dEV| .000). Old vs repaired: mean cross-framing coherence
+.37 -> .69 (min .20 -> .54); old-vs-repaired r per framing .53-.76.
+
+CORRECTION to the smoke-era reading "Gemma4 censored reads are noise
+with no bias" (2026-09-14). With 237-304 censored items per framing the
+artifact is level-dependent SHRINKAGE TOWARD THE SCALE MIDPOINT, not
+zero-mean noise: the old censored reads sit at 3.75-4.57 in every
+framing regardless of the framing's true level (kept items: pda 1.98,
+observer 2.53, outputs 2.82, direct 3.00, person 3.73, assistant 6.19),
+so the rerun moves them by (true level - ~4): direct -.34, pda -.44,
+observer -.21, outputs -.47, person/assistant ~0. Framing level shifts
+in the full arm: direct -.16, pda -.22, observer -.10, outputs -.24.
+Not the Qwen-style deflation (which was directional in all six
+frames); a mid-deliberation last-number is a "4-ish" placeholder.
+Forced-close items behave like the finished ones (no separate bias).
+Old arm shelved as _CENSORED_ARTIFACT. Population convention
+unchanged (Gemma4's row is its plain arm; THINK_PREFER stays Glimmer-
+only). The redo list is now CLOSED: Qwen3-8B, Qwen3-14B, Glimmer,
+Gemma4 all have clean @1024+fc think arms.
