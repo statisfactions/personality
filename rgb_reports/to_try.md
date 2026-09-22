@@ -5054,3 +5054,13 @@ grid is never shown as a stage). Robustness: projecting off the HUMAN
 desirability axis instead of each channel's own v1 (cos .87-.93 with
 it) gives SELF .550, REPRESENT .483, JUDGE .830, ENACT .717 vs own-axis
 .505/.487/.803/.713 — the residual does not depend on whose axis.
+
+Saturation check (rgb, 2026-09-22): is the stronger color of the
+double-centered JUDGE/ENACT residual grids a small-n effect (12 and 10
+members vs 40/49/700)? No. Subsampling members, the residual grid's
+off-diagonal SD is flat in n (JUDGE .079/.072/.073 at 4/8/12; ENACT
+.104/.108/.108 at 4/8/10) and split-half reliability across disjoint
+member halves is .96-.97 for both (REPRESENT .97, HUMAN .92, SELF .61).
+The amplitude is the channel's scale (residual/raw SD: HUMAN .31, JUDGE
+.35, ENACT .40, REPRESENT .54, SELF .16); SELF is the noisy one (per-
+member noise SD .082 vs signal .044, hence its pale residual).
