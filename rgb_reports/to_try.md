@@ -5064,3 +5064,30 @@ member halves is .96-.97 for both (REPRESENT .97, HUMAN .92, SELF .61).
 The amplitude is the channel's scale (residual/raw SD: HUMAN .31, JUDGE
 .35, ENACT .40, REPRESENT .54, SELF .16); SELF is the noisy one (per-
 member noise SD .082 vs signal .044, hence its pale residual).
+
+Double centering and the HUMAN grid (rgb, 2026-09-22: "it de-emphasizes
+the good-vs-bad extraversion correlations, I wasn't expecting it to do
+much"). It does something specific: it subtracts each adjective's
+CONNECTEDNESS (row mean of r). In HUMAN that profile is not flat (sd
+.032 around .054): most connected = exciting, remarkable, extraordinary,
+impressive, appealing; least = ordinary, average, plain, boring,
+unpopular — i.e. the bold-self-presenter items, which sit in the branch-4
+surgency block (funny/influential/appealing/extraordinary/brave/
+aggressive). The row-mean direction has |cos| .60 with human PC1
+(desirability) and .60 with human PC2 (the W18 self-presentation
+stance). Largest block changes are all inside/around that block
+(appealing x extraordinary .38 -> .22; extraordinary x enthusiastic
+.28 -> .13; appealing x aggressive .20 -> .07). So double centering
+removes the human LEVEL, and the human level is surgency-shaped (the
+acquiescent, self-enhancing responder endorses "exciting/remarkable"
+most), whereas the SELF level is the constant vector (|cos| .98) — a
+response-style constant. Same operation, different content: that is
+the reading-group sentence.
+Size: the HUMAN top-removed residual under grand-mean vs double
+centering agree at r .88; double centering removes 23% of PC2's energy
+(not the axis). Removing PC2 outright would be a different object
+(r .60 with the dc residual) and it LOWERS every channel's residual
+congruence (SELF .44 -> .14, ENACT .61 -> .44, JUDGE .70 -> .60): the
+models' residual match to humans runs substantially THROUGH the human
+self-presentation direction. Lean only (asymmetric removal); a
+symmetric own-PC2 test would make it a claim. Parked.
