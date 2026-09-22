@@ -5105,3 +5105,29 @@ decision: for the score channels use corr(rowcentered) so the grid and
 the factor analysis are literally one object; for matrix-only channels
 J S J is the only option; call both "row-centered" and note the
 correlation-side approximation once.
+
+JUDGE level pin under the row-centered recipe (rgb, 2026-09-22: "makes
+selecting the constant for phi a bit weird; pick the constant that
+makes it most a correlation matrix, or most centered"). Scanned the
+median-base-rate pin c over .1-.9 (12 models, cohort-mean phi, clipped):
+  criterion               behaviour in c                       optimum
+  bounded (no clipping)   out-of-[-1,1] .0% at c<=.3, .8% at .5,   c <= .5
+                          5.7% at .6, 26% at .7, 70% at .8
+  PSD (neg eigenmass,     monotone: 6.9% at .1 -> 13.8% at .5 ->  c -> 0 (degenerate)
+   diag restored to 1)    32% at .8; per-model minima all at .1
+  centered (off-diag      +.47 at .1, +.20 at .4, +.03 at .5,     c = .52
+   mean; dc-correction    -.22 at .6; dc-correction/norm minimal
+   norm)                  at .5 (.50 vs .78 at .4, .73 at .6)
+  HUMAN congruence        raw .87-.88 flat on [.1,.6]; row-        any c in [.1,.7]
+                          centered residual .80-.82 flat on [.1,.7]
+"Most correlation-like" (PSD) is not a usable selector: it has no
+interior optimum and buys PSD-ness with a large positive level (+.47
+mean at c=.1, the raw-SELF sea-of-red look) that row-centering then
+removes anyway. "Most centered" has an interior optimum at c=.52,
+i.e. the current medP=.5 convention, which also matches the human
+base-rate level (P~.52) — three justifications coincide. Per-model
+zero-mean pins fall in .45-.60. The row-centered residual is
+pin-invariant over the sane range because the pin mostly moves level.
+DECISION (pending rgb): keep medP=.5, now stated as "the level gauge
+that centers phi"; note the PSD degeneracy in the appendix; optional
+per-model zero-mean gauge is a no-op downstream.
