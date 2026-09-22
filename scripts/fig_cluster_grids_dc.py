@@ -27,9 +27,11 @@ def dc_top_removed(S):
 
 
 rows = [("raw", {c: chn.blockify(mats[c]) for c in CH}),
+        ("grand-mean\ncentered", {c: chn.blockify(chn.center(mats[c])) for c in CH}),
+        ("double-\ncentered", {c: chn.blockify(zd(J @ mats[c] @ J)) for c in CH}),
         ("top removed\n(grand-mean)", {c: chn.blockify(chn.top_removed(mats[c])) for c in CH}),
         ("top removed\n(double-centered)", {c: chn.blockify(dc_top_removed(mats[c])) for c in CH})]
-VL = [0.6, 0.3, 0.3]
+VL = [0.6, 0.6, 0.6, 0.3, 0.3]
 
 
 def r(a, b):
