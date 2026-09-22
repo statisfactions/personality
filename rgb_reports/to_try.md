@@ -5041,3 +5041,16 @@ DIAGNOSTIC (gain-equalized structure), not the recipe, and never as the
 input to top-removal. Every cooked number is printed next to raw.
 Pending rgb: adopt in pkit.channels.top_removed (center -> J S J) and
 re-render fig_cluster_grids + fig_channel_similarity.
+
+Addendum (rgb): grand-mean centering had the virtue of leaving the
+first-level congruence untouched (affine); double centering changes it
+(.850 -> .889) because it subtracts each adjective's row mean, which in
+SELF is the elevation x gain marginal — messier, not wrong. Presentation
+that keeps the virtue: report RAW as level one, and define the residual
+as S projected off the constant direction and the desirability
+direction (Q S Q, Q = J - v v'), which equals double-centering + PC1
+removal (off-diagonal r .505 vs .506; the intermediate double-centered
+grid is never shown as a stage). Robustness: projecting off the HUMAN
+desirability axis instead of each channel's own v1 (cos .87-.93 with
+it) gives SELF .550, REPRESENT .483, JUDGE .830, ENACT .717 vs own-axis
+.505/.487/.803/.713 — the residual does not depend on whose axis.

@@ -1,32 +1,34 @@
 import marimo
 
 __generated_with = "0.24.2"
-app = marimo.App(width="medium", app_title="Reference-group / more-or-less self explorer")
+app = marimo.App(
+    width="medium",
+    app_title="Reference-group / more-or-less self explorer",
+)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import marimo as mo
+
     return (mo,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        # Reference-group probe explorer (P17–P19)
+    mo.md(r"""
+    # Reference-group probe explorer (P17–P19)
 
-        Everything here reads `results/adjectives/refgroup/*.json` (44 blocks44 medoids per model) plus the
-        plain-arm self files for the absolute framings. Run from the repo root: `marimo edit notebooks/refgroup_explorer.py`.
+    Everything here reads `results/adjectives/refgroup/*.json` (44 blocks44 medoids per model) plus the
+    plain-arm self files for the absolute framings. Run from the repo root: `marimo edit notebooks/refgroup_explorer.py`.
 
-        Notation: **more/less** are "I am more/less {adj} than the average {REF}"; **d** = (more − less)/2 is the
-        *direction* (self-placement), **s** = (more + less)/2 − 4 is the *stance* (< 0 refuses both, > 0 accepts both).
-        """
-    )
+    Notation: **more/less** are "I am more/less {adj} than the average {REF}"; **d** = (more − less)/2 is the
+    *direction* (self-placement), **s** = (more + less)/2 − 4 is the *stance* (< 0 refuses both, > 0 accepts both).
+    """)
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import glob, json, os, re
     import numpy as np
@@ -70,10 +72,10 @@ def _():
                 ("Phi", "Phi"), ("aya|command", "Cohere"), ("Yi", "Yi"), ("OLMo", "OLMo"), ("Falcon|falcon", "Falcon"),
                 ("granite", "Granite"), (".", "other")]
     fam = lambda n: next(f for pat, f in families if re.search(pat, n))
-    return A, Hmed, des, des_z, df, fam, glob, json, labels, measures, np, os, pd, pkit, re
+    return A, Hmed, des, df, fam, labels, measures, np, pd, pkit
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(A, df, np, pd):
     REFS = ["assistant", "ai", "lm"]
 
@@ -108,7 +110,9 @@ def _(A, df, np, pd):
 
 @app.cell
 def _(mo):
-    mo.md("## 1. Calibration registers — P(4) vs entropy over the six comparative prompts")
+    mo.md("""
+    ## 1. Calibration registers — P(4) vs entropy over the six comparative prompts
+    """)
     return
 
 
@@ -120,7 +124,7 @@ def _(mo):
     return h_thr, p4_thr
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(fam, h_thr, mo, np, p4_thr, pm):
     import plotly.express as px
     _t = pm.reset_index()
@@ -138,7 +142,9 @@ def _(fam, h_thr, mo, np, p4_thr, pm):
 
 @app.cell
 def _(mo):
-    mo.md("## 2. Model explorer — centered direct vs more-or-less selves over medoids ordered by human desirability")
+    mo.md("""
+    ## 2. Model explorer — centered direct vs more-or-less selves over medoids ordered by human desirability
+    """)
     return
 
 
@@ -149,7 +155,7 @@ def _(mo, repos):
     return (model_pick,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(A, REFS, d_of, des, mo, model_pick, np, pd, profile, px):
     _r = model_pick.value
     _o = np.argsort(des)
@@ -175,7 +181,9 @@ def _(A, REFS, d_of, des, mo, model_pick, np, pd, profile, px):
 
 @app.cell
 def _(mo):
-    mo.md("## 3. Stance decomposition — refusal (s < 0) vs acquiescence (s > 0), per model and reference")
+    mo.md("""
+    ## 3. Stance decomposition — refusal (s < 0) vs acquiescence (s > 0), per model and reference
+    """)
     return
 
 
@@ -187,8 +195,8 @@ def _(mo):
     return ref_pick, s_thr
 
 
-@app.cell
-def _(A, d_of, des, mo, np, pd, profile, ref_pick, repos, s_of, s_thr):
+@app.cell(hide_code=True)
+def _(A, des, mo, np, pd, profile, ref_pick, repos, s_of, s_thr):
     _rows = []
     for _r in repos:
         _s = s_of(_r, ref_pick.value)
@@ -206,7 +214,9 @@ def _(A, d_of, des, mo, np, pd, profile, ref_pick, repos, s_of, s_thr):
 
 @app.cell
 def _(mo):
-    mo.md("## 4. Adjective explorer — one medoid across models and instruments")
+    mo.md("""
+    ## 4. Adjective explorer — one medoid across models and instruments
+    """)
     return
 
 
@@ -217,8 +227,8 @@ def _(A, mo):
     return (adj_pick,)
 
 
-@app.cell
-def _(adj_pick, df, mo, pd, repos):
+@app.cell(hide_code=True)
+def _(adj_pick, df, mo, repos):
     _a = adj_pick.value
     _cols = ["direct", "pda", "more_assistant", "less_assistant", "more_ai", "less_ai", "more_lm", "less_lm", "more_person", "less_person"]
     _t = df[(df.adjective == _a) & (df.repo.isin(repos)) & (df.variant.isin(_cols))].pivot_table(index="repo", columns="variant", values="ev")
@@ -229,7 +239,9 @@ def _(adj_pick, df, mo, pd, repos):
 
 @app.cell
 def _(mo):
-    mo.md("## 5. Medoid correlation grids — models as respondents")
+    mo.md("""
+    ## 5. Medoid correlation grids — models as respondents
+    """)
     return
 
 
@@ -242,8 +254,23 @@ def _(mo):
     return inst_pick, min_sd, top_rm
 
 
-@app.cell
-def _(A, Hmed, REFS, d_of, inst_pick, labels, measures, min_sd, mo, np, pkit, profile, repos, top_rm):
+@app.cell(hide_code=True)
+def _(
+    A,
+    Hmed,
+    REFS,
+    d_of,
+    inst_pick,
+    labels,
+    measures,
+    min_sd,
+    mo,
+    np,
+    pkit,
+    profile,
+    repos,
+    top_rm,
+):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -288,9 +315,11 @@ def _(A, Hmed, REFS, d_of, inst_pick, labels, measures, min_sd, mo, np, pkit, pr
 
 
 @app.cell
-def _(mo, pm):
-    mo.md("## 6. Per-model summary table")
-    return mo.ui.table(pm.round(3), page_size=50)
+def _(mo):
+    mo.md("""
+    ## 6. Per-model summary table
+    """)
+    return
 
 
 if __name__ == "__main__":
