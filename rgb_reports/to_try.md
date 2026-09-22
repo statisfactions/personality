@@ -4971,3 +4971,73 @@ Old arm shelved as _CENSORED_ARTIFACT. Population convention
 unchanged (Gemma4's row is its plain arm; THINK_PREFER stays Glimmer-
 only). The redo list is now CLOSED: Qwen3-8B, Qwen3-14B, Glimmer,
 Gemma4 all have clean @1024+fc think arms.
+
+## SELF cooking: one recipe, and why "uncooked PC1 removal" erased the human match (2026-09-22)
+
+rgb: the reading group could not follow why removing the uncooked PC1
+left SELF with no human similarity, or what grand-mean centering adds.
+scripts/self_cooking_recipes.py lays the five treatments side by side
+(HUMAN and SELF treated identically; 44-block off-diagonal r; raw always
+reported alongside because the choice to cook is not forced).
+
+THE MECHANISM. Model self-ratings are nearly rank-2 across models:
+x_ma = elevation_m + gain_m * desirability_a + e. R2 .72 for SELF (.53
+HUMAN); 89% of the raw SELF item-covariance norm lies in span(1, t).
+The raw SELF matrix has off-diagonal mean .40 (HUMAN .05), so its
+UNCOOKED PC1 is the constant vector (|cos| .97 with 1, .09 with
+desirability) = ELEVATION, and desirability is PC2 (.88). HUMAN's
+uncooked PC1 is desirability (.98). So "remove PC1 from both" removed
+ELEVATION from SELF and DESIRABILITY from HUMAN — a SELF grid still
+dominated by desirability was compared to a HUMAN grid with it gone:
+r -.01. Not a finding about SELF's residual; a mismatch of what was
+removed. Grand-mean centering subtracts the .40 and knocks the constant
+component down (cos .07) so PC1 becomes desirability (.87) — but only
+approximately: SELF's second component after grand-mean centering
+still has cos .60 with the constant vector (row means vary with t via
+the elevation x gain covariance, r(elev, gain) -.40), so residual level
+leaks into the top-removed grid. Double centering (Gower, J S J)
+removes the constant direction EXACTLY (cos .00) and is, for the item
+COVARIANCE, identical to row-centering the respondents (center-only
+ipsatization); on the correlation the two grids agree at r .97.
+
+                      SELF~HUMAN 44-block   SELF split-half   HUMAN split-half
+treatment             raw     PC1-removed   (PC1-removed)     (PC1-removed)
+raw                   .850      -.010            .686              .913
+grand-mean (current)  .850       .340            .756              .916
+double-centering      .889       .506            .592              .913
+ips-center            .909       .561            .622              .922
+ips-z (center+scale)  .516       .307 *          .486 (.706 raw)   .890
+ * ips-z has no desirability component left to remove (cos(v1,t) .25):
+   its "PC1 removal" takes real non-desirability structure, so the
+   after-column is not like-for-like.
+
+WHAT IPS-Z SHOWS. Standardizing each model's profile removes gain, and
+in SELF the between-model desirability covariance IS the gain term
+(all models share one desirability profile, differing in how hard they
+press it), so the desirability similarity to HUMAN drops .85 -> .52.
+HUMAN survives ips-z (PC1 still desirability, cos .93) because humans
+differ in WHICH desirable items they endorse, not only in how much —
+rgb's affect-vs-self-perception split, now as a matrix fact. This is
+the population-level statement of "SELF is the difficult child": its
+desirability structure is one shared profile times a per-model gain.
+
+ALL FIVE CHANNELS, top-removed congruence with HUMAN (raw alongside):
+             raw    grand-mean   double-centering
+  SELF       .850     .340          .506
+  REPRESENT  .808     .408          .487
+  JUDGE      .882     .815          .803
+  ENACT      .841     .617          .712
+Double centering moves SELF/REPRESENT/ENACT up (their grand-mean
+residuals carried leftover level) and leaves JUDGE alone; ranking
+JUDGE >> ENACT > SELF ~ REPRESENT unchanged.
+
+RECOMMENDATION (uniform recipe): double centering at the matrix level
+for every channel's comparison grid; center-only ipsatization at the
+score level for HUMAN/SELF factor analysis (the same operation, so the
+Horn counts and the grids describe one object; center-only SELF Horn
+k=5, ledger 09-18). Grand-mean centering retired as an approximation
+whose error is exactly the SELF elevation x gain term. ips-z kept as a
+DIAGNOSTIC (gain-equalized structure), not the recipe, and never as the
+input to top-removal. Every cooked number is printed next to raw.
+Pending rgb: adopt in pkit.channels.top_removed (center -> J S J) and
+re-render fig_cluster_grids + fig_channel_similarity.
