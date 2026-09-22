@@ -5091,3 +5091,17 @@ congruence (SELF .44 -> .14, ENACT .61 -> .44, JUDGE .70 -> .60): the
 models' residual match to humans runs substantially THROUGH the human
 self-presentation direction. Lean only (asymmetric removal); a
 symmetric own-PC2 test would make it a claim. Parked.
+
+Exactness note (rgb, 2026-09-22): row-centering the score matrix equals
+double-centering the item COVARIANCE exactly (checked to 1e-14). It is
+NOT exact for the CORRELATION: corr(rowcentered X) = D1^-1 (J C J) D1^-1
+with post-centering item SDs, while J R J = J D0^-1 C D0^-1 J with the
+original SDs, and J does not commute with a diagonal. Row-centering
+shrinks item SDs unevenly (SELF ratio .52-1.11, mean .78; HUMAN
+.90-1.10) and J R J is no longer a correlation matrix (SELF diagonal
+.28-1.11). In practice the two agree: off-diagonal r .986 HUMAN / .976
+SELF; after PC1 removal .984 / .961 (44-block .982 / .966). Recipe
+decision: for the score channels use corr(rowcentered) so the grid and
+the factor analysis are literally one object; for matrix-only channels
+J S J is the only option; call both "row-centered" and note the
+correlation-side approximation once.
