@@ -5177,3 +5177,29 @@ REPRESENT .98, JUDGE .98, ENACT .98; disattenuated residual congruence
 with HUMAN: SELF .66, REPRESENT .50, JUDGE .80, ENACT .72. Full 5x5
 similarity/residual matrices in the script output; Mantel p at floor
 throughout (uninformative, as before).
+
+Spectral profiles under the adopted recipe (rgb, 2026-09-22;
+scripts/spectral_profiles.py, fig_spectral_profiles). Shares of the
+positive spectrum, participation ratio, Horn k (respondent channels,
+column-permutation null):
+                 similarity            level-removed          residual
+  channel      l1  l2  PR  Horn      l1  l2  PR  Horn      l1  l2  PR
+  HUMAN        29  13  8.7  23       31  11  8.5  24       15   8  23
+  SELF         45  31  3.3   4       49  12  3.7   5       22  15  10
+  REPRESENT    15  12  18    -       15  12  18    -       13   7  22
+  JUDGE        27  11  9.6   -       26  10  10    -       12  11  22
+  ENACT        37  15  5.4   -       37  15  5.4   -       22  16  10
+SELF: row-centering folds the two-component similarity spectrum (45/31 =
+elevation + desirability) into one 49% desirability component; the
+second drops to 12% and Horn k goes 4 -> 5 (one more reliable component
+surfaces once level stops eating a slot). After PC1 the SELF residual
+has PR 10.5 with 22/15/9 leading shares — still the most concentrated
+residual with ENACT (PR 9.6), vs 22-23 for HUMAN/REPRESENT/JUDGE.
+HUMAN barely moves (level is small and surgency-shaped; k 23 -> 24).
+REPRESENT/ENACT identical by construction. JUDGE: double centering
+trims l1 27 -> 26 and lifts PR 9.6 -> 10.3. Residual PRs cluster into
+a "broad" trio (HUMAN 23, REPRESENT 22, JUDGE 22) and a "narrow" pair
+(SELF 10, ENACT 10): the narrow residuals are the two channels with
+the fewest members (49 respondents, 10 matrices) AND the strongest
+rank-2 similarity, so breadth here is partly n (SELF split-half .75)
+and partly real (ENACT split-half .98 — genuinely low-dimensional).
