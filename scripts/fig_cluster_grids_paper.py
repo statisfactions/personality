@@ -44,8 +44,11 @@ m44 = ~np.eye(44, dtype=bool)
 
 blockify, center = chn.blockify, chn.center
 grids = {c: blockify(mats[c]) for c in CH}
-# top-component removal on the grand-mean-centered matrix (pkit.channels.top_removed)
-grids_p = {c: blockify(chn.top_removed(mats[c])) for c in CH}
+# residual = level removed per channel (rows / none / double, pkit.channels.LEVEL),
+# then the largest eigencomponent removed. Legacy grand-mean version kept for the printout.
+res = chn.channel_residuals(labels, mem)
+grids_p = {c: blockify(res[c]) for c in CH}
+grids_gm = {c: blockify(chn.top_removed(mats[c])) for c in CH}
 
 
 def r(a, b):
@@ -56,7 +59,7 @@ CEIL = 0.92  # human split-half external-match ceiling, top-removed (ledger 2026
 branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 names44 = [c["label"] for c in cl]
-VLIM = {"raw": 0.6, "top comp. removed": 0.3}
+VLIM = {"similarity": 0.6, "residual": 0.3}
 
 
 def render(rows, fname, labeled_first=True):
@@ -95,8 +98,8 @@ def render(rows, fname, labeled_first=True):
     print("wrote", fname)
 
 
-render([("top comp. removed", grids_p)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
-render([("raw", grids), ("top comp. removed", grids_p)],
+render([("residual", grids_p)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
+render([("similarity", grids), ("residual", grids_p)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
 RECIPES = """Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
@@ -122,18 +125,26 @@ JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
   elsewhere); mean (n=%d).
 ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=%d).
-Top-component removal: subtract the off-diagonal mean, then the largest
-eigencomponent of each 525^2 matrix, BEFORE block aggregation (same
-eigenvector as the former entry-z path). Blocks: 44 pole-respecting Ward
+Rows: SIMILARITY = the channel's native coefficient (nothing is "raw":
+  r, cosine and phi are each one transformation of the measurements).
+  RESIDUAL = level removed where it lives, then the largest eigencomponent
+  (desirability) removed, BEFORE block aggregation. Level removal per
+  channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
+  matrix (center-only ipsatization) and re-correlate, so grid and factor
+  analysis are one object; REPRESENT/ENACT nothing (column-centered cosines
+  are already centered; matrix centering is inert, r .999); JUDGE double-
+  center phi (it carries a level and is not a correlation matrix). The
+  former grand-mean recipe leaked SELF's elevation x gain term into the
+  residual (its numbers are printed for comparison). Blocks: 44 pole-respecting Ward
 clusters (blocks44), branch-ordered; band labels = largest cluster's human
 medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
 Human split-half external-match ceiling: raw .975 / top-removed .92.""" % (
-    VLIM["raw"], VLIM["top comp. removed"], core_n, len(keepR), nJ, nE)
+    VLIM["similarity"], VLIM["residual"], core_n, len(keepR), nJ, nE)
 open("results/persona_vectors/figs/fig_cluster_grids_recipe.txt", "w").write(RECIPES)
 print(RECIPES)
-print("\ncongruence vs HUMAN (44-block). 'legacy' = entry-z per model then averaged:")
+print("\ncongruence vs HUMAN (44-block). 'grand-mean' = former recipe; 'legacy' = entry-z per model then averaged:")
 for c in CH[1:]:
-    line = f"{c:10s} raw r={r(grids[c], grids['HUMAN']):.3f}  top-removed r={r(grids_p[c], grids_p['HUMAN']):.3f}"
+    line = f"{c:10s} similarity r={r(grids[c], grids['HUMAN']):.3f}  residual r={r(grids_p[c], grids_p['HUMAN']):.3f}  [grand-mean {r(grids_gm[c], grids_gm['HUMAN']):.3f}]"
     if c in mats_z:
         gz = blockify(mats_z[c]); gzp = blockify(measures.remove_pc1(center(mats_z[c])))
         line += f"   | legacy raw {r(gz, grids['HUMAN']):.3f}  top-removed {r(gzp, grids_p['HUMAN']):.3f}"

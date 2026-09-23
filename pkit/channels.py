@@ -50,8 +50,50 @@ def center(M):
 
 
 def top_removed(M):
-    """Grand-mean centering, then remove the largest eigencomponent."""
+    """LEGACY (pre-2026-09-22): grand-mean centering, then remove the largest
+    eigencomponent. Superseded by residual()/channel_residuals(); kept for
+    the comparison rows and for reproducing earlier numbers."""
     return measures.remove_pc1(center(M))
+
+
+def double_center(S):
+    """Gower double centering J S J (J = I - 11'/n), zero diagonal."""
+    S = np.asarray(S, float); n = len(S)
+    Jm = np.eye(n) - np.ones((n, n)) / n
+    return _zero_diag(Jm @ S @ Jm)
+
+
+# Adopted level-removal recipe (rgb, 2026-09-22): remove each channel's
+# LEVEL where it lives. HUMAN/SELF: row-center the respondent x item design
+# matrix (center-only ipsatization), then correlate items -- so the grid and
+# the factor analysis are one object. REPRESENT/ENACT: nothing -- column-
+# centered cosines are already centered (matrix centering is inert, r .999).
+# JUDGE: double-center phi, which carries a level and is not a correlation
+# matrix. The residual then removes the largest eigencomponent (desirability).
+LEVEL = {"HUMAN": "rows", "SELF": "rows", "REPRESENT": "none", "ENACT": "none", "JUDGE": "double"}
+
+
+def level_removed(channel, kind, X):
+    """Cohort 525 matrix with the channel's level removed (see LEVEL)."""
+    how = LEVEL[channel]
+    if how == "rows":
+        assert kind == "respondents"
+        X = np.asarray(X, float)
+        return cohort_matrix(kind, X - X.mean(1, keepdims=True))
+    S = cohort_matrix(kind, X)
+    return double_center(S) if how == "double" else S
+
+
+def residual(channel, kind, X):
+    """Level removed, then the largest eigencomponent removed."""
+    return _zero_diag(measures.remove_pc1(level_removed(channel, kind, X)))
+
+
+def channel_residuals(labels=None, mem=None):
+    """Dict of the five residual matrices (adopted recipe)."""
+    labels = labels or load.adjectives()
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    return {c: residual(c, mem[c][0], mem[c][1]) for c in CHANNELS}
 
 
 # ---- members ---------------------------------------------------------------

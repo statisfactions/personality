@@ -443,7 +443,7 @@ class TestLoadHuman:
 
 
 # --------------------------------------------------------------------- channels
-from pkit import channels  # noqa: E402
+from pkit import channels, measures  # noqa: E402
 
 
 def test_channels_center_and_top_removed_invariants():
@@ -461,6 +461,25 @@ def test_channels_center_and_top_removed_invariants():
     assert abs(V[:, k] @ T @ V[:, k]) < 1e-8             # removed component is gone
     uni = np.ones(12) / np.sqrt(12)
     assert abs(V[:, k] @ uni) < 0.5                       # centered top axis is not the level vector
+
+
+def test_channels_level_removed_recipe():
+    rng = np.random.default_rng(3)
+    X = rng.normal(size=(25, 10)) + rng.normal(size=(25, 1)) * 2.0   # respondents with elevation
+    R = channels.level_removed("SELF", "respondents", X)
+    Xc = X - X.mean(1, keepdims=True)
+    assert np.allclose(R, channels.cohort_matrix("respondents", Xc))   # rows: row-centered then correlate
+    m = ~np.eye(10, dtype=bool)
+    assert abs(R[m].mean()) < abs(channels.cohort_matrix("respondents", X)[m].mean())  # elevation gone
+    mats = rng.normal(size=(3, 10, 10)); mats = mats + mats.transpose(0, 2, 1)
+    assert np.allclose(channels.level_removed("ENACT", "matrices", mats), mats.mean(0))  # none
+    D = channels.level_removed("JUDGE", "matrices", mats)
+    Dfull = D.copy(); Jm = np.eye(10) - np.ones((10, 10)) / 10
+    assert np.allclose(np.diag(D), 0)
+    assert np.allclose((Jm @ mats.mean(0) @ Jm)[m], Dfull[m])          # double = J S J off-diagonal
+    T = channels.residual("JUDGE", "matrices", mats)
+    w, V = np.linalg.eigh(channels.double_center(mats.mean(0))); k = np.argmax(np.abs(w))
+    assert abs(V[:, k] @ (T + np.diag(np.diag(measures.remove_pc1(channels.double_center(mats.mean(0)))))) @ V[:, k]) < 1e-8
 
 
 def test_channels_cohort_matrix_two_kinds():

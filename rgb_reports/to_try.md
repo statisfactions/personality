@@ -5150,3 +5150,30 @@ side changing treatment. JUDGE is the channel where centering acts
 Statement for the paper: centering removes level; channels whose
 construction already removed it are provably unchanged by the uniform
 recipe (r .999), so applying it is uniformity, not a double dip.
+
+## RECIPE ADOPTED: level removed where it lives (rgb, 2026-09-22)
+
+rgb's call: row-center the HUMAN and SELF design matrices (center-only
+ipsatization, then item r — grid and factor analysis are one object);
+leave REPRESENT and ENACT alone (column-centered cosines are already
+centered, matrix centering inert at r .999); double-center JUDGE (phi
+carries a level and is not a correlation matrix). Residual = that, then
+the largest eigencomponent (desirability) removed. Implemented as
+pkit.channels.LEVEL / level_removed / residual / channel_residuals;
+top_removed (grand-mean) kept as LEGACY for comparison rows. Row labels
+are now SIMILARITY (the channel's native coefficient; nothing is raw)
+and RESIDUAL. Paper grids + channel-similarity matrix re-rendered.
+
+44-block congruence with HUMAN, similarity / residual [former grand-mean]:
+  SELF       .850 / .561  [.340]
+  REPRESENT  .808 / .491  [.408]
+  JUDGE      .882 / .775  [.815]
+  ENACT      .841 / .701  [.617]
+JUDGE moves DOWN .04 under the adopted recipe (its double-centered
+residual is compared to a row-centered human residual; dc-vs-dc gave
+.803). Ranking JUDGE > ENACT > SELF > REPRESENT unchanged; SELF is no
+longer last. Residual split-half (Spearman-Brown): HUMAN .96, SELF .75,
+REPRESENT .98, JUDGE .98, ENACT .98; disattenuated residual congruence
+with HUMAN: SELF .66, REPRESENT .50, JUDGE .80, ENACT .72. Full 5x5
+similarity/residual matrices in the script output; Mantel p at floor
+throughout (uninformative, as before).

@@ -37,8 +37,9 @@ print("cohort sizes:", ns)
 cohort_matrix = chn.cohort_matrix
 
 # ---- congruence matrices at both levels, raw and top-removed ----
-G525 = {"raw": {c: mats[c] for c in CH}, "top": {c: top_removed(mats[c]) for c in CH}}
-G44 = {"raw": {c: blockify(mats[c]) for c in CH}, "top": {c: blockify(top_removed(mats[c])) for c in CH}}
+res = chn.channel_residuals(labels, mem)   # adopted recipe: level removed per channel, then PC1
+G525 = {"raw": {c: mats[c] for c in CH}, "top": {c: res[c] for c in CH}}
+G44 = {"raw": {c: blockify(mats[c]) for c in CH}, "top": {c: blockify(res[c]) for c in CH}}
 def congr(G):
     return np.array([[r_off(G[a], G[b]) for b in CH] for a in CH])
 C = {(lvl, t): congr(G) for lvl, GG in [("525", G525), ("44", G44)] for t, G in GG.items()}
@@ -60,7 +61,7 @@ for c in CH:
     for _ in range(args.halves if c != "HUMAN" else 20):
         p = rng.permutation(N); a, b = p[: N // 2], p[N // 2:]
         Ma, Mb = half_matrices(kind, X, a), half_matrices(kind, X, b)
-        rs["raw"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(top_removed(Ma)), blockify(top_removed(Mb))))
+        rs["raw"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(chn.residual(c, kind, X[a])), blockify(chn.residual(c, kind, X[b]))))
     rel[c] = {t: 2 * np.mean(v) / (1 + np.mean(v)) for t, v in rs.items()}      # Spearman-Brown to full n
 def disatt(Cm, t): return np.array([[Cm[i, j] / np.sqrt(rel[a][t] * rel[b][t]) if i != j else 1.0 for j, b in enumerate(CH)] for i, a in enumerate(CH)])
 
@@ -68,7 +69,7 @@ def show(M, title, fmt="{:7.3f}"):
     print(f"\n{title}\n{'':10s}" + "".join(f"{c:>10s}" for c in CH))
     for i, a in enumerate(CH): print(f"{a:10s}" + "".join(("       nan" if np.isnan(M[i, j]) else " " * (10 - len(fmt.format(M[i, j]))) + fmt.format(M[i, j])) for j in range(5)))
 for lvl, Cd in [("44-block", {t: C[("44", t)] for t in ["raw", "top"]}), ("525-adjective", {t: C[("525", t)] for t in ["raw", "top"]})]:
-    for t in ["raw", "top"]: show(Cd[t], f"{lvl} congruence, {'raw' if t == 'raw' else 'top component removed'}")
+    for t in ["raw", "top"]: show(Cd[t], f"{lvl} congruence, {'similarity' if t == 'raw' else 'residual (level + top component removed)'}")
 show(P44["raw"], f"Mantel p, 44-block raw ({args.perms} relabelings; floor {1/(args.perms+1):.4f})", "{:.4f}")
 show(P44["top"], f"Mantel p, 44-block top-removed ({args.perms} relabelings)", "{:.4f}")
 show(P525["top"], f"Mantel p, 525 top-removed ({max(200, args.perms // 10)} relabelings; floor {1/(max(200, args.perms // 10)+1):.4f})", "{:.4f}")

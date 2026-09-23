@@ -22,9 +22,17 @@ JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
   elsewhere); mean (n=12).
 ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=10).
-Top-component removal: subtract the off-diagonal mean, then the largest
-eigencomponent of each 525^2 matrix, BEFORE block aggregation (same
-eigenvector as the former entry-z path). Blocks: 44 pole-respecting Ward
+Rows: SIMILARITY = the channel's native coefficient (nothing is "raw":
+  r, cosine and phi are each one transformation of the measurements).
+  RESIDUAL = level removed where it lives, then the largest eigencomponent
+  (desirability) removed, BEFORE block aggregation. Level removal per
+  channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
+  matrix (center-only ipsatization) and re-correlate, so grid and factor
+  analysis are one object; REPRESENT/ENACT nothing (column-centered cosines
+  are already centered; matrix centering is inert, r .999); JUDGE double-
+  center phi (it carries a level and is not a correlation matrix). The
+  former grand-mean recipe leaked SELF's elevation x gain term into the
+  residual (its numbers are printed for comparison). Blocks: 44 pole-respecting Ward
 clusters (blocks44), branch-ordered; band labels = largest cluster's human
 medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
 Human split-half external-match ceiling: raw .975 / top-removed .92.
