@@ -5131,3 +5131,22 @@ pin-invariant over the sane range because the pin mostly moves level.
 DECISION (pending rgb): keep medP=.5, now stated as "the level gauge
 that centers phi"; note the PSD degeneracy in the appendix; optional
 per-model zero-mean gauge is a no-op downstream.
+
+Centering the cosine channels (reading group, 2026-09-22: "feels bad,
+there is already centering in the contrast that builds them"). The
+intuition is right and the operation is inert. The Gram matrix of
+column-centered vectors is exactly double-centered already (J X X' J =
+X X' when J X = X); the per-adjective normalization in the cosine
+re-introduces only a trace of level (REPRESENT off-diag mean -.001,
+row-mean sd .003; ENACT +.006, row-mean sd .042 but that profile is
+|cos| .98 with ENACT's own PC1, so top removal takes it regardless).
+Residual variants none / grand-mean / double-centering agree at r .999
+for both REPRESENT and ENACT; against a FIXED human residual the
+congruences are .485/.485/.487 and .714/.713/.712. The apparent gains
+in the recipe table (.41 -> .49, .62 -> .71) were entirely the HUMAN
+side changing treatment. JUDGE is the channel where centering acts
+(variants agree only .82; off-diag mean .034, row-mean sd .084, PC1
+|cos| .38 with the constant) — phi carries a level, cosines do not.
+Statement for the paper: centering removes level; channels whose
+construction already removed it are provably unchanged by the uniform
+recipe (r .999), so applying it is uniformity, not a double dip.
