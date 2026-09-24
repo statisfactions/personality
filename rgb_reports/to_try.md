@@ -5247,3 +5247,16 @@ looser cloud with a tail that does not follow the axis at all. That
 tail is the self-perception content the earlier absolute-variance
 comparison was pointing at. Gain and elevation are independent in
 humans (r -.02) and weakly negative in models (-.27).
+
+Row-normalized humans keep desirability as PC1 (rgb, 2026-09-24). Confirmed
+and located. After row z (center + scale) HUMAN's PC1 still has cos .93
+(correlation) / .82 (covariance) with desirability; SELF's has .24 /
+.21. With amplitude gone, the only way desirability can carry between-
+respondent variance is through the spread of r(profile, t) — how
+coherently each respondent follows the axis: humans sd .18 (mean .66),
+models sd .06 (mean .80). That spread is 7.8% of human ips-z variance
+(PC1 10.6%) vs 2.3% for models. Dropping the least coherent decile of
+humans cuts the PC1's alignment with t from .93 to .43: the human
+post-normalization "desirability" component is the incoherent tail,
+people whose self-description does not follow the axis. Models have no
+tail, so their ips-z PC1 is something else (19% share, cos .24).
