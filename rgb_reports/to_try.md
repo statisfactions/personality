@@ -5230,3 +5230,20 @@ row mean (weighted deviation +.46 to +2.02; per-model r(profile, t)
 Falcon3-3B, Mistral-Small-24B, Llama-3-8B, Command-R7B (slope 7.6-10.5);
 highest granite-3.x-8B, gemma-2-27b, gemma-3-1b (30-35). Gain and
 elevation are only weakly related (r -.27).
+
+...and humans (rgb, 2026-09-24). Same analysis on the 700 respondents:
+                       cos(v1,t)  r(PC1,gain)  gain mean/sd (CV)  gain<0   r(profile,t) mean/sd/min   mean r^2
+  HUMAN  (n=700)        .94        .993        31.1 / 11.0 (.35)  0.9%     .67 / .19 / -.77           .49
+  SELF   (n=49)         .85        .989        19.6 /  7.7 (.39)  0.0%     .81 / .06 /  .63           .66
+Both PC1s are gain (r .99). Humans press the desirability profile
+HARDER on average (31 vs 20) with a similar relative spread (CV .35 vs
+.39), and a few reverse it (6 of 700 with negative gain, 15 with the
+PC1+ mix below their row mean; one respondent at r -.77) while no model
+does. The difference is in how much of each respondent's profile the
+shared axis explains: r(profile, t) is .81 +- .06 for models (min .63)
+vs .67 +- .19 for humans (5th percentile .32, 5% below .3). Models are
+a tight family of one profile at different amplitudes; humans are a
+looser cloud with a tail that does not follow the axis at all. That
+tail is the self-perception content the earlier absolute-variance
+comparison was pointing at. Gain and elevation are independent in
+humans (r -.02) and weakly negative in models (-.27).
