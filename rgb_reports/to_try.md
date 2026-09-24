@@ -5218,3 +5218,15 @@ Likert noise plus specifics (its block-level residual is reliable at
 .96, the item level is not), SELF's EVs are framing-mean expectations
 (low cell noise); and SELF's covariance has rank <= 48, so its rest is
 concentrated (top-10 = 70% of rest vs 29%) partly by construction.
+
+Is SELF's PC1 gain? (rgb, 2026-09-24). Yes: the per-model PC1 score of
+the row-centered SELF matrix correlates .99 with the per-model slope on
+human desirability (correlation-PC1 .993, covariance-PC1 .989); the
+loading vector has cos .89 with desirability; after removing gain the
+score has no elevation left (r -.11). No model presses the profile in
+reverse: 0 of 49 have their PC1-positive adjective mix below their own
+row mean (weighted deviation +.46 to +2.02; per-model r(profile, t)
+.63-.87, min Mistral-Small). Gain runs 4x across the cohort: lowest
+Falcon3-3B, Mistral-Small-24B, Llama-3-8B, Command-R7B (slope 7.6-10.5);
+highest granite-3.x-8B, gemma-2-27b, gemma-3-1b (30-35). Gain and
+elevation are only weakly related (r -.27).
