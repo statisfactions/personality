@@ -5203,3 +5203,18 @@ a "broad" trio (HUMAN 23, REPRESENT 22, JUDGE 22) and a "narrow" pair
 the fewest members (49 respondents, 10 matrices) AND the strongest
 rank-2 similarity, so breadth here is partly n (SELF split-half .75)
 and partly real (ENACT split-half .98 — genuinely low-dimensional).
+
+Absolute variance, SELF vs HUMAN (rgb, 2026-09-24: "the non-desirability
+portion is a smaller share AND the total is smaller?"). Both 1-7 scales,
+level removed (row-centered), between-respondent variance per item:
+                      total   PC1 (share)   rest (sd)     elevation sd  gain sd
+  HUMAN (n=700)       1.78    .25 (14%)     1.53 (1.24)   .31           .31
+  SELF  (n=49)         .31    .16 (51%)      .15 (.39)    .43           .40
+Yes on both: SELF's non-desirability variance is half its total vs 86%
+for humans, and in absolute terms 10x smaller (sd 3x). Models are MORE
+spread than humans in elevation and gain (the two rank-2 terms) and far
+less spread item by item. Caveats: HUMAN's "rest" is single-response
+Likert noise plus specifics (its block-level residual is reliable at
+.96, the item level is not), SELF's EVs are framing-mean expectations
+(low cell noise); and SELF's covariance has rank <= 48, so its rest is
+concentrated (top-10 = 70% of rest vs 29%) partly by construction.
