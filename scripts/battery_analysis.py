@@ -22,22 +22,28 @@ def level_stats(ev):
 
 
 def single_item_ev(repo_us):
+    """pda-framing EV vector and the framing stability (mean pairwise r of the
+    six single-item framings' EV vectors: the k=1 analog of context retest)."""
     p = f"results/adjectives/selfreport/{repo_us}_self_full.json"
-    if not os.path.exists(p): return None
-    R = json.load(open(p))["results"].get("pda", {})
-    ev = np.array([R.get(a, {}).get("ev", np.nan) for a in labels], float)
-    return ev if np.isfinite(ev).sum() > 500 else None
+    if not os.path.exists(p): return None, np.nan
+    R = json.load(open(p))["results"]
+    ev = np.array([R.get("pda", {}).get(a, {}).get("ev", np.nan) for a in labels], float)
+    F = [f for f in R if len(R[f]) > 500]
+    M = np.array([[R[f].get(a, {}).get("ev", np.nan) for a in labels] for f in F], float)
+    rr = [np.corrcoef(M[i][np.isfinite(M[i]) & np.isfinite(M[j])], M[j][np.isfinite(M[i]) & np.isfinite(M[j])])[0, 1]
+          for i in range(len(F)) for j in range(i + 1, len(F))]
+    return (ev if np.isfinite(ev).sum() > 500 else None), (np.mean(rr) if rr else np.nan)
 
 
 for f in files:
     d = json.load(open(f)); recs = d["records"]; repo_us = os.path.basename(f).split("_battery")[0]
     print(f"\n=== {d['model']}  ({len(recs)} reads)")
-    ev1 = single_item_ev(repo_us)
+    ev1, fstab = single_item_ev(repo_us)
     hdr = f"{'k':>3s} {'mass':>5s} {'%<.1':>5s} {'lag1':>5s} {'EVslope':>8s} {'Hslope':>7s} {'retest':>6s} {'r(k=1)':>6s} {'elev':>5s} {'gain':>5s} {'idio':>5s} {'r(t)':>5s}"
     print(hdr)
     if ev1 is not None:
         e, g, idio, r = level_stats(ev1)
-        print(f"{1:3d} {'':>5s} {'':>5s} {'':>5s} {'':>8s} {'':>7s} {'':>6s} {'':>6s} {e:5.2f} {g:5.2f} {idio:5.2f} {r:5.2f}   (single-item pda arm)")
+        print(f"{1:3d} {'':>5s} {'':>5s} {'':>5s} {'':>8s} {'':>7s} {fstab:6.2f} {'':>6s} {e:5.2f} {g:5.2f} {idio:5.2f} {r:5.2f}   (single-item pda arm; retest = framing stability)")
     for k in sorted({r["k"] for r in recs}):
         rk = [r for r in recs if r["k"] == k]
         mass = np.array([r["mass"] for r in rk]); pos = np.array([r["position"] for r in rk], float)
