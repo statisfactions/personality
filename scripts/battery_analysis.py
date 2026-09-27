@@ -25,6 +25,12 @@ def single_item_ev(repo_us):
     """pda-framing EV vector and the framing stability (mean pairwise r of the
     six single-item framings' EV vectors: the k=1 analog of context retest)."""
     p = f"results/adjectives/selfreport/{repo_us}_self_full.json"
+    if not os.path.exists(p):   # the first four models were saved under their short names
+        from pkit import roster
+        shorts = [k for k, v in roster.MODELS.items() if v.replace("/", "_") == repo_us and k.islower()]
+        for sh in shorts:
+            q = f"results/adjectives/selfreport/{sh}_self_full.json"
+            if os.path.exists(q): p = q; break
     if not os.path.exists(p): return None, np.nan
     R = json.load(open(p))["results"]
     ev = np.array([R.get("pda", {}).get(a, {}).get("ev", np.nan) for a in labels], float)
