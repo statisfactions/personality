@@ -5471,3 +5471,10 @@ vs-stigma facets — the last carrying the applicability behavior. The
 single-item unique words are stance words (predictable, ordinary, quiet,
 alone, awkward on s2-); the battery's unique words are affect and
 infirmity words.
+
+Falcon-Mamba folded in (2026-09-27 17:20, rerun with the no-KV fix, full
+recompute per item, 24 min): retest .71, r with its single-item arm .90,
+gain .85 -> .94, idio .28 -> .32 — a clean mid-pack rung. Final cohort
+n=48 (46 pass the gate; fails Qwen2.5-0.5B .12, Mistral-7B-v0.1 .47):
+single-item vs battery resid r(H) .564 vs .447, sim .853 vs .677, gain
+CV .39 vs .21. Grades unchanged. gemma-2b-it remains unrun (shard).
