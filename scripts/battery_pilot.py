@@ -53,19 +53,23 @@ def read_next(text_prefix, cache):
     """Digit distribution at the end of text_prefix; cache = (ids_tensor, past)."""
     ids = tok(text_prefix, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
     past = None; start = 0
-    if cache is not None:
+    if cache is not None and cache[1] is not None:
         cids, cpast = cache
         L = cids.shape[1]
         if ids.shape[1] > L and torch.equal(ids[:, :L], cids):
             past, start = cpast, L
     with torch.no_grad():
-        out = model(input_ids=ids[:, start:], past_key_values=past, use_cache=True)
+        if cache is not None and cache[1] is None:
+            out = model(input_ids=ids, use_cache=False)          # no-KV architectures (Mamba): full recompute
+        else:
+            out = model(input_ids=ids[:, start:], past_key_values=past, use_cache=True)
     logits = out.logits[0, -1, :].float()
+    new_past = getattr(out, "past_key_values", None)             # None for Mamba (cache_params instead)
     dist = ex._prob_per_label(logits, ids_map)
     pr = torch.softmax(logits, -1)
     mass = float(sum(pr[t].item() for v in ids_map.values() for t in v))
     h = -sum(p * math.log(p) for p in dist.values() if p > 0)
-    return dist, h, mass, (ids, out.past_key_values)
+    return dist, h, mass, (ids, new_past)
 
 
 records = []
