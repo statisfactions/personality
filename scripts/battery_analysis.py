@@ -27,7 +27,7 @@ def single_item_ev(repo_us):
     p = f"results/adjectives/selfreport/{repo_us}_self_full.json"
     if not os.path.exists(p):   # the first four models were saved under their short names
         from pkit import roster
-        shorts = [k for k, v in roster.MODELS.items() if v.replace("/", "_") == repo_us and k.islower()]
+        shorts = [k for k, v in roster.MODELS.items() if v.replace("/", "_") == repo_us]
         for sh in shorts:
             q = f"results/adjectives/selfreport/{sh}_self_full.json"
             if os.path.exists(q): p = q; break
