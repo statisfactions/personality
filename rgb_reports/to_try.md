@@ -5375,3 +5375,16 @@ FINDINGS.
 DECISIONS pending rgb: (a) k=20 battery arm on the full core cohort (~2-3
 h) -> a gain-equalized SELF channel; that is the only way to test P7 at
 proper n. (b) Qwen3-8B THINK arm at k=20 for the overthinking check.
+
+Context count (rgb, 2026-09-27): Gemma-3-12B, 11 random contexts (3 + 8),
+n-vs-n disjoint split reliability of the n-context mean:
+        k=20: n=1 .905  2 .949  3 .966  4 .974  5 .978   (S-B from r1: .905 .950 .966 .974 .979)
+        k=5 : n=1 .858  2 .925  3 .950  4 .961  5 .968   (S-B:           .858 .923 .948 .960 .968)
+Spearman-Brown holds to the third decimal: contexts are exchangeable
+noise, no systematic context effect to design around. The idiosyncratic
+share of the n-mean converges fast and stays high (k=20: .55 -> .52 -> .51
+at 11; k=5: .64 -> .58 -> .57), so Gemma-12B's non-desirability content is
+real, not context noise; gain/elevation are flat in n. k=5 keeps more
+content (.57 vs .51) at slightly lower reliability. DECISION for the
+full pull: 3 contexts at k=20 (.97) — 2 would do (.95); cost ~1 min per
+context for a 12B.
