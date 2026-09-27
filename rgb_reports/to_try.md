@@ -5448,3 +5448,26 @@ and gain are partly instrument; structure is not." Data: results/
 adjectives/battery/ (47 + ctx8). Pending: mamba, gemma-2b-it, and
 whether the applicability axis is the same thing as the P18 'absurd
 premise' refusals (likely: same words).
+
+Centered PCs, single-item vs battery (rgb, 2026-09-27; scripts/battery_pcs.py,
+45 gate-passed models in both). Strength: single 48/11/9/5/4; battery
+19/12/10/5/4 — the one giant desirability component SPLITS. Cross-cosines:
+s1 (desirability, r(t) .90) -> b1 .64 AND b3 .59; s2 (grandeur vs plain)
+-> b4 .41 / b2 .40; s3 (fashionable/prosperous vs cruel/undependable) ->
+b3 .54; s4 -> b2 .56. Top-3 subspace overlap .48, top-5 .44: about half
+shared. What the split is: b1 (19%, r(t) .54) = COMPOSURE vs DISTRESS —
+thoughtful, cooperative, decent, rational, reasonable vs upset,
+disappointed, tense, irritated, demanding; b3 (10%, r(t) .68) = WARMTH/
+VITALITY vs STIGMA/INFIRMITY — devoted, romantic, bold, lovable vs
+sickly, humiliated, blind, helpless, awful (unique words: sickly, blind,
+humiliated, spoiled = the inapplicability pole again); b2 (12%) =
+EMINENCE vs NEUROTIC — brilliant, powerful, distinguished, well-known
+vs impatient, procrastinating, sensitive, emotional, messy, nervous
+(the single-item grandeur axis s2 lives on partly here and in b4, whose
+negative pole is punctual/conservative/strict/plain/little/short). So
+the battery does not add human-like content; it factors the single-
+item desirability block into affect-composure, eminence, and warmth-
+vs-stigma facets — the last carrying the applicability behavior. The
+single-item unique words are stance words (predictable, ordinary, quiet,
+alone, awkward on s2-); the battery's unique words are affect and
+infirmity words.
