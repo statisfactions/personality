@@ -5291,3 +5291,30 @@ late-page collapse (0% halve their spread). Humans used the scale the
 same way on page 7 as on page 1. So the human "battery" is 75 items in
 view; the model arm is 1. That is the format gap a battery pilot would
 close.
+
+## P21 REGISTERED (2026-09-27 13:40, before any battery result is read)
+
+Battery-size pilot: k in {5, 20, 75} x 3 random contexts, 7-model ladder
+(Qwen2.5-0.5B, gemma-3-1b, Llama-3.2-3B, Qwen2.5-7B, Qwen3-8B no-think,
+gemma-3-12b, gemma-3-27b), scaffolded per-item digit readout conditioned
+on the model's own prior answers. k=1 = the existing pda framing arm.
+Predictions (rgb's hypothesis: single-item format inflates level):
+ 1. Elevation compresses toward the scale midpoint with k in every model
+    (mean |elevation - 4| at k=20 < at k=1), by at least .2 for the
+    models above 3B. Confidence .7.
+ 2. Gain (SD along the shared desirability profile) does NOT shrink;
+    if anything it grows with k, because seeing contrasting words
+    sharpens the valence read. Confidence .6.
+ 3. The item-specific (idiosyncratic) share 1 - r^2 rises with k for the
+    7B+ models, from ~.34 at k=1 to >= .40 at k=20. Confidence .55.
+ 4. Tracking loss: the 0.5B and 1B models show lag-1 digit
+    autocorrelation > .3 and mass < .9 at k=75; the 12B/27B stay clean
+    (lag-1 < .15, mass > .97). Confidence .75.
+ 5. Test-retest across contexts at k=20 beats the single-item framing
+    reliability for the 7B+ models (r > .85). Confidence .6.
+ 6. Position effects within a battery are small for 7B+ (|EV slope| <
+    .01/position) and negative for the tiny models (drift to a
+    repeated digit). Confidence .65.
+ 7. The residual's human congruence per model does not improve with k
+    (the format helps the level, not the content). Confidence .5 —
+    this is the one rgb hopes fails.
