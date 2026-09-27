@@ -5260,3 +5260,21 @@ humans cuts the PC1's alignment with t from .93 to .43: the human
 post-normalization "desirability" component is the incoherent tail,
 people whose self-description does not follow the axis. Models have no
 tail, so their ips-z PC1 is something else (19% share, cos .24).
+
+After ipsatization, is SELF's desirability a component or scattered?
+(rgb, 2026-09-27). Scattered. In the row-z SELF correlation no
+eigenvector aligns with desirability: max |cos| .46 (PC5, 5.5% share),
+PC1 .24, PC7 .24; the top 15 components capture 45% of the axis's
+energy and the full rank-48 basis only 54% — nearly half of the
+desirability direction lies in the null space of a 49-model covariance.
+HUMAN by contrast: PC1 cos .93, 87% captured by one component. So
+"desirability" after amplitude removal is a component in humans (the
+coherence tail) and a diffuse residue in models.
+Bonus, lean: SELF's row-z PC1 (17%) is a self-PRESENTATION axis —
+admirable, inspirational, distinguished, accomplished, exceptional,
+remarkable, impressive vs polite, respectful, courteous, honest,
+attentive, plain, straightforward. Grandeur vs the humble-assistant
+register; cos .04 with the constant. This is the model-side sibling of
+the human PC2 stance axis (exciting/remarkable vs ordinary/plain), with
+the modest pole being HHH courtesy rather than ordinariness. Not yet
+checked for reliability across model halves; parked.
