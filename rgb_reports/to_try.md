@@ -5388,3 +5388,19 @@ real, not context noise; gain/elevation are flat in n. k=5 keeps more
 content (.57 vs .51) at slightly lower reliability. DECISION for the
 full pull: 3 contexts at k=20 (.97) — 2 would do (.95); cost ~1 min per
 context for a 12B.
+
+## P22 REGISTERED (2026-09-27 15:05, full-cohort battery arm launched, nothing read)
+
+k=20, 3 contexts, 42 remaining core models (+7 pilot) -> a battery-based
+SELF channel to set beside the single-item one. Predictions:
+ 1. Cohort gain CV falls from .39 (single-item) to < .25. Confidence .8.
+ 2. Residual split-half reliability of the battery SELF grid >= .85
+    (single-item .75). Confidence .65.
+ 3. Residual congruence with HUMAN (44-block, adopted recipe) improves
+    modestly: .561 -> .60-.65. Confidence .55. (rgb's hope is larger.)
+ 4. Similarity-level congruence FALLS (.85 -> ~.75) because between-model
+    desirability variance (gain spread) is what carried it. Confidence .6.
+ 5. At least 3 models fail the retest gate (< .5): tiny/odd ones
+    (gemma-2b, Qwen2.5-1.5B, falcon-mamba, gemma-2-2b). Confidence .6.
+ 6. The grandeur-vs-humble-assistant axis (row-z SELF PC1) replicates in
+    the battery cohort (loading r > .7). Confidence .5.
