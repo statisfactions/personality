@@ -5278,3 +5278,16 @@ register; cos .04 with the constant. This is the model-side sibling of
 the human PC2 stance axis (exciting/remarkable vs ordinary/plain), with
 the modest pole being HHH courtesy rather than ordinariness. Not yet
 checked for reliability across model halves; parked.
+
+Human form layout, for the single-item-vs-battery question (rgb,
+2026-09-27). The 525-PDA was 7 pages x 75 adjectives, alphabetical
+WITHIN each page (alphabet restarts every 75), 3-column bubble grid,
+so each respondent's calibration context was a page of 75, not 525,
+with a referent ("other persons you know of the same sex"). Page
+position does nothing: page means 3.74-4.31 (page 3 low because its
+words are more negative, %1 = 24), within-person SD 1.98-2.04 on every
+page, per-respondent drift +.015/page (sd .043, 3% beyond +-.1), no
+late-page collapse (0% halve their spread). Humans used the scale the
+same way on page 7 as on page 1. So the human "battery" is 75 items in
+view; the model arm is 1. That is the format gap a battery pilot would
+close.
