@@ -5404,3 +5404,47 @@ SELF channel to set beside the single-item one. Predictions:
     (gemma-2b, Qwen2.5-1.5B, falcon-mamba, gemma-2-2b). Confidence .6.
  6. The grandeur-vs-humble-assistant axis (row-z SELF PC1) replicates in
     the battery cohort (loading r > .7). Confidence .5.
+
+## P22 GRADED: full-cohort battery arm (2026-09-27 16:45; 47 models k=20 x 3 contexts, 1 h 28 min; gemma-2b-it shard missing, falcon-mamba rerunning after a KV-cache fix)
+
+Cohort table (scripts/battery_cohort.py, matched single-item vs battery, n=47 / 45 gate-passed):
+                        elev        gain (CV)      idio   sim r(H)  resid r(H)  resid split-half (S-B)
+  single-item           4.25+-.43   .87+-.34 (.39) .35    .853      .565        .60 (.75)
+  battery               3.92+-.49  1.29+-.27 (.21) .40    .654      .445        .55 (.71)
+  battery, gate-passed  3.89+-.48  1.32+-.20 (.15) .38    .561      .316        .58 (.73)
+Retest gate (<.5) fails: Qwen2.5-0.5B (.12), Mistral-7B-v0.1 (.47).
+
+GRADES. P1 gain CV < .25: HIT (.39 -> .21; .15 gate-passed). P2 residual
+reliability >= .85: MISS (.71-.73 vs .75; no gain). P3 residual congruence
+.60-.65: MISS, and in the wrong direction (.565 -> .445; .316 on the
+gate-passed set). P4 similarity congruence falls: HIT (.85 -> .65/.56).
+P5 >= 3 gate failures: MISS (2, with two models unrun). P6 grandeur axis
+replicates: MISS (|cos| .51). Score 2/6. rgb's hope (P22.3 large) is dead
+for this format.
+
+WHY THE RESIDUAL GOT LESS HUMAN. The battery genuinely de-rank-2s SELF:
+the covariance share in span(1, desirability) drops .76 -> .38, PC1 falls
+from 49% (r .90 with desirability) to 21% (r .68). But the freed
+between-model variance is response style, not content. The battery
+cohort's PC2 (12%) is INAPPLICABILITY HANDLING: homeless, blind, senile,
+unfaithful, disgusting, pathetic, evil, cold vs ambitious, emotional,
+lively, opinionated, impulsive, moody — r .56 with the human "%1 = cannot
+be applied to me" channel. The battery drives the human-inapplicable 40
+down hard (model mean 2.58 -> 1.59) and models differ in how far (sd .82
+-> .54 but now the leading non-desirability axis once gain is equal).
+PC3 (11%) is desirability-negative/unsure (-.52, -.45 with %4). Human
+respondents do not vary on either; hence residual congruence .36-.45.
+The largest residual disagreements with HUMAN are the same neighborhood
+as before (quiet x outgoing +.04 vs -.22; aggressive x romantic +.19 vs
+-.06; dumb x outgoing -.22 vs .00).
+
+VERDICT. The battery format equalizes amplitude and elevation across
+models (the level story), costs nothing in reliability at k=20, and
+reveals a second model-specific response-style axis (applicability),
+but it does not surface human-like content at the cohort level — only
+Gemma-3-12B did so individually. Keep the single-item arm as the SELF
+channel for the paper; report the battery as the format control: "level
+and gain are partly instrument; structure is not." Data: results/
+adjectives/battery/ (47 + ctx8). Pending: mamba, gemma-2b-it, and
+whether the applicability axis is the same thing as the P18 'absurd
+premise' refusals (likely: same words).
