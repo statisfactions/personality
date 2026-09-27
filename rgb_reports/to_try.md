@@ -5318,3 +5318,60 @@ Predictions (rgb's hypothesis: single-item format inflates level):
  7. The residual's human congruence per model does not improve with k
     (the format helps the level, not the content). Confidence .5 —
     this is the one rgb hopes fails.
+
+## P21 GRADED: battery-size pilot (2026-09-27 14:20; 7 models x k{5,20,75} x 3 contexts, 38 min total)
+
+Per-model tables in tmp/battery_pilot_summary.txt (scripts/battery_analysis.py).
+k=1 = existing single-item pda arm; its "retest" is framing stability.
+
+model          k=1: elev gain idio r(t) retest | k=20: elev gain idio r(t) retest r(k=1) drift/pos
+Qwen2.5-0.5B        3.27 1.00 .45 .74  .84   |       4.32  .34 .80 .44  .12    .46   +.012
+gemma-3-1b          5.37  .93 .79 .46  .62   |       3.34 1.10 .47 .73  .54    .48   +.007
+Llama-3.2-3B        4.23  .40 .60 .63  .73   |       4.59 1.02 .44 .75  .78    .78   +.026
+Qwen2.5-7B          3.51 1.50 .34 .81  .82   |       3.89 1.26 .40 .78  .72    .86   +.022
+Qwen3-8B (no-think) 4.44  .43 .54 .68  .79   |       4.08 1.48 .34 .81  .85    .75   -.008
+gemma-3-12b         2.97 1.11 .52 .69  .67   |       3.33 1.28 .51 .70  .89    .89   +.009
+gemma-3-27b         4.14 1.40 .48 .72  .71   |       3.70 1.33 .45 .74  .91    .89   -.003
+Digit mass .99-1.00 everywhere; lag-1 ~0 at k>=20 (alternation -.2..-.35 at k=5).
+
+GRADES. P1 elevation compresses: HALF (5/7 closer to 4 at k=20; cohort
+elevation sd .76 -> .44; but Qwen7's move is page drift, and Llama-3B/
+Gemma27 move away). P2 gain holds or grows: HIT (5/7 grow, Qwen7/Gemma27
+flat). P3 idiosyncratic share up for 7B+: MISS as stated — only Gemma-12B
+gains RELIABLE non-desirability content (idio .61 at k=5 / .51 at k=20
+with retest .88-.89 vs framing .67); the others gain reliability, not
+content. P4 tiny models lose track via copying/mass: HALF — outcome right
+for 0.5B, mechanism wrong: it stays compliant (mass .99, lag-1 .02) and
+answers at RANDOM (retest .12); the 1B does not lose track at all, it is
+rescued (acquiescent 5.37 -> 3.3, r(t) .46 -> .73). P5 retest at k=20
+beats the framing floor for 7B+: HIT 3/4 (Qwen7 .72 < .82 is the miss).
+P6 position effects small for 7B+: HALF (Qwen7 +.022/item = +1 scale
+point down a 75-item page; the others < .01; tiny models drift up, not
+down). P7 residual congruence per k: UNTESTABLE at n=7 (7-model residual
+split-half .06-.13 at every k). Score ~3.5/6.
+
+FINDINGS.
+1. THE BATTERY EQUALIZES GAIN. Single-item gain spans .40-1.50 across
+   these seven (CV .41); at k=20 every model >= 1B sits at 1.0-1.5 (CV
+   .31 incl. the broken 0.5B; .13 without it). The reticent single-item
+   responders (Llama-3.2-3B .40, Qwen3-8B .43) come up to 1.0-1.5 at no
+   reliability cost. So a large part of the cohort's fourfold gain
+   spread — and its elevation spread (sd .76 -> .44) — is single-item
+   format, not model trait. The population-level echo: the 7-model
+   similarity grid's human congruence FALLS .76 -> .59 at k=20 because
+   between-model desirability variance (= gain spread) is what carried it.
+2. Content is rare. Only Gemma-3-12B converts the context into reliable
+   item-specific variance, and only at k <= 20; at k=75 it reverts toward
+   the shared valence profile (r(t) .63 -> .76). The others keep their
+   idiosyncratic share (.33-.45) with higher reliability. rgb's hope
+   (P7 fails) is not met in general, but the 12B says the format CAN.
+3. Two failure modes the digit-mass check cannot see: compliant noise
+   (0.5B at k>=20: mass .99, retest .12) and page drift (Qwen2.5-7B:
+   +1 point over 75 items). Context test-retest is the required gate.
+4. Recommended k = 20: every model >= 1B passes retest >= .54 and drift
+   <= .026/item; k=5 has digit alternation, k=75 drifts Qwen7 and pulls
+   Gemma-12B back to valence. Cost is trivial (prefill reads): 38 min
+   for seven models incl. a 27B.
+DECISIONS pending rgb: (a) k=20 battery arm on the full core cohort (~2-3
+h) -> a gain-equalized SELF channel; that is the only way to test P7 at
+proper n. (b) Qwen3-8B THINK arm at k=20 for the overthinking check.
