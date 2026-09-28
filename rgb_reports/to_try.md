@@ -5499,3 +5499,12 @@ the self-as-artifact pole is a single-item-format phenomenon (each
 word asked in isolation invites "am I the kind of thing this applies
 to?"); in a battery the model is already in a person-describing register
 and the residual axis becomes eminence vs neuroticism.
+
+gemma-2b-it folded in (2026-09-27 18:05; shard re-downloaded, 15 min at
+5 GB, then a 30-s battery run). Single-item it was the cohort's flattest
+acquiescer (elevation 5.79, gain .18); the battery pulls it to 4.19 /
+.67 but context retest is .41 — FAILS the gate, the third failure with
+Qwen2.5-0.5B (.12) and Mistral-7B-v0.1 (.47). P22.5 (>= 3 gate failures,
+tiny/odd models) regraded MISS -> HIT; P22 score 3/6. Cohort complete at
+n=49 (46 gate-passed): single-item vs battery sim r(H) .850 vs .683,
+resid r(H) .561 vs .451, gain CV .39 vs .22 — verdict unchanged.
