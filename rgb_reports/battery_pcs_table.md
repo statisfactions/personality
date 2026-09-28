@@ -62,3 +62,24 @@ Split-half stability = |cos| between the matched component in two disjoint rando
 | s2 | 0.45 | 0.06 | 0.50 |
 | s3 | 0.03 | 0.66 | 0.31 |
 | s4 | 0.31 | 0.04 | 0.48 |
+
+# Battery rotated to 4 (fair comparison with single-item rotated 4)
+
+| factor | share | r(desir.) | split-half | cross (which single) | positive pole | negative pole |
+|---|---|---|---|---|---|---|
+| 1 | 17.6% | +0.60 | 0.72 | 0.73 (s1) | rational, efficient, cooperative, thoughtful, understandable, intellectual | disappointed, upset, tense, difficult, lonely, disturbed |
+| 2 | 10.6% | +0.25 | 0.59 | 0.69 (s3) | distinguished, graceful, powerful, brilliant, terrific, excellent | messy, private, procrastinating, impatient, informal, sensitive |
+| 3 | 9.2% | +0.50 | 0.49 | 0.55 (s4) | lively, bold, romantic, excited, employed, ambitious | sickly, unfaithful, disgusting, dishonest, senile, cruel |
+| 4 | 6.1% | +0.45 | 0.41 | 0.63 (s2) | warm-hearted, caring, kind-hearted, thankful, compassionate, sentimental | little, cold, big, weak, tiny, unpopular |
+
+## Cross |cos| (rows single rotated 4, cols battery rotated 4)
+
+| | b1 | b2 | b3 | b4 |
+|---|---|---|---|---|
+| s1 | 0.73 | 0.02 | 0.48 | 0.41 |
+| s2 | 0.43 | 0.00 | 0.35 | 0.63 |
+| s3 | 0.04 | 0.69 | 0.26 | 0.17 |
+| s4 | 0.31 | 0.04 | 0.55 | 0.01 |
+
+neuroticism marker loadings (mean over nervous/anxious/moody/emotional/tense/worried/sensitive/insecure), unit-vector scale x100:
+  single s1-4: -2.2 -1.2 -2.0 +7.4   battery b1-4: -5.3 -5.6 +3.5 +2.9
