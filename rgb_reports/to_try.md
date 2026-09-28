@@ -5478,3 +5478,24 @@ gain .85 -> .94, idio .28 -> .32 — a clean mid-pack rung. Final cohort
 n=48 (46 pass the gate; fails Qwen2.5-0.5B .12, Mistral-7B-v0.1 .47):
 single-item vs battery resid r(H) .564 vs .447, sim .853 vs .677, gain
 CV .39 vs .21. Grades unchanged. gemma-2b-it remains unrun (shard).
+
+Object-vs-agent axis, stability to technique (rgb, 2026-09-27). The
+n=61 ips PC3 ("patient/old/artificial/useful + guilty/ashamed vs
+opinionated/ambitious/sociable/emotional") is recovered on the current
+roster under every single-item cooking: center-only PC4 (4.8%) and row-z
+PC3 (7.5%; 7.7% at n=49) agree at |cos| .89-.92. Poles: agent =
+opinionated, competitive, affectionate, emotional, passionate, protective,
+sentimental, expressive; object = artificial, useful, logical, cooperative,
+helpful, famous, brilliant, with humiliated/homeless/ashamed joining the
+object pole under row-z (shame co-locates with thing-hood, as before).
+Marker-contrast cos .29-.34, r(t) ~ -.1: it is not desirability. Across
+INSTRUMENTS it is half-preserved: the battery's nearest axis is its PC2
+(eminence vs neurotic, 10.9%) at cos .58-.63 — the agent pole survives
+(emotional, impatient, sensitive, opinionated, preoccupied) but the
+object pole is re-anchored on eminence (brilliant, famous, powerful,
+prominent), and 'artificial'/'useful'/'logical' drop out of the top
+loadings. Battery row-z is a different object (cos .2-.3). Reading:
+the self-as-artifact pole is a single-item-format phenomenon (each
+word asked in isolation invites "am I the kind of thing this applies
+to?"); in a battery the model is already in a person-describing register
+and the residual axis becomes eminence vs neuroticism.
