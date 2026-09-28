@@ -34,3 +34,31 @@ Split-half stability = |cos| between the matched component in two disjoint rando
 | s4 | 0.21 | 0.58 | 0.03 | 0.17 | 0.09 | 0.03 |
 | s5 | 0.08 | 0.29 | 0.06 | 0.06 | 0.10 | 0.32 |
 | s6 | 0.11 | 0.04 | 0.14 | 0.13 | 0.29 | 0.12 |
+
+# Varimax-rotated: single-item top-4, battery top-3 (same 46 models)
+
+## Single-item rotated (4)
+
+| factor | share | r(desir.) | split-half | cross (which) | positive pole | negative pole |
+|---|---|---|---|---|---|---|
+| 1 | 34.4% | +0.87 | 0.93 | 0.73 (f1) | efficient, rational, honest, attentive, helpful, reliable | irresponsible, closed-minded, unreasonable, unfair, obnoxious, impolite |
+| 2 | 16.8% | +0.70 | 0.76 | 0.50 (f3) | ambitious, protective, passionate, laid-back, sociable, optimistic | cold, thin, skinny, unlucky, big, slim |
+| 3 | 9.9% | +0.48 | 0.47 | 0.66 (f2) | extraordinary, remarkable, graceful, adorable, exceptional, fascinating | unsure, ordinary, disorganized, forgetful, average, casual |
+| 4 | 7.4% | +0.02 | 0.35 | 0.48 (f3) | emotional, soft-spoken, moody, surprised, sentimental, prosperous | corrupt, unfaithful, abusive, pathetic, insulting, cruel |
+
+## Battery rotated (3)
+
+| factor | share | r(desir.) | split-half | cross (which) | positive pole | negative pole |
+|---|---|---|---|---|---|---|
+| 1 | 17.9% | +0.60 | 0.75 | 0.73 (f1) | thoughtful, rational, efficient, understandable, cooperative, believable | upset, disappointed, difficult, tense, disturbed, lonely |
+| 2 | 10.8% | +0.23 | 0.59 | 0.66 (f3) | distinguished, graceful, powerful, terrific, brilliant, influential | messy, procrastinating, impatient, sensitive, private, informal |
+| 3 | 10.1% | +0.58 | 0.59 | 0.54 (f1) | ambitious, lively, romantic, bold, lovable, social | sickly, homeless, humiliated, blind, awful, cruel |
+
+## Cross-instrument |cos| (rows single rotated, cols battery rotated)
+
+| | b1 | b2 | b3 |
+|---|---|---|---|
+| s1 | 0.73 | 0.03 | 0.54 |
+| s2 | 0.45 | 0.06 | 0.50 |
+| s3 | 0.03 | 0.66 | 0.31 |
+| s4 | 0.31 | 0.04 | 0.48 |
