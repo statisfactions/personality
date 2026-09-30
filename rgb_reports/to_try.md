@@ -5508,3 +5508,39 @@ Qwen2.5-0.5B (.12) and Mistral-7B-v0.1 (.47). P22.5 (>= 3 gate failures,
 tiny/odd models) regraded MISS -> HIT; P22 score 3/6. Cohort complete at
 n=49 (46 gate-passed): single-item vs battery sim r(H) .850 vs .683,
 resid r(H) .561 vs .451, gain CV .39 vs .22 — verdict unchanged.
+
+## Song et al. arXiv:2509.10078 — v5 forensics (2026-09-29; rgb: "is it better now?")
+
+v5 posted 2026-09-02, "Accepted at EMNLP 2026 (Main)". Diff vs the v4 we
+audited (dependencies/arxiv_2509.10078/v5.{html,txt}):
+FIXED. The tagging rule is now stated once, positive-only, with 286 value /
+  228 trait pairs — our replication's numbers — and the "|r|>0.3" remnant is
+  gone. Eq. 1 is explicitly scenario-then-construct (macro) with F.1
+  retained as the macro-vs-micro sensitivity. Internal consistency restored.
+ADDED. App. F.2 "Length-Normalized Scoring": per-token mean as a sensitivity
+  analysis; "we retain the summed score as primary." App. H "Held-Out Human
+  Reference": cross-fitted tags from rater halves; held-out HUMAN ratings
+  show construct structure (eta2 .084 values / .032 traits vs null .023 /
+  .018) while LLM likelihood means do not (.022 / .015) — a positive control
+  on the human side that v4 lacked. RQ4 retitled toward "carry over to
+  generation". The RQ3 sentence-embedding appendix is gone.
+NOT ADDRESSED. (1) Log-probs are still pooled ACROSS scenarios (per-token
+  or summed); no within-scenario normalization over the 5 candidates, so
+  length/fluency/scenario base-rate variance still swamps construct variance
+  — the confound our rescore (within-scenario z, signed labels) removes,
+  turning their -.24..-.05 split-half into +.15..+.56. (2) Still no
+  reliability statistic for the generation profile itself; "reliability"
+  appears only rhetorically. (3) Permutation p-values unchanged (0.604) —
+  consistent with our inference that the computation was pos-only
+  throughout. (4) No code/data release statement in v5 (dataset source
+  links only); "upon publication" is now due.
+VERDICT. Better paper, same artifact: the "no structure in generation" null
+  survives because the scoring rule that produces it is unchanged, and App.
+  H now hands us a cleaner lever — under THEIR cross-fitted tags and OUR
+  within-scenario scoring, LLM likelihoods should show the structure their
+  Table 23 says is absent. With EMNLP acceptance the note-ask (reliability
+  + within-scenario scoring + code) is more timely, not less. Ask
+  statisfactions whether the audit note goes out before the camera-ready.
+Also for the record: "Gemma Gets Help" (LW, Apr 2026) is Dhoot & Shah,
+  supervised by David Africa (SPAR), building on Soligo et al. "Gemma Needs
+  Help" (arXiv:2603.10011); no arXiv version of the Africa-supervised post.
