@@ -5613,3 +5613,21 @@ cloud is tight relative to persona distances): consistent with W17's
 format-dominated after winsorizing (next). The displacement profile is
 also the natural ENACT-side SELF: a 525-vector per model with reliability
 .99, which the single-item SELF matched at .65-.82 raw.
+
+Reduced ENACT design + the PC2-4 question at n=10 (2026-10-03). (a) D from
+15 random rollouts reproduces D from all 60 at r .99 in every model, on all
+525 and on the 44 medoids alike; the beyond-desirability partial r(D,SELF|t)
+computed on the 44 medoids alone is -.18..-.58 (median -.36) — the medoid
+subset keeps the signal. So a medoid ENACT arm (44 adjectives x 15
+rollouts = 660 generations + default per model vs 31,500 in the full
+recipe, ~48x cheaper, ~66k generated tokens per model) would deliver the
+displacement profile for the whole core cohort locally; statisfactions'
+GPU can go to JUDGE. (b) rgb's real question — do SELF PC2-4 mean anything
+for behavior — at n=10: sign test of (model's SELF PC_k score) against
+(its D-profile's loading on v_k): PC2 5/10 (chance), PC3 8/10
+(suggestive), PC4 4/10. PC4's D-loading is negative in 10/10 models
+regardless of their own PC4 score (-.04..-.29): the eminence/artifact
+pole is near the assistant for EVERY model — a shared effect, not an
+individual difference. PC3 (fashionable/prosperous vs cruel/undependable)
+is the one component with a hint of model-specific behavioral meaning.
+Power at n=49 (SE ~.14, PC split-half .43-.55): detects true r >= ~.4.
