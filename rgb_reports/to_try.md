@@ -5631,3 +5631,26 @@ pole is near the assistant for EVERY model — a shared effect, not an
 individual difference. PC3 (fashionable/prosperous vs cruel/undependable)
 is the one component with a hint of model-specific behavioral meaning.
 Power at n=49 (SE ~.14, PC split-half .43-.55): detects true r >= ~.4.
+
+## P24 REGISTERED (2026-10-03 14:20, medoid ENACT arm launched, nothing read)
+
+44 medoids x 15 rollouts over the 39 remaining core models -> displacement
+profiles D_m(44) for n=49. Analysis plan: block-level SELF PCs (row-
+centered, 46+ models) -> per-model SELF PC_k scores; per-model D-profile
+loading on v_k (44 medoids); correlate across 49 models; also the medoid
+version of r(D, SELF) and its desirability partial per model.
+ 1. Reliability: the 15-rollout medoid D agrees with the full-recipe D on
+    the 10 overlap models at r >= .95 (medoid subset). Confidence .8.
+ 2. r(D, SELF) on medoids is negative in >= 44/49 models, median <= -.5;
+    partial beyond desirability negative in >= 35/49, median ~ -.3. Conf .7.
+ 3. PC3 (prosperous/fashionable vs cruel/undependable) shows a cross-
+    model correlation between SELF score and D-loading of |r| >= .35 with
+    the expected sign (higher SELF score -> nearer). Confidence .5.
+ 4. PC2 (grandeur vs plain) does NOT (|r| < .25). Confidence .6.
+ 5. PC4 (object vs agent) shows a shared negative D-loading in >= 40/49
+    models and no cross-model correlation (|r| < .25) — a population
+    fact, not an individual difference. Confidence .65.
+ 6. Family structure: the Gemma family's D profiles are the least
+    desirability-organized (lowest |r(D, des)|) — W17's massive-channel
+    axis — and the Llama family's expensive poles include the
+    philosophical/imaginative words again. Confidence .6.
