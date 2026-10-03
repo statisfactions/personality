@@ -386,7 +386,8 @@ def main():
     # most one adjective's rollouts. Seeds are derived per condition, not
     # from a global counter, so a resumed run generates the same rollouts an
     # uninterrupted one would have.
-    ckpt_dir = out_dir / f"{args.model}_{tag}_ckpt"
+    model_fs = args.model.replace("/", "_")   # repo ids are valid --model values; keep paths flat
+    ckpt_dir = out_dir / f"{model_fs}_{tag}_ckpt"
     ckpt_dir.mkdir(parents=True, exist_ok=True)
 
     acts = {}    # condition -> list of (len(keep), hidden) fp32 arrays
@@ -537,7 +538,7 @@ def main():
               f"{report['assistant_axis']['cos_to_adjectives_ablated'][a]:+.3f}")
 
     # --- Save ---------------------------------------------------------------
-    base = out_dir / f"{args.model}_{tag}"
+    base = out_dir / f"{model_fs}_{tag}"
     torch.save({
         "acts": (None if args.no_save_acts else
                  {c: np.stack(acts[c]).astype(np.float32)
