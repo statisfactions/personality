@@ -5544,3 +5544,72 @@ VERDICT. Better paper, same artifact: the "no structure in generation" null
 Also for the record: "Gemma Gets Help" (LW, Apr 2026) is Dhoot & Shah,
   supervised by David Africa (SPAR), building on Soligo et al. "Gemma Needs
   Help" (arXiv:2603.10011); no arXiv version of the Africa-supervised post.
+
+## P23 REGISTERED (2026-10-03, before running): the default ENACT rollout as data
+
+rgb: the default/assistant rollout's variation, and the induced distance from
+it to each adjective persona, have never been used. Script
+scripts/enact_default_profiles.py: per model (10), mid layer, massive dims
+winsorized: D(a) = ||mean_a - mean_default|| (displacement needed to enact
+a); S(a) = D(a) / sd of the default cloud along dir_a (standardized
+displacement — how many ordinary-variation SDs away the persona sits);
+c(a) = cos(assistant axis, dir_a) (Def-2 profile, confounded by
+construction, reported with that flag).
+ 1. D(a) is reliable across rollout halves: split-half r > .8 in every
+    model. Confidence .75.
+ 2. r(D, SELF EV) is negative and moderate (-.3 to -.5): what the model
+    says it IS is what it is already near. Confidence .6.
+ 3. r(D, human desirability) is negative and stronger than (2), -.5 or
+    beyond: the assistant sits nearer the desirable personas. Conf .7.
+ 4. Cross-model agreement of the D profiles is high (mean pairwise r >
+    .7): the assistant shape is shared. Confidence .65.
+ 5. The 'cheap personas' (S(a) < 1: already traversed by question-to-
+    question variation) are the HHH/competence words — helpful, polite,
+    reliable, careful, clear; the expensive ones are stigma/infirmity and
+    affect words. Confidence .6.
+ 6. SELF predicts S(a) better than D(a) (standardizing by the default
+    cloud removes the format/verbosity norm that inflates D for some
+    adjectives): r improves by >= .1. Confidence .5.
+
+## P23 GRADED (2026-10-03): the default rollout is a self-criterion for SELF
+
+Per-model displacement D(a) = ||mean_a - mean_default|| at the mid layer
+(10 ENACT models; results/persona_vectors/enact_default_profiles.npz):
+  model     rel_D  r(D,SELF)  partial|des  low-|des| half  disatt  r(D,des)  S median
+  Aya        .99    -.82       -.33          -.70           -.97    -.85       9.0
+  Llama8     .99    -.74       -.41          -.61           -.93    -.82      11.3
+  Qwen32    1.00    -.77       -.45          -.63           -.90    -.73       7.8
+  Qwen7      .99    -.77       -.31          -.67           -.86    -.78       6.9
+  phi4       .99    -.75       -.32          -.59           -.80    -.72       7.1
+  qwen2.5    .98    -.69       -.33          -.58           -.86    -.67       4.6
+  llama3.2   .99    -.70       -.25          -.59           -.83    -.83      11.1
+  gemma3    1.00    -.65       -.16          -.46           -.76    -.71      22.3
+  Gemma27   1.00    -.40       -.19          -.27           -.48    -.37      22.7
+  Gemma12   1.00    -.32       -.27          -.26           -.39    -.20      20.2
+GRADES. P1 reliable: HIT (.98-1.00). P2 r(D,SELF) -.3..-.5: the raw r is
+far STRONGER (-.65..-.82 in 8/10; disattenuated -.76..-.97, i.e. at the
+SELF framing ceiling); the partial beyond desirability is -.16..-.45,
+median -.32 — in the predicted band. Scored HIT on the partial, undersold
+on the raw. P3 r(D,des) <= -.5: HIT 8/10 (Gemma12/27 -.20/-.37). P4 cross-
+model agreement > .7: MISS (D .63, S .54, c .41). P5 cheap personas = HHH/
+competence: HIT on content (helpful, honest, fair, reasonable, responsible,
+trustworthy, professional, knowledgeable in every model's bottom eight;
+expensive = insulting/sarcastic/violent/senile/ashamed, plus 'philosophical,
+imaginative, extraordinary' for both Llamas), MISS on scale — no persona
+is within one default-SD (S median 5-23; 0% < 1). P6 S beats D for SELF:
+MISS (S equal or worse). Score 3.5/6.
+WHAT IT MEANS. The model's self-report predicts how far its activations
+have to travel to enact each adjective, at the reliability ceiling, and a
+third of that is NOT desirability: within the half of adjectives with the
+least evaluative loading the correlation is still -.46..-.70 (Gemmas
+-.26). SELF has, for the first time, a validity criterion that lives
+inside the same model — no human reference — and it passes. "Self doesn't
+predict ENACT" was about the similarity GRID (which adjectives are near
+each other); the displacement PROFILE (which adjectives are near the
+assistant) is what self-report tracks. Gemma-3-12B/27B are the outliers
+on every column (weak desirability organization, S ~20 = the default
+cloud is tight relative to persona distances): consistent with W17's
+"Gemma's axis lives in the massive channels" — check whether their D is
+format-dominated after winsorizing (next). The displacement profile is
+also the natural ENACT-side SELF: a 525-vector per model with reliability
+.99, which the single-item SELF matched at .65-.82 raw.
