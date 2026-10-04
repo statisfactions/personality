@@ -5654,3 +5654,34 @@ version of r(D, SELF) and its desirability partial per model.
     desirability-organized (lowest |r(D, des)|) — W17's massive-channel
     axis — and the Llama family's expensive poles include the
     philosophical/imaginative words again. Confidence .6.
+
+## CORRECTION — who sits on the object-vs-agent axis (2026-10-04, found while reviewing MATS drafts)
+
+Addendum 4 above ("size-partialled family residuals: gemma +1.69
+artifact-side ... object self-construal is predominantly a lab-recipe
+signature") was read, by both of us, as "the Gemmas lean toward the
+object/artifact pole." On the current 49-model core, under both the
+center-only (PC4) and row-z (PC3) cookings, that is NOT what the data say:
+  family    n   mean (center-only / row-z)   within-family sd   range
+  qwen     10      -3.5 / -5.0                  5.7 / 6.5        -14.9 .. +7.6
+  granite   2      -5.7 / -4.9                  1.3
+  gemma    10      -0.2 / -0.5                  5.5 / 7.0        -15.8 .. +7.8
+  mistral   5      +2.5 / +3.3                  2.9 / 5.8
+  llama     4      +1.5 / +4.3                  2.0 / 5.4
+  phi       3      +4.5 / +4.9                  4.4 / 3.3
+(+ = agent pole; cohort sd 5.0 / 6.4; family eta2 .30 / .31; r with log
+size -.15 / -.16.) The object pole is QWEN2.5 (32B, 14B, 7B, 0.5B),
+GRANITE, and two individual Gemmas (gemma-4-31B at -13/-16, the old
+gemma-2b at -5/-10). Gemma-3-4B (+7.5/+7.8) and Gemma-3-27B (+6.6/+6.5)
+are among the strongest AGENT-pole models in the cohort; Gemma-3-12B is
+mildly agent (+2.4/+3.5); Gemma-2 sits near zero. Gemma has the largest
+within-family spread of any family — it is the family with no family
+position on this axis. Addendum 4's +1.69 was a size-partialled residual
+at n=61 driven by Gemma-4 and pulled further by Glimmer-era rosters; it
+is not a Gemma trait. Implications: (a) the Gemma-Needs-Help models
+(Gemma-3) sit at the AGENT pole, so any "object-construal -> distress"
+story predicts AGAINST the naive Gemma reading — which makes it a real
+registered test rather than a story; (b) the lab-recipe claim survives
+in weaker form (eta2 .30) and is carried by Qwen/Granite vs Phi/Llama/
+Mistral, not by Gemma; (c) "self-objectification scales with size"
+(Addendum 3) does not replicate at n=49 (r -.15). Memory updated.
