@@ -14,7 +14,7 @@ while read -r m; do
   fs=$(echo "$m" | tr / _)
   [ -f "$OUT/${fs}_medoids15.pt" ] && { echo "--- enact skip (exists) $m" >> $L/gpu_chain.log; continue; }
   echo "--- enact $m $(date)" >> $L/gpu_chain.log
-  timeout 7200 caffeinate -i $PY scripts/extract_persona_vectors.py --model "$m" --adjectives $(cat tmp/medoids44.txt) \
+  timeout 14400 caffeinate -i $PY scripts/extract_persona_vectors.py --model "$m" --adjectives $(cat tmp/medoids44.txt) \
     --n-questions 5 --n-sys 3 --rollouts 1 --acts-stride 4 --bootstrap 50 --tag medoids15 --out $OUT \
     >> $L/enact_medoid.log 2>&1 || echo "--- enact FAILED ($?) $m $(date)" >> $L/gpu_chain.log
 done < tmp/enact_medoid_todo.txt
