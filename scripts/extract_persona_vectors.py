@@ -211,13 +211,15 @@ def build_inputs(tokenizer, system, question, device):
             messages = [{"role": "system", "content": system},
                         {"role": "user", "content": question}]
             ids = tokenizer.apply_chat_template(
-                messages, add_generation_prompt=True, return_tensors="pt")
+                messages, add_generation_prompt=True, return_tensors="pt",
+                enable_thinking=False)   # thinking models: persona rollouts are answers, not CoT (2026-10-04)
             return _ids_tensor(ids).to(device)
         except Exception:
             question = system + "\n\n" + question
     messages = [{"role": "user", "content": question}]
     ids = tokenizer.apply_chat_template(
-        messages, add_generation_prompt=True, return_tensors="pt")
+        messages, add_generation_prompt=True, return_tensors="pt",
+                enable_thinking=False)   # thinking models: persona rollouts are answers, not CoT (2026-10-04)
     return _ids_tensor(ids).to(device)
 
 

@@ -1,7 +1,7 @@
 # Progress Note: Models Vary Widely in Strength of Self-Image
 
-Author: Randolph Brown (rgb@google.com)  
-Version: 0.2
+Author: Randolph Brown (rgb@panix.com)  
+Version: 0.3
 
 ## 1. Introduction
 
