@@ -5685,3 +5685,76 @@ registered test rather than a story; (b) the lab-recipe claim survives
 in weaker form (eta2 .30) and is carried by Qwen/Granite vs Phi/Llama/
 Mistral, not by Gemma; (c) "self-objectification scales with size"
 (Addendum 3) does not replicate at n=49 (r -.15). Memory updated.
+
+## P24 GRADED (2026-10-05 11:50) — medoid ENACT arm complete: 3.25 / 6
+
+Arm: 44 medoids x 15 rollouts (3 sys templates x 5 questions), 41 models
+(39 remaining core + Qwen2.5-7B / Llama-3.1-8B / gemma-3-4b reruns for the
+overlap check; EXAONE-3.5 excluded — `outputs.hidden_states` is None under
+its remote code; Qwen3-8B with `enable_thinking=False`). 21 h wall, peak
+84 GB (Gemma-4-31B), swap flat throughout. Script
+`scripts/enact_medoid_cohort.py`; profiles in
+`results/persona_vectors/enact_medoid_cohort.npz`. One non-enactor found by
+reading `_texts.json` and excluded: Phi-3-medium ignores the persona system
+prompt entirely (49% of its persona rollouts open with assistant
+boilerplate vs 8% for Phi-3.5-mini; "You are someone who is arrogant" gets
+"There are plenty of enjoyable activities you could do..."). n = 40 below.
+
+ 1. Reliability vs the full recipe — 0.5. Only 3 overlap models exist (the
+    pda cohort's other 7 have no medoid run). r(D): Qwen2.5-7B .93,
+    Llama-3.1-8B .97, gemma-3-4b .76; r(S) .82 / .63 / .73. One of three
+    clears .95. Split-half (Spearman-Brown) of the medoid D itself: median
+    .97, min .62 (Qwen2.5-0.5B). The 15-rollout D is reliable; agreement
+    with the full recipe is good, not the >= .95 I claimed.
+ 2. r(D, SELF) — 1.0. Median −.76, negative in 39/40 (pred <= −.5, >= 90%);
+    partial beyond desirability median −.33, negative in 39/40 (pred ~−.3,
+    >= 71%). P23's within-model finding is cohort-wide.
+ 3. PC3 — 0.25. r(SELF PC3 score, D-loading on v3) = −.12 (pred |r| >= .35,
+    negative). The unregistered S version (displacement in default-cloud
+    units) gives −.42 with the predicted sign: models that rate themselves
+    fashionable/prosperous find those words cheaper relative to their own
+    question-to-question spread. A lead, not a result.
+ 4. PC2 — 0.5. Raw D: +.32 (fails |r| < .25) — but the 44-medoid subset of
+    v2 correlates +.20 with desirability, and partialling desirability out
+    of both sides gives −.08; S gives +.18. The mechanism claim (grandeur
+    self-rating does not shape displacement geometry) holds; the test as
+    written fails on the subset confound.
+ 5. PC4 — 0.5. Shared loading in 38/40 models (37/40 after the
+    desirability partial) with no cross-model correlation (+.03): a
+    population fact, as predicted. The sign as I wrote it was wrong. With
+    + = agent pole (opinionated, affectionate, emotional; among the medoids
+    worried, confused, busy, disorganized) the loading is POSITIVE, mean
+    +.35: the assistant sits near professional / polite / organized /
+    competent and far from worried / confused / emotional. The registration
+    did not pin a sign convention; grading the direction as a miss.
+ 6. Family — 0.5. Gemma IS the least desirability-organized family among
+    those with n >= 3 (|r(D,des)| .56 vs yi .64, qwen .68, falcon .71,
+    llama .80, mistral .81), carried by gemma-3-1b (−.11; S median 29 — it
+    enacts in stage-direction theater, "(Sighs dramatically, adjusting my
+    perfectly styled hair)", which displaces everything), gemma-4-31B
+    (−.35) and gemma-3-4b (−.55). Llama's expensive poles are awkward /
+    weird / annoying / dumb / romantic / extraordinary and sad / arrogant —
+    not the philosophical/imaginative words; W17's observation does not
+    recur on the medoid set.
+
+What it says about the question that launched the arm ("does PC2-4 of SELF
+mean something directly for behavior?"): no — not as individual differences
+in displacement geometry. After the desirability partial, no SELF PC score
+predicts the corresponding D-loading (|r| <= .13 for PC1-5). The one
+SELF -> ENACT-displacement link that survives n = 40 is P23's: each model's
+own SELF ratings predict which personas are cheap for it (median −.76), and
+roughly 40% of that correlation survives partialling desirability (−.33).
+Population facts: the cohort-mean (within-model z) D profile is
+desirability-shaped (r −.87), pairwise profile agreement .65; cheapest
+everywhere: competent, professional, smart, trustworthy, respected,
+organized; most expensive: awkward, unfriendly, disorganized, dumb, crabby,
+mean. Method note: the 44-medoid subset confounds the PCs with desirability
+(r(v_k[medoids], des): PC1 .91, PC2 .20, PC3 .22, PC4 −.29) — any PC-k
+reading on a word subset needs the partial, and I should have registered
+the partialled version.
+
+Unregistered observations, not claims: the S-version PC3 (−.42); Phi-3-
+medium's absent persona channel (a sibling to W18 §7's "phi4 is the only
+idiosyncratic model"); gemma-3-1b's theater register; "trustworthy" looked
+cohort-expensive on the raw-D mean only because raw D units are model-
+specific (Gemma-3-1b dominated the average) — aggregate on within-model z.
