@@ -5758,3 +5758,39 @@ medium's absent persona channel (a sibling to W18 §7's "phi4 is the only
 idiosyncratic model"); gemma-3-1b's theater register; "trustworthy" looked
 cohort-expensive on the raw-D mean only because raw D units are model-
 specific (Gemma-3-1b dominated the average) — aggregate on within-model z.
+
+## DOWNGRADE (2026-10-06, rgb's poke) — "own SELF predicts displacement" is commonality, not individual difference
+
+rgb: "Own-self predicts displacement (even with desirability out), but not
+in the ways self varies. So I'm guessing it's mostly in commonality — how
+assistants are." Tested by splitting each model's SELF on the 44 medoids
+into the cohort-mean profile + its own deviation, and z-D likewise (n = 40
+enactors):
+
+  predictor of a model's D profile            median r   partial des
+  own SELF                                     −.76        −.33
+  cohort-mean SELF (how assistants are)        −.83        −.45
+  own deviation from cohort SELF               +.01
+  D deviation vs SELF deviation (interaction)  +.03        −.03
+  pooled over all 40 x 44 cells: interaction   +.034       +.012
+
+Own SELF beats the cohort mean in 8/40 models. The cohort-mean level link
+is r(Dbar, Sbar) −.91, −.61 beyond desirability — so the non-desirability
+part of the P23/P24.2 result is ALSO shared. Common shares of variance on
+these words: SELF .68, z-D .66. Attenuation ceiling for the interaction
+(split-half D deviations SB .89 x framing split-half SELF deviations SB
+.80) is .84; cross-half interaction estimates +.030 / +.040. A real null,
+not unreliability.
+
+Consequence: P23's finding and P24.2 were WORDED as per-model facts ("each
+model's own SELF ratings predict which personas are cheap for it"). The
+correct statement: the shared assistant self-image predicts the shared
+displacement profile, including its non-desirability part (e.g. the
+professional/organized/competent pole being cheap); model-specific SELF
+deviations carry no displacement information at n = 40. Combined with the
+P24.3-5 nulls, SELF individual differences — PC2-4 or item-level — do not
+show up in ENACT displacement geometry at all. P24.2's point stands as a
+population result; its individual-difference reading is retracted. The
+SELF channel's individual-difference validity against behavior remains
+unestablished on this criterion; the update-rate / distress criterion
+(selfperception thread) is the one that has shown it.
