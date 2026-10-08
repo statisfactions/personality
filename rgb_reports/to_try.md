@@ -5794,3 +5794,28 @@ population result; its individual-difference reading is retracted. The
 SELF channel's individual-difference validity against behavior remains
 unestablished on this criterion; the update-rate / distress criterion
 (selfperception thread) is the one that has shown it.
+
+## EXPLORATORY (2026-10-07, rgb: "any hint of spectral pattern in the D matrices?") — one component, and it is SELF's shape again
+
+Item-correlation spectrum of the within-model z-scored D matrix (40
+enactors x 44 medoids; `scripts/enact_medoid_spectrum.py`), deviation from
+the cohort mean, against a within-model permutation null (95th pct) and
+matched-component split-half (rollout halves) loading congruence:
+  dev-PC1 20.6% (null 16.5, congruence .89): GAIN on the shared
+    desirability profile — r .92 with each model's D-vs-desirability slope.
+    Low-gain models: gemma-3-1b, Qwen2.5-0.5B, gemma-4-31B, Falcon-Mamba;
+    r(log size) −.44, r(median S) +.48, family eta2 .30.
+  dev-PC2 14.2% (null 13.1, congruence .40): enactment intensity — r −.77
+    with log median S, R2 .62 from S + gain; Gemma −1.23 vs Qwen +.81.
+    Word pattern (high-S models): extraordinary/obsessive/talented/brave/
+    beautiful relatively more expensive, bossy/funny/crabby/pleasant
+    cheaper. Not claimable at .40; would need full-recipe rollout counts.
+  dev-PC3+ below the null.
+Rank-within-model transform leaves all three (cos .94-.97): not heavy tails.
+So ENACT displacement has SELF's individual-difference structure — common
+profile + per-model gain — and nothing reliable beyond. But D gain and SELF
+gain are uncorrelated across models (r +.15, Spearman +.06; D gain vs SELF
+elevation −.36). Cleanest statement of the interaction null: the two
+channels share one axis of individual variation ("how much desirability
+shapes it") and place models on it independently. Not registered, not a
+claim; a hint to carry into the paper's SELF-vs-ENACT discussion.
