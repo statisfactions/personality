@@ -85,7 +85,7 @@ show(disatt(C[("44", "top")], "top"), "44-block congruence DISATTENUATED, top co
 # to explain). Left = level removed, right = top component removed; lower triangle only,
 # diagonal = that version's split-half reliability (44-block). ----
 fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
-for ax, (t, title) in zip(axes, [("lvl", "Level removed"), ("top", "Top removed")]):
+for ax, (t, title) in zip(axes, [("lvl", "Level removed"), ("top", "Level & top removed")]):
     M = np.full((5, 5), np.nan)
     for i in range(5):
         for j in range(i):

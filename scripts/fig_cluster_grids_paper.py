@@ -63,7 +63,7 @@ branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 names44 = [c["label"] for c in cl]
 VLIM = {"similarity": 0.6, "residual": 0.3}
-ROWNAME = {"similarity": "level removed", "residual": "top removed"}  # rgb 2026-10-10: "residual" -> "top removed"
+ROWNAME = {"similarity": "level removed", "residual": "level & top removed"}  # rgb 2026-10-10: cumulative labels
 
 
 def render(rows, fname, labeled_first=True):
