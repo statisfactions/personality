@@ -43,7 +43,10 @@ m44 = ~np.eye(44, dtype=bool)
 
 
 blockify, center = chn.blockify, chn.center
-grids = {c: blockify(mats[c]) for c in CH}
+grids_raw = {c: blockify(mats[c]) for c in CH}   # native coefficients (printout only)
+# first row = level removed where it lives (rgb 2026-10-10: "level_removed is
+# right for the summary"; the SELF section handles the raw messiness)
+grids = {c: blockify(m) for c, m in chn.channel_level_removed(labels, mem).items()}
 # residual = level removed per channel (rows / none / double, pkit.channels.LEVEL),
 # then the largest eigencomponent removed. Legacy grand-mean version kept for the printout.
 res = chn.channel_residuals(labels, mem)
@@ -60,7 +63,7 @@ branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 names44 = [c["label"] for c in cl]
 VLIM = {"similarity": 0.6, "residual": 0.3}
-ROWNAME = {"similarity": "similarity", "residual": "top removed"}  # rgb 2026-10-10: "residual" -> "top removed"
+ROWNAME = {"similarity": "level removed", "residual": "top removed"}  # rgb 2026-10-10: "residual" -> "top removed"
 
 
 def render(rows, fname, labeled_first=True):
@@ -105,12 +108,11 @@ render([("similarity", grids), ("residual", grids_p)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
 RECIPES = """Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
-colorbar (raw row +-%.1f, top-removed row +-%.1f). No entry-z anywhere
+colorbar (level-removed row +-%.1f, top-removed row +-%.1f). No entry-z anywhere
 (2026-09-13; congruence r is affine-invariant, so this changes colors, not
 numbers, except that per-model matrices are now averaged in raw units).
-SIMILARITY row: no centering — HUMAN and SELF are correlations of RAW
-  ratings across respondents. TOP REMOVED row: HUMAN and SELF are first
-  row-centered (center-only ipsatization; see Rows below).
+Both rows remove level where it lives first (see Rows below); the raw
+  native coefficients appear only in the printed congruences.
 HUMAN: raw item Pearson r over 700 ESCS respondents; zero diagonal.
 SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=%d);
   item Pearson r over models-as-respondents; zero diagonal.
@@ -124,9 +126,9 @@ JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
   elsewhere); mean (n=%d).
 ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=%d).
-Rows: SIMILARITY = the channel's native coefficient (nothing is "raw":
-  r, cosine and phi are each one transformation of the measurements).
-  TOP REMOVED = level removed where it lives, then the largest eigencomponent
+Rows: LEVEL REMOVED = the channel's native coefficient (r, cosine, phi)
+  with level removed where it lives (below). TOP REMOVED = that, then the
+  largest eigencomponent
   (desirability) removed, BEFORE block aggregation. Level removal per
   channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
   matrix (center-only ipsatization) and re-correlate, so grid and factor
@@ -143,12 +145,12 @@ open("results/persona_vectors/figs/fig_cluster_grids_recipe.txt", "w").write(REC
 print(RECIPES)
 print("\ncongruence vs HUMAN (44-block). 'grand-mean' = former recipe; 'legacy' = entry-z per model then averaged:")
 for c in CH[1:]:
-    line = f"{c:10s} similarity r={r(grids[c], grids['HUMAN']):.3f}  residual r={r(grids_p[c], grids_p['HUMAN']):.3f}  [grand-mean {r(grids_gm[c], grids_gm['HUMAN']):.3f}]"
+    line = f"{c:10s} raw r={r(grids_raw[c], grids_raw['HUMAN']):.3f}  level-removed r={r(grids[c], grids['HUMAN']):.3f}  residual r={r(grids_p[c], grids_p['HUMAN']):.3f}  [grand-mean {r(grids_gm[c], grids_gm['HUMAN']):.3f}]"
     if c in mats_z:
         gz = blockify(mats_z[c]); gzp = blockify(measures.remove_pc1(center(mats_z[c])))
-        line += f"   | legacy raw {r(gz, grids['HUMAN']):.3f}  top-removed {r(gzp, grids_p['HUMAN']):.3f}"
+        line += f"   | legacy raw {r(gz, grids_raw['HUMAN']):.3f}  top-removed {r(gzp, grids_p['HUMAN']):.3f}"
     print(line + f"  (ceiling {CEIL})")
-print("\nraw-unit off-diagonal summaries (44-block): mean / sd / range")
+print("\nlevel-removed off-diagonal summaries (44-block): mean / sd / range")
 for c in CH:
     g = grids[c][m44]
     print(f"  {c:10s} {g.mean():+.3f} / {g.std():.3f} / [{g.min():+.2f}, {g.max():+.2f}]")

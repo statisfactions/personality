@@ -2,12 +2,13 @@
 
 Builds the five 525 matrices via pkit.channels (the single source of the
 adopted cooking; raw correlation-like units, core rosters, phi clipped), then reports:
-  * the 5x5 off-diagonal Pearson congruence, raw and top-component-removed,
+  * the 5x5 off-diagonal Pearson congruence, level-removed and top-removed
+    (raw native coefficients printed for reference),
     at the 525-adjective level and the 44-block level;
   * Mantel permutation p-values (adjective/block relabeling of one matrix);
   * per-channel split-half reliability (respondents/models halves) and the
     disattenuated congruence r / sqrt(rel_i * rel_j);
-  * a figure: lower triangle raw, upper triangle top-removed (44-block).
+  * a figure: two adjacent lower-triangle tables, level removed | top removed (44-block).
 Usage: .venv/bin/python scripts/channel_similarity_matrix.py [--perms 2000]
 """
 import argparse, glob, json, os
@@ -36,10 +37,12 @@ ns = {c: per[c][1].shape[0] for c in CH}
 print("cohort sizes:", ns)
 cohort_matrix = chn.cohort_matrix
 
-# ---- congruence matrices at both levels, raw and top-removed ----
+# ---- congruence matrices at both levels, level-removed and top-removed ----
 res = chn.channel_residuals(labels, mem)   # adopted recipe: level removed per channel, then PC1
-G525 = {"raw": {c: mats[c] for c in CH}, "top": {c: res[c] for c in CH}}
-G44 = {"raw": {c: blockify(mats[c]) for c in CH}, "top": {c: blockify(res[c]) for c in CH}}
+lv = chn.channel_level_removed(labels, mem)  # summary first row = level removed (rgb 2026-10-10)
+G525 = {"lvl": lv, "top": {c: res[c] for c in CH}}
+G44 = {"lvl": {c: blockify(lv[c]) for c in CH}, "top": {c: blockify(res[c]) for c in CH}}
+G44_native = {c: blockify(mats[c]) for c in CH}  # raw native coefficients, printout only
 def congr(G):
     return np.array([[r_off(G[a], G[b]) for b in CH] for a in CH])
 C = {(lvl, t): congr(G) for lvl, GG in [("525", G525), ("44", G44)] for t, G in GG.items()}
@@ -50,38 +53,39 @@ def mantel_p(A, B, perms):
     for _ in range(perms):
         p = rng.permutation(k); cnt += r_off(A, B[np.ix_(p, p)]) >= obs
     return (cnt + 1) / (perms + 1)
-P44 = {t: np.array([[mantel_p(G44[t][a], G44[t][b], args.perms) if i < j else np.nan for j, b in enumerate(CH)] for i, a in enumerate(CH)]) for t in ["raw", "top"]}
-P525 = {t: np.array([[mantel_p(G525[t][a], G525[t][b], max(200, args.perms // 10)) if i < j else np.nan for j, b in enumerate(CH)] for i, a in enumerate(CH)]) for t in ["raw", "top"]}
+P44 = {t: np.array([[mantel_p(G44[t][a], G44[t][b], args.perms) if i < j else np.nan for j, b in enumerate(CH)] for i, a in enumerate(CH)]) for t in ["lvl", "top"]}
+P525 = {t: np.array([[mantel_p(G525[t][a], G525[t][b], max(200, args.perms // 10)) if i < j else np.nan for j, b in enumerate(CH)] for i, a in enumerate(CH)]) for t in ["lvl", "top"]}
 
-# ---- split-half reliability per channel (44-block), raw and top-removed ----
+# ---- split-half reliability per channel (44-block), level-removed and top-removed ----
 def half_matrices(kind, X, idx): return zero_diag(np.corrcoef(X[idx].T)) if kind == "respondents" else X[idx].astype(np.float64).mean(0)
 rel = {}
 for c in CH:
-    kind, X = per[c]; N = X.shape[0]; rs = {"raw": [], "top": []}
+    kind, X = per[c]; N = X.shape[0]; rs = {"lvl": [], "top": []}
     for _ in range(args.halves if c != "HUMAN" else 20):
         p = rng.permutation(N); a, b = p[: N // 2], p[N // 2:]
-        Ma, Mb = half_matrices(kind, X, a), half_matrices(kind, X, b)
-        rs["raw"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(chn.residual(c, kind, X[a])), blockify(chn.residual(c, kind, X[b]))))
+        Ma, Mb = chn.level_removed(c, kind, X[a]), chn.level_removed(c, kind, X[b])
+        rs["lvl"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(chn.residual(c, kind, X[a])), blockify(chn.residual(c, kind, X[b]))))
     rel[c] = {t: 2 * np.mean(v) / (1 + np.mean(v)) for t, v in rs.items()}      # Spearman-Brown to full n
 def disatt(Cm, t): return np.array([[Cm[i, j] / np.sqrt(rel[a][t] * rel[b][t]) if i != j else 1.0 for j, b in enumerate(CH)] for i, a in enumerate(CH)])
 
 def show(M, title, fmt="{:7.3f}"):
     print(f"\n{title}\n{'':10s}" + "".join(f"{c:>10s}" for c in CH))
     for i, a in enumerate(CH): print(f"{a:10s}" + "".join(("       nan" if np.isnan(M[i, j]) else " " * (10 - len(fmt.format(M[i, j]))) + fmt.format(M[i, j])) for j in range(5)))
-for lvl, Cd in [("44-block", {t: C[("44", t)] for t in ["raw", "top"]}), ("525-adjective", {t: C[("525", t)] for t in ["raw", "top"]})]:
-    for t in ["raw", "top"]: show(Cd[t], f"{lvl} congruence, {'similarity' if t == 'raw' else 'residual (level + top component removed)'}")
-show(P44["raw"], f"Mantel p, 44-block raw ({args.perms} relabelings; floor {1/(args.perms+1):.4f})", "{:.4f}")
+for lvl, Cd in [("44-block", {t: C[("44", t)] for t in ["lvl", "top"]}), ("525-adjective", {t: C[("525", t)] for t in ["lvl", "top"]})]:
+    for t in ["lvl", "top"]: show(Cd[t], f"{lvl} congruence, {'level removed' if t == 'lvl' else 'top removed (level + top component removed)'}")
+show(P44["lvl"], f"Mantel p, 44-block level-removed ({args.perms} relabelings; floor {1/(args.perms+1):.4f})", "{:.4f}")
 show(P44["top"], f"Mantel p, 44-block top-removed ({args.perms} relabelings)", "{:.4f}")
 show(P525["top"], f"Mantel p, 525 top-removed ({max(200, args.perms // 10)} relabelings; floor {1/(max(200, args.perms // 10)+1):.4f})", "{:.4f}")
-print("\nsplit-half reliability (Spearman-Brown to full n), 44-block:", {c: (round(rel[c]["raw"], 2), round(rel[c]["top"], 2)) for c in CH})
-show(disatt(C[("44", "raw")], "raw"), "44-block congruence DISATTENUATED (r / sqrt(rel_i rel_j)), raw")
+print("\nsplit-half reliability (Spearman-Brown to full n), 44-block:", {c: (round(rel[c]["lvl"], 2), round(rel[c]["top"], 2)) for c in CH})
+show(disatt(C[("44", "lvl")], "lvl"), "44-block congruence DISATTENUATED (r / sqrt(rel_i rel_j)), level removed")
+show(congr(G44_native), "44-block congruence, RAW native coefficients (no level removal; reference only)")
 show(disatt(C[("44", "top")], "top"), "44-block congruence DISATTENUATED, top component removed")
 
 # ---- figure: two adjacent tables (rgb 2026-10-10: one packed triangle was too hard
-# to explain). Left = raw, right = top component removed; lower triangle only,
+# to explain). Left = level removed, right = top component removed; lower triangle only,
 # diagonal = that version's split-half reliability (44-block). ----
 fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
-for ax, (t, title) in zip(axes, [("raw", "Raw similarity"), ("top", "Top removed")]):
+for ax, (t, title) in zip(axes, [("lvl", "Level removed"), ("top", "Top removed")]):
     M = np.full((5, 5), np.nan)
     for i in range(5):
         for j in range(i):

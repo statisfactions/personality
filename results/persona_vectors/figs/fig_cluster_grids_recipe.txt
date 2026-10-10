@@ -1,11 +1,10 @@
 Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
-colorbar (raw row +-0.6, top-removed row +-0.3). No entry-z anywhere
+colorbar (level-removed row +-0.6, top-removed row +-0.3). No entry-z anywhere
 (2026-09-13; congruence r is affine-invariant, so this changes colors, not
 numbers, except that per-model matrices are now averaged in raw units).
-SIMILARITY row: no centering — HUMAN and SELF are correlations of RAW
-  ratings across respondents. TOP REMOVED row: HUMAN and SELF are first
-  row-centered (center-only ipsatization; see Rows below).
+Both rows remove level where it lives first (see Rows below); the raw
+  native coefficients appear only in the printed congruences.
 HUMAN: raw item Pearson r over 700 ESCS respondents; zero diagonal.
 SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=49);
   item Pearson r over models-as-respondents; zero diagonal.
@@ -19,9 +18,9 @@ JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
   elsewhere); mean (n=12).
 ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=10).
-Rows: SIMILARITY = the channel's native coefficient (nothing is "raw":
-  r, cosine and phi are each one transformation of the measurements).
-  TOP REMOVED = level removed where it lives, then the largest eigencomponent
+Rows: LEVEL REMOVED = the channel's native coefficient (r, cosine, phi)
+  with level removed where it lives (below). TOP REMOVED = that, then the
+  largest eigencomponent
   (desirability) removed, BEFORE block aggregation. Level removal per
   channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
   matrix (center-only ipsatization) and re-correlate, so grid and factor

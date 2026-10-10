@@ -5929,3 +5929,18 @@ adjacent tables (raw | top removed). Stale text corrected: the pkit.channels
 header still described the legacy grand-mean second row, and the grids
 caption still said no row-centering was applied anywhere. The numbers were
 already on the adopted recipe; only the descriptions lagged.
+
+DECISION (2026-10-10, rgb): the summary figures' FIRST row is now level
+removed, not the native coefficient ("level_removed is right for the
+summary. The section on self itself can deal with the actual messiness").
+Both rows now share the level treatment, so the drop between rows is the
+top component alone. New pkit.channels.channel_level_removed;
+channel_matrices still returns raw native coefficients.
+44-block congruence with HUMAN, raw / level removed / top removed:
+  SELF       .850 / .909 / .561
+  REPRESENT  .808 / .828 / .491
+  JUDGE      .882 / .913 / .775
+  ENACT      .841 / .864 / .701
+Level-removed split-half: SELF .98 (raw .94); others unchanged at .99-1.00.
+The level-removed row spans .78-.91 across all ten pairs, Mantel p at
+floor. Use it for the RSA "obviously there" beat.

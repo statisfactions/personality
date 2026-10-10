@@ -17,7 +17,8 @@ Every channel comes in two forms: the per-respondent / per-model MEMBERS
     ENACT      per-model persona-vector cosine, meta massive dims winsorized
                                                         -> mean matrix
 
-Top removal (the paper's second row; recipe adopted 2026-09-22, to_try.md
+Level removed (the summary figures' first row since 2026-10-10) and top
+removal (the second row; recipe adopted 2026-09-22, to_try.md
 "RECIPE ADOPTED"): remove level where it lives (LEVEL below: HUMAN/SELF
 row-center the respondent x item design matrix and re-correlate; REPRESENT/
 ENACT nothing, their column-centered cosines are already centered; JUDGE
@@ -90,6 +91,15 @@ def level_removed(channel, kind, X):
 def residual(channel, kind, X):
     """Level removed, then the largest eigencomponent removed."""
     return _zero_diag(measures.remove_pc1(level_removed(channel, kind, X)))
+
+
+def channel_level_removed(labels=None, mem=None):
+    """Dict of the five level-removed cohort matrices (the summary figures'
+    first row, rgb 2026-10-10; the raw native coefficients stay available
+    from channel_matrices for the SELF section's messiness)."""
+    labels = labels or load.adjectives()
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    return {c: level_removed(c, mem[c][0], mem[c][1]) for c in CHANNELS}
 
 
 def channel_residuals(labels=None, mem=None):
