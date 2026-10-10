@@ -60,6 +60,7 @@ branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 names44 = [c["label"] for c in cl]
 VLIM = {"similarity": 0.6, "residual": 0.3}
+ROWNAME = {"similarity": "similarity", "residual": "top removed"}  # rgb 2026-10-10: "residual" -> "top removed"
 
 
 def render(rows, fname, labeled_first=True):
@@ -91,10 +92,11 @@ def render(rows, fname, labeled_first=True):
                     nm = max(band, key=lambda c_: len(c_["members"]))["label"]
                     ax.text(-1.2, (lo + hi - 1) / 2, nm, fontsize=5.5,
                             ha="right", va="center")
-                ax.set_ylabel(tag, fontsize=8, labelpad=40)
+                ax.set_ylabel(ROWNAME[tag], fontsize=8, labelpad=40)
         cax = fig.add_subplot(gs[ri, 5])
         plt.colorbar(fig.axes[-2].images[0], cax=cax).ax.tick_params(labelsize=6)
     fig.savefig(fname, bbox_inches="tight", dpi=300)
+    fig.savefig(fname.replace(".pdf", ".png"), bbox_inches="tight", dpi=160)  # PNG twin (was stale since 09-22)
     print("wrote", fname)
 
 
@@ -106,12 +108,9 @@ correlation-like coefficient in [-1, 1], drawn in raw units on a shared
 colorbar (raw row +-%.1f, top-removed row +-%.1f). No entry-z anywhere
 (2026-09-13; congruence r is affine-invariant, so this changes colors, not
 numbers, except that per-model matrices are now averaged in raw units).
-NOTE: no within-respondent (ipsative) centering anywhere — HUMAN and SELF are
-  correlations of RAW ratings across respondents (correlation standardizes
-  each item across respondents, not within them). Elevation's influence is
-  handled at the matrix level by the top-component-removal row, identically
-  for both populations; ipsatizing first would impose the Clemans constraint
-  on both matrices (see fig_cluster_grids_ipsatize for what that does).
+SIMILARITY row: no centering — HUMAN and SELF are correlations of RAW
+  ratings across respondents. TOP REMOVED row: HUMAN and SELF are first
+  row-centered (center-only ipsatization; see Rows below).
 HUMAN: raw item Pearson r over 700 ESCS respondents; zero diagonal.
 SELF: framing-mean EVs, core instruct models (within-model SD >= 0.5, n=%d);
   item Pearson r over models-as-respondents; zero diagonal.
@@ -127,7 +126,7 @@ ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=%d).
 Rows: SIMILARITY = the channel's native coefficient (nothing is "raw":
   r, cosine and phi are each one transformation of the measurements).
-  RESIDUAL = level removed where it lives, then the largest eigencomponent
+  TOP REMOVED = level removed where it lives, then the largest eigencomponent
   (desirability) removed, BEFORE block aggregation. Level removal per
   channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
   matrix (center-only ipsatization) and re-correlate, so grid and factor

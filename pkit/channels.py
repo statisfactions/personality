@@ -17,9 +17,12 @@ Every channel comes in two forms: the per-respondent / per-model MEMBERS
     ENACT      per-model persona-vector cosine, meta massive dims winsorized
                                                         -> mean matrix
 
-Top-component removal (the paper's second row): subtract the off-diagonal
-mean (grand-mean centering), then the largest eigencomponent. See
-scripts/centering_check.py for why grand-mean and not none / Gower.
+Top removal (the paper's second row; recipe adopted 2026-09-22, to_try.md
+"RECIPE ADOPTED"): remove level where it lives (LEVEL below: HUMAN/SELF
+row-center the respondent x item design matrix and re-correlate; REPRESENT/
+ENACT nothing, their column-centered cosines are already centered; JUDGE
+double-center phi), then remove the largest eigencomponent. The former
+grand-mean version survives only as top_removed(), a LEGACY comparison.
 """
 import glob
 import json

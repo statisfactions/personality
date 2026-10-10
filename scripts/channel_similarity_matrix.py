@@ -77,19 +77,29 @@ print("\nsplit-half reliability (Spearman-Brown to full n), 44-block:", {c: (rou
 show(disatt(C[("44", "raw")], "raw"), "44-block congruence DISATTENUATED (r / sqrt(rel_i rel_j)), raw")
 show(disatt(C[("44", "top")], "top"), "44-block congruence DISATTENUATED, top component removed")
 
-# ---- figure: lower = raw, upper = top-removed (44-block), diagonal = reliability (raw/top) ----
-fig, ax = plt.subplots(figsize=(6.2, 5.4)); M = np.zeros((5, 5))
-for i in range(5):
-    for j in range(5): M[i, j] = C[("44", "raw")][i, j] if i > j else (C[("44", "top")][i, j] if i < j else np.nan)
-im = ax.imshow(np.nan_to_num(M, nan=1.0), cmap="RdBu_r", vmin=-1, vmax=1)
-for i in range(5):
-    for j in range(5):
-        txt = f"{M[i,j]:.2f}" if i != j else f"{rel[CH[i]]['raw']:.2f}\n{rel[CH[i]]['top']:.2f}"
-        ax.text(j, i, txt, ha="center", va="center", fontsize=9 if i != j else 7, color="white" if (i != j and abs(M[i, j]) > .6) else "black")
-ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8); ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
-ax.set_title("Channel congruence on 44 blocks: lower = raw, upper = top component removed,\ndiagonal = split-half reliability (raw / top-removed)", fontsize=8)
-fig.colorbar(im, shrink=.75); fig.tight_layout(); out = "results/persona_vectors/figs/fig_channel_similarity"
-fig.savefig(out + ".pdf", dpi=300); fig.savefig(out + ".png", dpi=160); print("\nwrote", out)
+# ---- figure: two adjacent tables (rgb 2026-10-10: one packed triangle was too hard
+# to explain). Left = raw, right = top component removed; lower triangle only,
+# diagonal = that version's split-half reliability (44-block). ----
+fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
+for ax, (t, title) in zip(axes, [("raw", "Raw similarity"), ("top", "Top removed")]):
+    M = np.full((5, 5), np.nan)
+    for i in range(5):
+        for j in range(i):
+            M[i, j] = C[("44", t)][i, j]
+    im = ax.imshow(np.ma.masked_invalid(M), cmap="RdBu_r", vmin=-1, vmax=1)
+    for i in range(5):
+        for j in range(i + 1):
+            if i == j:
+                ax.text(j, i, f"{rel[CH[i]][t]:.2f}", ha="center", va="center", fontsize=8, style="italic", color="0.35")
+            else:
+                ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if abs(M[i, j]) > .6 else "black")
+    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8, rotation=30, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title(title, fontsize=10)
+fig.text(0.44, 0.01, "Off-diagonal Pearson congruence between channel matrices (44 blocks). Diagonal, italic: split-half reliability.", ha="center", fontsize=8)
+fig.colorbar(im, ax=axes, shrink=.7, pad=.02); out = "results/persona_vectors/figs/fig_channel_similarity"
+fig.savefig(out + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out + ".png", dpi=160, bbox_inches="tight"); print("\nwrote", out)
 
 # ---- reasonableness of top-component removal: are the removed axes the same axis? ----
 print("\ntop component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
