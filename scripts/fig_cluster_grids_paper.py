@@ -127,7 +127,7 @@ JUDGE: per-model tom_likely EV matrix B -> pairs-only potential psi ->
 ENACT: per-model persona vectors, meta massive dims winsorized;
   column-centered cosine; zero diagonal; mean (n=%d).
 Rows: LEVEL REMOVED = the channel's native coefficient (r, cosine, phi)
-  with level removed where it lives (below). TOP REMOVED = that, then the
+  with level removed where it lives (below). LEVEL & TOP REMOVED = that, then the
   largest eigencomponent
   (desirability) removed, BEFORE block aggregation. Level removal per
   channel (2026-09-22): HUMAN/SELF row-center the respondent x item design
