@@ -228,6 +228,71 @@ def _ids_tensor(ids):
     return ids if torch.is_tensor(ids) else ids["input_ids"]
 
 
+def _stop_ids(model, tokenizer):
+    stop_ids = {tokenizer.eos_token_id}
+    gc_eos = getattr(model.generation_config, "eos_token_id", None)
+    stop_ids.update(gc_eos if isinstance(gc_eos, (list, tuple))
+                    else [gc_eos] if gc_eos is not None else [])
+    stop_ids.discard(None)
+    return stop_ids
+
+
+def _states_from_seq(model, tokenizer, seq, prompt_len, skip_first, avg_window):
+    """Shared tail of the single and batched paths: decode the response span
+    of an UNPADDED sequence (terminators already stripped) and re-forward it
+    alone, so activations never see padding."""
+    end = seq.shape[0]
+    start = prompt_len + skip_first
+    if end - start < 1:
+        return None, "", 0
+    text = tokenizer.decode(seq[prompt_len:end], skip_special_tokens=True)
+    end_w = min(end, start + avg_window) if avg_window > 0 else end
+    with torch.no_grad():
+        outputs = model(seq[:end].unsqueeze(0), output_hidden_states=True)
+    states = torch.stack([
+        hs[0, start:end_w, :].float().mean(dim=0)
+        for hs in outputs.hidden_states
+    ]).cpu()
+    return states, text, end - start
+
+
+def rollout_batch_states(model, tokenizer, prompts, device, max_new_tokens,
+                         temperature, top_p, seed, skip_first=0, avg_window=0):
+    """Batched variant (--gen-batch, 2026-10-10): sample all `prompts` (list of
+    1-D id tensors) in ONE left-padded generate call, then cut each response
+    at its first terminator and re-forward each sequence unpadded via
+    _states_from_seq. Sampling is statistically equivalent to the single
+    path but not bitwise (one seed per batch, not per rollout)."""
+    torch.manual_seed(seed)
+    pad = tokenizer.pad_token_id
+    if pad is None:
+        pad = tokenizer.eos_token_id
+    L = max(p.shape[0] for p in prompts)
+    ids = torch.full((len(prompts), L), pad, dtype=prompts[0].dtype)
+    att = torch.zeros((len(prompts), L), dtype=torch.long)
+    for i, p in enumerate(prompts):
+        ids[i, L - p.shape[0]:] = p.cpu()
+        att[i, L - p.shape[0]:] = 1
+    with torch.no_grad():
+        out = model.generate(
+            input_ids=ids.to(device), attention_mask=att.to(device),
+            do_sample=temperature > 0,
+            temperature=temperature if temperature > 0 else None,
+            top_p=top_p if temperature > 0 else None,
+            max_new_tokens=max_new_tokens, pad_token_id=pad,
+        )
+    stop = _stop_ids(model, tokenizer)
+    res = []
+    for i, p in enumerate(prompts):
+        resp = out[i, L:].tolist()
+        cut = next((j for j, t in enumerate(resp) if t in stop), len(resp))
+        seq = torch.cat([p.to(device),
+                         torch.tensor(resp[:cut], dtype=p.dtype, device=device)])
+        res.append(_states_from_seq(model, tokenizer, seq, p.shape[0],
+                                    skip_first, avg_window))
+    return res
+
+
 def rollout_mean_states(model, tokenizer, input_ids, device, max_new_tokens,
                         temperature, top_p, seed, skip_first=0, avg_window=0):
     """Generate one sampled rollout, then re-forward the full sequence and
@@ -340,6 +405,9 @@ def main():
                     help="response tokens to drop from the front of the span")
     ap.add_argument("--bootstrap", type=int, default=200)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--gen-batch", type=int, default=1,
+                    help="sample this many rollouts per generate() call "
+                         "(left-padded; re-forward stays unpadded). 1 = legacy path")
     ap.add_argument("--dtype", default="bfloat16")
     ap.add_argument("--out", default="results/persona_vectors")
     args = ap.parse_args()
@@ -414,25 +482,38 @@ def main():
         # Default condition gets the same rollout budget as one persona.
         per_sys = args.rollouts * (len(sys_templates) if cond == DEFAULT_KEY
                                    else 1)
-        for sp in sys_prompts:
-            for q in questions:
-                input_ids = build_inputs(tokenizer, sp, q, device)
-                for _ in range(per_sys):
-                    seed += 1
-                    states, text, n_resp = rollout_mean_states(
-                        model, tokenizer, input_ids, device,
-                        args.max_new_tokens, args.temperature, args.top_p,
-                        seed, args.skip_first, args.avg_window)
-                    if states is None:
-                        continue
-                    arr = states.numpy()
-                    sums[cond] = sums.get(cond, 0.0) + arr.astype(np.float64)
-                    acts[cond].append(arr[keep])
-                    texts[cond].append({
-                        "sys": sp, "question": q, "text": text,
-                        "n_resp": n_resp,
-                        "leak": cond != DEFAULT_KEY and leaks(text, cond),
-                    })
+        jobs = [(sp, q) for sp in sys_prompts for q in questions
+                for _ in range(per_sys)]
+        if args.gen_batch > 1:
+            results = []
+            for b0 in range(0, len(jobs), args.gen_batch):
+                chunk = jobs[b0:b0 + args.gen_batch]
+                seed += 1
+                results += rollout_batch_states(
+                    model, tokenizer,
+                    [build_inputs(tokenizer, sp, q, device)[0]
+                     for sp, q in chunk], device,
+                    args.max_new_tokens, args.temperature, args.top_p,
+                    seed, args.skip_first, args.avg_window)
+        else:
+            results = []
+            for sp, q in jobs:
+                seed += 1
+                results.append(rollout_mean_states(
+                    model, tokenizer, build_inputs(tokenizer, sp, q, device),
+                    device, args.max_new_tokens, args.temperature,
+                    args.top_p, seed, args.skip_first, args.avg_window))
+        for (sp, q), (states, text, n_resp) in zip(jobs, results):
+            if states is None:
+                continue
+            arr = states.numpy()
+            sums[cond] = sums.get(cond, 0.0) + arr.astype(np.float64)
+            acts[cond].append(arr[keep])
+            texts[cond].append({
+                "sys": sp, "question": q, "text": text,
+                "n_resp": n_resp,
+                "leak": cond != DEFAULT_KEY and leaks(text, cond),
+            })
         tmp = ck.with_suffix(".tmp")
         torch.save({"acts": np.stack(acts[cond]).astype(np.float32),
                     "texts": texts[cond], "sum": sums[cond],

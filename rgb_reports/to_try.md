@@ -5819,3 +5819,68 @@ elevation −.36). Cleanest statement of the interaction null: the two
 channels share one axis of individual variation ("how much desirability
 shapes it") and place models on it independently. Not registered, not a
 claim; a hint to carry into the paper's SELF-vs-ENACT discussion.
+
+## SYNTHESIS (2026-10-10, rgb: "maybe I'm missing something that ties this together?") — the medoid arm is the W17 §15 diagonal test again
+
+No new analysis; a reading of results already on the books.
+
+The W17 §15 diagonal test asked whether a model's SELF profile predicts its
+own ENACT profile better than other models' do. Answer then: diagonal r .71
+vs off-diagonal .69, increment +.02, n ≈ 10, no reliability ceiling. The
+medoid arm asked the same question with a different behavioral readout
+(displacement of each persona from the model's own default, not the ENACT
+profile) at n = 40, and this time with a ceiling: cohort-mean SELF beats own
+SELF (−.83 vs −.76), and the deviation-on-deviation interaction is +.03
+against a .84 ceiling. Same answer, two metrics, four times the models, and
+the null is now shown not to be unreliability.
+
+What the second pass adds is the positive half, which the "press release"
+phrasing in synthesis.md undersells. The shared self-description is
+ACCURATE about the population: the adjectives assistants claim are the ones
+whose personas sit closest to the default (r −.91 at the cohort level, −.61
+beyond desirability). Self-report is right about the role and silent about
+the actor.
+
+Where individual differences do show up, they are scalars, not profiles:
+  - SELF: elevation / desirability gain is the dominant per-model term;
+    PC2-4 shapes exist but carry nothing into ENACT.
+  - ENACT displacement: the one reliable deviation component is a gain on the
+    shared profile (congruence .89), uncorrelated with the SELF gain (.15).
+  - Self-perception: update rate (a gain on evidence) predicts distress
+    escalation (a gain on failure), r +.93, n = 8.
+The one cross-channel individual link pairs two gains of the same kind
+(responsiveness to failure evidence). The two that fail pair gains of
+different kinds (SELF response style vs enactment intensity). Candidate
+statement, NOT a registered result: models share shapes and differ in gains;
+gains transfer across channels only when they measure the same
+responsiveness. Testing it would need a gain measured two ways on the same
+models, which the wide ENACT run (below) partly enables.
+
+## LAUNCHED (2026-10-10 14:18) — full-adjective ENACT on the big/new models, batched generation
+
+rgb: "while the GPU is free ... pulling full-adjective enact starting this
+time with the bigger/newer models seems best." Paper recipe unchanged (523
+PDA adjectives x 5 framings x 12 questions x 1 rollout, 60-token averaging
+window, acts stride 4) via scripts/gpu_chain_enact_full.sh into
+results/persona_vectors/pda_wide/. Order (tmp/enact_full_todo.txt): Gemma4-31B,
+Qwen3.8-27B, OLMo2-32B, Mistral-Small-24B, Qwen3-14B, Yi1.5-34B, Aya-32B,
+Gemma2-27B, Phi4-14B, Qwen2.5-14B. Glimmer-30B left out (always-thinking;
+no plain persona rollout). Overlap with the paper's cohort-10 ENACT: none
+except by family, so ENACT n goes 10 -> 20 if all finish.
+
+One method change, validated before launch: --gen-batch N samples N rollouts
+per generate() call (left-padded; each response cut at its first terminator
+and re-forwarded UNPADDED, so activations never see padding). Not bitwise
+equal to the legacy path (one seed per batch). Check on Qwen2.5-7B medoids,
+batched vs the existing legacy capture:
+
+  r(D profile, legacy vs batched)    .990   (ceiling from split halves .981)
+  D scale ratio batched/legacy       1.006
+  per-medoid direction cos           median .90  (legacy split-half .72)
+  r(direction-cosine matrices)       .923
+  mean response tokens / capped      97.3 / .90  vs 97.6 / .91
+  leak rate                          .080 vs .088
+
+Throughput gain only ~2.3x at batch 15 on a 7B (25 s vs 57 s per
+condition). Budget at that rate: ~2.5 days per 30B model, ~2-3 weeks for the
+list. Resumable per condition; reorder or trim the todo file to change course.
