@@ -105,6 +105,45 @@ fig.text(0.44, 0.01, "Off-diagonal Pearson congruence between channel matrices (
 fig.colorbar(im, ax=axes, shrink=.7, pad=.02); out = "results/persona_vectors/figs/fig_channel_similarity"
 fig.savefig(out + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out + ".png", dpi=160, bbox_inches="tight"); print("\nwrote", out)
 
+# ---- three-panel variant (rgb 2026-10-10): what top removal takes out, between
+# the before/after tables. Middle panel is a DIFFERENT measure (cosine between
+# the channels' PC1 loading vectors on 525 adjectives, level-removed matrices,
+# same component remove_pc1 removes), so it gets its own sequential colormap
+# and its diagonal shows PC1's share of the positive spectrum. ----
+def _pc1(M):
+    A = np.array(M, float); np.fill_diagonal(A, 0.0); w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w))
+    return V[:, k] * np.sign(V[labels.index("kind"), k]), w[k] / w[w > 0].sum()
+PCv = {c: _pc1(lv[c]) for c in CH}
+PCC = np.array([[PCv[a][0] @ PCv[b][0] for b in CH] for a in CH])
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.8), gridspec_kw={"wspace": 0.42})
+panels = [("lvl", "Level removed", "congruence"), (None, "Removed component (PC1)", "pc1"), ("top", "Level & top removed", "congruence")]
+for ax, (t, title, kind_) in zip(axes, panels):
+    M = np.full((5, 5), np.nan)
+    for i in range(5):
+        for j in range(i):
+            M[i, j] = PCC[i, j] if kind_ == "pc1" else C[("44", t)][i, j]
+    cmap, vmin = ("Purples", 0) if kind_ == "pc1" else ("RdBu_r", -1)
+    im_ = ax.imshow(np.ma.masked_invalid(M), cmap=cmap, vmin=vmin, vmax=1)
+    for i in range(5):
+        for j in range(i + 1):
+            if i == j:
+                d = f"{100 * PCv[CH[i]][1]:.0f}%" if kind_ == "pc1" else f"{rel[CH[i]][t]:.2f}"
+                ax.text(j, i, d, ha="center", va="center", fontsize=8, style="italic", color="0.35")
+            else:
+                ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if M[i, j] > .6 or M[i, j] < -.6 else "black")
+    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8, rotation=30, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.set_title(title, fontsize=10, pad=24)
+    sub = "matrix congruence, 44 blocks; diagonal: split-half reliability" if kind_ == "congruence" else "PC1 loading cosine, 525 adjectives; diagonal: PC1 share"
+    ax.text(0.5, 1.02, sub, transform=ax.transAxes, ha="center", va="bottom", fontsize=7, color="0.3")
+    cax = make_axes_locatable(ax).append_axes("right", size="5%", pad=0.08)
+    if t == "lvl": cax.axis("off")   # keep panel sizes equal; one congruence bar serves both tables
+    else: fig.colorbar(im_, cax=cax).ax.tick_params(labelsize=7)
+out3 = "results/persona_vectors/figs/fig_channel_similarity_3panel"
+fig.savefig(out3 + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out3 + ".png", dpi=160, bbox_inches="tight"); print("wrote", out3)
+
 # ---- reasonableness of top-component removal: are the removed axes the same axis? ----
 print("\ntop component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
 tops, shares = {}, {}
