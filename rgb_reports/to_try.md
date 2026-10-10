@@ -5944,3 +5944,19 @@ channel_matrices still returns raw native coefficients.
 Level-removed split-half: SELF .98 (raw .94); others unchanged at .99-1.00.
 The level-removed row spans .78-.91 across all ten pairs, Mantel p at
 floor. Use it for the RSA "obviously there" beat.
+
+TABLE (2026-10-10, rgb: "a table of PC1 loading similarity, and top unique
+loading words, to assert that top-removed makes sense"):
+scripts/pc1_loading_table.py -> ../personality-paper/_data/table_pc1_loadings.md.
+Same component remove_pc1 takes out, on the LEVEL-REMOVED matrices (the
+09-17 check used legacy grand-mean centering). Signed cosines between
+channels' PC1s .77-.92 (lowest REPRESENT-ENACT), every one positive with
+kind +; split-half stability .94-.99; eigenvalues all positive; shares
+HUMAN 31, SELF 49, REPRESENT 15, JUDGE 26, ENACT 37%. Each channel's PC1
+correlates .87-.95 with the mean of the other four. Channel-specific
+residual words are readable: SELF claims complex/unusual/unique and
+disclaims glamorous/sexy/athletic/wealthy (the object-vs-agent and
+embodiment story); ENACT puts humorous/funny/playful lower than the
+consensus. Note for the paper: the human list includes dated terms
+(retarded, handicapped) that surface in the REPRESENT/ENACT residual
+columns.
