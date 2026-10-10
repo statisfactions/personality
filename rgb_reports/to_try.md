@@ -5884,3 +5884,41 @@ batched vs the existing legacy capture:
 Throughput gain only ~2.3x at batch 15 on a 7B (25 s vs 57 s per
 condition). Budget at that rate: ~2.5 days per 30B model, ~2-3 weeks for the
 list. Resumable per condition; reorder or trim the todo file to change course.
+
+## FILED (2026-10-10, rgb) — ENACT in the thinking era: does enacting after thinking match enacting without it?
+
+rgb: "for this to be generally useful, it does need to extend into the
+modern thinking era. We have a few models that can act as a bridge — do the
+rollouts when actually enacting after thinking match what the model would do
+without thinking? That doesn't fully claim that thinking-only models would
+do exactly the same thing, but we could fudge in other ways, including
+interrupting Glimmer's thinking at various stages before continuing."
+
+Not started, not registered. Design notes for when it is picked up:
+
+- **Bridge models (hybrid / toggle).** Gemma4-31B, Qwen3.8-27B, Qwen3-14B,
+  NemotronNano-8B. Same persona prompt, thinking on vs off. All but Nemotron
+  are already in the wide no-think chain, so the off arm comes free.
+- **Always-thinking models.** Glimmer-30B, and R1-Llama-8B, which is flagged.
+  For these, interrupt the thinking at a fixed budget and force-close it
+  before the answer. Budgets of 0 (empty prefilled think), 64, 256 and 1024
+  tokens give a dose-response curve. Reuse the think-arm forced-close
+  machinery and the Gemma4 footprint leak guard.
+- **What to read.** Activations averaged over the answer tokens only (after
+  the think block closes), in the same 60-token window. Compare each persona's
+  displacement from default and its direction, and the ENACT similarity
+  matrix, between thinking and no-thinking. The ceiling comes from no-think
+  split halves.
+- **What could differ, and why it matters.** Thinking may reason the persona
+  away: the assistant re-asserts itself in the trace ("I should still be
+  helpful") and the answer lands nearer the default. Or it may deepen the
+  persona. A cheap first readout is the per-adjective D ratio, thinking over
+  no-thinking. Also read the traces: does the trace plan the character or
+  argue with it?
+- **Cost.** Thinking multiplies tokens per rollout about 5-10x. Start on the
+  44 medoids x 15 rollouts, not the full 523. The medoid set already has a
+  no-think baseline on most of the bridge models.
+- **Limit (rgb's caveat).** Agreement on the bridge models licenses "thinking
+  does not move enactment" only for hybrids. The Glimmer budget curve is the
+  fudge toward thinking-only models: if D is flat in budget, interrupting at
+  zero is a fair proxy.
