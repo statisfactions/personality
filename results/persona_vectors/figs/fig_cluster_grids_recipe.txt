@@ -30,5 +30,8 @@ Rows: LEVEL REMOVED = the channel's native coefficient (r, cosine, phi)
   former grand-mean recipe leaked SELF's elevation x gain term into the
   residual (its numbers are printed for comparison). Blocks: 44 pole-respecting Ward
 clusters (blocks44), branch-ordered; band labels = largest cluster's human
-medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
-Human split-half external-match ceiling: raw .975 / top-removed .92.
+medoid. Congruence r: off-diagonal Pearson vs HUMAN on the full 525 matrices
+(blocks are display only).
+Reliability ceilings at the 525 level (split-half, Spearman-Brown; from
+scripts/channel_similarity_matrix.py): HUMAN .95 level removed / .85 level &
+top removed; the former .975 / .92 were 44-block.

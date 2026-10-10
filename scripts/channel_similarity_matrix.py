@@ -8,7 +8,8 @@ adopted cooking; raw correlation-like units, core rosters, phi clipped), then re
   * Mantel permutation p-values (adjective/block relabeling of one matrix);
   * per-channel split-half reliability (respondents/models halves) and the
     disattenuated congruence r / sqrt(rel_i * rel_j);
-  * a figure: two adjacent lower-triangle tables, level removed | top removed (44-block).
+  * figures: level removed | (PC1 cosine |) level & top removed, all at the
+    525-adjective level (rgb 2026-10-10; blocks only for display grids).
 Usage: .venv/bin/python scripts/channel_similarity_matrix.py [--perms 2000]
 """
 import argparse, glob, json, os
@@ -58,14 +59,17 @@ P525 = {t: np.array([[mantel_p(G525[t][a], G525[t][b], max(200, args.perms // 10
 
 # ---- split-half reliability per channel (44-block), level-removed and top-removed ----
 def half_matrices(kind, X, idx): return zero_diag(np.corrcoef(X[idx].T)) if kind == "respondents" else X[idx].astype(np.float64).mean(0)
-rel = {}
+rel, rel525 = {}, {}
 for c in CH:
-    kind, X = per[c]; N = X.shape[0]; rs = {"lvl": [], "top": []}
+    kind, X = per[c]; N = X.shape[0]; rs = {"lvl": [], "top": []}; rf = {"lvl": [], "top": []}
     for _ in range(args.halves if c != "HUMAN" else 20):
         p = rng.permutation(N); a, b = p[: N // 2], p[N // 2:]
         Ma, Mb = chn.level_removed(c, kind, X[a]), chn.level_removed(c, kind, X[b])
-        rs["lvl"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(chn.residual(c, kind, X[a])), blockify(chn.residual(c, kind, X[b]))))
+        Ra, Rb = chn.residual(c, kind, X[a]), chn.residual(c, kind, X[b])
+        rs["lvl"].append(r_off(blockify(Ma), blockify(Mb))); rs["top"].append(r_off(blockify(Ra), blockify(Rb)))
+        rf["lvl"].append(r_off(Ma, Mb)); rf["top"].append(r_off(Ra, Rb))
     rel[c] = {t: 2 * np.mean(v) / (1 + np.mean(v)) for t, v in rs.items()}      # Spearman-Brown to full n
+    rel525[c] = {t: 2 * np.mean(v) / (1 + np.mean(v)) for t, v in rf.items()}
 def disatt(Cm, t): return np.array([[Cm[i, j] / np.sqrt(rel[a][t] * rel[b][t]) if i != j else 1.0 for j, b in enumerate(CH)] for i, a in enumerate(CH)])
 
 def show(M, title, fmt="{:7.3f}"):
@@ -77,31 +81,35 @@ show(P44["lvl"], f"Mantel p, 44-block level-removed ({args.perms} relabelings; f
 show(P44["top"], f"Mantel p, 44-block top-removed ({args.perms} relabelings)", "{:.4f}")
 show(P525["top"], f"Mantel p, 525 top-removed ({max(200, args.perms // 10)} relabelings; floor {1/(max(200, args.perms // 10)+1):.4f})", "{:.4f}")
 print("\nsplit-half reliability (Spearman-Brown to full n), 44-block:", {c: (round(rel[c]["lvl"], 2), round(rel[c]["top"], 2)) for c in CH})
+print("split-half reliability (Spearman-Brown to full n), 525:", {c: (round(rel525[c]["lvl"], 2), round(rel525[c]["top"], 2)) for c in CH})
+_d525 = lambda Cm, t: np.array([[Cm[i, j] / np.sqrt(rel525[a][t] * rel525[b][t]) if i != j else 1.0 for j, b in enumerate(CH)] for i, a in enumerate(CH)])
+show(_d525(C[("525", "lvl")], "lvl"), "525 congruence DISATTENUATED, level removed")
+show(_d525(C[("525", "top")], "top"), "525 congruence DISATTENUATED, level & top removed")
 show(disatt(C[("44", "lvl")], "lvl"), "44-block congruence DISATTENUATED (r / sqrt(rel_i rel_j)), level removed")
 show(congr(G44_native), "44-block congruence, RAW native coefficients (no level removal; reference only)")
 show(disatt(C[("44", "top")], "top"), "44-block congruence DISATTENUATED, top component removed")
 
 # ---- figure: two adjacent tables (rgb 2026-10-10: one packed triangle was too hard
 # to explain). Left = level removed, right = top component removed; lower triangle only,
-# diagonal = that version's split-half reliability (44-block). ----
+# diagonal = that version's split-half reliability (525). ----
 fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
 for ax, (t, title) in zip(axes, [("lvl", "Level removed"), ("top", "Level & top removed")]):
     M = np.full((5, 5), np.nan)
     for i in range(5):
         for j in range(i):
-            M[i, j] = C[("44", t)][i, j]
+            M[i, j] = C[("525", t)][i, j]
     im = ax.imshow(np.ma.masked_invalid(M), cmap="RdBu_r", vmin=-1, vmax=1)
     for i in range(5):
         for j in range(i + 1):
             if i == j:
-                ax.text(j, i, f"{rel[CH[i]][t]:.2f}", ha="center", va="center", fontsize=8, style="italic", color="0.35")
+                ax.text(j, i, f"{rel525[CH[i]][t]:.2f}", ha="center", va="center", fontsize=8, style="italic", color="0.35")
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if abs(M[i, j]) > .6 else "black")
     ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8, rotation=30, ha="right")
     ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
     for sp in ax.spines.values(): sp.set_visible(False)
     ax.set_title(title, fontsize=10)
-fig.text(0.44, 0.01, "Off-diagonal Pearson congruence between channel matrices (44 blocks). Diagonal, italic: split-half reliability.", ha="center", fontsize=8)
+fig.text(0.44, 0.01, "Off-diagonal Pearson congruence between channel matrices (525 adjectives). Diagonal, italic: split-half reliability.", ha="center", fontsize=8)
 fig.colorbar(im, ax=axes, shrink=.7, pad=.02); out = "results/persona_vectors/figs/fig_channel_similarity"
 fig.savefig(out + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out + ".png", dpi=160, bbox_inches="tight"); print("\nwrote", out)
 
@@ -122,13 +130,13 @@ for ax, (t, title, kind_) in zip(axes, panels):
     M = np.full((5, 5), np.nan)
     for i in range(5):
         for j in range(i):
-            M[i, j] = PCC[i, j] if kind_ == "pc1" else C[("44", t)][i, j]
+            M[i, j] = PCC[i, j] if kind_ == "pc1" else C[("525", t)][i, j]
     cmap, vmin = ("Purples", 0) if kind_ == "pc1" else ("RdBu_r", -1)
     im_ = ax.imshow(np.ma.masked_invalid(M), cmap=cmap, vmin=vmin, vmax=1)
     for i in range(5):
         for j in range(i + 1):
             if i == j:
-                d = f"{100 * PCv[CH[i]][1]:.0f}%" if kind_ == "pc1" else f"{rel[CH[i]][t]:.2f}"
+                d = f"{100 * PCv[CH[i]][1]:.0f}%" if kind_ == "pc1" else f"{rel525[CH[i]][t]:.2f}"
                 ax.text(j, i, d, ha="center", va="center", fontsize=8, style="italic", color="0.35")
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if M[i, j] > .6 or M[i, j] < -.6 else "black")
@@ -136,7 +144,7 @@ for ax, (t, title, kind_) in zip(axes, panels):
     ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
     for sp in ax.spines.values(): sp.set_visible(False)
     ax.set_title(title, fontsize=10, pad=24)
-    sub = "matrix congruence, 44 blocks; diagonal: split-half reliability" if kind_ == "congruence" else "PC1 loading cosine, 525 adjectives; diagonal: PC1 share"
+    sub = "matrix congruence, 525 adjectives; diagonal: split-half reliability" if kind_ == "congruence" else "PC1 loading cosine, 525 adjectives; diagonal: PC1 share"
     ax.text(0.5, 1.02, sub, transform=ax.transAxes, ha="center", va="bottom", fontsize=7, color="0.3")
     cax = make_axes_locatable(ax).append_axes("right", size="5%", pad=0.08)
     if t == "lvl": cax.axis("off")   # keep panel sizes equal; one congruence bar serves both tables

@@ -5960,3 +5960,20 @@ embodiment story); ENACT puts humorous/funny/playful lower than the
 consensus. Note for the paper: the human list includes dated terms
 (retarded, handicapped) that surface in the REPRESENT/ENACT residual
 columns.
+
+CHANGE (2026-10-10, rgb: "the matrix r should be on the full 525 matrix, not
+the clustered one"). Every congruence in the summary figures, and the grids'
+r labels, is now on the full 525 matrices. Blocks stay for display only. It
+matters more than expected: block aggregation averages away item noise and
+raises every r. Congruence with HUMAN, 525 (44-block):
+                level removed    level & top removed   disattenuated L&T (525)
+  SELF          .74 (.91)        .32 (.56)             .47
+  REPRESENT     .59 (.83)        .33 (.49)             .37
+  JUDGE         .80 (.91)        .58 (.77)             .65
+  ENACT         .75 (.86)        .54 (.70)             .60
+525 split-half (level / L&T): HUMAN .95/.85, SELF .91/.56, REPRESENT
+.99/.98, JUDGE .97/.94, ENACT .97/.97. Ranking JUDGE > ENACT unchanged.
+SELF and REPRESENT tie raw at 525, where SELF was ahead at 44. Disattenuated,
+SELF is ahead again, because SELF's item-level residual is the least reliable
+(.56, 49 models). Any paper text citing .56/.49/.77/.70 must move to the 525
+numbers.

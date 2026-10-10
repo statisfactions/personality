@@ -46,7 +46,8 @@ blockify, center = chn.blockify, chn.center
 grids_raw = {c: blockify(mats[c]) for c in CH}   # native coefficients (printout only)
 # first row = level removed where it lives (rgb 2026-10-10: "level_removed is
 # right for the summary"; the SELF section handles the raw messiness)
-grids = {c: blockify(m) for c, m in chn.channel_level_removed(labels, mem).items()}
+lvfull = chn.channel_level_removed(labels, mem)
+grids = {c: blockify(m) for c, m in lvfull.items()}
 # residual = level removed per channel (rows / none / double, pkit.channels.LEVEL),
 # then the largest eigencomponent removed. Legacy grand-mean version kept for the printout.
 res = chn.channel_residuals(labels, mem)
@@ -58,7 +59,7 @@ def r(a, b):
     return np.corrcoef(a[m44], b[m44])[0, 1]
 
 
-CEIL = 0.92  # human split-half external-match ceiling, top-removed (ledger 2026-09-12)
+CEIL = 0.92  # 44-BLOCK human ceiling (ledger 2026-09-12); printout only. 525-level: .95 / .85
 branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
                            for b in sorted({c["branch"] for c in cl})])[:-1]
 names44 = [c["label"] for c in cl]
@@ -71,7 +72,7 @@ def render(rows, fname, labeled_first=True):
     fig = plt.figure(figsize=(7.0, (1.62 if not labeled_first else 2.05) * nr))
     gs = fig.add_gridspec(nr, 6, width_ratios=[1.45, 1, 1, 1, 1, 0.06],
                           wspace=0.06, hspace=0.25)
-    for ri, (tag, G) in enumerate(rows):
+    for ri, (tag, G, F) in enumerate(rows):
         v = VLIM[tag]
         for ci, c in enumerate(CH):
             ax = fig.add_subplot(gs[ri, ci])
@@ -83,7 +84,7 @@ def render(rows, fname, labeled_first=True):
             if ri == 0:
                 ax.set_title(c, fontsize=8, pad=3)
             if c != "HUMAN":
-                ax.set_xlabel(f"r = {r(G[c], G['HUMAN']):.2f}", fontsize=7, labelpad=2)
+                ax.set_xlabel(f"r = {chn.congruence(F[c], F['HUMAN']):.2f}", fontsize=7, labelpad=2)  # 525-level (rgb 2026-10-10); grids are blocked for display only
             if ci == 0:
                 # 8 branch-band labels (44 cluster labels can't fit at
                 # 5-up scale; the full key is an appendix table). Band
@@ -103,8 +104,8 @@ def render(rows, fname, labeled_first=True):
     print("wrote", fname)
 
 
-render([("residual", grids_p)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
-render([("similarity", grids), ("residual", grids_p)],
+render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
+render([("similarity", grids, lvfull), ("residual", grids_p, res)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
 RECIPES = """Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
@@ -138,8 +139,11 @@ Rows: LEVEL REMOVED = the channel's native coefficient (r, cosine, phi)
   former grand-mean recipe leaked SELF's elevation x gain term into the
   residual (its numbers are printed for comparison). Blocks: 44 pole-respecting Ward
 clusters (blocks44), branch-ordered; band labels = largest cluster's human
-medoid. Congruence r: off-diagonal Pearson vs HUMAN at block level.
-Human split-half external-match ceiling: raw .975 / top-removed .92.""" % (
+medoid. Congruence r: off-diagonal Pearson vs HUMAN on the full 525 matrices
+(blocks are display only).
+Reliability ceilings at the 525 level (split-half, Spearman-Brown; from
+scripts/channel_similarity_matrix.py): HUMAN .95 level removed / .85 level &
+top removed; the former .975 / .92 were 44-block.""" % (
     VLIM["similarity"], VLIM["residual"], core_n, len(keepR), nJ, nE)
 open("results/persona_vectors/figs/fig_cluster_grids_recipe.txt", "w").write(RECIPES)
 print(RECIPES)
