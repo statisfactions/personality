@@ -5922,3 +5922,10 @@ Not started, not registered. Design notes for when it is picked up:
   does not move enactment" only for hybrids. The Glimmer budget curve is the
   fudge toward thinking-only models: if D is flat in budget, interrupting at
   zero is a fair proxy.
+
+NOTE (2026-10-10, rgb): paper row label RESIDUAL renamed "top removed" (same
+recipe as RECIPE ADOPTED 2026-09-22). fig_channel_similarity is now two
+adjacent tables (raw | top removed). Stale text corrected: the pkit.channels
+header still described the legacy grand-mean second row, and the grids
+caption still said no row-centering was applied anywhere. The numbers were
+already on the adopted recipe; only the descriptions lagged.
