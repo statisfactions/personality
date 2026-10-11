@@ -215,13 +215,34 @@ def congruence(A, B):
 
 # ---- paper-facing summaries (data only; presentation lives in the paper) ----
 
-def top_component(M, labels, ref="kind"):
+SHARE_DIAG = {"HUMAN": "ones", "SELF": "ones", "REPRESENT": "ones", "JUDGE": "zero", "ENACT": "ones"}
+
+
+def spectrum_share(w, diag="ones"):
+    """Eigenvalue shares from the ZERO-diagonal spectrum w (descending order
+    not required). diag="ones": unit diagonal restored (w + 1), i.e. the
+    textbook percent of item variance; valid for the correlation/cosine
+    channels, whose ones-diagonal matrices are PSD. diag="zero": share of the
+    positive part of the zero-diagonal spectrum (JUDGE: double-centered phi
+    is not a correlation matrix, so it has no item-variance reading).
+    (rgb 2026-10-11: zero-diagonal shares were being read as percent of
+    variance; HUMAN PC1 .31 zero-diag vs .16 ones-diag.)"""
+    w = np.asarray(w, float)
+    if diag == "ones":
+        w1 = w + 1.0
+        return w1 / w1[w1 > 0].sum()
+    return w / w[w > 0].sum()
+
+
+def top_component(M, labels, ref="kind", diag="ones"):
     """The component measures.remove_pc1 removes (largest |eigenvalue| of the
-    zero-diagonal matrix), signed so `ref` loads positive.
-    Returns (loadings, eigenvalue, share of the positive spectrum)."""
+    zero-diagonal matrix; the diagonal shifts eigenvalues uniformly, so the
+    loadings do not depend on it), signed so `ref` loads positive.
+    Returns (loadings, zero-diagonal eigenvalue, share per spectrum_share(diag);
+    pass diag=SHARE_DIAG[channel])."""
     A = np.array(M, float); np.fill_diagonal(A, 0.0)
     w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w)); v = V[:, k]
-    return v * np.sign(v[labels.index(ref)]), float(w[k]), float(w[k] / w[w > 0].sum())
+    return v * np.sign(v[labels.index(ref)]), float(w[k]), float(spectrum_share(w, diag)[k])
 
 
 def congruence_table(which="level", labels=None, mem=None):
@@ -243,7 +264,8 @@ def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=
     level-removed 525 matrices. Returns a dict:
       cos        5x5 DataFrame, signed cosines between channels' PC1 loadings
       loadings   DataFrame adjectives x channels
-      share      Series, PC1 share of the positive spectrum
+      share      Series, PC1 share (spectrum_share, diag=SHARE_DIAG: percent of
+                 item variance; JUDGE positive spectrum)
       stability  Series, mean |cos| between PC1s of random member halves
       r_others   Series, r of each channel's loadings with the mean of the other four
       top_pos / top_neg          {channel: [adjectives]}, highest / lowest loadings
@@ -256,7 +278,7 @@ def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=
     LV = channel_level_removed(labels, mem)
     P, share = {}, {}
     for c in CHANNELS:
-        P[c], _, share[c] = top_component(LV[c], labels)
+        P[c], _, share[c] = top_component(LV[c], labels, diag=SHARE_DIAG[c])
     rng = np.random.default_rng(seed); stab = {}
     for c in CHANNELS:
         kind, X = mem[c][0], mem[c][1]; N = X.shape[0]; cs = []

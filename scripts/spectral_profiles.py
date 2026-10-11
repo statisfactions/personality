@@ -20,9 +20,15 @@ lev = {c: chn.level_removed(c, mem[c][0], mem[c][1]) for c in CH}
 res = {c: chn.residual(c, mem[c][0], mem[c][1]) for c in CH}
 
 
-def spectrum(S):
-    w = np.sort(np.linalg.eigvalsh(S))[::-1]; p = w[w > 0]
-    return w, p / p.sum(), p.sum() ** 2 / (p ** 2).sum()
+def spectrum(S, c):
+    """Shares and PR with the diagonal convention of pkit.channels.SHARE_DIAG
+    (rgb 2026-10-11): unit diagonal (percent of item variance) for the
+    correlation/cosine channels, positive zero-diagonal spectrum for JUDGE.
+    Also returns the former zero-diagonal positive-part PR for comparison."""
+    w = np.sort(np.linalg.eigvalsh(chn._zero_diag(S)))[::-1]
+    sh = chn.spectrum_share(w, chn.SHARE_DIAG[c]); p = sh[sh > 0]
+    p0 = w[w > 0]
+    return w, sh, 1.0 / (p ** 2).sum(), p0.sum() ** 2 / (p0 ** 2).sum()
 
 
 def horn_k(X, n_perm=20, seed=0):
@@ -36,24 +42,24 @@ def horn_k(X, n_perm=20, seed=0):
     return k, thr[0]
 
 
-print(f"{'channel':10s} {'stage':14s} {'l1%':>6s} {'l2%':>6s} {'l3%':>6s} {'l4-10%':>7s} {'PR':>6s} {'Horn k':>7s} {'Horn thr1':>9s}")
+print(f"{'channel':10s} {'stage':14s} {'l1%':>6s} {'l2%':>6s} {'l3%':>6s} {'l4-10%':>7s} {'PR':>6s} {'PR0':>6s} {'Horn k':>7s} {'Horn thr1':>9s}")
 rows = {}
 for c in CH:
     kind, X, _ = mem[c]
     for stage, S in [("similarity", mats[c]), ("level-removed", lev[c]), ("residual", res[c])]:
-        w, sh, pr = spectrum(S); rows[(c, stage)] = sh
+        w, sh, pr, pr0 = spectrum(S, c); rows[(c, stage)] = sh
         hk = ""
         if kind == "respondents" and stage != "residual":
             Xs = np.asarray(X, float) if stage == "similarity" else np.asarray(X, float) - np.asarray(X, float).mean(1, keepdims=True)
             k, thr = horn_k(Xs); hk = f"{k:7d} {thr/n*100:9.2f}"
-        print(f"{c:10s} {stage:14s} {100*sh[0]:6.1f} {100*sh[1]:6.1f} {100*sh[2]:6.1f} {100*sh[3:10].sum():7.1f} {pr:6.1f} {hk}")
+        print(f"{c:10s} {stage:14s} {100*sh[0]:6.1f} {100*sh[1]:6.1f} {100*sh[2]:6.1f} {100*sh[3:10].sum():7.1f} {pr:6.1f} {pr0:6.1f} {hk}")
 
 fig, axes = plt.subplots(1, 5, figsize=(11, 2.6), sharey=True)
 for ax, c in zip(axes, CH):
     for stage, ls in [("similarity", "-"), ("level-removed", "--"), ("residual", ":")]:
         ax.plot(np.arange(1, 21), 100 * rows[(c, stage)][:20], ls, marker="o", ms=2.5, label=stage)
     ax.set_title(c, fontsize=9); ax.set_xlabel("component", fontsize=8); ax.tick_params(labelsize=7)
-axes[0].set_ylabel("% of positive spectrum", fontsize=8); axes[0].set_yscale("log"); axes[-1].legend(fontsize=7, frameon=False)
+axes[0].set_ylabel("% of item variance\n(Judge: of positive spectrum)", fontsize=8); axes[0].set_yscale("log"); axes[-1].legend(fontsize=7, frameon=False)
 out = "results/persona_vectors/figs/fig_spectral_profiles"
 fig.savefig(out + ".pdf", bbox_inches="tight", dpi=300); fig.savefig(out + ".png", bbox_inches="tight", dpi=200)
 print("wrote", out + ".pdf/.png")

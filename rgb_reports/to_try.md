@@ -6029,3 +6029,26 @@ a different direction. This fits the unregistered "shared shapes, different
 gains" unifier. Caveat: the overlap subset is the Hampson list, half desirable
 and half undesirable by design, so it may overweight evaluative extremes
 relative to all 525.
+
+CHANGE (2026-10-11, rgb: "I'd assumed we'd take the diagonals as 1s"). Eigen
+shares were computed on ZERO-diagonal matrices (the four_grid_compare
+convention) and read as percent of variance. A constant diagonal shifts every
+eigenvalue uniformly, so loadings, remove_pc1, and all congruences are
+unchanged (and the removed component is the positive top in every channel and
+stage). Only shares/PR move. New convention, pkit.channels.SHARE_DIAG +
+spectrum_share: unit diagonal (percent of item variance) for HUMAN, SELF,
+REPRESENT, ENACT, whose ones-diagonal matrices are PSD; JUDGE keeps the positive
+zero-diagonal spectrum (double-centered phi is not a correlation matrix; min
+eigenvalue -7 even with ones), marked * in figures.
+PC1 share, level removed (zero-diag -> new): HUMAN .31->.16, SELF .49->.45,
+REPRESENT .15->.09, JUDGE .26 (unchanged), ENACT .37->.30.
+Rank check: SELF has 49 respondents (rank 48), so is its share mechanically
+inflated? HUMAN subsampled to 49 (50 draws): .18 [.13,.27] vs SELF .45; noise
+at n=49: .03. SELF's dominance is real.
+spectral_profiles.py PR (level removed, zero-diag PR0 -> unit-diag PR):
+HUMAN 8.5->27.7, SELF 3.7->4.4, REPRESENT 17.7->47.6, JUDGE 10.3, ENACT
+5.4->8.6. Any text citing the old shares or PRs must move.
+NOT changed: older per-script analyses on zero-diagonal matrices (P24 SELF PC
+shares in enact_medoid_cohort/battery_pcs, effdim in
+question_sensitivity_enact, the four_grid lineage). The SELF population PR
+(11.6 vs 50.2) and Horn analyses already used np.corrcoef (unit diagonal).

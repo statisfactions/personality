@@ -118,11 +118,13 @@ fig.savefig(out + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out + ".png
 # the before/after tables. Middle panel is a DIFFERENT measure (cosine between
 # the channels' PC1 loading vectors on 525 adjectives, level-removed matrices,
 # same component remove_pc1 removes), so it gets its own sequential colormap
-# and its diagonal shows PC1's share of the positive spectrum. ----
-def _pc1(M):
-    A = np.array(M, float); np.fill_diagonal(A, 0.0); w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w))
-    return V[:, k] * np.sign(V[labels.index("kind"), k]), w[k] / w[w > 0].sum()
-PCv = {c: _pc1(lv[c]) for c in CH}
+# and its diagonal shows PC1's share: percent of item variance (unit diagonal)
+# for the correlation/cosine channels; JUDGE (double-centered phi, not a
+# correlation matrix) shows share of the positive spectrum, marked * (rgb 2026-10-11). ----
+def _pc1(c):
+    v, _, sh = chn.top_component(lv[c], labels, diag=chn.SHARE_DIAG[c]); return v, sh
+PCv = {c: _pc1(c) for c in CH}
+SHTXT = {c: f"{100 * PCv[c][1]:.0f}%" + ("*" if chn.SHARE_DIAG[c] == "zero" else "") for c in CH}
 PCC = np.array([[PCv[a][0] @ PCv[b][0] for b in CH] for a in CH])
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.8), gridspec_kw={"wspace": 0.42})
@@ -137,7 +139,7 @@ for ax, (t, title, kind_) in zip(axes, panels):
     for i in range(5):
         for j in range(i + 1):
             if i == j:
-                d = f"{100 * PCv[CH[i]][1]:.0f}%" if kind_ == "pc1" else f"{rel525[CH[i]][t]:.2f}"
+                d = SHTXT[CH[i]] if kind_ == "pc1" else f"{rel525[CH[i]][t]:.2f}"
                 ax.text(j, i, d, ha="center", va="center", fontsize=8, style="italic", color="0.35")
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if M[i, j] > .6 or M[i, j] < -.6 else "black")
@@ -184,7 +186,7 @@ def lower(src):
 
 base = "results/persona_vectors/figs/fig_channel_similarity_"
 panel(lower(C[("525", "lvl")]), [f"{rel525[c]['lvl']:.2f}" for c in CH], "RdBu_r", -1, "congruence", base + "level")
-panel(lower(PCC), [f"{100 * PCv[c][1]:.0f}%" for c in CH], "Purples", 0, "PC1 cosine", base + "pc1")
+panel(lower(PCC), [SHTXT[c] for c in CH], "Purples", 0, "PC1 cosine", base + "pc1")
 panel(lower(C[("525", "top")]), [f"{rel525[c]['top']:.2f}" for c in CH], "RdBu_r", -1, "congruence", base + "top")
 
 # ---- reasonableness of top-component removal: are the removed axes the same axis? ----
