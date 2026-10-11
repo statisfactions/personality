@@ -277,3 +277,13 @@ def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=
         out["unique_pos"][c], out["unique_neg"][c] = top(res, k_unique, 1), top(res, k_unique, -1)
     out["r_others"] = pd.Series(out["r_others"])
     return out
+
+
+def mantel_p(A, B, perms=1000, seed=0):
+    """One-sided Mantel permutation p for off-diagonal congruence: relabel B's
+    rows and columns together. Floor is 1 / (perms + 1)."""
+    rng = np.random.default_rng(seed)
+    obs = congruence(A, B); k = len(A); m = ~np.eye(k, dtype=bool); a = np.asarray(A)[m]
+    hits = sum(np.corrcoef(a, np.asarray(B)[np.ix_(p, p)][m])[0, 1] >= obs
+               for p in (rng.permutation(k) for _ in range(perms)))
+    return (hits + 1) / (perms + 1)
