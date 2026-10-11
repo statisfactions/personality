@@ -26,6 +26,7 @@ labels = pkit.load.adjectives(); FR = pkit.load.FRAMINGS; n = len(labels)
 cl = pkit.facets.clusters("blocks44"); m44 = ~np.eye(44, dtype=bool); m525 = ~np.eye(n, dtype=bool)
 rng = np.random.default_rng(0)
 CH = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
+CHD = [c.title() for c in CH]  # figure labels: title case (paper text: small caps)
 
 from pkit.channels import center, top_removed, blockify, congruence as r_off
 def zero_diag(S): S = np.array(S, float); np.fill_diagonal(S, 0); return S
@@ -105,8 +106,8 @@ for ax, (t, title) in zip(axes, [("lvl", "A: Level removed"), ("top", "B: Level 
                 ax.text(j, i, f"{rel525[CH[i]][t]:.2f}", ha="center", va="center", fontsize=8, style="italic", color="0.35")
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if abs(M[i, j]) > .6 else "black")
-    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8, rotation=30, ha="right")
-    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
+    ax.set_xticks(range(5)); ax.set_xticklabels(CHD, fontsize=8, rotation=30, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CHD, fontsize=8)
     for sp in ax.spines.values(): sp.set_visible(False)
     ax.set_title(title, fontsize=10)
 fig.text(0.44, 0.01, "Off-diagonal Pearson congruence between channel matrices (525 adjectives). Diagonal, italic: split-half reliability.", ha="center", fontsize=8)
@@ -140,8 +141,8 @@ for ax, (t, title, kind_) in zip(axes, panels):
                 ax.text(j, i, d, ha="center", va="center", fontsize=8, style="italic", color="0.35")
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=10, color="white" if M[i, j] > .6 or M[i, j] < -.6 else "black")
-    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=8, rotation=30, ha="right")
-    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=8)
+    ax.set_xticks(range(5)); ax.set_xticklabels(CHD, fontsize=8, rotation=30, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CHD, fontsize=8)
     for sp in ax.spines.values(): sp.set_visible(False)
     ax.set_title(title, fontsize=10, pad=24)
     sub = "matrix congruence, 525 adjectives; diagonal: split-half reliability" if kind_ == "congruence" else "PC1 loading cosine, 525 adjectives; diagonal: PC1 share"
@@ -167,8 +168,8 @@ def panel(M, diag, cmap, vmin, cbar_label, out):
             else:
                 ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=6.5,
                         color="white" if abs(M[i, j]) > .6 else "black")
-    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=5.5, rotation=35, ha="right")
-    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=5.5)
+    ax.set_xticks(range(5)); ax.set_xticklabels(CHD, fontsize=5.5, rotation=35, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CHD, fontsize=5.5)
     ax.tick_params(length=0, pad=1.5)
     for sp in ax.spines.values(): sp.set_visible(False)
     cb = fig.colorbar(im_, cax=cax, ticks=[vmin, (vmin + 1) / 2, 1]); cb.ax.yaxis.set_major_formatter("{x:g}"); cb.ax.tick_params(labelsize=5, length=2); cb.set_label(cbar_label, fontsize=5.5, labelpad=2)
