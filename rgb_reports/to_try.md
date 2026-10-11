@@ -5990,3 +5990,34 @@ REPRESENT n = 49, identical to SELF. Numbers barely move (cohort mean stable):
 (was .59 / .333); PC1 cosines shift by <= .01. Same silent pattern remains in
 scripts/represent_self_prediction.py (09-12 REPRESENT->SELF analysis, run at
 the wrong n). Flagged, NOT rerun.
+
+DESIRABILITY CHECK (2026-10-11, rgb: "how much this actually matches
+desirability, and crucially, if the self-report versions match desirability
+*more*"). Discovery first: our "desirability" vector (rDes, the medoid-arm
+partials) was HUMAN PC1 itself, never an external rating. This is the first
+independent check. Norms: Hampson, Goldberg & John 1987, British SDY (55
+raters, alpha .99), OCR'd and cross-checked against the table's own z column;
+264 of 525 PDA terms overlap (263 used). scripts/hampson_sdy_extract.py,
+scripts/desirability_pc1_check.py; data/hampson_1987/sdy_british_pda525.csv.
+PREDICTIONS (registered in session before looking): r(PC1 loadings, SDY)
+HUMAN ~.85, SELF ~.92 (> HUMAN by >= .03), JUDGE ~.85, ENACT ~.80,
+REPRESENT ~.75 (lowest).
+RESULT 1, top-component shape, r(PC1, SDY) [word-bootstrap 95%]:
+  HUMAN .95 [.94,.96]  SELF .94 [.92,.95]  JUDGE .94 [.93,.95]
+  REPRESENT .91 [.89,.93]  ENACT .89 [.86,.91]
+  SELF - HUMAN -.014 [-.034,+.003]. MISS: SELF's top component is not more
+  desirability-shaped than HUMAN's. Every channel's PC1 is desirability at
+  r ~.9. Also MISS on levels: I had all of them too low, REPRESENT by .16.
+  Order miss: ENACT, not REPRESENT, is lowest.
+RESULT 2, how much of the matrix is desirability, r^2(M_ij, z_i z_j):
+  HUMAN .64  SELF .68  JUDGE .51  ENACT .49  REPRESENT .33
+  SELF - HUMAN +.04 [+.002,+.088]: SELF is more desirability-dominated, barely
+  (CI is over words only, not models/respondents; treat as a tie-to-small).
+READING: same shape, different gain. The component is desirability in every
+channel, so "top removed" removes a shared, externally identified evaluative
+dimension. That is the justification the PC1 table wanted. SELF's distinctive
+property is how much of the matrix it occupies (PC1 share 49%; r^2 .68), not
+a different direction. This fits the unregistered "shared shapes, different
+gains" unifier. Caveat: the overlap subset is the Hampson list, half desirable
+and half undesirable by design, so it may overweight evaluative extremes
+relative to all 525.
