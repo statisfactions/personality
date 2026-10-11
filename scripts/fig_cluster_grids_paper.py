@@ -5,7 +5,10 @@ artifacts, applies the core-only standing rule where a roster exists,
 aggregates to blocks44, and renders:
   fig_cluster_grids.pdf  — main: one row, HUMAN labeled + 4 channels,
                            top component removed, congruence + ceiling
-  fig_cluster_grids_full.pdf — appendix: 2x5 raw + top-removed
+  fig_cluster_grids_full.pdf — appendix: 2x5 level removed + level & top removed
+  fig_cluster_grids_{level,top}.pdf — the two rows of _full as separate
+                           figures (rgb 2026-10-11), no row label (caption names it)
+Channel names are title case in figures (the paper sets them in small caps).
 Units: every channel is now a correlation-like coefficient in [-1, 1]
 (HUMAN/SELF Pearson r; REPRESENT/ENACT column-centered cosine; JUDGE
 implied phi, clipped to [-1, 1]), so the grids are drawn in RAW units on
@@ -65,9 +68,10 @@ branch_breaks = np.cumsum([sum(1 for c in cl if c["branch"] == b)
 names44 = [c["label"] for c in cl]
 VLIM = {"similarity": 0.6, "residual": 0.3}
 ROWNAME = {"similarity": "level removed", "residual": "level & top removed"}  # rgb 2026-10-10: cumulative labels
+DISPLAY = {c: c.title() for c in CH}  # figures: title case (paper text: small caps)
 
 
-def render(rows, fname, labeled_first=True):
+def render(rows, fname, labeled_first=True, rowlabel=True):
     nr = len(rows)
     fig = plt.figure(figsize=(7.0, (1.62 if not labeled_first else 2.05) * nr))
     gs = fig.add_gridspec(nr, 6, width_ratios=[1.45, 1, 1, 1, 1, 0.06],
@@ -82,7 +86,7 @@ def render(rows, fname, labeled_first=True):
                 ax.axvline(b - .5, color="k", lw=.3, alpha=.5)
             ax.set_xticks([]); ax.set_yticks([])
             if ri == 0:
-                ax.set_title(c, fontsize=8, pad=3)
+                ax.set_title(DISPLAY[c], fontsize=8, pad=3)
             if c != "HUMAN":
                 ax.set_xlabel(f"r = {chn.congruence(F[c], F['HUMAN']):.2f}", fontsize=7, labelpad=2)  # 525-level (rgb 2026-10-10); grids are blocked for display only
             if ci == 0:
@@ -96,7 +100,8 @@ def render(rows, fname, labeled_first=True):
                     nm = max(band, key=lambda c_: len(c_["members"]))["label"]
                     ax.text(-1.2, (lo + hi - 1) / 2, nm, fontsize=5.5,
                             ha="right", va="center")
-                ax.set_ylabel(ROWNAME[tag], fontsize=8, labelpad=40)
+                if rowlabel:
+                    ax.set_ylabel(ROWNAME[tag], fontsize=8, labelpad=40)
         cax = fig.add_subplot(gs[ri, 5])
         plt.colorbar(fig.axes[-2].images[0], cax=cax).ax.tick_params(labelsize=6)
     fig.savefig(fname, bbox_inches="tight", dpi=300)
@@ -107,6 +112,8 @@ def render(rows, fname, labeled_first=True):
 render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
 render([("similarity", grids, lvfull), ("residual", grids_p, res)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
+render([("similarity", grids, lvfull)], "results/persona_vectors/figs/fig_cluster_grids_level.pdf", rowlabel=False)
+render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids_top.pdf", rowlabel=False)
 RECIPES = """Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
 colorbar (level-removed row +-%.1f, top-removed row +-%.1f). No entry-z anywhere
