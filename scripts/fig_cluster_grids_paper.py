@@ -7,7 +7,9 @@ aggregates to blocks44, and renders:
                            top component removed, congruence + ceiling
   fig_cluster_grids_full.pdf — appendix: 2x5 level removed + level & top removed
   fig_cluster_grids_{level,top}.pdf — the two rows of _full as separate
-                           figures (rgb 2026-10-11), no row label (caption names it)
+                           figures (rgb 2026-10-11), row label baked in with its
+                           panel letter, "(a) level removed" (Quarto can't rotate
+                           subcaptions to the side; cite as "Figure Na" by hand)
 Channel names are title case in figures (the paper sets them in small caps).
 Units: every channel is now a correlation-like coefficient in [-1, 1]
 (HUMAN/SELF Pearson r; REPRESENT/ENACT column-centered cosine; JUDGE
@@ -101,7 +103,8 @@ def render(rows, fname, labeled_first=True, rowlabel=True):
                     ax.text(-1.2, (lo + hi - 1) / 2, nm, fontsize=5.5,
                             ha="right", va="center")
                 if rowlabel:
-                    ax.set_ylabel(ROWNAME[tag], fontsize=8, labelpad=40)
+                    ax.set_ylabel(rowlabel if isinstance(rowlabel, str) else ROWNAME[tag],
+                                  fontsize=8, labelpad=40)
         cax = fig.add_subplot(gs[ri, 5])
         plt.colorbar(fig.axes[-2].images[0], cax=cax).ax.tick_params(labelsize=6)
     fig.savefig(fname, bbox_inches="tight", dpi=300)
@@ -112,8 +115,8 @@ def render(rows, fname, labeled_first=True, rowlabel=True):
 render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids.pdf")
 render([("similarity", grids, lvfull), ("residual", grids_p, res)],
        "results/persona_vectors/figs/fig_cluster_grids_full.pdf", labeled_first=False)
-render([("similarity", grids, lvfull)], "results/persona_vectors/figs/fig_cluster_grids_level.pdf", rowlabel=False)
-render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids_top.pdf", rowlabel=False)
+render([("similarity", grids, lvfull)], "results/persona_vectors/figs/fig_cluster_grids_level.pdf", rowlabel="(a) " + ROWNAME["similarity"])
+render([("residual", grids_p, res)], "results/persona_vectors/figs/fig_cluster_grids_top.pdf", rowlabel="(b) " + ROWNAME["residual"])
 RECIPES = """Per-channel cooking (all 525 adjectives). UNITS: every grid is a
 correlation-like coefficient in [-1, 1], drawn in raw units on a shared
 colorbar (level-removed row +-%.1f, top-removed row +-%.1f). No entry-z anywhere
