@@ -36,7 +36,7 @@ from . import cooking, facets, load, measures, paths, roster
 CHANNELS = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
 CORE_SD = 0.50
 PHI_CLIP = 1.0
-REPRESENT_CACHE = "results/adjectives/represent_model_grids.npz"
+REPRESENT_CACHE = str(paths.ADJ / "represent_model_grids.npz")  # root-relative (callable from ../personality-paper)
 
 
 def _zero_diag(S):
@@ -144,7 +144,7 @@ def judge_members(labels=None, phi_clip=PHI_CLIP):
     """Per-model clipped implied-phi matrices (adopted cooking); returns (mats, names)."""
     labels = labels or load.adjectives()
     mats, names = [], []
-    for p in sorted(glob.glob("results/adjectives/introspect_full/*_tom_likely_dir.npz")):
+    for p in sorted(glob.glob(str(paths.INTROSPECT / "*_tom_likely_dir.npz"))):
         zj = np.load(p, allow_pickle=True)
         ja = [str(a).lower() for a in zj["adjectives"]]
         idx = [ja.index(l) for l in labels]
@@ -161,12 +161,12 @@ def enact_members(labels=None):
     """Per-model persona-vector cosine matrices; returns (mats, names)."""
     labels = labels or load.adjectives()
     mats, names = [], []
-    for p in sorted(glob.glob("results/persona_vectors/enact_mid/*.npz")):
+    for p in sorted(glob.glob(str(paths.ENACT_MID / "*.npz"))):
         m = os.path.basename(p).replace(".npz", "")
         ze = np.load(p, allow_pickle=True)
         ea = [str(a).lower() for a in ze["adjectives"]]
         E = np.asarray(ze["dir"], np.float64)[[ea.index(l) for l in labels]]
-        meta = json.load(open(f"results/persona_vectors/{m}_pda_meta.json"))
+        meta = json.load(open(paths.RESULTS / "persona_vectors" / f"{m}_pda_meta.json"))
         Xe = measures.cos_sim(measures.winsorize(E, np.asarray(meta["massive_dims"], int)))
         mats.append(_zero_diag(Xe))
         names.append(m)
@@ -211,3 +211,69 @@ def congruence(A, B):
     """Off-diagonal Pearson r between two square matrices."""
     m = ~np.eye(len(A), dtype=bool)
     return float(np.corrcoef(np.asarray(A)[m], np.asarray(B)[m])[0, 1])
+
+
+# ---- paper-facing summaries (data only; presentation lives in the paper) ----
+
+def top_component(M, labels, ref="kind"):
+    """The component measures.remove_pc1 removes (largest |eigenvalue| of the
+    zero-diagonal matrix), signed so `ref` loads positive.
+    Returns (loadings, eigenvalue, share of the positive spectrum)."""
+    A = np.array(M, float); np.fill_diagonal(A, 0.0)
+    w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w)); v = V[:, k]
+    return v * np.sign(v[labels.index(ref)]), float(w[k]), float(w[k] / w[w > 0].sum())
+
+
+def congruence_table(which="level", labels=None, mem=None):
+    """5x5 DataFrame of off-diagonal Pearson congruence on the full 525
+    matrices. which: "raw" (native coefficients), "level" (level removed),
+    "top" (level & top removed)."""
+    import pandas as pd
+    labels = labels or load.adjectives()
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    M = {"raw": lambda: {c: cohort_matrix(mem[c][0], mem[c][1]) for c in CHANNELS},
+         "level": lambda: channel_level_removed(labels, mem),
+         "top": lambda: channel_residuals(labels, mem)}[which]()
+    return pd.DataFrame([[congruence(M[a], M[b]) if a != b else 1.0 for b in CHANNELS] for a in CHANNELS],
+                        index=CHANNELS, columns=CHANNELS)
+
+
+def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=0):
+    """Is top removal removing the same thing in every channel? Computed on the
+    level-removed 525 matrices. Returns a dict:
+      cos        5x5 DataFrame, signed cosines between channels' PC1 loadings
+      loadings   DataFrame adjectives x channels
+      share      Series, PC1 share of the positive spectrum
+      stability  Series, mean |cos| between PC1s of random member halves
+      r_others   Series, r of each channel's loadings with the mean of the other four
+      top_pos / top_neg          {channel: [adjectives]}, highest / lowest loadings
+      unique_pos / unique_neg    {channel: [adjectives]}, largest +/- residuals after
+                                 regressing on the mean of the other four channels
+    """
+    import pandas as pd
+    labels = labels or load.adjectives(); n = len(labels)
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    LV = channel_level_removed(labels, mem)
+    P, share = {}, {}
+    for c in CHANNELS:
+        P[c], _, share[c] = top_component(LV[c], labels)
+    rng = np.random.default_rng(seed); stab = {}
+    for c in CHANNELS:
+        kind, X = mem[c][0], mem[c][1]; N = X.shape[0]; cs = []
+        for _ in range(n_splits):
+            p = rng.permutation(N); a, b = p[: N // 2], p[N // 2:]
+            cs.append(abs(top_component(level_removed(c, kind, X[a]), labels)[0]
+                          @ top_component(level_removed(c, kind, X[b]), labels)[0]))
+        stab[c] = float(np.mean(cs))
+    top = lambda v, k, s: [labels[i] for i in np.argsort(s * v)[::-1][:k]]
+    out = dict(cos=pd.DataFrame([[float(P[a] @ P[b]) for b in CHANNELS] for a in CHANNELS], index=CHANNELS, columns=CHANNELS),
+               loadings=pd.DataFrame(P, index=labels), share=pd.Series(share), stability=pd.Series(stab),
+               r_others={}, top_pos={}, top_neg={}, unique_pos={}, unique_neg={})
+    for c in CHANNELS:
+        others = np.mean([P[o] for o in CHANNELS if o != c], 0)
+        Q = np.c_[np.ones(n), others]; res = P[c] - Q @ np.linalg.lstsq(Q, P[c], rcond=None)[0]
+        out["r_others"][c] = float(np.corrcoef(P[c], others)[0, 1])
+        out["top_pos"][c], out["top_neg"][c] = top(P[c], k_words, 1), top(P[c], k_words, -1)
+        out["unique_pos"][c], out["unique_neg"][c] = top(res, k_unique, 1), top(res, k_unique, -1)
+    out["r_others"] = pd.Series(out["r_others"])
+    return out
