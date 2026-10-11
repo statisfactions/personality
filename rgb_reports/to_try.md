@@ -6013,6 +6013,14 @@ RESULT 2, how much of the matrix is desirability, r^2(M_ij, z_i z_j):
   HUMAN .64  SELF .68  JUDGE .51  ENACT .49  REPRESENT .33
   SELF - HUMAN +.04 [+.002,+.088]: SELF is more desirability-dominated, barely
   (CI is over words only, not models/respondents; treat as a tie-to-small).
+  CORRECTION (same day, rgb: "is the difference ... mostly to do with
+  selection?"): mostly the metric, not selection. Entry r^2 behaves like
+  lambda1^2/sum(lambda^2) and is near ceiling (HUMAN's own rank-1 PC1 already
+  gets .79), so it compresses differences. Swapping PC1 for SDY costs ~r^4
+  (HUMAN .79 x .95^4 = .64). Selection is small: PC1 share on the overlap is
+  .38/.57 (HUMAN/SELF) vs .34/.48 on the other 262 terms, and both halves
+  exceed the 525 share by a size effect. On the share scale SELF's dominance is
+  large (.49 vs .31). Cite share, not the +.04: "same shape, much more gain".
 READING: same shape, different gain. The component is desirability in every
 channel, so "top removed" removes a shared, externally identified evaluative
 dimension. That is the justification the PC1 table wanted. SELF's distinctive
