@@ -156,22 +156,23 @@ fig.savefig(out3 + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out3 + ".p
 # titles or letters (Quarto subcaptions carry them), identical geometry so the
 # three line up in a layout-ncol=3 figure. ----
 def panel(M, diag, cmap, vmin, cbar_label, out):
-    fig = plt.figure(figsize=(3.6, 3.0))
-    ax = fig.add_axes([0.23, 0.21, 0.56, 0.75]); cax = fig.add_axes([0.80, 0.25, 0.03, 0.67])  # fixed geometry: panels align
+    # drawn near final size (a third of a ~6.5in text width) so type stays legible
+    fig = plt.figure(figsize=(2.3, 1.95))
+    ax = fig.add_axes([0.25, 0.22, 0.56, 0.74]); cax = fig.add_axes([0.82, 0.26, 0.035, 0.66])  # fixed geometry: panels align
     im_ = ax.imshow(np.ma.masked_invalid(M), cmap=cmap, vmin=vmin, vmax=1)
     for i in range(5):
         for j in range(i + 1):
             if i == j:
-                ax.text(j, i, diag[i], ha="center", va="center", fontsize=7, style="italic", color="0.35")
+                ax.text(j, i, diag[i], ha="center", va="center", fontsize=5.5, style="italic", color="0.35")
             else:
-                ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=9,
+                ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=6.5,
                         color="white" if abs(M[i, j]) > .6 else "black")
-    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=7, rotation=30, ha="right")
-    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=7)
-    ax.tick_params(length=0)
+    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=5.5, rotation=35, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=5.5)
+    ax.tick_params(length=0, pad=1.5)
     for sp in ax.spines.values(): sp.set_visible(False)
-    cb = fig.colorbar(im_, cax=cax); cb.ax.tick_params(labelsize=6); cb.set_label(cbar_label, fontsize=7)
-    fig.savefig(out + ".pdf", dpi=300); fig.savefig(out + ".png", dpi=200)
+    cb = fig.colorbar(im_, cax=cax, ticks=[vmin, (vmin + 1) / 2, 1]); cb.ax.yaxis.set_major_formatter("{x:g}"); cb.ax.tick_params(labelsize=5, length=2); cb.set_label(cbar_label, fontsize=5.5, labelpad=2)
+    fig.savefig(out + ".pdf"); fig.savefig(out + ".png", dpi=300)
     plt.close(fig); print("wrote", out)
 
 def lower(src):
