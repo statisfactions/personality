@@ -152,6 +152,39 @@ for ax, (t, title, kind_) in zip(axes, panels):
 out3 = "results/persona_vectors/figs/fig_channel_similarity_3panel"
 fig.savefig(out3 + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out3 + ".png", dpi=160, bbox_inches="tight"); print("wrote", out3)
 
+# ---- subfigure panels (rgb 2026-10-10): one standalone image per panel, no
+# titles or letters (Quarto subcaptions carry them), identical geometry so the
+# three line up in a layout-ncol=3 figure. ----
+def panel(M, diag, cmap, vmin, cbar_label, out):
+    fig = plt.figure(figsize=(3.6, 3.0))
+    ax = fig.add_axes([0.23, 0.21, 0.56, 0.75]); cax = fig.add_axes([0.80, 0.25, 0.03, 0.67])  # fixed geometry: panels align
+    im_ = ax.imshow(np.ma.masked_invalid(M), cmap=cmap, vmin=vmin, vmax=1)
+    for i in range(5):
+        for j in range(i + 1):
+            if i == j:
+                ax.text(j, i, diag[i], ha="center", va="center", fontsize=7, style="italic", color="0.35")
+            else:
+                ax.text(j, i, f"{M[i, j]:.2f}", ha="center", va="center", fontsize=9,
+                        color="white" if abs(M[i, j]) > .6 else "black")
+    ax.set_xticks(range(5)); ax.set_xticklabels(CH, fontsize=7, rotation=30, ha="right")
+    ax.set_yticks(range(5)); ax.set_yticklabels(CH, fontsize=7)
+    ax.tick_params(length=0)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    cb = fig.colorbar(im_, cax=cax); cb.ax.tick_params(labelsize=6); cb.set_label(cbar_label, fontsize=7)
+    fig.savefig(out + ".pdf", dpi=300); fig.savefig(out + ".png", dpi=200)
+    plt.close(fig); print("wrote", out)
+
+def lower(src):
+    M = np.full((5, 5), np.nan)
+    for i in range(5):
+        for j in range(i): M[i, j] = src[i, j]
+    return M
+
+base = "results/persona_vectors/figs/fig_channel_similarity_"
+panel(lower(C[("525", "lvl")]), [f"{rel525[c]['lvl']:.2f}" for c in CH], "RdBu_r", -1, "congruence", base + "level")
+panel(lower(PCC), [f"{100 * PCv[c][1]:.0f}%" for c in CH], "Purples", 0, "PC1 cosine", base + "pc1")
+panel(lower(C[("525", "top")]), [f"{rel525[c]['top']:.2f}" for c in CH], "RdBu_r", -1, "congruence", base + "top")
+
 # ---- reasonableness of top-component removal: are the removed axes the same axis? ----
 print("\ntop component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
 tops, shares = {}, {}
