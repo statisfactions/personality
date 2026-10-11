@@ -5977,3 +5977,16 @@ SELF and REPRESENT tie raw at 525, where SELF was ahead at 44. Disattenuated,
 SELF is ahead again, because SELF's item-level residual is the least reliable
 (.56, 49 models). Any paper text citing .56/.49/.77/.70 must move to the 525
 numbers.
+
+BUG FIX (2026-10-10, rgb: "remind me why represent is at n=40?"). REPRESENT
+is meant to use the SELF core roster (SD >= .5), but represent_members looked
+up each model's SELF file by repo id. The deep-cohort models (Gemma-3
+4/12/27B, Qwen2.5 3/7/32B, Llama-3.2-3B, Phi-4-mini, Aya-8B, Falcon-Mamba)
+store SELF under short names, so the lookup failed and a bare except dropped
+them silently. Glimmer-30B went the other way: kept on a different SELF arm
+than the SELF channel uses. Now matched on the self_members roster directly:
+REPRESENT n = 49, identical to SELF. Numbers barely move (cohort mean stable):
+525 congruence with HUMAN .593 level removed / .335 level & top removed
+(was .59 / .333); PC1 cosines shift by <= .01. Same silent pattern remains in
+scripts/represent_self_prediction.py (09-12 REPRESENT->SELF analysis, run at
+the wrong n). Flagged, NOT rerun.

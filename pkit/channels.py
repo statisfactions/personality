@@ -127,19 +127,16 @@ def self_members(labels=None, core_sd=CORE_SD):
 
 
 def represent_members(labels=None, core_sd=CORE_SD):
-    """Per-model raw cosine matrices for the core models; returns (grids, names)."""
+    """Per-model raw cosine matrices for the core models; returns (grids, names).
+    Core = the SELF core roster (self_members), matched on the repo tail.
+    (2026-10-10 fix: the former per-model SELF-file lookup by repo id failed
+    for the deep-cohort models stored under short names, and a bare except
+    dropped 10 core models silently — REPRESENT was n=40, should be 50.)"""
     labels = labels or load.adjectives()
     z = np.load(REPRESENT_CACHE, allow_pickle=True)
     names = [str(x) for x in z["names"]]
-    keep = []
-    for i, n in enumerate(names):
-        try:
-            d = json.load(open(load._self_file(n.replace("_", "/", 1))))["results"]
-            X = np.array([[d[f][a]["ev"] for a in labels] for f in load.FRAMINGS])
-            if X.mean(0).std() >= core_sd:
-                keep.append(i)
-        except Exception:
-            pass
+    core = set(self_members(labels, core_sd)[1])
+    keep = [i for i, n in enumerate(names) if n.split("_", 1)[-1] in core]
     return z["cos"][keep].astype(np.float32), [names[i] for i in keep]
 
 

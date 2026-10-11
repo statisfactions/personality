@@ -93,7 +93,7 @@ show(disatt(C[("44", "top")], "top"), "44-block congruence DISATTENUATED, top co
 # to explain). Left = level removed, right = top component removed; lower triangle only,
 # diagonal = that version's split-half reliability (525). ----
 fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
-for ax, (t, title) in zip(axes, [("lvl", "Level removed"), ("top", "Level & top removed")]):
+for ax, (t, title) in zip(axes, [("lvl", "A: Level removed"), ("top", "B: Level & top removed")]):
     M = np.full((5, 5), np.nan)
     for i in range(5):
         for j in range(i):
@@ -125,7 +125,7 @@ PCv = {c: _pc1(lv[c]) for c in CH}
 PCC = np.array([[PCv[a][0] @ PCv[b][0] for b in CH] for a in CH])
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.8), gridspec_kw={"wspace": 0.42})
-panels = [("lvl", "Level removed", "congruence"), (None, "Removed component (PC1)", "pc1"), ("top", "Level & top removed", "congruence")]
+panels = [("lvl", "A: Level removed", "congruence"), (None, "B: Removed component (PC1)", "pc1"), ("top", "C: Level & top removed", "congruence")]
 for ax, (t, title, kind_) in zip(axes, panels):
     M = np.full((5, 5), np.nan)
     for i in range(5):
