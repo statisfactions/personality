@@ -6052,3 +6052,15 @@ NOT changed: older per-script analyses on zero-diagonal matrices (P24 SELF PC
 shares in enact_medoid_cohort/battery_pcs, effdim in
 question_sensitivity_enact, the four_grid lineage). The SELF population PR
 (11.6 vs 50.2) and Horn analyses already used np.corrcoef (unit diagonal).
+
+FILED (2026-10-11, not launched; rgb: "ok to leave this a little broken for
+now"). SELF gain vs conception is unidentified from self-ratings alone.
+Candidate separators for later: (1) anchoring vignettes (King et al. 2004):
+models rate fixed described targets on the same adjectives; vignette spread
+= gain, self relative to own vignettes = conception. More/less (P17) and
+human-referenced (P19) were partial versions and did little to clear it.
+(2) IRTree split (Böckenholt) of existing logprob distributions: direction
+mass (agree vs disagree) vs intensity; ask whether SELF's 45% PC1 share sits
+in direction or intensity. Cheap reanalysis, no inference. Paper stance for
+now: state the identification problem; level & top removal is the structural
+assumption actually used.
