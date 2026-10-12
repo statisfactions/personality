@@ -6064,3 +6064,30 @@ mass (agree vs disagree) vs intensity; ask whether SELF's 45% PC1 share sits
 in direction or intensity. Cheap reanalysis, no inference. Paper stance for
 now: state the identification problem; level & top removal is the structural
 assumption actually used.
+
+STRENGTH vs n (2026-10-11, rgb: is off-diagonal strength an artifact of n?
+Redo of the 09-22 saturation check at 525, all channels, both stages).
+scripts/offdiag_strength_vs_n.py; 10 subsample draws per n. Off-diagonal SD
+(mean |entry| tracks it at ~.8x):
+                      level removed          level & top removed
+  REPRESENT  n 4..49   .140 .143 .139 .138 .138   .111 .111 .109 .109 .109
+  JUDGE      n 4,8,12  .222 .216 .213             .125 .124 .120
+  ENACT      n 4,8,10  .335 .337 .339             .174 .172 .169
+  -> matrix channels flat in n at both stages. Their strength (ENACT > JUDGE >
+     REPRESENT) is the channel's own scale, not under-averaging. REPRESENT is
+     weakest with the most members.
+  Respondent channels (observed SD / column-permutation null SD at same n):
+  HUMAN n 49     .226/.144   .149/.141
+  HUMAN n 700    .185/.038   .087/.038
+  SELF  n 49     .477/.145   .155/.141
+  Signal SD (sqrt(obs^2 - null^2)): level removed SELF .45 vs HUMAN .17-.18
+  (n 49 / 700) -> SELF's level-removed strength is real, ~2.5x HUMAN at
+  matched n. Level & top removed at n 49: SELF .064 vs HUMAN .048. Both are
+  mostly sampling noise at that n (HUMAN at 700: .078), and SELF's residual is
+  NOT weaker than HUMAN's at matched n. Its pale/noisy residual is a
+  49-respondent limit, not a weaker channel. Caveat: subtracting null variance
+  is approximate after top removal on noisy data.
+Citable: "Off-diagonal strength is flat under member subsampling for the
+matrix channels; for the respondent channels, SELF exceeds a permutation noise
+floor by 3x before top removal and sits near it after, as HUMAN does at the
+same n."
