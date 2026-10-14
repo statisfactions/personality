@@ -32,6 +32,7 @@ Usage (smoke):
 """
 
 import argparse
+import gc
 import json
 import os
 import re
@@ -426,9 +427,16 @@ def main():
         ap.error("provide --adjectives, --smoke, --scaled30, or --pda")
 
     dtype = getattr(torch, args.dtype)
-    model, tokenizer, device = hf.load_model(args.model, dtype=dtype)
+    # The model is loaded lazily, only if some condition lacks a checkpoint, so
+    # a run whose checkpoints are complete assembles without the model in RAM
+    # (2026-10-13: four 24-34B runs were SIGKILLed / rebooted the machine in
+    # the final save with the model still resident).
+    model = tokenizer = device = None
+    from transformers import AutoConfig
     # get_text_config(): Gemma-3 is multimodal, layers live in text_config.
-    n_layers = model.config.get_text_config().num_hidden_layers
+    n_layers = AutoConfig.from_pretrained(
+        hf.resolve(args.model), trust_remote_code=True
+    ).get_text_config().num_hidden_layers
     mid = (n_layers + 1) // 2  # middle of hidden_states (incl. embedding row)
 
     qset = QUESTION_SETS[args.question_set] or QUESTIONS
@@ -475,6 +483,8 @@ def main():
                       f"from checkpoint")
                 continue
             print(f"  {cond}: checkpoint layer-set mismatch, re-running")
+        if model is None:
+            model, tokenizer, device = hf.load_model(args.model, dtype=dtype)
         seed = args.seed + ci * 100_000
         sys_prompts = [""] if cond == DEFAULT_KEY else \
             [t.format(adj=cond) for t in sys_templates]
@@ -521,6 +531,12 @@ def main():
         os.replace(tmp, ck)
         n_leak = sum(t["leak"] for t in texts[cond])
         print(f"  {cond}: {len(acts[cond])} rollouts, {n_leak} leaky")
+        if device == "mps":
+            torch.mps.empty_cache()
+
+    if model is not None:  # free ~50-70 GB before the CPU-side assembly
+        del model, tokenizer
+        gc.collect()
         if device == "mps":
             torch.mps.empty_cache()
 
@@ -622,10 +638,24 @@ def main():
 
     # --- Save ---------------------------------------------------------------
     base = out_dir / f"{model_fs}_{tag}"
+    # Per-rollout acts go to a separate file as torch tensors: torch.save
+    # streams tensor storages into the zip, whereas a dict of numpy arrays is
+    # pickled whole in memory (~2x the ~11 GB payload for a 31B model). Lists
+    # are popped as they are stacked to keep the peak at one copy.
+    # Readers: torch.load(f"{base}_acts.pt")[cond].numpy().
+    acts_file = None
+    if not args.no_save_acts:
+        acts_file = f"{base}_acts.pt"
+        stacked = {}
+        for c in conditions:
+            stacked[c] = torch.from_numpy(np.stack(acts.pop(c)).astype(np.float32))
+        torch.save(stacked, acts_file + ".tmp")
+        os.replace(acts_file + ".tmp", acts_file)
+        del stacked
+        gc.collect()
     torch.save({
-        "acts": (None if args.no_save_acts else
-                 {c: np.stack(acts[c]).astype(np.float32)
-                  for c in conditions}),
+        "acts": None,
+        "acts_file": acts_file,
         "acts_layers": keep,
         "directions": {a: directions[a].astype(np.float32)
                        for a in adjectives},

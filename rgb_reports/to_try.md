@@ -6091,3 +6091,17 @@ Citable: "Off-diagonal strength is flat under member subsampling for the
 matrix channels; for the respondent channels, SELF exceeds a permutation noise
 floor by 3x before top removal and sits near it after, as HUMAN does at the
 same n."
+
+CRASH (2026-10-13). The full-ENACT chain finished generation for Gemma-4-31B,
+Qwen3.8-27B, OLMo-2-32B and Mistral-Small-24B, but every run died in the
+final save: SIGKILL (137) for the first three, a machine reboot on Mistral
+(~07:10). Each left a 0-byte .pt. Cause: the save stacked ~7-11 GB of
+per-rollout acts and pickled them as a numpy dict (a second full in-memory
+copy) with the 50-70 GB model still resident. No rollouts were lost: all
+four checkpoint dirs were complete (526 conditions). Fix in
+extract_persona_vectors.py: the model loads lazily (skipped when checkpoints
+are complete) and is freed before assembly, and acts go to a separate
+{base}_acts.pt as torch tensors (streamed save; readers use
+torch.load(...)[cond].numpy()). The main .pt has acts=None plus acts_file.
+Mistral assembled from checkpoints at 18.7 GB peak RSS. Chain restarted to
+assemble the other three, then continue at Qwen3-14B.
