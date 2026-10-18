@@ -1,0 +1,268 @@
+{
+ "k": 8,
+ "loss": 1.092535569845745,
+ "n_converged_inits": 5,
+ "axes": [
+  {
+   "pos": [
+    "crabby",
+    "rude",
+    "negative",
+    "hostile",
+    "unreasonable",
+    "disrespectful",
+    "obnoxious",
+    "bitter"
+   ],
+   "neg": [
+    "well-adjusted",
+    "considerate",
+    "kind",
+    "helpful",
+    "pleasant",
+    "positive",
+    "understanding",
+    "respectable"
+   ],
+   "w": {
+    "HUMAN": 0.8377,
+    "SELF": 0.8637,
+    "REPRESENT": 0.5593,
+    "JUDGE": 0.7799,
+    "ENACT": 0.7662
+   },
+   "stab_min": 0.999999999983777
+  },
+  {
+   "pos": [
+    "wonderful",
+    "great",
+    "amazing",
+    "excellent",
+    "awesome",
+    "good",
+    "beautiful",
+    "remarkable"
+   ],
+   "neg": [
+    "cautious",
+    "assertive",
+    "impulsive",
+    "rebellious",
+    "impatient",
+    "competitive",
+    "outspoken",
+    "argumentative"
+   ],
+   "w": {
+    "HUMAN": 0.0372,
+    "SELF": 0.0423,
+    "REPRESENT": 0.5017,
+    "JUDGE": 0.0159,
+    "ENACT": 0.0504
+   },
+   "stab_min": 0.9999999995085052
+  },
+  {
+   "pos": [
+    "exciting",
+    "bold",
+    "daring",
+    "cocky",
+    "extraordinary",
+    "entertaining",
+    "outspoken",
+    "uninhibited"
+   ],
+   "neg": [
+    "ordinary",
+    "shy",
+    "average",
+    "modest",
+    "cautious",
+    "quiet",
+    "bashful",
+    "unsure"
+   ],
+   "w": {
+    "HUMAN": 0.2951,
+    "SELF": 0.0945,
+    "REPRESENT": 0.1738,
+    "JUDGE": 0.265,
+    "ENACT": 0.2247
+   },
+   "stab_min": 0.9999999965730771
+  },
+  {
+   "pos": [
+    "strict",
+    "serious",
+    "critical",
+    "firm",
+    "controlling",
+    "businesslike",
+    "systematic",
+    "dominant"
+   ],
+   "neg": [
+    "cheerful",
+    "joyful",
+    "carefree",
+    "adorable",
+    "playful",
+    "lively",
+    "delighted",
+    "good-humored"
+   ],
+   "w": {
+    "HUMAN": 0.1282,
+    "SELF": 0.0172,
+    "REPRESENT": 0.1365,
+    "JUDGE": 0.2611,
+    "ENACT": 0.3688
+   },
+   "stab_min": 0.9999999993930462
+  },
+  {
+   "pos": [
+    "worried",
+    "emotional",
+    "sensitive",
+    "anxious",
+    "troubled",
+    "scared",
+    "fretful",
+    "upset"
+   ],
+   "neg": [
+    "shallow",
+    "predictable",
+    "boring",
+    "relaxed",
+    "comfortable",
+    "stable",
+    "average",
+    "insensitive"
+   ],
+   "w": {
+    "HUMAN": 0.1105,
+    "SELF": 0.0362,
+    "REPRESENT": 0.0989,
+    "JUDGE": 0.198,
+    "ENACT": 0.0977
+   },
+   "stab_min": 0.999999968996964
+  },
+  {
+   "pos": [
+    "well-to-do",
+    "self-supporting",
+    "well-liked",
+    "self-sufficient",
+    "self-assured",
+    "well-adjusted",
+    "self-confident",
+    "well-known"
+   ],
+   "neg": [
+    "angry",
+    "serious",
+    "cruel",
+    "evil",
+    "calm",
+    "mean",
+    "cold",
+    "violent"
+   ],
+   "w": {
+    "HUMAN": 0.0062,
+    "SELF": 0.0026,
+    "REPRESENT": 0.2591,
+    "JUDGE": 0.0021,
+    "ENACT": 0.0092
+   },
+   "stab_min": 0.9999999463111438
+  },
+  {
+   "pos": [
+    "busy",
+    "young",
+    "active",
+    "short",
+    "excited",
+    "thin",
+    "rushed",
+    "employed"
+   ],
+   "neg": [
+    "admirable",
+    "compassionate",
+    "kind-hearted",
+    "courteous",
+    "respectful",
+    "respectable",
+    "lovable",
+    "trustworthy"
+   ],
+   "w": {
+    "HUMAN": 0.0138,
+    "SELF": 0.0567,
+    "REPRESENT": 0.2037,
+    "JUDGE": 0.0112,
+    "ENACT": 0.0627
+   },
+   "stab_min": 0.9999996613338444
+  },
+  {
+   "pos": [
+    "glamorous",
+    "handsome",
+    "fashionable",
+    "slender",
+    "good-looking",
+    "gorgeous",
+    "sexy",
+    "stylish"
+   ],
+   "neg": [
+    "direct",
+    "straightforward",
+    "involved",
+    "outspoken",
+    "determined",
+    "curious",
+    "unique",
+    "persistent"
+   ],
+   "w": {
+    "HUMAN": 0.0628,
+    "SELF": 0.1393,
+    "REPRESENT": 0.114,
+    "JUDGE": 0.0699,
+    "ENACT": 0.0774
+   },
+   "stab_min": 0.9999998612169435
+  }
+ ],
+ "joint_share": {
+  "HUMAN": 0.8183,
+  "SELF": 0.7775,
+  "REPRESENT": 0.7359,
+  "JUDGE": 0.7858,
+  "ENACT": 0.7899
+ },
+ "own_share": {
+  "HUMAN": 0.9609,
+  "SELF": 0.993,
+  "REPRESENT": 0.8707,
+  "JUDGE": 0.9312,
+  "ENACT": 0.9864
+ },
+ "level_congruence": {
+  "HUMAN": 0.9685110746594635,
+  "SELF": 0.9165137071665564,
+  "REPRESENT": 1.0,
+  "JUDGE": 0.8750722336498864,
+  "ENACT": 1.0
+ }
+}
