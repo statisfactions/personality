@@ -8,11 +8,9 @@ row of the table; "level & top removed" = reading from row 2 down). Each S_t
 is scaled to unit off-diagonal Frobenius norm, so each channel counts once
 and w_tk^2 is the share of channel t's off-diagonal structure on axis k.
 
-Fit: alternating least squares on off-diagonal entries only (JUDGE has no
-meaningful diagonal; ones would soak up fit elsewhere):
-  * diagonal imputation (MINRES-style): fill diag(S_t) with diag(Q W_t Q');
-  * W step: exact per-channel regression of off-diagonal S_t on q_k q_k';
-  * Q step: MM polar update, Q <- polar([ (A_k + cI) q_k ]_k), A_k = sum_t w_tk S_t.
+Fit (pkit.jointdiag): least squares on off-diagonal entries only (JUDGE has
+no meaningful diagonal; ones would soak up fit elsewhere); diagonals imputed
+from the model, exact W regression, MM polar update of Q.
 Axes ordered by sum_t w_tk^2; each signed so its largest |loading| is
 positive (w is invariant to the sign of q_k).
 
@@ -34,9 +32,8 @@ Usage: .venv/bin/python scripts/joint_diag_channels.py [--k 8] [--iters 500]
 """
 import argparse, json, os
 import numpy as np
-from scipy.linalg import eigh
 import pkit
-from pkit import channels as C
+from pkit import channels as C, jointdiag as J
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--k", type=int, default=8)
@@ -55,58 +52,13 @@ raw = {c: C.cohort_matrix(mem[c][0], mem[c][1]) for c in CH}
 lvl_r = {c: C.congruence(raw[c], L[c]) for c in CH}
 print("raw vs level-removed congruence:", {c: round(v, 3) for c, v in lvl_r.items()})
 
-S = []
-for c in CH:
-    A = C._zero_diag(L[c]); A /= np.linalg.norm(A[OFF]); S.append(A)
-S = np.array(S)  # T x n x n, zero diag, unit off-diag norm
-
-
-def gram_offdiag(Q):
-    # G_kl = sum_{i!=j} q_ik q_jk q_il q_jl = (q_k.q_l)^2 - sum_i q_ik^2 q_il^2
-    Q2 = Q ** 2
-    return (Q.T @ Q) ** 2 - Q2.T @ Q2
-
-
-def w_step(Q, St):
-    G = gram_offdiag(Q)
-    b = np.einsum("ik,tij,jk->tk", Q, St, Q)  # q_k' S_t q_k with zero diag
-    return np.linalg.solve(G, b.T).T
-
-
-def loss(Q, W):
-    tot = 0.0
-    for t in range(len(S)):
-        M = (Q * W[t]) @ Q.T
-        tot += ((S[t] - M)[OFF] ** 2).sum()
-    return tot
-
-
-def fit(Q):
-    K = Q.shape[1]
-    W = w_step(Q, S)
-    prev = f = np.inf; it = 0
-    for it in range(args.iters):
-        # impute diagonals from the model, then MM polar step on Q
-        Sf = S.copy()
-        for t in range(len(S)):
-            Sf[t][np.diag_indices(n)] = ((Q ** 2) * W[t]).sum(1)
-        A = np.einsum("tk,tij->kij", W, Sf)
-        c = max(0.0, -min(eigh(A[k], eigvals_only=True, subset_by_index=[0, 0])[0] for k in range(K))) + 1e-9
-        M = np.stack([A[k] @ Q[:, k] + c * Q[:, k] for k in range(K)], 1)
-        U, _, Vt = np.linalg.svd(M, full_matrices=False)
-        Q = U @ Vt
-        W = w_step(Q, S)
-        f = loss(Q, W)
-        if prev - f < 1e-10 * max(1.0, prev):
-            break
-        prev = f
-    return Q, W, f, it + 1
+S = np.array([J.unit_offdiag(L[c]) for c in CH])  # T x n x n, zero diag, unit off-diag norm
+w_step, fit = J.weights, (lambda Q0: J.fit(S, Q0, args.iters))
 
 
 rng = np.random.default_rng(0)
 # init 0: top-K eigenvectors of the summed (sign-agnostic: summed squares) matrices
-w0, V0 = np.linalg.eigh(np.einsum("tij,tjk->ik", S, S))
-inits = [V0[:, ::-1][:, :args.k]] + [np.linalg.qr(rng.standard_normal((n, args.k)))[0] for _ in range(args.seeds)]
+inits = [J.sumsq_axes(S, args.k)] + [np.linalg.qr(rng.standard_normal((n, args.k)))[0] for _ in range(args.seeds)]
 fits = [fit(Q0) for Q0 in inits]
 for i, (_, _, f, its) in enumerate(fits):
     print(f"init {i}: loss {f:.5f} ({its} iters)")

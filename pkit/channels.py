@@ -301,6 +301,42 @@ def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=
     return out
 
 
+def level_removal_summary(labels=None, mem=None, channels=("HUMAN", "SELF", "JUDGE")):
+    """What level removal does, per channel (rgb 2026-10-18: harmless for
+    HUMAN, removes nonsense for SELF, a design choice for JUDGE). DataFrame
+    indexed by channel:
+      n                      members (respondents / models)
+      method                 LEVEL recipe ("rows" = row-center, "double" = Gower)
+      rowmean_var_frac       share of item variance due to respondent means
+                             (respondent channels only)
+      mean_offdiag_raw/level mean off-diagonal entry before / after
+      cos_rawpc1_ones        |cos| of the raw top component with the all-ones
+                             (level) direction
+      cos_rawpc1_levelpc1    |cos| of raw vs level-removed top component
+      pc1_share_raw/level    top-component share (spectrum_share, SHARE_DIAG)
+      congruence             off-diagonal r, raw vs level removed (blind to a
+                             uniform shift -- do not use it alone)
+    REPRESENT and ENACT have no level step (LEVEL "none")."""
+    import pandas as pd
+    labels = labels or load.adjectives(); n = len(labels)
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    off = ~np.eye(n, dtype=bool); one = np.ones(n) / np.sqrt(n); rows = {}
+    for c in channels:
+        kind, X = mem[c][0], np.asarray(mem[c][1], float)
+        raw, lvl = cohort_matrix(kind, X), level_removed(c, kind, X)
+        v_raw, _, sh_raw = top_component(raw, labels, diag=SHARE_DIAG[c])
+        v_lvl, _, sh_lvl = top_component(lvl, labels, diag=SHARE_DIAG[c])
+        r = dict(n=len(X), method=LEVEL[c], rowmean_var_frac=np.nan,
+                 mean_offdiag_raw=raw[off].mean(), mean_offdiag_level=lvl[off].mean(),
+                 cos_rawpc1_ones=abs(v_raw @ one), cos_rawpc1_levelpc1=abs(v_raw @ v_lvl),
+                 pc1_share_raw=sh_raw, pc1_share_level=sh_lvl, congruence=congruence(raw, lvl))
+        if kind == "respondents":
+            Xc = X - X.mean(0)
+            r["rowmean_var_frac"] = n * Xc.mean(1).var() / Xc.var(0).sum()
+        rows[c] = r
+    return pd.DataFrame(rows).T
+
+
 def mantel_p(A, B, perms=1000, seed=0):
     """One-sided Mantel permutation p for off-diagonal congruence: relabel B's
     rows and columns together. Floor is 1 / (perms + 1)."""

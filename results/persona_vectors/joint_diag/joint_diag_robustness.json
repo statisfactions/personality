@@ -1,0 +1,1563 @@
+{
+ "JD-l1": {
+  "matched_cos": [
+   1.0,
+   0.998,
+   0.997,
+   0.998,
+   0.963,
+   0.997,
+   0.868,
+   0.124
+  ],
+  "overlap": 0.878,
+  "table_r": 0.999,
+  "share": {
+   "HUMAN": 0.811,
+   "SELF": 0.742,
+   "REPRESENT": 0.775,
+   "JUDGE": 0.781,
+   "ENACT": 0.786
+  },
+  "axes": [
+   {
+    "pos": [
+     "rude",
+     "crabby",
+     "hostile",
+     "negative",
+     "obnoxious",
+     "unreasonable"
+    ],
+    "neg": [
+     "pleasant",
+     "kind",
+     "helpful",
+     "considerate",
+     "positive",
+     "well-adjusted"
+    ],
+    "w": {
+     "HUMAN": 0.837,
+     "SELF": 0.853,
+     "REPRESENT": 0.567,
+     "JUDGE": 0.783,
+     "ENACT": 0.766
+    }
+   },
+   {
+    "pos": [
+     "wonderful",
+     "great",
+     "amazing",
+     "beautiful",
+     "excellent",
+     "awesome"
+    ],
+    "neg": [
+     "cautious",
+     "impulsive",
+     "assertive",
+     "impatient",
+     "rebellious",
+     "competitive"
+    ],
+    "w": {
+     "HUMAN": 0.04,
+     "SELF": 0.047,
+     "REPRESENT": 0.504,
+     "JUDGE": 0.016,
+     "ENACT": 0.054
+    }
+   },
+   {
+    "pos": [
+     "exciting",
+     "bold",
+     "daring",
+     "cocky",
+     "entertaining",
+     "extraordinary"
+    ],
+    "neg": [
+     "ordinary",
+     "average",
+     "modest",
+     "plain",
+     "shy",
+     "quiet"
+    ],
+    "w": {
+     "HUMAN": 0.291,
+     "SELF": 0.097,
+     "REPRESENT": 0.176,
+     "JUDGE": 0.26,
+     "ENACT": 0.223
+    }
+   },
+   {
+    "pos": [
+     "strict",
+     "serious",
+     "critical",
+     "firm",
+     "controlling",
+     "systematic"
+    ],
+    "neg": [
+     "cheerful",
+     "joyful",
+     "adorable",
+     "carefree",
+     "delighted",
+     "playful"
+    ],
+    "w": {
+     "HUMAN": 0.128,
+     "SELF": 0.017,
+     "REPRESENT": 0.143,
+     "JUDGE": 0.258,
+     "ENACT": 0.368
+    }
+   },
+   {
+    "pos": [
+     "sensitive",
+     "complex",
+     "imaginative",
+     "emotional",
+     "troubled",
+     "worried"
+    ],
+    "neg": [
+     "satisfied",
+     "comfortable",
+     "shallow",
+     "pleased",
+     "predictable",
+     "insensitive"
+    ],
+    "w": {
+     "HUMAN": 0.104,
+     "SELF": 0.035,
+     "REPRESENT": 0.086,
+     "JUDGE": 0.196,
+     "ENACT": 0.106
+    }
+   },
+   {
+    "pos": [
+     "well-to-do",
+     "self-supporting",
+     "self-sufficient",
+     "well-liked",
+     "self-assured",
+     "well-adjusted"
+    ],
+    "neg": [
+     "angry",
+     "cruel",
+     "serious",
+     "evil",
+     "mean",
+     "violent"
+    ],
+    "w": {
+     "HUMAN": 0.007,
+     "SELF": 0.002,
+     "REPRESENT": 0.261,
+     "JUDGE": 0.001,
+     "ENACT": 0.01
+    }
+   },
+   {
+    "pos": [
+     "young",
+     "slim",
+     "thin",
+     "tall",
+     "skinny",
+     "slender"
+    ],
+    "neg": [
+     "admirable",
+     "disrespectful",
+     "irritating",
+     "trustworthy",
+     "compassionate",
+     "respectful"
+    ],
+    "w": {
+     "HUMAN": 0.015,
+     "SELF": 0.06,
+     "REPRESENT": 0.201,
+     "JUDGE": 0.011,
+     "ENACT": 0.064
+    }
+   },
+   {
+    "pos": [
+     "pleased",
+     "excited",
+     "glad",
+     "delighted",
+     "frustrated",
+     "surprised"
+    ],
+    "neg": [
+     "ordinary",
+     "unusual",
+     "weird",
+     "soft-spoken",
+     "strange",
+     "unique"
+    ],
+    "w": {
+     "HUMAN": 0.024,
+     "SELF": 0.012,
+     "REPRESENT": 0.204,
+     "JUDGE": 0.01,
+     "ENACT": 0.04
+    }
+   }
+  ]
+ },
+ "JD-K6": {
+  "matched_cos": [
+   1.0,
+   0.998,
+   0.996,
+   0.999,
+   0.991,
+   null,
+   0.832,
+   null
+  ],
+  "overlap": 0.995,
+  "table_r": null,
+  "share": {
+   "HUMAN": 0.816,
+   "SELF": 0.771,
+   "REPRESENT": 0.655,
+   "JUDGE": 0.776,
+   "ENACT": 0.784
+  },
+  "axes": [
+   {
+    "pos": [
+     "crabby",
+     "rude",
+     "negative",
+     "hostile",
+     "unreasonable",
+     "obnoxious"
+    ],
+    "neg": [
+     "well-adjusted",
+     "considerate",
+     "kind",
+     "helpful",
+     "pleasant",
+     "positive"
+    ],
+    "w": {
+     "HUMAN": 0.837,
+     "SELF": 0.865,
+     "REPRESENT": 0.558,
+     "JUDGE": 0.779,
+     "ENACT": 0.766
+    }
+   },
+   {
+    "pos": [
+     "wonderful",
+     "great",
+     "amazing",
+     "beautiful",
+     "excellent",
+     "awesome"
+    ],
+    "neg": [
+     "impulsive",
+     "assertive",
+     "cautious",
+     "impatient",
+     "rebellious",
+     "competitive"
+    ],
+    "w": {
+     "HUMAN": 0.039,
+     "SELF": 0.046,
+     "REPRESENT": 0.501,
+     "JUDGE": 0.017,
+     "ENACT": 0.054
+    }
+   },
+   {
+    "pos": [
+     "exciting",
+     "bold",
+     "daring",
+     "cocky",
+     "extraordinary",
+     "entertaining"
+    ],
+    "neg": [
+     "ordinary",
+     "average",
+     "unsure",
+     "cautious",
+     "modest",
+     "plain"
+    ],
+    "w": {
+     "HUMAN": 0.298,
+     "SELF": 0.101,
+     "REPRESENT": 0.181,
+     "JUDGE": 0.255,
+     "ENACT": 0.226
+    }
+   },
+   {
+    "pos": [
+     "strict",
+     "serious",
+     "critical",
+     "firm",
+     "controlling",
+     "businesslike"
+    ],
+    "neg": [
+     "cheerful",
+     "joyful",
+     "adorable",
+     "carefree",
+     "playful",
+     "delighted"
+    ],
+    "w": {
+     "HUMAN": 0.13,
+     "SELF": 0.017,
+     "REPRESENT": 0.139,
+     "JUDGE": 0.262,
+     "ENACT": 0.368
+    }
+   },
+   {
+    "pos": [
+     "worried",
+     "anxious",
+     "sensitive",
+     "emotional",
+     "troubled",
+     "scared"
+    ],
+    "neg": [
+     "shallow",
+     "predictable",
+     "self-assured",
+     "comfortable",
+     "unsympathetic",
+     "unintellectual"
+    ],
+    "w": {
+     "HUMAN": 0.11,
+     "SELF": 0.036,
+     "REPRESENT": 0.105,
+     "JUDGE": 0.199,
+     "ENACT": 0.101
+    }
+   },
+   {
+    "pos": [
+     "slim",
+     "slender",
+     "thin",
+     "skinny",
+     "young",
+     "tall"
+    ],
+    "neg": [
+     "disrespectful",
+     "admirable",
+     "compassionate",
+     "inconsiderate",
+     "irritating",
+     "insulting"
+    ],
+    "w": {
+     "HUMAN": 0.018,
+     "SELF": 0.106,
+     "REPRESENT": 0.188,
+     "JUDGE": 0.022,
+     "ENACT": 0.059
+    }
+   }
+  ]
+ },
+ "JD-K10": {
+  "matched_cos": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   0.988,
+   0.997,
+   0.742,
+   0.991
+  ],
+  "overlap": 0.903,
+  "table_r": 1.0,
+  "share": {
+   "HUMAN": 0.821,
+   "SELF": 0.786,
+   "REPRESENT": 0.783,
+   "JUDGE": 0.788,
+   "ENACT": 0.795
+  },
+  "axes": [
+   {
+    "pos": [
+     "crabby",
+     "rude",
+     "negative",
+     "hostile",
+     "unreasonable",
+     "disrespectful"
+    ],
+    "neg": [
+     "well-adjusted",
+     "considerate",
+     "kind",
+     "helpful",
+     "pleasant",
+     "positive"
+    ],
+    "w": {
+     "HUMAN": 0.838,
+     "SELF": 0.864,
+     "REPRESENT": 0.56,
+     "JUDGE": 0.78,
+     "ENACT": 0.766
+    }
+   },
+   {
+    "pos": [
+     "wonderful",
+     "great",
+     "amazing",
+     "excellent",
+     "awesome",
+     "good"
+    ],
+    "neg": [
+     "impulsive",
+     "cautious",
+     "assertive",
+     "rebellious",
+     "impatient",
+     "competitive"
+    ],
+    "w": {
+     "HUMAN": 0.036,
+     "SELF": 0.042,
+     "REPRESENT": 0.502,
+     "JUDGE": 0.015,
+     "ENACT": 0.049
+    }
+   },
+   {
+    "pos": [
+     "exciting",
+     "bold",
+     "daring",
+     "cocky",
+     "entertaining",
+     "extraordinary"
+    ],
+    "neg": [
+     "ordinary",
+     "shy",
+     "average",
+     "modest",
+     "cautious",
+     "quiet"
+    ],
+    "w": {
+     "HUMAN": 0.295,
+     "SELF": 0.093,
+     "REPRESENT": 0.174,
+     "JUDGE": 0.265,
+     "ENACT": 0.224
+    }
+   },
+   {
+    "pos": [
+     "strict",
+     "serious",
+     "critical",
+     "firm",
+     "controlling",
+     "businesslike"
+    ],
+    "neg": [
+     "cheerful",
+     "joyful",
+     "carefree",
+     "playful",
+     "adorable",
+     "delighted"
+    ],
+    "w": {
+     "HUMAN": 0.129,
+     "SELF": 0.017,
+     "REPRESENT": 0.136,
+     "JUDGE": 0.263,
+     "ENACT": 0.368
+    }
+   },
+   {
+    "pos": [
+     "sensitive",
+     "worried",
+     "complex",
+     "emotional",
+     "troubled",
+     "complicated"
+    ],
+    "neg": [
+     "shallow",
+     "predictable",
+     "satisfied",
+     "comfortable",
+     "insensitive",
+     "stable"
+    ],
+    "w": {
+     "HUMAN": 0.113,
+     "SELF": 0.037,
+     "REPRESENT": 0.088,
+     "JUDGE": 0.2,
+     "ENACT": 0.095
+    }
+   },
+   {
+    "pos": [
+     "well-to-do",
+     "self-supporting",
+     "well-liked",
+     "self-sufficient",
+     "self-assured",
+     "well-adjusted"
+    ],
+    "neg": [
+     "angry",
+     "cruel",
+     "evil",
+     "violent",
+     "mean",
+     "serious"
+    ],
+    "w": {
+     "HUMAN": 0.006,
+     "SELF": 0.002,
+     "REPRESENT": 0.259,
+     "JUDGE": 0.001,
+     "ENACT": 0.009
+    }
+   },
+   {
+    "pos": [
+     "glamorous",
+     "handsome",
+     "fashionable",
+     "gorgeous",
+     "slender",
+     "wealthy"
+    ],
+    "neg": [
+     "direct",
+     "straightforward",
+     "unique",
+     "complex",
+     "informal",
+     "weird"
+    ],
+    "w": {
+     "HUMAN": 0.065,
+     "SELF": 0.133,
+     "REPRESENT": 0.115,
+     "JUDGE": 0.069,
+     "ENACT": 0.081
+    }
+   },
+   {
+    "pos": [
+     "excited",
+     "pleased",
+     "glad",
+     "delighted",
+     "satisfied",
+     "surprised"
+    ],
+    "neg": [
+     "soft-spoken",
+     "weird",
+     "strange",
+     "unusual",
+     "complex",
+     "good-natured"
+    ],
+    "w": {
+     "HUMAN": 0.017,
+     "SELF": 0.009,
+     "REPRESENT": 0.202,
+     "JUDGE": 0.012,
+     "ENACT": 0.033
+    }
+   },
+   {
+    "pos": [
+     "hard",
+     "short",
+     "busy",
+     "loud",
+     "big",
+     "young"
+    ],
+    "neg": [
+     "dishonest",
+     "incompetent",
+     "irresponsible",
+     "compassionate",
+     "abusive",
+     "admirable"
+    ],
+    "w": {
+     "HUMAN": 0.018,
+     "SELF": 0.117,
+     "REPRESENT": 0.159,
+     "JUDGE": 0.012,
+     "ENACT": 0.038
+    }
+   },
+   {
+    "pos": [
+     "annoyed",
+     "irritated",
+     "grouchy",
+     "grumpy",
+     "cranky",
+     "irritable"
+    ],
+    "neg": [
+     "artistic",
+     "creative",
+     "imaginative",
+     "inexperienced",
+     "inefficient",
+     "intellectual"
+    ],
+    "w": {
+     "HUMAN": 0.037,
+     "SELF": 0.009,
+     "REPRESENT": 0.163,
+     "JUDGE": 0.019,
+     "ENACT": 0.089
+    }
+   }
+  ]
+ },
+ "DISTATIS": {
+  "matched_cos": [
+   1.0,
+   0.866,
+   0.956,
+   0.988,
+   0.941,
+   0.243,
+   0.652,
+   0.842
+  ],
+  "overlap": 0.86,
+  "table_r": 0.996,
+  "share": {
+   "HUMAN": 0.822,
+   "SELF": 0.765,
+   "REPRESENT": 0.627,
+   "JUDGE": 0.771,
+   "ENACT": 0.795
+  },
+  "axes": [
+   {
+    "pos": [
+     "rude",
+     "crabby",
+     "unreasonable",
+     "negative",
+     "obnoxious",
+     "hostile"
+    ],
+    "neg": [
+     "considerate",
+     "helpful",
+     "kind",
+     "understanding",
+     "respectful",
+     "pleasant"
+    ],
+    "w": {
+     "HUMAN": 0.837,
+     "SELF": 0.856,
+     "REPRESENT": 0.566,
+     "JUDGE": 0.78,
+     "ENACT": 0.769
+    }
+   },
+   {
+    "pos": [
+     "extraordinary",
+     "exciting",
+     "remarkable",
+     "fascinating",
+     "impressive",
+     "exceptional"
+    ],
+    "neg": [
+     "cautious",
+     "shy",
+     "ordinary",
+     "quiet",
+     "unsure",
+     "bashful"
+    ],
+    "w": {
+     "HUMAN": 0.293,
+     "SELF": 0.125,
+     "REPRESENT": 0.218,
+     "JUDGE": 0.23,
+     "ENACT": 0.224
+    }
+   },
+   {
+    "pos": [
+     "cheerful",
+     "joyful",
+     "playful",
+     "carefree",
+     "adorable",
+     "laughing"
+    ],
+    "neg": [
+     "strict",
+     "serious",
+     "firm",
+     "critical",
+     "systematic",
+     "businesslike"
+    ],
+    "w": {
+     "HUMAN": 0.135,
+     "SELF": 0.021,
+     "REPRESENT": 0.151,
+     "JUDGE": 0.26,
+     "ENACT": 0.356
+    }
+   },
+   {
+    "pos": [
+     "outspoken",
+     "assertive",
+     "direct",
+     "impatient",
+     "opinionated",
+     "competitive"
+    ],
+    "neg": [
+     "beautiful",
+     "wonderful",
+     "gorgeous",
+     "amazing",
+     "disabled",
+     "great"
+    ],
+    "w": {
+     "HUMAN": 0.059,
+     "SELF": 0.052,
+     "REPRESENT": 0.399,
+     "JUDGE": 0.088,
+     "ENACT": 0.117
+    }
+   },
+   {
+    "pos": [
+     "worried",
+     "anxious",
+     "emotional",
+     "nervous",
+     "frustrated",
+     "sensitive"
+    ],
+    "neg": [
+     "shallow",
+     "unintellectual",
+     "good-for-nothing",
+     "unsympathetic",
+     "predictable",
+     "dumb"
+    ],
+    "w": {
+     "HUMAN": 0.107,
+     "SELF": 0.048,
+     "REPRESENT": 0.137,
+     "JUDGE": 0.17,
+     "ENACT": 0.086
+    }
+   },
+   {
+    "pos": [
+     "slender",
+     "fashionable",
+     "slim",
+     "glamorous",
+     "stylish",
+     "skinny"
+    ],
+    "neg": [
+     "unusual",
+     "terrible",
+     "weird",
+     "unique",
+     "original",
+     "disgusting"
+    ],
+    "w": {
+     "HUMAN": 0.062,
+     "SELF": 0.112,
+     "REPRESENT": 0.139,
+     "JUDGE": 0.067,
+     "ENACT": 0.051
+    }
+   },
+   {
+    "pos": [
+     "casual",
+     "quiet",
+     "unusual",
+     "weird",
+     "laid-back",
+     "strange"
+    ],
+    "neg": [
+     "possessive",
+     "thankful",
+     "appreciative",
+     "pleasing",
+     "proud",
+     "loving"
+    ],
+    "w": {
+     "HUMAN": 0.054,
+     "SELF": 0.029,
+     "REPRESENT": 0.146,
+     "JUDGE": 0.059,
+     "ENACT": 0.08
+    }
+   },
+   {
+    "pos": [
+     "busy",
+     "rushed",
+     "employed",
+     "involved",
+     "excited",
+     "overworked"
+    ],
+    "neg": [
+     "graceful",
+     "philosophical",
+     "gentle",
+     "sophisticated",
+     "romantic",
+     "peaceful"
+    ],
+    "w": {
+     "HUMAN": 0.034,
+     "SELF": 0.04,
+     "REPRESENT": 0.158,
+     "JUDGE": 0.056,
+     "ENACT": 0.061
+    }
+   }
+  ]
+ },
+ "DISTATIS-f": {
+  "matched_cos": [
+   1.0,
+   0.784,
+   0.97,
+   0.99,
+   0.922,
+   0.184,
+   0.616,
+   0.766
+  ],
+  "overlap": 0.834,
+  "table_r": 0.994,
+  "share": {
+   "HUMAN": 0.828,
+   "SELF": 0.774,
+   "REPRESENT": 0.577,
+   "JUDGE": 0.777,
+   "ENACT": 0.8
+  },
+  "axes": [
+   {
+    "pos": [
+     "rude",
+     "crabby",
+     "negative",
+     "unreasonable",
+     "hostile",
+     "obnoxious"
+    ],
+    "neg": [
+     "considerate",
+     "well-adjusted",
+     "helpful",
+     "kind",
+     "understanding",
+     "respectful"
+    ],
+    "w": {
+     "HUMAN": 0.837,
+     "SELF": 0.86,
+     "REPRESENT": 0.562,
+     "JUDGE": 0.779,
+     "ENACT": 0.77
+    }
+   },
+   {
+    "pos": [
+     "exciting",
+     "extraordinary",
+     "remarkable",
+     "fascinating",
+     "exceptional",
+     "impressive"
+    ],
+    "neg": [
+     "ordinary",
+     "shy",
+     "unsure",
+     "cautious",
+     "quiet",
+     "average"
+    ],
+    "w": {
+     "HUMAN": 0.296,
+     "SELF": 0.125,
+     "REPRESENT": 0.202,
+     "JUDGE": 0.239,
+     "ENACT": 0.227
+    }
+   },
+   {
+    "pos": [
+     "strict",
+     "serious",
+     "firm",
+     "critical",
+     "systematic",
+     "businesslike"
+    ],
+    "neg": [
+     "cheerful",
+     "joyful",
+     "playful",
+     "carefree",
+     "adorable",
+     "laughing"
+    ],
+    "w": {
+     "HUMAN": 0.138,
+     "SELF": 0.022,
+     "REPRESENT": 0.146,
+     "JUDGE": 0.264,
+     "ENACT": 0.354
+    }
+   },
+   {
+    "pos": [
+     "outspoken",
+     "direct",
+     "assertive",
+     "opinionated",
+     "impatient",
+     "energetic"
+    ],
+    "neg": [
+     "beautiful",
+     "gorgeous",
+     "amazing",
+     "remarkable",
+     "wonderful",
+     "extraordinary"
+    ],
+    "w": {
+     "HUMAN": 0.066,
+     "SELF": 0.063,
+     "REPRESENT": 0.348,
+     "JUDGE": 0.102,
+     "ENACT": 0.137
+    }
+   },
+   {
+    "pos": [
+     "worried",
+     "anxious",
+     "emotional",
+     "nervous",
+     "frustrated",
+     "sensitive"
+    ],
+    "neg": [
+     "shallow",
+     "unintellectual",
+     "stupid",
+     "predictable",
+     "dumb",
+     "good-for-nothing"
+    ],
+    "w": {
+     "HUMAN": 0.111,
+     "SELF": 0.053,
+     "REPRESENT": 0.142,
+     "JUDGE": 0.165,
+     "ENACT": 0.077
+    }
+   },
+   {
+    "pos": [
+     "fashionable",
+     "slender",
+     "glamorous",
+     "stylish",
+     "slim",
+     "good-looking"
+    ],
+    "neg": [
+     "unusual",
+     "original",
+     "unique",
+     "weird",
+     "insane",
+     "abnormal"
+    ],
+    "w": {
+     "HUMAN": 0.074,
+     "SELF": 0.104,
+     "REPRESENT": 0.125,
+     "JUDGE": 0.076,
+     "ENACT": 0.051
+    }
+   },
+   {
+    "pos": [
+     "philosophical",
+     "artistic",
+     "sophisticated",
+     "graceful",
+     "gentle",
+     "romantic"
+    ],
+    "neg": [
+     "busy",
+     "rushed",
+     "involved",
+     "employed",
+     "overworked",
+     "familiar"
+    ],
+    "w": {
+     "HUMAN": 0.037,
+     "SELF": 0.035,
+     "REPRESENT": 0.173,
+     "JUDGE": 0.054,
+     "ENACT": 0.05
+    }
+   },
+   {
+    "pos": [
+     "casual",
+     "skinny",
+     "slim",
+     "slender",
+     "young",
+     "thin"
+    ],
+    "neg": [
+     "loving",
+     "abusive",
+     "prejudiced",
+     "affectionate",
+     "thankful",
+     "devoted"
+    ],
+    "w": {
+     "HUMAN": 0.046,
+     "SELF": 0.044,
+     "REPRESENT": 0.14,
+     "JUDGE": 0.057,
+     "ENACT": 0.082
+    }
+   }
+  ]
+ },
+ "SUMSQ": {
+  "matched_cos": [
+   1.0,
+   0.691,
+   0.72,
+   0.584,
+   0.846,
+   0.844,
+   0.884,
+   0.868
+  ],
+  "overlap": 0.938,
+  "table_r": 0.988,
+  "share": {
+   "HUMAN": 0.779,
+   "SELF": 0.785,
+   "REPRESENT": 0.632,
+   "JUDGE": 0.726,
+   "ENACT": 0.758
+  },
+  "axes": [
+   {
+    "pos": [
+     "crabby",
+     "rude",
+     "negative",
+     "unreasonable",
+     "hostile",
+     "obnoxious"
+    ],
+    "neg": [
+     "considerate",
+     "well-adjusted",
+     "thoughtful",
+     "kind",
+     "understanding",
+     "respectful"
+    ],
+    "w": {
+     "HUMAN": 0.835,
+     "SELF": 0.868,
+     "REPRESENT": 0.559,
+     "JUDGE": 0.775,
+     "ENACT": 0.769
+    }
+   },
+   {
+    "pos": [
+     "lively",
+     "exciting",
+     "playful",
+     "entertaining",
+     "amusing",
+     "hilarious"
+    ],
+    "neg": [
+     "serious",
+     "cautious",
+     "withdrawn",
+     "careful",
+     "alone",
+     "private"
+    ],
+    "w": {
+     "HUMAN": 0.188,
+     "SELF": 0.074,
+     "REPRESENT": 0.18,
+     "JUDGE": 0.237,
+     "ENACT": 0.287
+    }
+   },
+   {
+    "pos": [
+     "remarkable",
+     "impressive",
+     "exceptional",
+     "outstanding",
+     "extraordinary",
+     "amazing"
+    ],
+    "neg": [
+     "laid-back",
+     "easygoing",
+     "bashful",
+     "casual",
+     "indecisive",
+     "warm-hearted"
+    ],
+    "w": {
+     "HUMAN": 0.159,
+     "SELF": 0.084,
+     "REPRESENT": 0.348,
+     "JUDGE": 0.116,
+     "ENACT": 0.208
+    }
+   },
+   {
+    "pos": [
+     "assertive",
+     "competitive",
+     "ambitious",
+     "direct",
+     "outspoken",
+     "opinionated"
+    ],
+    "neg": [
+     "adorable",
+     "lovely",
+     "wonderful",
+     "delightful",
+     "delighted",
+     "poor"
+    ],
+    "w": {
+     "HUMAN": 0.118,
+     "SELF": 0.031,
+     "REPRESENT": 0.267,
+     "JUDGE": 0.19,
+     "ENACT": 0.182
+    }
+   },
+   {
+    "pos": [
+     "self-assured",
+     "well-adjusted",
+     "self-confident",
+     "unintellectual",
+     "unsympathetic",
+     "good-for-nothing"
+    ],
+    "neg": [
+     "worried",
+     "anxious",
+     "sad",
+     "artistic",
+     "nervous",
+     "emotional"
+    ],
+    "w": {
+     "HUMAN": 0.098,
+     "SELF": 0.048,
+     "REPRESENT": 0.144,
+     "JUDGE": 0.142,
+     "ENACT": 0.081
+    }
+   },
+   {
+    "pos": [
+     "preoccupied",
+     "well-known",
+     "self-conscious",
+     "well-liked",
+     "well-to-do",
+     "overworked"
+    ],
+    "neg": [
+     "boring",
+     "cool",
+     "cold",
+     "calm",
+     "ordinary",
+     "mean"
+    ],
+    "w": {
+     "HUMAN": 0.024,
+     "SELF": 0.012,
+     "REPRESENT": 0.206,
+     "JUDGE": 0.04,
+     "ENACT": 0.03
+    }
+   },
+   {
+    "pos": [
+     "busy",
+     "young",
+     "short",
+     "rushed",
+     "surprised",
+     "little"
+    ],
+    "neg": [
+     "compassionate",
+     "admirable",
+     "abusive",
+     "forgiving",
+     "kind-hearted",
+     "generous"
+    ],
+    "w": {
+     "HUMAN": 0.023,
+     "SELF": 0.085,
+     "REPRESENT": 0.159,
+     "JUDGE": 0.023,
+     "ENACT": 0.056
+    }
+   },
+   {
+    "pos": [
+     "athletic",
+     "glamorous",
+     "religious",
+     "fashionable",
+     "wealthy",
+     "romantic"
+    ],
+    "neg": [
+     "complex",
+     "unique",
+     "unusual",
+     "weird",
+     "interesting",
+     "original"
+    ],
+    "w": {
+     "HUMAN": 0.042,
+     "SELF": 0.111,
+     "REPRESENT": 0.115,
+     "JUDGE": 0.048,
+     "ENACT": 0.048
+    }
+   }
+  ]
+ },
+ "MEAN": {
+  "matched_cos": [
+   1.0,
+   0.829,
+   0.961,
+   0.99,
+   0.936,
+   0.229,
+   0.607,
+   0.806
+  ],
+  "overlap": 0.845,
+  "table_r": 0.995,
+  "share": {
+   "HUMAN": 0.823,
+   "SELF": 0.778,
+   "REPRESENT": 0.601,
+   "JUDGE": 0.771,
+   "ENACT": 0.797
+  },
+  "axes": [
+   {
+    "pos": [
+     "rude",
+     "crabby",
+     "negative",
+     "unreasonable",
+     "hostile",
+     "obnoxious"
+    ],
+    "neg": [
+     "considerate",
+     "helpful",
+     "kind",
+     "well-adjusted",
+     "understanding",
+     "respectful"
+    ],
+    "w": {
+     "HUMAN": 0.836,
+     "SELF": 0.862,
+     "REPRESENT": 0.563,
+     "JUDGE": 0.778,
+     "ENACT": 0.769
+    }
+   },
+   {
+    "pos": [
+     "exciting",
+     "extraordinary",
+     "remarkable",
+     "fascinating",
+     "impressive",
+     "exceptional"
+    ],
+    "neg": [
+     "ordinary",
+     "shy",
+     "cautious",
+     "unsure",
+     "quiet",
+     "average"
+    ],
+    "w": {
+     "HUMAN": 0.294,
+     "SELF": 0.129,
+     "REPRESENT": 0.21,
+     "JUDGE": 0.232,
+     "ENACT": 0.225
+    }
+   },
+   {
+    "pos": [
+     "cheerful",
+     "joyful",
+     "playful",
+     "carefree",
+     "adorable",
+     "laughing"
+    ],
+    "neg": [
+     "strict",
+     "serious",
+     "firm",
+     "critical",
+     "systematic",
+     "businesslike"
+    ],
+    "w": {
+     "HUMAN": 0.137,
+     "SELF": 0.021,
+     "REPRESENT": 0.148,
+     "JUDGE": 0.262,
+     "ENACT": 0.355
+    }
+   },
+   {
+    "pos": [
+     "outspoken",
+     "direct",
+     "assertive",
+     "opinionated",
+     "impatient",
+     "competitive"
+    ],
+    "neg": [
+     "beautiful",
+     "gorgeous",
+     "wonderful",
+     "amazing",
+     "remarkable",
+     "great"
+    ],
+    "w": {
+     "HUMAN": 0.062,
+     "SELF": 0.059,
+     "REPRESENT": 0.376,
+     "JUDGE": 0.094,
+     "ENACT": 0.127
+    }
+   },
+   {
+    "pos": [
+     "worried",
+     "anxious",
+     "emotional",
+     "nervous",
+     "frustrated",
+     "sensitive"
+    ],
+    "neg": [
+     "shallow",
+     "unintellectual",
+     "good-for-nothing",
+     "unsympathetic",
+     "stupid",
+     "dumb"
+    ],
+    "w": {
+     "HUMAN": 0.109,
+     "SELF": 0.051,
+     "REPRESENT": 0.137,
+     "JUDGE": 0.168,
+     "ENACT": 0.083
+    }
+   },
+   {
+    "pos": [
+     "fashionable",
+     "slender",
+     "slim",
+     "glamorous",
+     "stylish",
+     "good-looking"
+    ],
+    "neg": [
+     "unusual",
+     "unique",
+     "original",
+     "insane",
+     "terrible",
+     "weird"
+    ],
+    "w": {
+     "HUMAN": 0.066,
+     "SELF": 0.111,
+     "REPRESENT": 0.135,
+     "JUDGE": 0.07,
+     "ENACT": 0.05
+    }
+   },
+   {
+    "pos": [
+     "busy",
+     "rushed",
+     "involved",
+     "employed",
+     "excited",
+     "overworked"
+    ],
+    "neg": [
+     "philosophical",
+     "graceful",
+     "sophisticated",
+     "artistic",
+     "gentle",
+     "intellectual"
+    ],
+    "w": {
+     "HUMAN": 0.039,
+     "SELF": 0.037,
+     "REPRESENT": 0.162,
+     "JUDGE": 0.057,
+     "ENACT": 0.052
+    }
+   },
+   {
+    "pos": [
+     "casual",
+     "skinny",
+     "informal",
+     "messy",
+     "cool",
+     "young"
+    ],
+    "neg": [
+     "loving",
+     "affectionate",
+     "possessive",
+     "thankful",
+     "proud",
+     "abusive"
+    ],
+    "w": {
+     "HUMAN": 0.047,
+     "SELF": 0.039,
+     "REPRESENT": 0.141,
+     "JUDGE": 0.056,
+     "ENACT": 0.085
+    }
+   }
+  ]
+ }
+}
