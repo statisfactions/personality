@@ -125,3 +125,20 @@ def subspace_overlap(Q1, Q2):
     """Mean squared cosine of the principal angles (1 = same span)."""
     s = np.linalg.svd(Q1.T @ Q2, compute_uv=False)
     return float((s ** 2).mean())
+
+
+def item_shares(Q, M, diag="ones"):
+    """Per-axis share of a channel's variance in the paper's PC1-table units
+    (pkit.channels.spectrum_share). M: the channel's level-removed matrix (any
+    diagonal; zeroed here). diag="ones": percent of item variance with a unit
+    diagonal, q'(M0 + I)q / n -- for orthonormal Q these add up to the share
+    of item variance in span(Q) exactly. diag="zero": q'M0 q over the positive
+    part of M0's spectrum (JUDGE). Returns (per-axis shares, own top-K share
+    for K = Q.shape[1])."""
+    A = np.array(M, float); np.fill_diagonal(A, 0.0); n, K = Q.shape
+    w = np.sort(np.linalg.eigvalsh(A))[::-1]
+    r = np.einsum("ik,ij,jk->k", Q, A, Q)
+    if diag == "ones":
+        return (r + 1) / n, float((w[:K] + 1).sum() / n)
+    den = w[w > 0].sum()
+    return r / den, float(w[:K].sum() / den)
