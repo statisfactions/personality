@@ -3,8 +3,8 @@ rgb 2026-10-18). Reads results/persona_vectors/joint_diag/joint_diag_k7.{npz,jso
 from scripts/joint_diag_channels.py --k 7.
 
 Units (rgb 2026-10-18): percent of item variance, the PC1 table's convention
-(pkit.channels.SHARE_DIAG: unit diagonal; JUDGE* positive zero-diagonal
-spectrum), via pkit.jointdiag.item_shares. HUMAN axis 1 = 15.6 vs its own
+(pkit.channels.SHARE_DIAG: unit diagonal for all five since 2026-10-18), via
+pkit.jointdiag.item_shares. HUMAN axis 1 = 15.6 vs its own
 PC1 16.4. (The fit's own weights w give shares of the squared off-diagonal
 structure, ~lambda^2 / sum lambda^2, which inflate the dominant axis: 70% for
 HUMAN axis 1. Not used here.)
@@ -35,7 +35,7 @@ OUT = "results/persona_vectors/figs/fig_joint_axes"
 z = np.load(SRC + ".npz", allow_pickle=True); meta = json.load(open(SRC + ".json"))
 Q, W, labels = z["Q"], z["W"], [str(s) for s in z["labels"]]
 CH = [str(c) for c in z["channels"]]
-CHD = [c.title() + ("*" if C.SHARE_DIAG[c] == "zero" else "") for c in CH]
+CHD = [c.title() + ("*" if c in C.NOT_PSD else "") for c in CH]
 K = W.shape[1]
 mem = {c: C.members(c, labels) for c in CH}; LV = C.channel_level_removed(labels, mem)
 SH, OWNK = [], []
@@ -108,8 +108,8 @@ axb.legend(handles=[Patch(color=OWN, label="own top 7, not shared"),
                     Patch(color=REST, label="beyond own top 7")],
            loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=2, frameon=False, fontsize=7.5,
            handlelength=1.2, columnspacing=1.2)
-fig.text(0.98, 0.012, "* Judge: share of the positive zero-diagonal spectrum (no unit diagonal)",
-         ha="right", fontsize=7, color=MUTED)
+if any(c in C.NOT_PSD for c in CH):
+    fig.text(0.98, 0.012, C.NOT_PSD_NOTE, ha="right", fontsize=7, color=MUTED)
 
 cax = fig.add_axes((0.12, 0.045, 0.16, 0.022))
 cb = fig.colorbar(im, cax=cax, orientation="horizontal"); cb.set_ticks([0, 15, 30, 45])

@@ -229,22 +229,35 @@ def congruence(A, B):
 
 # ---- paper-facing summaries (data only; presentation lives in the paper) ----
 
-SHARE_DIAG = {"HUMAN": "ones", "SELF": "ones", "REPRESENT": "ones", "JUDGE": "zero", "ENACT": "ones"}
+# All five on the unit diagonal (rgb 2026-10-18). JUDGE was "zero" until then;
+# the Higham-repaired JUDGE (nearest correlation matrix per model, mean, then
+# double-centered) is a near-valid correlation matrix (min eig -0.09) with the
+# same PC1 (cos .999) and the same unit-diagonal share (.178 vs .178), while
+# the zero-diagonal share was deflated by incoherence mass (.26 -> .31 after
+# repair): a trace-zero matrix pays for every unit of negative mass with a
+# unit of spurious positive mass in the denominator. "zero" stays available.
+SHARE_DIAG = {"HUMAN": "ones", "SELF": "ones", "REPRESENT": "ones", "JUDGE": "ones", "ENACT": "ones"}
+# Channels whose unit-diagonal matrix is not a valid correlation matrix
+# (negative eigenvalues; JUDGE + I has 118, min -7.0). Figures keep a * on
+# them (rgb 2026-10-18: "the negative space is still probably unexpected").
+NOT_PSD = ("JUDGE",)
+NOT_PSD_NOTE = ("* not a valid correlation matrix (negative eigenvalues); "
+                "its PC1 share matches that of its nearest correlation matrix")
 
 
 def spectrum_share(w, diag="ones"):
     """Eigenvalue shares from the ZERO-diagonal spectrum w (descending order
-    not required). diag="ones": unit diagonal restored (w + 1), i.e. the
-    textbook percent of item variance; valid for the correlation/cosine
-    channels, whose ones-diagonal matrices are PSD. diag="zero": share of the
-    positive part of the zero-diagonal spectrum (JUDGE: double-centered phi
-    is not a correlation matrix, so it has no item-variance reading).
+    not required). diag="ones": unit diagonal restored (w + 1) over its trace
+    n, i.e. the textbook percent of item variance (for a non-PSD matrix such
+    as raw JUDGE the trace keeps negative mass out of the denominator; it
+    equals the share of the Higham-repaired matrix, see SHARE_DIAG).
+    diag="zero": share of the positive part of the zero-diagonal spectrum.
     (rgb 2026-10-11: zero-diagonal shares were being read as percent of
     variance; HUMAN PC1 .31 zero-diag vs .16 ones-diag.)"""
     w = np.asarray(w, float)
     if diag == "ones":
         w1 = w + 1.0
-        return w1 / w1[w1 > 0].sum()
+        return w1 / w1.sum()          # trace = n (was the positive part; same for PSD)
     return w / w[w > 0].sum()
 
 

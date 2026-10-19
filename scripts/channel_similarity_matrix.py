@@ -119,12 +119,13 @@ fig.savefig(out + ".pdf", dpi=300, bbox_inches="tight"); fig.savefig(out + ".png
 # the channels' PC1 loading vectors on 525 adjectives, level-removed matrices,
 # same component remove_pc1 removes), so it gets its own sequential colormap
 # and its diagonal shows PC1's share: percent of item variance (unit diagonal)
-# for the correlation/cosine channels; JUDGE (double-centered phi, not a
-# correlation matrix) shows share of the positive spectrum, marked * (rgb 2026-10-11). ----
+# for all five channels since 2026-10-18 (JUDGE was the positive zero-diagonal
+# spectrum; see pkit.channels.SHARE_DIAG). JUDGE keeps a * as not PSD
+# (pkit.channels.NOT_PSD). ----
 def _pc1(c):
     v, _, sh = chn.top_component(lv[c], labels, diag=chn.SHARE_DIAG[c]); return v, sh
 PCv = {c: _pc1(c) for c in CH}
-SHTXT = {c: f"{100 * PCv[c][1]:.0f}%" + ("*" if chn.SHARE_DIAG[c] == "zero" else "") for c in CH}
+SHTXT = {c: f"{100 * PCv[c][1]:.0f}%" + ("*" if c in chn.NOT_PSD else "") for c in CH}
 PCC = np.array([[PCv[a][0] @ PCv[b][0] for b in CH] for a in CH])
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.8), gridspec_kw={"wspace": 0.42})
@@ -190,7 +191,7 @@ panel(lower(PCC), [SHTXT[c] for c in CH], "Purples", 0, "PC1 cosine", base + "pc
 panel(lower(C[("525", "top")]), [f"{rel525[c]['top']:.2f}" for c in CH], "RdBu_r", -1, "congruence", base + "top")
 
 # ---- reasonableness of top-component removal: are the removed axes the same axis? ----
-print("\ntop component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
+print("\nLEGACY diagnostic (grand-mean centering, |eigenvalue| share; paper shares come from pc1_summary): top component of each centered 525 matrix: eigenvalue share, cosine with the others, with the human evaluation axis, and with uniform")
 tops, shares = {}, {}
 for c in CH:
     A = center(mats[c]); w, V = np.linalg.eigh(A); k = np.argmax(np.abs(w)); v = V[:, k] * np.sign(V[labels.index("kind"), k])
