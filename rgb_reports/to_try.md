@@ -6134,6 +6134,14 @@ hide the swap); JUDGE design (cos .38 / .92). Congruence is blind to a
 uniform shift; do not use it to argue this.
 Open: linear-algebra check = pairwise commutators ||[S_a,S_b]|| (exactly
 jointly diagonalizable iff commuting); split-half intervals on the weights.
+SUPERSEDED (2026-10-18, later): the axis names and the "75%" / ".72-.82"
+shares above are the fit's squared-structure weights (w^2), which inflate
+the dominant axis. The paper figure uses percent of item variance
+(pkit.jointdiag.item_shares): axis 1 HUMAN 15.6 / SELF 41.3 / REPRESENT 7.9
+/ JUDGE 16.7* / ENACT 26.1; shared vs own top-7 in rgb_reports/paper_notes.md
+C1. Final axis names: Evaluation; Evaluative vs. descriptive; Bold vs.
+ordinary; Serious vs. playful; Sensitive vs. shallow; Compound vs. simple
+words; Physical vs. character.
 
 ## TODO: fold the full-ENACT models into ENACT (rgb 2026-10-18, "don't forget")
 

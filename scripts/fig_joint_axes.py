@@ -14,7 +14,7 @@ HUMAN axis 1. Not used here.)
     (item uniqueness, sampling error, minor structure).
 
 Design variations (scripts/joint_diag_robustness.py): DISTATIS (lambda1 or
-unit-norm tables), eigenvectors of the mean matrix, l1 normalization and
+unit-norm tables), eigenvectors of the mean matrix, lambda1 normalization and
 K = 6/8/10 all recover axes 1, 3, 4, 5 (|cos| >= .92); the averaging methods
 lose the REPRESENT-only axes (6, 7); eigenvectors of the summed squares mix
 axes 3 and 4. Axis names are descriptive labels, not fitted quantities.
