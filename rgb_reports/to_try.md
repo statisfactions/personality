@@ -6157,3 +6157,11 @@ patched for HF repo ids and thinking templates (enable_thinking=False always,
 empty thought closed for auto-open templates). pkit.channels.JUDGE_ROSTER
 pins the paper channel to the 12 so partial checkpoints don't leak in;
 folding the new models in is the same deliberate step as ENACT above.
+
+JUDGE SHARE CONVENTION CHANGED (2026-10-18, rgb): unit diagonal, trace
+denominator (pkit.channels.SHARE_DIAG, spectrum_share). Higham-repaired JUDGE
+gives the same PC1 (cos .999) and the same unit-diagonal share (.178); the old
+zero-diagonal share (.26) was deflated by incoherence mass (a trace-zero
+matrix carries matching spurious positive mass; repaired .31 ~ HUMAN's
+zero-diagonal .305). JUDGE PC1 share now 18%*, * = NOT_PSD (negative space
+still unexpected). rgb is rewriting the JUDGE methodology section.
