@@ -140,12 +140,26 @@ def represent_members(labels=None, core_sd=CORE_SD):
     return z["cos"][keep].astype(np.float32), [names[i] for i in keep]
 
 
-def judge_members(labels=None, phi_clip=PHI_CLIP):
-    """Per-model clipped implied-phi matrices (adopted cooking); returns (mats, names)."""
+# The JUDGE roster is explicit (2026-10-18): the wide-roster JUDGE chain writes
+# into the same directory, with partial checkpoints under the final filename,
+# so a glob would pull new (and half-filled) models into the paper's channel
+# mid-run. Adding the wide models is a deliberate step (cf. ENACT pda_wide).
+JUDGE_ROSTER = ("Aya", "FalconMamba", "Gemma", "Gemma12", "Gemma27", "Gemma4",
+                "Llama", "Llama8", "Phi4", "Qwen", "Qwen32", "Qwen7")
+
+
+def judge_members(labels=None, phi_clip=PHI_CLIP, roster=JUDGE_ROSTER):
+    """Per-model clipped implied-phi matrices (adopted cooking); returns (mats, names).
+    roster: model stems to include (None = every COMPLETE file in the directory)."""
     labels = labels or load.adjectives()
     mats, names = [], []
     for p in sorted(glob.glob(str(paths.INTROSPECT / "*_tom_likely_dir.npz"))):
+        stem = os.path.basename(p).split("_tom_likely")[0]
+        if roster is not None and stem not in roster:
+            continue
         zj = np.load(p, allow_pickle=True)
+        if "n_pairs" in zj.files and int(zj["done"]) < int(zj["n_pairs"]):
+            continue                                   # checkpoint of a running model
         ja = [str(a).lower() for a in zj["adjectives"]]
         idx = [ja.index(l) for l in labels]
         B = np.asarray(zj["B"], float)[np.ix_(idx, idx)]
@@ -153,7 +167,7 @@ def judge_members(labels=None, phi_clip=PHI_CLIP):
         P = np.clip(np.exp(psi - np.median(psi) + np.log(0.5)), 0.01, 0.99)
         phi = np.clip(cooking.implied_phi(cooking.EV2P(B), P), -phi_clip, phi_clip)
         mats.append(_zero_diag(phi))
-        names.append(os.path.basename(p).split("_tom_likely")[0])
+        names.append(stem)
     return np.array(mats), names
 
 

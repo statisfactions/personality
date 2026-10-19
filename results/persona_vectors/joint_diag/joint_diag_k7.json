@@ -1,0 +1,238 @@
+{
+ "k": 7,
+ "loss": 1.1340801447456772,
+ "n_converged_inits": 2,
+ "axes": [
+  {
+   "pos": [
+    "crabby",
+    "rude",
+    "negative",
+    "hostile",
+    "unreasonable",
+    "obnoxious",
+    "disrespectful",
+    "bitter"
+   ],
+   "neg": [
+    "well-adjusted",
+    "considerate",
+    "kind",
+    "helpful",
+    "pleasant",
+    "positive",
+    "understanding",
+    "respectable"
+   ],
+   "w": {
+    "HUMAN": 0.8371,
+    "SELF": 0.8652,
+    "REPRESENT": 0.5586,
+    "JUDGE": 0.7794,
+    "ENACT": 0.766
+   },
+   "stab_min": 0.9999999669225954
+  },
+  {
+   "pos": [
+    "wonderful",
+    "great",
+    "amazing",
+    "beautiful",
+    "excellent",
+    "awesome",
+    "remarkable",
+    "good"
+   ],
+   "neg": [
+    "impulsive",
+    "assertive",
+    "cautious",
+    "impatient",
+    "rebellious",
+    "competitive",
+    "outspoken",
+    "spontaneous"
+   ],
+   "w": {
+    "HUMAN": 0.0392,
+    "SELF": 0.0461,
+    "REPRESENT": 0.5013,
+    "JUDGE": 0.0173,
+    "ENACT": 0.054
+   },
+   "stab_min": 0.9999981423182864
+  },
+  {
+   "pos": [
+    "exciting",
+    "bold",
+    "daring",
+    "cocky",
+    "extraordinary",
+    "entertaining",
+    "fascinating",
+    "powerful"
+   ],
+   "neg": [
+    "ordinary",
+    "average",
+    "shy",
+    "cautious",
+    "unsure",
+    "modest",
+    "plain",
+    "quiet"
+   ],
+   "w": {
+    "HUMAN": 0.2986,
+    "SELF": 0.1008,
+    "REPRESENT": 0.1776,
+    "JUDGE": 0.2568,
+    "ENACT": 0.2244
+   },
+   "stab_min": 0.9999983818400345
+  },
+  {
+   "pos": [
+    "strict",
+    "serious",
+    "critical",
+    "firm",
+    "controlling",
+    "businesslike",
+    "systematic",
+    "hard"
+   ],
+   "neg": [
+    "cheerful",
+    "joyful",
+    "adorable",
+    "carefree",
+    "playful",
+    "delighted",
+    "lively",
+    "good-humored"
+   ],
+   "w": {
+    "HUMAN": 0.1298,
+    "SELF": 0.0169,
+    "REPRESENT": 0.1388,
+    "JUDGE": 0.2618,
+    "ENACT": 0.3675
+   },
+   "stab_min": 0.9999984923190712
+  },
+  {
+   "pos": [
+    "worried",
+    "emotional",
+    "anxious",
+    "sensitive",
+    "troubled",
+    "scared",
+    "nervous",
+    "fretful"
+   ],
+   "neg": [
+    "shallow",
+    "predictable",
+    "boring",
+    "relaxed",
+    "comfortable",
+    "stable",
+    "insensitive",
+    "average"
+   ],
+   "w": {
+    "HUMAN": 0.1085,
+    "SELF": 0.0361,
+    "REPRESENT": 0.0995,
+    "JUDGE": 0.1993,
+    "ENACT": 0.1017
+   },
+   "stab_min": 0.9999946887532756
+  },
+  {
+   "pos": [
+    "well-to-do",
+    "self-supporting",
+    "self-sufficient",
+    "self-assured",
+    "well-liked",
+    "well-adjusted",
+    "self-confident",
+    "well-known"
+   ],
+   "neg": [
+    "angry",
+    "cruel",
+    "serious",
+    "evil",
+    "mean",
+    "calm",
+    "cold",
+    "violent"
+   ],
+   "w": {
+    "HUMAN": 0.0063,
+    "SELF": 0.0023,
+    "REPRESENT": 0.2589,
+    "JUDGE": 0.0021,
+    "ENACT": 0.0095
+   },
+   "stab_min": 0.999985743630905
+  },
+  {
+   "pos": [
+    "slim",
+    "slender",
+    "thin",
+    "skinny",
+    "young",
+    "tall",
+    "short",
+    "big"
+   ],
+   "neg": [
+    "disrespectful",
+    "admirable",
+    "compassionate",
+    "irritating",
+    "inconsiderate",
+    "trustworthy",
+    "insulting",
+    "unreasonable"
+   ],
+   "w": {
+    "HUMAN": 0.0181,
+    "SELF": 0.1037,
+    "REPRESENT": 0.1889,
+    "JUDGE": 0.0216,
+    "ENACT": 0.0592
+   },
+   "stab_min": 0.9992938769913047
+  }
+ ],
+ "joint_share": {
+  "HUMAN": 0.816,
+  "SELF": 0.7701,
+  "REPRESENT": 0.7189,
+  "JUDGE": 0.7774,
+  "ENACT": 0.7836
+ },
+ "own_share": {
+  "HUMAN": 0.9572,
+  "SELF": 0.9917,
+  "REPRESENT": 0.8474,
+  "JUDGE": 0.9241,
+  "ENACT": 0.9823
+ },
+ "level_congruence": {
+  "HUMAN": 0.9685110746594635,
+  "SELF": 0.9165137071665564,
+  "REPRESENT": 1.0,
+  "JUDGE": 0.8750722336498864,
+  "ENACT": 1.0
+ }
+}

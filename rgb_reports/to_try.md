@@ -6105,3 +6105,55 @@ are complete) and is freed before assembly, and acts go to a separate
 torch.load(...)[cond].numpy()). The main .pt has acts=None plus acts_file.
 Mistral assembled from checkpoints at 18.7 GB peak RSS. Chain restarted to
 assemble the other three, then continue at Qwen3-14B.
+
+## Common axes across channels (2026-10-18)
+
+Joint off-diagonal diagonalization of the five LEVEL-REMOVED matrices
+(pkit.jointdiag; scripts/joint_diag_channels.py): S_t ~ Q diag(w_t) Q',
+orthonormal Q, unit off-diagonal norm per channel, no top removal (the
+evaluative axis is row 1; "level & top removed" = reading from row 2 down).
+rgb chose K=7 for the paper figure (scripts/fig_joint_axes.py ->
+figs/fig_joint_axes). Axes: 1 evaluation (all five), 2 praise words
+(REPRESENT only), 3 agency (HUMAN .30, JUDGE .26, ENACT .22), 4 strict vs
+cheerful (ENACT .37, JUDGE .26), 5 worry (JUDGE .20), 6 self-/well-
+compounds (REPRESENT only), 7 body/looks (REPRESENT .19, SELF .10). SELF is
+75% axis 1. Shared axes capture .72-.82 of each channel vs .85-.99 for its
+own top-7.
+Design variations (scripts/joint_diag_robustness.py): DISTATIS (lambda1 or
+unit norm), mean-matrix eigenvectors, l1 normalization, K=6/8/10 all
+recover axes 1,3,4,5 (|cos| >= .92); DISTATIS ~ mean (RV weights .18-.21);
+averaging methods lose REPRESENT-only axes 6/7; summed-squares eigenvectors
+mix 3 and 4. Openness: no axis of its own; Big Five marker directions sit
+in each channel's top-10 span about equally (O .05-.17, like E/C/N) -- not
+aligned with any variance-ordered axis (exploratory, unregistered).
+Level removal (pkit.channels.level_removal_summary, paper
+_analysis.channels.level_removal()): HUMAN harmless (row means 5% of item
+variance, raw vs level PC1 cos .995); SELF raw PC1 IS the level direction
+(cos .97 with all-ones; level PC1 cos .06 with raw PC1; shares .42 vs .45
+hide the swap); JUDGE design (cos .38 / .92). Congruence is blind to a
+uniform shift; do not use it to argue this.
+Open: linear-algebra check = pairwise commutators ||[S_a,S_b]|| (exactly
+jointly diagonalizable iff commuting); split-half intervals on the weights.
+
+## TODO: fold the full-ENACT models into ENACT (rgb 2026-10-18, "don't forget")
+
+The pda_wide chain finished 2026-10-16: 10 full-recipe models (Gemma-4-31B,
+Qwen3.8-27B, OLMo-2-32B, Mistral-Small-24B, Qwen3-14B, Yi-1.5-34B,
+Aya-32B, Gemma-2-27B, phi-4, Qwen2.5-14B). pkit.channels.enact_members still
+reads only enact_mid (the cohort-10). To do: build their mid-layer direction
+npz in enact_mid format, recompute every paper number with ENACT n=10 vs 20
+(congruences, PC1 table, split-half, joint axes, offdiag strength), and
+write down the outlier models (per-model congruence with the cohort mean,
+per-model residual vs HUMAN) before deciding what enters the paper.
+
+## JUDGE on the wide-ENACT models (launched 2026-10-18 17:02)
+
+scripts/gpu_chain_judge_full.sh, todo tmp/judge_full_todo.txt, smallest
+first: full directional tom_likely (275,100 prompts) + base_rate_query +
+base_rate_fit per model, outputs in introspect_full under repo-id stems.
+Gemma-4-31B already had JUDGE. Smoke on Qwen3-14B clean (entropy .27); ~22
+pairs/s -> ~3.5 h for 14B, est. 7-9 h for 32B, ~2-3 days total. Scripts
+patched for HF repo ids and thinking templates (enable_thinking=False always,
+empty thought closed for auto-open templates). pkit.channels.JUDGE_ROSTER
+pins the paper channel to the 12 so partial checkpoints don't leak in;
+folding the new models in is the same deliberate step as ENACT above.

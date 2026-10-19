@@ -33,7 +33,7 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--device", default=None)
     args = ap.parse_args()
-    out = f"{OUT_DIR}/{args.model}_base_rate.json"
+    out = f"{OUT_DIR}/{args.model.replace('/', '_')}_base_rate.json"  # HF repo ids ok
     if os.path.exists(out):
         print(f"[skip] {out} exists")
         return

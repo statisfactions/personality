@@ -29,7 +29,7 @@ def main():
     labels = [l.lower() for l in h["labels"]]
     Hm = np.array(h["correlation_matrix"], float)
     np.fill_diagonal(Hm, 0)
-    z = np.load(f"results/adjectives/introspect_full/{args.model}_tom_likely_dir.npz",
+    z = np.load(f"results/adjectives/introspect_full/{args.model.replace('/', '_')}_tom_likely_dir.npz",
                 allow_pickle=True)
     B = np.asarray(z["B"], float)
     adj = [str(a).lower() for a in z["adjectives"]]
@@ -43,7 +43,7 @@ def main():
     np.fill_diagonal(Y, 0)
     psi = Y.mean(0)                                   # pairs-only, level-free
     d = np.log(EV2P([json.load(open(
-        f"results/adjectives/introspect_full/{args.model}_base_rate.json"))
+        f"results/adjectives/introspect_full/{args.model.replace('/', '_')}_base_rate.json"))
         ["results"][a]["ev"] for a in labels]))
     # normal equations: pairs give Laplacian n*I - 11^T (complete graph),
     # rhs = column sums of Y; direct adds lam*I and lam*d
@@ -60,7 +60,7 @@ def main():
           f"item-level r(phi, HUMAN) = {np.corrcoef(phi[off], Hm[off])[0, 1]:.3f}")
     o = np.argsort(l)
     print("  lowest:", [labels[i] for i in o[:5]], "| highest:", [labels[i] for i in o[-5:]])
-    np.savez(f"results/adjectives/introspect_full/{args.model}_base_rate_fit.npz",
+    np.savez(f"results/adjectives/introspect_full/{args.model.replace('/', '_')}_base_rate_fit.npz",
              l=l, psi=psi, d=d, phi=phi.astype(np.float32), adjectives=np.array(labels))
 
 

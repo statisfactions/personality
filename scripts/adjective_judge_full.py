@@ -108,7 +108,7 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
              else [(i, j) for i in range(n) for j in range(i + 1, n)])
     os.makedirs(OUT_DIR, exist_ok=True)
     mtag = "" if mode == "semantic" else f"_{mode}"   # keep semantic runs unsuffixed
-    path = f"{OUT_DIR}/{short}{mtag}{'_dir' if both_dir else ''}{'_smoke' if limit else ''}.npz"
+    path = f"{OUT_DIR}/{short.replace('/', '_')}{mtag}{'_dir' if both_dir else ''}{'_smoke' if limit else ''}.npz"
 
     B = np.full((n, n), np.nan, np.float32)
     Hent = np.full((n, n), np.nan, np.float32)
@@ -143,16 +143,19 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
         tok.pad_token = tok.eos_token
     digit_ids = digit_token_ids(tok)
 
-    # Qwen3-family templates default to reasoning-on; that emits <think> before
-    # the answer and destroys digit-mass at the final token. Force it off.
-    ct_kw = {"enable_thinking": False} if short.startswith("Qwen3") else {}
+    # Thinking templates (Qwen3 family) default to reasoning-on; that emits
+    # <think> before the answer and destroys digit-mass at the final token.
+    # Force it off (templates ignore the unused variable); auto-open-think
+    # templates ignore the flag, so close an empty thought (pkit.extraction).
+    ct_kw = {"enable_thinking": False}
 
     def templ(i, j):
         msgs = [{"role": "user", "content":
                  PROMPT[mode].format(a=adjectives[i].lower(),
                                      b=adjectives[j].lower())}]
-        return tok.apply_chat_template(msgs, tokenize=False,
-                                       add_generation_prompt=True, **ct_kw)
+        t = tok.apply_chat_template(msgs, tokenize=False,
+                                    add_generation_prompt=True, **ct_kw)
+        return t.rstrip() + "\n\n</think>\n\n" if t.rstrip().endswith("<think>") else t
 
     t0 = time.time(); nb = 0
     for start in range(done, len(pairs), batch_size):
@@ -222,9 +225,9 @@ def main():
                          "pairs touching adjectives the file lacks")
     args = ap.parse_args()
     for short in args.models:
-        if short not in MODELS:
+        if short not in MODELS and "/" not in short:   # short name or HF repo id
             print(f"skip unknown {short}"); continue
-        print(f"\n===== {short} ({MODELS[short]}) mode={args.mode} "
+        print(f"\n===== {short} ({MODELS.get(short, short)}) mode={args.mode} "
               f"both_dir={args.both_directions} =====")
         path, adj, B, Hent = run_model(short, args.both_directions,
                                        args.batch_size, args.ckpt_batches,
