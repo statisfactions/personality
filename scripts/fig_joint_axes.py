@@ -45,8 +45,8 @@ for c in CH:
 SH = np.clip(np.array(SH), 0, None); OWNK = np.array(OWNK)        # T x K; JUDGE -0.000 clipped
 
 # descriptive names (rgb may rename); poles oriented so the first-named pole reads first
-NAMES = ["Evaluation", "Praise words", "Agency", "Strict vs. cheerful",
-         "Worry", "Self-/well- compounds", "Body"]
+NAMES = ["Evaluation", "Evaluative vs. descriptive", "Bold vs. ordinary", "Serious vs. playful",
+         "Sensitive vs. shallow", "Compound vs. simple words", "Physical vs. character"]
 FLIP = [True, False, False, False, False, False, False]   # axis 1: kind pole first
 assert len(NAMES) == K
 # categorical slots in fixed order (validated palette, adjacent pairlist), gray remainder
