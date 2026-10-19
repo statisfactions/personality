@@ -26,6 +26,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap, PowerNorm
 from matplotlib.patches import Patch, Rectangle
 import pkit
 from pkit import channels as C, jointdiag as J
@@ -65,11 +66,15 @@ axa = fig.add_subplot(gs[0]); axb = fig.add_subplot(gs[1])
 
 # ---- (a) shares ----
 A = 100 * SH.T                                   # K x T, percent
-im = axa.imshow(A, cmap="Purples", vmin=0, vmax=45, aspect="auto")
+# white -> purple -> red, lightness monotone (sequential); square-root norm so
+# 0.5% vs 5% differ visibly under SELF's 41% (rgb 2026-10-18)
+CMAP = LinearSegmentedColormap.from_list("wpr", ["#ffffff", "#c9b8e8", "#8e6cc9", "#b8336a", "#6e0f1f"])
+NORM = PowerNorm(gamma=0.5, vmin=0, vmax=45)
+im = axa.imshow(A, cmap=CMAP, norm=NORM, aspect="auto")
 for k in range(K):
     for t in range(len(CH)):
         axa.text(t, k, f"{A[k, t]:.1f}", ha="center", va="center", fontsize=8.5,
-                 color="white" if A[k, t] > 27 else INK)
+                 color="white" if NORM(A[k, t]) > 0.5 else INK)
 axa.set_xticks(range(len(CH)), CHD, fontsize=9)
 axa.xaxis.tick_top()
 axa.set_yticks(range(K), [""] * K)
@@ -112,9 +117,9 @@ if any(c in C.NOT_PSD for c in CH):
     fig.text(0.98, 0.012, C.NOT_PSD_NOTE, ha="right", fontsize=7, color=MUTED)
 
 cax = fig.add_axes((0.12, 0.045, 0.16, 0.022))
-cb = fig.colorbar(im, cax=cax, orientation="horizontal"); cb.set_ticks([0, 15, 30, 45])
+cb = fig.colorbar(im, cax=cax, orientation="horizontal"); cb.set_ticks([0, 1, 5, 15, 30, 45])
 cb.ax.tick_params(labelsize=7, length=2); cb.outline.set_visible(False)
-cax.set_title("percent of variance", fontsize=7.5, color=MUTED, pad=3)
+cax.set_title("percent of variance (square-root scale)", fontsize=7.5, color=MUTED, pad=3)
 
 fig.subplots_adjust(left=0.30, right=0.98, top=0.86, bottom=0.15)
 fig.text(axb.get_position().x0 - 0.06, 0.95, "(b) each channel's variance, by axis", fontsize=10, ha="left", va="top")
