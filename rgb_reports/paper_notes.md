@@ -9,6 +9,9 @@ number comes from, and whether the draft has it already. Tags:
 - **PARTIAL**: in the draft but incomplete.
 - **WAIT**: depends on a run that hasn't finished. Don't freeze the number yet.
 
+Section F is rgb's results outline with the evidence on file under each
+bullet. Several "(not done yet)" items have in fact been run.
+
 Numbers are from the current code (`_analysis.channels`, `pkit.channels`,
 `pkit.jointdiag`) unless marked "legacy" (computed under an older convention and
 not regenerated).
@@ -296,3 +299,150 @@ not regenerated).
   (525-level values are lower: legacy raw .50–.77, top-removed .17–.58).
 - Human data note (in the draft): the transposed "insensitive" /
   "inspirational" columns were swapped back.
+
+---
+
+## F. rgb's results outline, cross-referenced (2026-10-18)
+
+rgb's outline, with the evidence on file under each bullet. This matches
+the structure adopted 2026-09-12: five channel sections, then one
+cross-channel machinery section after Enact. Sections A–C above mostly
+belong in that machinery section: congruence, PC1 table, joint axes.
+
+**Standing reminder (rgb):** split-half, or another attempt, to separate a
+*playacting* direction from the *assistant* direction in ENACT. Design note
+before anyone builds it: as the draft defines it,
+e_assistant = μ_default − E_a[μ_a]. That is exactly minus the naive
+"persona-on vs persona-off" direction, E_a[μ_a] − μ_default, and the
+adjective-mean centering removes that same direction from every ENACT
+vector. Separating the two needs a third reference that isn't an adjective
+mean. Two options:
+- a neutral persona instruction ("respond as yourself" / "as an assistant"),
+  which isolates the cost of being told to play a role;
+- a split over adjectives or questions, which tests whether the shared
+  offset is stable.
+
+The ENACT displacement gain component (congruence .89, uncorrelated with the
+SELF gain at .15; to_try 2026-10-10 SYNTHESIS) is the nearest existing
+handle. Status: **not done**.
+
+### Human
+- **Answer distribution, elevation and scatter.** Planned in the draft
+  ("baseline levels, extremes avoidance and digit-based biases"). No
+  paper-ready numbers collected yet.
+- **"Lizardman" item → "incidence floor"** (or "baseline endorsement floor"),
+  the respectable name for the floor of endorsement on items nobody should
+  claim. **GAP**: the number isn't on file here.
+- **Raw PCs; Big Five replication.** Draft plans scree, split-adjective
+  stability, and varimax vs unrotated loadings (Saucier 1997). W14 covers the
+  over-extraction diagnostics (no stable sixth factor).
+- **Perils of ipsatization; ipsatized E vs raw E.** On file:
+  - ipsatize = within-person z; C&C ipsatize both sides (memory
+    project_adjective_data_ipsative);
+  - level is small and surgency-shaped in HUMAN, so row-centering barely
+    moves PC1 (cos .995, A3), but the level it removes leans toward E;
+  - ipsatized participation ratio: SELF 11.6 vs HUMAN 50.2.
+
+  **GAP**: the E-vs-E comparison itself.
+
+### Self
+- **Answer distribution; raw / ipsatized PCs.** The level-removal table (A3)
+  shows the raw SELF PC1 is level (cos .97 with uniform). PC1 share after
+  level removal is 45%. Horn k goes 4 → 5 after row-centering.
+- **Desirability, with an external measure** (to_try 2026-10-11; Hampson
+  1987 SDY, 263 terms).
+  - Every channel's PC1 is desirability at r ≈ .9 (SELF .94, HUMAN .95).
+  - SELF's distinction is gain, not direction: PC1 share .49 vs .31 in
+    zero-diagonal units. Use the 45% vs 16% unit-diagonal figures in the
+    paper. Cite "same shape, much more gain".
+  - Registered predictions: SELF > HUMAN missed.
+- **Projection into the human Big Five.** **GAP** in this file; the SELF
+  population slides have it.
+- **Self-perception and history.** W20 thread: update rate is a family
+  parameter set by post-training, and it predicts failure-distress
+  escalation (r = +.93, n = 8). That is the one cross-channel
+  individual-difference link that holds (two gains of the same kind). C3
+  (no tone variance) fits here too.
+
+### Represent
+- **Lexical hypothesis, strong vs weak.** Draft intro has it (Cutler,
+  Milano, Wulff).
+- **Centering.** In the draft (adjective-mean centering; massive-dimension
+  exclusion, robust at r ≥ .999).
+- **PCs.** Lowest PC1 share (8.7%). The private axes are lexical (C2).
+- **Human match.**
+  - Level-removed congruence at 525 adjectives: .593; level and top removed:
+    .335 (n = 49, after the roster fix).
+  - Human structure is decodable from REPRESENT: mapped r .78–.81, about 2×
+    beyond PC1 (W18 §6).
+- **GloVe / embedding vs superposition.** W16 regress: the evaluative-antonym
+  merge goes back to static GloVe; it's the distributional hypothesis, not
+  the architecture. The affect-presence axis is a separable lexical axis.
+  The superposition-vs-embedding question is open (rgb's stance in memory).
+- **"(not done yet) Represent predicts self?" Already run** (2026-09-12,
+  0c2f03a, `scripts/represent_self_prediction.py`):
+  - The population-level coupling was a degradation artifact: Mantel .47 →
+    .03 core-only.
+  - A small incremental effect survives (p = .026).
+  - The run used the wrong n (silent roster drop, flagged in to_try at the REPRESENT n = 49 fix, not
+    rerun). **Rerun at n = 49 before citing.**
+
+### Judge
+- **Reprise.** Conditional probabilities → φ → correlation-like matrix. In
+  the draft; A2, A6, A7 and B1 refine it (Higham 2002, digit distributions,
+  φ clip, the * convention).
+- **PCs.** W16 judgment factor structure: tom_likely varimax is clean, with a
+  human-like general factor (PC1/PC2 4.8 vs HUMAN 5.2 vs REPRESENT 1.4). It
+  **recovers Openness, which REPRESENT loses**. Reconcile with C4 (no
+  Openness axis in the joint variance-ordered fit). These can both be true
+  (rotated single-channel factors vs shared unrotated axes), but say so in
+  one sentence.
+- **Human match.** JUDGE–HUMAN is the highest residual congruence (.775 at
+  the 44-block level under the recipe). It also shares the human second axis
+  (C5).
+- **Asymmetries / reluctance to generalize.** Three pieces on file:
+  - the W16 directional asymmetry, which has valence and variance accounts,
+    not disentangled;
+  - W18 disbelieved clusters: the model treats valence as an axis, not a
+    binder, and refuses human negative-halo bundles. That is the
+    "reluctance";
+  - the JUDGE sink flips from negative states to HHH positives with scale.
+    to_try queued this as "one sentence + the 12-model table" in the
+    base-rate paragraph.
+
+  The JUDGE decomposition (S+/S−/gradient/curl, Tversky reframe) is the
+  fuller version; a human-judgment baseline is still missing.
+
+### Enact
+- **Playacting / persona selection model (PSM).** Evidence on file:
+  - the W18 §5 J-lens on Qwen7: ENACT reads out the persona's
+    speech-world, and failed personas fall into assistant or wacky basins.
+    That is mild PSM-flavored evidence;
+  - Phi-3-medium is a non-enactor;
+  - W17: ENACT is a low-rank linear image of REPRESENT (R² .72).
+- **"(not done yet)" explicit playacting-awareness poke.** Correct, not done.
+  It was gap (c) on 2026-09-12: a small GPU instrument waiting on rgb's
+  design pass.
+- **Centering.** See the standing reminder above: the centering *is* the
+  playacting/assistant confound.
+- **PCs, compared with SELF.** These two are the concentrated channels:
+  - residual participation ratio about 10 each, vs 22–23 for
+    HUMAN/REPRESENT/JUDGE;
+  - joint axis 1: ENACT 26.1, SELF 41.3;
+  - shared-axis totals: ENACT 54.2, SELF 56.4.
+
+  The difference: ENACT keeps human-shared axes 3 and 4 (bold, serious vs
+  playful); SELF is nearly all axis 1 and has no tone variance (C3).
+- **Human match.** .701 residual at the 44-block level. WAIT on n = 20 (D1).
+- **"(not done yet) Self predicts Enact distance." Already run, three
+  times, all null for individual differences:**
+  1. SELF↔ENACT second-order RSA, Mantel r = −.045, p = .86 (n = 10). rgb's
+     "probably not" was registered and HIT.
+  2. W17 §15 diagonal test: +.02 increment.
+  3. P24 medoid arm (n = 40): own SELF −.76 vs cohort-mean SELF −.83 at
+     predicting displacement; deviation-on-deviation +.03 against a .84
+     reliability ceiling (2026-10-06 downgrade).
+
+  The positive half is citable. The *shared* self-image predicts the
+  *shared* displacement profile (r −.91, −.61 beyond desirability):
+  "self-report is right about the role and silent about the actor".
