@@ -40,7 +40,7 @@ import time
 import numpy as np
 import torch
 
-from hf_logprobs import MODELS, load_model
+from hf_logprobs import MODELS, load_model, _single_token_variants
 from adjective_introspection import PROMPT, GROUPS
 
 OUT_DIR = "results/adjectives/introspect_full"
@@ -54,14 +54,12 @@ def load_adjectives():
 
 
 def digit_token_ids(tok):
-    """Per-digit list of single-token ids among {d, ' '+d}. Mirrors hf_logprobs."""
+    """Per-digit list of single-token ids among {d, ' '+d}, with the
+    SentencePiece vocab-lookup fallback (Yi encodes '1' as ['▁', '1']).
+    The shared helper hf_logprobs uses."""
     out = []
     for d in DIGITS:
-        ids = []
-        for c in (d, " " + d):
-            enc = tok(c, add_special_tokens=False).input_ids
-            if len(enc) == 1:
-                ids.append(enc[0])
+        ids = _single_token_variants(tok, d)
         if not ids:
             raise ValueError(f"digit {d!r} not single-token")
         out.append(ids)
@@ -69,7 +67,9 @@ def digit_token_ids(tok):
 
 
 def batch_ev_entropy(model, tok, device, texts, digit_ids):
-    """For a batch of chat-templated prompt strings, return (ev[], entropy[]).
+    """For a batch of chat-templated prompt strings, return (ev[], entropy[],
+    P[B,7], mass[]): P is the renormalized 1-7 distribution, mass the
+    pre-renormalization probability on the selected digit tokens (full vocab).
 
     Left-padded so the final real token is at position -1 for every row. Digit
     distribution = softmax over the selected digit-token logits (variant ids
@@ -87,6 +87,7 @@ def batch_ev_entropy(model, tok, device, texts, digit_ids):
             flat_ids.append(tid); owner.append(di)
     sel = logits[:, torch.tensor(flat_ids, device=logits.device)]      # (B, n_sel)
     probs = torch.softmax(sel, dim=-1)                                  # renorm within selected
+    mass = torch.exp(torch.logsumexp(sel, -1) - torch.logsumexp(logits, -1)).cpu().numpy()
     # sum variant columns into 7 digit buckets
     P = torch.zeros((logits.shape[0], len(DIGITS)), device=logits.device)
     owner_t = torch.tensor(owner, device=logits.device)
@@ -95,7 +96,7 @@ def batch_ev_entropy(model, tok, device, texts, digit_ids):
     ev = Pn @ DIGIT_VAL
     with np.errstate(divide="ignore", invalid="ignore"):
         H = -np.sum(np.where(Pn > 0, Pn * np.log(Pn), 0.0), axis=1)
-    return ev, H
+    return ev, H, Pn, mass
 
 
 def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
@@ -112,13 +113,20 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
 
     B = np.full((n, n), np.nan, np.float32)
     Hent = np.full((n, n), np.nan, np.float32)
+    # digit distributions (statisfactions 2026-10-18): P[i, j] = 1-7 probs,
+    # Mass[i, j] = digit mass before renormalization. float16 (~4.4 MB).
+    P = np.full((n, n, len(DIGITS)), np.nan, np.float16)
+    Mass = np.full((n, n), np.nan, np.float16)
     done = 0
     full_pairs = pairs
     if os.path.exists(path) and not limit:
         z = np.load(path, allow_pickle=True)
         old_adj = [str(a) for a in z["adjectives"]]
-        if old_adj == adjectives and int(z["done"]) <= len(pairs):
+        if (old_adj == adjectives and int(z["done"]) <= len(pairs)
+                and ("P" in z.files or int(z["done"]) >= len(pairs))):
             B, Hent, done = z["B"].copy(), z["Hent"].copy(), int(z["done"])
+            if "P" in z.files:
+                P, Mass = z["P"].copy(), z["Mass"].copy()
             print(f"[resume] {short}: {done}/{len(pairs)} pairs done")
         elif backfill and set(old_adj) < set(adjectives):
             # 525 extension: keep every old cell, run only pairs touching
@@ -134,7 +142,8 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
             print(f"[restart] {short}: checkpoint mismatch, starting over")
 
     if done >= len(pairs):
-        print(f"[skip] {short}: already complete")
+        print(f"[skip] {short}: already complete"
+              + ("" if "P" in np.load(path).files else " (no digit distributions)"))
         return path, adjectives, B, Hent
 
     model, tok, device = load_model(short)
@@ -161,14 +170,14 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
     for start in range(done, len(pairs), batch_size):
         chunk = pairs[start:start + batch_size]
         texts = [templ(i, j) for i, j in chunk]
-        ev, H = batch_ev_entropy(model, tok, device, texts, digit_ids)
-        for (i, j), e, h in zip(chunk, ev, H):
-            B[i, j] = e; Hent[i, j] = h
+        ev, H, Pb, mb = batch_ev_entropy(model, tok, device, texts, digit_ids)
+        for (i, j), e, h, pr, ms in zip(chunk, ev, H, Pb, mb):
+            B[i, j] = e; Hent[i, j] = h; P[i, j] = pr; Mass[i, j] = ms
             if not both_dir:
-                B[j, i] = e; Hent[j, i] = h
+                B[j, i] = e; Hent[j, i] = h; P[j, i] = pr; Mass[j, i] = ms
         done = start + len(chunk); nb += 1
         if nb % ckpt_batches == 0 or done >= len(pairs):
-            np.savez(path, B=B, Hent=Hent, adjectives=np.array(adjectives),
+            np.savez(path, B=B, Hent=Hent, P=P, Mass=Mass, adjectives=np.array(adjectives),
                      done=done, n_pairs=len(pairs))
             rate = done / max(time.time() - t0, 1e-9)
             eta = (len(pairs) - done) / max(rate, 1e-9)
@@ -181,7 +190,7 @@ def run_model(short, both_dir, batch_size, ckpt_batches, limit, mode,
     if torch.backends.mps.is_available():
         torch.mps.empty_cache()
     if pairs is not full_pairs:   # backfill: mark complete for the full list
-        np.savez(path, B=B, Hent=Hent, adjectives=np.array(adjectives),
+        np.savez(path, B=B, Hent=Hent, P=P, Mass=Mass, adjectives=np.array(adjectives),
                  done=len(full_pairs), n_pairs=len(full_pairs))
 
     return path, adjectives, B, Hent
