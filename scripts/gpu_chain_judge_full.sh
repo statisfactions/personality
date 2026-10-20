@@ -15,7 +15,13 @@ cd "$(dirname "$0")/.."
 L=tmp/logs; PY=".venv/bin/python"; OUT=results/adjectives/introspect_full
 export PYTORCH_MPS_HIGH_WATERMARK_RATIO=1.0 PYTORCH_MPS_LOW_WATERMARK_RATIO=0.8 PYTHONPATH=scripts HF_HUB_OFFLINE=1
 echo "=== judge full arm start $(date)" >> $L/gpu_chain.log
+PAUSE=tmp/judge_pause   # scripts/judge_pause.sh / judge_resume.sh
 while true; do
+  if [ -f $PAUSE ]; then
+    echo "--- judge-full waiting on $PAUSE $(date)" >> $L/gpu_chain.log
+    while [ -f $PAUSE ]; do sleep 30; done
+    echo "--- judge-full resumed $(date)" >> $L/gpu_chain.log
+  fi
   m=$(grep -v '^\s*$' tmp/judge_full_todo.txt | while read -r x; do fs=$(echo "$x" | tr / _); [ -f "$OUT/${fs}_base_rate_fit.npz" ] || [ -f "$OUT/${fs}.judge_failed" ] || { echo "$x"; break; }; done)
   [ -z "$m" ] && break
   fs=$(echo "$m" | tr / _)
@@ -23,6 +29,7 @@ while true; do
   { caffeinate -i $PY -u scripts/adjective_judge_full.py --models "$m" --mode tom_likely --both-directions \
       && caffeinate -i $PY -u scripts/base_rate_query.py --model "$m" \
       && $PY -u scripts/judge_base_rate_fit.py --model "$m"; } >> $L/judge_full_${fs}.log 2>&1 \
-    || { echo "--- judge-full FAILED ($?) $m $(date)" >> $L/gpu_chain.log; touch "$OUT/${fs}.judge_failed"; }
+    || { rc=$?; if [ -f $PAUSE ]; then echo "--- judge-full interrupted by pause $m $(date)" >> $L/gpu_chain.log;
+         else echo "--- judge-full FAILED ($rc) $m $(date)" >> $L/gpu_chain.log; touch "$OUT/${fs}.judge_failed"; fi; }
 done
 echo "=== judge full arm done $(date)" >> $L/gpu_chain.log
