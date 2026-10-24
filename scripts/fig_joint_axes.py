@@ -1,6 +1,10 @@
-"""Figure: common axes across the five channels (joint diagonalization, K=7;
-rgb 2026-10-18). Reads results/persona_vectors/joint_diag/joint_diag_k7.{npz,json}
-from scripts/joint_diag_channels.py --k 7.
+"""Figure: common axes across the five channels (joint diagonalization, K=6;
+rgb 2026-10-24, was K=7). Reads results/persona_vectors/joint_diag/joint_diag_k6.npz
+from scripts/joint_diag_channels.py --k 6. K=6 because axis 7 of the K=7 fit
+(physical vs character, mostly SELF) does not replicate across respondent
+halves (median |cos| .54; scripts/joint_diag_noise.py); axes 1-6 do (>= .97).
+Names live on the K=7 fit (NAMES below) and are carried to any other fit by
+matching (|cos| >= .9), with signs aligned.
 
 Units (rgb 2026-10-18): percent of item variance, the PC1 table's convention
 (pkit.channels.SHARE_DIAG: unit diagonal for all five since 2026-10-18), via
@@ -9,22 +13,24 @@ PC1 16.4. (The fit's own weights w give shares of the squared off-diagonal
 structure, ~lambda^2 / sum lambda^2, which inflate the dominant axis: 70% for
 HUMAN axis 1. Not used here.)
 (a) each channel's share on each shared axis (rows: axes, named by poles).
-(b) the same shares stacked, then light gray = in the channel's own top-7
-    components but not on the shared axes, mid gray = beyond its own top 7
+(b) the same shares stacked, then light gray = in the channel's own top-K
+    components but not on the shared axes, mid gray = beyond its own top K
     (item uniqueness, sampling error, minor structure).
 
-Design variations (scripts/joint_diag_robustness.py): DISTATIS (lambda1 or
-unit-norm tables), eigenvectors of the mean matrix, lambda1 normalization and
-K = 6/8/10 all recover axes 1, 3, 4, 5 (|cos| >= .92); the averaging methods
-lose the REPRESENT-only axes (6, 7); eigenvectors of the summed squares mix
-axes 3 and 4. Axis names are descriptive labels, not fitted quantities.
+Design variations (scripts/joint_diag_robustness.py; K=6 axes = its K=8
+reference axes 1-6 at |cos| >= .99): DISTATIS (lambda1 or unit-norm tables),
+eigenvectors of the mean matrix, lambda1 normalization and K = 8/10 all recover
+axes 1, 3, 4, 5 (|cos| >= .92); the averaging methods lose the REPRESENT-only
+axis 6 (.18-.24) and weaken axis 2 (.78-.87); eigenvectors of the summed
+squares mix axes 3 and 4 (.72 / .58). Axis names are descriptive labels, not fitted quantities.
 
 Variant (rgb 2026-10-24, "without the oddball represent"): --drop REPRESENT
 reads joint_diag_k7_noREPRESENT (joint_diag_channels.py --drop REPRESENT).
 Axes matching the five-channel fit at |cos| >= .9 keep its names and signs;
 the others are named in VARIANT_NAMES.
 
-Usage: .venv/bin/python scripts/fig_joint_axes.py [--drop REPRESENT]
+Usage: .venv/bin/python scripts/fig_joint_axes.py [--k 6] [--drop REPRESENT]
+(--k 7 writes fig_joint_axes_k7, the previous main figure.)
 """
 import argparse
 import json, os
@@ -37,11 +43,12 @@ from matplotlib.patches import Patch, Rectangle
 import pkit
 from pkit import channels as C, jointdiag as J
 
-ap = argparse.ArgumentParser(); ap.add_argument("--drop", nargs="*", default=[]); args = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument("--k", type=int, default=6)
+ap.add_argument("--drop", nargs="*", default=[]); args = ap.parse_args()
 SUF = "".join(f"_no{c}" for c in args.drop)
-REF = "results/persona_vectors/joint_diag/joint_diag_k7"
-SRC = REF + SUF
-OUT = "results/persona_vectors/figs/fig_joint_axes" + SUF
+REF = "results/persona_vectors/joint_diag/joint_diag_k7"       # where the names live
+SRC = f"results/persona_vectors/joint_diag/joint_diag_k{args.k}" + SUF
+OUT = "results/persona_vectors/figs/fig_joint_axes" + ("" if args.k == 6 else f"_k{args.k}") + SUF
 z = np.load(SRC + ".npz", allow_pickle=True)
 Q, W, labels = z["Q"], z["W"], [str(s) for s in z["labels"]]
 CH = [str(c) for c in z["channels"]]
@@ -59,23 +66,24 @@ NAMES = ["Evaluation", "Evaluative vs. descriptive", "Bold vs. ordinary", "Serio
 FLIP = [True, False, False, False, False, False, False]   # axis 1: kind pole first
 VARIANT_NAMES = {"_noREPRESENT": {4: "Glamorous vs. blunt", 5: "Physical vs. damning",
                                   6: "Easygoing vs. controlling"}}   # 0-based new-axis index
-if SUF:   # carry names/signs over from the five-channel fit where the axis matches
+if SRC != REF:   # carry names/signs over from the K=7 five-channel fit where the axis matches
     Qr = np.load(REF + ".npz", allow_pickle=True)["Q"]
-    perm, cos = J.match(Qr, Q)
+    perm, cos = J.match(Q, Qr); Kr = Qr.shape[1]   # reference axis per axis of this fit
+    names_r, flip_r = NAMES, FLIP
     flip = [False] * K
-    names = [VARIANT_NAMES[SUF].get(j) for j in range(K)]
-    for k, (j, c) in enumerate(zip(perm, cos)):
+    names = [VARIANT_NAMES.get(SUF, {}).get(j) for j in range(K)]
+    for j, (k, c) in enumerate(zip(perm, cos)):
         if c >= 0.9:
-            names[j] = NAMES[k]; flip[j] = FLIP[k]
+            names[j] = names_r[k]; flip[j] = flip_r[k]
             if Qr[:, k] @ Q[:, j] < 0:
                 Q[:, j] = -Q[:, j]
     NAMES, FLIP = names, flip
     # color follows the axis: matched axes keep their five-channel color
     col = [None] * K
-    for k, (j, c) in enumerate(zip(perm, cos)):
+    for j, (k, c) in enumerate(zip(perm, cos)):
         if c >= 0.9:
             col[j] = k
-    spare = iter(k for k in range(K) if k not in col)
+    spare = iter(k for k in range(max(K, Kr)) if k not in col)
     COLIDX = [c if c is not None else next(spare) for c in col]
 else:
     COLIDX = list(range(K))
@@ -141,8 +149,8 @@ axb.tick_params(axis="y", length=0)
 for s in ("top", "right", "left"):
     axb.spines[s].set_visible(False)
 axb.spines["bottom"].set_color(MUTED)
-axb.legend(handles=[Patch(color=OWN, label="own top 7, not shared"),
-                    Patch(color=REST, label="beyond own top 7")],
+axb.legend(handles=[Patch(color=OWN, label=f"own top {K}, not shared"),
+                    Patch(color=REST, label=f"beyond own top {K}")],
            loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=2, frameon=False, fontsize=7.5,
            handlelength=1.2, columnspacing=1.2)
 if any(c in C.NOT_PSD for c in CH):
@@ -158,5 +166,5 @@ fig.text(axb.get_position().x0 - 0.06, 0.95, "(b) each channel's variance, by ax
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 for ext in ("pdf", "png"):
     fig.savefig(f"{OUT}.{ext}", dpi=200)
-print("wrote", OUT, "| shared sum / own top-7:",
+print("wrote", OUT, "| names:", NAMES, f"| shared sum / own top-{K}:",
       {c: (round(float(SH[t].sum()), 3), round(float(OWNK[t]), 3)) for t, c in enumerate(CH)})

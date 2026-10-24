@@ -201,7 +201,11 @@ not regenerated).
 
 ## C. Results additions
 
-1. **GAP: shared axes, K = 7** (with the figure). Axis names are labels for
+1. **GAP: shared axes, K = 6** (with the figure; was K = 7 until 2026-10-24,
+   when axis 7 failed the half-split replication check, median |cos| .54,
+   `scripts/joint_diag_noise.py`. K = 6 shares, shared / own top 6: HUMAN
+   27.0 / 32.8, SELF 51.6 / 75.0, REPRESENT 24.8 / 28.5, JUDGE 33.1 / 39.9,
+   ENACT 52.3 / 62.3. The K = 7 numbers below are kept for the record.) Axis names are labels for
    18-word poles, not fitted quantities.
    - **The axes:** Evaluation; Evaluative vs. descriptive; Bold vs. ordinary;
      Serious vs. playful; Sensitive vs. shallow; Compound vs. simple words;

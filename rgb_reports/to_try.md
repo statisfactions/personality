@@ -6225,3 +6225,13 @@ Reading: the last slot in both fits is a SELF-driven, unstable direction
 (physical / bodily words). Recommendation: K = 6 for the paper figure (the
 earlier robustness run kept axes 1-5 at K = 6), or keep K = 7 with axis 7
 flagged as not replicating.
+
+## Joint axes: main figure now K = 6 (2026-10-24, rgb)
+
+rgb: "Self's unmapped portion is already large, and all this does is take a
+weakly-named description of some of it off the table." fig_joint_axes = K=6
+(joint_diag_k6); K=6 axes = K=7 axes 1-6 at |cos| >= .998, names carried by
+matching. Previous main figure kept as fig_joint_axes_k7; the no-REPRESENT
+variant renamed fig_joint_axes_k7_noREPRESENT. Shared / own top 6: HUMAN
+27.0/32.8, SELF 51.6/75.0, REPRESENT 24.8/28.5, JUDGE 33.1/39.9, ENACT
+52.3/62.3.
