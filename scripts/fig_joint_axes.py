@@ -61,7 +61,7 @@ for c in CH:
 SH = np.clip(np.array(SH), 0, None); OWNK = np.array(OWNK)        # T x K; JUDGE -0.000 clipped
 
 # descriptive names (rgb may rename); poles oriented so the first-named pole reads first
-NAMES = ["Evaluation", "Evaluative vs. descriptive", "Bold vs. ordinary", "Serious vs. playful",
+NAMES = ["Evaluation", "Generic vs. behavioral", "Bold vs. ordinary", "Serious vs. playful",
          "Sensitive vs. shallow", "Compound vs. simple words", "Physical vs. character"]
 FLIP = [True, False, False, False, False, False, False]   # axis 1: kind pole first
 VARIANT_NAMES = {"_noREPRESENT": {4: "Glamorous vs. blunt", 5: "Physical vs. damning",

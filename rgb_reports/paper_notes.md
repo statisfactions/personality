@@ -207,7 +207,8 @@ not regenerated).
    27.0 / 32.8, SELF 51.6 / 75.0, REPRESENT 24.8 / 28.5, JUDGE 33.1 / 39.9,
    ENACT 52.3 / 62.3. The K = 7 numbers below are kept for the record.) Axis names are labels for
    18-word poles, not fitted quantities.
-   - **The axes:** Evaluation; Evaluative vs. descriptive; Bold vs. ordinary;
+   - **The axes:** Evaluation; Generic vs. behavioral (renamed 2026-10-24, see
+     G); Bold vs. ordinary;
      Serious vs. playful; Sensitive vs. shallow; Compound vs. simple words;
      Physical vs. character.
    - **Axis 1 (percent of item variance):** HUMAN 15.6, SELF 41.3,
@@ -228,12 +229,12 @@ not regenerated).
    vs. ordinary (agency/extraversion) is shared by HUMAN, JUDGE and ENACT, and
    serious vs. playful by ENACT and JUDGE.
 
-2. **GAP: REPRESENT's private axes are lexical** (2, 6, 7: evaluative vs.
-   descriptive words, compound vs. simple words, physical vs. character).
-   These are word-type distinctions in the representation that no
-   person-description channel carries. This connects to the
-   distributional-hypothesis / embedding-regress story (W16) and to Peabody
-   on evaluative vs. descriptive content.
+2. **GAP: REPRESENT's private axes are lexical** (2 and 6 at K = 6: generic
+   vs. behavioral words, compound vs. simple words). These are word-type
+   distinctions in the representation that no person-description channel
+   carries. This connects to the distributional-hypothesis /
+   embedding-regress story (W16). Do NOT tie axis 2 to Peabody/Saucier
+   evaluative-vs-descriptive (see G).
 
 3. **GAP, exploratory: SELF and the serious vs. playful axis.** SELF has
    almost no variance on axis 4.
@@ -506,3 +507,21 @@ The other five joint axes are all |r| < .1 with signed desirability.
   would lower the correlation, not raise it.
 - Registered predictions from 10-11, graded: SELF > HUMAN missed; levels
   were all predicted too low.
+
+**Terminology (2026-10-24, rgb, from Saucier 1994's abstract).** In
+Saucier's usage, "evaluation vs. description" means separating the
+evaluative component from the descriptive dimensions. Axis 1 is that
+evaluative component (.97 with the norms), and axes 2-6 are all
+descriptive (each |r| < .1 with desirability). So no other axis may be
+named "evaluative vs. descriptive". Axis 2 was renamed "Generic vs.
+behavioral": good/bad/normal/average/brilliant vs
+adventurous/argumentative/impulsive/assertive. It tracks evaluative
+extremity only weakly (.18). "Broad vs. narrow" was avoided because it
+would claim Hampson category breadth, which is untested.
+
+Framing gift: Saucier imposed the evaluative axis and examined the rest.
+The joint fit imposes nothing, yet axis 1 lands at .97 with independent
+desirability norms and the remaining axes come out orthogonal to it. That
+is his separation, recovered unprompted. We have only the abstract
+(neither the PDF nor a Zotero abstract), so keep any comparison of
+methods at the level of "imposed vs. emerged".
