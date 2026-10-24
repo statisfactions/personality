@@ -19,8 +19,14 @@ K = 6/8/10 all recover axes 1, 3, 4, 5 (|cos| >= .92); the averaging methods
 lose the REPRESENT-only axes (6, 7); eigenvectors of the summed squares mix
 axes 3 and 4. Axis names are descriptive labels, not fitted quantities.
 
-Usage: .venv/bin/python scripts/fig_joint_axes.py
+Variant (rgb 2026-10-24, "without the oddball represent"): --drop REPRESENT
+reads joint_diag_k7_noREPRESENT (joint_diag_channels.py --drop REPRESENT).
+Axes matching the five-channel fit at |cos| >= .9 keep its names and signs;
+the others are named in VARIANT_NAMES.
+
+Usage: .venv/bin/python scripts/fig_joint_axes.py [--drop REPRESENT]
 """
+import argparse
 import json, os
 import numpy as np
 import matplotlib
@@ -31,14 +37,17 @@ from matplotlib.patches import Patch, Rectangle
 import pkit
 from pkit import channels as C, jointdiag as J
 
-SRC = "results/persona_vectors/joint_diag/joint_diag_k7"
-OUT = "results/persona_vectors/figs/fig_joint_axes"
-z = np.load(SRC + ".npz", allow_pickle=True); meta = json.load(open(SRC + ".json"))
+ap = argparse.ArgumentParser(); ap.add_argument("--drop", nargs="*", default=[]); args = ap.parse_args()
+SUF = "".join(f"_no{c}" for c in args.drop)
+REF = "results/persona_vectors/joint_diag/joint_diag_k7"
+SRC = REF + SUF
+OUT = "results/persona_vectors/figs/fig_joint_axes" + SUF
+z = np.load(SRC + ".npz", allow_pickle=True)
 Q, W, labels = z["Q"], z["W"], [str(s) for s in z["labels"]]
 CH = [str(c) for c in z["channels"]]
 CHD = [c.title() + ("*" if c in C.NOT_PSD else "") for c in CH]
 K = W.shape[1]
-mem = {c: C.members(c, labels) for c in CH}; LV = C.channel_level_removed(labels, mem)
+mem = {c: C.members(c, labels) for c in C.CHANNELS}; LV = C.channel_level_removed(labels, mem)
 SH, OWNK = [], []
 for c in CH:
     per, own = J.item_shares(Q, LV[c], C.SHARE_DIAG[c]); SH.append(per); OWNK.append(own)
@@ -48,9 +57,32 @@ SH = np.clip(np.array(SH), 0, None); OWNK = np.array(OWNK)        # T x K; JUDGE
 NAMES = ["Evaluation", "Evaluative vs. descriptive", "Bold vs. ordinary", "Serious vs. playful",
          "Sensitive vs. shallow", "Compound vs. simple words", "Physical vs. character"]
 FLIP = [True, False, False, False, False, False, False]   # axis 1: kind pole first
-assert len(NAMES) == K
+VARIANT_NAMES = {"_noREPRESENT": {4: "Glamorous vs. blunt", 5: "Physical vs. damning",
+                                  6: "Easygoing vs. controlling"}}   # 0-based new-axis index
+if SUF:   # carry names/signs over from the five-channel fit where the axis matches
+    Qr = np.load(REF + ".npz", allow_pickle=True)["Q"]
+    perm, cos = J.match(Qr, Q)
+    flip = [False] * K
+    names = [VARIANT_NAMES[SUF].get(j) for j in range(K)]
+    for k, (j, c) in enumerate(zip(perm, cos)):
+        if c >= 0.9:
+            names[j] = NAMES[k]; flip[j] = FLIP[k]
+            if Qr[:, k] @ Q[:, j] < 0:
+                Q[:, j] = -Q[:, j]
+    NAMES, FLIP = names, flip
+    # color follows the axis: matched axes keep their five-channel color
+    col = [None] * K
+    for k, (j, c) in enumerate(zip(perm, cos)):
+        if c >= 0.9:
+            col[j] = k
+    spare = iter(k for k in range(K) if k not in col)
+    COLIDX = [c if c is not None else next(spare) for c in col]
+else:
+    COLIDX = list(range(K))
+assert len(NAMES) == K and None not in NAMES
 # categorical slots in fixed order (validated palette, adjacent pairlist), gray remainder
 PAL = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6"]
+PAL = [PAL[i] for i in COLIDX]
 OWN = "#dedede"; REST = "#a9a9a9"; INK = "#222222"; MUTED = "#666666"
 
 

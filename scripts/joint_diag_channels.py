@@ -28,7 +28,7 @@ PREDICTIONS (registered 2026-10-18 before running; K=8):
  P5 level removal (raw vs level-removed congruence): HUMAN r > .9 (harmless),
     SELF r < .7 (removes a lot), JUDGE in between.
 
-Usage: .venv/bin/python scripts/joint_diag_channels.py [--k 8] [--iters 500]
+Usage: .venv/bin/python scripts/joint_diag_channels.py [--k 8] [--iters 500] [--drop REPRESENT]
 """
 import argparse, json, os
 import numpy as np
@@ -40,12 +40,14 @@ ap.add_argument("--k", type=int, default=8)
 ap.add_argument("--iters", type=int, default=500)
 ap.add_argument("--seeds", type=int, default=4)
 ap.add_argument("--out", default="results/persona_vectors/joint_diag")
+ap.add_argument("--drop", nargs="*", default=[], help="channels to leave out (outputs get a _no<CH> suffix)")
 args = ap.parse_args()
 
-labels = pkit.load.adjectives(); CH = C.CHANNELS; n = len(labels)
+labels = pkit.load.adjectives(); CH = [c for c in C.CHANNELS if c not in args.drop]; n = len(labels)
+TAG = f"k{args.k}" + "".join(f"_no{c}" for c in args.drop)
 OFF = ~np.eye(n, dtype=bool)
-mem = {c: C.members(c, labels) for c in CH}
-L = C.channel_level_removed(labels, mem)
+mem = {c: C.members(c, labels) for c in C.CHANNELS}
+L = {c: m for c, m in C.channel_level_removed(labels, mem).items() if c in CH}
 
 # ---- level removal: how much does it change each channel? ----
 raw = {c: C.cohort_matrix(mem[c][0], mem[c][1]) for c in CH}
@@ -100,7 +102,7 @@ print("\n|cos| axis 1 vs each channel's own top component:",
       {c: round(abs(Q[:, 0] @ C.top_component(L[c], labels)[0]), 3) for c in CH})
 
 os.makedirs(args.out, exist_ok=True)
-np.savez(os.path.join(args.out, f"joint_diag_k{args.k}.npz"), Q=Q, W=W, channels=CH, labels=labels)
+np.savez(os.path.join(args.out, f"joint_diag_{TAG}.npz"), Q=Q, W=W, channels=CH, labels=labels)
 json.dump({"k": args.k, "loss": float(f), "n_converged_inits": int(len(stab)), "axes": axes, "joint_share": dict(zip(CH, joint_share.round(4).tolist())),
            "own_share": dict(zip(CH, np.round(np.array(own_share), 4).tolist())), "level_congruence": lvl_r},
-          open(os.path.join(args.out, f"joint_diag_k{args.k}.json"), "w"), indent=1)
+          open(os.path.join(args.out, f"joint_diag_{TAG}.json"), "w"), indent=1)

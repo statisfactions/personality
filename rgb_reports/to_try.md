@@ -6173,3 +6173,27 @@ zero-diagonal share (.26) was deflated by incoherence mass (a trace-zero
 matrix carries matching spurious positive mass; repaired .31 ~ HUMAN's
 zero-diagonal .305). JUDGE PC1 share now 18%*, * = NOT_PSD (negative space
 still unexpected). rgb is rewriting the JUDGE methodology section.
+
+## Joint axes without REPRESENT (2026-10-24, rgb: "what figure 3 looks like without the oddball represent")
+
+joint_diag_channels.py --k 7 --drop REPRESENT; fig_joint_axes.py --drop REPRESENT
+-> figs/fig_joint_axes_noREPRESENT (matched axes keep names, signs, colors).
+All 3 inits reach one optimum (the 5-channel fit: 2 of 3).
+PREDICTION (registered before the run): axes 1/3/4/5 return at |cos| >= .9;
+the three freed REPRESENT slots go to HUMAN/JUDGE/ENACT structure, each of
+their shared totals up a few points.
+GRADE: axes 1, 3, 4, 5 return at |cos| 1.00 / .99 / 1.00 / .96 -- HIT. Freed
+slots -- HALF: one goes to HUMAN/JUDGE/ENACT (7 easygoing vs controlling,
+2.1-2.5 each); one is SELF-only (6 physical vs damning: popular/thin/slim vs
+prejudiced/corrupt/abusive, SELF 8.7, others <= 1.1; partly old axis 7 at
+|cos| .72); one is SELF+ENACT (5 glamorous vs blunt, 5.3 / 4.9; old axis 2
+at .45). Shared totals (5ch -> 4ch): HUMAN 27.5 -> 30.4, SELF 56.4 -> 63.4,
+JUDGE 33.7 -> 37.7, ENACT 54.2 -> 57.4 (own top-7 unchanged: 34.2/77.3/42.0/
+64.8). SELF gains most, not least. REPRESENT held out on the 4-channel axes:
+18.4 shared vs 27.5 when fitted, own top-7 30.9.
+Reading: the human-shared structure (evaluation, bold, serious/playful,
+sensitive) is the same with or without REPRESENT; REPRESENT's private
+lexical axes were displacing SELF's private physical-words axis. Axis 6
+reads as a SELF response-style axis on inapplicable words (bodily /
+social-status terms vs slurs), unexamined. Names are labels for 18-word
+poles. Exploratory except the graded prediction.
