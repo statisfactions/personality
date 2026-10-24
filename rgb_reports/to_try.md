@@ -6197,3 +6197,31 @@ lexical axes were displacing SELF's private physical-words axis. Axis 6
 reads as a SELF response-style axis on inapplicable words (bodily /
 social-status terms vs slurs), unexamined. Names are labels for 18-word
 poles. Exploratory except the graded prediction.
+
+## Noise level of the joint-axes shares (2026-10-24, rgb: "what's the noise level in this context?")
+
+scripts/joint_diag_noise.py (10 random respondent half-splits per channel;
+axes fixed for sampling SD; axes re-fitted on half A and scored on half B
+for overfitting). Outputs joint_diag_noise_k7{,_noREPRESENT}.json.
+PREDICTIONS (registered before the run): floor 1/525 = 0.19%; sampling SD
+< 1 pt for most cells, JUDGE/ENACT noisiest at 1-2 pts on big cells; axes
+1/3/4/5 and REPRESENT's private axes replicate (|cos| > .8); cells < ~1%
+indistinguishable from noise.
+RESULTS, five channels: floor 0.19% (exact, by construction). SD <= 0.5 pt
+on every cell except axis 1 (HUMAN 1.1, SELF 2.3, JUDGE 2.5, ENACT 3.2),
+SELF axis 3 (.8) / 2 (.7) and SELF axis 7 (1.7). Axes 1-6 replicate across
+halves (median |cos| .97-1.00, min >= .89); AXIS 7 (physical vs character)
+DOES NOT (median .54, min .41), and its SELF share overfits (fitted 8.8 ->
+held out 4.6). Every other cell's fitted -> held-out drop is <= 1.3 pt.
+Without REPRESENT: axes 1-4 and 7 (easygoing vs controlling, .94) replicate;
+5 glamorous vs blunt is shaky (.88, min .68); 6 PHYSICAL VS DAMNING IS NOISE
+(SELF 8.7 +- 4.5, median |cos| .77, min .11, fitted 11.5 -> held out 3.0).
+GRADE: floor HIT; sampling SD HALF (axis-1 cells larger than predicted, and
+SELF is as noisy as JUDGE/ENACT, not quieter); replication HIT for 1/3/4/5
+and REPRESENT's 2 and 6, but MISSED that axis 7 fails; "< 1% is noise" MISS
+-- small cells are measured tightly (SD <= .3), what is noisy is the
+identity of the last axis, not the size of small cells.
+Reading: the last slot in both fits is a SELF-driven, unstable direction
+(physical / bodily words). Recommendation: K = 6 for the paper figure (the
+earlier robustness run kept axes 1-5 at K = 6), or keep K = 7 with axis 7
+flagged as not replicating.
