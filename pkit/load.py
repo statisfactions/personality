@@ -164,6 +164,16 @@ def load_enact(model):
     return out
 
 
+# --------------------------------------------------------------- NORMS
+
+def hampson_sdy():
+    """Hampson, Goldberg & John (1987) British social-desirability means
+    (1-9, 55 raters, alpha .99) for the 263 PDA-525 terms in their list;
+    Series indexed by lowercase adjective (scripts/hampson_sdy_extract.py)."""
+    d = pd.read_csv(paths.HAMPSON_SDY)
+    return pd.Series(d["sdy_british"].values, index=d["adjective"].str.lower(), name="sdy")
+
+
 # --------------------------------------------------------------------- HUMAN
 
 def human_corr():

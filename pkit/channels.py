@@ -328,6 +328,35 @@ def pc1_summary(labels=None, mem=None, n_splits=20, k_words=6, k_unique=5, seed=
     return out
 
 
+def desirability_summary(labels=None, mem=None, joint_k=6, n_boot=2000, seed=0):
+    """Is the top component desirability? Correlation of each channel's top
+    component (level-removed matrices) and of the joint-diagonalization axis 1
+    (paths.JOINT_DIAG / joint_diag_k{joint_k}.npz) with independent norms:
+    Hampson et al. (1987) British SDY, 263 of the 525 terms (load.hampson_sdy).
+    Signs oriented so r > 0. DataFrame indexed by channel + "JOINT":
+      r, lo, hi    Pearson r and 95% word-bootstrap interval
+      n            adjectives in the overlap
+    (rgb 2026-10-24; paper_notes G.)"""
+    import pandas as pd
+    labels = labels or load.adjectives()
+    mem = mem or {c: members(c, labels) for c in CHANNELS}
+    sdy = load.hampson_sdy(); low = [a.lower() for a in labels]
+    ii = np.array([i for i, a in enumerate(low) if a in sdy.index])
+    s = sdy.loc[[low[i] for i in ii]].values
+    L = channel_level_removed(labels, mem)
+    vecs = {c: top_component(L[c], labels)[0] for c in CHANNELS}
+    vecs["JOINT"] = np.load(paths.JOINT_DIAG / f"joint_diag_k{joint_k}.npz")["Q"][:, 0]
+    rng = np.random.default_rng(seed)
+    boots = [rng.integers(0, len(s), len(s)) for _ in range(n_boot)]
+    rows = {}
+    for c, v in vecs.items():
+        v = v[ii]; v = v * np.sign(np.corrcoef(v, s)[0, 1])
+        bs = [np.corrcoef(v[b], s[b])[0, 1] for b in boots]
+        lo, hi = np.percentile(bs, [2.5, 97.5])
+        rows[c] = {"r": np.corrcoef(v, s)[0, 1], "lo": lo, "hi": hi, "n": len(s)}
+    return pd.DataFrame(rows).T.astype({"n": int})
+
+
 def level_removal_summary(labels=None, mem=None, channels=("HUMAN", "SELF", "JUDGE")):
     """What level removal does, per channel (rgb 2026-10-18: harmless for
     HUMAN, removes nonsense for SELF, a design choice for JUDGE). DataFrame
