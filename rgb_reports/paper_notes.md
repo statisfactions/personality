@@ -450,3 +450,59 @@ handle. Status: **not done**.
   The positive half is citable. The *shared* self-image predicts the
   *shared* displacement profile (r −.91, −.61 beyond desirability):
   "self-report is right about the role and silent about the actor".
+
+---
+
+## G. Support for calling the top component desirability (2026-10-24)
+
+Desirability is contentious, so the claim needs external support, and we
+have it. The check uses independent norms: Hampson, Goldberg & John (1987),
+British social-desirability ratings (55 raters, α .99). They are in
+`data/hampson_1987/sdy_british_pda525.csv`, extracted by
+`scripts/hampson_sdy_extract.py` from `Category-breadth.pdf`, which is that
+paper. They cover 263 of the 525 adjectives. Numbers recomputed 2026-10-24
+on the current matrices, with 95% word-bootstrap CIs:
+
+| | r with desirability norms |
+|---|---|
+| HUMAN top component | .95 [.94, .96] |
+| SELF | .94 [.92, .95] |
+| JUDGE | .94 [.93, .95] |
+| REPRESENT | .91 [.89, .93] |
+| ENACT | .89 [.86, .91] |
+| Joint axis 1 (K = 6) | **.97 [.96, .98]** |
+
+The other five joint axes are all |r| < .1 with signed desirability.
+
+**What this supports.**
+- Removing the top component removes the same externally identified
+  dimension from all five channels. That justifies the operation, and the
+  "evaluation removed" label.
+- SELF is distinctive in *gain*, not direction. Its top component has the
+  same shape as everyone else's (.94 vs HUMAN .95, difference −.01, CI
+  includes 0), but it takes 45% of item variance against HUMAN's 16%. Cite
+  "same shape, much more gain", not the matrix-level r² difference (+.04),
+  which is compressed near ceiling (to_try 2026-10-11 correction).
+
+**Framing to pre-empt the contention.**
+- Say *item* desirability (a property of the word, rated by independent
+  judges), and keep it distinct from *socially desirable responding* (a
+  respondent bias). The axis is the former. Whether SELF's large share
+  reflects SDR-like responding is a separate claim; the gain/conception
+  question is filed as unidentified from self-ratings alone (to_try
+  2026-10-11).
+- Call the axis "evaluation" in the running text and cite the norms
+  correlation once. This is the classic evaluative factor of trait words
+  (Peabody's evaluative vs descriptive content; the general evaluative
+  factor in Saucier 1997 and in the lexical tradition), so the name has
+  lineage beyond our data.
+
+**Caveats to state.**
+- Coverage is half the words. The overlap is Hampson's list, which was
+  built to balance desirable and undesirable terms. Overlap words load
+  slightly more strongly on axis 1 than the rest (mean |loading| .042 vs
+  .038), so the r may be a little optimistic for the full 525.
+- British raters from 1987 vs the US Eugene-Springfield sample. That gap
+  would lower the correlation, not raise it.
+- Registered predictions from 10-11, graded: SELF > HUMAN missed; levels
+  were all predicted too low.
