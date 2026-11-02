@@ -304,6 +304,16 @@ not regenerated).
   (525-level values are lower: legacy raw .50–.77, top-removed .17–.58).
 - Human data note (in the draft): the transposed "insensitive" /
   "inspirational" columns were swapped back.
+- Digit mass (2026-11-01). Six of the 49 SELF models put ~0 next-token
+  probability on the digits at the read position (glm-4, gemma-7b,
+  Phi-3-medium, Phi-3.5-mini, Mistral-7B v0.1/v0.3; they open with "I would
+  rate..."), so their SELF readout is the conditional "if answering with a
+  digit now". It behaves like everyone else's: profile r .87-.96 with the
+  other 43 (their median .94), and dropping all six leaves the SELF item
+  matrix at r = .997. One methods sentence plus this check. Source:
+  results/adjectives/digit_mass_audit.json (run 2026-08-31, ungraded until
+  now). JUDGE-wide has the same problem worse (28/53 below 50% mass); its
+  inclusion waits on scripts/judge_mass_faithfulness.py.
 
 ---
 

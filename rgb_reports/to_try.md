@@ -6235,3 +6235,26 @@ matching. Previous main figure kept as fig_joint_axes_k7; the no-REPRESENT
 variant renamed fig_joint_axes_k7_noREPRESENT. Shared / own top 6: HUMAN
 27.0/32.8, SELF 51.6/75.0, REPRESENT 24.8/28.5, JUDGE 33.1/39.9, ENACT
 52.3/62.3.
+
+## JUDGE-wide digit-mass faithfulness (2026-11-01) — PREDICTIONS registered before results
+
+28 of 53 JUDGE-wide models put < 50% median next-token mass on the 1-7 digits
+(14 at ~0: Llama-2, Mistral-7B, Phi-3, gemma-7b, vicuna, falcon-7b, glm-4,
+stablelm-2, R1-Distill-Llama, Llama-3.2-1B). They preamble ("I would rate...").
+The renormalized position-0 readout still tracks the high-mass cohort mean for
+most (r .80-.89) but not for Llama-2-13b (.14), R1-Llama (.08), falcon-7b (.07),
+InternLM3/2.5 (~0), stablelm (.23), Llama-3.2-1B (.24).
+Check: scripts/judge_mass_faithfulness.py (150 pairs, greedy 48-token answer
+vs stored EV). Predictions:
+  P1. Models whose readout tracks the cohort (r >= .8) also track their own
+      generated answers: r(EV, generated) >= .6 for most of them.
+  P2. The low-cohort-r models fail on their own answers too (r < .4), i.e. the
+      readout is off-policy noise, not an idiosyncratic judge.
+  P3. Parse rate >= .8 for all but the R1 distill (thinks past 48 tokens).
+
+SELF digit-mass audit, graded late (2026-11-01; ran 2026-08-31, never written up):
+14 models at ~0 mass (Llama-2 x2, Mistral-7B x2, Phi-3 x3, phi-4, vicuna, glm-4,
+gemma-7b, falcon-7b, InternLM2.5, Glimmer); the 16-token fallback mostly finds
+no digit (still preambling). Six are in the paper's SELF n=49; they track the
+other 43 (r .87-.96 vs median .94) and dropping them leaves SELF at r=.997.
+No paper number moves. Fallback length (16) is too short for preamblers.
