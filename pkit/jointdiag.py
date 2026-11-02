@@ -8,6 +8,10 @@ Q <- polar([(A_k + cI) q_k]_k), A_k = sum_t w_tk S_t, which never increases
 the loss. Also the comparison methods (DISTATIS compromise, eigenvectors of
 the mean or of the summed squares) and the shared scoring used to compare
 them: whatever produced Q, weights come from the same off-diagonal regression.
+
+Literature: an orthonormally constrained INDSCAL (symmetric CP; Carroll &
+Chang 1970) with signed weights, fit to off-diagonal entries only; the
+diagonal fill is ALS with single imputation (Tomasi & Bro 2005, Eq. 8).
 """
 import numpy as np
 from scipy.linalg import eigh
