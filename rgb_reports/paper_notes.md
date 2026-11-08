@@ -287,6 +287,34 @@ not regenerated).
    digit entropies could separate them); the numbers are 263-item
    correlations, not the joint-axis units (SELF 51.6% on axis 1).
 
+7. **The level is desirability in every channel; good is more alike than
+   bad (2026-11-07).** Cohort-mean profile per adjective: endorsement for
+   HUMAN/SELF (after elevation removal), mean similarity to the other 524
+   ("centrality") for REPRESENT/JUDGE/ENACT. r with Hampson SDY: HUMAN .94,
+   SELF .94, ENACT .90, JUDGE .82, REPRESENT .61; word frequency (zipf) .04-.29.
+   Predictions graded: HUMAN~SELF >= .8 HIT (.94); JUDGE .6-.8 near miss
+   (.82, high side); REPRESENT |r| < .3 and frequency-driven MISS (.61, freq
+   .04); ENACT in between MISS (.90, highest of the similarity channels).
+   Mechanism (SDY halves, mean similarity):
+
+   |           | pos-pos | neg-neg | pos-neg |
+   |-----------|---------|---------|---------|
+   | HUMAN     | .215    | .143    | -.076   |
+   | SELF      | .658    | .627    | .167    |
+   | REPRESENT | .103    | .073    | -.044   |
+   | JUDGE     | .288    | .063    | -.100   |
+   | ENACT     | .266    | .158    | -.185   |
+
+   Desirable adjectives are mutually closer than undesirable ones in all five
+   (JUDGE most, 4.6x): the density hypothesis of social cognition (positive
+   information is more alike; Unkelbach et al. 2008; Alves, Koch & Unkelbach
+   2017; citations NOT yet verified). A psych-side "mirror" result: models
+   reproduce a human cognitive asymmetry in how evaluative words are
+   organized. Least-central items: JUDGE = transient states (exhausted,
+   tired, sleepy, scared) -> trait/state split; REPRESENT = health and
+   disability words (handicapped, disabled, sickly). Caveat: JUDGE centrality
+   includes the model's scale use (generosity).
+
 ## D. Pending before the numbers freeze
 
 1. **WAIT: ENACT n = 10 → 20.** The 10 full-recipe pda_wide models finished
