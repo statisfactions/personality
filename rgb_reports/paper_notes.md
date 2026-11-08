@@ -262,6 +262,31 @@ not regenerated).
    figure may now carry this point instead (axis 3 shared by HUMAN and
    JUDGE).
 
+6. **SELF's top axis is amplitude, not disagreement (rgb's rank-2 model,
+   2026-11-07).** Model: x_m = a_m e + b_m o, with every model sharing the
+   positive self-image e and differing in dynamic range a_m. Then item
+   covariance across models ~ Var(a) ee' + Var(b) oo': a giant evaluative
+   axis from range differences alone, which per-model normalization removes.
+   Predictions were registered before looking; all three hit. On the 263
+   items with Hampson SDY:
+
+   |                                         | SELF (49) | HUMAN (700) |
+   |-----------------------------------------|-----------|-------------|
+   | profile r with SDY, median [min]        | .90 [.75] | .76 [-.78]  |
+   | members with r >= .7                    | 100%      | 65%         |
+   | r(PC1 score, SDY amplitude)             | .998      | .996        |
+   | SDY share, row-centered -> row z-scored | 43% -> 2.1% | 16.5% -> 7.8% |
+   | top axis abs r with SDY, row z-scored   | .19       | .85         |
+
+   Every model points the same way and differs in volume; people differ in
+   direction (some self-describe undesirably, which no model does). The same
+   first axis is self-evaluation in HUMAN and expressiveness in SELF, like
+   extreme response style in human surveys. Explains "elevation unmasked"
+   and the SELF .82 -> .21 drop under top-component removal (W18). Caveats:
+   amplitude could be confidence or calibration, not expressiveness (the
+   digit entropies could separate them); the numbers are 263-item
+   correlations, not the joint-axis units (SELF 51.6% on axis 1).
+
 ## D. Pending before the numbers freeze
 
 1. **WAIT: ENACT n = 10 → 20.** The 10 full-recipe pda_wide models finished
