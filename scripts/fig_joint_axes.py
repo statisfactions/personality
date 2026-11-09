@@ -29,7 +29,11 @@ reads joint_diag_k7_noREPRESENT (joint_diag_channels.py --drop REPRESENT).
 Axes matching the five-channel fit at |cos| >= .9 keep its names and signs;
 the others are named in VARIANT_NAMES.
 
-Usage: .venv/bin/python scripts/fig_joint_axes.py [--k 6] [--drop REPRESENT]
+--ips (rgb 2026-11-08): adds ipsatized Human/Self (superscript dagger) after the
+fitted channels, set off by whitespace; scored on the fixed axes, not in the fit.
+Writes fig_joint_axes_ips.
+
+Usage: .venv/bin/python scripts/fig_joint_axes.py [--k 6] [--drop REPRESENT] [--ips]
 (--k 7 writes fig_joint_axes_k7, the previous main figure.)
 """
 import argparse
@@ -44,11 +48,15 @@ import pkit
 from pkit import channels as C, jointdiag as J
 
 ap = argparse.ArgumentParser(); ap.add_argument("--k", type=int, default=6)
-ap.add_argument("--drop", nargs="*", default=[]); args = ap.parse_args()
+ap.add_argument("--drop", nargs="*", default=[])
+ap.add_argument("--ips", action="store_true",
+                help="add ipsatized Human/Self, scored on the fixed axes (not in the fit)")
+args = ap.parse_args()
 SUF = "".join(f"_no{c}" for c in args.drop)
 REF = "results/persona_vectors/joint_diag/joint_diag_k7"       # where the names live
 SRC = f"results/persona_vectors/joint_diag/joint_diag_k{args.k}" + SUF
-OUT = "results/persona_vectors/figs/fig_joint_axes" + ("" if args.k == 6 else f"_k{args.k}") + SUF
+OUT = ("results/persona_vectors/figs/fig_joint_axes" + ("" if args.k == 6 else f"_k{args.k}") + SUF
+       + ("_ips" if args.ips else ""))
 z = np.load(SRC + ".npz", allow_pickle=True)
 Q, W, labels = z["Q"], z["W"], [str(s) for s in z["labels"]]
 CH = [str(c) for c in z["channels"]]
@@ -58,6 +66,17 @@ mem = {c: C.members(c, labels) for c in C.CHANNELS}; LV = C.channel_level_remove
 SH, OWNK = [], []
 for c in CH:
     per, own = J.item_shares(Q, LV[c], C.SHARE_DIAG[c]); SH.append(per); OWNK.append(own)
+if args.ips:   # ipsatized (row z-scored) Human/Self after their row-centered columns
+    for c in ("HUMAN", "SELF"):
+        if c not in CH:
+            continue
+        kind, X, _ = mem[c]; X = np.asarray(X, float)
+        Xz = X - X.mean(1, keepdims=True); Xz /= Xz.std(1, keepdims=True)
+        per, own = J.item_shares(Q, C.cohort_matrix(kind, Xz), C.SHARE_DIAG[c])
+        CH.append(c + "_ips"); CHD.append(c.title() + r"$^{\dagger}$"); SH.append(per); OWNK.append(own)
+NFIT = sum(not c.endswith("_ips") for c in CH)          # fitted channels come first
+GAP = 0.45                                               # whitespace before the scored-only ones
+XPOS = np.array([t + (GAP if t >= NFIT else 0) for t in range(len(CH))])
 SH = np.clip(np.array(SH), 0, None); OWNK = np.array(OWNK)        # T x K; JUDGE -0.000 clipped
 
 # descriptive names (rgb may rename); poles oriented so the first-named pole reads first
@@ -110,12 +129,14 @@ A = 100 * SH.T                                   # K x T, percent
 # 0.5% vs 5% differ visibly under SELF's 41% (rgb 2026-10-18)
 CMAP = LinearSegmentedColormap.from_list("wpr", ["#ffffff", "#c9b8e8", "#8e6cc9", "#b8336a", "#6e0f1f"])
 NORM = PowerNorm(gamma=0.5, vmin=0, vmax=45)
-im = axa.imshow(A, cmap=CMAP, norm=NORM, aspect="auto")
 for k in range(K):
     for t in range(len(CH)):
-        axa.text(t, k, f"{A[k, t]:.1f}", ha="center", va="center", fontsize=8.5,
+        axa.add_patch(Rectangle((XPOS[t] - 0.5, k - 0.5), 1, 1, color=CMAP(NORM(A[k, t])), lw=0))
+        axa.text(XPOS[t], k, f"{A[k, t]:.1f}", ha="center", va="center", fontsize=8.5,
                  color="white" if NORM(A[k, t]) > 0.5 else INK)
-axa.set_xticks(range(len(CH)), CHD, fontsize=9)
+axa.set_xlim(-0.5, XPOS[-1] + 0.5); axa.set_ylim(K - 0.5, -0.5)
+im = matplotlib.cm.ScalarMappable(norm=NORM, cmap=CMAP)
+axa.set_xticks(XPOS, CHD, fontsize=9)
 axa.xaxis.tick_top()
 axa.set_yticks(range(K), [""] * K)
 axa.tick_params(length=0)
@@ -131,7 +152,7 @@ for k in range(K):
 fig.text(0.015, 0.95, "(a) percent of each channel's variance on each shared axis", fontsize=10, ha="left", va="top")
 
 # ---- (b) shares ----
-y = np.arange(len(CH))[::-1]
+y = (len(CH) - 1 + GAP if NFIT < len(CH) else len(CH) - 1) - XPOS
 for t in range(len(CH)):
     left = 0.0
     for k in range(K):
@@ -163,6 +184,9 @@ cax.set_title("percent of variance (square-root scale)", fontsize=7.5, color=MUT
 
 fig.subplots_adjust(left=0.30, right=0.98, top=0.86, bottom=0.15)
 fig.text(axb.get_position().x0 - 0.06, 0.95, "(b) each channel's variance, by axis", fontsize=10, ha="left", va="top")
+if args.ips:
+    fig.text(axa.get_position().x0, 0.035, r"$^{\dagger}$ipsatized (each respondent's profile z-scored); scored on the fixed axes, not in the fit",
+             ha="left", fontsize=7, color=MUTED)
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 for ext in ("pdf", "png"):
     fig.savefig(f"{OUT}.{ext}", dpi=200)
