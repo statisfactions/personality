@@ -315,6 +315,26 @@ not regenerated).
    disability words (handicapped, disabled, sickly). Caveat: JUDGE centrality
    includes the model's scale use (generosity).
 
+8. **Noise floor for the joint-axis shares; what axis 2 means outside
+   REPRESENT (2026-11-08).** Floor = 1/n = 0.19% (expected share of an
+   arbitrary direction). HUMAN, 4000 random unit directions: median .18%,
+   95th .29%, 99.9th .45%, max .68%. Caption rule: values below ~0.5% are
+   indistinguishable from the floor (JUDGE axis 2 at 0.5, every channel's
+   axis 6 except REPRESENT 3.7; HUMAN axis 6 at .26 is noise).
+   - HUMAN axis 2: 0.87% +- .04 (people halves), held out .85: real but
+     tiny (~0.7 points above floor; above all 4000 random directions).
+   - SELF axis 2: 2.28% +- .66, held out 2.17 (ipsatized 3.6): the only
+     non-REPRESENT channel materially on it. rgb's reading: specificity of
+     the self-image -- the assistant is generically good ("wonderful, great,
+     amazing") or specifically good at things ("assertive, cautious,
+     competitive"). Row-centered axis-2 scores correlate .44 with the
+     amplitude axis; ipsatized, .06, so use ipsatized scores for this.
+     Most generic: gemma-2b, Qwen2.5-0.5B/1.5B/3B, gemma-7b, Falcon3-3B,
+     OLMo-2-32B, gemma-4-31B. Most behavioral: Mistral-Nemo, Qwen1.5-7B,
+     glm-4, EXAONE-3.5, Llama-3.2-3B, Phi-3.5-mini, Yi-1.5-6B, gemma-2-9b.
+     The small models skew generic; a size/generation regression is
+     unrun. Interpretive, unregistered.
+
 ## D. Pending before the numbers freeze
 
 1. **WAIT: ENACT n = 10 → 20.** The 10 full-recipe pda_wide models finished
