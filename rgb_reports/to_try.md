@@ -6258,3 +6258,12 @@ gemma-7b, falcon-7b, InternLM2.5, Glimmer); the 16-token fallback mostly finds
 no digit (still preambling). Six are in the paper's SELF n=49; they track the
 other 43 (r .87-.96 vs median .94) and dropping them leaves SELF at r=.997.
 No paper number moves. Fallback length (16) is too short for preamblers.
+
+CORRECTION (2026-11-08, rgb: "maybe raw HUMAN has PR=50?"): the ipsatized
+PR headline "SELF 11.6 vs HUMAN 50.2, ~4x thinner" compared n=49 with n=700;
+PR grows with n (pure noise at n=49, p=525: PR 44). Matched n (200 subsamples
+of 49 people): ipsatized HUMAN 24.0 [19.1, 28.4] vs SELF 15.4; row-centered
+18.2 [11.1, 22.5] vs 4.4. Direction holds (SELF below the human 5th pct), size
+~1.6x not 4x. The bandwidth series "ENACT 5-10 ~ TIDE 9 ~ 11.6 << human 50"
+inherits the confound; recheck each at matched n. Also: PR must use the
+unit-diagonal matrix; the zero-diagonal positive part deflates HUMAN 27 -> 9.

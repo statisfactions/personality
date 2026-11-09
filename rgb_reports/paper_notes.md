@@ -409,7 +409,13 @@ handle. Status: **not done**.
     project_adjective_data_ipsative);
   - level is small and surgency-shaped in HUMAN, so row-centering barely
     moves PC1 (cos .995, A3), but the level it removes leans toward E;
-  - ipsatized participation ratio: SELF 11.6 vs HUMAN 50.2.
+  - ipsatized participation ratio: SELF 11.6 vs HUMAN 50.2 is n-CONFOUNDED
+    (49 models vs 700 people; PR grows with n, noise at n=49 gives ~44).
+    Matched n (2026-11-08, current n=49 SELF, 200 HUMAN subsamples of 49):
+    row-centered SELF 4.4 vs HUMAN 18.2 [11.1, 22.5]; ipsatized SELF 15.4 vs
+    HUMAN 24.0 [19.1, 28.4]. Models ~1.6x thinner in self-shape, not 4x;
+    still below the human 5th percentile. Bandwidth-series comparisons
+    (ENACT, TIDE vs human 50) need the same matched-n check.
 
   **GAP**: the E-vs-E comparison itself.
 
