@@ -1,0 +1,238 @@
+
+===== Qwen7 (Qwen/Qwen2.5-7B-Instruct) mode=tom_likely both_dir=True =====
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<02:11,  2.57it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:26, 12.46it/s]Loading weights:  12%|█▏        | 41/339 [00:00<00:02, 106.37it/s]Loading weights:  23%|██▎       | 77/339 [00:00<00:01, 176.80it/s]Loading weights:  34%|███▎      | 114/339 [00:00<00:00, 227.42it/s]Loading weights:  44%|████▍     | 150/339 [00:00<00:00, 260.44it/s]Loading weights:  55%|█████▍    | 185/339 [00:01<00:00, 280.44it/s]Loading weights:  64%|██████▎   | 216/339 [00:01<00:00, 284.77it/s]Loading weights:  73%|███████▎  | 247/339 [00:01<00:00, 281.20it/s]Loading weights:  83%|████████▎ | 282/339 [00:01<00:00, 294.35it/s]Loading weights:  94%|█████████▎| 317/339 [00:01<00:00, 309.50it/s]Loading weights: 100%|██████████| 339/339 [00:01<00:00, 225.40it/s]
+  Qwen7: 2400/273006 (0.9%) 35 pair/s  eta 131 min
+  Qwen7: 4800/273006 (1.8%) 33 pair/s  eta 134 min
+  Qwen7: 7200/273006 (2.6%) 32 pair/s  eta 139 min
+  Qwen7: 9600/273006 (3.5%) 30 pair/s  eta 147 min
+  Qwen7: 12000/273006 (4.4%) 28 pair/s  eta 153 min
+  Qwen7: 14400/273006 (5.3%) 28 pair/s  eta 156 min
+  Qwen7: 16800/273006 (6.2%) 27 pair/s  eta 157 min
+  Qwen7: 19200/273006 (7.0%) 27 pair/s  eta 157 min
+  Qwen7: 21600/273006 (7.9%) 27 pair/s  eta 157 min
+  Qwen7: 24000/273006 (8.8%) 26 pair/s  eta 157 min
+  Qwen7: 26400/273006 (9.7%) 26 pair/s  eta 156 min
+  Qwen7: 28800/273006 (10.5%) 26 pair/s  eta 155 min
+  Qwen7: 31200/273006 (11.4%) 26 pair/s  eta 154 min
+  Qwen7: 33600/273006 (12.3%) 26 pair/s  eta 153 min
+  Qwen7: 36000/273006 (13.2%) 26 pair/s  eta 152 min
+  Qwen7: 38400/273006 (14.1%) 26 pair/s  eta 151 min
+  Qwen7: 40800/273006 (14.9%) 26 pair/s  eta 150 min
+  Qwen7: 43200/273006 (15.8%) 26 pair/s  eta 149 min
+  Qwen7: 45600/273006 (16.7%) 26 pair/s  eta 147 min
+  Qwen7: 48000/273006 (17.6%) 26 pair/s  eta 146 min
+  Qwen7: 50400/273006 (18.5%) 26 pair/s  eta 145 min
+  Qwen7: 52800/273006 (19.3%) 26 pair/s  eta 143 min
+  Qwen7: 55200/273006 (20.2%) 26 pair/s  eta 142 min
+  Qwen7: 57600/273006 (21.1%) 25 pair/s  eta 141 min
+  Qwen7: 60000/273006 (22.0%) 25 pair/s  eta 139 min
+  Qwen7: 62400/273006 (22.9%) 25 pair/s  eta 138 min
+  Qwen7: 64800/273006 (23.7%) 25 pair/s  eta 137 min
+  Qwen7: 67200/273006 (24.6%) 25 pair/s  eta 135 min
+  Qwen7: 69600/273006 (25.5%) 25 pair/s  eta 134 min
+  Qwen7: 72000/273006 (26.4%) 25 pair/s  eta 132 min
+  Qwen7: 74400/273006 (27.3%) 25 pair/s  eta 131 min
+  Qwen7: 76800/273006 (28.1%) 25 pair/s  eta 129 min
+  Qwen7: 79200/273006 (29.0%) 25 pair/s  eta 128 min
+  Qwen7: 81600/273006 (29.9%) 25 pair/s  eta 126 min
+  Qwen7: 84000/273006 (30.8%) 25 pair/s  eta 125 min
+  Qwen7: 86400/273006 (31.6%) 25 pair/s  eta 123 min
+  Qwen7: 88800/273006 (32.5%) 25 pair/s  eta 122 min
+  Qwen7: 91200/273006 (33.4%) 25 pair/s  eta 120 min
+  Qwen7: 93600/273006 (34.3%) 25 pair/s  eta 118 min
+  Qwen7: 96000/273006 (35.2%) 25 pair/s  eta 117 min
+  Qwen7: 98400/273006 (36.0%) 25 pair/s  eta 115 min
+  Qwen7: 100800/273006 (36.9%) 25 pair/s  eta 114 min
+  Qwen7: 103200/273006 (37.8%) 25 pair/s  eta 112 min
+  Qwen7: 105600/273006 (38.7%) 25 pair/s  eta 111 min
+  Qwen7: 108000/273006 (39.6%) 25 pair/s  eta 109 min
+  Qwen7: 110400/273006 (40.4%) 25 pair/s  eta 108 min
+  Qwen7: 112800/273006 (41.3%) 25 pair/s  eta 106 min
+  Qwen7: 115200/273006 (42.2%) 25 pair/s  eta 105 min
+  Qwen7: 117600/273006 (43.1%) 25 pair/s  eta 103 min
+  Qwen7: 120000/273006 (44.0%) 25 pair/s  eta 101 min
+  Qwen7: 122400/273006 (44.8%) 25 pair/s  eta 100 min
+  Qwen7: 124800/273006 (45.7%) 25 pair/s  eta 98 min
+  Qwen7: 127200/273006 (46.6%) 25 pair/s  eta 97 min
+  Qwen7: 129600/273006 (47.5%) 25 pair/s  eta 95 min
+  Qwen7: 132000/273006 (48.4%) 25 pair/s  eta 94 min
+  Qwen7: 134400/273006 (49.2%) 25 pair/s  eta 92 min
+  Qwen7: 136800/273006 (50.1%) 25 pair/s  eta 90 min
+  Qwen7: 139200/273006 (51.0%) 25 pair/s  eta 89 min
+  Qwen7: 141600/273006 (51.9%) 25 pair/s  eta 87 min
+  Qwen7: 144000/273006 (52.7%) 25 pair/s  eta 86 min
+  Qwen7: 146400/273006 (53.6%) 25 pair/s  eta 84 min
+  Qwen7: 148800/273006 (54.5%) 25 pair/s  eta 83 min
+  Qwen7: 151200/273006 (55.4%) 25 pair/s  eta 81 min
+  Qwen7: 153600/273006 (56.3%) 25 pair/s  eta 79 min
+  Qwen7: 156000/273006 (57.1%) 25 pair/s  eta 78 min
+  Qwen7: 158400/273006 (58.0%) 25 pair/s  eta 76 min
+  Qwen7: 160800/273006 (58.9%) 25 pair/s  eta 75 min
+  Qwen7: 163200/273006 (59.8%) 25 pair/s  eta 73 min
+  Qwen7: 165600/273006 (60.7%) 25 pair/s  eta 71 min
+  Qwen7: 168000/273006 (61.5%) 25 pair/s  eta 70 min
+  Qwen7: 170400/273006 (62.4%) 25 pair/s  eta 68 min
+  Qwen7: 172800/273006 (63.3%) 25 pair/s  eta 67 min
+  Qwen7: 175200/273006 (64.2%) 25 pair/s  eta 65 min
+  Qwen7: 177600/273006 (65.1%) 25 pair/s  eta 63 min
+  Qwen7: 180000/273006 (65.9%) 25 pair/s  eta 62 min
+  Qwen7: 182400/273006 (66.8%) 25 pair/s  eta 60 min
+  Qwen7: 184800/273006 (67.7%) 25 pair/s  eta 59 min
+  Qwen7: 187200/273006 (68.6%) 25 pair/s  eta 57 min
+  Qwen7: 189600/273006 (69.4%) 25 pair/s  eta 56 min
+  Qwen7: 192000/273006 (70.3%) 25 pair/s  eta 54 min
+  Qwen7: 194400/273006 (71.2%) 25 pair/s  eta 52 min
+  Qwen7: 196800/273006 (72.1%) 25 pair/s  eta 51 min
+  Qwen7: 199200/273006 (73.0%) 25 pair/s  eta 49 min
+  Qwen7: 201600/273006 (73.8%) 25 pair/s  eta 48 min
+  Qwen7: 204000/273006 (74.7%) 25 pair/s  eta 46 min
+  Qwen7: 206400/273006 (75.6%) 25 pair/s  eta 44 min
+  Qwen7: 208800/273006 (76.5%) 25 pair/s  eta 43 min
+  Qwen7: 211200/273006 (77.4%) 25 pair/s  eta 41 min
+  Qwen7: 213600/273006 (78.2%) 25 pair/s  eta 40 min
+  Qwen7: 216000/273006 (79.1%) 25 pair/s  eta 38 min
+  Qwen7: 218400/273006 (80.0%) 25 pair/s  eta 36 min
+  Qwen7: 220800/273006 (80.9%) 25 pair/s  eta 35 min
+  Qwen7: 223200/273006 (81.8%) 25 pair/s  eta 33 min
+  Qwen7: 225600/273006 (82.6%) 25 pair/s  eta 32 min
+  Qwen7: 228000/273006 (83.5%) 25 pair/s  eta 30 min
+  Qwen7: 230400/273006 (84.4%) 25 pair/s  eta 28 min
+  Qwen7: 232800/273006 (85.3%) 25 pair/s  eta 27 min
+  Qwen7: 235200/273006 (86.2%) 25 pair/s  eta 25 min
+  Qwen7: 237600/273006 (87.0%) 25 pair/s  eta 24 min
+  Qwen7: 240000/273006 (87.9%) 25 pair/s  eta 22 min
+  Qwen7: 242400/273006 (88.8%) 25 pair/s  eta 20 min
+  Qwen7: 244800/273006 (89.7%) 25 pair/s  eta 19 min
+  Qwen7: 247200/273006 (90.5%) 25 pair/s  eta 17 min
+  Qwen7: 249600/273006 (91.4%) 25 pair/s  eta 16 min
+  Qwen7: 252000/273006 (92.3%) 25 pair/s  eta 14 min
+  Qwen7: 254400/273006 (93.2%) 25 pair/s  eta 12 min
+  Qwen7: 256800/273006 (94.1%) 25 pair/s  eta 11 min
+  Qwen7: 259200/273006 (94.9%) 25 pair/s  eta 9 min
+  Qwen7: 261600/273006 (95.8%) 25 pair/s  eta 8 min
+  Qwen7: 264000/273006 (96.7%) 25 pair/s  eta 6 min
+  Qwen7: 266400/273006 (97.6%) 25 pair/s  eta 4 min
+  Qwen7: 268800/273006 (98.5%) 25 pair/s  eta 3 min
+  Qwen7: 271200/273006 (99.3%) 25 pair/s  eta 1 min
+  Qwen7: 273006/273006 (100.0%) 25 pair/s  eta 0 min
+  antonym EV 2.08  z_full -1.37  z_probeset -1.12  (full mean 3.63 sd 1.14)
+
+===== Gemma12 (google/gemma-3-12b-it) mode=tom_likely both_dir=True =====
+Loading weights:   0%|          | 0/1065 [00:00<?, ?it/s]Loading weights:   0%|          | 1/1065 [00:00<10:30,  1.69it/s]Loading weights:   3%|▎         | 31/1065 [00:00<00:17, 58.66it/s]Loading weights:   7%|▋         | 70/1065 [00:00<00:07, 128.09it/s]Loading weights:  10%|█         | 109/1065 [00:00<00:05, 186.69it/s]Loading weights:  14%|█▍        | 147/1065 [00:01<00:03, 233.68it/s]Loading weights:  17%|█▋        | 186/1065 [00:01<00:03, 273.49it/s]Loading weights:  21%|██        | 226/1065 [00:01<00:02, 302.92it/s]Loading weights:  25%|██▍       | 265/1065 [00:01<00:02, 325.13it/s]Loading weights:  29%|██▊       | 304/1065 [00:01<00:02, 337.92it/s]Loading weights:  33%|███▎      | 348/1065 [00:01<00:01, 366.71it/s]Loading weights:  36%|███▋      | 387/1065 [00:01<00:01, 372.58it/s]Loading weights:  40%|████      | 426/1065 [00:01<00:01, 367.04it/s]Loading weights:  44%|████▎     | 464/1065 [00:01<00:01, 356.92it/s]Loading weights:  47%|████▋     | 501/1065 [00:01<00:01, 347.27it/s]Loading weights:  50%|█████     | 537/1065 [00:02<00:01, 339.20it/s]Loading weights:  54%|█████▍    | 575/1065 [00:02<00:01, 348.64it/s]Loading weights:  57%|█████▋    | 611/1065 [00:02<00:01, 346.08it/s]Loading weights:  75%|███████▌  | 803/1065 [00:02<00:00, 794.68it/s]Loading weights: 100%|██████████| 1065/1065 [00:02<00:00, 431.85it/s]
+  Gemma12: 2400/273006 (0.9%) 17 pair/s  eta 263 min
+  Gemma12: 4800/273006 (1.8%) 17 pair/s  eta 260 min
+  Gemma12: 7200/273006 (2.6%) 17 pair/s  eta 257 min
+  Gemma12: 9600/273006 (3.5%) 17 pair/s  eta 255 min
+  Gemma12: 12000/273006 (4.4%) 17 pair/s  eta 254 min
+  Gemma12: 14400/273006 (5.3%) 17 pair/s  eta 251 min
+  Gemma12: 16800/273006 (6.2%) 17 pair/s  eta 249 min
+  Gemma12: 19200/273006 (7.0%) 17 pair/s  eta 246 min
+  Gemma12: 21600/273006 (7.9%) 17 pair/s  eta 244 min
+  Gemma12: 24000/273006 (8.8%) 17 pair/s  eta 242 min
+  Gemma12: 26400/273006 (9.7%) 17 pair/s  eta 239 min
+  Gemma12: 28800/273006 (10.5%) 17 pair/s  eta 237 min
+  Gemma12: 31200/273006 (11.4%) 17 pair/s  eta 234 min
+  Gemma12: 33600/273006 (12.3%) 17 pair/s  eta 232 min
+  Gemma12: 36000/273006 (13.2%) 17 pair/s  eta 229 min
+  Gemma12: 38400/273006 (14.1%) 17 pair/s  eta 227 min
+  Gemma12: 40800/273006 (14.9%) 17 pair/s  eta 224 min
+  Gemma12: 43200/273006 (15.8%) 17 pair/s  eta 222 min
+  Gemma12: 45600/273006 (16.7%) 17 pair/s  eta 219 min
+  Gemma12: 48000/273006 (17.6%) 17 pair/s  eta 217 min
+  Gemma12: 50400/273006 (18.5%) 17 pair/s  eta 215 min
+  Gemma12: 52800/273006 (19.3%) 17 pair/s  eta 212 min
+  Gemma12: 55200/273006 (20.2%) 17 pair/s  eta 210 min
+  Gemma12: 57600/273006 (21.1%) 17 pair/s  eta 208 min
+  Gemma12: 60000/273006 (22.0%) 17 pair/s  eta 205 min
+  Gemma12: 62400/273006 (22.9%) 17 pair/s  eta 203 min
+  Gemma12: 64800/273006 (23.7%) 17 pair/s  eta 200 min
+  Gemma12: 67200/273006 (24.6%) 17 pair/s  eta 198 min
+  Gemma12: 69600/273006 (25.5%) 17 pair/s  eta 196 min
+  Gemma12: 72000/273006 (26.4%) 17 pair/s  eta 193 min
+  Gemma12: 74400/273006 (27.3%) 17 pair/s  eta 191 min
+  Gemma12: 76800/273006 (28.1%) 17 pair/s  eta 188 min
+  Gemma12: 79200/273006 (29.0%) 17 pair/s  eta 186 min
+  Gemma12: 81600/273006 (29.9%) 17 pair/s  eta 184 min
+  Gemma12: 84000/273006 (30.8%) 17 pair/s  eta 181 min
+  Gemma12: 86400/273006 (31.6%) 17 pair/s  eta 179 min
+  Gemma12: 88800/273006 (32.5%) 17 pair/s  eta 177 min
+  Gemma12: 91200/273006 (33.4%) 17 pair/s  eta 174 min
+  Gemma12: 93600/273006 (34.3%) 17 pair/s  eta 172 min
+  Gemma12: 96000/273006 (35.2%) 17 pair/s  eta 170 min
+  Gemma12: 98400/273006 (36.0%) 17 pair/s  eta 167 min
+  Gemma12: 100800/273006 (36.9%) 17 pair/s  eta 165 min
+  Gemma12: 103200/273006 (37.8%) 17 pair/s  eta 162 min
+  Gemma12: 105600/273006 (38.7%) 17 pair/s  eta 160 min
+  Gemma12: 108000/273006 (39.6%) 17 pair/s  eta 158 min
+  Gemma12: 110400/273006 (40.4%) 17 pair/s  eta 155 min
+  Gemma12: 112800/273006 (41.3%) 17 pair/s  eta 153 min
+  Gemma12: 115200/273006 (42.2%) 17 pair/s  eta 151 min
+  Gemma12: 117600/273006 (43.1%) 17 pair/s  eta 148 min
+  Gemma12: 120000/273006 (44.0%) 17 pair/s  eta 146 min
+  Gemma12: 122400/273006 (44.8%) 17 pair/s  eta 144 min
+  Gemma12: 124800/273006 (45.7%) 17 pair/s  eta 141 min
+  Gemma12: 127200/273006 (46.6%) 17 pair/s  eta 139 min
+  Gemma12: 129600/273006 (47.5%) 17 pair/s  eta 137 min
+  Gemma12: 132000/273006 (48.4%) 17 pair/s  eta 134 min
+  Gemma12: 134400/273006 (49.2%) 17 pair/s  eta 132 min
+  Gemma12: 136800/273006 (50.1%) 17 pair/s  eta 130 min
+  Gemma12: 139200/273006 (51.0%) 17 pair/s  eta 127 min
+  Gemma12: 141600/273006 (51.9%) 17 pair/s  eta 125 min
+  Gemma12: 144000/273006 (52.7%) 18 pair/s  eta 123 min
+  Gemma12: 146400/273006 (53.6%) 18 pair/s  eta 121 min
+  Gemma12: 148800/273006 (54.5%) 18 pair/s  eta 118 min
+  Gemma12: 151200/273006 (55.4%) 18 pair/s  eta 116 min
+  Gemma12: 153600/273006 (56.3%) 18 pair/s  eta 114 min
+  Gemma12: 156000/273006 (57.1%) 18 pair/s  eta 111 min
+  Gemma12: 158400/273006 (58.0%) 18 pair/s  eta 109 min
+  Gemma12: 160800/273006 (58.9%) 18 pair/s  eta 107 min
+  Gemma12: 163200/273006 (59.8%) 18 pair/s  eta 104 min
+  Gemma12: 165600/273006 (60.7%) 18 pair/s  eta 102 min
+  Gemma12: 168000/273006 (61.5%) 18 pair/s  eta 100 min
+  Gemma12: 170400/273006 (62.4%) 18 pair/s  eta 98 min
+  Gemma12: 172800/273006 (63.3%) 18 pair/s  eta 95 min
+  Gemma12: 175200/273006 (64.2%) 18 pair/s  eta 93 min
+  Gemma12: 177600/273006 (65.1%) 18 pair/s  eta 91 min
+  Gemma12: 180000/273006 (65.9%) 18 pair/s  eta 88 min
+  Gemma12: 182400/273006 (66.8%) 18 pair/s  eta 86 min
+  Gemma12: 184800/273006 (67.7%) 18 pair/s  eta 84 min
+  Gemma12: 187200/273006 (68.6%) 18 pair/s  eta 81 min
+  Gemma12: 189600/273006 (69.4%) 18 pair/s  eta 79 min
+  Gemma12: 192000/273006 (70.3%) 18 pair/s  eta 77 min
+  Gemma12: 194400/273006 (71.2%) 18 pair/s  eta 75 min
+  Gemma12: 196800/273006 (72.1%) 18 pair/s  eta 72 min
+  Gemma12: 199200/273006 (73.0%) 18 pair/s  eta 70 min
+  Gemma12: 201600/273006 (73.8%) 18 pair/s  eta 68 min
+  Gemma12: 204000/273006 (74.7%) 18 pair/s  eta 65 min
+  Gemma12: 206400/273006 (75.6%) 18 pair/s  eta 63 min
+  Gemma12: 208800/273006 (76.5%) 18 pair/s  eta 61 min
+  Gemma12: 211200/273006 (77.4%) 18 pair/s  eta 59 min
+  Gemma12: 213600/273006 (78.2%) 18 pair/s  eta 56 min
+  Gemma12: 216000/273006 (79.1%) 18 pair/s  eta 54 min
+  Gemma12: 218400/273006 (80.0%) 18 pair/s  eta 52 min
+  Gemma12: 220800/273006 (80.9%) 18 pair/s  eta 49 min
+  Gemma12: 223200/273006 (81.8%) 18 pair/s  eta 47 min
+  Gemma12: 225600/273006 (82.6%) 18 pair/s  eta 45 min
+  Gemma12: 228000/273006 (83.5%) 18 pair/s  eta 43 min
+  Gemma12: 230400/273006 (84.4%) 18 pair/s  eta 40 min
+  Gemma12: 232800/273006 (85.3%) 18 pair/s  eta 38 min
+  Gemma12: 235200/273006 (86.2%) 18 pair/s  eta 36 min
+  Gemma12: 237600/273006 (87.0%) 18 pair/s  eta 33 min
+  Gemma12: 240000/273006 (87.9%) 18 pair/s  eta 31 min
+  Gemma12: 242400/273006 (88.8%) 18 pair/s  eta 29 min
+  Gemma12: 244800/273006 (89.7%) 18 pair/s  eta 27 min
+  Gemma12: 247200/273006 (90.5%) 18 pair/s  eta 24 min
+  Gemma12: 249600/273006 (91.4%) 18 pair/s  eta 22 min
+  Gemma12: 252000/273006 (92.3%) 18 pair/s  eta 20 min
+  Gemma12: 254400/273006 (93.2%) 18 pair/s  eta 18 min
+  Gemma12: 256800/273006 (94.1%) 18 pair/s  eta 15 min
+  Gemma12: 259200/273006 (94.9%) 18 pair/s  eta 13 min
+  Gemma12: 261600/273006 (95.8%) 18 pair/s  eta 11 min
+  Gemma12: 264000/273006 (96.7%) 18 pair/s  eta 8 min
+  Gemma12: 266400/273006 (97.6%) 18 pair/s  eta 6 min
+  Gemma12: 268800/273006 (98.5%) 18 pair/s  eta 4 min
+  Gemma12: 271200/273006 (99.3%) 18 pair/s  eta 2 min
+  Gemma12: 273006/273006 (100.0%) 18 pair/s  eta 0 min
+  antonym EV 3.56  z_full -0.60  z_probeset -0.67  (full mean 4.29 sd 1.21)
+
+done

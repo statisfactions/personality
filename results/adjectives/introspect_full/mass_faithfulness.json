@@ -1,0 +1,394 @@
+{
+ "THUDM/glm-4-9b-chat-hf": {
+  "n": 150,
+  "parse_rate": 1.0,
+  "r_ev_gen": 0.8632416042801305,
+  "argmax_agree": 0.14666666666666667,
+  "median_mass": 0.0,
+  "examples": [
+   "\n3\n\nGratitude is a complex emotional response that can be influenced by a variety of factors, including personality traits.\n\nA person who is \"very weird\" might have unique perspectives and experiences that could lead to a strong sense of gratitude.",
+   "\n7\n\nIt is very likely that a person who is very normal is also thinking. Thinking is a fundamental aspect of human cognition.",
+   "\n4\n\nWhile being delighted does not inherently correlate with education, it is plausible that a person who is very delighted might also be educated, as education can lead to a more positive outlook on life. However, this is not a certainty,",
+   "\n3\n\nThe likelihood of a person who is very hilarious also being clean is moderate. While humor and cleanliness are not directly related, a person with a positive outlook and social skills, which are often associated with being hilarious, might also be",
+   "\n3\n\nThis person being difficult does not necessarily correlate with their ability to be persuasive. Difficulty could be a sign of assertiveness or a strong personality, which could make them persuasive. However, difficulty alone does not guarantee persuasiveness."
+  ]
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": {
+  "n": 150,
+  "parse_rate": 0.35333333333333333,
+  "r_ev_gen": NaN,
+  "argmax_agree": 0.0,
+  "median_mass": 0.0,
+  "examples": [
+   "\u010aOkay,\u0120so\u0120I'm\u0120trying\u0120to\u0120figure\u0120out\u0120how\u0120likely\u0120it\u0120is\u0120that\u0120a\u0120very\u0120weird\u0120person\u0120is\u0120also\u0120a\u0120grateful\u0120person.\u0120The\u0120question\u0120is\u0120asking\u0120me\u0120to\u0120answer\u0120with\u0120a\u0120number\u0120from\u01201\u0120to\u01207,\u0120where\u01201\u0120means\u0120very\u0120unlikely",
+   "\u010aOkay,\u0120so\u0120I'm\u0120trying\u0120to\u0120figure\u0120out\u0120how\u0120likely\u0120it\u0120is\u0120that\u0120a\u0120very\u0120normal\u0120person\u0120is\u0120also\u0120thinking.\u0120Hmm,\u0120that's\u0120an\u0120interesting\u0120question.\u0120Let\u0120me\u0120break\u0120it\u0120down.\u010a\u010aFirst,\u0120what\u0120does\u0120it\u0120mean\u0120to\u0120be\u0120\"very\u0120normal",
+   "\u010aOkay,\u0120so\u0120I\u0120need\u0120to\u0120figure\u0120out\u0120how\u0120likely\u0120it\u0120is\u0120that\u0120a\u0120person\u0120who\u0120is\u0120very\u0120delighted\u0120is\u0120also\u0120educated.\u0120The\u0120options\u0120are\u0120numbers\u0120from\u01201\u0120to\u01207,\u0120where\u01201\u0120means\u0120very\u0120unlikely\u0120and\u01207\u0120means\u0120very\u0120likely.",
+   "\u010aOkay,\u0120so\u0120I\u0120need\u0120to\u0120figure\u0120out\u0120how\u0120likely\u0120it\u0120is\u0120that\u0120a\u0120very\u0120hilarious\u0120person\u0120is\u0120also\u0120a\u0120whisper.\u0120Hmm,\u0120let\u0120me\u0120break\u0120this\u0120down.\u0120First,\u0120I\u0120should\u0120understand\u0120what\u0120\"very\u0120hilarious\"\u0120means.\u0120I\u0120think\u0120it\u0120means\u0120someone",
+   "\u010aOkay,\u0120so\u0120I\u0120need\u0120to\u0120figure\u0120out\u0120how\u0120likely\u0120it\u0120is\u0120that\u0120a\u0120very\u0120difficult\u0120person\u0120is\u0120also\u0120persuasive.\u0120Hmm,\u0120let's\u0120break\u0120this\u0120down.\u0120First,\u0120what\u0120does\u0120it\u0120mean\u0120to\u0120be\u0120a\u0120\"very\u0120difficult\u0120person\"?\u0120I\u0120think\u0120it\u0120usually"
+  ]
+ },
+ "meta-llama/Llama-2-13b-chat-hf": {
+  "n": 150,
+  "parse_rate": 0.4866666666666667,
+  "r_ev_gen": -0.08219265498325046,
+  "argmax_agree": 0.0547945205479452,
+  "median_mass": 0.0,
+  "examples": [
+   " It's not accurate or fair to make a direct correlation between being \"weird\" and being grateful. People of all backgrounds and personalities can be grateful, and being \"weird\" does not preclude someone from experien",
+   " As a neutral AI language model, I would rate the likelihood of a \"very normal\" person being thinking as a 7, very likely. Thinking is a fundamental cognitive process that is inherent to all human be",
+   " Based on the assumption that being delighted is positively correlated with education level, I would rate the likelihood of a person who is very delighted also being educated as a 6 (very likely). This is because education can",
+   " Based on the stereotype that people who are very hilarious may not always be clean, I would rate the likelihood of this person being clean as a 4 out of 7. This is because humor often",
+   " Based on the information provided, I would rate the likelihood of a difficult person being persuasive as a 4 out of 7.\n\nWhile being difficult does not necessarily preclude someone from being persuasive,"
+  ]
+ },
+ "meta-llama/Llama-2-7b-chat-hf": {
+  "n": 150,
+  "parse_rate": 0.7466666666666667,
+  "r_ev_gen": 0.5165819304804781,
+  "argmax_agree": 0.0625,
+  "median_mass": 0.0,
+  "examples": [
+   " I would rate the likelihood of a person who is very weird to also be grateful as a 5, or somewhat likely.\n\nWhile being weird may not necessarily preclude someone from being grateful, it can be challenging",
+   " I would rate the likelihood of a person who is very normal to also be thinking as a 7, very likely.\n\nThe term \"normal\" can be subjective and can vary depending on cultural and societal norms",
+   " I would rate the likelihood of a person being educated based on their delighted state as a 5, or moderately likely. Being delighted can indicate a positive outlook and enthusiasm for life, which can sometimes be",
+   " I would rate the likelihood of a hilarious person being clean as a 5, or moderately likely. While there is no direct correlation between being funny and being clean, it's possible that a person who",
+   " I would rate the likelihood of a difficult person being persuasive as a 3, or somewhat likely.\n\nWhile being difficult can sometimes be a barrier to persuasion, it can also be a sign of strong"
+  ]
+ },
+ "microsoft/Phi-3-medium-4k-instruct": {
+  "n": 150,
+  "parse_rate": 0.98,
+  "r_ev_gen": 0.9103876118888314,
+  "argmax_agree": 0.17006802721088435,
+  "median_mass": 0.0,
+  "examples": [
+   "5",
+   "7",
+   "4\nNumber: 4",
+   "3",
+   "3"
+  ]
+ },
+ "microsoft/Phi-3.5-mini-instruct": {
+  "n": 150,
+  "parse_rate": 0.7933333333333333,
+  "r_ev_gen": 0.9430226361409042,
+  "argmax_agree": 0.3865546218487395,
+  "median_mass": 0.0,
+  "examples": [
+   "5 - It's difficult to accurately predict an individual's level of gratitude based solely on their quirkiness. Gratitude is a complex emotion influenced by many factors, including personality, upbring",
+   "7\n\nThinking is a fundamental aspect of human consciousness and cognition, and it is highly likely that a \"very normal\" person is thinking at any given moment. It is a continuous process that occurs as we perceive",
+   "5 - While there is no direct correlation between a person's level of education and their emotional state, it is possible for a person who is very delighted to also be educated. Emotions and education are independent aspects of",
+   "7\n\nWhile humor and cleanliness are not directly correlated traits, a person who is very hilarious may also possess good personal hygiene as part of their overall self-care and social awaren",
+   "3\n\nThe likelihood of a difficult person being persuasive can vary greatly depending on various factors such as their communication skills, emotional intelligence, the context of the situation, and the reasons behind their difficulty. However, without"
+  ]
+ },
+ "stabilityai/stablelm-2-12b-chat": {
+  "n": 150,
+  "parse_rate": 0.7533333333333333,
+  "r_ev_gen": NaN,
+  "argmax_agree": 0.035398230088495575,
+  "median_mass": 1.7881393432617188e-07,
+  "examples": [
+   "To determine the likelihood of a very weird person being grateful, we need to consider the relationship between these two traits. Gratitude is a positive emotion that can be expressed by anyone, regardless of their other characteristics. However, the likelihood might be",
+   "To determine the likelihood of a very normal person thinking, let's consider the following factors:\n\n1. Human nature: Thinking is a fundamental aspect of human cognition. It is essential for problem-solving, decision-making, and understanding the world around us",
+   "To determine the likelihood of a person who is very delighted being educated, we need to consider the potential correlation between happiness and education. While there isn't a direct causal relationship, we can make an informed assumption based on various factors.\n\nStep ",
+   "To determine the likelihood of a hilarious person also being clean, let's consider a few factors and assign a number from 1 to 7.\n\nStep 1: Analyze the relationship between humor and cleanliness.\n- Humor and cleanliness can",
+   "To determine the likelihood of a difficult person being persuasive, let's consider several factors and assign a number from 1 to 7.\n\n1. Complexity of their arguments: A difficult person might have strong opinions or be highly knowledgeable in specific areas"
+  ]
+ },
+ "lmsys/vicuna-7b-v1.5": {
+  "n": 150,
+  "parse_rate": 1.0,
+  "r_ev_gen": 0.7449315450688062,
+  "argmax_agree": 0.49333333333333335,
+  "median_mass": 3.5762786865234375e-07,
+  "examples": [
+   "5",
+   "6",
+   "6",
+   "5",
+   "5"
+  ]
+ },
+ "mistralai/Mistral-7B-Instruct-v0.3": {
+  "n": 150,
+  "parse_rate": 0.32666666666666666,
+  "r_ev_gen": 0.9245162469527707,
+  "argmax_agree": 0.4489795918367347,
+  "median_mass": 5.960464477539062e-07,
+  "examples": [
+   "5. While it's not accurate to assume that a person's level of weirdness directly correlates with their level of gratitude, it's still possible for a person to exhibit both traits. Gratitude is a learned",
+   "7 (Very likely). Thinking is a fundamental aspect of being human, and it's safe to assume that a normal person is almost certainly thinking, whether it's about their daily activities, emotions, or abstract concepts.",
+   "5\n\nWhile there is no direct correlation between being delighted and education level, a person who is very delighted might be more likely to be educated due to a higher emotional intelligence, better social skills, or a positive outlook on life",
+   "5\n\nWhile humor and cleanliness are not directly related, a person's personality traits can often influence their habits. Some people might argue that a sense of humor could indicate a more organized and clean individual, but it'",
+   "3. While it's not impossible for a difficult person to be persuasive, it's generally less likely due to their challenging demeanor that may deter others from being receptive to their ideas. However, some"
+  ]
+ },
+ "microsoft/Phi-3-mini-4k-instruct": {
+  "n": 150,
+  "parse_rate": 1.0,
+  "r_ev_gen": 0.9013307808882719,
+  "argmax_agree": 0.14666666666666667,
+  "median_mass": 8.821487426757812e-06,
+  "examples": [
+   "5",
+   "7",
+   "5",
+   "6",
+   "3"
+  ]
+ },
+ "mistralai/Mistral-7B-Instruct-v0.1": {
+  "n": 150,
+  "parse_rate": 0.0,
+  "r_ev_gen": NaN,
+  "argmax_agree": NaN,
+  "median_mass": 3.185868263244629e-05,
+  "examples": [
+   "5. It is likely that a person who is very weird may also be grateful, but it is not a certainty.",
+   "7. It is very likely that a normal person is also thinking.",
+   "I'm sorry, but I cannot provide a number without more context or information about the person in question. It is not appropriate to make assumptions about a person's education level based solely on their level of delight.",
+   "5. It is likely that a very hilarious person may also be clean, but it is not a guarantee.",
+   "3. It is somewhat likely that a difficult person may also be persuasive, but it is not a guarantee."
+  ]
+ },
+ "google/gemma-7b-it": {
+  "n": 150,
+  "parse_rate": 0.37333333333333335,
+  "r_ev_gen": 0.8867978608638682,
+  "argmax_agree": 0.25,
+  "median_mass": 5.194544792175293e-05,
+  "examples": [
+   "The answer is 5.\n\nPeople who are very weird are not necessarily grateful. However, they are more likely to be grateful than people who are not weird. This is because people who are very weird are often more open to new experiences",
+   "The answer is 5.\n\nA person who is very normal is likely to also be thinking, but not necessarily. There are many factors that can influence a person's ability to think, such as their intelligence, education, and experiences",
+   "The answer is 5.\n\nA person who is very delighted is more likely to be educated than the average person. However, there are many factors that could influence a person's education level, so it is not necessarily true that a",
+   "The answer is 5.\n\nA person who is very hilarious is more likely to be clean than the average person, but not necessarily. There is no direct correlation between humor and cleanliness.",
+   "The answer is 3.\n\nA person who is very difficult is not necessarily persuasive. However, they may be able to be persuasive in some cases, particularly if they are able to use their power or influence to get what they want."
+  ]
+ },
+ "tiiuae/falcon-7b-instruct": {
+  "n": 150,
+  "parse_rate": 0.31333333333333335,
+  "r_ev_gen": 0.1626479110798655,
+  "argmax_agree": 0.2553191489361702,
+  "median_mass": 0.0003266334533691406,
+  "examples": [
+   "\nUser ",
+   "\nUser ",
+   "\nUser ",
+   " 4\nUser ",
+   " 4\nUser "
+  ]
+ },
+ "meta-llama/Llama-3.2-1B-Instruct": {
+  "n": 150,
+  "parse_rate": 0.72,
+  "r_ev_gen": 0.13159449597670067,
+  "argmax_agree": 0.0,
+  "median_mass": 0.00033736228942871094,
+  "examples": [
+   "I'd rate this person a 6. While being weird can sometimes be a sign of eccentricity or a unique perspective, it's not necessarily a guarantee that someone will be grateful. However, being weird can also be a source of comfort",
+   "I would rate this person as 4 out of 7. They are very normal, which means they likely have a relatively normal thought process and are not prone to unusual or irrational thinking. However, this does not necessarily mean they are not",
+   "I would rate this person's likelihood of being educated as 6. They are very delighted, which suggests a high level of enthusiasm and motivation. Education is often associated with personal growth, self-improvement, and a desire for knowledge,",
+   "I'd rate this person a 4 out of 7. While their sense of humor is likely to be entertaining, their tendency to be \"clean\" (i.e., tidy and organized) might not be as common.",
+   "I'd rate this person a 4 out of 7 for being persuasive. While they may be able to convince others through their arguments or persuasive techniques, their strong will and resistance to change can make it challenging for them to be swayed"
+  ]
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+  "n": 150,
+  "parse_rate": 0.9866666666666667,
+  "r_ev_gen": 0.5269342880557335,
+  "argmax_agree": 0.21621621621621623,
+  "median_mass": 0.0014586448669433594,
+  "examples": [
+   "Number: 5",
+   "Number: 7",
+   "Number: 7",
+   "Number: 7",
+   "Number: 5"
+  ]
+ },
+ "mistralai/Mistral-Small-24B-Instruct-2501": {
+  "n": 150,
+  "parse_rate": 0.06,
+  "r_ev_gen": 0.8411249540655884,
+  "argmax_agree": 0.6666666666666666,
+  "median_mass": 0.0018792152404785156,
+  "examples": [
+   "The likelihood of a person being grateful is not directly correlated with how weird they are. Gratitude is an independent trait that can be found in people across a wide range of personalities and behaviors. Therefore, without additional context, it's not",
+   "7\n\nThinking is a normal and constant activity for humans, so it's very likely that a normal person is thinking.",
+   "The likelihood of a person being educated given that they are very delighted cannot be determined with the information provided. Delight is an emotional state and does not directly correlate with educational level. Therefore, I cannot provide a number for this question.",
+   "The likelihood of a person being very hilarious and also being clean is not directly correlated, as humor and cleanliness are independent traits. Therefore, without additional context, it's not possible to make a definitive assessment.\n\nTo provide a more accurate",
+   "To determine how likely a very difficult person is to also be persuasive, we need to consider that being difficult often involves traits like stubbornness, resistance to change, and a tendency to argue or disagree. These traits might not necessarily align with"
+  ]
+ },
+ "CohereLabs/aya-expanse-32b": {
+  "n": 150,
+  "parse_rate": 0.30666666666666664,
+  "r_ev_gen": 0.8659149318599174,
+  "argmax_agree": 0.7608695652173914,
+  "median_mass": 0.0025377273559570312,
+  "examples": [
+   "It's important to note that \"weird\" is a subjective term and can mean different things to different people. It often carries a negative connotation, which isn't fair or accurate when describing someone's personality. That said, let's interpret",
+   "7\n\nThinking is a fundamental cognitive process that all humans engage in, albeit to varying degrees and with different levels of consciousness. Even a \"very normal\" person, who might not stand out in any exceptional way, is still highly likely",
+   "It's important to note that emotional states like delight and personal attributes like education level are not directly correlated. A person can be very delighted regardless of their education level, and vice versa. Delight can come from a variety of sources such as personal",
+   "The relationship between being hilarious and being clean (in terms of personal hygiene or lifestyle) is not inherently linked. One's sense of humor and their cleanliness are generally independent traits. A hilarious person could be clean or unclean, and vice versa",
+   "It's important to note that being difficult and being persuasive are not inherently correlated traits. A difficult person may or may not be persuasive, and the likelihood of them being persuasive cannot be determined solely by their difficulty.\n\nHowever, based on"
+  ]
+ },
+ "meta-llama/Meta-Llama-3-8B-Instruct": {
+  "n": 150,
+  "parse_rate": 0.23333333333333334,
+  "r_ev_gen": 0.925164669585284,
+  "argmax_agree": 0.6285714285714286,
+  "median_mass": 0.02637481689453125,
+  "examples": [
+   "What an intriguing question!\n\nI would rate the likelihood of this person being grateful as a 4.\n\nWhile being \"weird\" doesn't necessarily preclude someone from being grateful, it's possible that their unconventional nature might lead to a more",
+   "A clever question!\n\nI would rate this as a 7. It's extremely likely that a normal person is also thinking. In fact, thinking is a fundamental aspect of being human, and it's hard to imagine a person who is not",
+   "I would rate this as a 6.\n\nWhile being delighted doesn't necessarily imply a high level of education, it's often the case that people who are delighted are also more likely to be educated, as they may have had more opportunities to",
+   "A clever question!\n\nI'd rate this person's likelihood of being clean as a 5 out of 7. While humor and cleanliness aren't necessarily correlated, a person who is very hilarious might also be someone who is confident and self-ass",
+   "I would rate this person a 2 out of 7. Being difficult often means being stubborn, resistant to change, and unwilling to listen to others' perspectives. These traits can make it challenging for someone to be persuasive, as they may"
+  ]
+ },
+ "internlm/internlm3-8b-instruct": {
+  "n": 150,
+  "parse_rate": 0.41333333333333333,
+  "r_ev_gen": -0.06575105806614974,
+  "argmax_agree": 0.7258064516129032,
+  "median_mass": 0.0363006591796875,
+  "examples": [
+   "0 the the\b theBelow the a theBelow theBelow0\b0 the\n1 the\n, BelowBelow the the the the the the the the the the the theBelow, theBelowBelowBelow theBelow the be the be",
+   "\b the the the\b theBelowBelowBelowBelow theBelowBelow the0\u00ff beBelow theBelow the be\b be theBelow the the the the the the the the the theBelow, and0BelowBelow be the same the beBelow",
+   "theBelowBelow the\b the0 the0 the0 the\b be theBelow be theBelow0Below theBelow the theBelow the the be the the theBelow 1 theBelow, 1Below theBelow the the theBelow the",
+   "0Below the0Below the\b the1 theBelow\bBelow the the0Below be theBelow the\b be the be0Below the be the the be the0 the\b be theBelow theBelow thegggg0 be  be the",
+   "theBelow the\b theBelow the be theBelow\u7684 1 the1 the0 theBelow the be theBelowBelow the\b be the the the the the theBelowBelow0 theBelow00BelowBelow theBelow beBelow theBelow"
+  ]
+ },
+ "internlm/internlm2_5-7b-chat": {
+  "n": 150,
+  "parse_rate": 0.0,
+  "r_ev_gen": NaN,
+  "argmax_agree": NaN,
+  "median_mass": 0.047027587890625,
+  "examples": [
+   " =( \n\n\n\n =( =(\n =( =( =( =( =( =( =( =( =( =(\n\n\n\n \n \n\n\n =( =(\n\n\n\n =( =( =( =( =( =( =( =( =( =( =( =( =(",
+   "\n\n\n\n\n\n =( =(\n =( =( =( =( =( =( =( =( =( =(\n\n\n\n\n\n    =( =( =(\n\n \n =( =( =( =( =( =( =( =( =( =( =( =( =(",
+   "\n \n\n\n =( =( =(\n =( =( =( =( =( =( =( =( =( =(\n\n\n\n \n \n\n\n =( =( =( \n =( =( =( =( =( =( =( =( =( =( =( =( =( =(",
+   "\n\n\n\n\n\n =( =(\n =( =( =( =( =( =( =( =( =( =( =(\n\n\n\n\n    =( =( =( \n \n =( =( =( =( =( =( =( =( =( =( =( =( =(",
+   "\n\n\u5de6\u4e0b\u89d2\u7684\n\n\n =(\n\n =( =( =( =( =( =( =( =( =( =(\n\n\n\n    \n =( =( =(\n \n =( =( =( =( =( =( =( =( =( =( =( =( =( =("
+  ]
+ },
+ "Qwen/Qwen3-8B": {
+  "n": 150,
+  "parse_rate": 1.0,
+  "r_ev_gen": 0.9496619532990286,
+  "argmax_agree": 0.6733333333333333,
+  "median_mass": 0.06353759765625,
+  "examples": [
+   "Number: 4",
+   "7",
+   "Number: 5",
+   "Number: 5",
+   "Number: 3"
+  ]
+ },
+ "microsoft/phi-4": {
+  "n": 150,
+  "parse_rate": 0.29333333333333333,
+  "r_ev_gen": 0.9973803526190895,
+  "argmax_agree": 1.0,
+  "median_mass": 0.117706298828125,
+  "examples": [
+   "The likelihood of a person who is very weird also being grateful is not directly correlated, as \"weird\" is a subjective term and does not inherently relate to one's capacity for gratitude. Gratitude is a personal trait that can be present",
+   "7\n\nThinking is a fundamental aspect of being human, so it is very likely that a normal person is also thinking.",
+   "The likelihood of a person being educated based solely on their state of being very delighted is not directly correlated. Delight is an emotional state that can be experienced by individuals regardless of their educational background. Therefore, without additional context or information linking delight",
+   "The relationship between being \"hilarious\" and being \"clean\" is not inherently linked, as these are largely independent traits. Being hilarious refers to a person's sense of humor and ability to entertain, while being clean typically refers to personal",
+   "The relationship between being difficult and being persuasive is not straightforward, as these traits can manifest in various ways. A person who is very difficult might be persuasive if their difficulty stems from strong convictions, confidence, or a commanding presence, which can sometimes"
+  ]
+ },
+ "google/gemma-2-2b-it": {
+  "n": 150,
+  "parse_rate": 0.47333333333333333,
+  "r_ev_gen": 0.9513062459602002,
+  "argmax_agree": 0.7605633802816901,
+  "median_mass": 0.124114990234375,
+  "examples": [
+   "This is a tricky question! There's no simple answer. Here's why:\n\n* **Weirdness is subjective:** What one person finds weird, another might find charming. \n* **Gratitude is complex:** It'",
+   "This is a bit of a philosophical trick question!  \n\nHere's why:\n\n* **Defining \"thinking\" is tricky:**  We don't have a clear scientific definition of what \"thinking\" means.  It's",
+   "This is a tricky question!  There's no simple answer. Here's why:\n\n* **Happiness and Education are Complex:**  Happiness is influenced by many factors, including personality, life experiences, and social support. Education is",
+   "This is a tricky question! There's no direct link between being funny and being clean.  \n\nHere's why it's hard to answer:\n\n* **Humor is subjective:** What one person finds hilarious, another might find",
+   "This is a complex question with no easy answer!  Here's why:\n\n* **Persuasion is about influence, not just difficulty.**  Someone who is difficult to deal with might be resistant to persuasion, but that doesn't"
+  ]
+ },
+ "Qwen/Qwen2.5-14B-Instruct": {
+  "n": 150,
+  "parse_rate": 1.0,
+  "r_ev_gen": 0.9295702138347152,
+  "argmax_agree": 0.5666666666666667,
+  "median_mass": 0.0950927734375,
+  "examples": [
+   "4\n\nBeing \"weird\" does not necessarily correlate with the likelihood of being grateful. Gratitude is more related to personal values, experiences, and emotional intelligence, which can exist independently of how someone's behavior or interests might be perceived by",
+   "Number: 7\n\nGiven the parameters of the question, it's reasonable to assume that a \"very normal\" person would still be engaging in thought processes as thinking is a fundamental aspect of human consciousness. Therefore, on a scale from ",
+   "3\n\nDelight or happiness does not necessarily correlate with education level. Therefore, without additional context suggesting otherwise, it's reasonable to assume that being delighted doesn't make someone more or less likely to be educated compared to the general population.",
+   "4\n\nBeing hilarious does not have a direct correlation with being clean. Therefore, without additional context suggesting otherwise, I would rate the likelihood as neutral, leaning towards slightly likely since personal hygiene can be a part of anyone's routine regardless of their",
+   "Number: 4\n\nBeing very difficult does not necessarily correlate directly with being persuasive. Difficult behavior can sometimes push people away rather than persuade them. However, some difficult individuals might use their challenging demeanor as a tactic to assert dominance or provoke"
+  ]
+ },
+ "google/gemma-2b-it": {
+  "n": 150,
+  "parse_rate": 0.08666666666666667,
+  "r_ev_gen": 0.8725792622383091,
+  "argmax_agree": 0.9230769230769231,
+  "median_mass": 0.2412109375,
+  "examples": [
+   "Number 5.\n\nWhile weirdness can be associated with a lack of conventional social graces, it's not necessarily a guarantee. Gratitude can be a personality trait that is independent of social norms.",
+   "Number 5.\n\nA very normal person is likely to be someone who is not overly focused on their thoughts or introspection. They are more likely to be concerned with the everyday activities of life and the people around them.",
+   "Number 5.\n\nA person who is very delighted is more likely to be educated than someone who is neutral or unhappy. This is because education is often seen as a way to bring joy and meaning to life.",
+   "The answer is 5.\n\nWhile humor and cleanliness are not always closely related, a person who is funny is more likely to be clean in their personal life and habits. They are more likely to prioritize hygiene and take steps to maintain a",
+   "Number 5.\n\nPersuasive ability often requires the ability to understand and connect with others, which can be challenging for someone who is very difficult."
+  ]
+ },
+ "HuggingFaceH4/zephyr-7b-beta": {
+  "n": 150,
+  "parse_rate": 0.58,
+  "r_ev_gen": 0.9055138126328386,
+  "argmax_agree": 0.8045977011494253,
+  "median_mass": 0.29296875,
+  "examples": [
+   "Based on general observations, the likelihood of a very weird person also being grateful is:\n\nNumber: 4\n\nExplanation:\n\nWhile there is no direct correlation between being weird and being grateful, some people may argue",
+   "Number: 7 (very likely)\n\nExplanation:\n\nThe statement \"Consider a person who is very normal\" does not exclude the possibility that this person is also thinking. In fact, it is highly likely that",
+   "There is no inherent relationship between a person's level of education and their level of delight, as delight can be experienced by individuals with varying levels of education. Therefore, a neutral response would be to answer 4, where the likelihood",
+   "The likelihood of a very hilarious person also being clean is:\n\n5\n\nwhere 1 = very unlikely and 7 = very likely.\n\nA score of 5 indicates that the likelihood is neither very unlikely nor very",
+   "Difficulty and persuasiveness are not necessarily mutually exclusive traits. However, based on research and common perception, a person who is very difficult may not be as persuasive as someone who is more easy-going and cooperative"
+  ]
+ },
+ "meta-llama/Llama-3.1-8B-Instruct": {
+  "n": 150,
+  "parse_rate": 0.5066666666666667,
+  "r_ev_gen": 0.8965523700048658,
+  "argmax_agree": 0.5526315789473685,
+  "median_mass": 0.4041748046875,
+  "examples": [
+   "I would rate this person's likelihood of being grateful as a 4. \n\nBeing weird doesn't necessarily correlate with gratitude, but it's also not a guarantee that they won't be grateful. Some people who are unconventional or outside the norm",
+   "7\n\nIt's highly likely that a normal person is also thinking, as thinking is a fundamental aspect of human consciousness and cognition.",
+   "I would rate this person as a 6 out of 7. \n\nBeing delighted is often associated with a positive emotional state, which can be linked to various factors, including education. People with higher education levels tend to have more opportunities for",
+   "I would rate this person a 4 out of 7. \n\nWhile there is no direct correlation between being humorous and being clean, research suggests that people with higher levels of emotional intelligence, creativity, and social skills (traits often associated with",
+   "I would rate this person a 4 out of 7. \n\nBeing difficult often involves being stubborn, resistant to change, and possibly confrontational. While these traits can sometimes be leveraged to persuade others, they can also be counterproductive"
+  ]
+ },
+ "allenai/OLMo-2-1124-13B-Instruct": {
+  "n": 150,
+  "parse_rate": 0.7333333333333333,
+  "r_ev_gen": 0.8527838865481171,
+  "argmax_agree": 0.9727272727272728,
+  "median_mass": 0.57470703125,
+  "examples": [
+   "5",
+   "7",
+   "6",
+   "The likelihood of a person who is very hilarious also being clean is not directly correlated to their sense of humor. Humor is a personality trait or skill that relates to the ability to perceive, appreciate, and express the humorous or amusing aspects of",
+   "3\n\nExplanation: While being difficult can sometimes be associated with a certain kind of assertiveness or stubbornness that might be persuasive in specific contexts, it is generally not conducive to effective persuasion in most social and professional settings. Persuasion often"
+  ]
+ }
+}
