@@ -36,7 +36,7 @@ from . import cooking, facets, load, measures, paths, roster
 CHANNELS = ["HUMAN", "SELF", "REPRESENT", "JUDGE", "ENACT"]
 CORE_SD = 0.50
 PHI_CLIP = 1.0
-REPRESENT_CACHE = str(paths.ADJ / "represent_model_grids.npz")  # root-relative (callable from ../personality-paper)
+REPRESENT_CACHE = str(paths.REPRESENT_GRIDS)  # root-relative (callable from ../personality-paper)
 
 
 def _zero_diag(S):
@@ -180,7 +180,7 @@ def enact_members(labels=None):
         ze = np.load(p, allow_pickle=True)
         ea = [str(a).lower() for a in ze["adjectives"]]
         E = np.asarray(ze["dir"], np.float64)[[ea.index(l) for l in labels]]
-        meta = json.load(open(paths.RESULTS / "persona_vectors" / f"{m}_pda_meta.json"))
+        meta = json.load(open(paths.ENACT_META / f"{m}_pda_meta.json"))
         Xe = measures.cos_sim(measures.winsorize(E, np.asarray(meta["massive_dims"], int)))
         mats.append(_zero_diag(Xe))
         names.append(m)
