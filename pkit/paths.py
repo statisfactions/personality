@@ -5,7 +5,7 @@ PERSONALITY_ROOT environment variable (useful from a worktree that lacks
 gitignored data/results, or from a notebook living elsewhere).
 
 PERSONALITY_DATA instead points the loaders at a curated paper-data
-directory (../personality-paper/data, built by scripts/build_paper_data.py):
+directory (../personality-paper/data, DVC-imported; built by scripts/build_paper_data.py):
 only the files the paper reads, under readable paths. Paths the curated
 layout lacks are left pointing into ROOT.
 """

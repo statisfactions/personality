@@ -16,17 +16,17 @@ loaders open:
 
 Writes MANIFEST.json (source path, size, sha256, analysis-repo commit). Files
 listed in a previous MANIFEST.json but no longer selected are removed.
-Destination is plain files for now; it becomes DVC imports from the shared
-Hugging Face dataset repo once that exists (docs/data-sharing-spec.md).
+The staging dir is uploaded to the HF dataset repo status-luporum/personality-
+artifacts, which the paper DVC-imports (../personality-paper/data/README.md).
 
-Usage: .venv/bin/python scripts/build_paper_data.py [--dest ../personality-paper/data]
+Usage: .venv/bin/python scripts/build_paper_data.py [--dest results/paper_data]
 """
 import argparse, hashlib, json, os, shutil, subprocess
 from pathlib import Path
 from pkit import paths, load, channels
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--dest", default=str(paths.ROOT.parent / "personality-paper" / "data"))
+ap.add_argument("--dest", default=str(paths.RESULTS / "paper_data"))
 args = ap.parse_args()
 assert not os.environ.get("PERSONALITY_DATA"), "unset PERSONALITY_DATA: the sources must be results/"
 DEST = Path(args.dest)
