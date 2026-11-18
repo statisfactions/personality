@@ -18,12 +18,14 @@ listed in a previous MANIFEST.json but no longer selected are removed.
 The staging dir is uploaded to the HF dataset repo status-luporum/personality-
 artifacts, which the paper DVC-imports (../personality-paper/data/README.md).
 
-Figures are not data: the PDFs the paper includes (built by scripts/fig_*.py)
-are copied straight into ../personality-paper/figures/, which that repo tracks
-in git, so a figure tweak is regenerate + copy + commit there, no upload.
+Small paper files skip the upload and go straight into the paper repo, which
+tracks them in git, so a tweak is regenerate + copy + commit there:
+  figures/            the PDFs the paper includes (built by scripts/fig_*.py)
+  _data/prompts.json  the JUDGE prompt templates (adjective_introspection.PROMPT;
+                      importing that module needs torch, the render should not)
 
 Usage: .venv/bin/python scripts/build_paper_data.py [--dest results/paper_data]
-       .venv/bin/python scripts/build_paper_data.py --figures-only
+       .venv/bin/python scripts/build_paper_data.py --paper-only
 """
 import argparse, hashlib, json, os, shutil, subprocess
 from pathlib import Path
@@ -31,8 +33,8 @@ from pkit import paths, load, channels
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--dest", default=str(paths.RESULTS / "paper_data"))
-ap.add_argument("--figures-dest", default=str(paths.ROOT.parent / "personality-paper" / "figures"))
-ap.add_argument("--figures-only", action="store_true")
+ap.add_argument("--paper", default=str(paths.ROOT.parent / "personality-paper"))
+ap.add_argument("--paper-only", action="store_true")
 args = ap.parse_args()
 assert not os.environ.get("PERSONALITY_DATA"), "unset PERSONALITY_DATA: the sources must be results/"
 DEST = Path(args.dest)
@@ -56,15 +58,18 @@ figs = {f"{f}.pdf": paths.RESULTS / "persona_vectors" / "figs" / f"{f}.pdf" for 
 missing = [str(s) for s in [*sel.values(), *figs.values()] if not s.exists()]
 assert not missing, f"missing sources: {missing}"
 
-FD = Path(args.figures_dest)
-if FD.parent.exists():
-    FD.mkdir(exist_ok=True)
+PAPER = Path(args.paper)
+if PAPER.exists():
+    (PAPER / "figures").mkdir(exist_ok=True)
     for name, src in figs.items():
-        shutil.copy2(src, FD / name)
-    print(f"{len(figs)} figures -> {FD}")
+        shutil.copy2(src, PAPER / "figures" / name)
+    import sys; sys.path.insert(0, str(paths.ROOT / "scripts"))
+    import adjective_introspection
+    json.dump(adjective_introspection.PROMPT, open(PAPER / "_data" / "prompts.json", "w"), indent=1)
+    print(f"{len(figs)} figures + prompts.json -> {PAPER}")
 else:
-    print(f"no paper repo at {FD.parent}; figures not copied")
-if args.figures_only:
+    print(f"no paper repo at {PAPER}; figures and prompts not copied")
+if args.paper_only:
     raise SystemExit
 
 
