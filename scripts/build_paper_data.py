@@ -12,14 +12,18 @@ loaders open:
   represent/   per-model REPRESENT cosine grids
   enact/       ENACT persona vectors + their pda_meta (massive dims)
   joint_diag/  the K=6 joint-axes fit
-  figures/     figure PDFs the paper includes (built by scripts/fig_*.py)
 
 Writes MANIFEST.json (source path, size, sha256, analysis-repo commit). Files
 listed in a previous MANIFEST.json but no longer selected are removed.
 The staging dir is uploaded to the HF dataset repo status-luporum/personality-
 artifacts, which the paper DVC-imports (../personality-paper/data/README.md).
 
+Figures are not data: the PDFs the paper includes (built by scripts/fig_*.py)
+are copied straight into ../personality-paper/figures/, which that repo tracks
+in git, so a figure tweak is regenerate + copy + commit there, no upload.
+
 Usage: .venv/bin/python scripts/build_paper_data.py [--dest results/paper_data]
+       .venv/bin/python scripts/build_paper_data.py --figures-only
 """
 import argparse, hashlib, json, os, shutil, subprocess
 from pathlib import Path
@@ -27,6 +31,8 @@ from pkit import paths, load, channels
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--dest", default=str(paths.RESULTS / "paper_data"))
+ap.add_argument("--figures-dest", default=str(paths.ROOT.parent / "personality-paper" / "figures"))
+ap.add_argument("--figures-only", action="store_true")
 args = ap.parse_args()
 assert not os.environ.get("PERSONALITY_DATA"), "unset PERSONALITY_DATA: the sources must be results/"
 DEST = Path(args.dest)
@@ -45,11 +51,21 @@ for m in channels.JUDGE_ROSTER:
 for p in sorted(paths.ENACT_MID.glob("*.npz")):
     sel[f'{L["ENACT_MID"]}/{p.name}'] = p
     sel[f'{L["ENACT_META"]}/{p.stem}_pda_meta.json'] = paths.ENACT_META / f"{p.stem}_pda_meta.json"
-for f in FIGS:
-    sel[f"figures/{f}.pdf"] = paths.RESULTS / "persona_vectors" / "figs" / f"{f}.pdf"
+figs = {f"{f}.pdf": paths.RESULTS / "persona_vectors" / "figs" / f"{f}.pdf" for f in FIGS}
 
-missing = [str(s) for s in sel.values() if not s.exists()]
+missing = [str(s) for s in [*sel.values(), *figs.values()] if not s.exists()]
 assert not missing, f"missing sources: {missing}"
+
+FD = Path(args.figures_dest)
+if FD.parent.exists():
+    FD.mkdir(exist_ok=True)
+    for name, src in figs.items():
+        shutil.copy2(src, FD / name)
+    print(f"{len(figs)} figures -> {FD}")
+else:
+    print(f"no paper repo at {FD.parent}; figures not copied")
+if args.figures_only:
+    raise SystemExit
 
 
 def sha256(p):
